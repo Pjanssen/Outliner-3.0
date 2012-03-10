@@ -74,7 +74,10 @@ public static class HelperMethods
       return GlobalInterface.Instance.NotifyInfo.Marshal(infoPtr);
    }
 
-   public static List<T> TabToList<T>(ITab<T> tab) 
+   /// <summary>
+   /// Converts the ITab to a more convenient IEnumerable.
+   /// </summary>
+   public static IEnumerable<T> ToIEnumerable<T>(this ITab<T> tab)
    {
       List<T> lst = new List<T>(tab.Count);
       for (int i = 0; i < tab.Count; i++)
@@ -82,13 +85,16 @@ public static class HelperMethods
 
       return lst;
    }
-   public static List<IINode> TabToNodeList(ITab<UIntPtr> handles)
+
+   /// <summary>
+   /// Retrieves the IINodes from a ITab of handles.
+   /// </summary>
+   public static IEnumerable<IINode> ToINodeList(this ITab<UIntPtr> handles)
    {
-      // This is possibly not the most optimal implementation, since it
-      // creates two lists in the process.
-      return TabToList(handles).ConvertAll(i => GlobalInterface.Instance.NodeEventNamespace.GetNodeByKey(i));
-      //Use COREInterface.GetINodeByHandle instead?
+      IInterface ip = GlobalInterface.Instance.COREInterface;
+      return handles.ToIEnumerable().Select(h => ip.GetINodeByHandle((uint)h));
    }
+
 
    public static bool ClassIDEquals(IClass_ID cid, BuiltInClassIDA cidA)
    {

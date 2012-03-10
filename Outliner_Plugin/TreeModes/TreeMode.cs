@@ -72,13 +72,13 @@ namespace Outliner.TreeModes
 
       public override void Deleted(ITab<UIntPtr> nodes)
       {
-         foreach (IINode node in HelperMethods.TabToNodeList(nodes))
+         foreach (IINode node in nodes.ToINodeList())
             this.RemoveTreeNode(node);
       }
 
       public override void NameChanged(ITab<UIntPtr> nodes)
       {
-         foreach (IINode node in HelperMethods.TabToNodeList(nodes))
+         foreach (IINode node in nodes.ToINodeList())
          {
             TreeNode tn = this.GetTreeNode(node);
             if (tn != null)
@@ -92,7 +92,7 @@ namespace Outliner.TreeModes
 
       public override void DisplayPropertiesChanged(ITab<UIntPtr> nodes)
       {
-         foreach (IINode node in HelperMethods.TabToNodeList(nodes))
+         foreach (IINode node in nodes.ToINodeList())
             this.tree.InvalidateTreeNode(this.GetTreeNode(node));
       }
 
