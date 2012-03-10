@@ -57,6 +57,31 @@ namespace Outliner.Scene
       }
 
 
+      /// <summary>
+      /// Tests if the wrapped node is still a valid scene node and hasn't been deleted.
+      /// </summary>
+      public virtual Boolean IsValid
+      {
+         get
+         {
+            Object node = this.UnderlyingNode;
+            if (node == null)
+               return false;
+
+            try
+            {
+               if (node is IAnimatable)
+                  return ((IAnimatable)node).TestAFlag(AnimatableFlags.IsDeleted);
+               else
+                  return true;
+            }
+            catch
+            {
+               return false;
+            }
+         }
+      }
+
       public const String IMGKEY_UNKNOWN = "unknown";
       public virtual String ImageKey
       {

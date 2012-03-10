@@ -22,6 +22,9 @@ public static class HelperMethods
       return HelperMethods.CreateTreeNode(IMaxNodeWrapper.Create(node));
    }
 
+   /// <summary>
+   /// Creates a new TreeNode object with a correct TreeNodeData object as its Tag.
+   /// </summary>
    public static TreeNode CreateTreeNode(IMaxNodeWrapper node)
    {
       TreeNode tn = new TreeNode(node.Name);
@@ -39,15 +42,11 @@ public static class HelperMethods
       if (tn == null)
          return null;
 
-      if (!(tn.Tag is TreeNodeData))
+      OutlinerTreeNodeData tnData = tn.Tag as OutlinerTreeNodeData;
+      if (tnData == null)
          return null;
-
-      IMaxNodeWrapper node = ((OutlinerTreeNodeData)tn.Tag).Node;
-
-      if (IsValid(node))
-         return null;
-
-      return node;
+      else
+         return tnData.Node;
    }
 
    public static IEnumerable<IMaxNodeWrapper> GetMaxNodes(IEnumerable<TreeNode> tns)
@@ -64,22 +63,9 @@ public static class HelperMethods
       return wrappers.Where(w => w.UnderlyingNode is T).Select(n => (T)n.UnderlyingNode);
    }
 
-
-   public static Boolean IsValid(IMaxNodeWrapper node)
-   {
-      try
-      {
-         if (node.UnderlyingNode is IAnimatable)
-            return ((IAnimatable)node.UnderlyingNode).TestAFlag(AnimatableFlags.IsDeleted);
-         else
-            return node.UnderlyingNode != null;
-      }
-      catch
-      {
-         return true;
-      }
-   }
-
+   /// <summary>
+   /// Marshals the INotifyInfo object from a pointer sent by a general event callback.
+   /// </summary>
    public static INotifyInfo GetNotifyInfo(IntPtr infoPtr)
    {
       return GlobalInterface.Instance.NotifyInfo.Marshal(infoPtr);

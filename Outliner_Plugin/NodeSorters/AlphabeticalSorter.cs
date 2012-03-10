@@ -16,8 +16,8 @@ namespace Outliner.NodeSorters
          IMaxNodeWrapper nodeX = HelperMethods.GetMaxNode(x);
          IMaxNodeWrapper nodeY = HelperMethods.GetMaxNode(y);
 
-         if (nodeX == null || HelperMethods.IsValid(nodeX)) return 0;
-         if (nodeY == null || HelperMethods.IsValid(nodeY)) return 0;
+         if (nodeX == null || !nodeX.IsValid) return 0;
+         if (nodeY == null || !nodeY.IsValid) return 0;
 
          return NativeMethods.StrCmpLogicalW(nodeX.Name, nodeY.Name);
       }
