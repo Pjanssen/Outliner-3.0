@@ -17,7 +17,7 @@ namespace Outliner.Scene
          this.manager = manager;
       }
 
-      public override object UnderlyingNode
+      public override object WrappedNode
       {
          get { return null; }
       }

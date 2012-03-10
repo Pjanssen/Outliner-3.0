@@ -72,7 +72,7 @@ public class WireColorButton : TreeNodeLayoutItem
       IInterface ip = Autodesk.Max.GlobalInterface.Instance.COREInterface;
       if (ip.NodeColorPicker(ip.MAXHWnd, ref wc))
       {
-         SetWireColorCommand cmd = new SetWireColorCommand(new List<IINode>() { (Autodesk.Max.IINode)node.UnderlyingNode }, wc);
+         SetWireColorCommand cmd = new SetWireColorCommand(new List<IINode>() { (Autodesk.Max.IINode)node.WrappedNode }, wc);
          cmd.Execute(true);
       }
    }

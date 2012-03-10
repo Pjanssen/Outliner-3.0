@@ -48,8 +48,8 @@ public class AddButton : ImageButton
 
       if (node is IILayerWrapper)
       {
-         IEnumerable<IINode> nodes = HelperMethods.GetUnderlyingNodes<IINode>(this.Layout.TreeView.SelectedNodes);
-         AddToLayerCommand cmd = new AddToLayerCommand(nodes, (IILayer)node.UnderlyingNode);
+         IEnumerable<IINode> nodes = HelperMethods.GetWrappedNodes<IINode>(this.Layout.TreeView.SelectedNodes);
+         AddToLayerCommand cmd = new AddToLayerCommand(nodes, (IILayer)node.WrappedNode);
          cmd.Execute(true);
       }
    }

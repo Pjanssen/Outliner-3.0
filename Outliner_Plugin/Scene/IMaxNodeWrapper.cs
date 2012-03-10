@@ -9,7 +9,7 @@ namespace Outliner.Scene
 {
    public abstract class IMaxNodeWrapper
    {
-      public abstract Object UnderlyingNode { get; }
+      public abstract Object WrappedNode { get; }
 
       public abstract int NumChildren { get; }
       public abstract IEnumerable<IMaxNodeWrapper> ChildNodes { get; }
@@ -64,7 +64,7 @@ namespace Outliner.Scene
       {
          get
          {
-            Object node = this.UnderlyingNode;
+            Object node = this.WrappedNode;
             if (node == null)
                return false;
 

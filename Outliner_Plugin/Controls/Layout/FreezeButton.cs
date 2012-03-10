@@ -28,7 +28,7 @@ namespace Outliner.Controls.Layout
          IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
          if (node != null)
          {
-            FreezeCommand cmd = new FreezeCommand(new List<Autodesk.Max.IINode>() { (Autodesk.Max.IINode)node.UnderlyingNode }, !node.IsFrozen);
+            FreezeCommand cmd = new FreezeCommand(new List<Autodesk.Max.IINode>() { (Autodesk.Max.IINode)node.WrappedNode }, !node.IsFrozen);
             cmd.Execute(true);
          }
       }

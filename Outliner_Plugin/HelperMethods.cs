@@ -35,7 +35,7 @@ public static class HelperMethods
 
 
    /// <summary>
-   /// Returns the IINode object from the Tag of a TreeNode.
+   /// Returns the NodeWrapper from the Tag of a TreeNode.
    /// </summary>
    public static IMaxNodeWrapper GetMaxNode(TreeNode tn)
    {
@@ -49,18 +49,21 @@ public static class HelperMethods
          return tnData.Node;
    }
 
+   /// <summary>
+   /// Maps GetMaxNode to a list of TreeNodes, returning a list of NodeWrappers.
+   /// </summary>
    public static IEnumerable<IMaxNodeWrapper> GetMaxNodes(IEnumerable<TreeNode> tns)
    {
       return tns.Select(HelperMethods.GetMaxNode);
    }
 
-   public static IEnumerable<T> GetUnderlyingNodes<T>(IEnumerable<TreeNode> tns)
+   public static IEnumerable<T> GetWrappedNodes<T>(IEnumerable<TreeNode> tns)
    {
-      return GetUnderlyingNodes<T>(HelperMethods.GetMaxNodes(tns));
+      return GetWrappedNodes<T>(HelperMethods.GetMaxNodes(tns));
    }
-   public static IEnumerable<T> GetUnderlyingNodes<T>(IEnumerable<IMaxNodeWrapper> wrappers)
+   public static IEnumerable<T> GetWrappedNodes<T>(IEnumerable<IMaxNodeWrapper> wrappers)
    {
-      return wrappers.Where(w => w.UnderlyingNode is T).Select(n => (T)n.UnderlyingNode);
+      return wrappers.Where(w => w.WrappedNode is T).Select(n => (T)n.WrappedNode);
    }
 
    /// <summary>

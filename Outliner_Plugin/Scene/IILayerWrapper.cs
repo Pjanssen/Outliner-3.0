@@ -14,7 +14,7 @@ namespace Outliner.Scene
          this.layer = layer;
       }
 
-      public override object UnderlyingNode
+      public override object WrappedNode
       {
          get { return this.layer; }
       }
@@ -45,7 +45,7 @@ namespace Outliner.Scene
       {
          if (node is IINodeWrapper)
          {
-            IINode n = (IINode)node.UnderlyingNode;
+            IINode n = (IINode)node.WrappedNode;
             IILayer l = (IILayer)n.GetReference((int)ReferenceNumbers.NodeLayerRef);
             return this.layer.Handle != l.Handle;
          }

@@ -28,7 +28,7 @@ namespace Outliner.Controls.Layout
          IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
          if (node != null)
          {
-            HideCommand cmd = new HideCommand(new List<Autodesk.Max.IINode>() { (Autodesk.Max.IINode)node.UnderlyingNode }, !node.IsHidden);
+            HideCommand cmd = new HideCommand(new List<Autodesk.Max.IINode>() { (Autodesk.Max.IINode)node.WrappedNode }, !node.IsHidden);
             cmd.Execute(true);
          }
       }

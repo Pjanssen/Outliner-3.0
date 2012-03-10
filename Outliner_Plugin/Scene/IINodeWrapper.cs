@@ -15,7 +15,7 @@ public class IINodeWrapper : IMaxNodeWrapper
       this.node = node;
    }
 
-   public override object UnderlyingNode
+   public override object WrappedNode
    {
       get { return this.node; }
    }

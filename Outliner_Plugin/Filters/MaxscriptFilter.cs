@@ -36,7 +36,7 @@ namespace Outliner.Filters
 
          if (data is IINodeWrapper)
          {
-            if (GlobalInterface.Instance.ExecuteMAXScriptScript(String.Format(_filterFn, ((IINode)data.UnderlyingNode).Handle), true, null))
+            if (GlobalInterface.Instance.ExecuteMAXScriptScript(String.Format(_filterFn, ((IINode)data.WrappedNode).Handle), true, null))
                //if (MaxscriptSDK.ExecuteBooleanMaxscriptQuery(String.Format(_filterFn, n.Handle)))
                return FilterResult.Hide;
             else

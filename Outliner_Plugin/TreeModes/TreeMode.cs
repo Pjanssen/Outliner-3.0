@@ -138,8 +138,8 @@ namespace Outliner.TreeModes
             foreach (TreeNode tn in e.Nodes)
             {
                IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
-               if (node.UnderlyingNode is IINode)
-                  nt.AppendNode((IINode)node.UnderlyingNode, true, 0);
+               if (node.WrappedNode is IINode)
+                  nt.AppendNode((IINode)node.WrappedNode, true, 0);
             }
          }
 

@@ -28,7 +28,7 @@ namespace Outliner.Controls.Layout
          IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
          if (node != null)
          {
-            SetBoxModeCommand cmd = new SetBoxModeCommand(new List<Autodesk.Max.IINode>() { (Autodesk.Max.IINode)node.UnderlyingNode }, !node.BoxMode);
+            SetBoxModeCommand cmd = new SetBoxModeCommand(new List<Autodesk.Max.IINode>() { (Autodesk.Max.IINode)node.WrappedNode }, !node.BoxMode);
             cmd.Execute(true);
          }
       }
