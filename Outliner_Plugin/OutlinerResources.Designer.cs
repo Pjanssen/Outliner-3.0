@@ -89,6 +89,15 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add To Layer.
+        /// </summary>
+        internal static string Command_AddToLayer {
+            get {
+                return ResourceManager.GetString("Command_AddToLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Freeze.
         /// </summary>
         internal static string Command_Freeze {

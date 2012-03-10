@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Actions\OpenOutlinerAction.cs" />
     <Compile Include="AssemblyFunctions.cs" />
+    <Compile Include="Commands\AddToLayerCommand.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\SetBoxModeCommand.cs" />
     <Compile Include="Commands\FreezeCommand.cs" />

@@ -575,4 +575,7 @@
   <data name="Command_SetBoxMode" xml:space="preserve">
     <value>Change BoxMode</value>
   </data>
+  <data name="Command_AddToLayer" xml:space="preserve">
+    <value>Add To Layer</value>
+  </data>
 </root>

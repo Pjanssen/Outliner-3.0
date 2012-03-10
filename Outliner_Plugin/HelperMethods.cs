@@ -50,12 +50,18 @@ public static class HelperMethods
       return node;
    }
 
-   public static ICollection<IMaxNodeWrapper> GetMaxNodes(ICollection<TreeNode> tns)
+   public static IEnumerable<IMaxNodeWrapper> GetMaxNodes(IEnumerable<TreeNode> tns)
    {
-      List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(tns.Count);
-      foreach (TreeNode tn in tns)
-         nodes.Add(HelperMethods.GetMaxNode(tn));
-      return nodes;
+      return tns.Select(HelperMethods.GetMaxNode);
+   }
+
+   public static IEnumerable<T> GetUnderlyingNodes<T>(IEnumerable<TreeNode> tns)
+   {
+      return GetUnderlyingNodes<T>(HelperMethods.GetMaxNodes(tns));
+   }
+   public static IEnumerable<T> GetUnderlyingNodes<T>(IEnumerable<IMaxNodeWrapper> wrappers)
+   {
+      return wrappers.Where(w => w.UnderlyingNode is T).Select(n => (T)n.UnderlyingNode);
    }
 
 

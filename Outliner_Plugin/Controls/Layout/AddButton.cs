@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Outliner.Scene;
+using Outliner.Commands;
+using Autodesk.Max;
 
 namespace Outliner.Controls.Layout
 {
@@ -40,7 +42,16 @@ public class AddButton : ImageButton
       if (!this.IsEnabled(tn))
          return;
 
-      //TODO add to layer/selection set.
+      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      if (node == null)
+         return;
+
+      if (node is IILayerWrapper)
+      {
+         IEnumerable<IINode> nodes = HelperMethods.GetUnderlyingNodes<IINode>(this.Layout.TreeView.SelectedNodes);
+         AddToLayerCommand cmd = new AddToLayerCommand(nodes, (IILayer)node.UnderlyingNode);
+         cmd.Execute(true);
+      }
    }
 }
 }
