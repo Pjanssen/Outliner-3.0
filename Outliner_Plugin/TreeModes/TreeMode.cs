@@ -14,6 +14,7 @@ namespace Outliner.TreeModes
    {
       protected Outliner.Controls.TreeView tree;
       protected Autodesk.Max.IInterface ip;
+      private uint sceneEventCbKey;
 
       protected Dictionary<Object, TreeNode> nodes;
 
@@ -29,10 +30,21 @@ namespace Outliner.TreeModes
          IGlobal iGlobal = GlobalInterface.Instance;
          iGlobal.RegisterNotification(PostReset, null, SystemNotificationCode.SystemPostReset);
          iGlobal.RegisterNotification(SelectionsetChanged, null, SystemNotificationCode.SelectionsetChanged);
-         
-         iGlobal.ISceneEventManager.RegisterCallback(this, false, 100, true);
+
+         this.sceneEventCbKey = iGlobal.ISceneEventManager.RegisterCallback(this, false, 100, true);
       }
 
+      /// <summary>
+      /// Cleanup of event notifications and callbacks.
+      /// </summary>
+      public void Dispose()
+      {
+         IGlobal iGlobal = GlobalInterface.Instance;
+         iGlobal.UnRegisterNotification(PostReset, null);
+         iGlobal.UnRegisterNotification(SelectionsetChanged, null);
+
+         iGlobal.ISceneEventManager.UnRegisterCallback(this.sceneEventCbKey);
+      }
 
       public abstract void FillTree();
 
@@ -41,7 +53,8 @@ namespace Outliner.TreeModes
       public virtual TreeNode GetTreeNode(Object node)
       {
          TreeNode tn = null;
-         this.nodes.TryGetValue(node, out tn);
+         if (node != null)
+            this.nodes.TryGetValue(node, out tn);
          return tn;
       }
 
@@ -50,6 +63,7 @@ namespace Outliner.TreeModes
          TreeNode tn = this.GetTreeNode(node);
          if (tn != null)
          {
+            this.tree.SelectedNodes.Remove(tn);
             tn.Remove();
             this.nodes.Remove(node);
          }
@@ -72,13 +86,13 @@ namespace Outliner.TreeModes
 
       public override void Deleted(ITab<UIntPtr> nodes)
       {
-         foreach (IINode node in nodes.ToINodeList())
+         foreach (IINode node in nodes.NodeKeysToINodeList())
             this.RemoveTreeNode(node);
       }
 
       public override void NameChanged(ITab<UIntPtr> nodes)
       {
-         foreach (IINode node in nodes.ToINodeList())
+         foreach (IINode node in nodes.NodeKeysToINodeList())
          {
             TreeNode tn = this.GetTreeNode(node);
             if (tn != null)
@@ -92,7 +106,7 @@ namespace Outliner.TreeModes
 
       public override void DisplayPropertiesChanged(ITab<UIntPtr> nodes)
       {
-         foreach (IINode node in nodes.ToINodeList())
+         foreach (IINode node in nodes.NodeKeysToINodeList())
             this.tree.InvalidateTreeNode(this.GetTreeNode(node));
       }
 

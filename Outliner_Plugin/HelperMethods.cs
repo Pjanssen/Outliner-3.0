@@ -89,10 +89,9 @@ public static class HelperMethods
    /// <summary>
    /// Retrieves the IINodes from a ITab of handles.
    /// </summary>
-   public static IEnumerable<IINode> ToINodeList(this ITab<UIntPtr> handles)
+   public static IEnumerable<IINode> NodeKeysToINodeList(this ITab<UIntPtr> handles)
    {
-      IInterface ip = GlobalInterface.Instance.COREInterface;
-      return handles.ToIEnumerable().Select(h => ip.GetINodeByHandle((uint)h));
+      return handles.ToIEnumerable().Select(GlobalInterface.Instance.NodeEventNamespace.GetNodeByKey);
    }
 
 

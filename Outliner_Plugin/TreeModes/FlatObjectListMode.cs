@@ -62,7 +62,7 @@ public class FlatObjectListMode : TreeMode
 
    public override void Added(ITab<UIntPtr> nodes)
    {
-      foreach (IINode node in nodes.ToINodeList())
+      foreach (IINode node in nodes.NodeKeysToINodeList())
          this.addNode(node, this.tree.Nodes, false);
       this.tree.TimedSort(false);
    }

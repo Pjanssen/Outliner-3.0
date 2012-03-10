@@ -93,7 +93,17 @@ public class TreeView : System.Windows.Forms.TreeView
       
    public void SelectAllNodes(Boolean select)
    {
-      this.SelectAllNodes(select, this.Nodes);
+      if (select)
+         this.SelectAllNodes(select, this.Nodes);
+      else
+      {
+         List<TreeNode> selNodes = this.SelectedNodes.ToList();
+         foreach (TreeNode tn in selNodes)
+         {
+            this.SelectNode(tn, false);
+         }
+      }
+      this.LastSelectedNode = null;
    }
    private void SelectAllNodes(Boolean select, TreeNodeCollection nodes)
    {
@@ -102,8 +112,6 @@ public class TreeView : System.Windows.Forms.TreeView
          SelectNode(tn, select);
          this.SelectAllNodes(select, tn.Nodes);
       }
-
-      this.LastSelectedNode = null;
    }
       
    public void SelectNodesInsideRange(TreeNode startNode, TreeNode endNode)

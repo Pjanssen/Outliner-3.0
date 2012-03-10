@@ -9,9 +9,17 @@ namespace Outliner.Scene
    public class IILayerWrapper : IMaxNodeWrapper
    {
       private IILayer layer;
+      //private IIFPLayerManager manager;
+      private IILayerManager manager;
+
       public IILayerWrapper(IILayer layer)
       {
          this.layer = layer;
+         IGlobal g = GlobalInterface.Instance;
+         //IInterface_ID int_ID = g.Interface_ID.Create((uint)BuiltInInterfaceIDA.LAYERMANAGER_INTERFACE, 
+         //                                             (uint)BuiltInInterfaceIDB.LAYERMANAGER_INTERFACE);
+         //this.manager = (IIFPLayerManager)g.GetCOREInterface(int_ID);
+         this.manager = (IILayerManager)g.COREInterface.ScenePointer.GetReference(10);
       }
 
       public override object WrappedNode
@@ -63,13 +71,42 @@ namespace Outliner.Scene
          get { return layer.SuperClassID; }
       }
 
+
+      public override bool IsHidden
+      {
+         get { return this.layer.IsHidden; }
+         set { this.layer.IsHidden = value; }
+      }
+
+      public override bool IsFrozen
+      {
+         get { return this.layer.IsFrozen; }
+         set { this.layer.IsFrozen = value; }
+      }
+
+      public override bool BoxMode
+      {
+         get { return this.layer.BoxMode; }
+         set { this.layer.BoxMode = value; }
+      }
+
+      public override System.Drawing.Color WireColor
+      {
+         get { return HelperMethods.FromMaxColor(this.layer.WireColor); }
+         set { this.layer.WireColor = HelperMethods.ToMaxColor(value); }
+      }
+
+
       public const String IMGKEY_LAYER        = "layer";
       public const String IMGKEY_LAYER_ACTIVE = "layer_active";
       public override string ImageKey
       {
          get
          {
-            return IMGKEY_LAYER;
+            if (this.manager.CurrentLayer.Handle == this.layer.Handle)
+               return IMGKEY_LAYER_ACTIVE;
+            else
+               return IMGKEY_LAYER;
          }
       }
    }

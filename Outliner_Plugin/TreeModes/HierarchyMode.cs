@@ -61,7 +61,7 @@ public class HierarchyMode : TreeMode
 
    public override void Added(ITab<UIntPtr> nodes)
    {
-      foreach (IINode node in nodes.ToINodeList())
+      foreach (IINode node in nodes.NodeKeysToINodeList())
       {
          TreeNodeCollection parentCol = null;
          if (node.ParentNode != null && !node.ParentNode.IsRootNode)

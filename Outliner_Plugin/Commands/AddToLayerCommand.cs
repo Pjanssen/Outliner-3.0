@@ -31,11 +31,13 @@ public class AddToLayerCommand : Command
       this.prevLayers = new Dictionary<IINode, IILayer>(this.nodes.Count());
       foreach (IINode node in this.nodes)
       {
-         this.prevLayers[node] = (IILayer)node.GetReference((int)ReferenceNumbers.NodeLayerRef);
+         IILayer currentLayer = (IILayer)node.GetReference((int)ReferenceNumbers.NodeLayerRef);
+         this.prevLayers[node] = currentLayer;
          this.layer.AddToLayer(node);
       }
    }
 
+   //TODO this seems to register each node twice..
    public override void Undo()
    {
       if (this.prevLayers == null)

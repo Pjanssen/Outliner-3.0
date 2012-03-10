@@ -90,6 +90,9 @@ namespace Outliner.Scene
 
       public static IMaxNodeWrapper Create(Object node)
       {
+         if (node == null)
+            throw new ArgumentNullException("node");
+
          if (node is IINode)
             return new IINodeWrapper((IINode)node);
          else if (node is IILayer)

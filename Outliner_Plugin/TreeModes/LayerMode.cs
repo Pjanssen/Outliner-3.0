@@ -13,7 +13,15 @@ public class LayerMode : TreeMode
 {
    public LayerMode(Outliner.Controls.TreeView tree, Autodesk.Max.IInterface ip)
       : base(tree, ip)
-   { }
+   {
+      IGlobal iGlobal = GlobalInterface.Instance;
+      iGlobal.RegisterNotification(LayerCreated, null, SystemNotificationCode.LayerCreated);
+      iGlobal.RegisterNotification(LayerDeleted, null, SystemNotificationCode.LayerDeleted);
+      //The following notifications don't actually seem to work in the SDK... :
+      iGlobal.RegisterNotification(LayerRenamed, null, SystemNotificationCode.LayerRenamed);
+      iGlobal.RegisterNotification(LayerPropChanged, null, SystemNotificationCode.LayerHiddenStateChanged);
+      iGlobal.RegisterNotification(LayerPropChanged, null, SystemNotificationCode.LayerFrozenStateChanged);
+   }
 
    private const int IILAYERMANAGER_REF_INDEX = 10;
 
@@ -78,5 +86,54 @@ public class LayerMode : TreeMode
          }
       }
    }
+
+
+   #region NodeEventCallbacks
+   
+   public override void LayerChanged(ITab<UIntPtr> nodes)
+   {
+      foreach (IINode node in nodes.NodeKeysToINodeList())
+      {
+         this.RemoveTreeNode(node);
+         this.addNode(node);
+      }
+   }
+
+   #endregion
+
+
+   #region System notifications
+
+   public virtual void LayerCreated(IntPtr paramPtr, IntPtr infoPtr)
+   {
+      INotifyInfo info = HelperMethods.GetNotifyInfo(infoPtr);
+      if (info != null && info.CallParam is IILayer)
+         this.addNode((IILayer)info.CallParam, this.tree.Nodes);
+   }
+
+   public virtual void LayerDeleted(IntPtr paramPtr, IntPtr infoPtr)
+   {
+      INotifyInfo info = HelperMethods.GetNotifyInfo(infoPtr);
+      if (info != null && info.CallParam is IILayer)
+         this.RemoveTreeNode(info.CallParam);
+   }
+
+   public virtual void LayerRenamed(IntPtr paramPtr, IntPtr infoPtr)
+   {
+      INotifyInfo info = HelperMethods.GetNotifyInfo(infoPtr);
+   }
+
+   public virtual void LayerPropChanged(IntPtr paramPtr, IntPtr infoPtr)
+   {
+      INotifyInfo info = HelperMethods.GetNotifyInfo(infoPtr);
+      if (info != null && info.CallParam is IILayer)
+      {
+         TreeNode tn = this.GetTreeNode(info.CallParam);
+         if (tn != null)
+            this.tree.Invalidate(tn.Bounds);
+      }
+   }
+
+   #endregion
 }
 }
