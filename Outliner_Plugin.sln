@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Outliner_Plugin", "Outliner_Plugin\Outliner_Plugin.csproj", "{AA8562B6-988F-4AFE-94EB-BF2FD64BE93E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Outliner_Tests", "Outliner_Tests\Outliner_Tests.csproj", "{D60C045D-0975-4647-8637-8DFAA67F9EAF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{87EA806E-0B5B-4F26-8633-A72262A17D09}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+		Outliner_Plugin.vsmdi = Outliner_Plugin.vsmdi
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestForm", "TestForm\TestForm.csproj", "{113DB308-1548-4880-9011-980EE7D91FB2}"
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Outliner_Plugin.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA8562B6-988F-4AFE-94EB-BF2FD64BE93E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA8562B6-988F-4AFE-94EB-BF2FD64BE93E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA8562B6-988F-4AFE-94EB-BF2FD64BE93E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AA8562B6-988F-4AFE-94EB-BF2FD64BE93E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AA8562B6-988F-4AFE-94EB-BF2FD64BE93E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AA8562B6-988F-4AFE-94EB-BF2FD64BE93E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA8562B6-988F-4AFE-94EB-BF2FD64BE93E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA8562B6-988F-4AFE-94EB-BF2FD64BE93E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AA8562B6-988F-4AFE-94EB-BF2FD64BE93E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{AA8562B6-988F-4AFE-94EB-BF2FD64BE93E}.Release|x86.ActiveCfg = Release|Any CPU
+		{D60C045D-0975-4647-8637-8DFAA67F9EAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D60C045D-0975-4647-8637-8DFAA67F9EAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D60C045D-0975-4647-8637-8DFAA67F9EAF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D60C045D-0975-4647-8637-8DFAA67F9EAF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D60C045D-0975-4647-8637-8DFAA67F9EAF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D60C045D-0975-4647-8637-8DFAA67F9EAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D60C045D-0975-4647-8637-8DFAA67F9EAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D60C045D-0975-4647-8637-8DFAA67F9EAF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D60C045D-0975-4647-8637-8DFAA67F9EAF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D60C045D-0975-4647-8637-8DFAA67F9EAF}.Release|x86.ActiveCfg = Release|Any CPU
+		{113DB308-1548-4880-9011-980EE7D91FB2}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{113DB308-1548-4880-9011-980EE7D91FB2}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{113DB308-1548-4880-9011-980EE7D91FB2}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{113DB308-1548-4880-9011-980EE7D91FB2}.Debug|x86.ActiveCfg = Debug|x86
+		{113DB308-1548-4880-9011-980EE7D91FB2}.Debug|x86.Build.0 = Debug|x86
+		{113DB308-1548-4880-9011-980EE7D91FB2}.Release|Any CPU.ActiveCfg = Release|x86
+		{113DB308-1548-4880-9011-980EE7D91FB2}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{113DB308-1548-4880-9011-980EE7D91FB2}.Release|Mixed Platforms.Build.0 = Release|x86
+		{113DB308-1548-4880-9011-980EE7D91FB2}.Release|x86.ActiveCfg = Release|x86
+		{113DB308-1548-4880-9011-980EE7D91FB2}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
