@@ -10,8 +10,8 @@ namespace Outliner.Controls.Layout
 {
    public class BoxModeButton : ImageButton
    {
-      public BoxModeButton() : base(OutlinerResources.boxmode_button,
-                                   OutlinerResources.boxmode_button_disabled)
+      public BoxModeButton() : base(OutlinerResources.button_boxmode,
+                                   OutlinerResources.button_boxmode_disabled)
       { }
 
       public override bool IsEnabled(TreeNode tn)

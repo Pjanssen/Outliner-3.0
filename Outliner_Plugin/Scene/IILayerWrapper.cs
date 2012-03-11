@@ -96,6 +96,12 @@ namespace Outliner.Scene
          set { this.layer.WireColor = value; }
       }
 
+      public override bool Renderable
+      {
+         get { return this.layer.Renderable; }
+         set { this.layer.Renderable = value; }
+      }
+
 
       public const String IMGKEY_LAYER        = "layer";
       public const String IMGKEY_LAYER_ACTIVE = "layer_active";

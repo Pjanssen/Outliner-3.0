@@ -16,6 +16,7 @@ namespace Outliner.Controls.Layout
    [XmlInclude(typeof(FreezeButton))]
    [XmlInclude(typeof(HideButton))]
    [XmlInclude(typeof(MayaStyleIndent))]
+   [XmlInclude(typeof(RenderableButton))]
    [XmlInclude(typeof(TreeNodeIcon))]
    [XmlInclude(typeof(TreeNodeText))]
    [XmlInclude(typeof(WireColorButton))]

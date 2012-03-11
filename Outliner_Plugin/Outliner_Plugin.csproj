@@ -60,10 +60,12 @@
     <Compile Include="AssemblyFunctions.cs" />
     <Compile Include="Commands\AddToLayerCommand.cs" />
     <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\RenameCommand.cs" />
     <Compile Include="Commands\SetBoxModeCommand.cs" />
     <Compile Include="Commands\FreezeCommand.cs" />
     <Compile Include="Commands\HideCommand.cs" />
     <Compile Include="Commands\SelectCommand.cs" />
+    <Compile Include="Commands\SetRenderableCommand.cs" />
     <Compile Include="Commands\SetWireColorCommand.cs" />
     <Compile Include="Commands\SetNodePropertyCommand.cs" />
     <Compile Include="Controls\BitmapProcessing.cs" />
@@ -75,6 +77,7 @@
     <Compile Include="Controls\Layout\HideButton.cs" />
     <Compile Include="Controls\Layout\ImageButton.cs" />
     <Compile Include="Controls\Layout\MayaStyleIndent.cs" />
+    <Compile Include="Controls\Layout\RenderableButton.cs" />
     <Compile Include="Controls\Layout\TreeNodeIcon.cs" />
     <Compile Include="Controls\Layout\TreeNodeIndent.cs" />
     <Compile Include="Controls\Layout\TreeNodeLayout.cs" />
@@ -250,6 +253,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Notes.txt" />
+    <EmbeddedResource Include="Resources\node_buttons\render_disabled.png" />
+    <EmbeddedResource Include="Resources\node_buttons\render.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

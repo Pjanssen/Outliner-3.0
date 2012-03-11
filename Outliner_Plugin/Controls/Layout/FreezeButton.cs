@@ -10,8 +10,8 @@ namespace Outliner.Controls.Layout
 {
    public class FreezeButton : ImageButton
    {
-      public FreezeButton() : base(OutlinerResources.freeze_button,
-                                   OutlinerResources.freeze_button_disabled)
+      public FreezeButton() : base(OutlinerResources.button_freeze,
+                                   OutlinerResources.button_freeze_disabled)
       { }
 
       public override bool IsEnabled(TreeNode tn)

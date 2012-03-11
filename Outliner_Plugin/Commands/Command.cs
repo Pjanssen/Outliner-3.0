@@ -19,8 +19,7 @@ namespace Outliner.Commands
 
       public override void Restore(bool isUndo)
       {
-         if (isUndo)
-            this.Undo();
+         this.Undo();
       }
 
       /// <summary>

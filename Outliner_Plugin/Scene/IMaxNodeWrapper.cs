@@ -56,6 +56,12 @@ namespace Outliner.Scene
          set { }
       }
 
+      public virtual Boolean Renderable
+      {
+         get { return false; }
+         set { }
+      }
+
 
       /// <summary>
       /// Tests if the wrapped node is still a valid scene node and hasn't been deleted.
@@ -85,7 +91,7 @@ namespace Outliner.Scene
       public const String IMGKEY_UNKNOWN = "unknown";
       public virtual String ImageKey
       {
-         get { return IMGKEY_UNKNOWN;}
+         get { return IMGKEY_UNKNOWN; }
       }
 
       public static IMaxNodeWrapper Create(Object node)

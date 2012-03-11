@@ -77,6 +77,12 @@ public class IINodeWrapper : IMaxNodeWrapper
       set { this.node.WireColor = value; }
    }
 
+   public override bool Renderable
+   {
+      get { return this.node.Renderable != 0; }
+      set { this.node.SetRenderable(value); }
+   }
+
 
    public const String IMGKEY_BONE      = "bone";
    public const String IMGKEY_CAMERA    = "camera";

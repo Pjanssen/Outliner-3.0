@@ -60,30 +60,72 @@ namespace Outliner {
             }
         }
         
-        internal static System.Drawing.Bitmap add_button {
+        internal static System.Drawing.Bitmap button_add {
             get {
-                object obj = ResourceManager.GetObject("add_button", resourceCulture);
+                object obj = ResourceManager.GetObject("button_add", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap add_button_disabled {
+        internal static System.Drawing.Bitmap button_add_disabled {
             get {
-                object obj = ResourceManager.GetObject("add_button_disabled", resourceCulture);
+                object obj = ResourceManager.GetObject("button_add_disabled", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap boxmode_button {
+        internal static System.Drawing.Bitmap button_boxmode {
             get {
-                object obj = ResourceManager.GetObject("boxmode_button", resourceCulture);
+                object obj = ResourceManager.GetObject("button_boxmode", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap boxmode_button_disabled {
+        internal static System.Drawing.Bitmap button_boxmode_disabled {
             get {
-                object obj = ResourceManager.GetObject("boxmode_button_disabled", resourceCulture);
+                object obj = ResourceManager.GetObject("button_boxmode_disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_freeze {
+            get {
+                object obj = ResourceManager.GetObject("button_freeze", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_freeze_disabled {
+            get {
+                object obj = ResourceManager.GetObject("button_freeze_disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_hide {
+            get {
+                object obj = ResourceManager.GetObject("button_hide", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_hide_disabled {
+            get {
+                object obj = ResourceManager.GetObject("button_hide_disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_render {
+            get {
+                object obj = ResourceManager.GetObject("button_render", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap button_render_disabled {
+            get {
+                object obj = ResourceManager.GetObject("button_render_disabled", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -116,6 +158,15 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rename.
+        /// </summary>
+        internal static string Command_Rename {
+            get {
+                return ResourceManager.GetString("Command_Rename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select.
         /// </summary>
         internal static string Command_Select {
@@ -134,39 +185,20 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change Renderable.
+        /// </summary>
+        internal static string Command_SetRenderable {
+            get {
+                return ResourceManager.GetString("Command_SetRenderable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change WireColor.
         /// </summary>
         internal static string Command_SetWireColor {
             get {
                 return ResourceManager.GetString("Command_SetWireColor", resourceCulture);
-            }
-        }
-        
-        internal static System.Drawing.Bitmap freeze_button {
-            get {
-                object obj = ResourceManager.GetObject("freeze_button", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap freeze_button_disabled {
-            get {
-                object obj = ResourceManager.GetObject("freeze_button_disabled", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap hide_button {
-            get {
-                object obj = ResourceManager.GetObject("hide_button", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap hide_button_disabled {
-            get {
-                object obj = ResourceManager.GetObject("hide_button_disabled", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

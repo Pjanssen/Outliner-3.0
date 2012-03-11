@@ -11,8 +11,8 @@ namespace Outliner.Controls.Layout
 {
 public class AddButton : ImageButton
 {
-   public AddButton() : base(OutlinerResources.add_button,
-                             OutlinerResources.add_button_disabled)
+   public AddButton() : base(OutlinerResources.button_add,
+                             OutlinerResources.button_add_disabled)
    { }
 
    public override Boolean IsVisible(TreeNode tn)

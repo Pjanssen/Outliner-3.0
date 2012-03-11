@@ -10,8 +10,8 @@ namespace Outliner.Controls.Layout
 {
    public class HideButton : ImageButton
    {
-      public HideButton() : base(OutlinerResources.hide_button,
-                                 OutlinerResources.hide_button_disabled)
+      public HideButton() : base(OutlinerResources.button_hide,
+                                 OutlinerResources.button_hide_disabled)
       { }
 
       public override bool IsEnabled(TreeNode tn)
@@ -40,7 +40,7 @@ namespace Outliner.Controls.Layout
             nodes = new List<IMaxNodeWrapper>(1) { node };
 
          HideCommand cmd = new HideCommand(nodes, !node.IsHidden);
-         cmd.Execute(true);         
+         cmd.Execute(true);
       }
    }
 }
