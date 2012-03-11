@@ -51,7 +51,7 @@ namespace Outliner.TreeModes
 
       protected void addNode(IINode node, TreeNodeCollection parentCol)
       {
-         if (HelperMethods.IsPFHelper(node))
+         if (HelperMethods.IsHiddenNode(node))
             return;
 
          IMaxNodeWrapper wrapper = IMaxNodeWrapper.Create(node);

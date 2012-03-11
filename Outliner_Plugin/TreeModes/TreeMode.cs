@@ -37,13 +37,15 @@ namespace Outliner.TreeModes
       /// <summary>
       /// Cleanup of event notifications and callbacks.
       /// </summary>
-      public void Dispose()
+      public override void Dispose()
       {
          IGlobal iGlobal = GlobalInterface.Instance;
          iGlobal.UnRegisterNotification(PostReset, null);
          iGlobal.UnRegisterNotification(SelectionsetChanged, null);
 
          iGlobal.ISceneEventManager.UnRegisterCallback(this.sceneEventCbKey);
+
+         base.Dispose();
       }
 
       public abstract void FillTree();

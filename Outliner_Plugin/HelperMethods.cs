@@ -115,11 +115,37 @@ public static class HelperMethods
       return cid.PartA == cidA && cid.PartB == cidB;
    }
 
-   
+
+   public const uint BIPED_CLASSIDA               = 0x9155;
+   public const uint SKELOBJ_CLASSIDA             = 0x9125;
+   public const uint CATBONE_CLASSIDA             = 0x2E6A0C09;
+   public const uint CATBONE_CLASSIDB             = 0x43D5C9C0;
+   public const uint CATHUB_CLASSIDA              = 0x73DC4833;
+   public const uint CATHUB_CLASSIDB              = 0x65C93CAA;
    public const uint PARTICLECHANNELCLASSID_PARTB = 0x1eb34100;
    public const uint PFACTIONCLASSID_PARTB        = 0x1eb34200;
    public const uint PFACTORCLASSID_PARTB         = 0x1eb34300;
    public const uint PFMATERIALCLASSID_PARTB      = 0x1eb34400;
+   public const String CAM_3DXSTUDIO_NAME         = "3DxStudio Perspective";
+
+   public static Boolean IsHiddenNode(IINode node)
+   {
+      return IsPFHelper(node) || node.Name == CAM_3DXSTUDIO_NAME;
+   }
+
+   public static Boolean IsBone(IINode node)
+   {
+      if (node.ObjectRef != null)
+      {
+         IClass_ID classID = node.ObjectRef.ClassID;
+         return ClassIDEquals(classID, BuiltInClassIDA.BONE_OBJ_CLASSID, BuiltInClassIDB.BONE_OBJ_CLASSID)
+             || ClassIDEquals(classID, SKELOBJ_CLASSIDA)
+             || ClassIDEquals(classID, BIPED_CLASSIDA)
+             || ClassIDEquals(classID, CATBONE_CLASSIDA, CATBONE_CLASSIDB)
+             || ClassIDEquals(classID, CATHUB_CLASSIDA, CATHUB_CLASSIDB);
+      }
+      return false;
+   }
 
    public static bool IsPFHelper(IINode node)
    {

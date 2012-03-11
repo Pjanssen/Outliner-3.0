@@ -28,7 +28,18 @@ public class LayerMode : TreeMode
    public override void FillTree()
    {
       this.tree.BeginUpdate();
+      /*
+      IGlobal g = GlobalInterface.Instance;
+      IInterface_ID int_ID = g.Interface_ID.Create((uint)BuiltInInterfaceIDA.LAYERMANAGER_INTERFACE,
+                                                   (uint)BuiltInInterfaceIDB.LAYERMANAGER_INTERFACE);
+      IIFPLayerManager lm = (IIFPLayerManager)g.GetCOREInterface(int_ID);
 
+      for (int i = 0; i < lm.Count; i++)
+      {
+         IILayerProperties l = lm.GetLayer(i);
+         this.addNode(l, this.tree.Nodes);
+      }*/
+      
       IINode rootNode = this.ip.RootNode;
       for (int i = 0; i < rootNode.NumberOfChildren; i++)
       {
@@ -38,6 +49,8 @@ public class LayerMode : TreeMode
       this.tree.EndUpdate();
       this.tree.TimedSort(false);
    }
+
+
 
    private TreeNode addNode(IILayer layer, TreeNodeCollection parentCol)
    {
@@ -95,7 +108,7 @@ public class LayerMode : TreeMode
       foreach (IINode node in nodes.NodeKeysToINodeList())
       {
          this.RemoveTreeNode(node);
-         this.addNode(node);
+         //this.addNode(node);
       }
    }
 

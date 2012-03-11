@@ -34,7 +34,7 @@ public class HierarchyMode : TreeMode
    }
    private void addNode(IINode node, TreeNodeCollection parentCol, Boolean addChildren)
    {
-      if (HelperMethods.IsPFHelper(node))
+      if (HelperMethods.IsHiddenNode(node))
          return;
 
       IMaxNodeWrapper wrapper = IMaxNodeWrapper.Create(node);

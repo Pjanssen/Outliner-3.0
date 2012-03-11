@@ -35,7 +35,7 @@ public class FlatObjectListMode : TreeMode
    }
    protected void addNode(IINode node, TreeNodeCollection parentCol, Boolean addChildren)
    {
-      if (HelperMethods.IsPFHelper(node))
+      if (HelperMethods.IsHiddenNode(node))
          return;
 
       IMaxNodeWrapper wrapper = IMaxNodeWrapper.Create(node);
