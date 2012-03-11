@@ -93,7 +93,7 @@ namespace Outliner.Scene
       public override System.Drawing.Color WireColor
       {
          get { return HelperMethods.FromMaxColor(this.layer.WireColor); }
-         set { this.layer.WireColor = HelperMethods.ToMaxColor(value); }
+         set { this.layer.WireColor = value; }
       }
 
 

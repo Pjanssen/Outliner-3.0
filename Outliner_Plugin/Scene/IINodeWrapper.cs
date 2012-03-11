@@ -74,7 +74,7 @@ public class IINodeWrapper : IMaxNodeWrapper
    public override Color WireColor
    {
       get { return HelperMethods.FromMaxColor(this.node.WireColor); }
-      set { this.node.WireColor = HelperMethods.ToMaxColor(value); }
+      set { this.node.WireColor = value; }
    }
 
 

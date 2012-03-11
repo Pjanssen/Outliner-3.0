@@ -64,6 +64,9 @@ public class WireColorButton : TreeNodeLayoutItem
 
    public override void HandleMouseUp(System.Windows.Forms.MouseEventArgs e, System.Windows.Forms.TreeNode tn)
    {
+      if (this.Layout == null || this.Layout.TreeView == null)
+         return;
+
       IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
       if (node == null)
          return;
@@ -72,7 +75,14 @@ public class WireColorButton : TreeNodeLayoutItem
       IInterface ip = Autodesk.Max.GlobalInterface.Instance.COREInterface;
       if (ip.NodeColorPicker(ip.MAXHWnd, ref wc))
       {
-         SetWireColorCommand cmd = new SetWireColorCommand(new List<IINode>() { (Autodesk.Max.IINode)node.WrappedNode }, wc);
+         TreeView tree = this.Layout.TreeView;
+         IEnumerable<IMaxNodeWrapper> nodes = null;
+         if (HelperMethods.ControlPressed && tree.IsSelectedNode(tn))
+            nodes = HelperMethods.GetMaxNodes(tree.SelectedNodes);
+         else
+            nodes = new List<IMaxNodeWrapper>(1) { node };
+
+         SetWireColorCommand cmd = new SetWireColorCommand(nodes, HelperMethods.FromMaxColor(wc));
          cmd.Execute(true);
       }
    }

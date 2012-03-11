@@ -173,16 +173,6 @@ public static class HelperMethods
       return Color.FromArgb(255, c.B, c.G, c.R);
    }
 
-   /// <summary>
-   /// Workaround 3dsMax Color issues. (Alpha + flipped components)
-   /// </summary>
-   /// <param name="c">The .NET color to change.</param>
-   /// <returns>A color that the 3dsMax SDK can do something with.</returns>
-   public static Color ToMaxColor(Color c)
-   {
-      return Color.FromArgb(0, c.B, c.G, c.R);
-   }
-
 
    /// <summary>
    /// Iterates over all elements in the collection with the supplied function.
@@ -196,6 +186,31 @@ public static class HelperMethods
 
       foreach (T item in items)
          action(item);
+   }
+
+
+   /// <summary>
+   /// Returns true if the Control key is pressed, possibly in combination with other keys.
+   /// </summary>
+   public static Boolean ControlPressed
+   {
+      get { return (Control.ModifierKeys & Keys.Control) == Keys.Control; }
+   }
+
+   /// <summary>
+   /// Returns true if the Alt key is pressed, possibly in combination with other keys.
+   /// </summary>
+   public static Boolean AltPressed
+   {
+      get { return (Control.ModifierKeys & Keys.Alt) == Keys.Alt; }
+   }
+
+   /// <summary>
+   /// Returns true if the Shift key is pressed, possibly in combination with other keys.
+   /// </summary>
+   public static Boolean ShiftPressed
+   {
+      get { return (Control.ModifierKeys & Keys.Shift) == Keys.Shift; }
    }
 }
 

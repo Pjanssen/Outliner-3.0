@@ -3,49 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
+using Outliner.Scene;
 
 namespace Outliner.Commands
 {
-public class HideCommand : Command
+public class HideCommand : SetNodePropertyCommand<Boolean>
 {
-   protected List<IINode> nodes;
-   protected Boolean hide;
-   protected Dictionary<IINode, Boolean> prevHiddenStates;
-
-   public HideCommand(List<IINode> nodes, Boolean hide)
-   {
-      this.nodes = nodes;
-      this.hide = hide;
-   }
+   public HideCommand(IEnumerable<IMaxNodeWrapper> nodes, Boolean newValue)
+      : base(nodes, newValue) { }
 
    public override string Description
    {
       get { return OutlinerResources.Command_Hide; }
    }
 
-   public override void Do()
+   public override bool GetValue(IMaxNodeWrapper node)
    {
-      if (this.nodes == null)
-         return;
-
-      this.prevHiddenStates = new Dictionary<IINode, Boolean>(this.nodes.Count);
-
-      foreach (IINode node in this.nodes)
-      {
-         this.prevHiddenStates[node] = node.IsObjectHidden;
-         node.Hide(this.hide);
-      }
+      return node.IsHidden;
    }
 
-   public override void Undo()
+   public override void SetValue(IMaxNodeWrapper node, bool value)
    {
-      if (this.nodes == null)
-         return;
-
-      foreach (KeyValuePair<IINode, Boolean> n in this.prevHiddenStates)
-      {
-         n.Key.Hide(n.Value);
-      }
+      node.IsHidden = value;
    }
 }
 }

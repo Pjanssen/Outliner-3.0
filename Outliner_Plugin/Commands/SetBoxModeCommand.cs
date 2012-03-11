@@ -3,49 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
+using Outliner.Scene;
 
 namespace Outliner.Commands
 {
-   public class SetBoxModeCommand : Command
+public class SetBoxModeCommand : SetNodePropertyCommand<Boolean>
 {
-   protected List<IINode> nodes;
-   protected Boolean boxMode;
-   protected Dictionary<IINode, Boolean> prevBoxModes;
-
-   public SetBoxModeCommand(List<IINode> nodes, Boolean boxMode)
-   {
-      this.nodes = nodes;
-      this.boxMode = boxMode;
-   }
-
+   public SetBoxModeCommand(IEnumerable<IMaxNodeWrapper> nodes, Boolean boxMode) 
+      : base(nodes, boxMode) { }
+   
    public override string Description
    {
       get { return OutlinerResources.Command_SetBoxMode; }
    }
 
-   public override void Do()
+   public override bool GetValue(IMaxNodeWrapper node)
    {
-      if (this.nodes == null)
-         return;
-
-      this.prevBoxModes = new Dictionary<IINode, Boolean>(this.nodes.Count);
-
-      foreach (IINode node in this.nodes)
-      {
-         this.prevBoxModes[node] = node.BoxMode_ != 0;
-         node.BoxMode(this.boxMode);
-      }
+      return node.BoxMode;
    }
 
-   public override void Undo()
+   public override void SetValue(IMaxNodeWrapper node, bool value)
    {
-      if (this.prevBoxModes == null)
-         return;
-
-      foreach (KeyValuePair<IINode, Boolean> n in this.prevBoxModes)
-      {
-         n.Key.BoxMode(n.Value);
-      }
+      node.BoxMode = value;
    }
 }
 }

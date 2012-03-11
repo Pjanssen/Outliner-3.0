@@ -65,6 +65,7 @@
     <Compile Include="Commands\HideCommand.cs" />
     <Compile Include="Commands\SelectCommand.cs" />
     <Compile Include="Commands\SetWireColorCommand.cs" />
+    <Compile Include="Commands\SetNodePropertyCommand.cs" />
     <Compile Include="Controls\BitmapProcessing.cs" />
     <Compile Include="Controls\DragDropHandler.cs" />
     <Compile Include="Controls\Layout\AddButton.cs" />
@@ -247,7 +248,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\node_buttons\hide_button_disabled.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Notes.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "C:\Program Files\Autodesk\3ds Max 2013\bin\assemblies\$(TargetFileName)"</PostBuildEvent>
