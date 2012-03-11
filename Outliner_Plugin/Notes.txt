@@ -1,12 +1,31 @@
-﻿
-GENERAL
+﻿GENERAL
 -------
 * Move hidden particle classes 'filtering' to permanent filter?
-* Sort does not seem to work properly.
+* Generalize addNode method in TreeMode.
 
 NODE BUTTONS
 ------------
+* Add sort / filter code to click handlers.
 * Decide whether clicking a node button should apply to the entire selection 
   with or without holding Control.
 * Check if node button click handling can be generalized to get rid of some 
   boilerplate code.
+
+HIERARCHY MODE
+--------------
+
+
+LAYER MODE
+----------
+
+
+SELECTIONSET MODE
+-----------------
+
+
+FLAT OBJECTLIST MODE
+--------------------
+
+
+MATERIAL MODE
+-------------

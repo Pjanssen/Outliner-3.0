@@ -77,7 +77,7 @@ namespace Outliner.Scene
             try
             {
                if (node is IAnimatable)
-                  return ((IAnimatable)node).TestAFlag(AnimatableFlags.IsDeleted);
+                  return !((IAnimatable)node).TestAFlag(AnimatableFlags.IsDeleted);
                else
                   return true;
             }
