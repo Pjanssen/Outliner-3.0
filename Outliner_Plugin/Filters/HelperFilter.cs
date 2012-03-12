@@ -9,13 +9,16 @@ namespace Outliner.Filters
    {
       override public FilterResult ShowNode(IMaxNodeWrapper data)
       {
-         if (data.SuperClassID != SClass_ID.Helper)
-            return FilterResult.Show;
-
-         if (HelperMethods.ClassIDEquals(data.ClassID, BuiltInClassIDA.TARGET_CLASS_ID))
-            return FilterResult.Show;
-         else
+         if (data.SuperClassID == SClass_ID.Helper)
             return FilterResult.Hide;
+         else if (data is IINodeWrapper && data.WrappedNode != null)
+         {
+            IINode node = (IINode)data.WrappedNode;
+            if (node != null && node.IsTarget)
+               return FilterResult.Hide;
+         }
+
+         return FilterResult.Show;
       }
    }
 }

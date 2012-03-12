@@ -1,6 +1,7 @@
 ﻿GENERAL
 -------
 * Move hidden particle classes 'filtering' to permanent filter?
+* Add nurbs filter? use geomobject  objRef.IsShapeObject
 * Generalize addNode method in TreeMode.
 
 NODE BUTTONS

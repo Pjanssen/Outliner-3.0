@@ -12,18 +12,6 @@ namespace Outliner.Filters
             return FilterResult.Hide;
          else
             return FilterResult.Show;
-
-         /*
-          if (!(n is IDisplayable))
-              return FilterResult.Show;
-
-          IDisplayable layer = null; //TODO: n.Layer as IDisplayable;
-
-          if (((IDisplayable)n).IsHidden || (layer != null && layer.IsHidden))
-              return FilterResult.Hide;
-          else
-              return FilterResult.Show;
-          */
       }
    }
 }

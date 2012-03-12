@@ -8,31 +8,14 @@ namespace Outliner.Filters
    {
       override public FilterResult ShowNode(IMaxNodeWrapper data)
       {
-         if (data.SuperClassID != SClass_ID.ParticleSys)
+         if (!(data is IINodeWrapper))
             return FilterResult.Show;
-         else
+
+         IINode node = (IINode)data.WrappedNode;
+         if (node.ObjectRef.IsParticleSystem)
             return FilterResult.Hide;
-
-         /*
-          if (!(n is OutlinerObject))
-              return FilterResult.Show;
-
-          OutlinerObject o = (OutlinerObject)n;
-
-          if (o.SuperClass != MaxTypes.Geometry && o.SuperClass != MaxTypes.Helper)
-              return FilterResult.Show;
-
-          if (o.Class == MaxTypes.PfSource || o.Class == MaxTypes.PCloud || o.Class == MaxTypes.PArray || 
-              o.Class == MaxTypes.PBlizzard || o.Class == MaxTypes.PSpray || o.Class == MaxTypes.PSuperSpray || 
-              o.Class == MaxTypes.PSnow || o.Class == MaxTypes.PBirthTexture || o.Class == MaxTypes.PSpeedByIcon ||
-              o.Class == MaxTypes.PGroupSelection || o.Class == MaxTypes.PFindTarget || 
-              o.Class == MaxTypes.PInitialState || o.Class == MaxTypes.ParticlePaint)
-          {
-              return FilterResult.Hide;
-          }
-          else
-              return FilterResult.Show;
-          */
+         else
+            return FilterResult.Show;
       }
    }
 }

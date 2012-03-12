@@ -16,7 +16,8 @@ namespace Outliner.Filters
             return FilterResult.Show;
 
          IINode node = (IINode)data.WrappedNode;
-         if (HelperMethods.IsBone(node) || node.ObjectRef.IsParticleSystem)
+         if (node.IsTarget || HelperMethods.IsBone(node) 
+                           || node.ObjectRef.IsParticleSystem)
             return FilterResult.Show;
          else
             return FilterResult.Hide;

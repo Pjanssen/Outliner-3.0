@@ -135,7 +135,7 @@ public static class HelperMethods
 
    public static Boolean IsBone(IINode node)
    {
-      if (node.SuperClassID == SClass_ID.Geomobject && node.ObjectRef != null)
+      if (node != null && node.ObjectRef != null && node.ObjectRef.SuperClassID == SClass_ID.Geomobject)
       {
          IClass_ID classID = node.ObjectRef.ClassID;
          return ClassIDEquals(classID, BuiltInClassIDA.BONE_OBJ_CLASSID, BuiltInClassIDB.BONE_OBJ_CLASSID)

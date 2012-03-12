@@ -129,6 +129,10 @@ public class IINodeWrapper : IMaxNodeWrapper
 
          if (superClass == SClass_ID.Geomobject)
          {
+            //Target objects (for light/camera target)
+            if (node.IsTarget)
+               return IMGKEY_TARGET;
+
             IObject objRef = node.ObjectRef;
             if (objRef == null)
                return IMGKEY_GEOMETRY;
@@ -140,10 +144,6 @@ public class IINodeWrapper : IMaxNodeWrapper
             //Particle objects.
             if (objRef.IsParticleSystem)
                return IMGKEY_PARTICLE;
-
-            //Target objects (for light/camera target)
-            if (HelperMethods.ClassIDEquals(objRef.ClassID, BuiltInClassIDA.TARGET_CLASS_ID))
-               return IMGKEY_TARGET;
 
             //Bone and biped objects have Geomobject as a superclass.
             if (HelperMethods.IsBone(node))
