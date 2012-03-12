@@ -88,7 +88,9 @@
     <Compile Include="Controls\Layout\WireColorButton.cs" />
     <Compile Include="Filters\NurbsFilter.cs" />
     <Compile Include="NodeSorters\FrozenSorter.cs" />
+    <Compile Include="NodeSorters\INodeHandleSorter.cs" />
     <Compile Include="NodeSorters\HiddenSorter.cs" />
+    <Compile Include="NodeSorters\SuperClassSorter.cs" />
     <Compile Include="OutlinerResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
