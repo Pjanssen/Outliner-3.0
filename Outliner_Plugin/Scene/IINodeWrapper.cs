@@ -91,7 +91,7 @@ public class IINodeWrapper : IMaxNodeWrapper
          if (!base.IsValid)
             return false;
 
-         try { return this.node.TestAFlag(AnimatableFlags.IsDeleted); }
+         try { return !this.node.TestAFlag(AnimatableFlags.IsDeleted); }
          catch { return false; }
       }
    }
