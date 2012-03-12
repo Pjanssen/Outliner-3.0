@@ -5,7 +5,7 @@ using Outliner.Controls.FiltersBase;
 
 namespace Outliner.Filters
 {
-   public class FrozenFilter : NodeFilter<IMaxNodeWrapper>
+   public class FrozenFilter : Filter<IMaxNodeWrapper>
    {
       override public FilterResult ShowNode(IMaxNodeWrapper data)
       {

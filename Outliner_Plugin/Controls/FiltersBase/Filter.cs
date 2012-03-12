@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Outliner.Controls.FiltersBase
 {
-    public abstract class NodeFilter<T>
+    public abstract class Filter<T>
     {
         public event EventHandler FilterChanged;
         protected virtual void OnFilterChanged()

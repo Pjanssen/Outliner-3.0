@@ -5,7 +5,7 @@ using Outliner.TreeModes;
 
 namespace Outliner.Filters
 {
-   public class XRefFilter : NodeFilter<IMaxNodeWrapper>
+   public class XRefFilter : Filter<IMaxNodeWrapper>
    {
       override public FilterResult ShowNode(IMaxNodeWrapper data)
       {

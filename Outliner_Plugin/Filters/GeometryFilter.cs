@@ -5,7 +5,7 @@ using Outliner.TreeModes;
 
 namespace Outliner.Filters
 {
-   public class GeometryFilter : NodeFilter<IMaxNodeWrapper>
+   public class GeometryFilter : Filter<IMaxNodeWrapper>
    {
       override public FilterResult ShowNode(IMaxNodeWrapper data)
       {

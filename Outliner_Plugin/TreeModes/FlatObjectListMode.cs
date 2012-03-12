@@ -14,7 +14,7 @@ public class FlatObjectListMode : TreeMode
    public FlatObjectListMode(Outliner.Controls.TreeView tree, Autodesk.Max.IInterface ip) 
       : base(tree, ip) 
    {
-      this.Filters = new FlatListNodeFilterCollection<IMaxNodeWrapper>(base.Filters);
+      this.Filters = new FlatListFilterCollection<IMaxNodeWrapper>(base.Filters);
    }
 
    public override void FillTree()

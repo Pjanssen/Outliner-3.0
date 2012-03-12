@@ -5,7 +5,7 @@ using Outliner.Scene;
 
 namespace Outliner.Filters
 {
-   public class NameFilter : NodeFilter<IMaxNodeWrapper>
+   public class NameFilter : Filter<IMaxNodeWrapper>
 {
     public NameFilter() 
     {

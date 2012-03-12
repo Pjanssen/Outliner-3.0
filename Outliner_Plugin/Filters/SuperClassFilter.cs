@@ -5,7 +5,7 @@ using Outliner.Scene;
 
 namespace Outliner.Filters
 {
-   public abstract class SuperClassFilter : NodeFilter<IMaxNodeWrapper>
+   public abstract class SuperClassFilter : Filter<IMaxNodeWrapper>
    {
       protected FilterResult ShowNode(IMaxNodeWrapper data, SClass_ID superClass)
       {

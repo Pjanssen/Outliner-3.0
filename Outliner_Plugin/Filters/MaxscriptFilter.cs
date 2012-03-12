@@ -8,7 +8,7 @@ using Outliner.Scene;
 
 namespace Outliner.Filters
 {
-   public class MaxscriptFilter : NodeFilter<IMaxNodeWrapper>
+   public class MaxscriptFilter : Filter<IMaxNodeWrapper>
    {
       public MaxscriptFilter()
       {

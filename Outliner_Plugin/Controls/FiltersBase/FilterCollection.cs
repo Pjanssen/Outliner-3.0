@@ -3,20 +3,20 @@ using System.Collections.Generic;
 
 namespace Outliner.Controls.FiltersBase
 {
-   public class NodeFilterCollection<T>
+   public class FilterCollection<T>
    {
       public delegate IEnumerable<T> GetChildNodes(T node);
       public GetChildNodes GetChildNodesFn { get; set; }
 
 
-      public NodeFilterCollection() : this(null) { }
-      public NodeFilterCollection(NodeFilterCollection<T> collection)
+      public FilterCollection() : this(null) { }
+      public FilterCollection(FilterCollection<T> collection)
       {
          if (collection == null)
          {
             _enabled = false;
-            _filters = new List<NodeFilter<T>>();
-            _permanentFilters = new List<NodeFilter<T>>();
+            _filters = new List<Filter<T>>();
+            _permanentFilters = new List<Filter<T>>();
          }
          else
          {
@@ -26,8 +26,8 @@ namespace Outliner.Controls.FiltersBase
          }
       }
 
-      private List<NodeFilter<T>> _filters;
-      private List<NodeFilter<T>> _permanentFilters;
+      private List<Filter<T>> _filters;
+      private List<Filter<T>> _permanentFilters;
 
 
       private Boolean _enabled;
@@ -49,7 +49,7 @@ namespace Outliner.Controls.FiltersBase
       /// <summary>
       /// Adds the supplied filter to the collection as non-permanent.
       /// </summary>
-      public void Add(NodeFilter<T> filter)
+      public void Add(Filter<T> filter)
       {
          this.Add(filter, false);
       }
@@ -58,7 +58,7 @@ namespace Outliner.Controls.FiltersBase
       /// </summary>
       /// <param name="filter">The filter to add.</param>
       /// <param name="permanent">If true, the collection's "Enabled" property does not affect this filter.</param>
-      public void Add(NodeFilter<T> filter, Boolean permanent)
+      public void Add(Filter<T> filter, Boolean permanent)
       {
          if (permanent)
          {
@@ -80,7 +80,7 @@ namespace Outliner.Controls.FiltersBase
       /// <summary>
       /// Removes the supplied filter from the collection.
       /// </summary>
-      public void Remove(NodeFilter<T> filter)
+      public void Remove(Filter<T> filter)
       {
          if (_filters.Contains(filter))
             _filters.Remove(filter);
@@ -97,20 +97,20 @@ namespace Outliner.Controls.FiltersBase
       /// </summary>
       public void Remove(Type filterType)
       {
-         List<NodeFilter<T>> filtersToRemove = new List<NodeFilter<T>>();
+         List<Filter<T>> filtersToRemove = new List<Filter<T>>();
 
-         foreach (NodeFilter<T> filter in _filters)
+         foreach (Filter<T> filter in _filters)
          {
             if (filter.GetType().Equals(filterType))
                filtersToRemove.Add(filter);
          }
-         foreach (NodeFilter<T> filter in _permanentFilters)
+         foreach (Filter<T> filter in _permanentFilters)
          {
             if (filter.GetType().Equals(filterType))
                filtersToRemove.Add(filter);
          }
 
-         foreach (NodeFilter<T> filter in filtersToRemove)
+         foreach (Filter<T> filter in filtersToRemove)
          {
             this.Remove(filter);
          }
@@ -131,7 +131,7 @@ namespace Outliner.Controls.FiltersBase
       /// <param name="clearPermanentFilters">If true also removes permanent filters.</param>
       public void Clear(Boolean clearPermanentFilters)
       {
-         foreach (NodeFilter<T> filter in _filters)
+         foreach (Filter<T> filter in _filters)
          {
             filter.FilterChanged -= filterChanged;
          }
@@ -139,7 +139,7 @@ namespace Outliner.Controls.FiltersBase
 
          if (clearPermanentFilters)
          {
-            foreach (NodeFilter<T> filter in _permanentFilters)
+            foreach (Filter<T> filter in _permanentFilters)
             {
                filter.FilterChanged -= filterChanged;
             }
@@ -153,14 +153,14 @@ namespace Outliner.Controls.FiltersBase
       /// <summary>
       /// Retrieves the first found filter in the collection of the supplied type.
       /// </summary>
-      public NodeFilter<T> Get(Type filterType)
+      public Filter<T> Get(Type filterType)
       {
-         foreach (NodeFilter<T> filter in _filters)
+         foreach (Filter<T> filter in _filters)
          {
             if (filter.GetType().Equals(filterType))
                return filter;
          }
-         foreach (NodeFilter<T> filter in _permanentFilters)
+         foreach (Filter<T> filter in _permanentFilters)
          {
             if (filter.GetType().Equals(filterType))
                return filter;
@@ -172,7 +172,7 @@ namespace Outliner.Controls.FiltersBase
       /// <summary>
       /// Returns true if the collection contains the supplied filter.
       /// </summary>
-      public Boolean Contains(NodeFilter<T> filter)
+      public Boolean Contains(Filter<T> filter)
       {
          return _filters.Contains(filter);
       }
@@ -181,12 +181,12 @@ namespace Outliner.Controls.FiltersBase
       /// </summary>
       public Boolean Contains(Type filterType)
       {
-         foreach (NodeFilter<T> filter in _filters)
+         foreach (Filter<T> filter in _filters)
          {
             if (filter.GetType().Equals(filterType))
                return true;
          }
-         foreach (NodeFilter<T> filter in _permanentFilters)
+         foreach (Filter<T> filter in _permanentFilters)
          {
             if (filter.GetType().Equals(filterType))
                return true;
@@ -207,7 +207,7 @@ namespace Outliner.Controls.FiltersBase
          // Loop through filters.
          if (this.Enabled && _filters.Count > 0)
          {
-            foreach (NodeFilter<T> filter in _filters)
+            foreach (Filter<T> filter in _filters)
             {
                if (filter.ShowNode(n) == FilterResult.Hide)
                {
@@ -219,7 +219,7 @@ namespace Outliner.Controls.FiltersBase
 
          if (filterResult == FilterResult.Show && _permanentFilters.Count > 0)
          {
-            foreach (NodeFilter<T> filter in _permanentFilters)
+            foreach (Filter<T> filter in _permanentFilters)
             {
                if (filter.ShowNode(n) == FilterResult.Hide)
                {
@@ -302,7 +302,7 @@ namespace Outliner.Controls.FiltersBase
       /// Raised when a filter has been added to the collection.
       /// </summary>
       public event NodeFilterChangedEventHandler FilterAdded;
-      protected virtual void OnFilterAdded(NodeFilter<T> filter)
+      protected virtual void OnFilterAdded(Filter<T> filter)
       {
          if (this.FilterAdded != null)
             this.FilterAdded(this, new NodeFilterChangedEventArgs<T>(filter));
@@ -312,7 +312,7 @@ namespace Outliner.Controls.FiltersBase
       /// Raised when a filter has been removed from the collection.
       /// </summary>
       public event NodeFilterChangedEventHandler FilterRemoved;
-      protected virtual void OnFilterRemoved(NodeFilter<T> filter)
+      protected virtual void OnFilterRemoved(Filter<T> filter)
       {
          if (this.FilterRemoved != null)
             this.FilterRemoved(this, new NodeFilterChangedEventArgs<T>(filter));
@@ -325,7 +325,7 @@ namespace Outliner.Controls.FiltersBase
       protected void filterChanged(object sender, EventArgs e)
       {
          if (this.FilterChanged != null)
-            this.FilterChanged(this, new NodeFilterChangedEventArgs<T>(sender as NodeFilter<T>));
+            this.FilterChanged(this, new NodeFilterChangedEventArgs<T>(sender as Filter<T>));
       }
 
       public delegate void NodeFilterChangedEventHandler(object sender, NodeFilterChangedEventArgs<T> e);
@@ -334,9 +334,9 @@ namespace Outliner.Controls.FiltersBase
 
    public class NodeFilterChangedEventArgs<T> : EventArgs
    {
-      public NodeFilter<T> Filter { get; private set; }
+      public Filter<T> Filter { get; private set; }
 
-      public NodeFilterChangedEventArgs(NodeFilter<T> filter)
+      public NodeFilterChangedEventArgs(Filter<T> filter)
       {
          this.Filter = filter;
       }

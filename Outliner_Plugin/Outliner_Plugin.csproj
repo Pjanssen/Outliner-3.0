@@ -85,6 +85,7 @@
     <Compile Include="Controls\Layout\TreeNodeLayoutItem.cs" />
     <Compile Include="Controls\Layout\TreeNodeText.cs" />
     <Compile Include="Controls\Layout\WireColorButton.cs" />
+    <Compile Include="Filters\NurbsFilter.cs" />
     <Compile Include="OutlinerResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -94,15 +95,15 @@
     <Compile Include="Filters\CustomFilters.cs" />
     <Compile Include="Filters\CustomNodeFilter.cs" />
     <Compile Include="Controls\FiltersBase\FilterResult.cs" />
-    <Compile Include="Controls\FiltersBase\FlatListNodeFilterCollection.cs" />
+    <Compile Include="Controls\FiltersBase\FlatListFilterCollection.cs" />
     <Compile Include="Filters\FrozenFilter.cs" />
     <Compile Include="Filters\GeometryFilter.cs" />
     <Compile Include="Filters\HelperFilter.cs" />
     <Compile Include="Filters\HiddenFilter.cs" />
     <Compile Include="Filters\MaxscriptFilter.cs" />
     <Compile Include="Filters\NameFilter.cs" />
-    <Compile Include="Controls\FiltersBase\NodeFilter.cs" />
-    <Compile Include="Controls\FiltersBase\NodeFilterCollection.cs" />
+    <Compile Include="Controls\FiltersBase\Filter.cs" />
+    <Compile Include="Controls\FiltersBase\FilterCollection.cs" />
     <Compile Include="Filters\ParticleFilter.cs" />
     <Compile Include="Filters\SuperClassFilter.cs" />
     <Compile Include="Filters\UnassignedMaterialFilter.cs" />

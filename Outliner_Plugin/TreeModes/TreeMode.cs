@@ -23,7 +23,7 @@ namespace Outliner.TreeModes
          this.tree = tree;
          this.ip = ip;
          this.nodes = new Dictionary<Object, TreeNode>();
-         this.Filters = new NodeFilterCollection<IMaxNodeWrapper>();
+         this.Filters = new FilterCollection<IMaxNodeWrapper>();
 
          this.tree.SelectionChanged += new Controls.SelectionChangedEventHandler(tree_SelectionChanged);
 
@@ -172,8 +172,8 @@ namespace Outliner.TreeModes
          return n.ChildNodes;
       }
 
-      private NodeFilterCollection<IMaxNodeWrapper> _filters;
-      public NodeFilterCollection<IMaxNodeWrapper> Filters
+      private FilterCollection<IMaxNodeWrapper> _filters;
+      public FilterCollection<IMaxNodeWrapper> Filters
       {
          get { return _filters; }
          set

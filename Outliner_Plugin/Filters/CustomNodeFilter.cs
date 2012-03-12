@@ -7,7 +7,7 @@ using Outliner.Controls.FiltersBase;
 
 namespace Outliner.Filters
 {
-    public abstract class CustomNodeFilter<T> : NodeFilter<T>
+    public abstract class CustomNodeFilter<T> : Filter<T>
     {
         /// <summary>
         /// Gets the name of the filter.

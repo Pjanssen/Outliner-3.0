@@ -4,7 +4,7 @@ using Outliner.Scene;
 
 namespace Outliner.Filters
 {
-   public class HiddenFilter : NodeFilter<IMaxNodeWrapper>
+   public class HiddenFilter : Filter<IMaxNodeWrapper>
    {
       override public FilterResult ShowNode(IMaxNodeWrapper data)
       {
