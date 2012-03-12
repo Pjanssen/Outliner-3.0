@@ -107,6 +107,7 @@ public class IINodeWrapper : IMaxNodeWrapper
    public const String IMGKEY_SHAPE     = "shape";
    public const String IMGKEY_SPACEWARP = "spacewarp";
    public const String IMGKEY_TARGET    = "helper";
+   public const String IMGKEY_XREF      = "xref";
    
 
    public override string ImageKey
@@ -116,7 +117,7 @@ public class IINodeWrapper : IMaxNodeWrapper
          if (this.node == null || this.node.ObjectRef == null)
             return base.ImageKey;
 
-         SClass_ID superClass = this.node.ObjectRef.SuperClassID;
+         SClass_ID superClass = this.SuperClassID;
          switch (superClass)
          {
             case SClass_ID.Camera: return IMGKEY_CAMERA;
@@ -126,6 +127,9 @@ public class IINodeWrapper : IMaxNodeWrapper
             case SClass_ID.Shape: return IMGKEY_SHAPE;
             case SClass_ID.WsmObject: return IMGKEY_SPACEWARP;
          }
+
+         if (superClass == SClass_ID.System && HelperMethods.IsXref(node))
+            return IMGKEY_XREF;
 
          if (superClass == SClass_ID.Geomobject)
          {

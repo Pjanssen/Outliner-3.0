@@ -149,18 +149,30 @@ public static class HelperMethods
 
    public static bool IsPFHelper(IINode node)
    {
-      if (node == null)
+      if (node == null || node.ObjectRef == null)
          return false;
 
       IObject objRef = node.ObjectRef;
-      if (objRef == null)
-         return false;
 
       uint classID_B = objRef.ClassID.PartB;
       return classID_B == PARTICLECHANNELCLASSID_PARTB
           || classID_B == PFACTIONCLASSID_PARTB
           || classID_B == PFACTORCLASSID_PARTB
           || classID_B == PFMATERIALCLASSID_PARTB;
+   }
+
+   public static Boolean IsXref(IINode node)
+   {
+      if (node == null || node.ObjectRef == null)
+         return false;
+
+      IObject objRef = node.ObjectRef;
+      if (objRef.SuperClassID != SClass_ID.System)
+         return false;
+
+      IClass_ID cID = objRef.ClassID;
+      return ClassIDEquals(cID, BuiltInClassIDA.XREFOBJ_CLASS_ID)
+          || ClassIDEquals(cID, BuiltInClassIDA.XREFMATERIAL_CLASS_ID, BuiltInClassIDB.XREFMATERIAL_CLASS_ID);
    }
 
    /// <summary>
