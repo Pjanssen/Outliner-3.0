@@ -99,6 +99,7 @@ public class IINodeWrapper : IMaxNodeWrapper
    public const String IMGKEY_BONE      = "bone";
    public const String IMGKEY_CAMERA    = "camera";
    public const String IMGKEY_GEOMETRY  = "geometry";
+   public const String IMGKEY_GROUPHEAD = "group";
    public const String IMGKEY_HELPER    = "helper";
    public const String IMGKEY_LIGHT     = "light";
    public const String IMGKEY_MATERIAL  = "material";
@@ -121,7 +122,6 @@ public class IINodeWrapper : IMaxNodeWrapper
          switch (superClass)
          {
             case SClass_ID.Camera: return IMGKEY_CAMERA;
-            case SClass_ID.Helper: return IMGKEY_HELPER;
             case SClass_ID.Light: return IMGKEY_LIGHT;
             case SClass_ID.Material: return IMGKEY_MATERIAL;
             case SClass_ID.Shape: return IMGKEY_SHAPE;
@@ -130,6 +130,14 @@ public class IINodeWrapper : IMaxNodeWrapper
 
          if (superClass == SClass_ID.System && HelperMethods.IsXref(node))
             return IMGKEY_XREF;
+
+         if (superClass == SClass_ID.Helper)
+         {
+            if (this.node.IsGroupHead)
+               return IMGKEY_GROUPHEAD;
+            else
+               return IMGKEY_HELPER;
+         }
 
          if (superClass == SClass_ID.Geomobject)
          {
