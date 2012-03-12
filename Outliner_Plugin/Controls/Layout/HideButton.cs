@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using Outliner.Scene;
 using Outliner.Commands;
+using Outliner.NodeSorters;
 
 namespace Outliner.Controls.Layout
 {
@@ -41,6 +42,12 @@ namespace Outliner.Controls.Layout
 
          HideCommand cmd = new HideCommand(nodes, !node.IsHidden);
          cmd.Execute(true);
+
+         if (tree.NodeSorter is HiddenSorter)
+         {
+            tree.AddToSortQueue(tn);
+            tree.TimedSort(true);
+         }
       }
    }
 }

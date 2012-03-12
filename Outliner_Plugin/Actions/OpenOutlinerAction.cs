@@ -39,7 +39,7 @@ namespace Outliner.Actions
          layoutFile.Append(path.Create("outliner_layout.xml"));
          tc.treeView1.TnLayout = TreeNodeLayout.FromXml(layoutFile.String);
 
-         tc.treeView1.NodeSorter = new Outliner.NodeSorters.VisibilitySorter();
+         tc.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
          TreeMode tm = new HierarchyMode(tc.treeView1, Autodesk.Max.GlobalInterface.Instance.COREInterface);
          //SelectionSetMode(tc.treeView1, Autodesk.Max.GlobalInterface.Instance.COREInterface);
          //LayerMode(tc.treeView1, Autodesk.Max.GlobalInterface.Instance.COREInterface);

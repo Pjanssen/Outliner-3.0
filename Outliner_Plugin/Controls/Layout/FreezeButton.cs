@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using Outliner.Scene;
 using Outliner.Commands;
+using Outliner.NodeSorters;
 
 namespace Outliner.Controls.Layout
 {
@@ -41,6 +42,12 @@ namespace Outliner.Controls.Layout
 
          FreezeCommand cmd = new FreezeCommand(nodes, !node.IsFrozen);
          cmd.Execute(true);
+
+         if (tree.NodeSorter is FrozenSorter)
+         {
+            tree.AddToSortQueue(tn);
+            tree.TimedSort(true);
+         }
       }
    }
 }

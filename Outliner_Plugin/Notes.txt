@@ -29,3 +29,17 @@ FLAT OBJECTLIST MODE
 
 MATERIAL MODE
 -------------
+
+ICON CLICK ACTIONS:
+Layer        - Set as current
+Material     - 
+SelectionSet - 
+Bone         -
+Camera       -
+Geometry     -
+Helper       - 
+Light        - Toggle on/off
+Particle     -
+Shape        -
+Spacewarp    -
+Xref         -

@@ -7,7 +7,7 @@ using Outliner.Scene;
 
 namespace Outliner.NodeSorters
 {
-   public class VisibilitySorter : IComparer<TreeNode>
+   public class HiddenSorter : IComparer<TreeNode>
    {
       public int Compare(TreeNode x, TreeNode y)
       {
