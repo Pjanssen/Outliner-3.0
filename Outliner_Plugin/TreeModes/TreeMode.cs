@@ -37,7 +37,7 @@ namespace Outliner.TreeModes
       /// <summary>
       /// Cleanup of event notifications and callbacks.
       /// </summary>
-      public override void Dispose()
+      public void Unregister()
       {
          IGlobal iGlobal = GlobalInterface.Instance;
          iGlobal.UnRegisterNotification(PostReset, null);
