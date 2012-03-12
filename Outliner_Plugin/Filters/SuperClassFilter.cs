@@ -13,16 +13,6 @@ namespace Outliner.Filters
             return FilterResult.Show;
          else
             return FilterResult.Hide;
-
-         /*
-          if (!(n is OutlinerObject))
-              return FilterResult.Show;
-
-          if (((OutlinerObject)n).SuperClass == superClass)
-              return FilterResult.Hide;
-          else
-              return FilterResult.Show;
-          */
       }
    }
 
@@ -54,9 +44,7 @@ namespace Outliner.Filters
    {
       override public FilterResult ShowNode(IMaxNodeWrapper data)
       {
-         return FilterResult.Show;
-         // TODO: implement.
-         //return base.ShowNode(data, SClass_ID);
+         return base.ShowNode(data, SClass_ID.WsmObject);
       }
    }
 }

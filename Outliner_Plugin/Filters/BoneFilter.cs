@@ -9,13 +9,10 @@ namespace Outliner.Filters
     {
         override public FilterResult ShowNode(IMaxNodeWrapper data)
         {
-           if (data == null)
+           if (data == null || !(data is IINodeWrapper))
               return FilterResult.Show;
 
-           if (data.SuperClassID != SClass_ID.Geomobject)
-              return FilterResult.Show;
-
-           if (HelperMethods.ClassIDEquals(data.ClassID, BuiltInClassIDA.BONE_OBJ_CLASSID, BuiltInClassIDB.BONE_OBJ_CLASSID))
+           if (HelperMethods.IsBone((IINode)data.WrappedNode))
               return FilterResult.Hide;
            else
               return FilterResult.Show;
