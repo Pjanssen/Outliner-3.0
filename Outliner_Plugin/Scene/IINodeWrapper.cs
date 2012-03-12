@@ -84,6 +84,18 @@ public class IINodeWrapper : IMaxNodeWrapper
    }
 
 
+   public override bool IsValid
+   {
+      get
+      {
+         if (!base.IsValid)
+            return false;
+
+         try { return this.node.TestAFlag(AnimatableFlags.IsDeleted); }
+         catch { return false; }
+      }
+   }
+
    public const String IMGKEY_BONE      = "bone";
    public const String IMGKEY_CAMERA    = "camera";
    public const String IMGKEY_GEOMETRY  = "geometry";

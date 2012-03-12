@@ -103,6 +103,19 @@ namespace Outliner.Scene
       }
 
 
+      public override bool IsValid
+      {
+         get
+         {
+            if (!base.IsValid)
+               return false;
+
+            try { return this.layer.TestAFlag(AnimatableFlags.IsDeleted); }
+            catch { return false; }
+         }
+      }
+
+
       public const String IMGKEY_LAYER        = "layer";
       public const String IMGKEY_LAYER_ACTIVE = "layer_active";
       public override string ImageKey

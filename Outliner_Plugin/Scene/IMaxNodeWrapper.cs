@@ -68,24 +68,7 @@ namespace Outliner.Scene
       /// </summary>
       public virtual Boolean IsValid
       {
-         get
-         {
-            Object node = this.WrappedNode;
-            if (node == null)
-               return false;
-
-            try
-            {
-               if (node is IAnimatable)
-                  return !((IAnimatable)node).TestAFlag(AnimatableFlags.IsDeleted);
-               else
-                  return true;
-            }
-            catch
-            {
-               return false;
-            }
-         }
+         get { return this.WrappedNode != null; }
       }
 
       public const String IMGKEY_UNKNOWN = "unknown";
