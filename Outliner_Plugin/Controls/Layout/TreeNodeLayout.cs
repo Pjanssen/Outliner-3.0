@@ -45,6 +45,18 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
       }
    }
 
+   public void HandleMouseDoubleClick(MouseEventArgs e, TreeNode tn)
+   {
+      foreach (TreeNodeLayoutItem i in this.items)
+      {
+         if (i.GetBounds(tn).Contains(e.Location))
+         {
+            i.HandleDoubleClick(e, tn);
+            break;
+         }
+      }
+   }
+
    #region ICollection members
       
    public void Add(TreeNodeLayoutItem item)

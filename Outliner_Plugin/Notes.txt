@@ -2,6 +2,22 @@
 -------
 * Move hidden particle classes 'filtering' to permanent filter?
 * Generalize addNode method in TreeMode.
+* Labeledit does not receive focus
+* Introduce displayname?
+* Horizontal scroll
+* TreeView base node width
+* Refactor TreeMode.tree_SelectionChanged
+* Add ?
+	// Avoid tooltips popping up when a treenode's text is outside the bounds (gives draw error)
+      protected override CreateParams CreateParams
+      {
+         get
+         {
+            CreateParams parms = base.CreateParams;
+            parms.Style |= 0x80; // Turn on TVS_NOTOOLTIPS 
+            return parms;
+         }
+      }
 
 NODE BUTTONS
 ------------

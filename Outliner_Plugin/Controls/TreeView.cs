@@ -33,6 +33,7 @@ public class TreeView : System.Windows.Forms.TreeView
       this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
       this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 
+      this.LabelEdit = true;
       this.AllowDrop = true;
       this.CheckBoxes = true; //Enable checkboxes to get scrollbars to show up in time.
    }
@@ -227,7 +228,13 @@ public class TreeView : System.Windows.Forms.TreeView
       }
    }
 
+   protected override void OnMouseDoubleClick(MouseEventArgs e)
+   {
+      TreeNode tn = this.GetNodeAt(e.X, e.Y);
 
+      if (tn != null)
+         this.TnLayout.HandleMouseDoubleClick(e, tn);
+   }
 
    #endregion
 

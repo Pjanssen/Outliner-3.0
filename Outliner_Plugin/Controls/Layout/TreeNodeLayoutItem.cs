@@ -101,7 +101,12 @@ namespace Outliner.Controls.Layout
       /// <summary>
       /// This method is called when a TreeNode is clicked.
       /// </summary>
-      public abstract void HandleMouseUp(MouseEventArgs e, TreeNode tn);
+      public virtual void HandleMouseUp(MouseEventArgs e, TreeNode tn) { }
+
+      /// <summary>
+      /// This method is called when a TreeNode is double-clicked.
+      /// </summary>
+      public virtual void HandleDoubleClick(MouseEventArgs e, TreeNode tn) { }
    }
 
 }

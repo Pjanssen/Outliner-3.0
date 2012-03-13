@@ -88,5 +88,10 @@ public class TreeNodeText : TreeNodeLayoutItem
 
       tree.OnSelectionChanged();
    }
+
+   public override void HandleDoubleClick(MouseEventArgs e, TreeNode tn)
+   {
+      tn.BeginEdit();
+   }
 }
 }

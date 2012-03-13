@@ -32,7 +32,7 @@ namespace Outliner.Actions
       public override object CreateDockableContent()
       {
          Outliner.Controls.TestControl tc = new Controls.TestControl();
-
+         
          IIPathConfigMgr pathMgr = Autodesk.Max.GlobalInterface.Instance.IPathConfigMgr.PathConfigMgr;
          IGlobal.IGlobalMaxSDK.IGlobalUtil.IGlobalPath path = GlobalInterface.Instance.MaxSDK.Util.Path;
          IPath layoutFile = path.Create(pathMgr.GetDir(MaxDirectory.UserScripts));
@@ -48,7 +48,7 @@ namespace Outliner.Actions
          //tm.Filters.Add(new Filters.HelperFilter());
          //tm.Filters.Enabled = true;
          tm.FillTree();
-
+         
          return tc;
       }
 
@@ -67,10 +67,7 @@ namespace Outliner.Actions
 
       public override bool NeedsKeyboardFocus
       {
-         get
-         {
-            return true;
-         }
+         get { return true; }
       }
 
       public override bool DestroyOnClose
@@ -81,10 +78,7 @@ namespace Outliner.Actions
 
       public override bool IsMainContent
       {
-         get
-         {
-            return true;
-         }
+         get { return true; }
       }
 
    }

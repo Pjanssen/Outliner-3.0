@@ -7,6 +7,7 @@ using Autodesk.Max;
 using Outliner.Controls.FiltersBase;
 using Outliner.Scene;
 using Outliner.Commands;
+using Outliner.Controls;
 
 namespace Outliner.TreeModes
 {
@@ -25,7 +26,8 @@ namespace Outliner.TreeModes
          this.nodes = new Dictionary<Object, TreeNode>();
          this.Filters = new FilterCollection<IMaxNodeWrapper>();
 
-         this.tree.SelectionChanged += new Controls.SelectionChangedEventHandler(tree_SelectionChanged);
+         this.tree.SelectionChanged += new SelectionChangedEventHandler(tree_SelectionChanged);
+         this.tree.AfterLabelEdit += new NodeLabelEditEventHandler(tree_AfterLabelEdit);
 
          IGlobal iGlobal = GlobalInterface.Instance;
          iGlobal.RegisterNotification(PostReset, null, SystemNotificationCode.SystemPostReset);
@@ -160,6 +162,23 @@ namespace Outliner.TreeModes
          }
 
          (new SelectCommand(nt)).Execute(true);
+      }
+
+      void tree_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
+      {
+         if (e.CancelEdit)
+            return;
+
+         TreeNode tn = e.Node;
+         IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+         if (node == null || e.Label == null || e.Label == node.Name)
+            return;
+
+         RenameCommand cmd = new RenameCommand(new List<IMaxNodeWrapper>(1) { node }, e.Label);
+         cmd.Execute(false);
+
+         this.tree.AddToSortQueue(tn);
+         this.tree.TimedSort(true);
       }
 
       #endregion
