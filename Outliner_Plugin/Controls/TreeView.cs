@@ -50,6 +50,17 @@ public class TreeView : System.Windows.Forms.TreeView
       base.Dispose(disposing);
    }
 
+   private const int TVS_NOTOOLTIPS = 0x0080;
+   protected override CreateParams CreateParams
+   {
+      get
+      {
+         CreateParams parms = base.CreateParams;
+         parms.Style |= TVS_NOTOOLTIPS;
+         return parms;
+      }
+   }
+
 
    #region Selection
 
