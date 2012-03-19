@@ -13,7 +13,7 @@ public class RenderableButton : ImageButton
                                     OutlinerResources.button_render_disabled)
    { }
 
-   public override bool IsEnabled(System.Windows.Forms.TreeNode tn)
+   public override bool IsEnabled(TreeNode tn)
    {
       IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
       if (node == null)
@@ -22,7 +22,7 @@ public class RenderableButton : ImageButton
       return node.Renderable;
    }
 
-   public override void HandleMouseUp(System.Windows.Forms.MouseEventArgs e, System.Windows.Forms.TreeNode tn)
+   public override void HandleClick(System.Windows.Forms.MouseEventArgs e, TreeNode tn)
    {
       if (this.Layout == null || this.Layout.TreeView == null)
          return;

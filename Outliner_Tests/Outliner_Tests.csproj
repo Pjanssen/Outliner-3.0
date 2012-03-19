@@ -65,7 +65,9 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrozenFilterTest.cs" />
+    <Compile Include="Controls\TreeView\TreeNodeCollectionTest.cs" />
+    <Compile Include="Controls\TreeView\TreeNodeTest.cs" />
+    <Compile Include="Controls\TreeView\TreeViewTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

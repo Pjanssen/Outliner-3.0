@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using Outliner.Controls;
 using Outliner.Scene;
 using System.Drawing;
+// Import System.Windows.Forms with alias to avoid ambiguity 
+// between System.Windows.TreeNode and Outliner.Controls.TreeNode.
+using WinForms = System.Windows.Forms;
 
 namespace Outliner
 {
@@ -28,7 +30,7 @@ public static class HelperMethods
    public static TreeNode CreateTreeNode(IMaxNodeWrapper node)
    {
       TreeNode tn = new TreeNode(node.Name);
-      tn.Tag = new OutlinerTreeNodeData(tn, node);
+      tn.Tag = node;
       tn.ImageKey = node.ImageKey;
       return tn;
    }
@@ -42,11 +44,7 @@ public static class HelperMethods
       if (tn == null)
          return null;
 
-      OutlinerTreeNodeData tnData = tn.Tag as OutlinerTreeNodeData;
-      if (tnData == null)
-         return null;
-      else
-         return tnData.Node;
+      return tn.Tag as IMaxNodeWrapper;
    }
 
    /// <summary>
@@ -57,10 +55,19 @@ public static class HelperMethods
       return tns.Select(HelperMethods.GetMaxNode);
    }
 
+   /// <summary>
+   /// Extracts all wrapped nodes of type T from a collection of TreeNodes
+   /// </summary>
+   /// <typeparam name="T">The type of node to select from the IMaxNodeWrapper.</typeparam>
    public static IEnumerable<T> GetWrappedNodes<T>(IEnumerable<TreeNode> tns)
    {
       return GetWrappedNodes<T>(HelperMethods.GetMaxNodes(tns));
    }
+
+   /// <summary>
+   /// Extracts all wrapped nodes of type T from a collection of IMaxNodeWrappers
+   /// </summary>
+   /// <typeparam name="T">The type of node to select from the IMaxNodeWrapper.</typeparam>
    public static IEnumerable<T> GetWrappedNodes<T>(IEnumerable<IMaxNodeWrapper> wrappers)
    {
       return wrappers.Where(w => w.WrappedNode is T).Select(n => (T)n.WrappedNode);
@@ -84,6 +91,22 @@ public static class HelperMethods
          lst.Add(tab[(IntPtr)i]);
 
       return lst;
+   }
+
+   public static IINodeTab ToIINodeTab(IEnumerable<IMaxNodeWrapper> nodes)
+   {
+      IINodeTab tab = GlobalInterface.Instance.INodeTabNS.Create();
+      Int32 nodeCount = nodes.Count();
+      if (nodes.Count() > 0)
+      {
+         tab.Resize(nodeCount);
+         foreach (IMaxNodeWrapper node in nodes)
+         {
+            if (node is IINodeWrapper)
+               tab.AppendNode((IINode)node.WrappedNode, true, 0);
+         }
+      }
+      return tab;
    }
 
    /// <summary>
@@ -128,11 +151,17 @@ public static class HelperMethods
    public const uint PFMATERIALCLASSID_PARTB      = 0x1eb34400;
    public const String CAM_3DXSTUDIO_NAME         = "3DxStudio Perspective";
 
+   /// <summary>
+   /// Tests if the supplied IINode is an "invisible" node.
+   /// </summary>
    public static Boolean IsHiddenNode(IINode node)
    {
       return IsPFHelper(node) || node.Name == CAM_3DXSTUDIO_NAME;
    }
 
+   /// <summary>
+   /// Tests whether the supplied IINode is a bone object.
+   /// </summary>
    public static Boolean IsBone(IINode node)
    {
       if (node != null && node.ObjectRef != null && node.ObjectRef.SuperClassID == SClass_ID.Geomobject)
@@ -147,6 +176,9 @@ public static class HelperMethods
       return false;
    }
 
+   /// <summary>
+   /// Tests whether the supplied IINode is a particle flow helper object.
+   /// </summary>
    public static bool IsPFHelper(IINode node)
    {
       if (node == null || node.ObjectRef == null)
@@ -161,6 +193,11 @@ public static class HelperMethods
           || classID_B == PFMATERIALCLASSID_PARTB;
    }
 
+   /// <summary>
+   /// Tests if the supplied IINode is an xref node.
+   /// </summary>
+   /// <param name="node"></param>
+   /// <returns></returns>
    public static Boolean IsXref(IINode node)
    {
       if (node == null || node.ObjectRef == null)
@@ -206,7 +243,7 @@ public static class HelperMethods
    /// </summary>
    public static Boolean ControlPressed
    {
-      get { return (Control.ModifierKeys & Keys.Control) == Keys.Control; }
+      get { return WinForms::Control.ModifierKeys.HasFlag(WinForms::Keys.Control); }
    }
 
    /// <summary>
@@ -214,7 +251,7 @@ public static class HelperMethods
    /// </summary>
    public static Boolean AltPressed
    {
-      get { return (Control.ModifierKeys & Keys.Alt) == Keys.Alt; }
+      get { return WinForms::Control.ModifierKeys.HasFlag(WinForms::Keys.Alt); }
    }
 
    /// <summary>
@@ -222,7 +259,7 @@ public static class HelperMethods
    /// </summary>
    public static Boolean ShiftPressed
    {
-      get { return (Control.ModifierKeys & Keys.Shift) == Keys.Shift; }
+      get { return WinForms::Control.ModifierKeys.HasFlag(WinForms::Keys.Shift); }
    }
 }
 

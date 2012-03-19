@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
-using Outliner.TreeModes;
+using Outliner.Controls;
 using Autodesk.Max;
 using Outliner.Scene;
 

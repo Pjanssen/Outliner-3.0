@@ -9,23 +9,32 @@ namespace Outliner.Controls.Layout
 {
 public class FlexibleSpace : TreeNodeLayoutItem
 {
-   public override Size GetSize(TreeNode tn)
+   public override int GetWidth(TreeNode tn)
    {
       if (this.Layout == null || this.Layout.TreeView == null)
-         return Size.Empty;
+         return 0;
 
-      Size s = new Size(this.Layout.TreeView.Width, this.Layout.TreeView.ItemHeight);
+      TreeView tree = this.Layout.TreeView;
+      Int32 w = tree.Width;
       foreach (TreeNodeLayoutItem item in this.Layout)
       {
          if (item != this && item.IsVisible(tn))
-            s.Width -= item.GetSize(tn).Width + item.PaddingLeft + item.PaddingRight;
+            w -= item.GetWidth(tn) + item.PaddingLeft + item.PaddingRight;
       }
 
-      s.Width -= 4;
-      if ((NativeMethods.GetVisibleScrollbars(this.Layout.TreeView) & ScrollBars.Vertical) == ScrollBars.Vertical)
-         s.Width -= SystemInformation.VerticalScrollBarWidth;
+      w -= 4;
+      if ((NativeMethods.GetVisibleScrollbars(tree) & ScrollBars.Vertical) == ScrollBars.Vertical)
+         w -= SystemInformation.VerticalScrollBarWidth;
 
-      return s;
+      return w;
+   }
+
+   public override int GetHeight(TreeNode tn)
+   {
+      if (this.Layout == null || this.Layout.TreeView == null)
+         return 0;
+
+      return this.Layout.TreeView.ItemHeight;
    }
 
    public override void Draw(Graphics g, TreeNode tn)
@@ -33,7 +42,7 @@ public class FlexibleSpace : TreeNodeLayoutItem
       //FlexibleSpace does not draw anything.
    }
 
-   public override void HandleMouseUp(MouseEventArgs e, TreeNode tn)
+   public override void HandleClick(MouseEventArgs e, TreeNode tn)
    {
       Keys modKeys = Control.ModifierKeys;
       if ((modKeys & Keys.Control) != Keys.Control && (modKeys & Keys.Shift) != Keys.Shift)

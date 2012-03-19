@@ -2,62 +2,55 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Autodesk.Max.Plugins;
+using Outliner.Scene;
 using Autodesk.Max;
 
 namespace Outliner.Commands
 {
-   public class SelectCommand : Command
+public class SelectCommand : Command
+{
+   private IINodeTab newSelection;
+   private IINodeTab prevSelection;
+
+   public SelectCommand(IEnumerable<IMaxNodeWrapper> nodes)
    {
-      private IINodeTab prevSelection;
-      private IINodeTab newSelection;
+      if (nodes == null)
+         throw new ArgumentNullException("nodes");
 
-      public SelectCommand(IINodeTab nodes)
-      {
-         if (nodes == null)
-            throw new ArgumentNullException("Select command nodes parameter cannot be null.");
-
-         this.newSelection = nodes;
-         this.prevSelection = GlobalInterface.Instance.INodeTabNS.Create();
-      }
-
-      public override string Description
-      {
-         get { return OutlinerResources.Command_Select; }
-      }
-
-      public override void Do()
-      {
-         IInterface ip = GlobalInterface.Instance.COREInterface;
-         this.storePrevSelection(ip);
-         this.SelectNodes(ip, this.newSelection);
-      }
-
-      public override void Undo()
-      {
-         IInterface ip = GlobalInterface.Instance.COREInterface;
-         this.SelectNodes(ip, this.prevSelection);
-      }
-
-      protected void storePrevSelection(IInterface ip)
-      {
-         Int32 selNodeCount = ip.SelNodeCount;
-         if (selNodeCount > 0)
-         {
-            this.prevSelection.Resize(selNodeCount);
-            for (int i = 0; i < selNodeCount; i++)
-            {
-               this.prevSelection.AppendNode(ip.GetSelNode(i), true, 0);
-            }
-         }
-      }
-
-      protected void SelectNodes(IInterface ip, IINodeTab nodes)
-      {
-         Boolean empty = this.newSelection.Count == 0;
-         ip.ClearNodeSelection(empty);
-         if (!empty)
-            ip.SelectNodeTab(this.newSelection, true, true);
-      }
+      this.newSelection = HelperMethods.ToIINodeTab(nodes);
    }
+
+   public override string Description
+   {
+      get { return OutlinerResources.Command_Select; }
+   }
+
+   public override void Do()
+   {
+      IInterface ip = GlobalInterface.Instance.COREInterface;
+      Int32 selNodeCount = ip.SelNodeCount;
+      this.prevSelection = GlobalInterface.Instance.INodeTabNS.Create();
+      for (int i = 0; i < selNodeCount; i++)
+      {
+         this.prevSelection.AppendNode(ip.GetSelNode(i), true, 0);
+      }
+
+      this.SelectNodes(ip, this.newSelection);
+   }
+
+   public override void Undo()
+   {
+      this.SelectNodes(GlobalInterface.Instance.COREInterface, this.prevSelection);
+   }
+
+   protected void SelectNodes(IInterface ip, IINodeTab nodes)
+   {
+      if (nodes == null)
+         return;
+
+      ip.ClearNodeSelection(false);
+      if (nodes.Count > 0)
+         ip.SelectNodeTab(nodes, true, false);
+   }
+}
 }

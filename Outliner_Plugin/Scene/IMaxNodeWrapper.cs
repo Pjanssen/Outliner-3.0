@@ -71,10 +71,9 @@ namespace Outliner.Scene
          get { return this.WrappedNode != null; }
       }
 
-      public const String IMGKEY_UNKNOWN = "unknown";
       public virtual String ImageKey
       {
-         get { return IMGKEY_UNKNOWN; }
+         get { return Outliner.Controls.IconHelperMethods.IMGKEY_UNKNOWN; }
       }
 
       public static IMaxNodeWrapper Create(Object node)

@@ -12,14 +12,27 @@ namespace Outliner.Controls.Layout
 [XmlRoot("TreeNodeLayout")]
 public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
 {
+   private TreeView treeView;
    [XmlIgnore]
-   public TreeView TreeView { get; set; }
+   public TreeView TreeView 
+   {
+      get { return this.treeView; }
+      set
+      {
+         this.treeView = value;
+      }
+   }
    [XmlIgnore]
    private List<TreeNodeLayoutItem> items { get; set; }
 
    public TreeNodeLayout()
    {
       this.items = new List<TreeNodeLayoutItem>();
+   }
+
+   public Int32 GetTreeNodeWidth(TreeNode tn)
+   {
+      return this.items.Sum(i => i.PaddingLeft + i.GetWidth(tn) + i.PaddingRight);
    }
 
    public void DrawTreeNode(Graphics g, TreeNode tn) 
@@ -33,13 +46,13 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
       }
    }
 
-   public void HandleMouseUp(MouseEventArgs e, TreeNode tn)
+   public void HandleClick(MouseEventArgs e, TreeNode tn)
    {
       foreach (TreeNodeLayoutItem i in this.items)
       {
          if (i.GetBounds(tn).Contains(e.Location))
          {
-            i.HandleMouseUp(e, tn);
+            i.HandleClick(e, tn);
             break;
          }
       }
@@ -57,12 +70,14 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
       }
    }
 
+
    #region ICollection members
       
    public void Add(TreeNodeLayoutItem item)
    {
       item.Layout = this;
       this.items.Add(item);
+
       if (this.TreeView != null)
          this.TreeView.Invalidate();
    }
@@ -171,9 +186,9 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
       {
          TreeNodeLayout layout = new TreeNodeLayout();
          layout.Add(new TreeNodeIndent());
-         layout.Add(new TreeNodeIcon(IconSet.Max, true));
+         layout.Add(new TreeNodeIcon(IconSet.Max, false));
          layout.Add(new TreeNodeText());
-         layout.Add(new FlexibleSpace());
+         //layout.Add(new FlexibleSpace());
          return layout;
       }
    }
@@ -187,7 +202,10 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
          layout.Add(new TreeNodeIcon(IconSet.Max, false));
          layout.Add(new MayaStyleIndent());
          layout.Add(new TreeNodeText());
-         layout.Add(new FlexibleSpace());
+         //layout.Add(new HideButton());
+         //layout.Add(new FreezeButton());
+         //layout.Add(new BoxModeButton());
+         //layout.Add(new FlexibleSpace());
          return layout;
       }
    }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 using Outliner.Controls;
 using Autodesk.Max;
 using Outliner.Scene;
@@ -42,7 +41,7 @@ public class HierarchyMode : TreeMode
       if (filterResult != FilterResult.Hide && !this.nodes.ContainsKey(node))
       {
          TreeNode tn = HelperMethods.CreateTreeNode(wrapper);
-         ((OutlinerTreeNodeData)tn.Tag).FilterResult = filterResult;
+         tn.FilterResult = filterResult;
 
          this.nodes.Add(node, tn);
 

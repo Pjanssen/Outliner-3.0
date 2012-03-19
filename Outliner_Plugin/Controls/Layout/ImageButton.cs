@@ -38,9 +38,14 @@ public abstract class ImageButton : TreeNodeLayoutItem
       BitmapProcessing.Opacity(this.disabledImg_Filtered, IconHelperMethods.FILTERED_OPACITY);
    }
 
-   public override Size GetSize(TreeNode tn)
+   public override int GetWidth(TreeNode tn)
    {
-      return this.enabledImg.Size;
+      return this.enabledImg.Width;
+   }
+
+   public override int GetHeight(TreeNode tn)
+   {
+      return this.enabledImg.Height;
    }
 
    public override void Draw(Graphics g, TreeNode tn)
@@ -55,12 +60,7 @@ public abstract class ImageButton : TreeNodeLayoutItem
          img = (isFiltered) ? this.enabledImg_Filtered : this.enabledImg;
       else
          img = (isFiltered) ? this.disabledImg_Filtered : this.disabledImg;
-      /*
-      if (!this.IsEnabled(tn))
-         img = (isFiltered) ? this.disabledImg_Filtered : this.disabledImg;
-      else
-         img = (isFiltered) ? this.enabledImg_Filtered : this.enabledImg;
-      */
+
       g.DrawImage(img, this.GetBounds(tn));
    }
 }

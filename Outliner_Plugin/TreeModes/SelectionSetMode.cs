@@ -5,7 +5,7 @@ using System.Text;
 using Autodesk.Max;
 using Outliner.Scene;
 using Outliner.Controls.FiltersBase;
-using System.Windows.Forms;
+using Outliner.Controls;
 
 namespace Outliner.TreeModes
 {
@@ -31,7 +31,7 @@ namespace Outliner.TreeModes
          if (filterResult != FilterResult.Hide && !this.nodes.ContainsKey(index))
          {
             TreeNode tn = HelperMethods.CreateTreeNode(wrapper);
-            ((OutlinerTreeNodeData)tn.Tag).FilterResult = filterResult;
+            tn.FilterResult = filterResult;
 
             this.nodes.Add(index, tn);
             this.tree.Nodes.Add(tn);
@@ -59,7 +59,7 @@ namespace Outliner.TreeModes
          if (filterResult != FilterResult.Hide && !this.nodes.ContainsKey(node))
          {
             TreeNode tn = HelperMethods.CreateTreeNode(wrapper);
-            ((OutlinerTreeNodeData)tn.Tag).FilterResult = filterResult;
+            tn.FilterResult = filterResult;
 
             this.nodes.Add(node, tn);
             parentCol.Add(tn);

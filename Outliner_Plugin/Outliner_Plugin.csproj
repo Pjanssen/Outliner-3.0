@@ -35,7 +35,7 @@
   <ItemGroup>
     <Reference Include="Autodesk.Max">
       <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\Autodesk.Max.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="MaxCustomControls">
       <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\MaxCustomControls.dll</HintPath>
@@ -62,30 +62,40 @@
     <Compile Include="Commands\AddToLayerCommand.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\RenameCommand.cs" />
+    <Compile Include="Commands\SelectCommand.cs" />
     <Compile Include="Commands\SetBoxModeCommand.cs" />
     <Compile Include="Commands\FreezeCommand.cs" />
     <Compile Include="Commands\HideCommand.cs" />
-    <Compile Include="Commands\SelectCommand.cs" />
     <Compile Include="Commands\SetRenderableCommand.cs" />
+    <Compile Include="Commands\SetViewCameraCommand.cs" />
     <Compile Include="Commands\SetWireColorCommand.cs" />
     <Compile Include="Commands\SetNodePropertyCommand.cs" />
+    <Compile Include="Commands\ToggleLightCommand.cs" />
     <Compile Include="Controls\BitmapProcessing.cs" />
     <Compile Include="Controls\DragDropHandler.cs" />
+    <Compile Include="Controls\DragDropHandlers\DragDropHandler.cs" />
     <Compile Include="Controls\Layout\AddButton.cs" />
     <Compile Include="Controls\Layout\BoxModeButton.cs" />
     <Compile Include="Controls\Layout\FlexibleSpace.cs" />
     <Compile Include="Controls\Layout\FreezeButton.cs" />
     <Compile Include="Controls\Layout\HideButton.cs" />
     <Compile Include="Controls\Layout\ImageButton.cs" />
-    <Compile Include="Controls\Layout\MayaStyleIndent.cs" />
     <Compile Include="Controls\Layout\RenderableButton.cs" />
     <Compile Include="Controls\Layout\TreeNodeIcon.cs" />
-    <Compile Include="Controls\Layout\TreeNodeIndent.cs" />
-    <Compile Include="Controls\Layout\TreeNodeLayout.cs" />
+    <Compile Include="Controls\Layout\WireColorButton.cs" />
     <Compile Include="Controls\Layout\ExpandButton.cs" />
+    <Compile Include="Controls\Layout\MayaStyleIndent.cs" />
+    <Compile Include="Controls\Layout\TreeNodeIndent.cs" />
+    <Compile Include="Controls\SelectionChangedEventArgs.cs" />
+    <Compile Include="Controls\TreeNode.cs" />
+    <Compile Include="Controls\TreeNodeCollection.cs" />
+    <Compile Include="Controls\Layout\TreeNodeLayout.cs" />
     <Compile Include="Controls\Layout\TreeNodeLayoutItem.cs" />
     <Compile Include="Controls\Layout\TreeNodeText.cs" />
-    <Compile Include="Controls\Layout\WireColorButton.cs" />
+    <Compile Include="Controls\TreeNodeState.cs" />
+    <Compile Include="Controls\TreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Filters\NurbsFilter.cs" />
     <Compile Include="NodeSorters\FrozenSorter.cs" />
     <Compile Include="NodeSorters\INodeHandleSorter.cs" />
@@ -120,7 +130,6 @@
     <Compile Include="Controls\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\SelectionChangedEventArgs.cs" />
     <Compile Include="Controls\TestControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -133,14 +142,10 @@
       <DependentUpon>TreeIcons_Max.resx</DependentUpon>
     </Compile>
     <Compile Include="Controls\TreeColors.cs" />
-    <Compile Include="Controls\TreeView.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="NodeSorters\AlphabeticalSorter.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="OutlinerDescriptor.cs" />
     <Compile Include="OutlinerGUP.cs" />
-    <Compile Include="OutlinerTreeNodeData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene\IILayerWrapper.cs" />
     <Compile Include="Scene\IINodeWrapper.cs" />
@@ -262,6 +267,7 @@
     <EmbeddedResource Include="Resources\node_buttons\render_disabled.png" />
     <EmbeddedResource Include="Resources\node_buttons\render.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "C:\Program Files\Autodesk\3ds Max 2013\bin\assemblies\$(TargetFileName)"</PostBuildEvent>

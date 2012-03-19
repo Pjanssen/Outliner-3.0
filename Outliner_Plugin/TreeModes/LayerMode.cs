@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using System.Windows.Forms;
 using Outliner.Scene;
+using Outliner.Controls;
 using Outliner.Controls.FiltersBase;
 
 namespace Outliner.TreeModes
@@ -59,7 +59,7 @@ public class LayerMode : TreeMode
       if (filterResult != FilterResult.Hide && !this.nodes.ContainsKey(layer))
       {
          TreeNode tn = HelperMethods.CreateTreeNode(wrapper);
-         ((OutlinerTreeNodeData)tn.Tag).FilterResult = filterResult;
+         tn.FilterResult = filterResult;
 
          this.nodes.Add(layer, tn);
          parentCol.Add(tn);
@@ -86,7 +86,7 @@ public class LayerMode : TreeMode
          if (parentTn != null)
          {
             TreeNode tn = HelperMethods.CreateTreeNode(wrapper);
-            ((OutlinerTreeNodeData)tn.Tag).FilterResult = filterResult;
+            tn.FilterResult = filterResult;
 
             this.nodes.Add(node, tn);
             parentTn.Nodes.Add(tn);

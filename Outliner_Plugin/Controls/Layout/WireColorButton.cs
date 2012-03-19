@@ -28,12 +28,14 @@ public class WireColorButton : TreeNodeLayoutItem
       this.ButtonHeight = 11;
    }
 
-   public override Size GetSize(TreeNode tn)
+   public override int GetWidth(TreeNode tn)
    {
-      if (this.Layout == null || this.Layout.TreeView == null)
-         return Size.Empty;
+      return this.ButtonWidth;
+   }
 
-      return new Size(this.ButtonWidth, this.ButtonHeight);
+   public override int GetHeight(TreeNode tn)
+   {
+      return this.ButtonHeight;
    }
 
    public override bool CenterVertically
@@ -62,7 +64,7 @@ public class WireColorButton : TreeNodeLayoutItem
       }
    }
 
-   public override void HandleMouseUp(System.Windows.Forms.MouseEventArgs e, System.Windows.Forms.TreeNode tn)
+   public override void HandleClick(System.Windows.Forms.MouseEventArgs e, TreeNode tn)
    {
       if (this.Layout == null || this.Layout.TreeView == null)
          return;

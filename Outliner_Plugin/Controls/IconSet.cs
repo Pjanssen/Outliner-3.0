@@ -18,6 +18,7 @@ public enum IconSet
 
 public static class IconHelperMethods
 {
+   public const String IMGKEY_UNKNOWN = "unknown";
    public const int HIDDEN_OPACITY   = 100;
    public const int FILTERED_OPACITY = 50;
 

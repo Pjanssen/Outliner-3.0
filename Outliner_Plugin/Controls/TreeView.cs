@@ -1,65 +1,298 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Autodesk.Max;
 using System.Drawing;
-using System.Resources;
-using System.Runtime.InteropServices;
-using System.Windows.Forms.VisualStyles;
-using System.ComponentModel;
 using Outliner.Controls.Layout;
-
 
 namespace Outliner.Controls
 {
-public class TreeView : System.Windows.Forms.TreeView
+public class TreeView : ScrollableControl
 {
-   public TreeView() : base() 
+   private TreeNode root;
+
+   public TreeView()
    {
-      this._colors = new TreeViewColors();
-
-      this._tnlayout = TreeNodeLayout.DefaultLayout;
-      this._tnlayout.TreeView = this;
-      this.Indent    = 15;
-
+      //Member initialization.
+      this.root = new TreeNode(this, "root");
+      this.itemHeight = 18;
+      this.Colors = new TreeViewColors();
       this.SelectedNodes = new HashSet<TreeNode>();
 
-      this._sortQueue = new List<TreeNodeCollection>();
-
+      //Set double buffered user paint style.
       this.SetStyle(ControlStyles.UserPaint, true);
       this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
       this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 
-      this.LabelEdit = true;
-      this.AllowDrop = true;
-      this.CheckBoxes = true; //Enable checkboxes to get scrollbars to show up in time.
+      //Initial scroll values.
+      this.AutoScroll = true;
+      this.VerticalScroll.SmallChange = this.itemHeight;
+      this.VerticalScroll.LargeChange = this.ItemHeight * 3;
    }
 
 
    protected override void Dispose(bool disposing)
    {
-      if (this._backgroundBrush != null)
-      {
-         this._backgroundBrush.Dispose();
-         this._backgroundBrush = null;
-      }
-
-      base.Dispose(disposing);
+      if (this.bgBrush != null)
+         this.bgBrush.Dispose();
    }
 
-   private const int TVS_NOTOOLTIPS = 0x0080;
-   protected override CreateParams CreateParams
+
+   public TreeNodeCollection Nodes
    {
       get
       {
-         CreateParams parms = base.CreateParams;
-         parms.Style |= TVS_NOTOOLTIPS;
-         return parms;
+         return this.root.Nodes;
       }
    }
+
+   private Int32 itemHeight;
+   public Int32 ItemHeight 
+   {
+      get { return this.itemHeight; }
+      set
+      {
+         this.itemHeight = value;
+         this.Update(TreeViewUpdate.Redraw | TreeViewUpdate.Bounds);
+      }
+   }
+
+
+   public TreeNode GetNodeAt(Point location)
+   {
+      return this.GetNodeAt(location.X, location.Y);
+   }
+   public TreeNode GetNodeAt(Int32 x, Int32 y)
+   {
+      if (this.Nodes.Count == 0 || !this.ClientRectangle.Contains(x, y))
+         return null;
+
+      TreeNode tn = this.Nodes[0];
+      Int32 curY = this.ItemHeight - this.VerticalScroll.Value;
+      while (curY <= y && tn != null)
+      {
+         tn = tn.NextVisibleNode;
+         curY += this.ItemHeight;
+      }
+      return tn;
+   }
+
+
+   #region Paint
+
+   private TreeNodeLayout treeNodeLayout;
+   public TreeNodeLayout TreeNodeLayout 
+   {
+      get { return this.treeNodeLayout; }
+      set
+      {
+         this.treeNodeLayout = value;
+         this.treeNodeLayout.TreeView = this;
+      }
+   }
+
+   public void Invalidate(TreeNode tn)
+   {
+      if (tn == null)
+         return;
+
+      Rectangle tnBounds = tn.Bounds;
+      if (this.ClientRectangle.IntersectsWith(tnBounds))
+         this.Invalidate(tnBounds);
+   }
+
+
+
+   private SolidBrush bgBrush;
+   
+   public Outliner.Controls.TreeViewColors Colors { get; set; }
+
+   public override Color BackColor
+   {
+      get { return this.Colors.BackColor; }
+      set
+      {
+         this.Colors.BackColor = value;
+         this.bgBrush = null;
+      }
+   }
+
+   protected override void OnPaintBackground(PaintEventArgs e)
+   {
+      if (this.TestUpdateFlag(TreeViewUpdate.Redraw))
+         return;
+
+      if (this.bgBrush == null)
+         this.bgBrush = new SolidBrush(this.BackColor);
+
+      e.Graphics.FillRectangle(this.bgBrush, e.ClipRectangle);
+   }
+
+   protected override void OnPaint(PaintEventArgs e)
+   {
+      if (this.TestUpdateFlag(TreeViewUpdate.Redraw))
+         return;
+
+      if (this.Nodes.Count == 0 || this.TreeNodeLayout == null)
+         return;
+      
+      Int32 startY = e.ClipRectangle.Y - (this.ItemHeight - 1);
+      Int32 endY = e.ClipRectangle.Bottom;
+
+      TreeNode tn = this.Nodes[0];
+      Int32 curY = 0 - this.VerticalScroll.Value;
+      while (curY <= endY && tn != null)
+      {
+         if (curY >= startY)
+            this.TreeNodeLayout.DrawTreeNode(e.Graphics, tn);
+      
+         tn = tn.NextVisibleNode;
+         curY += this.ItemHeight;
+      }
+   }
+
+   #endregion
+
+
+   #region Update
+
+   public void InvalidateTreeNode(TreeNode tn)
+   {
+      if (tn == null)
+         return;
+
+      this.Invalidate(tn.Bounds);
+   }
+
+   private Int32 beginUpdateCalls = 0;
+   private TreeViewUpdate updating = TreeViewUpdate.None;
+
+   /// <summary>
+   /// Tests if one or more update flags are set.
+   /// </summary>
+   private Boolean TestUpdateFlag(TreeViewUpdate flag)
+   {
+      return (this.updating & flag) == flag;
+   }
+
+   /// <summary>
+   /// Sets one or more update flags.
+   /// </summary>
+   private void SetUpdateFlag(TreeViewUpdate flag)
+   {
+      this.updating |= flag;
+   }
+
+   /// <summary>
+   /// Unsets one or more update flags
+   /// </summary>
+   private void RemoveUpdateFlag(TreeViewUpdate flag)
+   {
+      this.updating &= ~flag;
+   }
+
+   /// <summary>
+   /// Updates the TreeView according to the supplied update flags. 
+   /// If BeginUpdate was called before, the flags are added to the update queue.
+   /// </summary>
+   public void Update(TreeViewUpdate flags)
+   {
+      this.SetUpdateFlag(flags);
+      if (this.beginUpdateCalls == 0)
+         this.EndUpdate();
+   }
+
+   /// <summary>
+   /// Stops the TreeView updates until EndUpdate is called, then updates using TreeViewUpdate.All.
+   /// </summary>
+   public void BeginUpdate()
+   {
+      this.BeginUpdate(TreeViewUpdate.All);
+   }
+
+   /// <summary>
+   /// Stops the TreeView updates until EndUpdate is called, then updates according to the provided update flags.
+   /// </summary>
+   public void BeginUpdate(TreeViewUpdate flags)
+   {
+      this.updating = flags;
+      this.beginUpdateCalls += 1;
+   }
+
+   /// <summary>
+   /// Resumes updating the TreeView, and processes all update flags set using Update or BeginUpdate.
+   /// </summary>
+   public void EndUpdate()
+   {
+      this.beginUpdateCalls -= 1;
+      if (this.beginUpdateCalls <= 0)
+      {
+         this.beginUpdateCalls = 0;
+
+         if (this.TestUpdateFlag(TreeViewUpdate.Bounds))
+         {
+            this.RemoveUpdateFlag(TreeViewUpdate.Bounds);
+            this.AutoScrollMinSize = this.getMaxBounds();
+         }
+
+         if (this.TestUpdateFlag(TreeViewUpdate.Redraw))
+         {
+            this.RemoveUpdateFlag(TreeViewUpdate.Redraw);
+            this.Invalidate();
+         }
+
+         this.RemoveUpdateFlag(TreeViewUpdate.All);
+      }
+   }
+
+   private Size getMaxBounds()
+   {
+      if (this.TreeNodeLayout == null || this.Nodes.Count == 0)
+         return Size.Empty;
+
+      Int32 maxWidth = 0;
+      Int32 maxHeight = 0;
+      TreeNode tn = this.Nodes[0];
+      while (tn != null)
+      {
+         tn.InvalidateBounds();
+         Int32 nodeWidth = this.TreeNodeLayout.GetTreeNodeWidth(tn);
+         if (nodeWidth > maxWidth)
+            maxWidth = nodeWidth;
+
+         maxHeight += this.ItemHeight;
+         tn = tn.NextVisibleNode;
+      }
+      return new Size(maxWidth + 5, maxHeight);
+   }
+
+   #endregion
+
+
+   #region Mouse Events
+
+   protected override void OnMouseClick(MouseEventArgs e)
+   {
+      if (this.TreeNodeLayout == null)
+         return;
+
+      TreeNode tn = this.GetNodeAt(e.Location);
+      if (tn == null)
+         return;
+
+      this.TreeNodeLayout.HandleClick(e, tn);
+   }
+
+   protected override void OnMouseDoubleClick(MouseEventArgs e)
+   {
+      TreeNode tn = this.GetNodeAt(e.X, e.Y);
+
+      if (tn != null)
+         this.TreeNodeLayout.HandleMouseDoubleClick(e, tn);
+   }
+
+   #endregion
 
 
    #region Selection
@@ -81,12 +314,12 @@ public class TreeView : System.Windows.Forms.TreeView
 
       if (select)
       {
-         this.SetNodeColor(tn, TreeNodeColor.Selected);
+         tn.State = TreeNodeState.Selected;
 
          if (!this.IsSelectedNode(tn))
             this.SelectedNodes.Add(tn);
 
-//            this.HighlightParentNodes(tn);
+         //            this.HighlightParentNodes(tn);
 
          this.LastSelectedNode = tn;
       }
@@ -95,14 +328,14 @@ public class TreeView : System.Windows.Forms.TreeView
          SelectedNodes.Remove(tn);
 
          if (IsParentOfSelectedNode(tn, true))
-            this.SetNodeColor(tn, TreeNodeColor.ParentOfSelected);
+            tn.State = TreeNodeState.ParentOfSelected;
          else
-            this.SetNodeColor(tn, TreeNodeColor.Default);
+            tn.State = TreeNodeState.Unselected;
 
-//            this.RemoveParentHighlights(tn);
+         //            this.RemoveParentHighlights(tn);
       }
    }
-      
+
    public void SelectAllNodes(Boolean select)
    {
       if (select)
@@ -125,7 +358,7 @@ public class TreeView : System.Windows.Forms.TreeView
          this.SelectAllNodes(select, tn.Nodes);
       }
    }
-      
+
    public void SelectNodesInsideRange(TreeNode startNode, TreeNode endNode)
    {
       if (startNode == null || endNode == null)
@@ -187,7 +420,7 @@ public class TreeView : System.Windows.Forms.TreeView
 
       return false;
    }
-      
+
    public Boolean IsChildOfSelectedNode(TreeNode tn)
    {
       if (tn == null)
@@ -208,310 +441,52 @@ public class TreeView : System.Windows.Forms.TreeView
    #endregion
 
 
-   #region Mouse Events
-
-   private const int WM_LBUTTONDOWN  = 0x0201;
-   private const int WM_LBUTTONUP    = 0x0202;
-   private const int WM_LBUTTONDBCLK = 0x0203;
-
-   protected override void DefWndProc(ref Message m)
-   {
-      //Block mouse event messages.
-      if (   m.Msg == WM_LBUTTONDOWN 
-          || m.Msg == WM_LBUTTONUP 
-          || m.Msg == WM_LBUTTONDBCLK
-         ) return;
-
-      base.DefWndProc(ref m);
-   }
-
-
-   protected override void OnMouseUp(MouseEventArgs e)
-   {
-      TreeNode tn = this.GetNodeAt(e.X, e.Y);
-
-      if (tn != null)
-         this.TnLayout.HandleMouseUp(e, tn);
-      else if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
-      {
-         this.SelectAllNodes(false);
-         this.OnSelectionChanged();
-      }
-   }
-
-   protected override void OnMouseDoubleClick(MouseEventArgs e)
-   {
-      TreeNode tn = this.GetNodeAt(e.X, e.Y);
-
-      if (tn != null)
-         this.TnLayout.HandleMouseDoubleClick(e, tn);
-   }
-
-   #endregion
-
-
-   #region Colors
-
-   private TreeViewColors _colors;
-   [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-   public TreeViewColors Colors
-   {
-      get { return _colors; }
-      set
-      {
-         _colors = value;
-         _backgroundBrush = null;
-         this.Invalidate();
-      }
-   }
-
-   public override Color ForeColor
-   {
-      get { return this.Colors.NodeForeColor; }
-      set { this.Colors.NodeForeColor = value; }
-   }
-
-   public override Color BackColor
-   {
-      get { return this.Colors.BackColor; }
-      set { this.Colors.BackColor = value; }
-   }
-
-   public new Color LineColor
-   {
-      get { return this.Colors.LineColor; }
-      set { this.Colors.LineColor = value; }
-   }
-
-   internal void SetNodeColor(TreeNode tn, TreeNodeColor color)
-   {
-      switch (color)
-      {
-         case TreeNodeColor.Default:
-            tn.ForeColor = this.Colors.NodeForeColor;//this.GetNodeForeColor(n);
-            tn.BackColor = this.Colors.NodeBackColor;//this.GetNodeBackColor(n);
-            break;
-         case TreeNodeColor.Selected:
-            tn.ForeColor = this.Colors.SelectionForeColor;
-            tn.BackColor = this.Colors.SelectionBackColor;
-            break;
-            /*
-         case TreeNodeColor.ParentOfSelected:
-            if (n is OutlinerObject)
-            {
-               tn.ForeColor = this.Colors.ParentForeColor;
-               tn.BackColor = this.Colors.ParentBackColor;
-            }
-            else if (n is OutlinerLayer || n is OutlinerMaterial || n is SelectionSet)
-            {
-               tn.ForeColor = this.Colors.LayerForeColor;
-               tn.BackColor = this.Colors.LayerBackColor;
-            }
-            else
-            {
-               tn.ForeColor = this.GetNodeForeColor(n);
-               tn.BackColor = this.GetNodeBackColor(n);
-            }
-            break;
-            */
-         case TreeNodeColor.LinkTarget:
-            tn.ForeColor = this.Colors.LinkForeColor;
-            tn.BackColor = this.Colors.LinkBackColor;
-            break;
-      }
-   }
-
-   internal void SetNodeColor(TreeNode tn, Color foreColor, Color backColor)
-   {
-      tn.ForeColor = foreColor;
-      tn.BackColor = backColor;
-   }
-
-   internal void SetNodeColorAuto(TreeNode tn)
-   {
-      TreeNodeColor nodeColor;
-      if (this.IsSelectedNode(tn))
-         nodeColor = TreeNodeColor.Selected;
-      else if (this.IsParentOfSelectedNode(tn, true))
-         nodeColor = TreeNodeColor.ParentOfSelected;
-      else
-         nodeColor = TreeNodeColor.Default;
-
-      SetNodeColor(tn, nodeColor);
-   }
-
-   #endregion
-
-
-   #region Paint
-
-   private TreeNodeLayout _tnlayout;
-   [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-   public TreeNodeLayout TnLayout 
-   {
-      get { return _tnlayout; }
-      set
-      {
-         _tnlayout = value;
-         value.TreeView = this;
-         this.Invalidate();
-      }
-   }
-
-   public void InvalidateTreeNode(TreeNode tn)
-   {
-      if (tn == null)
-         return;
-
-      Rectangle tnBounds = tn.Bounds;
-      if (this.ClientRectangle.IntersectsWith(tnBounds))
-         this.Invalidate(tnBounds);
-   }
-
-
-   private SolidBrush _backgroundBrush;
-
-   protected override void OnPaintBackground(PaintEventArgs pevent)
-   {
-      if (_backgroundBrush == null)
-         _backgroundBrush = new SolidBrush(this.BackColor);
-
-      pevent.Graphics.FillRectangle(_backgroundBrush, pevent.ClipRectangle);
-   }
-      
-   protected override void OnPaint(PaintEventArgs e)
-   {
-      if (this.Nodes.Count == 0 || this.TnLayout == null)
-         return;
-         
-      Int32 curY = e.ClipRectangle.Y;
-      while (curY <= e.ClipRectangle.Bottom)
-      {
-         TreeNode tn = this.GetNodeAt(0, curY);
-
-         if (tn == null)
-            break;
-
-         Rectangle tnBounds = tn.Bounds;
-         if (tnBounds.Width != 0 && tnBounds.Height != 0)
-            this.TnLayout.DrawTreeNode(e.Graphics, tn);
-
-         curY += this.ItemHeight;
-      }
-   }
-
-
-   #endregion
-
-
-   #region ScrollPosition
-
-   protected Point ScrollPos
-   {
-      get { return new Point(this.ScrollPosX, this.ScrollPosY); }
-      set 
-      {
-         this.ScrollPosX = value.X;
-         this.ScrollPosY = value.Y;
-      }
-   }
-   protected int ScrollPosX
-   {
-      get { return NativeMethods.GetScrollPos(this.Handle, 0); }
-      set { NativeMethods.SetScrollPos(this.Handle, NativeMethods.SB_HOR, value, true); }
-   }
-   protected int ScrollPosY
-   {
-      get { return NativeMethods.GetScrollPos(this.Handle, 1); }
-      set { NativeMethods.SetScrollPos(this.Handle, NativeMethods.SB_VER, value, true); }
-   }
-
-   #endregion
-
-
    #region Sort
 
-   new public IComparer TreeViewNodeSorter
-   {
-      get { return null; }
-      set { }
-   }
-   new public Boolean Sorted
-   {
-      get { return false; }
-      set { }
-   }
-
-   private IComparer<TreeNode> _nodeSorter;
-   public IComparer<TreeNode> NodeSorter
-   {
-      get { return _nodeSorter; }
-      set
-      {
-         _nodeSorter = value;
-         this.Sort();
-      }
-   }
-   
-   new public void Sort()
-   {
-      Point scrollPos = this.ScrollPos;
-
-      this.Sort(this.Nodes, true);
-   //   this.restoreExpandedStates();
-      _sortQueue.Clear();
-
-      this.ScrollPos = scrollPos;
-   }
-   protected void Sort(TreeNodeCollection nodes, Boolean recursive)
-   {
-      if (this.NodeSorter == null || nodes == null)
-         return;
-
-      if (nodes.Count == 1 && recursive)
-         this.Sort(nodes[0].Nodes, true);
-      else
-      {
-         TreeNode[] dest = new TreeNode[nodes.Count];
-         nodes.CopyTo(dest, 0);
-
-         Array.Sort<TreeNode>(dest, this.NodeSorter);
-
-         if (recursive)
-         {
-            foreach (TreeNode tn in dest)
-            {
-               if (tn.GetNodeCount(false) > 0)
-                  this.Sort(tn.Nodes, true);
-            }
-         }
-
-         nodes.Clear();
-         nodes.AddRange(dest);
-      }
-   }
-      
-   internal void SortQueue()
-   {
-      if (_sortQueue == null || _sortQueue.Count == 0)
-         return;
-
-      Point scrollPos = this.ScrollPos;
-
-      foreach (TreeNodeCollection nodes in _sortQueue)
-      {
-         this.Sort(nodes, false);
-      }
-
-      _sortQueue.Clear();
-
-      this.ScrollPos = scrollPos;
-
-      //   this.restoreExpandedStates();
-   }
-
+   public IComparer<TreeNode> NodeSorter { get; set; }
+   private List<TreeNodeCollection> _sortQueue;
    private Timer _sortTimer;
    private Boolean _timedSortQueueOnly;
+   
+   /// <summary>
+   /// Sorts all nodes in the tree.
+   /// </summary>
+   public void Sort()
+   {
+      this.Sort(false);
+   }
+
+   /// <summary>
+   /// Sorts the nodes in this TreeView.
+   /// </summary>
+   /// <param name="queueOnly">If true, only the nodes in the sortqueue will be sorted, otherwise all nodes are sorted.</param>
+   public void Sort(Boolean queueOnly)
+   {
+      if (!queueOnly)
+         this.Nodes.Sort(this.NodeSorter, true);
+      else
+      {
+         if (this._sortQueue == null || this._sortQueue.Count == 0)
+            return;
+
+         this.BeginUpdate(TreeViewUpdate.Redraw | TreeViewUpdate.Bounds);
+
+         foreach (TreeNodeCollection nodes in this._sortQueue)
+         {
+            nodes.Sort(this.NodeSorter, false);
+         }
+
+         this.EndUpdate();
+      }
+      
+      if(this._sortQueue != null)
+        this. _sortQueue.Clear();
+   }
+
+   /// <summary>
+   /// Sorts the TreeView after a certain amount of time has expired without this method being called.
+   /// </summary>
+   /// <param name="queueOnly">Sort is applied only to nodes in the sortqueue if true, or to all nodes otherwise.</param>
    public void TimedSort(Boolean queueOnly)
    {
       if (_sortTimer == null)
@@ -525,29 +500,28 @@ public class TreeView : System.Windows.Forms.TreeView
       _timedSortQueueOnly = queueOnly;
    }
 
-   void _sortTimer_Tick(object sender, EventArgs e)
+   private void _sortTimer_Tick(object sender, EventArgs e)
    {
       _sortTimer.Stop();
 
-      if (_timedSortQueueOnly)
-         this.SortQueue();
-      else
-         this.Sort();
+      this.Sort(this._timedSortQueueOnly);
    }
 
-   protected List<TreeNodeCollection> _sortQueue;
    /// <summary>
    /// Adds the TreeNodeCollection to the sort queue.
    /// </summary>
-   internal void AddToSortQueue(TreeNodeCollection nodes)
+   public void AddToSortQueue(TreeNodeCollection nodes)
    {
-      if (!_sortQueue.Contains(nodes))
-         _sortQueue.Add(nodes);
+      if (this._sortQueue == null)
+         this._sortQueue = new List<TreeNodeCollection>();
+
+      if (!this._sortQueue.Contains(nodes))
+         this._sortQueue.Add(nodes);
    }
    /// <summary>
    /// Adds the parent's TreeNodeCollection to the sort queue.
    /// </summary>
-   internal void AddToSortQueue(TreeNode tn)
+   public void AddToSortQueue(TreeNode tn)
    {
       if (tn == null)
          return;
@@ -559,6 +533,14 @@ public class TreeView : System.Windows.Forms.TreeView
    }
 
    #endregion
-      
+}
+
+[Flags]
+public enum TreeViewUpdate
+{
+   None = 0x00,
+   Redraw = 0x01,
+   Bounds = 0x02,
+   All = 0x7F
 }
 }

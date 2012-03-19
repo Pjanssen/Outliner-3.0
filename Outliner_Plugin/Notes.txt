@@ -2,11 +2,18 @@
 -------
 * Move hidden particle classes 'filtering' to permanent filter?
 * Generalize addNode method in TreeMode.
-* Labeledit does not receive focus
 * Introduce displayname?
-* Horizontal scroll
-* TreeView base node width
-* Refactor TreeMode.tree_SelectionChanged
+* Unhide/unfreeze layer when unhiding/unfreezing node
+* Superclass sorter does not really work with exceptions (target, bones, etc). -> use imagekey instead?
+* SetViewCameraCommand: properly store previous state.
+
+TREEVIEW
+--------
+* Labeledit
+* Parent highlighting
+* TreeNode.PreviousVisibleNode implementation is slow.
+* Investigate performance of treenodelayoutitem drawing / getpos
+* Check the use of GetSize in TreeNodeLayoutItem
 
 NODE BUTTONS
 ------------
@@ -42,6 +49,7 @@ SelectionSet -
 Bone         -
 Camera       -
 Geometry     -
+Group        - Open/Close?
 Helper       - 
 Light        - Toggle on/off
 Particle     -

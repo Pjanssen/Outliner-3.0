@@ -5,6 +5,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using System.Drawing;
+using System.Xml.Serialization;
+using System.ComponentModel;
 
 namespace Outliner.Controls.Layout
 {
@@ -15,6 +17,15 @@ public class ExpandButton : TreeNodeLayoutItem
    protected const Int32 GLYPHSIZE = 9;
    protected const Int32 GLYPHMID = 4;
 
+   [XmlAttribute("use_visual_styles")]
+   [DefaultValue(true)]
+   public Boolean UseVisualStyles { get; set; }
+
+   public ExpandButton()
+   {
+      this.UseVisualStyles = true;
+   }
+
    public override bool CenterVertically { get { return false; } }
    protected Int32 GetVMiddle(Point pos)
    {
@@ -24,13 +35,17 @@ public class ExpandButton : TreeNodeLayoutItem
       return pos.Y + (this.Layout.TreeView.ItemHeight / 2) - 1;
    }
 
-   public override Size GetSize(TreeNode tn)
+   public override int GetWidth(TreeNode tn)
    {
-      if (this.Layout == null)
-         return Size.Empty;
+      return ExpandButton.GUTTERWIDTH;
+   }
 
-      return new Size(ExpandButton.GUTTERWIDTH,
-                      this.Layout.TreeView.ItemHeight);
+   public override int GetHeight(TreeNode tn)
+   {
+      if (this.Layout == null || this.Layout.TreeView == null)
+         return 0;
+
+      return this.Layout.TreeView.ItemHeight;
    }
 
    protected Rectangle GetGlyphBounds(TreeNode tn)
@@ -54,12 +69,12 @@ public class ExpandButton : TreeNodeLayoutItem
    {
       if (this.Layout == null)
          return;
-      if (tn.GetNodeCount(false) == 0)
+      if (tn == null || tn.Nodes.Count == 0)
          return;
 
       Rectangle glyphBounds = this.GetGlyphBounds(tn);
-      /*
-      if (Application.RenderWithVisualStyles)
+
+      if (this.UseVisualStyles && Application.RenderWithVisualStyles)
       {
          VisualStyleElement element = (tn.IsExpanded) ? VisualStyleElement.TreeView.Glyph.Opened : VisualStyleElement.TreeView.Glyph.Closed;
          VisualStyleRenderer renderer = new VisualStyleRenderer(element);
@@ -67,8 +82,7 @@ public class ExpandButton : TreeNodeLayoutItem
       }
       else
       {
-         */
-         using (Pen linePen = new Pen(this.Layout.TreeView.LineColor))
+         using (Pen linePen = new Pen(this.Layout.TreeView.Colors.LineColor))
          using (Brush bgBrush = new SolidBrush(this.Layout.TreeView.BackColor))
          {
             glyphBounds.Width -= 1;
@@ -88,11 +102,11 @@ public class ExpandButton : TreeNodeLayoutItem
                                    glyphBounds.Y + GLYPHMID + 2);
             }
          }
-      //}
+      }
    }
 
 
-   public override void HandleMouseUp(MouseEventArgs e, TreeNode tn)
+   public override void HandleClick(MouseEventArgs e, TreeNode tn)
    {
       Rectangle glyphBounds = this.GetGlyphBounds(tn);
       if (glyphBounds.Contains(e.Location))
@@ -104,7 +118,7 @@ public class ExpandButton : TreeNodeLayoutItem
             this.Layout.TreeView.EndUpdate();
          }
          else
-            tn.Toggle();
+            tn.IsExpanded = !tn.IsExpanded;
       }
    }
 }

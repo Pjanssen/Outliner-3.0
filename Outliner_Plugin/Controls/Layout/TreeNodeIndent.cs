@@ -21,12 +21,10 @@ public class TreeNodeIndent : ExpandButton
       this.Indent = 15;
    }
 
-   public override Size GetSize(TreeNode tn)
+   public override int GetWidth(TreeNode tn)
    {
-      if (this.Layout == null || this.Layout.TreeView == null)
-         return Size.Empty;
-
-      return new Size(GUTTERWIDTH + this.Indent * tn.Level, this.Layout.TreeView.ItemHeight);
+      Int32 tnLevel = (tn == null) ? 0 : tn.Level;
+      return GUTTERWIDTH + this.Indent * tnLevel;
    }
 
    public override void Draw(Graphics g, TreeNode tn)
@@ -44,7 +42,7 @@ public class TreeNodeIndent : ExpandButton
          return;
 
       TreeView tree = this.Layout.TreeView;
-      using (Pen linePen = new Pen(tree.LineColor))
+      using (Pen linePen = new Pen(tree.Colors.LineColor))
       {
          linePen.DashStyle = DashStyle.Dot;
             
@@ -67,9 +65,8 @@ public class TreeNodeIndent : ExpandButton
          Int32 vlineEndY = bounds.Bottom;
          Int32 vMiddle = bounds.Top + ((bounds.Bottom - bounds.Top) / 2);
          
-         //TODO Check if it is necessary to keep even vMiddle
-         //if (vMiddle % 2 != 0)
-         //   vMiddle += 1;
+         if (vMiddle % 2 != 0)
+            vMiddle -= 1;
 
          if (tn.Parent == null && tn.Index == 0)
             vlineStartY = vMiddle;

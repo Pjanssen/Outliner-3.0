@@ -22,12 +22,18 @@ public class MayaStyleIndent : TreeNodeLayoutItem
       this.Indent = 12;
    }
 
-   public override Size GetSize(TreeNode tn)
+   public override int GetWidth(TreeNode tn)
+   {
+      Int32 tnLevel = (tn == null) ? 1 : tn.Level + 1;
+      return this.Indent * tnLevel;
+   }
+
+   public override int GetHeight(TreeNode tn)
    {
       if (this.Layout == null || this.Layout.TreeView == null)
-         return Size.Empty;
+         return 0;
 
-      return new Size(this.Indent * (tn.Level + 1), this.Layout.TreeView.ItemHeight);
+      return this.Layout.TreeView.ItemHeight;
    }
 
    public override void Draw(Graphics g, TreeNode tn)
@@ -38,7 +44,7 @@ public class MayaStyleIndent : TreeNodeLayoutItem
       TreeView tree = this.Layout.TreeView;
       Rectangle bounds = this.GetBounds(tn);
 
-      using (Pen linePen = new Pen(tree.LineColor))
+      using (Pen linePen = new Pen(tree.Colors.LineColor))
       {
          Boolean hasParent   = tn.Parent != null;
          Boolean hasChildren = tn.Nodes.Count > 0;
@@ -91,6 +97,6 @@ public class MayaStyleIndent : TreeNodeLayoutItem
       }
    }
 
-   public override void HandleMouseUp(MouseEventArgs e, TreeNode tn) { }
+   public override void HandleClick(MouseEventArgs e, TreeNode tn) { }
 }
 }

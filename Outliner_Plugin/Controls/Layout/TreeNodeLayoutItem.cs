@@ -8,7 +8,6 @@ using System.Xml.Serialization;
 
 namespace Outliner.Controls.Layout
 {
-   [XmlInclude(typeof(TreeNodeIndent))]
    [XmlInclude(typeof(AddButton))]
    [XmlInclude(typeof(BoxModeButton))]
    [XmlInclude(typeof(ExpandButton))]
@@ -18,6 +17,7 @@ namespace Outliner.Controls.Layout
    [XmlInclude(typeof(MayaStyleIndent))]
    [XmlInclude(typeof(RenderableButton))]
    [XmlInclude(typeof(TreeNodeIcon))]
+   [XmlInclude(typeof(TreeNodeIndent))]
    [XmlInclude(typeof(TreeNodeText))]
    [XmlInclude(typeof(WireColorButton))]
    public abstract class TreeNodeLayoutItem
@@ -58,10 +58,12 @@ namespace Outliner.Controls.Layout
       /// </summary>
       public virtual Point GetPos(TreeNode tn)
       {
-         if (this.Layout == null)
+         if (this.Layout == null || this.Layout.TreeView == null)
             return Point.Empty;
 
          Point pt = new Point(0, tn.Bounds.Y);
+         pt.X = 0 - this.Layout.TreeView.HorizontalScroll.Value;
+         
          foreach (TreeNodeLayoutItem item in this.Layout)
          {
             if (item.IsVisible(tn))
@@ -69,7 +71,7 @@ namespace Outliner.Controls.Layout
                pt.X += item.PaddingLeft;
                if (item == this)
                   break;
-               pt.X += item.GetSize(tn).Width + item.PaddingRight;
+               pt.X += item.GetWidth(tn) + item.PaddingRight;
             }
          }
 
@@ -77,9 +79,22 @@ namespace Outliner.Controls.Layout
       }
 
       /// <summary>
+      /// Returns the width of the item.
+      /// </summary>
+      public abstract Int32 GetWidth(TreeNode tn);
+
+      /// <summary>
+      /// Returns the height of the item.
+      /// </summary>
+      public abstract Int32 GetHeight(TreeNode tn);
+
+      /// <summary>
       /// Returns the size of the item.
       /// </summary>
-      public abstract Size GetSize(TreeNode tn);
+      public virtual Size GetSize(TreeNode tn)
+      {
+         return new Size(this.GetWidth(tn), this.GetHeight(tn));
+      }
 
       /// <summary>
       /// The bounds of the item.
@@ -101,7 +116,7 @@ namespace Outliner.Controls.Layout
       /// <summary>
       /// This method is called when a TreeNode is clicked.
       /// </summary>
-      public virtual void HandleMouseUp(MouseEventArgs e, TreeNode tn) { }
+      public virtual void HandleClick(MouseEventArgs e, TreeNode tn) { }
 
       /// <summary>
       /// This method is called when a TreeNode is double-clicked.

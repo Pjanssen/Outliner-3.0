@@ -37,14 +37,10 @@
          // 
          this.treeView1.AllowDrop = true;
          this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.treeView1.ImageIndex = 0;
-         this.treeView1.Indent = 12;
          this.treeView1.ItemHeight = 18;
-         this.treeView1.LineColor = System.Drawing.SystemColors.ControlText;
          this.treeView1.Location = new System.Drawing.Point(0, 10);
          this.treeView1.Name = "treeView1";
          this.treeView1.NodeSorter = null;
-         this.treeView1.SelectedImageIndex = 0;
          this.treeView1.Size = new System.Drawing.Size(209, 227);
          this.treeView1.TabIndex = 0;
          // 

@@ -13,47 +13,54 @@ public class TreeNodeText : TreeNodeLayoutItem
 
    private Size GetTextSize(TreeNode tn)
    {
-      if (this.Layout == null)
+      if (this.Layout == null || this.Layout.TreeView == null || tn == null)
          return Size.Empty;
 
       return TextRenderer.MeasureText(tn.Text, this.Layout.TreeView.Font);
    }
-   public override Size GetSize(TreeNode tn)
-   {
-      if (this.Layout == null)
-         return Size.Empty;
 
-      return new Size(this.GetTextSize(tn).Width,
-                      this.Layout.TreeView.ItemHeight);
+   public override int GetWidth(TreeNode tn)
+   {
+      return this.GetTextSize(tn).Width;
+   }
+
+   public override int GetHeight(TreeNode tn)
+   {
+      if (this.Layout == null || this.Layout.TreeView == null)
+         return 0;
+
+      return this.Layout.TreeView.ItemHeight;
    }
 
    public override void Draw(Graphics g, TreeNode tn)
    {
-      if (this.Layout == null)
+      if (this.Layout == null || this.Layout.TreeView == null)
          return;
-      if (tn.IsEditing)
-         return;
+//      if (tn.IsEditing)
+//         return;
 
       TreeView tree = this.Layout.TreeView;
+      TreeViewColors colors = tree.Colors;
       Color bgColor = Color.Empty;
       Color fgColor = Color.Empty;
-      if (this.Layout.TreeView.IsSelectedNode(tn))
+      if ((tn.State & TreeNodeState.Selected) == TreeNodeState.Selected)
       {
-         bgColor = tree.Colors.SelectionBackColor;
-         fgColor = tree.Colors.SelectionForeColor;
+         bgColor = colors.SelectionBackColor;
+         fgColor = colors.SelectionForeColor;
+      }
+      else if ((tn.State & TreeNodeState.ParentOfSelected) == TreeNodeState.ParentOfSelected)
+      {
+         bgColor = colors.ParentBackColor;
+         fgColor = colors.ParentForeColor;
       }
       else
       {
-         bgColor = tree.Colors.NodeBackColor;
-         fgColor = tree.Colors.NodeForeColor;
+         bgColor = colors.NodeBackColor;
+         fgColor = colors.NodeForeColor;
       }
 
-      TreeNodeData d = tn.Tag as TreeNodeData;
-      if (d != null)
-      {
-         if (d.FilterResult == FiltersBase.FilterResult.ShowChildren)
-            fgColor = Color.FromArgb(IconHelperMethods.FILTERED_OPACITY, fgColor);
-      }
+      if (tn.FilterResult == FiltersBase.FilterResult.ShowChildren)
+         fgColor = Color.FromArgb(IconHelperMethods.FILTERED_OPACITY, fgColor);
 
       using (SolidBrush bgBrush = new SolidBrush(bgColor),
                         fgBrush = new SolidBrush(fgColor))
@@ -66,7 +73,7 @@ public class TreeNodeText : TreeNodeLayoutItem
       }
    }
 
-   public override void HandleMouseUp(MouseEventArgs e, TreeNode tn)
+   public override void HandleClick(MouseEventArgs e, TreeNode tn)
    {
       if (this.Layout == null || this.Layout.TreeView == null)
          return;
@@ -91,7 +98,7 @@ public class TreeNodeText : TreeNodeLayoutItem
 
    public override void HandleDoubleClick(MouseEventArgs e, TreeNode tn)
    {
-      tn.BeginEdit();
+//      tn.BeginEdit();
    }
 }
 }
