@@ -636,4 +636,37 @@
         +d/8+dg7AAAAAElFTkSuQmCC
 </value>
   </data>
+  <data name="Tooltip_Add_Layer" xml:space="preserve">
+    <value>Add nodes to layer</value>
+  </data>
+  <data name="Tooltip_Add_SelSet" xml:space="preserve">
+    <value>Add nodes to selection set</value>
+  </data>
+  <data name="Tooltip_BoxMode" xml:space="preserve">
+    <value>Toggle boxmode</value>
+  </data>
+  <data name="Tooltip_Freeze" xml:space="preserve">
+    <value>Freeze</value>
+  </data>
+  <data name="Tooltip_Hide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="Tooltip_Renderable" xml:space="preserve">
+    <value>Toggle renderable</value>
+  </data>
+  <data name="Tooltip_Unfreeze" xml:space="preserve">
+    <value>Unfreeze</value>
+  </data>
+  <data name="Tooltip_Unhide" xml:space="preserve">
+    <value>Unhide</value>
+  </data>
+  <data name="Tooltip_WireColor" xml:space="preserve">
+    <value>Change wirecolor</value>
+  </data>
+  <data name="Tooltip_SetCamera" xml:space="preserve">
+    <value>Set camera for active viewport</value>
+  </data>
+  <data name="Tooltip_ToggleLight" xml:space="preserve">
+    <value>Toggle light on/off</value>
+  </data>
 </root>

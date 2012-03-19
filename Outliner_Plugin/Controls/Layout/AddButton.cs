@@ -53,5 +53,20 @@ public class AddButton : ImageButton
          cmd.Execute(true);
       }
    }
+
+
+   protected override string GetTooltipText(TreeNode tn)
+   {
+      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      if (node == null || !this.IsEnabled(tn))
+         return null;
+
+      if (node is IILayerWrapper)
+         return OutlinerResources.Tooltip_Add_Layer;
+      else if (node is SelectionSetWrapper)
+         return OutlinerResources.Tooltip_Add_SelSet;
+      else
+         return null;
+   }
 }
 }

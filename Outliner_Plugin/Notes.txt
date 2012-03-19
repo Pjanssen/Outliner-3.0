@@ -14,6 +14,7 @@ TREEVIEW
 * TreeNode.PreviousVisibleNode implementation is slow.
 * Investigate performance of treenodelayoutitem drawing / getpos
 * Check the use of GetSize in TreeNodeLayoutItem
+* Horizontal resize with flexiblespace does not work well.
 
 NODE BUTTONS
 ------------
@@ -47,7 +48,7 @@ Layer        - Set as current
 Material     - 
 SelectionSet - 
 Bone         -
-Camera       -
+Camera       - Set active viewport
 Geometry     -
 Group        - Open/Close?
 Helper       - 

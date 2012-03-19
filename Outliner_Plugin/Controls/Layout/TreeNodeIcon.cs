@@ -12,7 +12,7 @@ using Outliner.Scene;
 
 namespace Outliner.Controls.Layout
 {
-public class TreeNodeIcon : TreeNodeLayoutItem
+public class TreeNodeIcon : TreeNodeButton
 {
    private Dictionary<String, Bitmap> icons;
    private Size iconSize;
@@ -105,7 +105,7 @@ public class TreeNodeIcon : TreeNodeLayoutItem
       if (node == null)
          return;
 
-      if (node.SuperClassID == Autodesk.Max.SClass_ID.Light)
+      if (isLight(node))
       {
          Autodesk.Max.IINode inode = node.WrappedNode as Autodesk.Max.IINode;
          if (inode == null)
@@ -115,22 +115,38 @@ public class TreeNodeIcon : TreeNodeLayoutItem
             return;
          Outliner.Commands.ToggleLightCommand cmd = new Commands.ToggleLightCommand(new List<IMaxNodeWrapper>(1) { node }, !light.UseLight);
          cmd.Execute(true);
-         //light.SetUseLight(light.UseLight ? 0 : 1);
       }
-      else if (node.SuperClassID == Autodesk.Max.SClass_ID.Camera)
+      else if (isCamera(node))
       {
          Autodesk.Max.IInterface ip = Autodesk.Max.GlobalInterface.Instance.COREInterface;
          Autodesk.Max.IViewExp vpt = ip.ActiveViewExp;
          Outliner.Commands.SetViewCameraCommand cmd = new Commands.SetViewCameraCommand(node, vpt);
          cmd.Execute(true);
       }
+   }
 
-      //ToolTip t = new ToolTip();
-      //t.InitialDelay = 1000;
-      //t.AutoPopDelay = 2000;
-      //t.ShowAlways = true;
-      //t.SetToolTip(this.Layout.TreeView, "Test");
-      //t.Show("Test", this.Layout.TreeView, e.Location);
+   protected override string GetTooltipText(TreeNode tn)
+   {
+      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      if (node == null)
+         return null;
+
+      if (isLight(node))
+         return OutlinerResources.Tooltip_ToggleLight;
+      else if (isCamera(node))
+         return OutlinerResources.Tooltip_SetCamera;
+      else
+         return null;
+   }
+
+   private Boolean isLight(IMaxNodeWrapper node)
+   {
+      return node.SuperClassID == Autodesk.Max.SClass_ID.Light;
+   }
+
+   private Boolean isCamera(IMaxNodeWrapper node)
+   {
+      return node.SuperClassID == Autodesk.Max.SClass_ID.Camera;
    }
 }
 }

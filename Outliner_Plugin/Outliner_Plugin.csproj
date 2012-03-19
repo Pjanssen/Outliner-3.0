@@ -81,6 +81,7 @@
     <Compile Include="Controls\Layout\HideButton.cs" />
     <Compile Include="Controls\Layout\ImageButton.cs" />
     <Compile Include="Controls\Layout\RenderableButton.cs" />
+    <Compile Include="Controls\Layout\TreeNodeButton.cs" />
     <Compile Include="Controls\Layout\TreeNodeIcon.cs" />
     <Compile Include="Controls\Layout\WireColorButton.cs" />
     <Compile Include="Controls\Layout\ExpandButton.cs" />

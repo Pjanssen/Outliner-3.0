@@ -41,5 +41,10 @@ public class RenderableButton : ImageButton
       SetRenderableCommand cmd = new SetRenderableCommand(nodes, !node.Renderable);
       cmd.Execute(true);
    }
+
+   protected override string GetTooltipText(TreeNode tn)
+   {
+      return OutlinerResources.Tooltip_Renderable;
+   }
 }
 }

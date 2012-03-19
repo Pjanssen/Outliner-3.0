@@ -271,6 +271,13 @@ public class TreeView : ScrollableControl
 
 
    #region Mouse Events
+   
+   protected override void OnMouseMove(MouseEventArgs e)
+   {
+      TreeNode tn = this.GetNodeAt(e.Location);
+      if (tn != null)
+         this.TreeNodeLayout.HandleMouseMove(e, tn);
+   }
 
    protected override void OnMouseClick(MouseEventArgs e)
    {

@@ -9,7 +9,7 @@ using System.ComponentModel;
 
 namespace Outliner.Controls.Layout
 {
-public abstract class ImageButton : TreeNodeLayoutItem
+public abstract class ImageButton : TreeNodeButton
 {
    [XmlAttribute("invert_behavior")]
    [DefaultValue(false)]

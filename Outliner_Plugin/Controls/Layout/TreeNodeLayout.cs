@@ -46,6 +46,37 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
       }
    }
 
+   private TreeNode prevMouseOverTn;
+   private TreeNodeLayoutItem prevMouseOverItem;
+
+   public void HandleMouseMove(MouseEventArgs e, TreeNode tn)
+   {
+      if (this.prevMouseOverItem != null)
+      {
+         if (tn == this.prevMouseOverTn && this.prevMouseOverItem.GetBounds(tn).Contains(e.Location))
+            return;
+         else
+         {
+            prevMouseOverItem.HandleMouseLeave(e, tn);
+            this.prevMouseOverItem = null;
+            this.prevMouseOverTn = null;
+         }
+      }
+      foreach (TreeNodeLayoutItem item in this.items)
+      {
+         if (item.IsVisible(tn) && item.GetBounds(tn).Contains(e.Location))
+         {
+            if (item != prevMouseOverItem || tn != prevMouseOverTn)
+            {
+               item.HandleMouseEnter(e, tn);
+               prevMouseOverItem = item;
+               prevMouseOverTn = tn;
+               break;
+            }
+         }
+      }
+   }
+
    public void HandleClick(MouseEventArgs e, TreeNode tn)
    {
       foreach (TreeNodeLayoutItem i in this.items)
@@ -188,7 +219,9 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
          layout.Add(new TreeNodeIndent());
          layout.Add(new TreeNodeIcon(IconSet.Max, false));
          layout.Add(new TreeNodeText());
-         //layout.Add(new FlexibleSpace());
+         layout.Add(new FlexibleSpace());
+         layout.Add(new HideButton());
+         layout.Add(new FreezeButton());
          return layout;
       }
    }

@@ -49,5 +49,19 @@ namespace Outliner.Controls.Layout
             tree.TimedSort(true);
          }
       }
+
+      protected override string GetTooltipText(TreeNode tn)
+      {
+         IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+         if (node != null)
+         {
+            if (node.IsHidden)
+               return OutlinerResources.Tooltip_Unhide;
+            else
+               return OutlinerResources.Tooltip_Hide;
+         }
+
+         return null;
+      }
    }
 }

@@ -42,5 +42,10 @@ namespace Outliner.Controls.Layout
          SetBoxModeCommand cmd = new SetBoxModeCommand(nodes, !node.BoxMode);
          cmd.Execute(true); 
       }
+
+      protected override string GetTooltipText(TreeNode tn)
+      {
+         return OutlinerResources.Tooltip_BoxMode;
+      }
    }
 }

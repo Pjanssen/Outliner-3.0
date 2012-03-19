@@ -114,6 +114,18 @@ namespace Outliner.Controls.Layout
       public abstract void Draw(Graphics g, TreeNode tn);
 
       /// <summary>
+      /// This method is called when the mouse pointer is moved over the item for the first time.
+      /// </summary>
+      public virtual void HandleMouseEnter(MouseEventArgs e, TreeNode tn) { }
+
+      /// <summary>
+      /// This method is called when the mouse pointer is moved from within to outside the bounds of the item.
+      /// </summary>
+      /// <param name="e"></param>
+      /// <param name="tn"></param>
+      public virtual void HandleMouseLeave(MouseEventArgs e, TreeNode tn) { }
+
+      /// <summary>
       /// This method is called when a TreeNode is clicked.
       /// </summary>
       public virtual void HandleClick(MouseEventArgs e, TreeNode tn) { }

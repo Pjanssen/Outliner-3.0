@@ -201,5 +201,104 @@ namespace Outliner {
                 return ResourceManager.GetString("Command_SetWireColor", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add nodes to layer.
+        /// </summary>
+        internal static string Tooltip_Add_Layer {
+            get {
+                return ResourceManager.GetString("Tooltip_Add_Layer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add nodes to selection set.
+        /// </summary>
+        internal static string Tooltip_Add_SelSet {
+            get {
+                return ResourceManager.GetString("Tooltip_Add_SelSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle boxmode.
+        /// </summary>
+        internal static string Tooltip_BoxMode {
+            get {
+                return ResourceManager.GetString("Tooltip_BoxMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Freeze.
+        /// </summary>
+        internal static string Tooltip_Freeze {
+            get {
+                return ResourceManager.GetString("Tooltip_Freeze", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide.
+        /// </summary>
+        internal static string Tooltip_Hide {
+            get {
+                return ResourceManager.GetString("Tooltip_Hide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle renderable.
+        /// </summary>
+        internal static string Tooltip_Renderable {
+            get {
+                return ResourceManager.GetString("Tooltip_Renderable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set camera for active viewport.
+        /// </summary>
+        internal static string Tooltip_SetCamera {
+            get {
+                return ResourceManager.GetString("Tooltip_SetCamera", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle light on/off.
+        /// </summary>
+        internal static string Tooltip_ToggleLight {
+            get {
+                return ResourceManager.GetString("Tooltip_ToggleLight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unfreeze.
+        /// </summary>
+        internal static string Tooltip_Unfreeze {
+            get {
+                return ResourceManager.GetString("Tooltip_Unfreeze", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unhide.
+        /// </summary>
+        internal static string Tooltip_Unhide {
+            get {
+                return ResourceManager.GetString("Tooltip_Unhide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change wirecolor.
+        /// </summary>
+        internal static string Tooltip_WireColor {
+            get {
+                return ResourceManager.GetString("Tooltip_WireColor", resourceCulture);
+            }
+        }
     }
 }

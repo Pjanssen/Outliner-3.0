@@ -12,7 +12,7 @@ using System.ComponentModel;
 
 namespace Outliner.Controls.Layout
 {
-public class WireColorButton : TreeNodeLayoutItem
+public class WireColorButton : TreeNodeButton
 {
    [XmlAttribute("button_width")]
    [DefaultValue(11)]
@@ -62,6 +62,11 @@ public class WireColorButton : TreeNodeLayoutItem
             g.DrawRectangle(linePen, rBounds);
          }
       }
+   }
+
+   protected override string GetTooltipText(TreeNode tn)
+   {
+      return OutlinerResources.Tooltip_WireColor;
    }
 
    public override void HandleClick(System.Windows.Forms.MouseEventArgs e, TreeNode tn)
