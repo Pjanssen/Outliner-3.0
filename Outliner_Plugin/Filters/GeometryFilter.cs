@@ -7,20 +7,20 @@ namespace Outliner.Filters
 {
    public class GeometryFilter : Filter<IMaxNodeWrapper>
    {
-      override public FilterResult ShowNode(IMaxNodeWrapper data)
+      override public FilterResults ShowNode(IMaxNodeWrapper data)
       {
          if (!(data is IINodeWrapper))
-            return FilterResult.Show;
+            return FilterResults.Show;
 
          if (data.SuperClassID != SClass_ID.Geomobject)
-            return FilterResult.Show;
+            return FilterResults.Show;
 
          IINode node = (IINode)data.WrappedNode;
          if (node.IsTarget || HelperMethods.IsBone(node) 
                            || node.ObjectRef.IsParticleSystem)
-            return FilterResult.Show;
+            return FilterResults.Show;
          else
-            return FilterResult.Hide;
+            return FilterResults.Hide;
       }
    }
 }

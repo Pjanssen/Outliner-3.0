@@ -18,12 +18,18 @@ public class RenameCommand : SetNodePropertyCommand<String>
 
    public override string GetValue(IMaxNodeWrapper node)
    {
-      return node.Name;
+      if (node == null)
+         return null;
+      else
+         return node.Name;
    }
 
    public override void SetValue(IMaxNodeWrapper node, string value)
    {
-      node.Name = value;
+      if (node == null || value == null)
+         return;
+      else
+         node.Name = value;
    }
 }
 }

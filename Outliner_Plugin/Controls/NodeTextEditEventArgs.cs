@@ -5,9 +5,6 @@ using System.Text;
 
 namespace Outliner.Controls
 {
-public delegate void BeforeNodeTextEditEventHandler(object sender, BeforeNodeTextEditEventArgs e);
-public delegate void AfterNodeTextEditEventHandler(object sender, AfterNodeTextEditEventArgs e);
-
 public class BeforeNodeTextEditEventArgs : EventArgs
 {
    /// <summary>
@@ -28,6 +25,9 @@ public class BeforeNodeTextEditEventArgs : EventArgs
 
    public BeforeNodeTextEditEventArgs(TreeNode tn)
    {
+      if (tn == null)
+         throw new ArgumentNullException("tn");
+
       this.TreeNode = tn;
       this.EditText = tn.Text;
       this.Cancel = false;
@@ -36,15 +36,15 @@ public class BeforeNodeTextEditEventArgs : EventArgs
 
 public class AfterNodeTextEditEventArgs : EventArgs
 {
-   public Boolean Cancelled { get; private set; }
+   public Boolean Canceled { get; private set; }
    public String OldText { get; private set; }
    public String NewText { get; private set; }
    public TreeNode TreeNode { get; private set; }
 
-   public AfterNodeTextEditEventArgs(TreeNode tn, Boolean cancelled, String oldText, String newText)
+   public AfterNodeTextEditEventArgs(TreeNode tn, Boolean canceled, String oldText, String newText)
    {
       this.TreeNode = tn;
-      this.Cancelled = cancelled;
+      this.Canceled = canceled;
       this.OldText = oldText;
       this.NewText = newText;
    }

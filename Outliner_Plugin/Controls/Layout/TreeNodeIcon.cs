@@ -47,6 +47,9 @@ public class TreeNodeIcon : TreeNodeButton
 
    public TreeNodeIcon(Dictionary<String, Bitmap> icons) 
    {
+      if (icons == null)
+         throw new ArgumentNullException("icons");
+
       this.icons = icons;
       this.iconSize = (this.icons.Count == 0) ? Size.Empty : this.icons.First().Value.Size;
    }
@@ -75,8 +78,11 @@ public class TreeNodeIcon : TreeNodeButton
       return this.iconSize.Height;
    }
 
-   public override void Draw(Graphics g, TreeNode tn)
+   public override void Draw(Graphics graphics, TreeNode tn)
    {
+      if (graphics == null || tn == null)
+         return;
+
       if (this.Layout == null || this.icons == null)
          return;
 
@@ -86,8 +92,7 @@ public class TreeNodeIcon : TreeNodeButton
       if (iconKey == null)
          iconKey = IconHelperMethods.IMGKEY_UNKNOWN;
 
-      TreeNodeData data = tn.Tag as TreeNodeData;
-      if (data != null && data.FilterResult == FilterResult.ShowChildren)
+      if (tn.FilterResult == FilterResults.ShowChildren)
          iconKey += "_filtered";
 
       if (!this.icons.TryGetValue(iconKey, out icon))
@@ -96,7 +101,7 @@ public class TreeNodeIcon : TreeNodeButton
             return;
       }
 
-      g.DrawImage(icon, this.GetBounds(tn));
+      graphics.DrawImage(icon, this.GetBounds(tn));
    }
 
    public override void HandleClick(MouseEventArgs e, TreeNode tn) 
@@ -105,7 +110,7 @@ public class TreeNodeIcon : TreeNodeButton
       if (node == null)
          return;
 
-      if (isLight(node))
+      if (node.SuperClassID == Autodesk.Max.SClass_ID.Light)
       {
          Autodesk.Max.IINode inode = node.WrappedNode as Autodesk.Max.IINode;
          if (inode == null)
@@ -116,7 +121,7 @@ public class TreeNodeIcon : TreeNodeButton
          Outliner.Commands.ToggleLightCommand cmd = new Commands.ToggleLightCommand(new List<IMaxNodeWrapper>(1) { node }, !light.UseLight);
          cmd.Execute(true);
       }
-      else if (isCamera(node))
+      else if (node.SuperClassID == Autodesk.Max.SClass_ID.Camera)
       {
          Autodesk.Max.IInterface ip = Autodesk.Max.GlobalInterface.Instance.COREInterface;
          Autodesk.Max.IViewExp vpt = ip.ActiveViewExp;
@@ -131,22 +136,12 @@ public class TreeNodeIcon : TreeNodeButton
       if (node == null)
          return null;
 
-      if (isLight(node))
+      if (node.SuperClassID == Autodesk.Max.SClass_ID.Light)
          return OutlinerResources.Tooltip_ToggleLight;
-      else if (isCamera(node))
+      else if (node.SuperClassID == Autodesk.Max.SClass_ID.Camera)
          return OutlinerResources.Tooltip_SetCamera;
       else
          return null;
-   }
-
-   private Boolean isLight(IMaxNodeWrapper node)
-   {
-      return node.SuperClassID == Autodesk.Max.SClass_ID.Light;
-   }
-
-   private Boolean isCamera(IMaxNodeWrapper node)
-   {
-      return node.SuperClassID == Autodesk.Max.SClass_ID.Camera;
    }
 }
 }

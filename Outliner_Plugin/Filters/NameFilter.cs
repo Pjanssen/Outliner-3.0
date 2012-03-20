@@ -30,6 +30,9 @@ namespace Outliner.Filters
         }
         set
         {
+           if (value == null)
+              throw new ArgumentNullException("value");
+
             _origSearchString = value;
             if (value == String.Empty)
                 _searchString = value;
@@ -67,18 +70,18 @@ namespace Outliner.Filters
         }
     }
 
-    override public FilterResult ShowNode(IMaxNodeWrapper data) 
+    override public FilterResults ShowNode(IMaxNodeWrapper data) 
     {
         if (data == null)
-            return FilterResult.Hide;
+            return FilterResults.Hide;
 
-        if (_searchString == String.Empty)
-            return FilterResult.Show;
+        if (String.IsNullOrEmpty(_searchString))
+            return FilterResults.Show;
 
         if (Regex.IsMatch(data.Name, _searchString, _regExpOptions))
-            return FilterResult.Show;
+            return FilterResults.Show;
         else
-            return FilterResult.Hide;
+            return FilterResults.Hide;
     }
 }
 }

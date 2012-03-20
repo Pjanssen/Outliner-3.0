@@ -10,12 +10,12 @@ namespace Outliner.Controls.Layout
 /// TreeNodeButton is a baseclass for all node buttons.
 /// It provides a Tooltip and changes the cursor when the mouse moves over it.
 /// </summary>
-public abstract class TreeNodeButton : TreeNodeLayoutItem
+public abstract class TreeNodeButton : TreeNodeLayoutItem, IDisposable
 {
    protected const int TOOLTIP_INITIAL_DELAY = 750;
    protected const int TOOLTIP_AUTOPOP_DELAY = 4000;
 
-   protected ToolTip tooltip;
+   private ToolTip tooltip;
    public override void HandleMouseEnter(MouseEventArgs e, TreeNode tn)
    {
       if (this.Layout != null && this.Layout.TreeView != null)
@@ -50,6 +50,12 @@ public abstract class TreeNodeButton : TreeNodeLayoutItem
             this.tooltip = null;
          }
       }
+   }
+
+   public void Dispose()
+   {
+      if (this.tooltip != null)
+         this.tooltip.Dispose();
    }
 }
 }

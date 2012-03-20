@@ -60,6 +60,9 @@ namespace Outliner.Controls.FiltersBase
       /// <param name="permanent">If true, the collection's "Enabled" property does not affect this filter.</param>
       public void Add(Filter<T> filter, Boolean permanent)
       {
+         if (filter == null)
+            return;
+
          if (permanent)
          {
             if (!_permanentFilters.Contains(filter))
@@ -82,6 +85,9 @@ namespace Outliner.Controls.FiltersBase
       /// </summary>
       public void Remove(Filter<T> filter)
       {
+         if (filter == null)
+            return;
+
          if (_filters.Contains(filter))
             _filters.Remove(filter);
 
@@ -200,38 +206,38 @@ namespace Outliner.Controls.FiltersBase
       /// <summary>
       /// Tests whether the supplied node and its children should be shown.
       /// </summary>
-      public virtual FilterResult ShowNode(T n)
+      public virtual FilterResults ShowNode(T node)
       {
-         FilterResult filterResult = FilterResult.Show;
+         FilterResults filterResult = FilterResults.Show;
 
          // Loop through filters.
          if (this.Enabled && _filters.Count > 0)
          {
             foreach (Filter<T> filter in _filters)
             {
-               if (filter.ShowNode(n) == FilterResult.Hide)
+               if (filter.ShowNode(node) == FilterResults.Hide)
                {
-                  filterResult = FilterResult.Hide;
+                  filterResult = FilterResults.Hide;
                   break;
                }
             }
          }
 
-         if (filterResult == FilterResult.Show && _permanentFilters.Count > 0)
+         if (filterResult == FilterResults.Show && _permanentFilters.Count > 0)
          {
             foreach (Filter<T> filter in _permanentFilters)
             {
-               if (filter.ShowNode(n) == FilterResult.Hide)
+               if (filter.ShowNode(node) == FilterResults.Hide)
                {
-                  filterResult = FilterResult.Hide;
+                  filterResult = FilterResults.Hide;
                   break;
                }
             }
          }
 
          // If any of the filters return FilterResult.Hide, loop through children too.
-         if (filterResult == FilterResult.Hide)
-            return this.ShowChildNodes(n);
+         if (filterResult == FilterResults.Hide)
+            return this.ShowChildNodes(node);
          else
             return filterResult;
       }
@@ -239,20 +245,23 @@ namespace Outliner.Controls.FiltersBase
       /// <summary>
       /// Tests whether the children of the supplied node should be shown.
       /// </summary>
-      protected virtual FilterResult ShowChildNodes(T n)
+      protected virtual FilterResults ShowChildNodes(T node)
       {
-         if (n == null || this.GetChildNodesFn == null)
-            return FilterResult.Hide;
+         if (node == null || this.GetChildNodesFn == null)
+            return FilterResults.Hide;
 
-         IEnumerable<T> childNodes = this.GetChildNodesFn(n);
-         foreach (T child in childNodes)
+         IEnumerable<T> childNodes = this.GetChildNodesFn(node);
+         if (childNodes != null)
          {
-            if (this.ShowNode(child) == FilterResult.Show
-               || this.ShowChildNodes(child) == FilterResult.ShowChildren)
-               return FilterResult.ShowChildren;
+            foreach (T child in childNodes)
+            {
+               if (this.ShowNode(child) == FilterResults.Show
+                  || this.ShowChildNodes(child) == FilterResults.ShowChildren)
+                  return FilterResults.ShowChildren;
+            }
          }
 
-         return FilterResult.Hide;
+         return FilterResults.Hide;
          /*
          if (n == null || this.GetChildNodeCountFn == null || this.GetChildNodeAtFn == null)
             return FilterResult.Hide;
@@ -301,7 +310,7 @@ namespace Outliner.Controls.FiltersBase
       /// <summary>
       /// Raised when a filter has been added to the collection.
       /// </summary>
-      public event NodeFilterChangedEventHandler FilterAdded;
+      public event EventHandler<NodeFilterChangedEventArgs<T>> FilterAdded;
       protected virtual void OnFilterAdded(Filter<T> filter)
       {
          if (this.FilterAdded != null)
@@ -311,7 +320,7 @@ namespace Outliner.Controls.FiltersBase
       /// <summary>
       /// Raised when a filter has been removed from the collection.
       /// </summary>
-      public event NodeFilterChangedEventHandler FilterRemoved;
+      public event EventHandler<NodeFilterChangedEventArgs<T>> FilterRemoved;
       protected virtual void OnFilterRemoved(Filter<T> filter)
       {
          if (this.FilterRemoved != null)
@@ -321,14 +330,12 @@ namespace Outliner.Controls.FiltersBase
       /// <summary>
       /// Raised when the properties of a filter in the collection has been changed.
       /// </summary>
-      public event NodeFilterChangedEventHandler FilterChanged;
+      public event EventHandler<NodeFilterChangedEventArgs<T>> FilterChanged;
       protected void filterChanged(object sender, EventArgs e)
       {
          if (this.FilterChanged != null)
             this.FilterChanged(this, new NodeFilterChangedEventArgs<T>(sender as Filter<T>));
       }
-
-      public delegate void NodeFilterChangedEventHandler(object sender, NodeFilterChangedEventArgs<T> e);
    }
 
 

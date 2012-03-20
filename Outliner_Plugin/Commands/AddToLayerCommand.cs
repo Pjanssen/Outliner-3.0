@@ -8,9 +8,9 @@ namespace Outliner.Commands
 {
 public class AddToLayerCommand : Command
 {
-   protected IEnumerable<IINode> nodes;
-   protected IILayer layer;
-   protected Dictionary<IINode, IILayer> prevLayers;
+   private IEnumerable<IINode> nodes;
+   private IILayer layer;
+   private Dictionary<IINode, IILayer> prevLayers;
 
    public AddToLayerCommand(IEnumerable<IINode> nodes, IILayer layer)
    {

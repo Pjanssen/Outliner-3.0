@@ -35,17 +35,17 @@ public class SelectCommand : Command
          this.prevSelection.AppendNode(ip.GetSelNode(i), true, 0);
       }
 
-      this.SelectNodes(ip, this.newSelection);
+      SelectNodes(ip, this.newSelection);
    }
 
    public override void Undo()
    {
-      this.SelectNodes(GlobalInterface.Instance.COREInterface, this.prevSelection);
+      SelectNodes(GlobalInterface.Instance.COREInterface, this.prevSelection);
    }
 
-   protected void SelectNodes(IInterface ip, IINodeTab nodes)
+   protected static void SelectNodes(IInterface ip, IINodeTab nodes)
    {
-      if (nodes == null)
+      if (ip == null || nodes == null)
          return;
 
       ip.ClearNodeSelection(false);

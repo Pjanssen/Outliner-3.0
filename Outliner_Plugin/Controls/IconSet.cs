@@ -22,10 +22,10 @@ public static class IconHelperMethods
    public const int HIDDEN_OPACITY   = 100;
    public const int FILTERED_OPACITY = 50;
 
-   public static ResourceSet GetIconResSet(IconSet iconset)
+   public static ResourceSet GetIconResSet(IconSet iconSet)
    {
       ResourceManager res = null;
-      if (iconset == IconSet.Max)
+      if (iconSet == IconSet.Max)
          res = TreeIcons_Max.ResourceManager;
 
       if (res == null)

@@ -29,6 +29,9 @@ public static class HelperMethods
    /// </summary>
    public static TreeNode CreateTreeNode(IMaxNodeWrapper node)
    {
+      if (node == null)
+         return null;
+
       TreeNode tn = new TreeNode(node.Name);
       tn.Tag = node;
       tn.ImageKey = node.ImageKey;
@@ -50,18 +53,18 @@ public static class HelperMethods
    /// <summary>
    /// Maps GetMaxNode to a list of TreeNodes, returning a list of NodeWrappers.
    /// </summary>
-   public static IEnumerable<IMaxNodeWrapper> GetMaxNodes(IEnumerable<TreeNode> tns)
+   public static IEnumerable<IMaxNodeWrapper> GetMaxNodes(IEnumerable<TreeNode> treeNodes)
    {
-      return tns.Select(HelperMethods.GetMaxNode);
+      return treeNodes.Select(HelperMethods.GetMaxNode);
    }
 
    /// <summary>
    /// Extracts all wrapped nodes of type T from a collection of TreeNodes
    /// </summary>
    /// <typeparam name="T">The type of node to select from the IMaxNodeWrapper.</typeparam>
-   public static IEnumerable<T> GetWrappedNodes<T>(IEnumerable<TreeNode> tns)
+   public static IEnumerable<T> GetWrappedNodes<T>(IEnumerable<TreeNode> treeNodes)
    {
-      return GetWrappedNodes<T>(HelperMethods.GetMaxNodes(tns));
+      return GetWrappedNodes<T>(HelperMethods.GetMaxNodes(treeNodes));
    }
 
    /// <summary>
@@ -76,9 +79,9 @@ public static class HelperMethods
    /// <summary>
    /// Marshals the INotifyInfo object from a pointer sent by a general event callback.
    /// </summary>
-   public static INotifyInfo GetNotifyInfo(IntPtr infoPtr)
+   public static INotifyInfo GetNotifyInfo(IntPtr info)
    {
-      return GlobalInterface.Instance.NotifyInfo.Marshal(infoPtr);
+      return GlobalInterface.Instance.NotifyInfo.Marshal(info);
    }
 
    /// <summary>
@@ -86,6 +89,9 @@ public static class HelperMethods
    /// </summary>
    public static IEnumerable<T> ToIEnumerable<T>(this ITab<T> tab)
    {
+      if (tab == null)
+         throw new ArgumentNullException("tab");
+
       List<T> lst = new List<T>(tab.Count);
       for (int i = 0; i < tab.Count; i++)
          lst.Add(tab[(IntPtr)i]);
@@ -95,6 +101,9 @@ public static class HelperMethods
 
    public static IINodeTab ToIINodeTab(IEnumerable<IMaxNodeWrapper> nodes)
    {
+      if (nodes == null)
+         throw new ArgumentNullException("nodes");
+
       IINodeTab tab = GlobalInterface.Instance.INodeTabNS.Create();
       Int32 nodeCount = nodes.Count();
       if (nodes.Count() > 0)
@@ -135,7 +144,10 @@ public static class HelperMethods
 
    public static bool ClassIDEquals(IClass_ID cid, uint cidA, uint cidB)
    {
-      return cid.PartA == cidA && cid.PartB == cidB;
+      if (cid == null)
+         return false;
+      else
+         return cid.PartA == cidA && cid.PartB == cidB;
    }
 
 
@@ -156,7 +168,10 @@ public static class HelperMethods
    /// </summary>
    public static Boolean IsHiddenNode(IINode node)
    {
-      return IsPFHelper(node) || node.Name == CAM_3DXSTUDIO_NAME;
+      if (node == null)
+         return false;
+      else
+         return IsPFHelper(node) || node.Name == CAM_3DXSTUDIO_NAME;
    }
 
    /// <summary>
@@ -217,9 +232,9 @@ public static class HelperMethods
    /// </summary>
    /// <param name="c">The color value from 3dsMax.</param>
    /// <returns>A correct color value.</returns>
-   public static Color FromMaxColor(Color c)
+   public static Color FromMaxColor(Color color)
    {
-      return Color.FromArgb(255, c.B, c.G, c.R);
+      return Color.FromArgb(255, color.B, color.G, color.R);
    }
 
 

@@ -33,11 +33,6 @@ namespace Outliner.Scene
          set { layer.SetName(ref value); }
       }
 
-      public override int NumChildren
-      {
-         get { return layer.NumChildren; }
-      }
-
       public override IEnumerable<IMaxNodeWrapper> ChildNodes
       {
          get

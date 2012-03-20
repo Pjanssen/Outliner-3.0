@@ -22,7 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\..\cs_rules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -98,6 +98,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Filters\NurbsFilter.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="NodeSorters\FrozenSorter.cs" />
     <Compile Include="NodeSorters\INodeHandleSorter.cs" />
     <Compile Include="NodeSorters\HiddenSorter.cs" />
@@ -159,7 +160,6 @@
     <Compile Include="TreeModes\LayerMode.cs" />
     <Compile Include="TreeModes\SelectionSetMode.cs" />
     <Compile Include="TreeModes\TreeMode.cs" />
-    <Compile Include="Controls\TreeNodeData.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\MainWindow.resx">

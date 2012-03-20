@@ -8,11 +8,11 @@ namespace Outliner.Commands
 {
 public abstract class SetNodePropertyCommand<T> : Command
 {
-   protected IEnumerable<IMaxNodeWrapper> nodes;
-   protected T newValue;
-   protected Dictionary<IMaxNodeWrapper, T> prevValues;
+   private IEnumerable<IMaxNodeWrapper> nodes;
+   private T newValue;
+   private Dictionary<IMaxNodeWrapper, T> prevValues;
 
-   public SetNodePropertyCommand(IEnumerable<IMaxNodeWrapper> nodes, T newValue)
+   protected SetNodePropertyCommand(IEnumerable<IMaxNodeWrapper> nodes, T newValue)
    {
       this.nodes = nodes.ToArray();
       this.newValue = newValue;

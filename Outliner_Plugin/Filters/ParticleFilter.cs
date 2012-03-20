@@ -6,16 +6,16 @@ namespace Outliner.Filters
 {
    public class ParticleFilter : Filter<IMaxNodeWrapper>
    {
-      override public FilterResult ShowNode(IMaxNodeWrapper data)
+      override public FilterResults ShowNode(IMaxNodeWrapper data)
       {
          if (!(data is IINodeWrapper))
-            return FilterResult.Show;
+            return FilterResults.Show;
 
          IINode node = (IINode)data.WrappedNode;
          if (node.ObjectRef.IsParticleSystem)
-            return FilterResult.Hide;
+            return FilterResults.Hide;
          else
-            return FilterResult.Show;
+            return FilterResults.Show;
       }
    }
 }

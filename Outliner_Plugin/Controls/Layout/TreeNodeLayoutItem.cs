@@ -23,7 +23,7 @@ namespace Outliner.Controls.Layout
    public abstract class TreeNodeLayoutItem
    {
       [XmlIgnore]
-      public TreeNodeLayout Layout { get; set; }
+      public TreeNodeLayout Layout { get; internal set; }
 
       /// <summary>
       /// The number of blank pixels to the left of the layout item.
@@ -58,6 +58,8 @@ namespace Outliner.Controls.Layout
       /// </summary>
       public virtual Point GetPos(TreeNode tn)
       {
+         if (tn == null)
+            return Point.Empty;
          if (this.Layout == null || this.Layout.TreeView == null)
             return Point.Empty;
 
@@ -111,7 +113,7 @@ namespace Outliner.Controls.Layout
       /// <summary>
       /// Draws the item for the given TreeNode at the given position.
       /// </summary>
-      public abstract void Draw(Graphics g, TreeNode tn);
+      public abstract void Draw(Graphics graphics, TreeNode tn);
 
       /// <summary>
       /// This method is called when the mouse pointer is moved over the item for the first time.

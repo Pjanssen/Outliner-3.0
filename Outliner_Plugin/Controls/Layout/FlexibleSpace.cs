@@ -23,7 +23,7 @@ public class FlexibleSpace : TreeNodeLayoutItem
       }
 
       w -= 4;
-      if ((NativeMethods.GetVisibleScrollbars(tree) & ScrollBars.Vertical) == ScrollBars.Vertical)
+      if (tree.VerticalScroll.Visible)
          w -= SystemInformation.VerticalScrollBarWidth;
 
       return w;

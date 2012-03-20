@@ -20,12 +20,18 @@ public class SetWireColorCommand : SetNodePropertyCommand<Color>
 
    public override Color GetValue(IMaxNodeWrapper node)
    {
-      return node.WireColor;
+      if (node == null)
+         return Color.Empty;
+      else
+         return node.WireColor;
    }
 
    public override void SetValue(IMaxNodeWrapper node, Color value)
    {
-      node.WireColor = value;
+      if (node == null || value == Color.Empty)
+         return;
+      else
+         node.WireColor = value;
    }
 }
 }

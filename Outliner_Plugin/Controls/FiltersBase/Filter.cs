@@ -18,6 +18,6 @@ namespace Outliner.Controls.FiltersBase
         /// Returns whether the node should be shown or hidden. 
         /// Must return either FilterResult.Show or FilterResult.Hide, not FilterResult.ShowChildren.
         /// </summary>
-        public abstract FilterResult ShowNode(T data);
+        public abstract FilterResults ShowNode(T data);
     }
 }

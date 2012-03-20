@@ -10,11 +10,14 @@ namespace Outliner
    public class OutlinerDescriptor : ClassDesc2
    {
       public static OutlinerGUP Instance { get; private set; }
-      public IClass_ID classID { get; private set; }
+      private IClass_ID classID;
 
       public OutlinerDescriptor(IGlobal global)
       {
-         classID = global.Class_ID.Create(0x2af116d5, 0x45710572);
+         if (global == null)
+            throw new ArgumentNullException("global");
+
+         this.classID = global.Class_ID.Create(0x2af116d5, 0x45710572);
       }
 
       public override string Category 

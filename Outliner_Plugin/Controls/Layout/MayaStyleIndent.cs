@@ -36,9 +36,10 @@ public class MayaStyleIndent : TreeNodeLayoutItem
       return this.Layout.TreeView.ItemHeight;
    }
 
-   public override void Draw(Graphics g, TreeNode tn)
+   public override void Draw(Graphics graphics, TreeNode tn)
    {
-      if (this.Layout == null || this.Layout.TreeView == null)
+      if (graphics == null || tn == null ||
+          this.Layout == null || this.Layout.TreeView == null)
          return;
 
       TreeView tree = this.Layout.TreeView;
@@ -66,7 +67,7 @@ public class MayaStyleIndent : TreeNodeLayoutItem
                   lineX -= this.Indent;
 
                   if (parent.NextNode != null)
-                     g.DrawLine(linePen, lineX, bounds.Top, lineX, bounds.Bottom);
+                     graphics.DrawLine(linePen, lineX, bounds.Top, lineX, bounds.Bottom);
 
                   parent = parent.Parent;
                }
@@ -75,24 +76,24 @@ public class MayaStyleIndent : TreeNodeLayoutItem
                Int32 xEnd = bounds.Right - indentHalf;
                Int32 xStart = xEnd - this.Indent;
                Int32 yEnd = (tn.Index == tn.Parent.Nodes.Count - 1) ? yMid : bounds.Bottom;
-               g.DrawLine(linePen, xStart, bounds.Top, xStart, yEnd);
-               g.DrawLine(linePen, xStart, yMid, xEnd - circleHalf, yMid);
+               graphics.DrawLine(linePen, xStart, bounds.Top, xStart, yEnd);
+               graphics.DrawLine(linePen, xStart, yMid, xEnd - circleHalf, yMid);
             }
 
             if (hasChildren && tn.IsExpanded)
             {
                Int32 x = bounds.Right - indentHalf;
-               g.DrawLine(linePen, x, yMid + circleHalf, x, bounds.Bottom);
+               graphics.DrawLine(linePen, x, yMid + circleHalf, x, bounds.Bottom);
             }
 
             Rectangle circleBounds = new Rectangle(0, 0, CIRCLE_SIZE, CIRCLE_SIZE);
             circleBounds.X = bounds.Right - CIRCLE_SIZE - ((this.Indent - CIRCLE_SIZE) / 2);
             circleBounds.Y = yMid - circleHalf;
 
-            g.DrawEllipse(linePen, circleBounds);
+            graphics.DrawEllipse(linePen, circleBounds);
             
             if (hasChildren && !isExpanded)
-               g.FillEllipse(linePen.Brush, circleBounds);
+               graphics.FillEllipse(linePen.Brush, circleBounds);
          }
       }
    }

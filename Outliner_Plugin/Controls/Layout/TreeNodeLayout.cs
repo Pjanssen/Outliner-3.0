@@ -35,13 +35,13 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
       return this.items.Sum(i => i.PaddingLeft + i.GetWidth(tn) + i.PaddingRight);
    }
 
-   public void DrawTreeNode(Graphics g, TreeNode tn) 
+   public void DrawTreeNode(Graphics graphics, TreeNode tn) 
    {
       foreach (TreeNodeLayoutItem item in this.items)
       {
          if (item.IsVisible(tn))
          {
-            item.Draw(g, tn);
+            item.Draw(graphics, tn);
          }
       }
    }
@@ -51,6 +51,9 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
 
    public void HandleMouseMove(MouseEventArgs e, TreeNode tn)
    {
+      if (e == null)
+         return;
+
       if (this.prevMouseOverItem != null)
       {
          if (tn == this.prevMouseOverTn && this.prevMouseOverItem.GetBounds(tn).Contains(e.Location))
@@ -79,6 +82,9 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
 
    public void HandleClick(MouseEventArgs e, TreeNode tn)
    {
+      if (e == null)
+         return;
+
       foreach (TreeNodeLayoutItem i in this.items)
       {
          if (i.GetBounds(tn).Contains(e.Location))
@@ -91,6 +97,9 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
 
    public void HandleMouseDoubleClick(MouseEventArgs e, TreeNode tn)
    {
+      if (e == null)
+         return;
+
       foreach (TreeNodeLayoutItem i in this.items)
       {
          if (i.GetBounds(tn).Contains(e.Location))
@@ -106,6 +115,9 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
       
    public void Add(TreeNodeLayoutItem item)
    {
+      if (item == null)
+         throw new ArgumentNullException("item");
+
       item.Layout = this;
       this.items.Add(item);
 
@@ -146,6 +158,9 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
 
    public bool Remove(TreeNodeLayoutItem item)
    {
+      if (item == null)
+         return false;
+
       if (this.items.Remove(item))
       {
          item.Layout = null;
@@ -174,6 +189,9 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
       get { return this.items[index]; }
       set 
       {
+         if (value == null)
+            throw new ArgumentNullException("value");
+
          value.Layout = this;
          this.items[index] = value;
          if (this.TreeView != null)

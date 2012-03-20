@@ -23,8 +23,8 @@ public class HierarchyMode : TreeMode
       for (int i = 0; i < rootNode.NumberOfChildren; i++)
          addNode(rootNode.GetChildNode(i), this.tree.Nodes);
 
+      this.tree.Sort();
       this.tree.EndUpdate();
-      this.tree.TimedSort(false);
    }
 
    private void addNode(IINode node, TreeNodeCollection parentCol)
@@ -37,13 +37,13 @@ public class HierarchyMode : TreeMode
          return;
 
       IMaxNodeWrapper wrapper = IMaxNodeWrapper.Create(node);
-      FilterResult filterResult = this.Filters.ShowNode(wrapper);
-      if (filterResult != FilterResult.Hide && !this.nodes.ContainsKey(node))
+      FilterResults filterResult = this.Filters.ShowNode(wrapper);
+      if (filterResult != FilterResults.Hide && !this.treeNodes.ContainsKey(node))
       {
          TreeNode tn = HelperMethods.CreateTreeNode(wrapper);
          tn.FilterResult = filterResult;
 
-         this.nodes.Add(node, tn);
+         this.treeNodes.Add(node, tn);
 
          if (addChildren)
          {
@@ -66,7 +66,7 @@ public class HierarchyMode : TreeMode
          if (node.ParentNode != null && !node.ParentNode.IsRootNode)
          {
             TreeNode parentTn = null;
-            if (this.nodes.TryGetValue(node, out parentTn))
+            if (this.treeNodes.TryGetValue(node, out parentTn))
                parentCol = parentTn.Nodes;
          }
          else

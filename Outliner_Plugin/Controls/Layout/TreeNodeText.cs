@@ -32,8 +32,11 @@ public class TreeNodeText : TreeNodeLayoutItem
       return this.Layout.TreeView.ItemHeight;
    }
 
-   public override void Draw(Graphics g, TreeNode tn)
+   public override void Draw(Graphics graphics, TreeNode tn)
    {
+      if (graphics == null || tn == null)
+         return;
+
       if (this.Layout == null || this.Layout.TreeView == null)
          return;
 
@@ -41,12 +44,12 @@ public class TreeNodeText : TreeNodeLayoutItem
       TreeViewColors colors = tree.Colors;
       Color bgColor = Color.Empty;
       Color fgColor = Color.Empty;
-      if ((tn.State & TreeNodeState.Selected) == TreeNodeState.Selected)
+      if ((tn.State & TreeNodeStates.Selected) == TreeNodeStates.Selected)
       {
          bgColor = colors.SelectionBackColor;
          fgColor = colors.SelectionForeColor;
       }
-      else if ((tn.State & TreeNodeState.ParentOfSelected) == TreeNodeState.ParentOfSelected)
+      else if ((tn.State & TreeNodeStates.ParentOfSelected) == TreeNodeStates.ParentOfSelected)
       {
          bgColor = colors.ParentBackColor;
          fgColor = colors.ParentForeColor;
@@ -57,7 +60,7 @@ public class TreeNodeText : TreeNodeLayoutItem
          fgColor = colors.NodeForeColor;
       }
 
-      if (tn.FilterResult == FiltersBase.FilterResult.ShowChildren)
+      if (tn.FilterResult == FiltersBase.FilterResults.ShowChildren)
          fgColor = Color.FromArgb(IconHelperMethods.FILTERED_OPACITY, fgColor);
 
       using (SolidBrush bgBrush = new SolidBrush(bgColor),
@@ -65,8 +68,8 @@ public class TreeNodeText : TreeNodeLayoutItem
       {
          Rectangle gBounds = this.GetBounds(tn);
          
-         g.FillRectangle(bgBrush, gBounds);
-         g.DrawString(tn.Text, tree.Font, fgBrush, 
+         graphics.FillRectangle(bgBrush, gBounds);
+         graphics.DrawString(tn.Text, tree.Font, fgBrush, 
                       gBounds.X, gBounds.Y + ((gBounds.Height - this.GetTextSize(tn).Height) / 2), StringFormat.GenericDefault);
       }
    }

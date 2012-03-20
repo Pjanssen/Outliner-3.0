@@ -7,18 +7,21 @@ namespace Outliner.Filters
 {
    public abstract class SuperClassFilter : Filter<IMaxNodeWrapper>
    {
-      protected FilterResult ShowNode(IMaxNodeWrapper data, SClass_ID superClass)
+      protected FilterResults ShowNode(IMaxNodeWrapper data, SClass_ID superClass)
       {
+         if (data == null)
+            return FilterResults.Show;
+
          if (data.SuperClassID != superClass)
-            return FilterResult.Show;
+            return FilterResults.Show;
          else
-            return FilterResult.Hide;
+            return FilterResults.Hide;
       }
    }
 
    public class ShapeFilter : SuperClassFilter
    {
-      override public FilterResult ShowNode(IMaxNodeWrapper data)
+      override public FilterResults ShowNode(IMaxNodeWrapper data)
       {
          return base.ShowNode(data, SClass_ID.Shape);
       }
@@ -26,7 +29,7 @@ namespace Outliner.Filters
 
    public class CameraFilter : SuperClassFilter
    {
-      override public FilterResult ShowNode(IMaxNodeWrapper data)
+      override public FilterResults ShowNode(IMaxNodeWrapper data)
       {
          return base.ShowNode(data, SClass_ID.Camera);
       }
@@ -34,7 +37,7 @@ namespace Outliner.Filters
 
    public class LightFilter : SuperClassFilter
    {
-      override public FilterResult ShowNode(IMaxNodeWrapper data)
+      override public FilterResults ShowNode(IMaxNodeWrapper data)
       {
          return base.ShowNode(data, SClass_ID.Light);
       }
@@ -42,7 +45,7 @@ namespace Outliner.Filters
 
    public class SpacewarpFilter : SuperClassFilter
    {
-      override public FilterResult ShowNode(IMaxNodeWrapper data)
+      override public FilterResults ShowNode(IMaxNodeWrapper data)
       {
          return base.ShowNode(data, SClass_ID.WsmObject);
       }

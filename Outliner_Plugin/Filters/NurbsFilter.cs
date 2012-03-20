@@ -10,19 +10,19 @@ namespace Outliner.Filters
 {
    public class NurbsFilter : Filter<IMaxNodeWrapper>
    {
-      public override FilterResult ShowNode(IMaxNodeWrapper data)
+      public override FilterResults ShowNode(IMaxNodeWrapper data)
       {
          if (!(data is IINodeWrapper))
-            return FilterResult.Show;
+            return FilterResults.Show;
 
          if (data.SuperClassID == Autodesk.Max.SClass_ID.Geomobject)
          {
             IINode node = (IINode)data.WrappedNode;
             if (node.ObjectRef != null && node.ObjectRef.IsShapeObject)
-               return FilterResult.Hide;
+               return FilterResults.Hide;
          }
 
-         return FilterResult.Show;
+         return FilterResults.Show;
       }
    }
 }

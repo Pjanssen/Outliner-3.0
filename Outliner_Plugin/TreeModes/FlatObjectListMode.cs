@@ -35,17 +35,20 @@ public class FlatObjectListMode : TreeMode
    }
    protected void addNode(IINode node, TreeNodeCollection parentCol, Boolean addChildren)
    {
+      if (node == null || parentCol == null)
+         return;
+
       if (HelperMethods.IsHiddenNode(node))
          return;
 
       IMaxNodeWrapper wrapper = IMaxNodeWrapper.Create(node);
-      FilterResult filterResult = this.Filters.ShowNode(wrapper);
-      if (filterResult != FilterResult.Hide && !this.nodes.ContainsKey(node))
+      FilterResults filterResult = this.Filters.ShowNode(wrapper);
+      if (filterResult != FilterResults.Hide && !this.treeNodes.ContainsKey(node))
       {
          TreeNode tn = HelperMethods.CreateTreeNode(wrapper);
          tn.FilterResult = filterResult;
 
-         this.nodes.Add(node, tn);
+         this.treeNodes.Add(node, tn);
          parentCol.Add(tn);
 
          if (node.Selected)

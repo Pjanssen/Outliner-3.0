@@ -17,51 +17,51 @@ public abstract class ImageButton : TreeNodeButton
 
    public abstract Boolean IsEnabled(TreeNode tn);
 
-   protected Bitmap enabledImg;
-   protected Bitmap disabledImg;
-   protected Bitmap enabledImg_Filtered;
-   protected Bitmap disabledImg_Filtered;
+   private Bitmap enabledImage;
+   private Bitmap disabledImage;
+   private Bitmap enabledImage_Filtered;
+   private Bitmap disabledImage_Filtered;
 
-   public ImageButton(Bitmap enabledImg, Bitmap disabledImg)
+   protected ImageButton(Bitmap enabledImage, Bitmap disabledImage)
    {
-      if (enabledImg == null)
-         throw new ArgumentNullException("ImageButton enabled image cannot be null");
+      if (enabledImage == null)
+         throw new ArgumentNullException("enabledImage");
 
       this.InvertBehavior = false;
 
-      this.enabledImg  = enabledImg;
-      this.disabledImg = (disabledImg != null) ? disabledImg : enabledImg;
+      this.enabledImage  = enabledImage;
+      this.disabledImage = (disabledImage != null) ? disabledImage : enabledImage;
 
-      this.enabledImg_Filtered = (Bitmap)enabledImg.Clone();
-      this.disabledImg_Filtered = (Bitmap)this.disabledImg.Clone();
-      BitmapProcessing.Opacity(this.enabledImg_Filtered, IconHelperMethods.FILTERED_OPACITY);
-      BitmapProcessing.Opacity(this.disabledImg_Filtered, IconHelperMethods.FILTERED_OPACITY);
+      this.enabledImage_Filtered = (Bitmap)enabledImage.Clone();
+      this.disabledImage_Filtered = (Bitmap)this.disabledImage.Clone();
+      BitmapProcessing.Opacity(this.enabledImage_Filtered, IconHelperMethods.FILTERED_OPACITY);
+      BitmapProcessing.Opacity(this.disabledImage_Filtered, IconHelperMethods.FILTERED_OPACITY);
    }
 
    public override int GetWidth(TreeNode tn)
    {
-      return this.enabledImg.Width;
+      return this.enabledImage.Width;
    }
 
    public override int GetHeight(TreeNode tn)
    {
-      return this.enabledImg.Height;
+      return this.enabledImage.Height;
    }
 
-   public override void Draw(Graphics g, TreeNode tn)
+   public override void Draw(Graphics graphics, TreeNode tn)
    {
-      Boolean isFiltered = false;
-      TreeNodeData tnData = tn.Tag as TreeNodeData;
-      if (tnData != null)
-         isFiltered = tnData.FilterResult != FiltersBase.FilterResult.Show;
+      if (graphics == null || tn == null)
+         return;
+
+      Boolean isFiltered = !tn.FilterResult.HasFlag(FiltersBase.FilterResults.Show);
 
       Image img = null;
       if (this.IsEnabled(tn) != this.InvertBehavior)
-         img = (isFiltered) ? this.enabledImg_Filtered : this.enabledImg;
+         img = (isFiltered) ? this.enabledImage_Filtered : this.enabledImage;
       else
-         img = (isFiltered) ? this.disabledImg_Filtered : this.disabledImg;
+         img = (isFiltered) ? this.disabledImage_Filtered : this.disabledImage;
 
-      g.DrawImage(img, this.GetBounds(tn));
+      graphics.DrawImage(img, this.GetBounds(tn));
    }
 }
 }

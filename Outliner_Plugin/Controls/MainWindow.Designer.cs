@@ -56,7 +56,7 @@
 
       #endregion
 
-      public TreeView treeView1;
+      public TreeView treeView1 { get; private set; }
 
 
 

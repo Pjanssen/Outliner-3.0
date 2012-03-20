@@ -43,8 +43,11 @@ public class WireColorButton : TreeNodeButton
       get { return true; }
    }
 
-   public override void Draw(Graphics g, TreeNode tn)
+   public override void Draw(Graphics graphics, TreeNode tn)
    {
+      if (graphics == null || tn == null)
+         return;
+
       if (this.Layout == null || this.Layout.TreeView == null)
          return;
 
@@ -58,8 +61,8 @@ public class WireColorButton : TreeNodeButton
       {
          using (SolidBrush brush = new SolidBrush(wc))
          {
-            g.FillRectangle(brush, rBounds);
-            g.DrawRectangle(linePen, rBounds);
+            graphics.FillRectangle(brush, rBounds);
+            graphics.DrawRectangle(linePen, rBounds);
          }
       }
    }

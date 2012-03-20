@@ -10,7 +10,7 @@ namespace Outliner.Controls
 public class TreeNode
 {
    internal TreeNode parent;
-   private TreeNodeState state;
+   private TreeNodeStates state;
    private Boolean isExpanded;
    private String text;
    private Boolean boundsValid;
@@ -19,7 +19,7 @@ public class TreeNode
    public TreeView TreeView { get; internal set; }
    public TreeNodeCollection Nodes { get; private set; }
    public DragDropHandler DragDropHandler { get; set; }
-   public FilterResult FilterResult { get; set; }
+   public FilterResults FilterResult { get; set; }
    public Object Tag { get; set; }
    public String ImageKey { get; set; }
 
@@ -34,7 +34,7 @@ public class TreeNode
       this.text = text;
       this.boundsValid = false;
       this.Nodes = new TreeNodeCollection(this);
-      this.FilterResult = FiltersBase.FilterResult.Show;
+      this.FilterResult = FiltersBase.FilterResults.Show;
    }
 
    public String Text 
@@ -185,7 +185,7 @@ public class TreeNode
          TreeView tree = this.TreeView;
          if (tree != null)
          {
-            tree.Update(TreeViewUpdate.Bounds | TreeViewUpdate.Redraw);
+            tree.Update(TreeViewUpdateFlags.Bounds | TreeViewUpdateFlags.Redraw);
          }
       }
    }
@@ -239,12 +239,12 @@ public class TreeNode
          if (this.IsExpanded && this.Nodes.Count > 0)
             return this.Nodes[0];
 
-         TreeNode parent = this;
+         TreeNode parentNode = this;
          TreeNode nextNode = null;
-         while (nextNode == null && parent != null)
+         while (nextNode == null && parentNode != null)
          {
-            nextNode = parent.NextNode;
-            parent = parent.parent;
+            nextNode = parentNode.NextNode;
+            parentNode = parentNode.parent;
          }
          return nextNode;
       }
@@ -279,7 +279,7 @@ public class TreeNode
    /// <summary>
    /// Gets or sets the selection state of the treenode.
    /// </summary>
-   public TreeNodeState State
+   public TreeNodeStates State
    {
       get { return this.state; }
       set
@@ -287,17 +287,17 @@ public class TreeNode
          this.state = value;
          TreeView tree = this.TreeView;
          if (tree != null)
-            tree.Update(TreeViewUpdate.Redraw);
+            tree.Update(TreeViewUpdateFlags.Redraw);
          
-         if (value.HasFlag(TreeNodeState.Selected) || value.HasFlag(TreeNodeState.ParentOfSelected))
+         if (value.HasFlag(TreeNodeStates.Selected) || value.HasFlag(TreeNodeStates.ParentOfSelected))
          {
             if (this.parent != null)
-               this.parent.State |= TreeNodeState.ParentOfSelected;
+               this.parent.State |= TreeNodeStates.ParentOfSelected;
          }
-         else if (value.HasFlag(TreeNodeState.Unselected))
+         else if (value.HasFlag(TreeNodeStates.None))
          {
             if (this.parent != null)
-               this.parent.State = TreeNodeState.Unselected;
+               this.parent.State = TreeNodeStates.None;
          }
 
       }

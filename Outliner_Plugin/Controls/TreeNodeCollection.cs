@@ -23,13 +23,16 @@ public class TreeNodeCollection : ICollection<TreeNode>
    {
       TreeView tree = this.owner.TreeView;
       if (tree != null)
-         tree.Update(TreeViewUpdate.Bounds | TreeViewUpdate.Redraw);
+         tree.Update(TreeViewUpdateFlags.Bounds | TreeViewUpdateFlags.Redraw);
    }
 
    #region ICollection members
       
    public void Add(TreeNode item)
    {
+      if (item == null)
+         throw new ArgumentNullException("item");
+
       if (this.nodes.Count > 0)
       {
          TreeNode lastNode = this.nodes[this.nodes.Count - 1];
@@ -78,6 +81,9 @@ public class TreeNodeCollection : ICollection<TreeNode>
 
    public bool Remove(TreeNode item)
    {
+      if (item == null)
+         return false;
+
       item.TreeView = null;
       item.parent = null;
       item.PreviousNode = null;
@@ -103,6 +109,9 @@ public class TreeNodeCollection : ICollection<TreeNode>
       get { return this.nodes[index]; }
       set 
       {
+         if (value == null)
+            throw new ArgumentNullException("value");
+
          if (index > 0)
          {
             TreeNode prevNode = this.nodes[index - 1];
@@ -132,7 +141,7 @@ public class TreeNodeCollection : ICollection<TreeNode>
          return;
 
       if (this.owner.TreeView != null)
-         this.owner.TreeView.BeginUpdate(TreeViewUpdate.Redraw | TreeViewUpdate.Bounds);
+         this.owner.TreeView.BeginUpdate(TreeViewUpdateFlags.Redraw | TreeViewUpdateFlags.Bounds);
 
       this.nodes.Sort(comparer);
 

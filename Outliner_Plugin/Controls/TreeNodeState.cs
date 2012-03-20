@@ -6,9 +6,9 @@ using System.Text;
 namespace Outliner.Controls
 {
    [Flags]
-   public enum TreeNodeState : int
+   public enum TreeNodeStates : int
    {
-      Unselected       = 0x00,
+      None             = 0x00,
       Selected         = 0x01,
       ParentOfSelected = 0x02,
       DropTarget       = 0x04

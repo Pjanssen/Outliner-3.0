@@ -22,27 +22,17 @@ namespace Outliner.Scene
          get { return null; }
       }
 
-      public override int NumChildren
-      {
-         get { return manager.GetNamedSelSetItemCount(this.index); }
-      }
-
       public override IEnumerable<IMaxNodeWrapper> ChildNodes
       {
          get
          {
-            int numChildren = this.NumChildren;
+            int numChildren = this.manager.GetNamedSelSetItemCount(this.index);
             List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(numChildren);
             for (int i = 0; i < numChildren; i++)
                nodes.Add(IMaxNodeWrapper.Create(this.manager.GetNamedSelSetItem(this.index, i)));
             return nodes;
          }
       }
-      /*
-      public override IMaxNodeWrapper GetChildNode(int i)
-      {
-         throw new NotImplementedException();
-      }*/
 
       public override Autodesk.Max.IClass_ID ClassID
       {

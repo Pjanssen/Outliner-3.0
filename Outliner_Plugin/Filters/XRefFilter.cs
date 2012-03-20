@@ -7,15 +7,15 @@ namespace Outliner.Filters
 {
    public class XRefFilter : Filter<IMaxNodeWrapper>
    {
-      override public FilterResult ShowNode(IMaxNodeWrapper data)
+      override public FilterResults ShowNode(IMaxNodeWrapper data)
       {
          if (!(data is IINodeWrapper))
-            return FilterResult.Show;
+            return FilterResults.Show;
 
          if(HelperMethods.IsXref((IINode)data.WrappedNode))
-            return FilterResult.Hide;
+            return FilterResults.Hide;
          else
-            return FilterResult.Show;
+            return FilterResults.Show;
       }
    }
 }

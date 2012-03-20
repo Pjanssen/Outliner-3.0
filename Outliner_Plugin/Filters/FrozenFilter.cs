@@ -7,15 +7,15 @@ namespace Outliner.Filters
 {
    public class FrozenFilter : Filter<IMaxNodeWrapper>
    {
-      override public FilterResult ShowNode(IMaxNodeWrapper data)
+      override public FilterResults ShowNode(IMaxNodeWrapper data)
       {
          if (data == null)
-            return FilterResult.Show;
+            return FilterResults.Show;
 
          if (data.IsFrozen)
-            return FilterResult.Hide;
+            return FilterResults.Hide;
          else
-            return FilterResult.Show;
+            return FilterResults.Show;
       }
    }
 }

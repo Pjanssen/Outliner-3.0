@@ -22,7 +22,7 @@ namespace Outliner.Controls
       {
          Autodesk.Max.IIColorManager cM = Autodesk.Max.GlobalInterface.Instance.ColorManager;
          this.BackColor = Color.FromArgb(255, cM.GetColor(Autodesk.Max.GuiColors.Background));
-         this.treeView1.Colors = TreeViewColors.GetMaxColors();
+         this.treeView1.Colors = TreeViewColors.MaxColors;
       }
    }
 }

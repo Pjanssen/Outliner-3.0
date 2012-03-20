@@ -15,22 +15,21 @@ namespace Outliner.TreeModes
 {
 public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
 {
-   protected Outliner.Controls.TreeView tree;
-   protected Autodesk.Max.IInterface ip;
+   protected Outliner.Controls.TreeView tree { get; private set; }
+   protected Autodesk.Max.IInterface ip { get; private set; }
    private uint sceneEventCbKey;
 
-   protected Dictionary<Object, TreeNode> nodes;
+   protected Dictionary<Object, TreeNode> treeNodes { get; private set; }
 
-   public TreeMode(Outliner.Controls.TreeView tree, Autodesk.Max.IInterface ip)
+   protected TreeMode(Outliner.Controls.TreeView tree, Autodesk.Max.IInterface ip)
    {
       this.tree = tree;
       this.ip = ip;
-      this.nodes = new Dictionary<Object, TreeNode>();
+      this.treeNodes = new Dictionary<Object, TreeNode>();
       this.Filters = new FilterCollection<IMaxNodeWrapper>();
 
-      this.tree.SelectionChanged += new SelectionChangedEventHandler(tree_SelectionChanged);
-      this.tree.AfterNodeTextEdit += new AfterNodeTextEditEventHandler(tree_AfterNodeTextEdit);
-      //this.tree.AfterLabelEdit += new NodeLabelEditEventHandler(tree_AfterLabelEdit);
+      this.tree.SelectionChanged += new EventHandler<SelectionChangedEventArgs>(tree_SelectionChanged);
+      this.tree.AfterNodeTextEdit += new EventHandler<AfterNodeTextEditEventArgs>(tree_AfterNodeTextEdit);
 
       IGlobal iGlobal = GlobalInterface.Instance;
       iGlobal.RegisterNotification(PostReset, null, SystemNotificationCode.SystemPostReset);
@@ -63,7 +62,7 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
    {
       TreeNode tn = null;
       if (node != null)
-         this.nodes.TryGetValue(node, out tn);
+         this.treeNodes.TryGetValue(node, out tn);
       return tn;
    }
 
@@ -74,7 +73,7 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
       {
          this.tree.SelectedNodes.Remove(tn);
          tn.Remove();
-         this.nodes.Remove(node);
+         this.treeNodes.Remove(node);
       }
    }
 
@@ -124,7 +123,7 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
 
    #region System notifications
 
-   public virtual void SelectionsetChanged(IntPtr paramPtr, IntPtr infoPtr)
+   public virtual void SelectionsetChanged(IntPtr param, IntPtr info)
    {
       this.tree.SelectAllNodes(false);
 
@@ -134,16 +133,16 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
          for (Int32 i = 0; i < selNodeCount; i++)
          {
             TreeNode tn;
-            if (this.nodes.TryGetValue(ip.GetSelNode(i), out tn))
+            if (this.treeNodes.TryGetValue(ip.GetSelNode(i), out tn))
                this.tree.SelectNode(tn, true);
          }
       }
    }
 
-   public virtual void PostReset(IntPtr paramPtr, IntPtr infoPtr)
+   public virtual void PostReset(IntPtr param, IntPtr info)
    {
       this.tree.Nodes.Clear();
-      this.nodes.Clear();
+      this.treeNodes.Clear();
    }
 
    #endregion
@@ -174,9 +173,12 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
 
    #region Filters
 
-   protected IEnumerable<IMaxNodeWrapper> GetChildNodes(IMaxNodeWrapper n)
+   protected IEnumerable<IMaxNodeWrapper> GetChildNodes(IMaxNodeWrapper node)
    {
-      return n.ChildNodes;
+      if (node == null)
+         return null;
+
+      return node.ChildNodes;
    }
 
    private FilterCollection<IMaxNodeWrapper> _filters;
@@ -185,6 +187,9 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
       get { return _filters; }
       set
       {
+         if (value == null)
+            throw new ArgumentNullException("value");
+
          if (_filters != null)
          {
             _filters.FiltersEnabled -= this.filtersEnabled;

@@ -19,12 +19,18 @@ public class SetBoxModeCommand : SetNodePropertyCommand<Boolean>
 
    public override bool GetValue(IMaxNodeWrapper node)
    {
-      return node.BoxMode;
+      if (node == null)
+         return false;
+      else
+         return node.BoxMode;
    }
 
    public override void SetValue(IMaxNodeWrapper node, bool value)
    {
-      node.BoxMode = value;
+      if (node == null)
+         return;
+      else
+         node.BoxMode = value;
    }
 }
 }

@@ -25,7 +25,7 @@ namespace Outliner.Commands
       /// <summary>
       /// Registers a command in the hold and executes it by running its Redo method.
       /// </summary>
-      public virtual void Execute(Boolean redrawVpts) 
+      public virtual void Execute(Boolean redrawViews) 
       {
          IGlobal iGlobal = Autodesk.Max.GlobalInterface.Instance;
          IHold theHold = iGlobal.TheHold;
@@ -37,7 +37,7 @@ namespace Outliner.Commands
          theHold.Put(this);
          theHold.Accept(this.Description);
 
-         if (redrawVpts)
+         if (redrawViews)
          {
             IInterface ip = iGlobal.COREInterface;
             ip.RedrawViews(ip.Time, RedrawFlags.Normal, null);

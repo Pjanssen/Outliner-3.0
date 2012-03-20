@@ -36,6 +36,8 @@ public class TreeView : ScrollableControl
    {
       if (this.bgBrush != null)
          this.bgBrush.Dispose();
+
+      base.Dispose(disposing);
    }
 
 
@@ -54,7 +56,7 @@ public class TreeView : ScrollableControl
       set
       {
          this.itemHeight = value;
-         this.Update(TreeViewUpdate.Redraw | TreeViewUpdate.Bounds);
+         this.Update(TreeViewUpdateFlags.Redraw | TreeViewUpdateFlags.Bounds);
       }
    }
 
@@ -87,6 +89,9 @@ public class TreeView : ScrollableControl
       get { return this.treeNodeLayout; }
       set
       {
+         if (value == null)
+            throw new ArgumentNullException("value");
+
          this.treeNodeLayout = value;
          this.treeNodeLayout.TreeView = this;
       }
@@ -105,8 +110,19 @@ public class TreeView : ScrollableControl
 
 
    private SolidBrush bgBrush;
-   
-   public Outliner.Controls.TreeViewColors Colors { get; set; }
+
+   private TreeViewColors colors;
+   public Outliner.Controls.TreeViewColors Colors 
+   {
+      get { return this.colors; }
+      set
+      {
+         if (value == null)
+            throw new ArgumentNullException("value");
+         this.colors = value;
+         this.Update(TreeViewUpdateFlags.Redraw);
+      }
+   }
 
    public override Color BackColor
    {
@@ -120,7 +136,10 @@ public class TreeView : ScrollableControl
 
    protected override void OnPaintBackground(PaintEventArgs e)
    {
-      if (this.TestUpdateFlag(TreeViewUpdate.Redraw))
+      if (this.TestUpdateFlag(TreeViewUpdateFlags.Redraw))
+         return;
+
+      if (e == null)
          return;
 
       if (this.bgBrush == null)
@@ -131,10 +150,10 @@ public class TreeView : ScrollableControl
 
    protected override void OnPaint(PaintEventArgs e)
    {
-      if (this.TestUpdateFlag(TreeViewUpdate.Redraw))
+      if (this.TestUpdateFlag(TreeViewUpdateFlags.Redraw))
          return;
 
-      if (this.Nodes.Count == 0 || this.TreeNodeLayout == null)
+      if (e == null || this.Nodes.Count == 0 || this.TreeNodeLayout == null)
          return;
       
       Int32 startY = e.ClipRectangle.Y - (this.ItemHeight - 1);
@@ -166,12 +185,12 @@ public class TreeView : ScrollableControl
    }
 
    private Int32 beginUpdateCalls = 0;
-   private TreeViewUpdate updating = TreeViewUpdate.None;
+   private TreeViewUpdateFlags updating = TreeViewUpdateFlags.None;
 
    /// <summary>
    /// Tests if one or more update flags are set.
    /// </summary>
-   private Boolean TestUpdateFlag(TreeViewUpdate flag)
+   private Boolean TestUpdateFlag(TreeViewUpdateFlags flag)
    {
       return (this.updating & flag) == flag;
    }
@@ -179,7 +198,7 @@ public class TreeView : ScrollableControl
    /// <summary>
    /// Sets one or more update flags.
    /// </summary>
-   private void SetUpdateFlag(TreeViewUpdate flag)
+   private void SetUpdateFlag(TreeViewUpdateFlags flag)
    {
       this.updating |= flag;
    }
@@ -187,7 +206,7 @@ public class TreeView : ScrollableControl
    /// <summary>
    /// Unsets one or more update flags
    /// </summary>
-   private void RemoveUpdateFlag(TreeViewUpdate flag)
+   private void RemoveUpdateFlag(TreeViewUpdateFlags flag)
    {
       this.updating &= ~flag;
    }
@@ -196,7 +215,7 @@ public class TreeView : ScrollableControl
    /// Updates the TreeView according to the supplied update flags. 
    /// If BeginUpdate was called before, the flags are added to the update queue.
    /// </summary>
-   public void Update(TreeViewUpdate flags)
+   public void Update(TreeViewUpdateFlags flags)
    {
       this.SetUpdateFlag(flags);
       if (this.beginUpdateCalls == 0)
@@ -208,13 +227,13 @@ public class TreeView : ScrollableControl
    /// </summary>
    public void BeginUpdate()
    {
-      this.BeginUpdate(TreeViewUpdate.All);
+      this.BeginUpdate(TreeViewUpdateFlags.All);
    }
 
    /// <summary>
    /// Stops the TreeView updates until EndUpdate is called, then updates according to the provided update flags.
    /// </summary>
-   public void BeginUpdate(TreeViewUpdate flags)
+   public void BeginUpdate(TreeViewUpdateFlags flags)
    {
       this.updating = flags;
       this.beginUpdateCalls += 1;
@@ -230,19 +249,19 @@ public class TreeView : ScrollableControl
       {
          this.beginUpdateCalls = 0;
 
-         if (this.TestUpdateFlag(TreeViewUpdate.Bounds))
+         if (this.TestUpdateFlag(TreeViewUpdateFlags.Bounds))
          {
-            this.RemoveUpdateFlag(TreeViewUpdate.Bounds);
+            this.RemoveUpdateFlag(TreeViewUpdateFlags.Bounds);
             this.AutoScrollMinSize = this.getMaxBounds();
          }
 
-         if (this.TestUpdateFlag(TreeViewUpdate.Redraw))
+         if (this.TestUpdateFlag(TreeViewUpdateFlags.Redraw))
          {
-            this.RemoveUpdateFlag(TreeViewUpdate.Redraw);
+            this.RemoveUpdateFlag(TreeViewUpdateFlags.Redraw);
             this.Invalidate();
          }
 
-         this.RemoveUpdateFlag(TreeViewUpdate.All);
+         this.RemoveUpdateFlag(TreeViewUpdateFlags.All);
       }
    }
 
@@ -274,6 +293,9 @@ public class TreeView : ScrollableControl
    
    protected override void OnMouseMove(MouseEventArgs e)
    {
+      if (e == null || this.TreeNodeLayout == null)
+         return;
+
       TreeNode tn = this.GetNodeAt(e.Location);
       if (tn != null)
          this.TreeNodeLayout.HandleMouseMove(e, tn);
@@ -281,7 +303,7 @@ public class TreeView : ScrollableControl
 
    protected override void OnMouseClick(MouseEventArgs e)
    {
-      if (this.TreeNodeLayout == null)
+      if (e == null || this.TreeNodeLayout == null)
          return;
 
       this.Select(); //Select the treeview to be able to end a potential TreeNodeText::TextEdit.
@@ -295,6 +317,9 @@ public class TreeView : ScrollableControl
 
    protected override void OnMouseDoubleClick(MouseEventArgs e)
    {
+      if (e == null || this.TreeNodeLayout == null)
+         return;
+
       TreeNode tn = this.GetNodeAt(e.X, e.Y);
 
       if (tn != null)
@@ -308,7 +333,7 @@ public class TreeView : ScrollableControl
 
    public ICollection<TreeNode> SelectedNodes { get; private set; }
    public TreeNode LastSelectedNode { get; private set; }
-   public event SelectionChangedEventHandler SelectionChanged;
+   public event EventHandler<SelectionChangedEventArgs> SelectionChanged;
 
    internal void OnSelectionChanged()
    {
@@ -323,7 +348,7 @@ public class TreeView : ScrollableControl
 
       if (select)
       {
-         tn.State = TreeNodeState.Selected;
+         tn.State = TreeNodeStates.Selected;
 
          if (!this.IsSelectedNode(tn))
             this.SelectedNodes.Add(tn);
@@ -337,9 +362,9 @@ public class TreeView : ScrollableControl
          SelectedNodes.Remove(tn);
 
          if (IsParentOfSelectedNode(tn, true))
-            tn.State = TreeNodeState.ParentOfSelected;
+            tn.State = TreeNodeStates.ParentOfSelected;
          else
-            tn.State = TreeNodeState.Unselected;
+            tn.State = TreeNodeStates.None;
 
          //            this.RemoveParentHighlights(tn);
       }
@@ -478,7 +503,7 @@ public class TreeView : ScrollableControl
          if (this._sortQueue == null || this._sortQueue.Count == 0)
             return;
 
-         this.BeginUpdate(TreeViewUpdate.Redraw | TreeViewUpdate.Bounds);
+         this.BeginUpdate(TreeViewUpdateFlags.Redraw | TreeViewUpdateFlags.Bounds);
 
          foreach (TreeNodeCollection nodes in this._sortQueue)
          {
@@ -542,14 +567,14 @@ public class TreeView : ScrollableControl
    }
 
    #endregion
-
+ 
 
    #region NodeTextEdit
 
    /// <summary>
    /// Occurs before a TreeNode's text is going to be edited.
    /// </summary>
-   public event BeforeNodeTextEditEventHandler BeforeNodeTextEdit;
+   public event EventHandler<BeforeNodeTextEditEventArgs> BeforeNodeTextEdit;
    protected void OnBeforeNodeTextEdit(BeforeNodeTextEditEventArgs e)
    {
       if (this.BeforeNodeTextEdit != null)
@@ -559,7 +584,8 @@ public class TreeView : ScrollableControl
    /// <summary>
    /// Occurs after a TreeNode's text has been edited.
    /// </summary>
-   public event AfterNodeTextEditEventHandler AfterNodeTextEdit;
+   //public event AfterNodeTextEditEventHandler AfterNodeTextEdit;
+   public event EventHandler<AfterNodeTextEditEventArgs> AfterNodeTextEdit;
    protected void OnAfterNodeTextEdit(AfterNodeTextEditEventArgs e)
    {
       if (this.AfterNodeTextEdit != null)
@@ -623,7 +649,7 @@ public class TreeView : ScrollableControl
 
       if (!cancel && this.editTextBox != null
                   && this.editingTreeNode != null
-                  && this.editTextBox.Text != String.Empty
+                  && !String.IsNullOrEmpty(this.editTextBox.Text)
                   && this.editTextBox.Text != this.editingTreeNode.Text)
       {
          oldText = this.editingTreeNode.Text;
@@ -646,11 +672,11 @@ public class TreeView : ScrollableControl
 }
 
 [Flags]
-public enum TreeViewUpdate
+public enum TreeViewUpdateFlags
 {
    None = 0x00,
    Redraw = 0x01,
    Bounds = 0x02,
-   All = 0x7F
+   All = 0x03 //When adding new flags, adjust this value.
 }
 }

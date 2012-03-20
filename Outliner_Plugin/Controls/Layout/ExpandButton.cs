@@ -56,20 +56,11 @@ public class ExpandButton : TreeNodeLayoutItem
                            GLYPHSIZE, GLYPHSIZE);
    }
 
-   public override void Draw(Graphics g, TreeNode tn)
+   public override void Draw(Graphics graphics, TreeNode tn)
    {
-      Rectangle bounds = this.GetBounds(tn);
-      this.DrawGlyph(tn, g, bounds);
-   }
-
-
-
-
-   protected void DrawGlyph(TreeNode tn, Graphics g, Rectangle bounds)
-   {
-      if (this.Layout == null)
+      if (this.Layout == null || graphics == null || tn == null)
          return;
-      if (tn == null || tn.Nodes.Count == 0)
+      if (tn.Nodes.Count == 0)
          return;
 
       Rectangle glyphBounds = this.GetGlyphBounds(tn);
@@ -78,7 +69,7 @@ public class ExpandButton : TreeNodeLayoutItem
       {
          VisualStyleElement element = (tn.IsExpanded) ? VisualStyleElement.TreeView.Glyph.Opened : VisualStyleElement.TreeView.Glyph.Closed;
          VisualStyleRenderer renderer = new VisualStyleRenderer(element);
-         renderer.DrawBackground(g, glyphBounds);
+         renderer.DrawBackground(graphics, glyphBounds);
       }
       else
       {
@@ -87,19 +78,19 @@ public class ExpandButton : TreeNodeLayoutItem
          {
             glyphBounds.Width -= 1;
             glyphBounds.Height -= 1;
-            g.FillRectangle(bgBrush, glyphBounds);
-            g.DrawRectangle(linePen, glyphBounds);
-            g.DrawLine(linePen, glyphBounds.X + GLYPHMID - 2, 
-                                glyphBounds.Y + GLYPHMID,
-                                glyphBounds.X + GLYPHMID + 2,
-                                glyphBounds.Y + GLYPHMID);
+            graphics.FillRectangle(bgBrush, glyphBounds);
+            graphics.DrawRectangle(linePen, glyphBounds);
+            graphics.DrawLine(linePen, glyphBounds.X + GLYPHMID - 2, 
+                                       glyphBounds.Y + GLYPHMID,
+                                       glyphBounds.X + GLYPHMID + 2,
+                                       glyphBounds.Y + GLYPHMID);
 
             if (!tn.IsExpanded)
             {
-               g.DrawLine(linePen, glyphBounds.X + GLYPHMID, 
-                                   glyphBounds.Y + GLYPHMID - 2,
-                                   glyphBounds.X + GLYPHMID,
-                                   glyphBounds.Y + GLYPHMID + 2);
+               graphics.DrawLine(linePen, glyphBounds.X + GLYPHMID, 
+                                          glyphBounds.Y + GLYPHMID - 2,
+                                          glyphBounds.X + GLYPHMID,
+                                          glyphBounds.Y + GLYPHMID + 2);
             }
          }
       }
@@ -108,6 +99,9 @@ public class ExpandButton : TreeNodeLayoutItem
 
    public override void HandleClick(MouseEventArgs e, TreeNode tn)
    {
+      if (e == null || tn == null)
+         return;
+
       Rectangle glyphBounds = this.GetGlyphBounds(tn);
       if (glyphBounds.Contains(e.Location))
       {

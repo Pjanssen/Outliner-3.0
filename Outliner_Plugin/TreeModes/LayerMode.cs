@@ -55,13 +55,13 @@ public class LayerMode : TreeMode
    private TreeNode addNode(IILayer layer, TreeNodeCollection parentCol)
    {
       IMaxNodeWrapper wrapper = IMaxNodeWrapper.Create(layer);
-      FilterResult filterResult = this.Filters.ShowNode(wrapper);
-      if (filterResult != FilterResult.Hide && !this.nodes.ContainsKey(layer))
+      FilterResults filterResult = this.Filters.ShowNode(wrapper);
+      if (filterResult != FilterResults.Hide && !this.treeNodes.ContainsKey(layer))
       {
          TreeNode tn = HelperMethods.CreateTreeNode(wrapper);
          tn.FilterResult = filterResult;
 
-         this.nodes.Add(layer, tn);
+         this.treeNodes.Add(layer, tn);
          parentCol.Add(tn);
          return tn;
       }
@@ -74,13 +74,13 @@ public class LayerMode : TreeMode
          return;
 
       IMaxNodeWrapper wrapper = IMaxNodeWrapper.Create(node);
-      FilterResult filterResult = this.Filters.ShowNode(wrapper);
-      if (filterResult != FilterResult.Hide && !this.nodes.ContainsKey(node))
+      FilterResults filterResult = this.Filters.ShowNode(wrapper);
+      if (filterResult != FilterResults.Hide && !this.treeNodes.ContainsKey(node))
       {
          //Add layer node if it doesn't exist yet.
          IILayer l = (IILayer)node.GetReference((int)ReferenceNumbers.NodeLayerRef);
          TreeNode parentTn = null;
-         if (!this.nodes.TryGetValue(l, out parentTn))
+         if (!this.treeNodes.TryGetValue(l, out parentTn))
             parentTn = this.addNode(l, this.tree.Nodes);
 
          if (parentTn != null)
@@ -88,7 +88,7 @@ public class LayerMode : TreeMode
             TreeNode tn = HelperMethods.CreateTreeNode(wrapper);
             tn.FilterResult = filterResult;
 
-            this.nodes.Add(node, tn);
+            this.treeNodes.Add(node, tn);
             parentTn.Nodes.Add(tn);
 
             if (node.Selected)
@@ -117,31 +117,32 @@ public class LayerMode : TreeMode
 
    #region System notifications
 
-   public virtual void LayerCreated(IntPtr paramPtr, IntPtr infoPtr)
+   public virtual void LayerCreated(IntPtr param, IntPtr info)
    {
-      INotifyInfo info = HelperMethods.GetNotifyInfo(infoPtr);
-      if (info != null && info.CallParam is IILayer)
-         this.addNode((IILayer)info.CallParam, this.tree.Nodes);
+      INotifyInfo notifyInfo = HelperMethods.GetNotifyInfo(info);
+      if (notifyInfo != null && notifyInfo.CallParam is IILayer)
+         this.addNode((IILayer)notifyInfo.CallParam, this.tree.Nodes);
    }
 
-   public virtual void LayerDeleted(IntPtr paramPtr, IntPtr infoPtr)
+   public virtual void LayerDeleted(IntPtr param, IntPtr info)
    {
-      INotifyInfo info = HelperMethods.GetNotifyInfo(infoPtr);
-      if (info != null && info.CallParam is IILayer)
-         this.RemoveTreeNode(info.CallParam);
+      INotifyInfo notifyInfo = HelperMethods.GetNotifyInfo(info);
+      if (notifyInfo != null && notifyInfo.CallParam is IILayer)
+         this.RemoveTreeNode(notifyInfo.CallParam);
    }
 
-   public virtual void LayerRenamed(IntPtr paramPtr, IntPtr infoPtr)
+   public virtual void LayerRenamed(IntPtr param, IntPtr info)
    {
-      INotifyInfo info = HelperMethods.GetNotifyInfo(infoPtr);
+      INotifyInfo notifyInfo = HelperMethods.GetNotifyInfo(info);
+      Console.WriteLine(notifyInfo.CallParam);
    }
 
-   public virtual void LayerPropChanged(IntPtr paramPtr, IntPtr infoPtr)
+   public virtual void LayerPropChanged(IntPtr param, IntPtr info)
    {
-      INotifyInfo info = HelperMethods.GetNotifyInfo(infoPtr);
-      if (info != null && info.CallParam is IILayer)
+      INotifyInfo notifyInfo = HelperMethods.GetNotifyInfo(info);
+      if (notifyInfo != null && notifyInfo.CallParam is IILayer)
       {
-         TreeNode tn = this.GetTreeNode(info.CallParam);
+         TreeNode tn = this.GetTreeNode(notifyInfo.CallParam);
          if (tn != null)
             this.tree.Invalidate(tn.Bounds);
       }

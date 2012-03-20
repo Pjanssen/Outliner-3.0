@@ -18,12 +18,18 @@ public class SetRenderableCommand : SetNodePropertyCommand<Boolean>
 
    public override bool GetValue(IMaxNodeWrapper node)
    {
-      return node.Renderable;
+      if (node == null)
+         return false;
+      else
+         return node.Renderable;
    }
 
    public override void SetValue(IMaxNodeWrapper node, bool value)
    {
-      node.Renderable = value;
+      if (node == null)
+         return;
+      else
+         node.Renderable = value;
    }
 }
 }

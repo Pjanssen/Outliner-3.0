@@ -19,12 +19,18 @@ public class FreezeCommand : SetNodePropertyCommand<Boolean>
 
    public override bool GetValue(IMaxNodeWrapper node)
    {
-      return node.IsFrozen;
+      if (node == null)
+         return false;
+      else
+         return node.IsFrozen;
    }
 
    public override void SetValue(IMaxNodeWrapper node, bool value)
    {
-      node.IsFrozen = value;
+      if (node == null)
+         return;
+      else
+         node.IsFrozen = value;
    }
 }
 }

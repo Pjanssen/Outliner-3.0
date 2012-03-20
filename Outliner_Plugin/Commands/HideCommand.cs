@@ -19,12 +19,18 @@ public class HideCommand : SetNodePropertyCommand<Boolean>
 
    public override bool GetValue(IMaxNodeWrapper node)
    {
-      return node.IsHidden;
+      if (node == null)
+         return false;
+      else
+         return node.IsHidden;
    }
 
    public override void SetValue(IMaxNodeWrapper node, bool value)
    {
-      node.IsHidden = value;
+      if (node == null)
+         return;
+      else
+         node.IsHidden = value;
    }
 }
 }

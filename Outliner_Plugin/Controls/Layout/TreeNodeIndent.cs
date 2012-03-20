@@ -27,17 +27,20 @@ public class TreeNodeIndent : ExpandButton
       return GUTTERWIDTH + this.Indent * tnLevel;
    }
 
-   public override void Draw(Graphics g, TreeNode tn)
+   public override void Draw(Graphics graphics, TreeNode tn)
    {
       //Draw lines.
-      this.DrawLines(tn, g, this.GetBounds(tn));
+      this.DrawLines(tn, graphics, this.GetBounds(tn));
          
       //Draw expand button.
-      base.Draw(g, tn);
+      base.Draw(graphics, tn);
    }
 
-   protected void DrawLines(TreeNode tn, Graphics g, Rectangle bounds)
+   protected void DrawLines(TreeNode tn, Graphics graphics, Rectangle bounds)
    {
+      if (tn == null || graphics == null)
+         return;
+
       if (this.Layout == null || this.Layout.TreeView == null)
          return;
 
@@ -54,7 +57,7 @@ public class TreeNodeIndent : ExpandButton
             lineX -= this.Indent;
 
             if (parent.NextNode != null)
-               g.DrawLine(linePen, lineX, bounds.Top, lineX, bounds.Bottom);
+               graphics.DrawLine(linePen, lineX, bounds.Top, lineX, bounds.Bottom);
 
             parent = parent.Parent;
          }
@@ -74,8 +77,8 @@ public class TreeNodeIndent : ExpandButton
          if (tn.NextNode == null)
             vlineEndY = vMiddle;
 
-         g.DrawLine(linePen, lineX, vlineStartY, lineX, vlineEndY);
-         g.DrawLine(linePen, lineX, vMiddle, bounds.Right, vMiddle);
+         graphics.DrawLine(linePen, lineX, vlineStartY, lineX, vlineEndY);
+         graphics.DrawLine(linePen, lineX, vMiddle, bounds.Right, vMiddle);
       }
    }
 }

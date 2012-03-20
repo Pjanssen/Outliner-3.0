@@ -6,7 +6,7 @@ using System.Text;
 namespace Outliner.Controls.FiltersBase
 {
     [Flags]
-    public enum FilterResult : byte
+    public enum FilterResults : int
     {
         Show         = 0x01,
         ShowChildren = 0x02,

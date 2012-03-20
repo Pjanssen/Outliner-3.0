@@ -5,9 +5,9 @@
         public FlatListFilterCollection() : base() { }
         public FlatListFilterCollection(FilterCollection<T> collection) : base(collection) { }
 
-        protected override FilterResult ShowChildNodes(T data)
+        protected override FilterResults ShowChildNodes(T data)
         {
-           return FilterResult.Hide;
+           return FilterResults.Hide;
         }
     }
 }

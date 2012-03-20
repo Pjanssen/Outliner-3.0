@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing.Imaging;
 using System.Drawing;
+using System.Security.Permissions;
 
 namespace Outliner.Controls
 {
@@ -12,6 +13,7 @@ namespace Outliner.Controls
       /// <summary>
       /// Inverts the pixel data of the bitmap.
       /// </summary>
+      [SecurityPermission(SecurityAction.Demand)]
       public static void Invert(Bitmap b)
       {
          BitmapData bmData = b.LockBits( new Rectangle(0, 0, b.Width, b.Height)
@@ -46,6 +48,7 @@ namespace Outliner.Controls
       /// <summary>
       /// Desaturates the pixel data of the bitmap.
       /// </summary>
+      [SecurityPermission(SecurityAction.Demand)]
       public static void Desaturate(Bitmap b)
       {
          BitmapData bmData = b.LockBits( new Rectangle(0, 0, b.Width, b.Height)
@@ -84,6 +87,7 @@ namespace Outliner.Controls
       /// </summary>
       /// <param name="b">The bitmap to process.</param>
       /// <param name="opacity">The opacity to set, range between 0 and 255.</param>
+      [SecurityPermission(SecurityAction.Demand)]
       public static void Opacity(Bitmap b, Int32 opacity)
       {
          BitmapData bmData = b.LockBits( new Rectangle(0, 0, b.Width, b.Height)
@@ -115,6 +119,7 @@ namespace Outliner.Controls
       /// <summary>
       /// Increases the brightness of the pixel data in the bitmap.
       /// </summary>
+      [SecurityPermission(SecurityAction.Demand)]
       public static void Brightness(Bitmap b, Int32 brightness)
       {
          BitmapData bmData = b.LockBits( new Rectangle(0, 0, b.Width, b.Height)

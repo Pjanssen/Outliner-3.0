@@ -27,13 +27,13 @@ namespace Outliner.TreeModes
       private void addSelSetNode(IINamedSelectionSetManager manager, int index)
       {
          IMaxNodeWrapper wrapper = IMaxNodeWrapper.Create(new KeyValuePair<IINamedSelectionSetManager, int>(manager, index));
-         FilterResult filterResult = this.Filters.ShowNode(wrapper);
-         if (filterResult != FilterResult.Hide && !this.nodes.ContainsKey(index))
+         FilterResults filterResult = this.Filters.ShowNode(wrapper);
+         if (filterResult != FilterResults.Hide && !this.treeNodes.ContainsKey(index))
          {
             TreeNode tn = HelperMethods.CreateTreeNode(wrapper);
             tn.FilterResult = filterResult;
 
-            this.nodes.Add(index, tn);
+            this.treeNodes.Add(index, tn);
             this.tree.Nodes.Add(tn);
 
             Int32 nodeCount = manager.GetNamedSelSetItemCount(index);
@@ -51,17 +51,19 @@ namespace Outliner.TreeModes
 
       protected void addNode(IINode node, TreeNodeCollection parentCol)
       {
+         if (node == null || parentCol == null)
+            return;
          if (HelperMethods.IsHiddenNode(node))
             return;
 
          IMaxNodeWrapper wrapper = IMaxNodeWrapper.Create(node);
-         FilterResult filterResult = this.Filters.ShowNode(wrapper);
-         if (filterResult != FilterResult.Hide && !this.nodes.ContainsKey(node))
+         FilterResults filterResult = this.Filters.ShowNode(wrapper);
+         if (filterResult != FilterResults.Hide && !this.treeNodes.ContainsKey(node))
          {
             TreeNode tn = HelperMethods.CreateTreeNode(wrapper);
             tn.FilterResult = filterResult;
 
-            this.nodes.Add(node, tn);
+            this.treeNodes.Add(node, tn);
             parentCol.Add(tn);
 
             if (node.Selected)

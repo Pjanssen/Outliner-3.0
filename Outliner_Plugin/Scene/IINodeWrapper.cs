@@ -20,16 +20,11 @@ public class IINodeWrapper : IMaxNodeWrapper
       get { return this.node; }
    }
 
-   public override int NumChildren
-   {
-      get { return this.node.NumberOfChildren; }
-   }
-
    public override IEnumerable<IMaxNodeWrapper> ChildNodes
    {
       get 
       {
-         int numChildren = this.NumChildren;
+         int numChildren = this.node.NumberOfChildren;
          List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(numChildren);
          for (int i = 0; i < numChildren; i++)
             nodes.Add(IMaxNodeWrapper.Create(this.node.GetChildNode(i)));

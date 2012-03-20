@@ -5,6 +5,7 @@ using System.Text;
 using Autodesk.Max;
 using Outliner.Controls.FiltersBase;
 using Outliner.Scene;
+using System.Globalization;
 
 namespace Outliner.Filters
 {
@@ -25,25 +26,25 @@ namespace Outliner.Filters
          set
          {
             _script = value;
-            _filterFn = String.Format(execFilterTemplate, "{0:d}", value);
+            _filterFn = String.Format(CultureInfo.InvariantCulture, execFilterTemplate, "{0:d}", value);
          }
       }
 
-      public override FilterResult ShowNode(IMaxNodeWrapper data)
+      public override FilterResults ShowNode(IMaxNodeWrapper data)
       {
-         if (_script == "")
-            return FilterResult.Show;
+         if (String.IsNullOrEmpty(_script))
+            return FilterResults.Show;
 
          if (data is IINodeWrapper)
          {
-            if (GlobalInterface.Instance.ExecuteMAXScriptScript(String.Format(_filterFn, ((IINode)data.WrappedNode).Handle), true, null))
-               //if (MaxscriptSDK.ExecuteBooleanMaxscriptQuery(String.Format(_filterFn, n.Handle)))
-               return FilterResult.Hide;
+            String script = String.Format(CultureInfo.InvariantCulture, _filterFn, ((IINode)data.WrappedNode).Handle);
+            if (GlobalInterface.Instance.ExecuteMAXScriptScript(script, true, null))
+               return FilterResults.Hide;
             else
-               return FilterResult.Show;
+               return FilterResults.Show;
          }
          else
-            return FilterResult.Show;
+            return FilterResults.Show;
       }
    }
 }

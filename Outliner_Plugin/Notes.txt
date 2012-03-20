@@ -1,5 +1,6 @@
 ﻿GENERAL
 -------
+* Try making Command unit tests.
 * Move hidden particle classes 'filtering' to permanent filter?
 * Generalize addNode method in TreeMode.
 * Introduce displayname?
@@ -12,7 +13,6 @@ TREEVIEW
 * Parent highlighting
 * TreeNode.PreviousVisibleNode implementation is slow.
 * Investigate performance of treenodelayoutitem drawing / getpos
-* Check the use of GetSize in TreeNodeLayoutItem
 * Horizontal resize with flexiblespace does not work well.
 * FlexibleSpace.MinWidth
 
