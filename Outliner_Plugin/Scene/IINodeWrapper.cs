@@ -20,6 +20,11 @@ public class IINodeWrapper : IMaxNodeWrapper
       get { return this.node; }
    }
 
+   public IINode IINode
+   {
+      get { return this.node; }
+   }
+
    public override IEnumerable<IMaxNodeWrapper> ChildNodes
    {
       get 

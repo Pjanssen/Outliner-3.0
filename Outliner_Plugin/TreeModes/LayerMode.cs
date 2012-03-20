@@ -46,8 +46,9 @@ public class LayerMode : TreeMode
          addNode(rootNode.GetChildNode(i));
       }
 
+      this.tree.Sort();
+
       this.tree.EndUpdate();
-      this.tree.TimedSort(false);
    }
 
 
@@ -70,9 +71,6 @@ public class LayerMode : TreeMode
 
    private void addNode(IINode node)
    {
-      if (HelperMethods.IsPFHelper(node))
-         return;
-
       IMaxNodeWrapper wrapper = IMaxNodeWrapper.Create(node);
       FilterResults filterResult = this.Filters.ShowNode(wrapper);
       if (filterResult != FilterResults.Hide && !this.treeNodes.ContainsKey(node))

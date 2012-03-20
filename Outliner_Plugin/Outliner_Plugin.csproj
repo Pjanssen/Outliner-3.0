@@ -97,6 +97,7 @@
     <Compile Include="Controls\TreeView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Filters\InvisibleNodesFilter.cs" />
     <Compile Include="Filters\NurbsFilter.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="NodeSorters\FrozenSorter.cs" />

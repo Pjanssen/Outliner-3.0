@@ -166,7 +166,7 @@ public static class HelperMethods
    /// <summary>
    /// Tests if the supplied IINode is an "invisible" node.
    /// </summary>
-   public static Boolean IsHiddenNode(IINode node)
+   public static Boolean IsInvisibleNode(IINode node)
    {
       if (node == null)
          return false;

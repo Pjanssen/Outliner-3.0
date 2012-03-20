@@ -33,9 +33,6 @@ public class HierarchyMode : TreeMode
    }
    private void addNode(IINode node, TreeNodeCollection parentCol, Boolean addChildren)
    {
-      if (HelperMethods.IsHiddenNode(node))
-         return;
-
       IMaxNodeWrapper wrapper = IMaxNodeWrapper.Create(node);
       FilterResults filterResult = this.Filters.ShowNode(wrapper);
       if (filterResult != FilterResults.Hide && !this.treeNodes.ContainsKey(node))

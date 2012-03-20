@@ -10,6 +10,7 @@ using Outliner.Controls;
 // Import System.Windows.Forms with alias to avoid ambiguity 
 // between System.Windows.TreeNode and Outliner.Controls.TreeNode.
 using WinForms = System.Windows.Forms;
+using Outliner.Filters;
 
 namespace Outliner.TreeModes
 {
@@ -27,6 +28,7 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
       this.ip = ip;
       this.treeNodes = new Dictionary<Object, TreeNode>();
       this.Filters = new FilterCollection<IMaxNodeWrapper>();
+      this.Filters.Add(new InvisibleNodeFilter(), true);
 
       this.tree.SelectionChanged += new EventHandler<SelectionChangedEventArgs>(tree_SelectionChanged);
       this.tree.AfterNodeTextEdit += new EventHandler<AfterNodeTextEditEventArgs>(tree_AfterNodeTextEdit);

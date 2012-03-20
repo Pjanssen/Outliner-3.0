@@ -25,8 +25,9 @@ public class FlatObjectListMode : TreeMode
       for (int i = 0; i < rootNode.NumberOfChildren; i++)
          addNode(rootNode.GetChildNode(i));
 
+      this.tree.Sort();
+
       this.tree.EndUpdate();
-      this.tree.TimedSort(false);
    }
 
    protected void addNode(IINode node)
@@ -36,9 +37,6 @@ public class FlatObjectListMode : TreeMode
    protected void addNode(IINode node, TreeNodeCollection parentCol, Boolean addChildren)
    {
       if (node == null || parentCol == null)
-         return;
-
-      if (HelperMethods.IsHiddenNode(node))
          return;
 
       IMaxNodeWrapper wrapper = IMaxNodeWrapper.Create(node);

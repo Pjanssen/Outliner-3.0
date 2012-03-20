@@ -1,6 +1,6 @@
 ﻿using Autodesk.Max;
 
-namespace Outliner.Controls.Filters
+namespace Outliner.Filters
 {
    // TODO : Decide if this filter is necessary.
    /*
