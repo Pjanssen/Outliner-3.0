@@ -9,12 +9,12 @@
 
 TREEVIEW
 --------
-* Labeledit
 * Parent highlighting
 * TreeNode.PreviousVisibleNode implementation is slow.
 * Investigate performance of treenodelayoutitem drawing / getpos
 * Check the use of GetSize in TreeNodeLayoutItem
 * Horizontal resize with flexiblespace does not work well.
+* FlexibleSpace.MinWidth
 
 NODE BUTTONS
 ------------

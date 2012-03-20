@@ -29,6 +29,7 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
       this.Filters = new FilterCollection<IMaxNodeWrapper>();
 
       this.tree.SelectionChanged += new SelectionChangedEventHandler(tree_SelectionChanged);
+      this.tree.AfterNodeTextEdit += new AfterNodeTextEditEventHandler(tree_AfterNodeTextEdit);
       //this.tree.AfterLabelEdit += new NodeLabelEditEventHandler(tree_AfterLabelEdit);
 
       IGlobal iGlobal = GlobalInterface.Instance;
@@ -37,6 +38,7 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
 
       this.sceneEventCbKey = iGlobal.ISceneEventManager.RegisterCallback(this, false, 100, true);
    }
+
 
    /// <summary>
    /// Cleanup of event notifications and callbacks.
@@ -154,23 +156,18 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
       SelectCommand cmd = new SelectCommand(HelperMethods.GetMaxNodes(e.Nodes));
       cmd.Execute(true);
    }
-   /*
-   void tree_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
+
+   void tree_AfterNodeTextEdit(object sender, AfterNodeTextEditEventArgs e)
    {
-      if (e.CancelEdit)
+      IMaxNodeWrapper node = HelperMethods.GetMaxNode(e.TreeNode);
+      if (node == null)
          return;
 
-      TreeNode tn = e.Node;
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
-      if (node == null || e.Label == null || e.Label == node.Name)
-         return;
-
-      RenameCommand cmd = new RenameCommand(new List<IMaxNodeWrapper>(1) { node }, e.Label);
+      RenameCommand cmd = new RenameCommand(new List<IMaxNodeWrapper>(1) { node }, e.NewText);
       cmd.Execute(false);
 
       //Note: sort is handled by nodenamechanged callback.
    }
-   */
 
    #endregion
 

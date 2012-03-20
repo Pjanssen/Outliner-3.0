@@ -36,8 +36,6 @@ public class TreeNodeText : TreeNodeLayoutItem
    {
       if (this.Layout == null || this.Layout.TreeView == null)
          return;
-//      if (tn.IsEditing)
-//         return;
 
       TreeView tree = this.Layout.TreeView;
       TreeViewColors colors = tree.Colors;
@@ -98,7 +96,7 @@ public class TreeNodeText : TreeNodeLayoutItem
 
    public override void HandleDoubleClick(MouseEventArgs e, TreeNode tn)
    {
-//      tn.BeginEdit();
+      this.Layout.TreeView.BeginNodeTextEdit(tn, this);
    }
 }
 }

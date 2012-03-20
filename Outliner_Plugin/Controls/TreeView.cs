@@ -284,6 +284,8 @@ public class TreeView : ScrollableControl
       if (this.TreeNodeLayout == null)
          return;
 
+      this.Select(); //Select the treeview to be able to end a potential TreeNodeText::TextEdit.
+
       TreeNode tn = this.GetNodeAt(e.Location);
       if (tn == null)
          return;
@@ -537,6 +539,107 @@ public class TreeView : ScrollableControl
          this.AddToSortQueue(tn.Parent.Nodes);
       else
          this.AddToSortQueue(this.Nodes);
+   }
+
+   #endregion
+
+
+   #region NodeTextEdit
+
+   /// <summary>
+   /// Occurs before a TreeNode's text is going to be edited.
+   /// </summary>
+   public event BeforeNodeTextEditEventHandler BeforeNodeTextEdit;
+   protected void OnBeforeNodeTextEdit(BeforeNodeTextEditEventArgs e)
+   {
+      if (this.BeforeNodeTextEdit != null)
+         this.BeforeNodeTextEdit(this, e);
+   }
+
+   /// <summary>
+   /// Occurs after a TreeNode's text has been edited.
+   /// </summary>
+   public event AfterNodeTextEditEventHandler AfterNodeTextEdit;
+   protected void OnAfterNodeTextEdit(AfterNodeTextEditEventArgs e)
+   {
+      if (this.AfterNodeTextEdit != null)
+         this.AfterNodeTextEdit(this, e);
+   }
+
+   private TextBox editTextBox;
+   private TreeNode editingTreeNode;
+
+   public void BeginNodeTextEdit(TreeNode tn)
+   {
+      if (this.TreeNodeLayout == null)
+         return;
+
+      this.BeginNodeTextEdit(tn, this.TreeNodeLayout.FirstOrDefault(item => item is TreeNodeText));
+   }
+
+   internal void BeginNodeTextEdit(TreeNode tn, TreeNodeLayoutItem layoutItem)
+   {
+      if (tn == null || layoutItem == null)
+         return;
+
+      BeforeNodeTextEditEventArgs e = new BeforeNodeTextEditEventArgs(tn);
+      this.OnBeforeNodeTextEdit(e);
+
+      if (e.Cancel)
+         return;
+
+      this.editingTreeNode = tn;
+      Rectangle bounds = layoutItem.GetBounds(tn);
+      this.editTextBox = new TextBox();
+      this.editTextBox.Parent = this;
+      this.editTextBox.Location = bounds.Location;
+      this.editTextBox.Size = new Size (Math.Max(100, bounds.Width), 18);
+      this.editTextBox.Text = e.EditText;
+      this.editTextBox.SelectAll();
+      this.editTextBox.KeyDown += new KeyEventHandler(editTextBox_KeyDown);
+      this.editTextBox.LostFocus += new EventHandler(editTextBox_LostFocus);
+
+      this.editTextBox.Show();
+      this.editTextBox.Focus();
+   }
+
+   private void editTextBox_LostFocus(object sender, EventArgs e)
+   {
+      this.EndNodeTextEdit(true);
+   }
+
+   private void editTextBox_KeyDown(object sender, KeyEventArgs e)
+   {
+      if (e.KeyCode.HasFlag(Keys.Enter))
+         this.EndNodeTextEdit(false);
+      else if (e.KeyCode.HasFlag(Keys.Escape))
+         this.EndNodeTextEdit(true);
+   }
+
+   public void EndNodeTextEdit(Boolean cancel)
+   {
+      String oldText = null;
+      String newText = null;
+
+      if (!cancel && this.editTextBox != null
+                  && this.editingTreeNode != null
+                  && this.editTextBox.Text != String.Empty
+                  && this.editTextBox.Text != this.editingTreeNode.Text)
+      {
+         oldText = this.editingTreeNode.Text;
+         newText = this.editTextBox.Text;
+         this.editingTreeNode.Text = this.editTextBox.Text;
+      }
+
+      this.OnAfterNodeTextEdit(new AfterNodeTextEditEventArgs(this.editingTreeNode, cancel, oldText, newText));
+
+      this.editTextBox.KeyDown -= editTextBox_KeyDown;
+      this.editTextBox.LostFocus -= editTextBox_LostFocus;
+
+      this.Controls.Remove(this.editTextBox);
+      this.editTextBox.Dispose();
+      this.editTextBox = null;
+      this.editingTreeNode = null;
    }
 
    #endregion

@@ -102,6 +102,7 @@
     <Compile Include="NodeSorters\INodeHandleSorter.cs" />
     <Compile Include="NodeSorters\HiddenSorter.cs" />
     <Compile Include="NodeSorters\SuperClassSorter.cs" />
+    <Compile Include="Controls\NodeTextEditEventArgs.cs" />
     <Compile Include="OutlinerResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
