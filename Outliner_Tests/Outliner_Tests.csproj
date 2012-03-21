@@ -65,14 +65,13 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\Filters\NodeFilterCollectionTest.cs" />
     <Compile Include="Controls\TreeView\TreeNodeCollectionTest.cs" />
     <Compile Include="Controls\TreeView\TreeNodeTest.cs" />
     <Compile Include="Controls\TreeView\TreeViewTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controls\Filters\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Outliner_Plugin\Outliner_Plugin.csproj">
       <Project>{AA8562B6-988F-4AFE-94EB-BF2FD64BE93E}</Project>

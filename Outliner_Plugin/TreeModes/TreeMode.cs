@@ -28,7 +28,7 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
       this.ip = ip;
       this.treeNodes = new Dictionary<Object, TreeNode>();
       this.Filters = new FilterCollection<IMaxNodeWrapper>();
-      this.Filters.Add(new InvisibleNodeFilter(), true);
+      this.Filters.Add(new InvisibleNodeFilter());
 
       this.tree.SelectionChanged += new EventHandler<SelectionChangedEventArgs>(tree_SelectionChanged);
       this.tree.AfterNodeTextEdit += new EventHandler<AfterNodeTextEditEventArgs>(tree_AfterNodeTextEdit);
@@ -220,15 +220,15 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
    {
 
    }
-   private void filterAdded(object sender, NodeFilterChangedEventArgs<IMaxNodeWrapper> e)
+   private void filterAdded(object sender, FilterChangedEventArgs<IMaxNodeWrapper> e)
    {
 
    }
-   private void filterRemoved(object sender, NodeFilterChangedEventArgs<IMaxNodeWrapper> e)
+   private void filterRemoved(object sender, FilterChangedEventArgs<IMaxNodeWrapper> e)
    {
 
    }
-   private void filterChanged(object sender, NodeFilterChangedEventArgs<IMaxNodeWrapper> e)
+   private void filterChanged(object sender, FilterChangedEventArgs<IMaxNodeWrapper> e)
    {
 
    }
