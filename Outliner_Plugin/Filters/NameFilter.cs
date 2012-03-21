@@ -47,6 +47,11 @@ public class NameFilter : Filter<IMaxNodeWrapper>
          this.OnFilterChanged();
       }
    }
+
+   /// <summary>
+   /// Gets or sets whether the search should be case sensitive.
+   /// If true, a searchstring "S" matches "Sphere", but not "sphere"
+   /// </summary>
    public Boolean CaseSensitive 
    {
       get { return _regExpOptions == RegexOptions.None; }
@@ -60,6 +65,11 @@ public class NameFilter : Filter<IMaxNodeWrapper>
          this.OnFilterChanged();
       }
    }
+
+   /// <summary>
+   /// Gets or sets whether a wildcard should be prepended to the search string by default.
+   /// If true, a searchstring "e" matches "sphere".
+   /// </summary>
    public Boolean UseWildcard 
    {
       get { return _useWildcard; }
