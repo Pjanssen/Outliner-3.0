@@ -1,183 +1,139 @@
-﻿using Outliner.Controls.Filters;
+﻿using Outliner.Filters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Outliner.Scene;
 using System;
+using Outliner.Controls.FiltersBase;
 
 namespace Outliner_Unit_Tests
 {
-    
-    
-    /// <summary>
-    ///This is a test class for NameFilterTest and is intended
-    ///to contain all NameFilterTest Unit Tests
-    ///</summary>
-    [TestClass()]
-    public class NameFilterTest
-    {
+/// <summary>
+///This is a test class for NameFilterTest and is intended
+///to contain all NameFilterTest Unit Tests
+///</summary>
+[TestClass()]
+public class NameFilterTest
+{
+   public class MockWrapper : IMaxNodeWrapper
+   {
+      public MockWrapper(String name)
+      {
+         this.Name = name;
+      }
 
+      public override object WrappedNode { get { return null; } }
 
-        private TestContext testContextInstance;
+      public override System.Collections.Generic.IEnumerable<IMaxNodeWrapper> ChildNodes
+      {
+         get { return null; }
+      }
 
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
+      public override string Name { get; set; }
 
-        #region Additional test attributes
-        // 
-        //You can use the following additional attributes as you write your tests:
-        //
-        //Use ClassInitialize to run code before running the first test in the class
-        //[ClassInitialize()]
-        //public static void MyClassInitialize(TestContext testContext)
-        //{
-        //}
-        //
-        //Use ClassCleanup to run code after all tests in a class have run
-        //[ClassCleanup()]
-        //public static void MyClassCleanup()
-        //{
-        //}
-        //
-        //Use TestInitialize to run code before running each test
-        //[TestInitialize()]
-        //public void MyTestInitialize()
-        //{
-        //}
-        //
-        //Use TestCleanup to run code after each test has run
-        //[TestCleanup()]
-        //public void MyTestCleanup()
-        //{
-        //}
-        //
-        #endregion
+      public override Autodesk.Max.SClass_ID SuperClassID { get { return Autodesk.Max.SClass_ID.Utility; } }
+      public override Autodesk.Max.IClass_ID ClassID { get { return null; } }
+   }
 
+   /// <summary>
+   ///A test for NameFilter Constructor
+   ///</summary>
+   [TestMethod()]
+   public void NameFilterConstructorTest() 
+   {
+      NameFilter target = new NameFilter();
+      Assert.AreEqual(String.Empty, target.SearchString);
+      Assert.AreEqual(false, target.CaseSensitive);
+   }
 
-        /// <summary>
-        ///A test for NameFilter Constructor
-        ///</summary>
-        [TestMethod()]
-        public void NameFilterConstructorTest() 
-        {
-            NameFilter target = new NameFilter();
-            Assert.AreEqual(String.Empty, target.SearchString);
-            Assert.AreEqual(false, target.CaseSensitive);
-        }
+   /// <summary>
+   ///A test for SearchString
+   ///</summary>
+   [TestMethod()]
+   public void SearchStringTest() 
+   {
+      NameFilter target = new NameFilter();
+      string expected = string.Empty;
+      target.SearchString = expected;
+      Assert.AreEqual(String.Empty, target.SearchString);
 
-        /// <summary>
-        ///A test for SearchString
-        ///</summary>
-        [TestMethod()]
-        public void SearchStringTest() 
-        {
-            NameFilter target = new NameFilter();
-            string expected = string.Empty;
-            target.SearchString = expected;
-            Assert.AreEqual(String.Empty, target.SearchString);
+      target.SearchString = "t";
+      Assert.AreEqual("t", target.SearchString);
 
-            target.SearchString = "t";
-            Assert.AreEqual("t", target.SearchString);
+      target.SearchString = "*test";
+      Assert.AreEqual("*test", target.SearchString);
 
-            target.SearchString = "*test";
-            Assert.AreEqual("*test", target.SearchString);
+      target.SearchString = "";
+      Assert.AreEqual(String.Empty, target.SearchString);
+   }
 
-            target.SearchString = "";
-            Assert.AreEqual(String.Empty, target.SearchString);
-        }
+   /// <summary>
+   ///A test for CaseSensitive
+   ///</summary>
+   [TestMethod()]
+   public void CaseSensitiveTest()
+   {
+      NameFilter target = new NameFilter();
+      target.CaseSensitive = true;
+      Assert.IsTrue(target.CaseSensitive);
 
+      MockWrapper w = new MockWrapper("Test_sphere");
+      target.SearchString = "Test_sphere";
+      Assert.AreEqual(FilterResults.Show, target.ShowNode(w));
+      target.SearchString = "test_sphere";
+      Assert.AreEqual(FilterResults.Hide, target.ShowNode(w));
 
+      target.CaseSensitive = false;
+      Assert.IsFalse(target.CaseSensitive);
 
-        /// <summary>
-        ///A test for CaseSensitive
-        ///</summary>
-        [TestMethod()]
-        public void CaseSensitiveTest()
-        {
-            NameFilter target = new NameFilter();
-            target.CaseSensitive = true;
-            Assert.IsTrue(target.CaseSensitive);
-
-            target.CaseSensitive = false;
-            Assert.IsFalse(target.CaseSensitive);
-        }
+      target.SearchString = "Test_sphere";
+      Assert.AreEqual(FilterResults.Show, target.ShowNode(w));
+      target.SearchString = "test_sphere";
+      Assert.AreEqual(FilterResults.Show, target.ShowNode(w));
+   }
          
-        /// <summary>
-        ///A test for ShowNode
-        ///</summary>
-        [TestMethod()]
-        public void ShowNodeTest()
-        {
-            /*
-            NameNodeFilter target = new NameNodeFilter();
-            OutlinerNode l = new OutlinerLayer(1, -1, "test_sphere", false, false, false, false);
-            Assert.Equals(target.ShowNode(l), FilterResult.Show);
+   /// <summary>
+   ///A test for ShowNode
+   ///</summary>
+   [TestMethod()]
+   public void ShowNodeTest()
+   {
+      NameFilter target = new NameFilter();
+      MockWrapper w = new MockWrapper("test_sphere");
+      Assert.AreEqual(FilterResults.Show, target.ShowNode(w));
 
-            target.SearchString = "t";
-            Assert.IsTrue(target.ShowNode(l));
+      target.SearchString = "t";
+      Assert.AreEqual(FilterResults.Show, target.ShowNode(w));
 
-            target.SearchString = "*t";
-            Assert.IsTrue(target.ShowNode(l));
+      target.SearchString = "*t";
+      Assert.AreEqual(FilterResults.Show, target.ShowNode(w));
 
-            target.SearchString = "*sphere";
-            Assert.IsTrue(target.ShowNode(l));
+      target.SearchString = "*sphere";
+      Assert.AreEqual(FilterResults.Show, target.ShowNode(w));
 
-            target.SearchString = "a";
-            Assert.IsFalse(target.ShowNode(l));
+      target.SearchString = "a";
+      Assert.AreEqual(FilterResults.Hide, target.ShowNode(w));
 
-            target.SearchString = "*a";
-            Assert.IsFalse(target.ShowNode(l));
+      target.SearchString = "*a";
+      Assert.AreEqual(FilterResults.Hide, target.ShowNode(w));
 
-            target.SearchString = "test_sphere_a";
-            Assert.IsFalse(target.ShowNode(l));
+      target.SearchString = "test_sphere_a";
+      Assert.AreEqual(FilterResults.Hide, target.ShowNode(w));
+   }
 
-            OutlinerScene s = new OutlinerScene();
-            s.AddNode(l);
-            OutlinerNode n  = new OutlinerObject(2, -1, "kip", 1, -1, "", "", false, false, false, false,false);
-            s.AddNode(n);
-            s.AddNode(new OutlinerObject(3, 2, "henk", 1, -1, "", "", false, false, false, false,false));
-            target.SearchString = "kip";
-            Assert.IsTrue(target.ShowNode(n));
-            target.SearchString = "he";
-            Assert.IsTrue(target.ShowNode(n));
-            Assert.IsTrue(target.ShowNode(l));
+   [TestMethod()]
+   public void UseWildcardTest()
+   {
+      NameFilter f = new NameFilter();
+      MockWrapper w1 = new MockWrapper("test_a");
+      MockWrapper w2 = new MockWrapper("a_test");
 
-            target.Enabled = false;
-            target.SearchString = "asd";
-            Assert.IsTrue(target.ShowNode(n));
-             */
-        }
+      f.SearchString = "test";
+      f.UseWildcard = false;
+      Assert.AreEqual(FilterResults.Show, f.ShowNode(w1));
+      Assert.AreEqual(FilterResults.Hide, f.ShowNode(w2));
 
-        [TestMethod()]
-        public void UseWildcardTest()
-        {
-            NameFilter f = new NameFilter();
-            f.SearchString = "test";
-
-            OutlinerLayer layer1 = new OutlinerLayer(-1, -1, "test_a", false, false, false, false);
-            OutlinerLayer layer2 = new OutlinerLayer(-1, -1, "a_test", false, false, false, false);
-            Assert.AreEqual(FilterResult.Show, f.ShowNode(layer1));
-            Assert.AreEqual(FilterResult.Hide, f.ShowNode(layer2));
-
-            f.UseWildcard = true;
-            Assert.AreEqual(FilterResult.Show, f.ShowNode(layer1));
-            Assert.AreEqual(FilterResult.Show, f.ShowNode(layer2));
-
-            f.UseWildcard = false;
-            Assert.AreEqual(FilterResult.Show, f.ShowNode(layer1));
-            Assert.AreEqual(FilterResult.Hide, f.ShowNode(layer2));
-
-        }
-    }
+      f.UseWildcard = true;
+      Assert.AreEqual(FilterResults.Show, f.ShowNode(w1));
+      Assert.AreEqual(FilterResults.Show, f.ShowNode(w2));
+   }
+}
 }

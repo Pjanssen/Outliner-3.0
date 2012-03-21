@@ -5,83 +5,83 @@ using Outliner.Scene;
 
 namespace Outliner.Filters
 {
-   public class NameFilter : Filter<IMaxNodeWrapper>
+public class NameFilter : Filter<IMaxNodeWrapper>
 {
-    public NameFilter() 
-    {
-        this.SearchString = String.Empty;
-        this.CaseSensitive = false;
-        this._useWildcard = false;
-    }
+   public NameFilter() 
+   {
+      this.SearchString = String.Empty;
+      this.CaseSensitive = false;
+      this._useWildcard = false;
+   }
 
-    private const String SEARCH_BEGINS_WITH = "^";
-    private const String SEARCH_WILDCARD = ".";
-    private RegexOptions _regExpOptions;
-    private String _searchString;
-    private String _origSearchString;
-    private Boolean _useWildcard;
+   private const String SEARCH_BEGINS_WITH = "^";
+   private const String SEARCH_WILDCARD = ".";
+   private RegexOptions _regExpOptions;
+   private String _searchString;
+   private String _origSearchString;
+   private Boolean _useWildcard;
 
 
-    public String SearchString 
-    {
-        get 
-        {
-            return _origSearchString;
-        }
-        set
-        {
-           if (value == null)
-              throw new ArgumentNullException("value");
+   public String SearchString 
+   {
+      get 
+      {
+         return _origSearchString;
+      }
+      set
+      {
+         if (value == null)
+            throw new ArgumentNullException("value");
 
-            _origSearchString = value;
-            if (value == String.Empty)
-                _searchString = value;
-            else
-            {
-                if (this.UseWildcard || value.Substring(0, 1) == "*")
-                    _searchString = SEARCH_WILDCARD + Regex.Escape(value.Substring(1, value.Length - 1));
-                else
-                    _searchString = SEARCH_BEGINS_WITH + Regex.Escape(value);
-            }
+         _origSearchString = value;
+         if (value == String.Empty)
+               _searchString = value;
+         else
+         {
+               if (this.UseWildcard || value.Substring(0, 1) == "*")
+                  _searchString = SEARCH_WILDCARD + Regex.Escape(value.Substring(1, value.Length - 1));
+               else
+                  _searchString = SEARCH_BEGINS_WITH + Regex.Escape(value);
+         }
 
-            this.OnFilterChanged();
-        }
-    }
-    public Boolean CaseSensitive 
-    {
-        get { return _regExpOptions == RegexOptions.None; }
-        set
-        {
-            if (value)
-                _regExpOptions = RegexOptions.None;
-            else
-                _regExpOptions = RegexOptions.IgnoreCase;
+         this.OnFilterChanged();
+      }
+   }
+   public Boolean CaseSensitive 
+   {
+      get { return _regExpOptions == RegexOptions.None; }
+      set
+      {
+         if (value)
+               _regExpOptions = RegexOptions.None;
+         else
+               _regExpOptions = RegexOptions.IgnoreCase;
 
-            this.OnFilterChanged();
-        }
-    }
-    public Boolean UseWildcard 
-    {
-        get { return _useWildcard; }
-        set
-        {
-            _useWildcard = value;
-            this.SearchString = _origSearchString;
-        }
-    }
+         this.OnFilterChanged();
+      }
+   }
+   public Boolean UseWildcard 
+   {
+      get { return _useWildcard; }
+      set
+      {
+         _useWildcard = value;
+         this.SearchString = _origSearchString;
+      }
+   }
 
-    override public FilterResults ShowNode(IMaxNodeWrapper data) 
-    {
-        if (data == null)
-            return FilterResults.Hide;
+   override public FilterResults ShowNode(IMaxNodeWrapper data) 
+   {
+      if (data == null)
+         return FilterResults.Hide;
 
-        if (String.IsNullOrEmpty(_searchString))
-            return FilterResults.Show;
+      if (String.IsNullOrEmpty(_searchString))
+         return FilterResults.Show;
 
-        if (Regex.IsMatch(data.Name, _searchString, _regExpOptions))
-            return FilterResults.Show;
-        else
-            return FilterResults.Hide;
-    }
+      if (Regex.IsMatch(data.Name, _searchString, _regExpOptions))
+         return FilterResults.Show;
+      else
+         return FilterResults.Hide;
+   }
 }
 }

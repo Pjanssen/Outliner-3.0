@@ -65,6 +65,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\Filters\NameFilterTest.cs" />
     <Compile Include="Controls\Filters\NodeFilterCollectionTest.cs" />
     <Compile Include="Controls\TreeView\TreeNodeCollectionTest.cs" />
     <Compile Include="Controls\TreeView\TreeNodeTest.cs" />
