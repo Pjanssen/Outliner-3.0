@@ -27,6 +27,36 @@ namespace Outliner.Scene
          get { return this.layer; }
       }
 
+      /// <summary>
+      /// Gets whether this layer is the default (0) layer.
+      /// </summary>
+      public Boolean IsDefault
+      {
+         get
+         {
+            if (this.manager == null)
+               return false;
+            else
+               return this.manager.RootLayer == this.layer;
+         }
+      }
+
+      public Boolean IsCurrent
+      {
+         get { return this.manager.CurrentLayer == this.layer; }
+         set
+         {
+            if (!value)
+               throw new ArgumentException("Cannot set IsCurrent to false. Instead, use IsCurrent = true on the new current layer.");
+
+            if (this.manager != null)
+            {
+               String name = this.Name;
+               this.manager.SetCurrentLayer(ref name);
+            }
+         }
+      }
+
       public override string Name
       {
          get { return layer.Name; }

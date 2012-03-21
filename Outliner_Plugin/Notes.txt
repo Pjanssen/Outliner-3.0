@@ -1,7 +1,6 @@
 ﻿GENERAL
 -------
 * Try making Command unit tests.
-* Move hidden particle classes 'filtering' to permanent filter?
 * Generalize addNode method in TreeMode.
 * Introduce displayname?
 * Unhide/unfreeze layer when unhiding/unfreezing node
