@@ -63,6 +63,7 @@
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\RenameCommand.cs" />
     <Compile Include="Commands\SelectCommand.cs" />
+    <Compile Include="Commands\SetActiveLayerCommand.cs" />
     <Compile Include="Commands\SetBoxModeCommand.cs" />
     <Compile Include="Commands\FreezeCommand.cs" />
     <Compile Include="Commands\HideCommand.cs" />
@@ -88,6 +89,11 @@
     <Compile Include="Controls\Layout\MayaStyleIndent.cs" />
     <Compile Include="Controls\Layout\TreeNodeIndent.cs" />
     <Compile Include="Controls\SelectionChangedEventArgs.cs" />
+    <Compile Include="Controls\TreeIcons_Maya.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TreeIcons_Maya.resx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TreeNode.cs" />
     <Compile Include="Controls\TreeNodeCollection.cs" />
     <Compile Include="Controls\Layout\TreeNodeLayout.cs" />
@@ -175,6 +181,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controls\TreeIcons_Maya.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TreeIcons_Maya.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="OutlinerResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>OutlinerResources.Designer.cs</LastGenOutput>
@@ -267,6 +277,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Notes.txt" />
+    <EmbeddedResource Include="Resources\maya_icons\geometry.PNG" />
+    <EmbeddedResource Include="Resources\maya_icons\light.png" />
     <EmbeddedResource Include="Resources\node_buttons\render_disabled.png" />
     <EmbeddedResource Include="Resources\node_buttons\render.png" />
   </ItemGroup>

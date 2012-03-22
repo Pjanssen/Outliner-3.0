@@ -139,11 +139,11 @@ public class TreeNode
          if (!this.IsVisible)
             return Rectangle.Empty;
 
-         if (this.TreeView == null)
+         if (this.TreeView == null || this.TreeView.TreeNodeLayout == null)
             return Rectangle.Empty;
 
          Int32 y = 0;
-         Int32 itemHeight = this.TreeView.ItemHeight;
+         Int32 itemHeight = this.TreeView.TreeNodeLayout.ItemHeight;
          TreeNode tn = this.TreeView.Nodes[0];
          while (tn != this)
          {

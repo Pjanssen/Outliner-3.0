@@ -16,9 +16,9 @@ public class TreeView : ScrollableControl
    {
       //Member initialization.
       this.root = new TreeNode(this, "root");
-      this.itemHeight = 18;
       this.Colors = new TreeViewColors();
       this.SelectedNodes = new HashSet<TreeNode>();
+      this.TreeNodeLayout = TreeNodeLayout.DefaultLayout; //TODO check that this does not cause unnecessary redrawing.
 
       //Set double buffered user paint style.
       this.SetStyle(ControlStyles.UserPaint, true);
@@ -27,8 +27,8 @@ public class TreeView : ScrollableControl
 
       //Initial scroll values.
       this.AutoScroll = true;
-      this.VerticalScroll.SmallChange = this.itemHeight;
-      this.VerticalScroll.LargeChange = this.ItemHeight * 3;
+      this.VerticalScroll.SmallChange = 18; //TODO replace with TreeNodeLayout.ItemHeight?
+      this.VerticalScroll.LargeChange = 54;
    }
 
 
@@ -49,17 +49,6 @@ public class TreeView : ScrollableControl
       }
    }
 
-   private Int32 itemHeight;
-   public Int32 ItemHeight 
-   {
-      get { return this.itemHeight; }
-      set
-      {
-         this.itemHeight = value;
-         this.Update(TreeViewUpdateFlags.Redraw | TreeViewUpdateFlags.Bounds);
-      }
-   }
-
 
    public TreeNode GetNodeAt(Point location)
    {
@@ -67,15 +56,16 @@ public class TreeView : ScrollableControl
    }
    public TreeNode GetNodeAt(Int32 x, Int32 y)
    {
-      if (this.Nodes.Count == 0 || !this.ClientRectangle.Contains(x, y))
+      if (this.Nodes.Count == 0 || this.TreeNodeLayout == null || !this.ClientRectangle.Contains(x, y))
          return null;
 
+      Int32 itemHeight = this.TreeNodeLayout.ItemHeight;
       TreeNode tn = this.Nodes[0];
-      Int32 curY = this.ItemHeight - this.VerticalScroll.Value;
+      Int32 curY = itemHeight - this.VerticalScroll.Value;
       while (curY <= y && tn != null)
       {
          tn = tn.NextVisibleNode;
-         curY += this.ItemHeight;
+         curY += itemHeight;
       }
       return tn;
    }
@@ -155,8 +145,9 @@ public class TreeView : ScrollableControl
 
       if (e == null || this.Nodes.Count == 0 || this.TreeNodeLayout == null)
          return;
-      
-      Int32 startY = e.ClipRectangle.Y - (this.ItemHeight - 1);
+
+      Int32 itemHeight = this.TreeNodeLayout.ItemHeight;
+      Int32 startY = e.ClipRectangle.Y - (itemHeight - 1);
       Int32 endY = e.ClipRectangle.Bottom;
 
       TreeNode tn = this.Nodes[0];
@@ -164,13 +155,10 @@ public class TreeView : ScrollableControl
       while (curY <= endY && tn != null)
       {
          if (curY >= startY)
-         {
-            Console.WriteLine(tn.ToString() + ", " + tn.Bounds.ToString());
             this.TreeNodeLayout.DrawTreeNode(e.Graphics, tn);
-         }
       
          tn = tn.NextVisibleNode;
-         curY += this.ItemHeight;
+         curY += itemHeight;
       }
    }
 
@@ -273,6 +261,7 @@ public class TreeView : ScrollableControl
       if (this.TreeNodeLayout == null || this.Nodes.Count == 0)
          return Size.Empty;
 
+      Int32 itemHeight = this.TreeNodeLayout.ItemHeight;
       Int32 maxWidth = 0;
       Int32 maxHeight = 0;
       TreeNode tn = this.Nodes[0];
@@ -283,7 +272,7 @@ public class TreeView : ScrollableControl
          if (nodeWidth > maxWidth)
             maxWidth = nodeWidth;
 
-         maxHeight += this.ItemHeight;
+         maxHeight += itemHeight;
          tn = tn.NextVisibleNode;
       }
       return new Size(maxWidth + 5, maxHeight);

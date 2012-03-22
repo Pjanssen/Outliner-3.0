@@ -37,7 +37,6 @@
          // 
          this.treeView1.AllowDrop = true;
          this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.treeView1.ItemHeight = 18;
          this.treeView1.Location = new System.Drawing.Point(0, 10);
          this.treeView1.Name = "treeView1";
          this.treeView1.NodeSorter = null;
@@ -69,7 +68,7 @@
 
       #endregion
 
-      public TreeView treeView1 { get; private set; }
+      public TreeView treeView1;
       private System.Windows.Forms.Panel panel1;
 
 

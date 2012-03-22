@@ -103,9 +103,12 @@ namespace Outliner.Controls.Layout
       /// </summary>
       public virtual Rectangle GetBounds(TreeNode tn)
       {
+         if (this.Layout == null)
+            return Rectangle.Empty;
+
          Rectangle b = new Rectangle(this.GetPos(tn), this.GetSize(tn));
          if (this.CenterVertically && this.Layout != null)
-            b.Y += (this.Layout.TreeView.ItemHeight - b.Height) / 2;
+            b.Y += (this.Layout.ItemHeight - b.Height) / 2;
 
          return b;
       }

@@ -31,10 +31,10 @@ public class FlexibleSpace : TreeNodeLayoutItem
 
    public override int GetHeight(TreeNode tn)
    {
-      if (this.Layout == null || this.Layout.TreeView == null)
+      if (this.Layout == null)
          return 0;
 
-      return this.Layout.TreeView.ItemHeight;
+      return this.Layout.ItemHeight;
    }
 
    public override void Draw(Graphics g, TreeNode tn)

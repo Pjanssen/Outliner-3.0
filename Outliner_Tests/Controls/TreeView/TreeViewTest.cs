@@ -34,7 +34,7 @@ public class TreeViewTest
       Assert.AreEqual(expected, actual, "First node");
 
       expected = tree.Nodes[0].Nodes[0];
-      actual = tree.GetNodeAt(new Point(1, tree.ItemHeight + 1));
+      actual = tree.GetNodeAt(new Point(1, tree.TreeNodeLayout.ItemHeight + 1));
       Assert.AreEqual(expected, actual, "First childnode");
    }
 

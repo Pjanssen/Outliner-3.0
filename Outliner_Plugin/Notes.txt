@@ -56,3 +56,15 @@ Particle     -
 Shape        -
 Spacewarp    -
 Xref         -
+
+
+IInterface ip = GlobalInterface.Instance.COREInterface;
+IGenBoxObject boxObject = ip.CreateInstance(SClass_ID.Geomobject, global.Class_ID.Create((uint) BuiltInClassIDA.BOXOBJ_CLASS_ID, 0)) as IGenBoxObject;
+IINode boxNode = ip.CreateObjectNode(boxObject);
+
+Assert.IsNotNull(boxObject);
+Assert.IsNotNull(boxNode);
+Assert.AreEqual(1, ip.RootNode.NumberOfChildren);
+
+global.COREInterface.DeleteNode(boxNode, false, false);
+Assert.AreEqual(0, ip.RootNode.NumberOfChildren);

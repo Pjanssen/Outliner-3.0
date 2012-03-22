@@ -196,13 +196,13 @@ public class TreeNodeTest
    {
       Outliner.Controls.TreeView tree = this.CreateTree();
       Rectangle bounds = tree.Nodes[0].Bounds;
-      Assert.AreEqual(new Rectangle(0, 0, tree.Width, tree.ItemHeight), bounds, "first rootnode");
+      Assert.AreEqual(new Rectangle(0, 0, tree.Width, tree.TreeNodeLayout.ItemHeight), bounds, "first rootnode");
 
       bounds = tree.Nodes[1].Bounds;
-      Assert.AreEqual(new Rectangle(0, tree.ItemHeight * 3, tree.Width, tree.ItemHeight), bounds, "second rootnode");
+      Assert.AreEqual(new Rectangle(0, tree.TreeNodeLayout.ItemHeight * 3, tree.Width, tree.TreeNodeLayout.ItemHeight), bounds, "second rootnode");
 
       bounds = tree.Nodes[0].Nodes[0].Bounds;
-      Assert.AreEqual(new Rectangle(0, tree.ItemHeight, tree.Width, tree.ItemHeight), bounds, "first childnode");
+      Assert.AreEqual(new Rectangle(0, tree.TreeNodeLayout.ItemHeight, tree.Width, tree.TreeNodeLayout.ItemHeight), bounds, "first childnode");
 
       tree.Nodes[0].IsExpanded = false;
       bounds = tree.Nodes[0].Nodes[0].Bounds;

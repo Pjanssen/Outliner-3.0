@@ -12,8 +12,7 @@ namespace Outliner.Controls
 public enum IconSet
 {
    Max,
-   Maya_16x16,
-   Maya_20x20
+   Maya
 }
 
 public static class IconHelperMethods
@@ -27,6 +26,8 @@ public static class IconHelperMethods
       ResourceManager res = null;
       if (iconSet == IconSet.Max)
          res = TreeIcons_Max.ResourceManager;
+      else if (iconSet == IconSet.Maya)
+         res = TreeIcons_Maya.ResourceManager;
 
       if (res == null)
          return null;

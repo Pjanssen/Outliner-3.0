@@ -32,7 +32,7 @@ public class ExpandButton : TreeNodeLayoutItem
       if (this.Layout == null)
          return 0;
 
-      return pos.Y + (this.Layout.TreeView.ItemHeight / 2) - 1;
+      return pos.Y + (this.Layout.ItemHeight / 2) - 1;
    }
 
    public override int GetWidth(TreeNode tn)
@@ -42,10 +42,10 @@ public class ExpandButton : TreeNodeLayoutItem
 
    public override int GetHeight(TreeNode tn)
    {
-      if (this.Layout == null || this.Layout.TreeView == null)
+      if (this.Layout == null)
          return 0;
 
-      return this.Layout.TreeView.ItemHeight;
+      return this.Layout.ItemHeight;
    }
 
    protected Rectangle GetGlyphBounds(TreeNode tn)

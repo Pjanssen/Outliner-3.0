@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Xml.Serialization;
 using System.IO;
+using System.ComponentModel;
 
 namespace Outliner.Controls.Layout
 {
@@ -25,9 +26,14 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
    [XmlIgnore]
    private List<TreeNodeLayoutItem> items { get; set; }
 
+   [XmlElement("itemheight")]
+   [DefaultValue(18)]
+   public Int32 ItemHeight { get; set; }
+
    public TreeNodeLayout()
    {
       this.items = new List<TreeNodeLayoutItem>();
+      this.ItemHeight = 18;
    }
 
    public Int32 GetTreeNodeWidth(TreeNode tn)
@@ -235,11 +241,11 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
       {
          TreeNodeLayout layout = new TreeNodeLayout();
          layout.Add(new TreeNodeIndent());
+         layout.Add(new HideButton());
+         layout.Add(new FreezeButton());
          layout.Add(new TreeNodeIcon(IconSet.Max, false));
          layout.Add(new TreeNodeText());
          layout.Add(new FlexibleSpace());
-         layout.Add(new HideButton());
-         layout.Add(new FreezeButton());
          return layout;
       }
    }
@@ -249,8 +255,9 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
       get
       {
          TreeNodeLayout layout = new TreeNodeLayout();
+         layout.ItemHeight = 20;
          layout.Add(new ExpandButton() { PaddingRight = 5 });
-         layout.Add(new TreeNodeIcon(IconSet.Max, false));
+         layout.Add(new TreeNodeIcon(IconSet.Maya, false));
          layout.Add(new MayaStyleIndent());
          layout.Add(new TreeNodeText());
          //layout.Add(new HideButton());

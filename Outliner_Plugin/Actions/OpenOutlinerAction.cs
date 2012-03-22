@@ -37,7 +37,10 @@ namespace Outliner.Actions
          IGlobal.IGlobalMaxSDK.IGlobalUtil.IGlobalPath path = GlobalInterface.Instance.MaxSDK.Util.Path;
          IPath layoutFile = path.Create(pathMgr.GetDir(MaxDirectory.UserScripts));
          layoutFile.Append(path.Create("outliner_layout.xml"));
-         tc.treeView1.TreeNodeLayout = TreeNodeLayout.FromXml(layoutFile.String);
+         if (layoutFile.Exists)
+            tc.treeView1.TreeNodeLayout = TreeNodeLayout.FromXml(layoutFile.String);
+         else
+            tc.treeView1.TreeNodeLayout.ToXml(layoutFile.String);
 
          tc.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
          TreeMode tm = new HierarchyMode(tc.treeView1, Autodesk.Max.GlobalInterface.Instance.COREInterface);
