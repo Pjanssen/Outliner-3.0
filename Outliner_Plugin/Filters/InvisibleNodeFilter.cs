@@ -16,7 +16,7 @@ namespace Outliner.Filters
       public override bool OverrideEnabled
       {
          get { return true; }
-         set { throw new InvalidOperationException("OverrideEnabled cannot be changed for InvisibleNodeFilter."); }
+         set { }
       }
 
       public override FilterResults ShowNode(IMaxNodeWrapper data)
