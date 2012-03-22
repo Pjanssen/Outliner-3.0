@@ -164,7 +164,10 @@ public class TreeView : ScrollableControl
       while (curY <= endY && tn != null)
       {
          if (curY >= startY)
+         {
+            Console.WriteLine(tn.ToString() + ", " + tn.Bounds.ToString());
             this.TreeNodeLayout.DrawTreeNode(e.Graphics, tn);
+         }
       
          tn = tn.NextVisibleNode;
          curY += this.ItemHeight;
@@ -275,7 +278,7 @@ public class TreeView : ScrollableControl
       TreeNode tn = this.Nodes[0];
       while (tn != null)
       {
-         tn.InvalidateBounds();
+         //tn.InvalidateBounds();
          Int32 nodeWidth = this.TreeNodeLayout.GetTreeNodeWidth(tn);
          if (nodeWidth > maxWidth)
             maxWidth = nodeWidth;

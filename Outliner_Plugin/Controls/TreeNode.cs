@@ -10,13 +10,13 @@ namespace Outliner.Controls
 public class TreeNode
 {
    internal TreeNode parent;
+   private TreeView treeview;
    private TreeNodeStates state;
    private Boolean isExpanded;
    private String text;
    private Boolean boundsValid;
    private Rectangle bounds;
 
-   public TreeView TreeView { get; internal set; }
    public TreeNodeCollection Nodes { get; private set; }
    public DragDropHandler DragDropHandler { get; set; }
    public FilterResults FilterResult { get; set; }
@@ -72,6 +72,20 @@ public class TreeNode
 
          if (value != null)
             value.Nodes.Add(this);
+      }
+   }
+
+   /// <summary>
+   /// Gets the TreeView to which this TreeNode belongs.
+   /// </summary>
+   public TreeView TreeView 
+   {
+      get { return this.treeview; }
+      internal set
+      {
+         this.treeview = value;
+         foreach (TreeNode tn in this.Nodes)
+            tn.TreeView = value;
       }
    }
 
@@ -162,9 +176,21 @@ public class TreeNode
          return localBounds;
       } 
    }
-   internal void InvalidateBounds()
+   internal void InvalidateBounds(Boolean invalidateNextNodes)
    {
+      this.bounds = Rectangle.Empty;
       this.boundsValid = false;
+
+      if (invalidateNextNodes)
+      {
+         //Loop over next visible nodes (avoiding recursion because of potential stack-overflow).
+         TreeNode nextNode = this.NextVisibleNode;
+         while (nextNode != null)
+         {
+            nextNode.InvalidateBounds(false);
+            nextNode = nextNode.NextVisibleNode;
+         }
+      }
    }
 
    /// <summary>
@@ -174,19 +200,18 @@ public class TreeNode
    { 
       get 
       {
-         if (this.parent == null)
-            return true;
-         else
-            return this.isExpanded;
+         return (this.parent == null) ? true : this.isExpanded;
       }
       set
       {
+         TreeNode nextVisibleNode = this.NextVisibleNode;
+
          this.isExpanded = value;
-         TreeView tree = this.TreeView;
-         if (tree != null)
-         {
-            tree.Update(TreeViewUpdateFlags.Bounds | TreeViewUpdateFlags.Redraw);
-         }
+
+         if (nextVisibleNode != null)
+            nextVisibleNode.InvalidateBounds(true);
+         if (this.TreeView != null)
+            this.TreeView.Update(TreeViewUpdateFlags.Bounds | TreeViewUpdateFlags.Redraw);
       }
    }
 
@@ -195,9 +220,15 @@ public class TreeNode
    /// </summary>
    public void ExpandAll() 
    {
+      if (this.TreeView != null)
+         this.TreeView.BeginUpdate(TreeViewUpdateFlags.Bounds | TreeViewUpdateFlags.Redraw);
+      
       foreach (TreeNode tn in this.Nodes)
          tn.ExpandAll();
       this.IsExpanded = true;
+
+      if (this.TreeView != null)
+         this.TreeView.EndUpdate();
    }
 
    /// <summary>
@@ -236,6 +267,9 @@ public class TreeNode
    {
       get 
       {
+         if (!this.IsVisible)
+            return null;
+
          if (this.IsExpanded && this.Nodes.Count > 0)
             return this.Nodes[0];
 
@@ -259,7 +293,7 @@ public class TreeNode
    {
       get
       {
-         if (this.parent == null)
+         if (this.parent == null || !this.IsVisible)
             return null;
 
          TreeNode prevNode = this.parent;
