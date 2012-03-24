@@ -11,39 +11,41 @@ using System.ComponentModel;
 namespace Outliner.Controls.Layout
 {
 [XmlRoot("TreeNodeLayout")]
-public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
+public class TreeNodeLayout
 {
-   private TreeView treeView;
    [XmlIgnore]
-   public TreeView TreeView 
-   {
-      get { return this.treeView; }
-      set
-      {
-         this.treeView = value;
-      }
-   }
-   [XmlIgnore]
-   private List<TreeNodeLayoutItem> items { get; set; }
+   public TreeView TreeView { get; set; }
 
-   [XmlElement("itemheight")]
+   [XmlElement("ItemHeight")]
    [DefaultValue(18)]
    public Int32 ItemHeight { get; set; }
 
+   [XmlElement("FullRowSelect")]
+   [DefaultValue(false)]
+   public Boolean FullRowSelect { get; set; }
+   
+   private List<TreeNodeLayoutItem> layoutItems;
+   [XmlArray("LayoutItems")]
+   public List<TreeNodeLayoutItem> LayoutItems
+   {
+      get { return this.layoutItems; }
+   }
+
    public TreeNodeLayout()
    {
-      this.items = new List<TreeNodeLayoutItem>();
+      this.layoutItems = new List<TreeNodeLayoutItem>();
       this.ItemHeight = 18;
+      this.FullRowSelect = false;
    }
 
    public Int32 GetTreeNodeWidth(TreeNode tn)
    {
-      return this.items.Sum(i => i.PaddingLeft + i.GetWidth(tn) + i.PaddingRight);
+      return this.layoutItems.Sum(i => i.PaddingLeft + i.GetWidth(tn) + i.PaddingRight);
    }
 
    public void DrawTreeNode(Graphics graphics, TreeNode tn) 
    {
-      foreach (TreeNodeLayoutItem item in this.items)
+      foreach (TreeNodeLayoutItem item in this.layoutItems)
       {
          if (item.IsVisible(tn))
          {
@@ -71,7 +73,7 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
             this.prevMouseOverTn = null;
          }
       }
-      foreach (TreeNodeLayoutItem item in this.items)
+      foreach (TreeNodeLayoutItem item in this.layoutItems)
       {
          if (item.IsVisible(tn) && item.GetBounds(tn).Contains(e.Location))
          {
@@ -91,7 +93,7 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
       if (e == null)
          return;
 
-      foreach (TreeNodeLayoutItem i in this.items)
+      foreach (TreeNodeLayoutItem i in this.layoutItems)
       {
          if (i.GetBounds(tn).Contains(e.Location))
          {
@@ -106,7 +108,7 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
       if (e == null)
          return;
 
-      foreach (TreeNodeLayoutItem i in this.items)
+      foreach (TreeNodeLayoutItem i in this.layoutItems)
       {
          if (i.GetBounds(tn).Contains(e.Location))
          {
@@ -117,15 +119,14 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
    }
 
 
-   #region ICollection members
       
-   public void Add(TreeNodeLayoutItem item)
+   public void AddLayoutItem(TreeNodeLayoutItem item)
    {
       if (item == null)
          throw new ArgumentNullException("item");
 
       item.Layout = this;
-      this.items.Add(item);
+      this.layoutItems.Add(item);
 
       if (this.TreeView != null)
          this.TreeView.Invalidate();
@@ -133,10 +134,10 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
 
    public void Clear()
    {
-      foreach (TreeNodeLayoutItem item in this.items)
+      foreach (TreeNodeLayoutItem item in this.layoutItems)
          item.Layout = null;
 
-      this.items.Clear();
+      this.layoutItems.Clear();
 
       if (this.TreeView != null)
          this.TreeView.Invalidate();
@@ -144,17 +145,17 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
 
    public bool Contains(TreeNodeLayoutItem item)
    {
-      return this.items.Contains(item);
+      return this.layoutItems.Contains(item);
    }
 
    public void CopyTo(TreeNodeLayoutItem[] array, int arrayIndex)
    {
-      this.items.CopyTo(array, arrayIndex);
+      this.layoutItems.CopyTo(array, arrayIndex);
    }
 
    public int Count
    {
-      get { return this.items.Count; }
+      get { return this.layoutItems.Count; }
    }
 
    public bool IsReadOnly
@@ -167,7 +168,7 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
       if (item == null)
          return false;
 
-      if (this.items.Remove(item))
+      if (this.layoutItems.Remove(item))
       {
          item.Layout = null;
          if (this.TreeView != null)
@@ -180,34 +181,15 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
 
    public IEnumerator<TreeNodeLayoutItem> GetEnumerator()
    {
-      return this.items.GetEnumerator();
+      return this.layoutItems.GetEnumerator();
    }
 
-   System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-   {
-      return this.items.GetEnumerator();
-   }
 
-   #endregion
 
-   public TreeNodeLayoutItem this[int index]
-   {
-      get { return this.items[index]; }
-      set 
-      {
-         if (value == null)
-            throw new ArgumentNullException("value");
-
-         value.Layout = this;
-         this.items[index] = value;
-         if (this.TreeView != null)
-            this.TreeView.Invalidate();
-      }
-   }
 
    public Int32 IndexOf(TreeNodeLayoutItem item)
    {
-      return this.items.IndexOf(item);
+      return this.layoutItems.IndexOf(item);
    }
 
 
@@ -240,12 +222,12 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
       get
       {
          TreeNodeLayout layout = new TreeNodeLayout();
-         layout.Add(new TreeNodeIndent());
-         layout.Add(new HideButton());
-         layout.Add(new FreezeButton());
-         layout.Add(new TreeNodeIcon(IconSet.Max, false));
-         layout.Add(new TreeNodeText());
-         layout.Add(new FlexibleSpace());
+         layout.AddLayoutItem(new TreeNodeIndent());
+         layout.AddLayoutItem(new HideButton());
+         layout.AddLayoutItem(new FreezeButton());
+         layout.AddLayoutItem(new TreeNodeIcon(IconSet.Max, false));
+         layout.AddLayoutItem(new TreeNodeText());
+         layout.AddLayoutItem(new FlexibleSpace());
          return layout;
       }
    }
@@ -256,17 +238,16 @@ public class TreeNodeLayout : ICollection<TreeNodeLayoutItem>
       {
          TreeNodeLayout layout = new TreeNodeLayout();
          layout.ItemHeight = 20;
-         layout.Add(new ExpandButton() { PaddingRight = 5 });
-         layout.Add(new TreeNodeIcon(IconSet.Maya, false));
-         layout.Add(new MayaStyleIndent());
-         layout.Add(new TreeNodeText());
-         //layout.Add(new HideButton());
-         //layout.Add(new FreezeButton());
-         //layout.Add(new BoxModeButton());
-         //layout.Add(new FlexibleSpace());
+         layout.FullRowSelect = true;
+         layout.AddLayoutItem(new ExpandButton() { PaddingRight = 5, UseVisualStyles = false });
+         layout.AddLayoutItem(new TreeNodeIcon(IconSet.Maya, false));
+         layout.AddLayoutItem(new MayaStyleIndent());
+         layout.AddLayoutItem(new TreeNodeText());
+         layout.AddLayoutItem(new FlexibleSpace());
+         layout.AddLayoutItem(new HideButton());
+         layout.AddLayoutItem(new FreezeButton());
          return layout;
       }
    }
-
 }
 }

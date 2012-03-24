@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Resources;
 using Autodesk.Max;
 using Outliner.Scene;
+using System.Xml.Serialization;
 
 namespace Outliner.Controls
 {

@@ -67,21 +67,53 @@ public class TreeViewColors
          c.BackColor = HelperMethods.FromMaxColor(cm.GetColor(GuiColors.Window));
          c.LineColor = HelperMethods.FromMaxColor(cm.GetColor(GuiColors.WindowText));
 
-         c.NodeForeColor = HelperMethods.FromMaxColor(cm.GetColor(GuiColors.WindowText));
-         c.NodeBackColor = HelperMethods.FromMaxColor(cm.GetColor(GuiColors.Window));
+         c.NodeForeColor = c.LineColor;
+         c.NodeBackColor = c.BackColor;
          c.FrozenForeColor = SystemColors.GrayText;
-         c.FrozenBackColor = HelperMethods.FromMaxColor(cm.GetColor(GuiColors.Window));
+         c.FrozenBackColor = c.NodeBackColor;
          c.HiddenForeColor = SystemColors.GrayText;
-         c.HiddenBackColor = HelperMethods.FromMaxColor(cm.GetColor(GuiColors.Window));
+         c.HiddenBackColor = c.NodeBackColor;
 
          c.SelectionForeColor = HelperMethods.FromMaxColor(cm.GetColor(GuiColors.HilightText));
          c.SelectionBackColor = HelperMethods.FromMaxColor(cm.GetColor(GuiColors.Hilight));
+
+         c.LinkForeColor = c.NodeForeColor;
+         c.LinkBackColor = Color.FromArgb(255, 255, 177, 177);
+
+         c.ParentForeColor = c.NodeForeColor;
+         c.ParentBackColor = Color.FromArgb(255, 177, 255, 177);
+
+         c.LayerForeColor = c.NodeForeColor;
+         c.LayerBackColor = Color.FromArgb(255, 177, 228, 255);
+
+         return c;
+      }
+   }
+
+   public static TreeViewColors MayaColors
+   {
+      get
+      {
+         TreeViewColors c = new TreeViewColors();
+         IIColorManager cm = GlobalInterface.Instance.ColorManager;
+         c.BackColor = Color.FromArgb(255, 42, 42, 42);//HelperMethods.FromMaxColor(cm.GetColor(GuiColors.Window));
+         c.LineColor = Color.FromArgb(255, 200, 200, 200);//HelperMethods.FromMaxColor(cm.GetColor(GuiColors.WindowText));
+
+         c.NodeForeColor = c.LineColor;
+         c.NodeBackColor = c.BackColor;
+         c.FrozenForeColor = SystemColors.GrayText;
+         c.FrozenBackColor = c.NodeBackColor;
+         c.HiddenForeColor = SystemColors.GrayText;
+         c.HiddenBackColor = c.NodeBackColor;
+
+         c.SelectionForeColor = Color.FromArgb(255, 255, 255, 255);
+         c.SelectionBackColor = Color.FromArgb(255, 103, 141, 178);
 
          c.LinkForeColor = HelperMethods.FromMaxColor(cm.GetColor(GuiColors.WindowText));
          c.LinkBackColor = Color.FromArgb(255, 255, 177, 177);
 
          c.ParentForeColor = HelperMethods.FromMaxColor(cm.GetColor(GuiColors.WindowText));
-         c.ParentBackColor = Color.FromArgb(255, 177, 255, 177);
+         c.ParentBackColor = Color.FromArgb(255, 65, 77, 90);
 
          c.LayerForeColor = HelperMethods.FromMaxColor(cm.GetColor(GuiColors.WindowText));
          c.LayerBackColor = Color.FromArgb(255, 177, 228, 255);

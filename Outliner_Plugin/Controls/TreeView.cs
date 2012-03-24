@@ -18,7 +18,7 @@ public class TreeView : ScrollableControl
       this.root = new TreeNode(this, "root");
       this.Colors = new TreeViewColors();
       this.SelectedNodes = new HashSet<TreeNode>();
-      this.TreeNodeLayout = TreeNodeLayout.DefaultLayout; //TODO check that this does not cause unnecessary redrawing.
+      this.TreeNodeLayout = TreeNodeLayout.MayaLayout; //TODO check that this does not cause unnecessary redrawing.
 
       //Set double buffered user paint style.
       this.SetStyle(ControlStyles.UserPaint, true);
@@ -29,13 +29,19 @@ public class TreeView : ScrollableControl
       this.AutoScroll = true;
       this.VerticalScroll.SmallChange = 18; //TODO replace with TreeNodeLayout.ItemHeight?
       this.VerticalScroll.LargeChange = 54;
+
+      this.AllowDrop = true;
    }
 
 
    protected override void Dispose(bool disposing)
    {
-      if (this.bgBrush != null)
-         this.bgBrush.Dispose();
+      if (this.brushBackground != null)
+         this.brushBackground.Dispose();
+      if (this.brushSelection != null)
+         this.brushSelection.Dispose();
+      if (this.brushParent != null)
+         this.brushParent.Dispose();
 
       base.Dispose(disposing);
    }
@@ -99,7 +105,9 @@ public class TreeView : ScrollableControl
 
 
 
-   private SolidBrush bgBrush;
+   private SolidBrush brushBackground;
+   private SolidBrush brushSelection;
+   private SolidBrush brushParent;
 
    private TreeViewColors colors;
    public Outliner.Controls.TreeViewColors Colors 
@@ -120,7 +128,7 @@ public class TreeView : ScrollableControl
       set
       {
          this.Colors.BackColor = value;
-         this.bgBrush = null;
+         this.brushBackground = null;
       }
    }
 
@@ -132,10 +140,10 @@ public class TreeView : ScrollableControl
       if (e == null)
          return;
 
-      if (this.bgBrush == null)
-         this.bgBrush = new SolidBrush(this.BackColor);
+      if (this.brushBackground == null)
+         this.brushBackground = new SolidBrush(this.BackColor);
 
-      e.Graphics.FillRectangle(this.bgBrush, e.ClipRectangle);
+      e.Graphics.FillRectangle(this.brushBackground, e.ClipRectangle);
    }
 
    protected override void OnPaint(PaintEventArgs e)
@@ -143,8 +151,13 @@ public class TreeView : ScrollableControl
       if (this.TestUpdateFlag(TreeViewUpdateFlags.Redraw))
          return;
 
-      if (e == null || this.Nodes.Count == 0 || this.TreeNodeLayout == null)
+      if (e == null || this.Nodes.Count == 0 || this.TreeNodeLayout == null || this.Colors == null)
          return;
+
+      if (this.brushSelection == null)
+         this.brushSelection = new SolidBrush(this.Colors.SelectionBackColor);
+      if (this.brushParent == null)
+         this.brushParent = new SolidBrush(this.Colors.ParentBackColor);
 
       Int32 itemHeight = this.TreeNodeLayout.ItemHeight;
       Int32 startY = e.ClipRectangle.Y - (itemHeight - 1);
@@ -155,7 +168,16 @@ public class TreeView : ScrollableControl
       while (curY <= endY && tn != null)
       {
          if (curY >= startY)
+         {
+            if (this.TreeNodeLayout.FullRowSelect)
+            {
+               if (tn.State.HasFlag(TreeNodeStates.Selected))
+                  e.Graphics.FillRectangle(this.brushSelection, tn.Bounds);
+               else if (tn.State.HasFlag(TreeNodeStates.ParentOfSelected))
+                  e.Graphics.FillRectangle(this.brushParent, tn.Bounds);
+            }
             this.TreeNodeLayout.DrawTreeNode(e.Graphics, tn);
+         }
       
          tn = tn.NextVisibleNode;
          curY += itemHeight;
@@ -282,7 +304,22 @@ public class TreeView : ScrollableControl
 
 
    #region Mouse Events
-   
+
+   protected override void OnMouseDown(MouseEventArgs e)
+   {
+      TreeNode tn = this.GetNodeAt(e.Location);
+      if (tn == null)
+         return;
+
+      //this.DoDragDrop(this.SelectedNodes, DragDropEffects.All);
+   }
+
+   protected override void OnDragEnter(DragEventArgs drgevent)
+   {
+      drgevent.Effect = DragDropEffects.Move;
+   }
+
+
    protected override void OnMouseMove(MouseEventArgs e)
    {
       if (e == null || this.TreeNodeLayout == null)
@@ -290,7 +327,12 @@ public class TreeView : ScrollableControl
 
       TreeNode tn = this.GetNodeAt(e.Location);
       if (tn != null)
-         this.TreeNodeLayout.HandleMouseMove(e, tn);
+      {
+         if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            this.DoDragDrop(this.SelectedNodes, DragDropEffects.Move);
+         else
+            this.TreeNodeLayout.HandleMouseMove(e, tn);
+      }
    }
 
    protected override void OnMouseClick(MouseEventArgs e)
@@ -592,7 +634,7 @@ public class TreeView : ScrollableControl
       if (this.TreeNodeLayout == null)
          return;
 
-      this.BeginNodeTextEdit(tn, this.TreeNodeLayout.FirstOrDefault(item => item is TreeNodeText));
+      this.BeginNodeTextEdit(tn, this.TreeNodeLayout.LayoutItems.FirstOrDefault(item => item is TreeNodeText));
    }
 
    internal void BeginNodeTextEdit(TreeNode tn, TreeNodeLayoutItem layoutItem)

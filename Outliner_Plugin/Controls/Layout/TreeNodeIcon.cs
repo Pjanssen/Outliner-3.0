@@ -63,6 +63,7 @@ public class TreeNodeIcon : TreeNodeButton
 
    public TreeNodeIcon(IconSet iconSet, Boolean invert)
    {
+      this.iconSet = iconSet;
       this.icons = IconHelperMethods.CreateIconSetBitmaps(iconSet, invert);
       this.iconSize = (this.icons.Count == 0) ? Size.Empty : this.icons.First().Value.Size;
       this.invert = invert;
