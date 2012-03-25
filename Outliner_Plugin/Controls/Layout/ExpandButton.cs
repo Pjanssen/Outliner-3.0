@@ -113,7 +113,7 @@ public class ExpandButton : TreeNodeLayoutItem
       Rectangle glyphBounds = this.GetGlyphBounds(tn);
       if (glyphBounds.Contains(e.Location))
       {
-         if ((Control.ModifierKeys & Keys.Control) == Keys.Control && !tn.IsExpanded)
+         if (Control.ModifierKeys.HasFlag(Keys.Control) && !tn.IsExpanded)
          {
             this.Layout.TreeView.BeginUpdate();
             tn.ExpandAll();

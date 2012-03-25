@@ -206,10 +206,11 @@ public class TreeNode
       {
          TreeNode nextVisibleNode = this.NextVisibleNode;
 
-         this.isExpanded = value;
-
          if (nextVisibleNode != null)
             nextVisibleNode.InvalidateBounds(true);
+
+         this.isExpanded = value;
+
          if (this.TreeView != null)
             this.TreeView.Update(TreeViewUpdateFlags.Bounds | TreeViewUpdateFlags.Redraw);
       }
