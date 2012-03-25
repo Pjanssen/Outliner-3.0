@@ -16,7 +16,7 @@ public class FlexibleSpace : TreeNodeLayoutItem
 
       TreeView tree = this.Layout.TreeView;
       Int32 w = tree.Width;
-      foreach (TreeNodeLayoutItem item in this.Layout)
+      foreach (TreeNodeLayoutItem item in this.Layout.LayoutItems)
       {
          if (item != this && item.IsVisible(tn))
             w -= item.GetWidth(tn) + item.PaddingLeft + item.PaddingRight;

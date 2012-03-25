@@ -23,17 +23,22 @@ public class TreeNodeLayout
    [XmlElement("FullRowSelect")]
    [DefaultValue(false)]
    public Boolean FullRowSelect { get; set; }
-   
-   private List<TreeNodeLayoutItem> layoutItems;
+
+   private TreeNodeLayoutItemCollection layoutItems;
    [XmlArray("LayoutItems")]
-   public List<TreeNodeLayoutItem> LayoutItems
+   public TreeNodeLayoutItemCollection LayoutItems
    {
       get { return this.layoutItems; }
+      set
+      {
+         this.layoutItems = value;
+         value.Layout = this;
+      }
    }
 
    public TreeNodeLayout()
    {
-      this.layoutItems = new List<TreeNodeLayoutItem>();
+      this.LayoutItems = new TreeNodeLayoutItemCollection();
       this.ItemHeight = 18;
       this.FullRowSelect = false;
    }
@@ -119,78 +124,6 @@ public class TreeNodeLayout
    }
 
 
-      
-   public void AddLayoutItem(TreeNodeLayoutItem item)
-   {
-      if (item == null)
-         throw new ArgumentNullException("item");
-
-      item.Layout = this;
-      this.layoutItems.Add(item);
-
-      if (this.TreeView != null)
-         this.TreeView.Invalidate();
-   }
-
-   public void Clear()
-   {
-      foreach (TreeNodeLayoutItem item in this.layoutItems)
-         item.Layout = null;
-
-      this.layoutItems.Clear();
-
-      if (this.TreeView != null)
-         this.TreeView.Invalidate();
-   }
-
-   public bool Contains(TreeNodeLayoutItem item)
-   {
-      return this.layoutItems.Contains(item);
-   }
-
-   public void CopyTo(TreeNodeLayoutItem[] array, int arrayIndex)
-   {
-      this.layoutItems.CopyTo(array, arrayIndex);
-   }
-
-   public int Count
-   {
-      get { return this.layoutItems.Count; }
-   }
-
-   public bool IsReadOnly
-   {
-      get { return false; }
-   }
-
-   public bool Remove(TreeNodeLayoutItem item)
-   {
-      if (item == null)
-         return false;
-
-      if (this.layoutItems.Remove(item))
-      {
-         item.Layout = null;
-         if (this.TreeView != null)
-            this.TreeView.Invalidate();
-         return true;
-      }
-
-      return false;
-   }
-
-   public IEnumerator<TreeNodeLayoutItem> GetEnumerator()
-   {
-      return this.layoutItems.GetEnumerator();
-   }
-
-
-
-
-   public Int32 IndexOf(TreeNodeLayoutItem item)
-   {
-      return this.layoutItems.IndexOf(item);
-   }
 
 
    /// <summary>
@@ -212,26 +145,35 @@ public class TreeNodeLayout
    {
       XmlSerializer xs = new XmlSerializer(typeof(TreeNodeLayout));
       using (FileStream st = new FileStream(file, FileMode.Create))
+      using (StreamWriter stWr = new StreamWriter(st, Encoding.Unicode))
       {
-         xs.Serialize(st, this);
+         xs.Serialize(stWr, this);
       }
    }
 
+   /// <summary>
+   /// The standard 3dsMax-style layout.
+   /// Itemheight = 18, FullRowSelect = false.
+   /// </summary>
    public static TreeNodeLayout DefaultLayout
    {
       get
       {
          TreeNodeLayout layout = new TreeNodeLayout();
-         layout.AddLayoutItem(new TreeNodeIndent());
-         layout.AddLayoutItem(new HideButton());
-         layout.AddLayoutItem(new FreezeButton());
-         layout.AddLayoutItem(new TreeNodeIcon(IconSet.Max, false));
-         layout.AddLayoutItem(new TreeNodeText());
-         layout.AddLayoutItem(new FlexibleSpace());
+         layout.LayoutItems.Add(new TreeNodeIndent());
+         layout.LayoutItems.Add(new HideButton());
+         layout.LayoutItems.Add(new FreezeButton());
+         layout.LayoutItems.Add(new TreeNodeIcon(IconSet.Max, false));
+         layout.LayoutItems.Add(new TreeNodeText());
+         layout.LayoutItems.Add(new FlexibleSpace());
          return layout;
       }
    }
 
+   /// <summary>
+   /// Maya-style layout.
+   /// Itemheight = 20, FullRowSelect = true.
+   /// </summary>
    public static TreeNodeLayout MayaLayout
    {
       get
@@ -239,13 +181,13 @@ public class TreeNodeLayout
          TreeNodeLayout layout = new TreeNodeLayout();
          layout.ItemHeight = 20;
          layout.FullRowSelect = true;
-         layout.AddLayoutItem(new ExpandButton() { PaddingRight = 5, UseVisualStyles = false });
-         layout.AddLayoutItem(new TreeNodeIcon(IconSet.Maya, false));
-         layout.AddLayoutItem(new MayaStyleIndent());
-         layout.AddLayoutItem(new TreeNodeText());
-         layout.AddLayoutItem(new FlexibleSpace());
-         layout.AddLayoutItem(new HideButton());
-         layout.AddLayoutItem(new FreezeButton());
+         layout.LayoutItems.Add(new ExpandButton() { PaddingRight = 5, UseVisualStyles = false });
+         layout.LayoutItems.Add(new TreeNodeIcon(IconSet.Maya, false));
+         layout.LayoutItems.Add(new MayaStyleIndent());
+         layout.LayoutItems.Add(new TreeNodeText());
+         layout.LayoutItems.Add(new FlexibleSpace());
+         layout.LayoutItems.Add(new HideButton());
+         layout.LayoutItems.Add(new FreezeButton());
          return layout;
       }
    }

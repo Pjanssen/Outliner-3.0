@@ -84,6 +84,7 @@
     <Compile Include="Controls\Layout\RenderableButton.cs" />
     <Compile Include="Controls\Layout\TreeNodeButton.cs" />
     <Compile Include="Controls\Layout\TreeNodeIcon.cs" />
+    <Compile Include="Controls\Layout\TreeNodeLayoutItemCollection.cs" />
     <Compile Include="Controls\Layout\WireColorButton.cs" />
     <Compile Include="Controls\Layout\ExpandButton.cs" />
     <Compile Include="Controls\Layout\MayaStyleIndent.cs" />
@@ -277,6 +278,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Notes.txt" />
+    <EmbeddedResource Include="Resources\maya_icons\unknown.png" />
+    <EmbeddedResource Include="Resources\maya_icons\nurbs.png" />
+    <EmbeddedResource Include="Resources\maya_icons\shape.png" />
+    <EmbeddedResource Include="Resources\maya_icons\particle.png" />
+    <EmbeddedResource Include="Resources\maya_icons\spacewarp.png" />
+    <EmbeddedResource Include="Resources\maya_icons\bone.png" />
+    <EmbeddedResource Include="Resources\maya_icons\camera.png" />
+    <EmbeddedResource Include="Resources\maya_icons\group.png" />
+    <EmbeddedResource Include="Resources\maya_icons\helper.png" />
     <EmbeddedResource Include="Resources\maya_icons\geometry.PNG" />
     <EmbeddedResource Include="Resources\maya_icons\light.png" />
     <EmbeddedResource Include="Resources\node_buttons\render_disabled.png" />

@@ -17,12 +17,15 @@ public class ExpandButton : TreeNodeLayoutItem
    protected const Int32 GLYPHSIZE = 9;
    protected const Int32 GLYPHMID = 4;
 
+   protected Boolean fillBackground;
+
    [XmlAttribute("use_visual_styles")]
    [DefaultValue(true)]
    public Boolean UseVisualStyles { get; set; }
 
    public ExpandButton()
    {
+      this.fillBackground = false;
       this.UseVisualStyles = true;
    }
 
@@ -74,11 +77,16 @@ public class ExpandButton : TreeNodeLayoutItem
       else
       {
          using (Pen linePen = new Pen(this.Layout.TreeView.Colors.LineColor))
-         using (Brush bgBrush = new SolidBrush(this.Layout.TreeView.BackColor))
          {
             glyphBounds.Width -= 1;
             glyphBounds.Height -= 1;
-            graphics.FillRectangle(bgBrush, glyphBounds);
+            if (this.fillBackground)
+            {
+               using (Brush bgBrush = new SolidBrush(this.Layout.TreeView.BackColor))
+               {
+                  graphics.FillRectangle(bgBrush, glyphBounds);
+               }
+            }
             graphics.DrawRectangle(linePen, glyphBounds);
             graphics.DrawLine(linePen, glyphBounds.X + GLYPHMID - 2, 
                                        glyphBounds.Y + GLYPHMID,

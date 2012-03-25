@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
 using Outliner.Controls.Layout;
+using System.ComponentModel;
 
 namespace Outliner.Controls
 {
@@ -18,7 +19,7 @@ public class TreeView : ScrollableControl
       this.root = new TreeNode(this, "root");
       this.Colors = new TreeViewColors();
       this.SelectedNodes = new HashSet<TreeNode>();
-      this.TreeNodeLayout = TreeNodeLayout.MayaLayout; //TODO check that this does not cause unnecessary redrawing.
+      this.TreeNodeLayout = TreeNodeLayout.DefaultLayout; //TODO check that this does not cause unnecessary redrawing.
 
       //Set double buffered user paint style.
       this.SetStyle(ControlStyles.UserPaint, true);
@@ -49,10 +50,7 @@ public class TreeView : ScrollableControl
 
    public TreeNodeCollection Nodes
    {
-      get
-      {
-         return this.root.Nodes;
-      }
+      get { return this.root.Nodes; }
    }
 
 
@@ -76,10 +74,31 @@ public class TreeView : ScrollableControl
       return tn;
    }
 
+   protected override CreateParams CreateParams
+   {
+      get
+      {
+         const int WS_BORDER = 0x00800000;
+         const int WS_EX_STATICEDGE = 0x00020000;
+         CreateParams cp = base.CreateParams;
+         //switch (_borderStyle)
+         //{
+         //   case BorderStyle.FixedSingle:
+               cp.Style |= WS_BORDER;
+         //      break;
+         //   case BorderStyle.Fixed3D:
+         //      cp.ExStyle |= WS_EX_STATICEDGE;
+         //      break;
+         //}
+         return cp;
+      }
+   }
 
    #region Paint
 
    private TreeNodeLayout treeNodeLayout;
+   [Browsable(false)]
+   [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
    public TreeNodeLayout TreeNodeLayout 
    {
       get { return this.treeNodeLayout; }
@@ -110,7 +129,9 @@ public class TreeView : ScrollableControl
    private SolidBrush brushParent;
 
    private TreeViewColors colors;
-   public Outliner.Controls.TreeViewColors Colors 
+   [Browsable(false)]
+   [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+   public TreeViewColors Colors 
    {
       get { return this.colors; }
       set
@@ -511,7 +532,10 @@ public class TreeView : ScrollableControl
 
    #region Sort
 
+   [Browsable(false)]
+   [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
    public IComparer<TreeNode> NodeSorter { get; set; }
+   
    private List<TreeNodeCollection> _sortQueue;
    private Timer _sortTimer;
    private Boolean _timedSortQueueOnly;

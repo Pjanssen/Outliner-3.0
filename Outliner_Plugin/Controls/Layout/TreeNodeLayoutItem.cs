@@ -66,7 +66,7 @@ namespace Outliner.Controls.Layout
          Point pt = new Point(0, tn.Bounds.Y);
          pt.X = 0 - this.Layout.TreeView.HorizontalScroll.Value;
          
-         foreach (TreeNodeLayoutItem item in this.Layout)
+         foreach (TreeNodeLayoutItem item in this.Layout.LayoutItems)
          {
             if (item.IsVisible(tn))
             {
