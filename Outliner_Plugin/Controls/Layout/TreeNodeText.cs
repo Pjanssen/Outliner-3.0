@@ -68,7 +68,7 @@ public class TreeNodeText : TreeNodeLayoutItem
       {
          Rectangle gBounds = this.GetBounds(tn);
          
-         graphics.FillRectangle(bgBrush, gBounds);
+         //graphics.FillRectangle(bgBrush, gBounds);
          graphics.DrawString(tn.Text, tree.Font, fgBrush, 
                       gBounds.X, gBounds.Y + ((gBounds.Height - this.GetTextSize(tn).Height) / 2), StringFormat.GenericDefault);
       }

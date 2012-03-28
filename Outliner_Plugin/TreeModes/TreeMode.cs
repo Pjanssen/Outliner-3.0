@@ -68,6 +68,29 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
       return tn;
    }
 
+   protected virtual TreeNode addNode(IMaxNodeWrapper node, TreeNodeCollection parentCol)
+   {
+      if (node == null || parentCol == null)
+         return null;
+
+      FilterResults filterResult = this.Filters.ShowNode(node);
+      if (filterResult != FilterResults.Hide && !this.treeNodes.ContainsKey(node))
+      {
+         TreeNode tn = HelperMethods.CreateTreeNode(node);
+         tn.FilterResult = filterResult;
+
+         this.treeNodes.Add(node, tn);
+         parentCol.Add(tn);
+
+         if (node.Selected)
+            this.tree.SelectNode(tn, true);
+
+         return tn;
+      }
+      else
+         return null;
+   }
+
    public virtual void RemoveTreeNode(Object node)
    {
       TreeNode tn = this.GetTreeNode(node);
@@ -80,6 +103,7 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
    }
 
    #endregion
+
 
 
    #region NodeEvent Callbacks

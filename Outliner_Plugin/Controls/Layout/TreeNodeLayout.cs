@@ -24,6 +24,10 @@ public class TreeNodeLayout
    [DefaultValue(false)]
    public Boolean FullRowSelect { get; set; }
 
+   [XmlElement("AlternateBackcolor")]
+   [DefaultValue(false)]
+   public Boolean AlternateBackground { get; set; }
+
    private TreeNodeLayoutItemCollection layoutItems;
    [XmlArray("LayoutItems")]
    public TreeNodeLayoutItemCollection LayoutItems
@@ -41,6 +45,7 @@ public class TreeNodeLayout
       this.LayoutItems = new TreeNodeLayoutItemCollection();
       this.ItemHeight = 18;
       this.FullRowSelect = false;
+      this.AlternateBackground = false;
    }
 
    public Int32 GetTreeNodeWidth(TreeNode tn)

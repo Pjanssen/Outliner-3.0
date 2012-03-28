@@ -53,6 +53,11 @@ public class IINodeWrapper : IMaxNodeWrapper
       get { return this.node.ObjectRef.SuperClassID; }
    }
 
+   public override bool Selected
+   {
+      get { return this.node.Selected; }
+   }
+
    public override bool IsHidden
    {
       get { return this.node.IsObjectHidden; }

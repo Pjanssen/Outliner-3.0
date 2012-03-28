@@ -34,6 +34,12 @@ namespace Outliner.Scene
          }
       }
 
+      public override string Name
+      {
+         get { return this.manager.GetNamedSelSetName(this.index); }
+         set { this.manager.SetNamedSelSetName(this.index, ref value); }
+      }
+
       public override Autodesk.Max.IClass_ID ClassID
       {
          get { return null; }
@@ -44,16 +50,9 @@ namespace Outliner.Scene
          get { return this.manager.Cd.SuperClassID; }// return 0; }
       }
 
-      public override string Name
+      public override bool Selected
       {
-         get
-         {
-            return this.manager.GetNamedSelSetName(this.index);
-         }
-         set
-         {
-            this.manager.SetNamedSelSetName(this.index, ref value);
-         }
+         get { return false; }
       }
 
 

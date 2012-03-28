@@ -97,6 +97,12 @@ namespace Outliner.Scene
       }
 
 
+      public override bool Selected
+      {
+         get { return false; }
+      }
+
+
       public override bool IsHidden
       {
          get { return this.layer.IsHidden; }

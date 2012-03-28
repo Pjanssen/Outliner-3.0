@@ -39,6 +39,8 @@ public class TreeView : ScrollableControl
    {
       if (this.brushBackground != null)
          this.brushBackground.Dispose();
+      if (this.brushAltBackground != null)
+         this.brushAltBackground.Dispose();
       if (this.brushSelection != null)
          this.brushSelection.Dispose();
       if (this.brushParent != null)
@@ -125,6 +127,7 @@ public class TreeView : ScrollableControl
 
 
    private SolidBrush brushBackground;
+   private SolidBrush brushAltBackground;
    private SolidBrush brushSelection;
    private SolidBrush brushParent;
 
@@ -153,6 +156,21 @@ public class TreeView : ScrollableControl
       }
    }
 
+   private void createBrushes()
+   {
+      if (this.Colors == null)
+         return;
+
+      if (this.brushBackground == null)
+         this.brushBackground = new SolidBrush(this.BackColor);
+      if (this.brushAltBackground == null)
+         this.brushAltBackground = new SolidBrush(this.Colors.AltBackColor);
+      if (this.brushSelection == null)
+         this.brushSelection = new SolidBrush(this.Colors.SelectionBackColor);
+      if (this.brushParent == null)
+         this.brushParent = new SolidBrush(this.Colors.ParentBackColor);
+   }
+
    protected override void OnPaintBackground(PaintEventArgs e)
    {
       if (this.TestUpdateFlag(TreeViewUpdateFlags.Redraw))
@@ -161,8 +179,7 @@ public class TreeView : ScrollableControl
       if (e == null)
          return;
 
-      if (this.brushBackground == null)
-         this.brushBackground = new SolidBrush(this.BackColor);
+      this.createBrushes();
 
       e.Graphics.FillRectangle(this.brushBackground, e.ClipRectangle);
    }
@@ -172,13 +189,10 @@ public class TreeView : ScrollableControl
       if (this.TestUpdateFlag(TreeViewUpdateFlags.Redraw))
          return;
 
-      if (e == null || this.Nodes.Count == 0 || this.TreeNodeLayout == null || this.Colors == null)
+      if (e == null || this.Nodes.Count == 0 || this.TreeNodeLayout == null)
          return;
 
-      if (this.brushSelection == null)
-         this.brushSelection = new SolidBrush(this.Colors.SelectionBackColor);
-      if (this.brushParent == null)
-         this.brushParent = new SolidBrush(this.Colors.ParentBackColor);
+      this.createBrushes();
 
       Int32 itemHeight = this.TreeNodeLayout.ItemHeight;
       Int32 startY = e.ClipRectangle.Y - (itemHeight - 1);
@@ -190,12 +204,17 @@ public class TreeView : ScrollableControl
       {
          if (curY >= startY)
          {
-            if (this.TreeNodeLayout.FullRowSelect)
+            if (this.TreeNodeLayout.FullRowSelect || this.treeNodeLayout.AlternateBackground)
             {
+               SolidBrush bgBrush = this.brushBackground;
                if (tn.State.HasFlag(TreeNodeStates.Selected))
-                  e.Graphics.FillRectangle(this.brushSelection, tn.Bounds);
+                  bgBrush = this.brushSelection;
                else if (tn.State.HasFlag(TreeNodeStates.ParentOfSelected))
-                  e.Graphics.FillRectangle(this.brushParent, tn.Bounds);
+                  bgBrush = this.brushParent;
+               else if ((tn.Bounds.Y / itemHeight) % 2 != 0)
+                  bgBrush = this.brushAltBackground;
+
+               e.Graphics.FillRectangle(bgBrush, tn.Bounds);
             }
             this.TreeNodeLayout.DrawTreeNode(e.Graphics, tn);
          }

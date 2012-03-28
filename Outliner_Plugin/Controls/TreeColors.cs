@@ -10,6 +10,7 @@ namespace Outliner.Controls
 public class TreeViewColors
 {
    public Color BackColor { get; set; }
+   public Color AltBackColor { get; set; }
    public Color LineColor { get; set; }
 
    public Color NodeForeColor { get; set; }
@@ -36,6 +37,9 @@ public class TreeViewColors
    public TreeViewColors()
    {
       BackColor = SystemColors.Window;
+      AltBackColor = (BackColor.GetBrightness() < 0.5) ?
+         Color.FromArgb(BackColor.R + 20, BackColor.G + 20, BackColor.B + 20) :
+         Color.FromArgb(BackColor.R - 20, BackColor.G - 20, BackColor.B - 20);
       LineColor = SystemColors.ControlText;
 
       NodeForeColor = SystemColors.WindowText;
@@ -65,6 +69,9 @@ public class TreeViewColors
          TreeViewColors c = new TreeViewColors();
          IIColorManager cm = GlobalInterface.Instance.ColorManager;
          c.BackColor = HelperMethods.FromMaxColor(cm.GetColor(GuiColors.Window));
+         c.AltBackColor = (c.BackColor.GetBrightness() < 0.5) ?
+            Color.FromArgb(c.BackColor.R + 10, c.BackColor.G + 10, c.BackColor.B + 10) :
+            Color.FromArgb(c.BackColor.R - 10, c.BackColor.G - 10, c.BackColor.B - 10);
          c.LineColor = HelperMethods.FromMaxColor(cm.GetColor(GuiColors.WindowText));
 
          c.NodeForeColor = c.LineColor;
@@ -96,8 +103,11 @@ public class TreeViewColors
       {
          TreeViewColors c = new TreeViewColors();
          IIColorManager cm = GlobalInterface.Instance.ColorManager;
-         c.BackColor = Color.FromArgb(255, 42, 42, 42);//HelperMethods.FromMaxColor(cm.GetColor(GuiColors.Window));
-         c.LineColor = Color.FromArgb(255, 200, 200, 200);//HelperMethods.FromMaxColor(cm.GetColor(GuiColors.WindowText));
+         c.BackColor = Color.FromArgb(255, 42, 42, 42);
+         c.AltBackColor = (c.BackColor.GetBrightness() < 0.5) ?
+            Color.FromArgb(c.BackColor.R + 10, c.BackColor.G + 10, c.BackColor.B + 10) :
+            Color.FromArgb(c.BackColor.R - 10, c.BackColor.G - 10, c.BackColor.B - 10);
+         c.LineColor = Color.FromArgb(255, 200, 200, 200);
 
          c.NodeForeColor = c.LineColor;
          c.NodeBackColor = c.BackColor;

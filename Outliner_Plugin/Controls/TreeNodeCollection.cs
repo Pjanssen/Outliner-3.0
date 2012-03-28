@@ -106,7 +106,12 @@ public class TreeNodeCollection : ICollection<TreeNode>
 
    public TreeNode this[Int32 index]
    {
-      get { return this.nodes[index]; }
+      get 
+      {
+         if (index < 0 || index > this.nodes.Count - 1)
+            return null;
+         return this.nodes[index]; 
+      }
       set 
       {
          if (value == null)
