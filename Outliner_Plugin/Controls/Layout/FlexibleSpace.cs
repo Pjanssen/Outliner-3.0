@@ -44,12 +44,26 @@ public class FlexibleSpace : TreeNodeLayoutItem
 
    public override void HandleClick(MouseEventArgs e, TreeNode tn)
    {
+      if (this.Layout == null || this.Layout.TreeView == null)
+         return;
+
       Keys modKeys = Control.ModifierKeys;
-      if ((modKeys & Keys.Control) != Keys.Control && (modKeys & Keys.Shift) != Keys.Shift)
+      TreeView tree = this.Layout.TreeView;
+
+      if (!HelperMethods.ControlPressed && !HelperMethods.ShiftPressed)
+         tree.SelectAllNodes(false);
+
+      if (this.Layout.FullRowSelect)
       {
-         this.Layout.TreeView.SelectAllNodes(false);
-         this.Layout.TreeView.OnSelectionChanged();
+         if (HelperMethods.ShiftPressed && tree.LastSelectedNode != null)
+            tree.SelectNodesInsideRange(tree.LastSelectedNode, tn);
+         else if (HelperMethods.ControlPressed)
+            tree.SelectNode(tn, !tree.IsSelectedNode(tn));
+         else
+            tree.SelectNode(tn, true);
       }
+
+      tree.OnSelectionChanged();
    }
 }
 }

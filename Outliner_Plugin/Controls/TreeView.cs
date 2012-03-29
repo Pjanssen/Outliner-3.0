@@ -26,11 +26,7 @@ public class TreeView : ScrollableControl
       this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
       this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 
-      //Initial scroll values.
       this.AutoScroll = true;
-      this.VerticalScroll.SmallChange = 18; //TODO replace with TreeNodeLayout.ItemHeight?
-      this.VerticalScroll.LargeChange = 54;
-
       this.AllowDrop = true;
    }
 
@@ -121,9 +117,6 @@ public class TreeView : ScrollableControl
 
 
    private SolidBrush brushBackground;
-   private SolidBrush brushAltBackground;
-   private SolidBrush brushSelection;
-   private SolidBrush brushParent;
 
    private TreeViewColors colors;
    [Browsable(false)]
@@ -390,8 +383,8 @@ public class TreeView : ScrollableControl
       this.Select(); //Select the treeview to be able to end a potential TreeNodeText::TextEdit.
 
       TreeNode tn = this.GetNodeAt(e.Location);
-      if (tn == null)
-         return;
+      if (tn == null && !HelperMethods.ControlPressed && !HelperMethods.ShiftPressed && !HelperMethods.AltPressed)
+         this.SelectAllNodes(false);
 
       this.TreeNodeLayout.HandleClick(e, tn);
    }

@@ -67,16 +67,14 @@ public class TreeNodeText : TreeNodeLayoutItem
          return;
 
       Keys modKeys           = Control.ModifierKeys;
-      Boolean controlPressed = (modKeys & Keys.Control) == Keys.Control;
-      Boolean shiftPressed   = (modKeys & Keys.Shift) == Keys.Shift;
       TreeView tree          = this.Layout.TreeView;
 
-      if (!controlPressed && !shiftPressed)
+      if (!HelperMethods.ControlPressed && !HelperMethods.ShiftPressed)
          tree.SelectAllNodes(false);
 
-      if (shiftPressed && tree.LastSelectedNode != null)
+      if (HelperMethods.ShiftPressed && tree.LastSelectedNode != null)
          tree.SelectNodesInsideRange(tree.LastSelectedNode, tn);
-      else if (controlPressed)
+      else if (HelperMethods.ControlPressed)
          tree.SelectNode(tn, !tree.IsSelectedNode(tn));
       else
          tree.SelectNode(tn, true);

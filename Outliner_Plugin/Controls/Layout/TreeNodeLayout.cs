@@ -13,22 +13,67 @@ namespace Outliner.Controls.Layout
 [XmlRoot("TreeNodeLayout")]
 public class TreeNodeLayout
 {
+   private TreeNodeLayoutItemCollection layoutItems;
+   private TreeView treeView;
+   private Int32 itemHeight;
+   private Boolean fullRowSelect;
+   private Boolean alternateBackground;
+
    [XmlIgnore]
-   public TreeView TreeView { get; set; }
+   public TreeView TreeView 
+   {
+      get { return this.treeView; }
+      set
+      {
+         this.treeView = value;
+         value.VerticalScroll.SmallChange = this.ItemHeight;
+         value.VerticalScroll.LargeChange = this.ItemHeight * 3;
+      }
+   }
 
    [XmlElement("ItemHeight")]
    [DefaultValue(18)]
-   public Int32 ItemHeight { get; set; }
+   public Int32 ItemHeight
+   {
+      get { return this.itemHeight; }
+      set
+      {
+         this.itemHeight = value;
+         if (this.TreeView != null)
+         {
+            this.TreeView.VerticalScroll.SmallChange = value;
+            this.TreeView.VerticalScroll.LargeChange = value * 3;
+            this.TreeView.Invalidate();
+         }
+      }
+   }
 
    [XmlElement("FullRowSelect")]
    [DefaultValue(false)]
-   public Boolean FullRowSelect { get; set; }
+   public Boolean FullRowSelect
+   {
+      get { return this.fullRowSelect; }
+      set
+      {
+         this.fullRowSelect = value;
+         if (this.TreeView != null)
+            this.TreeView.Invalidate();
+      }
+   }
 
    [XmlElement("AlternateBackcolor")]
    [DefaultValue(false)]
-   public Boolean AlternateBackground { get; set; }
+   public Boolean AlternateBackground
+   {
+      get { return this.alternateBackground; }
+      set
+      {
+         this.alternateBackground = value;
+         if (this.TreeView != null)
+            this.TreeView.Invalidate();
+      }
+   }
 
-   private TreeNodeLayoutItemCollection layoutItems;
    [XmlArray("LayoutItems")]
    public TreeNodeLayoutItemCollection LayoutItems
    {
@@ -43,9 +88,9 @@ public class TreeNodeLayout
    public TreeNodeLayout()
    {
       this.LayoutItems = new TreeNodeLayoutItemCollection();
-      this.ItemHeight = 18;
-      this.FullRowSelect = false;
-      this.AlternateBackground = false;
+      this.itemHeight = 18;
+      this.fullRowSelect = false;
+      this.alternateBackground = false;
    }
 
    public Int32 GetTreeNodeWidth(TreeNode tn)
