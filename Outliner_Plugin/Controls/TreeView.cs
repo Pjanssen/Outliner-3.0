@@ -39,12 +39,6 @@ public class TreeView : ScrollableControl
    {
       if (this.brushBackground != null)
          this.brushBackground.Dispose();
-      if (this.brushAltBackground != null)
-         this.brushAltBackground.Dispose();
-      if (this.brushSelection != null)
-         this.brushSelection.Dispose();
-      if (this.brushParent != null)
-         this.brushParent.Dispose();
 
       base.Dispose(disposing);
    }
@@ -156,19 +150,37 @@ public class TreeView : ScrollableControl
       }
    }
 
-   private void createBrushes()
-   {
-      if (this.Colors == null)
-         return;
 
-      if (this.brushBackground == null)
-         this.brushBackground = new SolidBrush(this.BackColor);
-      if (this.brushAltBackground == null)
-         this.brushAltBackground = new SolidBrush(this.Colors.AltBackColor);
-      if (this.brushSelection == null)
-         this.brushSelection = new SolidBrush(this.Colors.SelectionBackColor);
-      if (this.brushParent == null)
-         this.brushParent = new SolidBrush(this.Colors.ParentBackColor);
+   internal Color GetTnForegroundColor(TreeNode tn)
+   {
+      if (tn == null || this.Colors == null)
+         return Color.Empty;
+
+      if (tn.State.HasFlag(TreeNodeStates.DropTarget))
+         return this.Colors.LinkForeColor;
+      if (tn.State.HasFlag(TreeNodeStates.Selected))
+         return this.Colors.SelectionForeColor;
+      if (tn.State.HasFlag(TreeNodeStates.ParentOfSelected))
+         return this.Colors.ParentForeColor;
+
+      return this.Colors.NodeForeColor;
+   }
+
+   internal Color GetTnBackgroundColor(TreeNode tn)
+   {
+      if (tn == null || this.Colors == null || this.TreeNodeLayout == null)
+         return Color.Empty;
+
+      if (tn.State.HasFlag(TreeNodeStates.DropTarget))
+         return this.Colors.LinkBackColor;
+      if (tn.State.HasFlag(TreeNodeStates.Selected))
+         return this.Colors.SelectionBackColor;
+      if (tn.State.HasFlag(TreeNodeStates.ParentOfSelected))
+         return this.Colors.ParentBackColor;
+      if (this.TreeNodeLayout.AlternateBackground && (tn.Bounds.Y / this.TreeNodeLayout.ItemHeight) % 2 != 0)
+         return this.Colors.AltBackColor;
+      else
+         return this.Colors.NodeBackColor;
    }
 
    protected override void OnPaintBackground(PaintEventArgs e)
@@ -179,7 +191,8 @@ public class TreeView : ScrollableControl
       if (e == null)
          return;
 
-      this.createBrushes();
+      if (this.brushBackground == null)
+         this.brushBackground = new SolidBrush(this.BackColor);
 
       e.Graphics.FillRectangle(this.brushBackground, e.ClipRectangle);
    }
@@ -191,8 +204,6 @@ public class TreeView : ScrollableControl
 
       if (e == null || this.Nodes.Count == 0 || this.TreeNodeLayout == null)
          return;
-
-      this.createBrushes();
 
       Int32 itemHeight = this.TreeNodeLayout.ItemHeight;
       Int32 startY = e.ClipRectangle.Y - (itemHeight - 1);
@@ -206,15 +217,11 @@ public class TreeView : ScrollableControl
          {
             if (this.TreeNodeLayout.FullRowSelect || this.treeNodeLayout.AlternateBackground)
             {
-               SolidBrush bgBrush = this.brushBackground;
-               if (tn.State.HasFlag(TreeNodeStates.Selected))
-                  bgBrush = this.brushSelection;
-               else if (tn.State.HasFlag(TreeNodeStates.ParentOfSelected))
-                  bgBrush = this.brushParent;
-               else if ((tn.Bounds.Y / itemHeight) % 2 != 0)
-                  bgBrush = this.brushAltBackground;
-
-               e.Graphics.FillRectangle(bgBrush, tn.Bounds);
+               Color bgColor = this.GetTnBackgroundColor(tn);
+               using (SolidBrush bgBrush = new SolidBrush(bgColor))
+               {
+                  e.Graphics.FillRectangle(bgBrush, tn.Bounds);
+               }
             }
             this.TreeNodeLayout.DrawTreeNode(e.Graphics, tn);
          }

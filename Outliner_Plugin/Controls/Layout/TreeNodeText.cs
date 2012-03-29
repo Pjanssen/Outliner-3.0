@@ -42,23 +42,8 @@ public class TreeNodeText : TreeNodeLayoutItem
 
       TreeView tree = this.Layout.TreeView;
       TreeViewColors colors = tree.Colors;
-      Color bgColor = Color.Empty;
-      Color fgColor = Color.Empty;
-      if ((tn.State & TreeNodeStates.Selected) == TreeNodeStates.Selected)
-      {
-         bgColor = colors.SelectionBackColor;
-         fgColor = colors.SelectionForeColor;
-      }
-      else if ((tn.State & TreeNodeStates.ParentOfSelected) == TreeNodeStates.ParentOfSelected)
-      {
-         bgColor = colors.ParentBackColor;
-         fgColor = colors.ParentForeColor;
-      }
-      else
-      {
-         bgColor = colors.NodeBackColor;
-         fgColor = colors.NodeForeColor;
-      }
+      Color bgColor = tree.GetTnBackgroundColor(tn);
+      Color fgColor = tree.GetTnForegroundColor(tn);
 
       if (tn.FilterResult == FiltersBase.FilterResults.ShowChildren)
          fgColor = Color.FromArgb(IconHelperMethods.FILTERED_OPACITY, fgColor);
@@ -68,7 +53,9 @@ public class TreeNodeText : TreeNodeLayoutItem
       {
          Rectangle gBounds = this.GetBounds(tn);
          
-         //graphics.FillRectangle(bgBrush, gBounds);
+         if (!this.Layout.FullRowSelect)
+            graphics.FillRectangle(bgBrush, gBounds);
+         
          graphics.DrawString(tn.Text, tree.Font, fgBrush, 
                       gBounds.X, gBounds.Y + ((gBounds.Height - this.GetTextSize(tn).Height) / 2), StringFormat.GenericDefault);
       }
