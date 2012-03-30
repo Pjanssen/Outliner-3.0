@@ -164,17 +164,26 @@ public class TreeView : ScrollableControl
       if (tn == null || this.Colors == null || this.TreeNodeLayout == null)
          return Color.Empty;
 
-      if (tn.State.HasFlag(TreeNodeStates.DropTarget))
+      Boolean fullRowSelect = this.TreeNodeLayout.FullRowSelect;
+
+      if (fullRowSelect && tn.State.HasFlag(TreeNodeStates.DropTarget))
          return this.Colors.LinkBackColor;
-      if (tn.State.HasFlag(TreeNodeStates.Selected))
+      if (fullRowSelect && tn.State.HasFlag(TreeNodeStates.Selected))
          return this.Colors.SelectionBackColor;
-      if (tn.State.HasFlag(TreeNodeStates.ParentOfSelected))
+      if (fullRowSelect && tn.State.HasFlag(TreeNodeStates.ParentOfSelected))
          return this.Colors.ParentBackColor;
+
+      Color bgColor = this.Colors.NodeBackColor;
       if (this.TreeNodeLayout.AlternateBackground && (tn.Bounds.Y / this.TreeNodeLayout.ItemHeight) % 2 != 0)
-         return this.Colors.AltBackColor;
+         bgColor = this.Colors.AltBackColor;
+
+      if (tn.BackColor == Color.Empty)
+         return bgColor;
       else
-         return this.Colors.NodeBackColor;
+         return HelperMethods.OverlayColor(bgColor, tn.BackColor);
    }
+
+
 
    protected override void OnPaintBackground(PaintEventArgs e)
    {
@@ -198,7 +207,8 @@ public class TreeView : ScrollableControl
       if (e == null || this.Nodes.Count == 0 || this.TreeNodeLayout == null)
          return;
 
-      Int32 itemHeight = this.TreeNodeLayout.ItemHeight;
+      TreeNodeLayout layout = this.TreeNodeLayout;
+      Int32 itemHeight = layout.ItemHeight;
       Int32 startY = e.ClipRectangle.Y - (itemHeight - 1);
       Int32 endY = e.ClipRectangle.Bottom;
 
@@ -208,7 +218,7 @@ public class TreeView : ScrollableControl
       {
          if (curY >= startY)
          {
-            if (this.TreeNodeLayout.FullRowSelect || this.treeNodeLayout.AlternateBackground)
+            if (layout.FullRowSelect || layout.AlternateBackground || layout.UseLayerColors)
             {
                Color bgColor = this.GetTnBackgroundColor(tn);
                using (SolidBrush bgBrush = new SolidBrush(bgColor))
@@ -216,6 +226,7 @@ public class TreeView : ScrollableControl
                   e.Graphics.FillRectangle(bgBrush, tn.Bounds);
                }
             }
+            
             this.TreeNodeLayout.DrawTreeNode(e.Graphics, tn);
          }
       

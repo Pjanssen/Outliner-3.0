@@ -25,6 +25,19 @@ public class IINodeWrapper : IMaxNodeWrapper
       get { return this.node; }
    }
 
+   public IILayerProperties Layer
+   {
+      get
+      {
+         IBaseInterface baseInterface = this.node.GetInterface(HelperMethods.NodeLayerProperties);
+         IINodeLayerProperties nodeLayerProperties = baseInterface as IINodeLayerProperties;
+         if (nodeLayerProperties != null)
+            return nodeLayerProperties.Layer;
+         else
+            return null;
+      }
+   }
+
    public override IEnumerable<IMaxNodeWrapper> ChildNodes
    {
       get 

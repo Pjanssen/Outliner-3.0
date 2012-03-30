@@ -669,4 +669,7 @@
   <data name="Tooltip_ToggleLight" xml:space="preserve">
     <value>Toggle light on/off</value>
   </data>
+  <data name="Tooltip_SetCurrentLayer" xml:space="preserve">
+    <value>Set current layer</value>
+  </data>
 </root>

@@ -237,6 +237,34 @@ public static class HelperMethods
       return Color.FromArgb(255, color.B, color.G, color.R);
    }
 
+   public static Color FromMaxColor(IColor color)
+   {
+      return FromMaxColor(Color.FromArgb((int)color.ToRGB));
+   }
+
+   public static Color OverlayColor(Color baseColor, Color overlayColor)
+   {
+      float overlayAmount = overlayColor.A / 255f;
+      float baseAmount = 1.0f - overlayAmount;
+      
+      return Color.FromArgb(
+         255,
+         (byte)Math.Round(baseColor.R * baseAmount + overlayColor.R * overlayAmount),
+         (byte)Math.Round(baseColor.G * baseAmount + overlayColor.G * overlayAmount),
+         (byte)Math.Round(baseColor.B * baseAmount + overlayColor.B * overlayAmount));
+   }
+
+   private static IInterface_ID nodeLayerProperties;
+   public static IInterface_ID NodeLayerProperties
+   {
+      get
+      {
+         if (nodeLayerProperties == null)
+            nodeLayerProperties = GlobalInterface.Instance.Interface_ID.Create(0x44e025f8, 0x6b071e44);
+
+         return nodeLayerProperties;
+      }
+   }
 
    /// <summary>
    /// Iterates over all elements in the collection with the supplied function.

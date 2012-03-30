@@ -137,12 +137,17 @@ public class TreeNodeIcon : TreeNodeButton
       if (node == null)
          return null;
 
-      if (node.SuperClassID == Autodesk.Max.SClass_ID.Light)
+      if (node is IILayerWrapper)
+      {
+         if (!((IILayerWrapper)node).IsCurrent)
+            return OutlinerResources.Tooltip_SetCurrentLayer;
+      }
+      else if (node.SuperClassID == Autodesk.Max.SClass_ID.Light)
          return OutlinerResources.Tooltip_ToggleLight;
       else if (node.SuperClassID == Autodesk.Max.SClass_ID.Camera)
          return OutlinerResources.Tooltip_SetCamera;
-      else
-         return null;
+      
+      return null;
    }
 }
 }

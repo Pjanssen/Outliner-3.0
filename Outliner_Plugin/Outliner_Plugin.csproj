@@ -278,6 +278,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Notes.txt" />
+    <EmbeddedResource Include="Resources\maya_icons\layer.png" />
+    <EmbeddedResource Include="Resources\maya_icons\layer_active.png" />
     <EmbeddedResource Include="Resources\maya_icons\unknown.png" />
     <EmbeddedResource Include="Resources\maya_icons\nurbs.png" />
     <EmbeddedResource Include="Resources\maya_icons\shape.png" />

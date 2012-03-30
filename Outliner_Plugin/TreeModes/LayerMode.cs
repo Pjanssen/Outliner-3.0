@@ -6,6 +6,7 @@ using Autodesk.Max;
 using Outliner.Scene;
 using Outliner.Controls;
 using Outliner.Controls.FiltersBase;
+using System.Drawing;
 
 namespace Outliner.TreeModes
 {
@@ -62,6 +63,9 @@ public class LayerMode : TreeMode
          TreeNode tn = HelperMethods.CreateTreeNode(wrapper);
          tn.FilterResult = filterResult;
 
+         if (this.tree.TreeNodeLayout.UseLayerColors)
+            tn.BackColor = Color.FromArgb(75, wrapper.WireColor);
+
          this.treeNodes.Add(layer, tn);
          parentCol.Add(tn);
          return tn;
@@ -71,7 +75,7 @@ public class LayerMode : TreeMode
 
    private void addNode(IINode node)
    {
-      IMaxNodeWrapper wrapper = IMaxNodeWrapper.Create(node);
+      IINodeWrapper wrapper = new IINodeWrapper(node);
       FilterResults filterResult = this.Filters.ShowNode(wrapper);
       if (filterResult != FilterResults.Hide && !this.treeNodes.ContainsKey(node))
       {
@@ -85,6 +89,9 @@ public class LayerMode : TreeMode
          {
             TreeNode tn = HelperMethods.CreateTreeNode(wrapper);
             tn.FilterResult = filterResult;
+
+            if (this.tree.TreeNodeLayout.UseLayerColors)
+               tn.BackColor = Color.FromArgb(75, HelperMethods.FromMaxColor(wrapper.Layer.WireColor));
 
             this.treeNodes.Add(node, tn);
             parentTn.Nodes.Add(tn);

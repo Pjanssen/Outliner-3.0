@@ -15,17 +15,17 @@ namespace Outliner.Controls.Layout
 public class WireColorButton : TreeNodeButton
 {
    [XmlAttribute("button_width")]
-   [DefaultValue(11)]
+   [DefaultValue(12)]
    public Int32 ButtonWidth { get; set; }
 
    [XmlAttribute("button_height")]
-   [DefaultValue(11)]
+   [DefaultValue(8)]
    public Int32 ButtonHeight { get; set; }
    
    public WireColorButton()
    {
-      this.ButtonWidth = 11;
-      this.ButtonHeight = 11;
+      this.ButtonWidth = 12;
+      this.ButtonHeight = 8;
    }
 
    public override int GetWidth(TreeNode tn)

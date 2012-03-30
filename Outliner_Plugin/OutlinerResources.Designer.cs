@@ -266,6 +266,15 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set current layer.
+        /// </summary>
+        internal static string Tooltip_SetCurrentLayer {
+            get {
+                return ResourceManager.GetString("Tooltip_SetCurrentLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toggle light on/off.
         /// </summary>
         internal static string Tooltip_ToggleLight {

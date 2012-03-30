@@ -16,6 +16,8 @@ public class TreeNode
    private String text;
    private Boolean boundsValid;
    private Rectangle bounds;
+   private Color backColor;
+   private Color foreColor;
 
    public TreeNodeCollection Nodes { get; private set; }
    public DragDropHandler DragDropHandler { get; set; }
@@ -35,6 +37,8 @@ public class TreeNode
       this.boundsValid = false;
       this.Nodes = new TreeNodeCollection(this);
       this.FilterResult = FiltersBase.FilterResults.Show;
+      this.backColor = Color.Empty;
+      this.foreColor = Color.Empty;
    }
 
    public String Text 
@@ -46,6 +50,28 @@ public class TreeNode
          TreeView tree = this.TreeView;
          if (tree != null)
             tree.Invalidate(this);
+      }
+   }
+
+   public Color BackColor
+   {
+      get { return this.backColor; }
+      set
+      {
+         this.backColor = value;
+         if (this.TreeView != null)
+            this.TreeView.InvalidateTreeNode(this);
+      }
+   }
+
+   public Color ForeColor
+   {
+      get { return this.foreColor; }
+      set
+      {
+         this.foreColor = value;
+         if (this.TreeView != null)
+            this.TreeView.InvalidateTreeNode(this);
       }
    }
 
