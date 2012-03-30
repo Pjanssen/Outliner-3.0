@@ -43,7 +43,7 @@ namespace Outliner.Scene
 
       public Boolean IsCurrent
       {
-         get { return this.manager.CurrentLayer == this.layer; }
+         get { return this.manager.CurrentLayer.Handle == this.layer.Handle; }
          set
          {
             if (!value)
@@ -153,7 +153,7 @@ namespace Outliner.Scene
       {
          get
          {
-            if (this.manager.CurrentLayer.Handle == this.layer.Handle)
+            if (this.IsCurrent)
                return IMGKEY_LAYER_ACTIVE;
             else
                return IMGKEY_LAYER;

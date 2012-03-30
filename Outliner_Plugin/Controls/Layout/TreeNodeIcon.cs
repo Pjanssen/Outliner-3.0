@@ -9,6 +9,7 @@ using System.Resources;
 using System.Xml.Serialization;
 using System.ComponentModel;
 using Outliner.Scene;
+using Outliner.Commands;
 
 namespace Outliner.Controls.Layout
 {
@@ -111,7 +112,16 @@ public class TreeNodeIcon : TreeNodeButton
       if (node == null)
          return;
 
-      if (node.SuperClassID == Autodesk.Max.SClass_ID.Light)
+      if (node is IILayerWrapper)
+      {
+         IILayerWrapper layer = (IILayerWrapper)node;
+         if (!layer.IsCurrent)
+         {
+            SetActiveLayerCommand cmd = new SetActiveLayerCommand(layer);
+            cmd.Execute(false);
+         }
+      }
+      else if (node.SuperClassID == Autodesk.Max.SClass_ID.Light)
       {
          Autodesk.Max.IINode inode = node.WrappedNode as Autodesk.Max.IINode;
          if (inode == null)
@@ -119,14 +129,14 @@ public class TreeNodeIcon : TreeNodeButton
          Autodesk.Max.ILightObject light = inode.ObjectRef as Autodesk.Max.ILightObject;
          if (light == null)
             return;
-         Outliner.Commands.ToggleLightCommand cmd = new Commands.ToggleLightCommand(new List<IMaxNodeWrapper>(1) { node }, !light.UseLight);
+         ToggleLightCommand cmd = new ToggleLightCommand(new List<IMaxNodeWrapper>(1) { node }, !light.UseLight);
          cmd.Execute(true);
       }
       else if (node.SuperClassID == Autodesk.Max.SClass_ID.Camera)
       {
          Autodesk.Max.IInterface ip = Autodesk.Max.GlobalInterface.Instance.COREInterface;
          Autodesk.Max.IViewExp vpt = ip.ActiveViewExp;
-         Outliner.Commands.SetViewCameraCommand cmd = new Commands.SetViewCameraCommand(node, vpt);
+         SetViewCameraCommand cmd = new SetViewCameraCommand(node, vpt);
          cmd.Execute(true);
       }
    }
