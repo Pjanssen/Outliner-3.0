@@ -45,7 +45,9 @@ public class MayaStyleIndent : TreeNodeLayoutItem
       TreeView tree = this.Layout.TreeView;
       Rectangle bounds = this.GetBounds(tn);
 
-      using (Pen linePen = new Pen(tree.Colors.LineColor))
+      Color lineColor = (tn.ForeColor != Color.Empty) ? tn.ForeColor : tree.Colors.LineColor;
+
+      using (Pen linePen = new Pen(lineColor))
       {
          Boolean hasParent   = tn.Parent != null;
          Boolean hasChildren = tn.Nodes.Count > 0;

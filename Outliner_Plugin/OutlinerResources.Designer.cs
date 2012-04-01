@@ -202,6 +202,13 @@ namespace Outliner {
             }
         }
         
+        internal static System.Drawing.Bitmap layer_small {
+            get {
+                object obj = ResourceManager.GetObject("layer_small", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Add nodes to layer.
         /// </summary>
@@ -244,6 +251,15 @@ namespace Outliner {
         internal static string Tooltip_Hide {
             get {
                 return ResourceManager.GetString("Tooltip_Hide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (inherited from layer).
+        /// </summary>
+        internal static string Tooltip_Inherited {
+            get {
+                return ResourceManager.GetString("Tooltip_Inherited", resourceCulture);
             }
         }
         

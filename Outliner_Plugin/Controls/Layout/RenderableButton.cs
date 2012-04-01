@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Outliner.Scene;
 using Outliner.Commands;
+using System.Drawing;
 
 namespace Outliner.Controls.Layout
 {
@@ -20,6 +21,30 @@ public class RenderableButton : ImageButton
          return false;
 
       return node.Renderable;
+   }
+
+   private Boolean inheritFromLayer(IMaxNodeWrapper node)
+   {
+      return node is IINodeWrapper
+             && ((IINodeWrapper)node).NodeLayerProperties.RenderByLayer;
+   }
+
+   public override void Draw(Graphics graphics, TreeNode tn)
+   {
+      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      if (node == null)
+         return;
+
+      Rectangle rBounds = this.GetBounds(tn);
+      if (this.inheritFromLayer(node))
+      {
+         Image img = OutlinerResources.layer_small;
+         graphics.DrawImage(img, rBounds.Left + (int)Math.Ceiling((rBounds.Width - img.Width) / 2f),
+                                 tn.Bounds.Top + (int)Math.Ceiling((tn.Bounds.Height - img.Height) / 2f),
+                                 img.Width, img.Height);
+      }
+      else
+         base.Draw(graphics, tn);
    }
 
    public override void HandleClick(System.Windows.Forms.MouseEventArgs e, TreeNode tn)
@@ -44,7 +69,15 @@ public class RenderableButton : ImageButton
 
    protected override string GetTooltipText(TreeNode tn)
    {
-      return OutlinerResources.Tooltip_Renderable;
+      if (tn == null)
+         return null;
+
+      String tooltip = OutlinerResources.Tooltip_Renderable;
+
+      if (this.inheritFromLayer(HelperMethods.GetMaxNode(tn)))
+         tooltip += " " + OutlinerResources.Tooltip_Inherited;
+
+      return tooltip;
    }
 }
 }

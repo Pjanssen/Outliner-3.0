@@ -9,8 +9,11 @@ namespace Outliner.Controls
 {
 public class TreeViewColors
 {
+   public Color ForeColorLight { get; set; }
+   public Color ForeColorDark { get; set; }
    public Color BackColor { get; set; }
    public Color AltBackColor { get; set; }
+
    public Color LineColor { get; set; }
 
    public Color NodeForeColor { get; set; }
@@ -36,6 +39,8 @@ public class TreeViewColors
 
    public TreeViewColors()
    {
+      ForeColorLight = SystemColors.WindowText;
+      ForeColorDark = SystemColors.HighlightText;
       BackColor = SystemColors.Window;
       AltBackColor = (BackColor.GetBrightness() < 0.5) ?
          Color.FromArgb(BackColor.R + 20, BackColor.G + 20, BackColor.B + 20) :

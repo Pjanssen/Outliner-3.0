@@ -76,7 +76,8 @@ public class ExpandButton : TreeNodeLayoutItem
       }
       else
       {
-         using (Pen linePen = new Pen(this.Layout.TreeView.Colors.LineColor))
+         Color lineColor = (tn.ForeColor != Color.Empty) ? tn.ForeColor : this.Layout.TreeView.Colors.LineColor;
+         using (Pen linePen = new Pen(lineColor))
          {
             glyphBounds.Width -= 1;
             glyphBounds.Height -= 1;

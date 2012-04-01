@@ -64,8 +64,13 @@ public class LayerMode : TreeMode
          tn.FilterResult = filterResult;
 
          if (this.tree.TreeNodeLayout.UseLayerColors)
-            tn.BackColor = Color.FromArgb(75, wrapper.WireColor);
-
+         {
+            tn.BackColor = Color.FromArgb(255, wrapper.WireColor);
+            if (tn.BackColor.GetBrightness() > 0.5)
+               tn.ForeColor = Color.Black;
+            else
+               tn.ForeColor = Color.White;
+         }
          this.treeNodes.Add(layer, tn);
          parentCol.Add(tn);
          return tn;
@@ -91,7 +96,13 @@ public class LayerMode : TreeMode
             tn.FilterResult = filterResult;
 
             if (this.tree.TreeNodeLayout.UseLayerColors)
-               tn.BackColor = Color.FromArgb(75, HelperMethods.FromMaxColor(wrapper.Layer.WireColor));
+            {
+               tn.BackColor = Color.FromArgb(170, HelperMethods.FromMaxColor(wrapper.Layer.WireColor));
+               if (tn.BackColor.GetBrightness() > 0.5)
+                  tn.ForeColor = Color.Black;
+               else
+                  tn.ForeColor = Color.White;
+            }
 
             this.treeNodes.Add(node, tn);
             parentTn.Nodes.Add(tn);

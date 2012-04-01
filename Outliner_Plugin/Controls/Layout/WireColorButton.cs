@@ -43,6 +43,12 @@ public class WireColorButton : TreeNodeButton
       get { return true; }
    }
 
+   private Boolean inheritFromLayer(IMaxNodeWrapper node)
+   {
+      return node is IINodeWrapper 
+             && ((IINodeWrapper)node).NodeLayerProperties.ColorByLayer;
+   }
+
    public override void Draw(Graphics graphics, TreeNode tn)
    {
       if (graphics == null || tn == null)
@@ -59,17 +65,35 @@ public class WireColorButton : TreeNodeButton
       Rectangle rBounds = this.GetBounds(tn);
       using (Pen linePen = new Pen(Color.Black))
       {
-         using (SolidBrush brush = new SolidBrush(wc))
+         if (this.inheritFromLayer(node))
          {
-            graphics.FillRectangle(brush, rBounds);
-            graphics.DrawRectangle(linePen, rBounds);
+            Image img = OutlinerResources.layer_small;
+            graphics.DrawImage(img, rBounds.Left + (int)Math.Ceiling((rBounds.Width - img.Width) / 2f), 
+                                    tn.Bounds.Top + (int)Math.Ceiling((tn.Bounds.Height - img.Height) / 2f), 
+                                    img.Width, img.Height);
+         }
+         else
+         {
+            using (SolidBrush brush = new SolidBrush(wc))
+            {
+               graphics.FillRectangle(brush, rBounds);
+               graphics.DrawRectangle(linePen, rBounds);
+            }
          }
       }
    }
 
    protected override string GetTooltipText(TreeNode tn)
    {
-      return OutlinerResources.Tooltip_WireColor;
+      if (tn == null)
+         return null;
+
+      String tooltip = OutlinerResources.Tooltip_WireColor;
+
+      if (this.inheritFromLayer(HelperMethods.GetMaxNode(tn)))
+         tooltip += " " + OutlinerResources.Tooltip_Inherited;
+
+      return tooltip;
    }
 
    public override void HandleClick(System.Windows.Forms.MouseEventArgs e, TreeNode tn)

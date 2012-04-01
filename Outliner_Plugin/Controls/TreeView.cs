@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using Outliner.Controls.Layout;
 using System.ComponentModel;
+using System.Drawing.Drawing2D;
 
 namespace Outliner.Controls
 {
@@ -156,7 +157,10 @@ public class TreeView : ScrollableControl
       if (tn.State.HasFlag(TreeNodeStates.ParentOfSelected))
          return this.Colors.ParentForeColor;
 
-      return this.Colors.NodeForeColor;
+      if (tn.ForeColor != Color.Empty)
+         return tn.ForeColor;
+      else
+         return this.Colors.NodeForeColor;
    }
 
    internal Color GetTnBackgroundColor(TreeNode tn)
@@ -223,7 +227,11 @@ public class TreeView : ScrollableControl
                Color bgColor = this.GetTnBackgroundColor(tn);
                using (SolidBrush bgBrush = new SolidBrush(bgColor))
                {
+                  //Color bgGradColor = Color.FromArgb(bgColor.A, Math.Min(bgColor.R + 25, 255), Math.Min(bgColor.G + 25, 255), Math.Min(bgColor.B + 25, 255));
+                  //LinearGradientBrush brush = new LinearGradientBrush(tn.Bounds, bgGradColor, bgColor, LinearGradientMode.Vertical);
                   e.Graphics.FillRectangle(bgBrush, tn.Bounds);
+                  //Pen lPen = new Pen(Color.FromArgb(bgColor.A, Math.Max(bgColor.R - 10, 0), Math.Max(bgColor.G - 10, 0), Math.Max(bgColor.B - 10, 0)));
+                  //e.Graphics.DrawLine(lPen, tn.Bounds.Left, tn.Bounds.Bottom - 1, tn.Bounds.Right, tn.Bounds.Bottom -1);
                }
             }
             
