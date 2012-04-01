@@ -69,6 +69,7 @@
     <Compile Include="Controls\Filters\NodeFilterCollectionTest.cs" />
     <Compile Include="Controls\TreeView\TreeNodeCollectionTest.cs" />
     <Compile Include="Controls\TreeView\TreeNodeTest.cs" />
+    <Compile Include="Controls\TreeView\TreeViewColorsTest.cs" />
     <Compile Include="Controls\TreeView\TreeViewTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

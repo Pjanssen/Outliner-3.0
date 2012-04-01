@@ -42,8 +42,8 @@ public class TreeNodeText : TreeNodeLayoutItem
 
       TreeView tree = this.Layout.TreeView;
       TreeViewColors colors = tree.Colors;
-      Color bgColor = tree.GetTnBackgroundColor(tn);
-      Color fgColor = tree.GetTnForegroundColor(tn);
+      Color bgColor = tree.GetNodeBackColor(tn);
+      Color fgColor = tree.GetNodeForeColor(tn);
 
       if (tn.FilterResult == FiltersBase.FilterResults.ShowChildren)
          fgColor = Color.FromArgb(IconHelperMethods.FILTERED_OPACITY, fgColor);

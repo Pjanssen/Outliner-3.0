@@ -227,32 +227,7 @@ public static class HelperMethods
           || ClassIDEquals(cID, BuiltInClassIDA.XREFMATERIAL_CLASS_ID, BuiltInClassIDB.XREFMATERIAL_CLASS_ID);
    }
 
-   /// <summary>
-   /// Workaround 3dsMax Color issues. (Alpha + flipped components)
-   /// </summary>
-   /// <param name="c">The color value from 3dsMax.</param>
-   /// <returns>A correct color value.</returns>
-   public static Color FromMaxColor(Color color)
-   {
-      return Color.FromArgb(255, color.B, color.G, color.R);
-   }
 
-   public static Color FromMaxColor(IColor color)
-   {
-      return FromMaxColor(Color.FromArgb((int)color.ToRGB));
-   }
-
-   public static Color OverlayColor(Color baseColor, Color overlayColor)
-   {
-      float overlayAmount = overlayColor.A / 255f;
-      float baseAmount = 1.0f - overlayAmount;
-      
-      return Color.FromArgb(
-         255,
-         (byte)Math.Round(baseColor.R * baseAmount + overlayColor.R * overlayAmount),
-         (byte)Math.Round(baseColor.G * baseAmount + overlayColor.G * overlayAmount),
-         (byte)Math.Round(baseColor.B * baseAmount + overlayColor.B * overlayAmount));
-   }
 
    private static IInterface_ID nodeLayerProperties;
    public static IInterface_ID NodeLayerProperties

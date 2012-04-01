@@ -145,7 +145,7 @@ public class TreeView : ScrollableControl
    }
 
 
-   internal Color GetTnForegroundColor(TreeNode tn)
+   internal Color GetNodeForeColor(TreeNode tn)
    {
       if (tn == null || this.Colors == null)
          return Color.Empty;
@@ -160,10 +160,15 @@ public class TreeView : ScrollableControl
       if (tn.ForeColor != Color.Empty)
          return tn.ForeColor;
       else
-         return this.Colors.NodeForeColor;
+      {
+         if (this.GetNodeBackColor(tn).GetBrightness() < 0.5f)
+            return this.Colors.ForeColorLight;
+         else
+            return this.Colors.ForeColorDark;
+      }
    }
 
-   internal Color GetTnBackgroundColor(TreeNode tn)
+   internal Color GetNodeBackColor(TreeNode tn)
    {
       if (tn == null || this.Colors == null || this.TreeNodeLayout == null)
          return Color.Empty;
@@ -177,14 +182,14 @@ public class TreeView : ScrollableControl
       if (fullRowSelect && tn.State.HasFlag(TreeNodeStates.ParentOfSelected))
          return this.Colors.ParentBackColor;
 
-      Color bgColor = this.Colors.NodeBackColor;
+      Color bgColor = this.Colors.BackColor;
       if (this.TreeNodeLayout.AlternateBackground && (tn.Bounds.Y / this.TreeNodeLayout.ItemHeight) % 2 != 0)
          bgColor = this.Colors.AltBackColor;
 
-      if (tn.BackColor == Color.Empty)
-         return bgColor;
+      if (tn.BackColor != Color.Empty)
+         return ColorHelpers.OverlayColor(bgColor, tn.BackColor);
       else
-         return HelperMethods.OverlayColor(bgColor, tn.BackColor);
+         return bgColor;
    }
 
 
@@ -224,7 +229,7 @@ public class TreeView : ScrollableControl
          {
             if (layout.FullRowSelect || layout.AlternateBackground || layout.UseLayerColors)
             {
-               Color bgColor = this.GetTnBackgroundColor(tn);
+               Color bgColor = this.GetNodeBackColor(tn);
                using (SolidBrush bgBrush = new SolidBrush(bgColor))
                {
                   //Color bgGradColor = Color.FromArgb(bgColor.A, Math.Min(bgColor.R + 25, 255), Math.Min(bgColor.G + 25, 255), Math.Min(bgColor.B + 25, 255));

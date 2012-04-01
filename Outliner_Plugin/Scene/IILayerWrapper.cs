@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
+using Outliner.Controls;
 
 namespace Outliner.Scene
 {
@@ -123,7 +124,7 @@ namespace Outliner.Scene
 
       public override System.Drawing.Color WireColor
       {
-         get { return HelperMethods.FromMaxColor(this.layer.WireColor); }
+         get { return ColorHelpers.FromMaxColor(this.layer.WireColor); }
          set { this.layer.WireColor = value; }
       }
 

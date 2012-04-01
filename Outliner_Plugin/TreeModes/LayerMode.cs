@@ -97,7 +97,7 @@ public class LayerMode : TreeMode
 
             if (this.tree.TreeNodeLayout.UseLayerColors)
             {
-               tn.BackColor = Color.FromArgb(170, HelperMethods.FromMaxColor(wrapper.Layer.WireColor));
+               tn.BackColor = Color.FromArgb(170, ColorHelpers.FromMaxColor(wrapper.Layer.WireColor));
                if (tn.BackColor.GetBrightness() > 0.5)
                   tn.ForeColor = Color.Black;
                else

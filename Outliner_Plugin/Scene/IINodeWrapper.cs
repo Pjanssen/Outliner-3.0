@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using System.Drawing;
+using Outliner.Controls;
 
 namespace Outliner.Scene
 {
@@ -99,7 +100,7 @@ public class IINodeWrapper : IMaxNodeWrapper
 
    public override Color WireColor
    {
-      get { return HelperMethods.FromMaxColor(this.node.WireColor); }
+      get { return ColorHelpers.FromMaxColor(this.node.WireColor); }
       set { this.node.WireColor = value; }
    }
 

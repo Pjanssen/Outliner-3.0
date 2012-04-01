@@ -73,6 +73,7 @@
     <Compile Include="Commands\SetNodePropertyCommand.cs" />
     <Compile Include="Commands\ToggleLightCommand.cs" />
     <Compile Include="Controls\BitmapProcessing.cs" />
+    <Compile Include="Controls\ColorHelpers.cs" />
     <Compile Include="Controls\DragDropHandler.cs" />
     <Compile Include="Controls\DragDropHandlers\DragDropHandler.cs" />
     <Compile Include="Controls\Layout\AddButton.cs" />

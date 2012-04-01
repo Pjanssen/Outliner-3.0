@@ -116,7 +116,7 @@ public class WireColorButton : TreeNodeButton
          else
             nodes = new List<IMaxNodeWrapper>(1) { node };
 
-         SetWireColorCommand cmd = new SetWireColorCommand(nodes, HelperMethods.FromMaxColor(wc));
+         SetWireColorCommand cmd = new SetWireColorCommand(nodes, ColorHelpers.FromMaxColor(wc));
          cmd.Execute(true);
       }
    }
