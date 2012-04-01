@@ -74,35 +74,34 @@
     <Compile Include="Commands\ToggleLightCommand.cs" />
     <Compile Include="Controls\BitmapProcessing.cs" />
     <Compile Include="Controls\ColorHelpers.cs" />
-    <Compile Include="Controls\DragDropHandler.cs" />
-    <Compile Include="Controls\DragDropHandlers\DragDropHandler.cs" />
-    <Compile Include="Controls\Layout\AddButton.cs" />
-    <Compile Include="Controls\Layout\BoxModeButton.cs" />
-    <Compile Include="Controls\Layout\FlexibleSpace.cs" />
-    <Compile Include="Controls\Layout\FreezeButton.cs" />
-    <Compile Include="Controls\Layout\HideButton.cs" />
-    <Compile Include="Controls\Layout\ImageButton.cs" />
-    <Compile Include="Controls\Layout\RenderableButton.cs" />
-    <Compile Include="Controls\Layout\TreeNodeButton.cs" />
-    <Compile Include="Controls\Layout\TreeNodeIcon.cs" />
-    <Compile Include="Controls\Layout\TreeNodeLayoutItemCollection.cs" />
-    <Compile Include="Controls\Layout\WireColorButton.cs" />
-    <Compile Include="Controls\Layout\ExpandButton.cs" />
-    <Compile Include="Controls\Layout\MayaStyleIndent.cs" />
-    <Compile Include="Controls\Layout\TreeNodeIndent.cs" />
-    <Compile Include="Controls\SelectionChangedEventArgs.cs" />
+    <Compile Include="Controls\Tree\DragDropHandlers\DragDropHandler.cs" />
+    <Compile Include="Controls\Tree\Layout\AddButton.cs" />
+    <Compile Include="Controls\Tree\Layout\BoxModeButton.cs" />
+    <Compile Include="Controls\Tree\Layout\FlexibleSpace.cs" />
+    <Compile Include="Controls\Tree\Layout\FreezeButton.cs" />
+    <Compile Include="Controls\Tree\Layout\HideButton.cs" />
+    <Compile Include="Controls\Tree\Layout\ImageButton.cs" />
+    <Compile Include="Controls\Tree\Layout\RenderableButton.cs" />
+    <Compile Include="Controls\Tree\Layout\TreeNodeButton.cs" />
+    <Compile Include="Controls\Tree\Layout\TreeNodeIcon.cs" />
+    <Compile Include="Controls\Tree\Layout\TreeNodeLayoutItemCollection.cs" />
+    <Compile Include="Controls\Tree\Layout\WireColorButton.cs" />
+    <Compile Include="Controls\Tree\Layout\ExpandButton.cs" />
+    <Compile Include="Controls\Tree\Layout\MayaStyleIndent.cs" />
+    <Compile Include="Controls\Tree\Layout\TreeNodeIndent.cs" />
+    <Compile Include="Controls\Tree\SelectionChangedEventArgs.cs" />
     <Compile Include="Controls\TreeIcons_Maya.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TreeIcons_Maya.resx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TreeNode.cs" />
-    <Compile Include="Controls\TreeNodeCollection.cs" />
-    <Compile Include="Controls\Layout\TreeNodeLayout.cs" />
-    <Compile Include="Controls\Layout\TreeNodeLayoutItem.cs" />
-    <Compile Include="Controls\Layout\TreeNodeText.cs" />
-    <Compile Include="Controls\TreeNodeState.cs" />
-    <Compile Include="Controls\TreeView.cs">
+    <Compile Include="Controls\Tree\TreeNode.cs" />
+    <Compile Include="Controls\Tree\TreeNodeCollection.cs" />
+    <Compile Include="Controls\Tree\Layout\TreeNodeLayout.cs" />
+    <Compile Include="Controls\Tree\Layout\TreeNodeLayoutItem.cs" />
+    <Compile Include="Controls\Tree\Layout\TreeNodeText.cs" />
+    <Compile Include="Controls\Tree\TreeNodeState.cs" />
+    <Compile Include="Controls\Tree\TreeView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Filters\InvisibleNodeFilter.cs" />
@@ -112,7 +111,7 @@
     <Compile Include="NodeSorters\INodeHandleSorter.cs" />
     <Compile Include="NodeSorters\HiddenSorter.cs" />
     <Compile Include="NodeSorters\SuperClassSorter.cs" />
-    <Compile Include="Controls\NodeTextEditEventArgs.cs" />
+    <Compile Include="Controls\Tree\NodeTextEditEventArgs.cs" />
     <Compile Include="OutlinerResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -121,16 +120,16 @@
     <Compile Include="Filters\BoneFilter.cs" />
     <Compile Include="Filters\CustomFilters.cs" />
     <Compile Include="Filters\CustomNodeFilter.cs" />
-    <Compile Include="Controls\FiltersBase\FilterResult.cs" />
-    <Compile Include="Controls\FiltersBase\FlatListFilterCollection.cs" />
+    <Compile Include="Filters\FilterResult.cs" />
+    <Compile Include="Filters\FlatListFilterCollection.cs" />
     <Compile Include="Filters\FrozenFilter.cs" />
     <Compile Include="Filters\GeometryFilter.cs" />
     <Compile Include="Filters\HelperFilter.cs" />
     <Compile Include="Filters\HiddenFilter.cs" />
     <Compile Include="Filters\MaxscriptFilter.cs" />
     <Compile Include="Filters\NameFilter.cs" />
-    <Compile Include="Controls\FiltersBase\Filter.cs" />
-    <Compile Include="Controls\FiltersBase\FilterCollection.cs" />
+    <Compile Include="Filters\Filter.cs" />
+    <Compile Include="Filters\FilterCollection.cs" />
     <Compile Include="Filters\ParticleFilter.cs" />
     <Compile Include="Filters\SuperClassFilter.cs" />
     <Compile Include="Filters\UnassignedMaterialFilter.cs" />
@@ -153,7 +152,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TreeIcons_Max.resx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TreeColors.cs" />
+    <Compile Include="Controls\Tree\TreeViewColors.cs" />
     <Compile Include="NodeSorters\AlphabeticalSorter.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="OutlinerDescriptor.cs" />

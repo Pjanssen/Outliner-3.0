@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Controls;
+using Outliner.Controls.Tree;
 using Outliner.Scene;
 
 namespace Outliner.NodeSorters

@@ -1,4 +1,5 @@
-﻿namespace Outliner.Controls
+﻿using Outliner.Controls.Tree;
+namespace Outliner.Controls
 {
    partial class TestControl
    {
@@ -28,7 +29,7 @@
       /// </summary>
       private void InitializeComponent()
       {
-         this.treeView1 = new Outliner.Controls.TreeView();
+         this.treeView1 = new TreeView();
          this.panel1 = new System.Windows.Forms.Panel();
          this.panel1.SuspendLayout();
          this.SuspendLayout();

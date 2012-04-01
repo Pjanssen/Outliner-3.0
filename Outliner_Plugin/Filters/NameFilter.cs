@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using Outliner.Controls.FiltersBase;
 using Outliner.Scene;
 
 namespace Outliner.Filters

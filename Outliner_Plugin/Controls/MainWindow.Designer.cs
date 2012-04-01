@@ -1,4 +1,5 @@
-﻿namespace Outliner.Controls
+﻿using Outliner.Controls.Tree;
+namespace Outliner.Controls
 {
    partial class MainWindow
    {
@@ -29,7 +30,7 @@
       private void InitializeComponent()
       {
          this.components = new System.ComponentModel.Container();
-         this.treeView1 = new Outliner.Controls.TreeView();
+         this.treeView1 = new TreeView();
          this.SuspendLayout();
          // 
          // treeView1

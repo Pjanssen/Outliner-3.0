@@ -5,13 +5,14 @@ using System.Text;
 using Outliner.Controls;
 using Autodesk.Max;
 using Outliner.Scene;
-using Outliner.Controls.FiltersBase;
+using Outliner.Controls.Tree;
+using Outliner.Filters;
 
 namespace Outliner.TreeModes
 {
 public class HierarchyMode : TreeMode
 {
-   public HierarchyMode(Outliner.Controls.TreeView tree, IInterface ip)
+   public HierarchyMode(TreeView tree, IInterface ip)
       : base(tree, ip)
    { }
 

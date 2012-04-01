@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.Controls;
-using Outliner.Controls.FiltersBase;
+using Outliner.Controls.Tree;
 using Outliner.Scene;
+using Outliner.Filters;
 
 namespace Outliner.TreeModes
 {
 public class FlatObjectListMode : TreeMode
 {
-   public FlatObjectListMode(Outliner.Controls.TreeView tree, Autodesk.Max.IInterface ip) 
+   public FlatObjectListMode(TreeView tree, Autodesk.Max.IInterface ip) 
       : base(tree, ip) 
    {
       this.Filters = new FlatListFilterCollection<IMaxNodeWrapper>(base.Filters);

@@ -8,7 +8,7 @@ using Autodesk.Max;
 using Outliner.TreeModes;
 using Outliner.Controls;
 using Autodesk.Max.MaxSDK.Util;
-using Outliner.Controls.Layout;
+using Outliner.Controls.Tree.Layout;
 
 namespace Outliner.Actions
 {

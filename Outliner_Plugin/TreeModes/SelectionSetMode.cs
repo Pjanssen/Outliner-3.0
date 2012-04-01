@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using Outliner.Scene;
-using Outliner.Controls.FiltersBase;
-using Outliner.Controls;
+using Outliner.Controls.Tree;
+using Outliner.Filters;
 
 namespace Outliner.TreeModes
 {
 public class SelectionSetMode : TreeMode
 {
-   public SelectionSetMode(Outliner.Controls.TreeView tree, Autodesk.Max.IInterface ip)
+   public SelectionSetMode(TreeView tree, Autodesk.Max.IInterface ip)
       : base(tree, ip)
    { }
 

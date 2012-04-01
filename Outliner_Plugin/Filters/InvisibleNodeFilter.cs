@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Outliner.Scene;
-using Outliner.Controls.FiltersBase;
 
 namespace Outliner.Filters
 {

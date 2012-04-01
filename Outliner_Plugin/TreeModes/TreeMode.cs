@@ -3,26 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.Controls.FiltersBase;
+using Outliner.Controls.Tree;
 using Outliner.Scene;
 using Outliner.Commands;
 using Outliner.Controls;
+using Outliner.Filters;
 // Import System.Windows.Forms with alias to avoid ambiguity 
 // between System.Windows.TreeNode and Outliner.Controls.TreeNode.
 using WinForms = System.Windows.Forms;
-using Outliner.Filters;
 
 namespace Outliner.TreeModes
 {
 public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
 {
-   protected Outliner.Controls.TreeView tree { get; private set; }
+   protected TreeView tree { get; private set; }
    protected Autodesk.Max.IInterface ip { get; private set; }
    private uint sceneEventCbKey;
 
    protected Dictionary<Object, TreeNode> treeNodes { get; private set; }
 
-   protected TreeMode(Outliner.Controls.TreeView tree, Autodesk.Max.IInterface ip)
+   protected TreeMode(TreeView tree, Autodesk.Max.IInterface ip)
    {
       this.tree = tree;
       this.ip = ip;
@@ -176,7 +176,7 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
 
    #region Tree events
 
-   void tree_SelectionChanged(object sender, Controls.SelectionChangedEventArgs e)
+   void tree_SelectionChanged(object sender, SelectionChangedEventArgs e)
    {
       SelectCommand cmd = new SelectCommand(HelperMethods.GetMaxNodes(e.Nodes));
       cmd.Execute(true);

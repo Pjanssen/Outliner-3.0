@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.Controls.FiltersBase;
 using Outliner.Scene;
 using System.Globalization;
 

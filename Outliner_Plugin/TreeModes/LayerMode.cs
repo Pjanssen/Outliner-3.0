@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using Outliner.Scene;
-using Outliner.Controls;
-using Outliner.Controls.FiltersBase;
+using Outliner.Controls.Tree;
+using Outliner.Filters;
 using System.Drawing;
+using Outliner.Controls;
 
 namespace Outliner.TreeModes
 {
 public class LayerMode : TreeMode
 {
-   public LayerMode(Outliner.Controls.TreeView tree, Autodesk.Max.IInterface ip)
+   public LayerMode(TreeView tree, Autodesk.Max.IInterface ip)
       : base(tree, ip)
    {
       IGlobal iGlobal = GlobalInterface.Instance;

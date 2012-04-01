@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using System.Runtime.InteropServices;
-using Outliner.Controls;
-using Outliner.Scene;
 using System.Drawing;
 // Import System.Windows.Forms with alias to avoid ambiguity 
 // between System.Windows.TreeNode and Outliner.Controls.TreeNode.
 using WinForms = System.Windows.Forms;
+using Outliner.Controls;
+using Outliner.Controls.Tree;
+using Outliner.Scene;
+
 
 namespace Outliner
 {

@@ -1,6 +1,5 @@
 ﻿using System;
 using Autodesk.Max;
-using Outliner.Controls.FiltersBase;
 using Outliner.Scene;
 
 namespace Outliner.Filters
