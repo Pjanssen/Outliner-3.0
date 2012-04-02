@@ -67,10 +67,6 @@ public class LayerMode : TreeMode
          if (this.tree.TreeNodeLayout.UseLayerColors)
          {
             tn.BackColor = Color.FromArgb(255, wrapper.WireColor);
-            if (tn.BackColor.GetBrightness() > 0.5)
-               tn.ForeColor = Color.Black;
-            else
-               tn.ForeColor = Color.White;
          }
          this.treeNodes.Add(layer, tn);
          parentCol.Add(tn);
@@ -99,10 +95,6 @@ public class LayerMode : TreeMode
             if (this.tree.TreeNodeLayout.UseLayerColors)
             {
                tn.BackColor = Color.FromArgb(170, ColorHelpers.FromMaxColor(wrapper.Layer.WireColor));
-               if (tn.BackColor.GetBrightness() > 0.5)
-                  tn.ForeColor = Color.Black;
-               else
-                  tn.ForeColor = Color.White;
             }
 
             this.treeNodes.Add(node, tn);

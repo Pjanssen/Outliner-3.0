@@ -77,8 +77,8 @@ public class TreeViewColors : System.Xml.Serialization.IXmlSerializable
       {
          TreeViewColors c = new TreeViewColors();
          IIColorManager cm = GlobalInterface.Instance.ColorManager;
-         c.ForeColorLight = Color.FromArgb(255, 200, 200, 200);
-         c.ForeColorDark = Color.FromArgb(255, 42, 42, 42);
+         c.ForeColorLight = Color.FromArgb(255, 220, 220, 220);
+         c.ForeColorDark = Color.FromArgb(255, 32, 32, 32);
          c.BackColor = Color.FromArgb(255, 42, 42, 42);
          c.AltBackColor = (c.BackColor.GetBrightness() < 0.5) ?
             Color.FromArgb(c.BackColor.R + 10, c.BackColor.G + 10, c.BackColor.B + 10) :

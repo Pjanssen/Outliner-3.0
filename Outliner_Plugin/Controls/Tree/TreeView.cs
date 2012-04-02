@@ -161,10 +161,14 @@ public class TreeView : ScrollableControl
          return tn.ForeColor;
       else
       {
-         if (this.GetNodeBackColor(tn).GetBrightness() < 0.5f)
-            return this.Colors.ForeColorLight;
-         else
+         float bBack = this.GetNodeBackColor(tn).GetBrightness();
+         float bDark = this.Colors.ForeColorDark.GetBrightness();
+         float bLight = this.Colors.ForeColorLight.GetBrightness();
+
+         if (Math.Abs(bBack - bDark) > Math.Abs(bBack - bLight))
             return this.Colors.ForeColorDark;
+         else
+            return this.Colors.ForeColorLight;
       }
    }
 
@@ -187,7 +191,8 @@ public class TreeView : ScrollableControl
          bgColor = this.Colors.AltBackColor;
 
       if (tn.BackColor != Color.Empty)
-         return ColorHelpers.OverlayColor(bgColor, tn.BackColor);
+         return tn.BackColor;
+      //return ColorHelpers.OverlayColor(bgColor, tn.BackColor);
       else
          return bgColor;
    }
