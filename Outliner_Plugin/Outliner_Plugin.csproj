@@ -74,6 +74,7 @@
     <Compile Include="Commands\ToggleLightCommand.cs" />
     <Compile Include="Controls\BitmapProcessing.cs" />
     <Compile Include="Controls\ColorHelpers.cs" />
+    <Compile Include="Controls\SerializableColor.cs" />
     <Compile Include="Controls\Tree\DragDropHandlers\DragDropHandler.cs" />
     <Compile Include="Controls\Tree\Layout\AddButton.cs" />
     <Compile Include="Controls\Tree\Layout\BoxModeButton.cs" />

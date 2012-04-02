@@ -136,10 +136,10 @@ public class TreeView : ScrollableControl
 
    public override Color BackColor
    {
-      get { return this.Colors.BackColor; }
+      get { return this.Colors.Background.Color; }
       set
       {
-         this.Colors.BackColor = value;
+         this.Colors.Background = new SerializableColor(value);
          this.brushBackground = null;
       }
    }
@@ -151,24 +151,24 @@ public class TreeView : ScrollableControl
          return Color.Empty;
 
       if (tn.State.HasFlag(TreeNodeStates.DropTarget))
-         return this.Colors.LinkForeColor;
+         return this.Colors.DropTargetForeground.Color;
       if (tn.State.HasFlag(TreeNodeStates.Selected))
-         return this.Colors.SelectionForeColor;
+         return this.Colors.SelectionForeground.Color;
       if (tn.State.HasFlag(TreeNodeStates.ParentOfSelected))
-         return this.Colors.ParentForeColor;
+         return this.Colors.ParentForeground.Color;
 
       if (tn.ForeColor != Color.Empty)
          return tn.ForeColor;
       else
       {
          float bBack = this.GetNodeBackColor(tn).GetBrightness();
-         float bDark = this.Colors.ForeColorDark.GetBrightness();
-         float bLight = this.Colors.ForeColorLight.GetBrightness();
+         float bDark = this.Colors.ForegroundDark.Color.GetBrightness();
+         float bLight = this.Colors.ForegroundLight.Color.GetBrightness();
 
          if (Math.Abs(bBack - bDark) > Math.Abs(bBack - bLight))
-            return this.Colors.ForeColorDark;
+            return this.Colors.ForegroundDark.Color;
          else
-            return this.Colors.ForeColorLight;
+            return this.Colors.ForegroundLight.Color;
       }
    }
 
@@ -180,15 +180,15 @@ public class TreeView : ScrollableControl
       Boolean fullRowSelect = this.TreeNodeLayout.FullRowSelect;
 
       if (fullRowSelect && tn.State.HasFlag(TreeNodeStates.DropTarget))
-         return this.Colors.LinkBackColor;
+         return this.Colors.DropTargetBackground.Color;
       if (fullRowSelect && tn.State.HasFlag(TreeNodeStates.Selected))
-         return this.Colors.SelectionBackColor;
+         return this.Colors.SelectionBackground.Color;
       if (fullRowSelect && tn.State.HasFlag(TreeNodeStates.ParentOfSelected))
-         return this.Colors.ParentBackColor;
+         return this.Colors.ParentBackground.Color;
 
-      Color bgColor = this.Colors.BackColor;
+      Color bgColor = this.Colors.Background.Color;
       if (this.TreeNodeLayout.AlternateBackground && (tn.Bounds.Y / this.TreeNodeLayout.ItemHeight) % 2 != 0)
-         bgColor = this.Colors.AltBackColor;
+         bgColor = this.Colors.AltBackground.Color;
 
       if (tn.BackColor != Color.Empty)
          return tn.BackColor;

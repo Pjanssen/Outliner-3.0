@@ -29,22 +29,10 @@ public static class ColorHelpers
       return FromMaxColor(Color.FromArgb((int)color.ToRGB));
    }
 
-   public static Color OverlayColor(Color baseColor, Color overlayColor)
-   {
-      float overlayAmount = overlayColor.A / 255f;
-      float baseAmount = 1.0f - overlayAmount;
-
-      return Color.FromArgb(
-         255,
-         (byte)Math.Round(baseColor.R * baseAmount + overlayColor.R * overlayAmount),
-         (byte)Math.Round(baseColor.G * baseAmount + overlayColor.G * overlayAmount),
-         (byte)Math.Round(baseColor.B * baseAmount + overlayColor.B * overlayAmount));
-   }
-
    /// <summary>
    /// Extends the ColorTranslator.ToHtml method with an alpha value.
    /// </summary>
-   public static String ColorToHtml(Color c)
+   public static String ToHtml(Color c)
    {
       if (c.IsKnownColor || c.IsNamedColor || c.IsSystemColor)
          return ColorTranslator.ToHtml(c);
@@ -60,7 +48,7 @@ public static class ColorHelpers
    /// </summary>
    /// <param name="htmlColor"></param>
    /// <returns></returns>
-   public static Color ColorFromHtml(String htmlColor)
+   public static Color FromHtml(String htmlColor)
    {
       if (htmlColor.Length == 9 && htmlColor[0] == '#')
          return Color.FromArgb(Convert.ToInt32(htmlColor.Substring(1, 2), 16),
@@ -70,5 +58,31 @@ public static class ColorHelpers
       else
          return ColorTranslator.FromHtml(htmlColor);
    }
+
+   /// <summary>
+   /// Resolves a GuiColors enum value to a Color value.
+   /// </summary>
+   public static Color FromMaxGuiColor(GuiColors color)
+   {
+      IGlobal ip = GlobalInterface.Instance;
+      if (ip == null)
+         throw new NullReferenceException("Could not get 3dsMax global interface");
+      IIColorManager cm = GlobalInterface.Instance.ColorManager;
+      return ColorHelpers.FromMaxColor(cm.GetColor(color));
+   }
+
+
+   public static Color OverlayColor(Color baseColor, Color overlayColor)
+   {
+      float overlayAmount = overlayColor.A / 255f;
+      float baseAmount = 1.0f - overlayAmount;
+
+      return Color.FromArgb(
+         255,
+         (byte)Math.Round(baseColor.R * baseAmount + overlayColor.R * overlayAmount),
+         (byte)Math.Round(baseColor.G * baseAmount + overlayColor.G * overlayAmount),
+         (byte)Math.Round(baseColor.B * baseAmount + overlayColor.B * overlayAmount));
+   }
+
 }
 }

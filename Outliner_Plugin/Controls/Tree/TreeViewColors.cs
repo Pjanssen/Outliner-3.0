@@ -5,44 +5,39 @@ using System.Text;
 using System.Drawing;
 using Autodesk.Max;
 using System.Reflection;
+using System.Xml.Serialization;
 
 namespace Outliner.Controls.Tree
 {
-public class TreeViewColors : System.Xml.Serialization.IXmlSerializable
+public class TreeViewColors
 {
-   public Color ForeColorLight { get; set; }
-   public Color ForeColorDark { get; set; }
+   public SerializableColor ForegroundLight { get; set; }
+   public SerializableColor ForegroundDark { get; set; }
 
-   public Color BackColor { get; set; }
-   public Color AltBackColor { get; set; }
+   public SerializableColor Background { get; set; }
+   public SerializableColor AltBackground { get; set; }
 
-   public Color SelectionForeColor { get; set; }
-   public Color SelectionBackColor { get; set; }
+   public SerializableColor SelectionForeground { get; set; }
+   public SerializableColor SelectionBackground { get; set; }
 
-   public Color LinkForeColor { get; set; }
-   public Color LinkBackColor { get; set; }
+   public SerializableColor DropTargetForeground { get; set; }
+   public SerializableColor DropTargetBackground { get; set; }
 
-   public Color ParentForeColor { get; set; }
-   public Color ParentBackColor { get; set; }
+   public SerializableColor ParentForeground { get; set; }
+   public SerializableColor ParentBackground { get; set; }
 
    public TreeViewColors()
    {
-      ForeColorLight = Color.White;
-      ForeColorDark = Color.Black;
-
-      BackColor = SystemColors.Window;
-      AltBackColor = (BackColor.GetBrightness() < 0.5) ?
-         Color.FromArgb(BackColor.R + 20, BackColor.G + 20, BackColor.B + 20) :
-         Color.FromArgb(BackColor.R - 20, BackColor.G - 20, BackColor.B - 20);
-
-      SelectionForeColor = SystemColors.HighlightText;
-      SelectionBackColor = SystemColors.Highlight;
-
-      LinkForeColor = SystemColors.WindowText;
-      LinkBackColor = Color.FromArgb(255, 255, 177, 177);
-
-      ParentForeColor = SystemColors.WindowText;
-      ParentBackColor = Color.FromArgb(255, 177, 255, 177);
+      this.ForegroundLight      = new SerializableColor(Color.White);
+      this.ForegroundDark       = new SerializableColor(Color.Black);
+      this.Background           = new SerializableColor(Color.White);
+      this.AltBackground        = new SerializableColor(Color.LightGray);
+      this.SelectionForeground  = new SerializableColor(SystemColors.HighlightText);
+      this.SelectionBackground  = new SerializableColor(SystemColors.Highlight);
+      this.DropTargetForeground = new SerializableColor(SystemColors.WindowText);
+      this.DropTargetBackground = new SerializableColor(255, 177, 177);
+      this.ParentForeground     = new SerializableColor(SystemColors.WindowText);
+      this.ParentBackground     = new SerializableColor(177, 255, 177);
    }
 
    public static TreeViewColors MaxColors
@@ -50,22 +45,19 @@ public class TreeViewColors : System.Xml.Serialization.IXmlSerializable
       get
       {
          TreeViewColors c = new TreeViewColors();
-         IIColorManager cm = GlobalInterface.Instance.ColorManager;
-         c.ForeColorLight = Color.FromArgb(255, 200, 200, 200);
-         c.ForeColorDark = Color.FromArgb(255, 42, 42, 42);
-         c.BackColor = ColorHelpers.FromMaxColor(cm.GetColor(GuiColors.Window));
-         c.AltBackColor = (c.BackColor.GetBrightness() < 0.5) ?
-            Color.FromArgb(c.BackColor.R + 10, c.BackColor.G + 10, c.BackColor.B + 10) :
-            Color.FromArgb(c.BackColor.R - 10, c.BackColor.G - 10, c.BackColor.B - 10);
-
-         c.SelectionForeColor = ColorHelpers.FromMaxColor(cm.GetColor(GuiColors.HilightText));
-         c.SelectionBackColor = ColorHelpers.FromMaxColor(cm.GetColor(GuiColors.Hilight));
-
-         c.LinkForeColor = c.ForeColorDark;
-         c.LinkBackColor = Color.FromArgb(255, 255, 177, 177);
-
-         c.ParentForeColor = c.ForeColorDark;
-         c.ParentBackColor = Color.FromArgb(255, 177, 255, 177);
+         
+         c.ForegroundLight      = new SerializableColor(200, 200, 200);
+         c.ForegroundDark       = new SerializableColor(42, 42, 42);
+         c.Background           = new SerializableColor(GuiColors.Window);
+         c.AltBackground        = (c.Background.Color.GetBrightness() < 0.5f)
+            ? new SerializableColor(c.Background.Color.R + 10, c.Background.Color.G + 10, c.Background.Color.B + 10)
+            : new SerializableColor(c.Background.Color.R - 10, c.Background.Color.G - 10, c.Background.Color.B - 10);
+         c.SelectionForeground  = new SerializableColor(GuiColors.HilightText);
+         c.SelectionBackground  = new SerializableColor(GuiColors.Hilight);
+         c.DropTargetForeground = c.ForegroundDark;
+         c.DropTargetBackground = new SerializableColor(255, 177, 177);
+         c.ParentForeground     = c.ForegroundDark;
+         c.ParentBackground     = new SerializableColor(177, 255, 177);
 
          return c;
       }
@@ -76,65 +68,19 @@ public class TreeViewColors : System.Xml.Serialization.IXmlSerializable
       get
       {
          TreeViewColors c = new TreeViewColors();
-         IIColorManager cm = GlobalInterface.Instance.ColorManager;
-         c.ForeColorLight = Color.FromArgb(255, 220, 220, 220);
-         c.ForeColorDark = Color.FromArgb(255, 32, 32, 32);
-         c.BackColor = Color.FromArgb(255, 42, 42, 42);
-         c.AltBackColor = (c.BackColor.GetBrightness() < 0.5) ?
-            Color.FromArgb(c.BackColor.R + 10, c.BackColor.G + 10, c.BackColor.B + 10) :
-            Color.FromArgb(c.BackColor.R - 10, c.BackColor.G - 10, c.BackColor.B - 10);
-
-         c.SelectionForeColor = Color.FromArgb(255, 255, 255, 255);
-         c.SelectionBackColor = Color.FromArgb(255, 103, 141, 178);
-
-         c.LinkForeColor = ColorHelpers.FromMaxColor(cm.GetColor(GuiColors.WindowText));
-         c.LinkBackColor = Color.FromArgb(255, 255, 177, 177);
-
-         c.ParentForeColor = ColorHelpers.FromMaxColor(cm.GetColor(GuiColors.WindowText));
-         c.ParentBackColor = Color.FromArgb(255, 65, 77, 90);
+         
+         c.ForegroundLight      = new SerializableColor(220, 220, 220);
+         c.ForegroundDark       = new SerializableColor(32, 32, 32);
+         c.Background           = new SerializableColor(42, 42, 42);
+         c.AltBackground        = new SerializableColor(52, 52, 52);
+         c.SelectionForeground  = new SerializableColor(255, 255, 255);
+         c.SelectionBackground  = new SerializableColor(103, 141, 178);
+         c.DropTargetForeground = new SerializableColor(0, 0, 0);
+         c.DropTargetBackground = new SerializableColor(103, 141, 178);
+         c.ParentForeground     = new SerializableColor(220, 220, 220);
+         c.ParentBackground     = new SerializableColor(65, 77, 90);
 
          return c;
-      }
-   }
-
-   public System.Xml.Schema.XmlSchema GetSchema()
-   {
-      return null;
-   }
-
-   public void ReadXml(System.Xml.XmlReader reader)
-   {
-      Type t = this.GetType();
-
-      PropertyInfo[] properties = t.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-
-      while (reader.IsStartElement())
-      {
-         reader.ReadStartElement();
-         PropertyInfo prop = properties.FirstOrDefault(p => p.Name == reader.Name);
-         if (prop != null)
-         {
-            String c = reader.GetAttribute("value");
-            if (c == null)
-               throw new System.Xml.XmlException("Expected value attribute in element " + prop.Name);
-
-            prop.SetValue(this, ColorHelpers.ColorFromHtml(c), null);
-         }
-      }
-   }
-
-   public void WriteXml(System.Xml.XmlWriter writer)
-   {
-      Type t = this.GetType();
-
-      foreach (PropertyInfo prop in t.GetProperties(BindingFlags.Public | BindingFlags.Instance))
-      {
-         if (prop.PropertyType == typeof(Color))
-         {
-            writer.WriteStartElement(prop.Name);
-            writer.WriteAttributeString("value", ColorHelpers.ColorToHtml((Color)prop.GetValue(this, null)));
-            writer.WriteEndElement();
-         }
       }
    }
 }

@@ -7,16 +7,17 @@ using System.Xml.Serialization;
 using Outliner.Controls.Tree;
 using System.Drawing;
 using System.IO;
+using Outliner.Controls;
 
 namespace Outliner_Tests.Controls.Tree
 {
    [TestClass]
    public class TreeViewColorsTest
    {
-      private Color randomColor(int seed)
+      private SerializableColor randomColor(int seed)
       {
          Random r = new Random(seed);
-         return Color.FromArgb(r.Next(255), r.Next(255), r.Next(255), r.Next(255));
+         return new SerializableColor(r.Next(255), r.Next(255), r.Next(255), r.Next(255));
       }
       [TestMethod]
       public void SerializeTest()
@@ -27,16 +28,16 @@ namespace Outliner_Tests.Controls.Tree
          Random r = new Random();
 
          //Assign random values.
-         source.AltBackColor       = this.randomColor(r.Next());
-         source.BackColor          = Color.Black;
-         source.ForeColorDark      = this.randomColor(r.Next());
-         source.ForeColorLight     = this.randomColor(r.Next());
-         source.LinkBackColor      = this.randomColor(r.Next());
-         source.LinkForeColor      = this.randomColor(r.Next());
-         source.ParentBackColor    = this.randomColor(r.Next());
-         source.ParentForeColor    = Color.Fuchsia;
-         source.SelectionBackColor = Color.ForestGreen;
-         source.SelectionForeColor = this.randomColor(r.Next());
+         source.AltBackground        = this.randomColor(r.Next());
+         source.Background           = new SerializableColor(Color.Black);
+         source.ForegroundDark       = this.randomColor(r.Next());
+         source.ForegroundLight      = this.randomColor(r.Next());
+         source.DropTargetBackground = this.randomColor(r.Next());
+         source.DropTargetForeground = this.randomColor(r.Next());
+         source.ParentBackground     = this.randomColor(r.Next());
+         source.ParentForeground     = new SerializableColor(Color.Fuchsia);
+         source.SelectionBackground  = new SerializableColor(Color.ForestGreen);
+         source.SelectionForeground  = this.randomColor(r.Next());
 
          //Serialize, then deserialize.
          XmlSerializer xs = new XmlSerializer(typeof(TreeViewColors));
@@ -48,16 +49,16 @@ namespace Outliner_Tests.Controls.Tree
          }
 
          Assert.IsNotNull(result);
-         Assert.AreEqual(source.AltBackColor, result.AltBackColor);
-         Assert.AreEqual(source.BackColor, result.BackColor);
-         Assert.AreEqual(source.ForeColorDark, result.ForeColorDark);
-         Assert.AreEqual(source.ForeColorLight, result.ForeColorLight);
-         Assert.AreEqual(source.LinkBackColor, result.LinkBackColor);
-         Assert.AreEqual(source.LinkForeColor, result.LinkForeColor);
-         Assert.AreEqual(source.ParentBackColor, result.ParentBackColor);
-         Assert.AreEqual(source.ParentForeColor, result.ParentForeColor);
-         Assert.AreEqual(source.SelectionBackColor, result.SelectionBackColor);
-         Assert.AreEqual(source.SelectionForeColor, result.SelectionForeColor);
+         Assert.AreEqual(source.AltBackground, result.AltBackground);
+         Assert.AreEqual(source.Background, result.Background);
+         Assert.AreEqual(source.ForegroundDark, result.ForegroundDark);
+         Assert.AreEqual(source.ForegroundLight, result.ForegroundLight);
+         Assert.AreEqual(source.DropTargetBackground, result.DropTargetBackground);
+         Assert.AreEqual(source.DropTargetForeground, result.DropTargetForeground);
+         Assert.AreEqual(source.ParentBackground, result.ParentBackground);
+         Assert.AreEqual(source.ParentForeground, result.ParentForeground);
+         Assert.AreEqual(source.SelectionBackground, result.SelectionBackground);
+         Assert.AreEqual(source.SelectionForeground, result.SelectionForeground);
       }
    }
 }
