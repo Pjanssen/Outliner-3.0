@@ -9,6 +9,7 @@ using Outliner.TreeModes;
 using Outliner.Controls;
 using Autodesk.Max.MaxSDK.Util;
 using Outliner.Controls.Tree.Layout;
+using Outliner.Controls.Tree;
 
 namespace Outliner.Actions
 {
@@ -35,12 +36,20 @@ namespace Outliner.Actions
          
          IIPathConfigMgr pathMgr = Autodesk.Max.GlobalInterface.Instance.IPathConfigMgr.PathConfigMgr;
          IGlobal.IGlobalMaxSDK.IGlobalUtil.IGlobalPath path = GlobalInterface.Instance.MaxSDK.Util.Path;
-         IPath layoutFile = path.Create(pathMgr.GetDir(MaxDirectory.UserScripts));
+         IPath scriptDir = path.Create(pathMgr.GetDir(MaxDirectory.UserScripts));
+         IPath layoutFile = path.Create(scriptDir);
          layoutFile.Append(path.Create("outliner_layout.xml"));
          if (layoutFile.Exists)
             tc.treeView1.TreeNodeLayout = TreeNodeLayout.FromXml(layoutFile.String);
          else
             tc.treeView1.TreeNodeLayout.ToXml(layoutFile.String);
+
+         IPath colorFile = path.Create(scriptDir);
+         colorFile.Append(path.Create("outliner_colors.xml"));
+         if (colorFile.Exists)
+            tc.treeView1.Colors = TreeViewColors.FromXml(colorFile.String);
+         else
+            tc.treeView1.Colors.ToXml(colorFile.String);
 
          tc.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
          TreeMode tm = new LayerMode(tc.treeView1, Autodesk.Max.GlobalInterface.Instance.COREInterface);

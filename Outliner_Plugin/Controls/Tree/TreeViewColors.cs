@@ -6,6 +6,7 @@ using System.Drawing;
 using Autodesk.Max;
 using System.Reflection;
 using System.Xml.Serialization;
+using System.IO;
 
 namespace Outliner.Controls.Tree
 {
@@ -38,6 +39,58 @@ public class TreeViewColors
       this.DropTargetBackground = new SerializableColor(255, 177, 177);
       this.ParentForeground     = new SerializableColor(SystemColors.WindowText);
       this.ParentBackground     = new SerializableColor(177, 255, 177);
+   }
+
+   public void UpdateColors()
+   {
+      if (this.ForegroundLight.IsGuiColor)
+         this.ForegroundLight = new SerializableColor(this.ForegroundLight.GuiColor);
+      if (this.ForegroundDark.IsGuiColor)
+         this.ForegroundDark = new SerializableColor(this.ForegroundDark.GuiColor);
+      if (this.Background.IsGuiColor)
+         this.Background = new SerializableColor(this.Background.GuiColor);
+      if (this.AltBackground.IsGuiColor)
+         this.AltBackground = new SerializableColor(this.AltBackground.GuiColor);
+      if (this.SelectionForeground.IsGuiColor)
+         this.SelectionForeground = new SerializableColor(this.SelectionForeground.GuiColor);
+      if (this.SelectionBackground.IsGuiColor)
+         this.SelectionBackground = new SerializableColor(this.SelectionBackground.GuiColor);
+      if (this.DropTargetForeground.IsGuiColor)
+         this.DropTargetForeground = new SerializableColor(this.DropTargetForeground.GuiColor);
+      if (this.DropTargetBackground.IsGuiColor)
+         this.DropTargetBackground = new SerializableColor(this.DropTargetBackground.GuiColor);
+      if (this.ParentForeground.IsGuiColor)
+         this.ParentForeground = new SerializableColor(this.ParentForeground.GuiColor);
+      if (this.ParentBackground.IsGuiColor)
+         this.ParentBackground = new SerializableColor(this.ParentBackground.GuiColor);
+   }
+
+   public static TreeViewColors FromXml(String path)
+   {
+      using (FileStream stream = new FileStream(path, FileMode.Open))
+      {
+         return TreeViewColors.FromXml(stream);
+      }
+   }
+
+   public static TreeViewColors FromXml(Stream stream)
+   {
+      XmlSerializer xs = new XmlSerializer(typeof(TreeViewColors));
+      return xs.Deserialize(stream) as TreeViewColors;
+   }
+
+   public void ToXml(String path)
+   {
+      using (FileStream stream = new FileStream(path, FileMode.Create))
+      {
+         this.ToXml(stream);
+      }
+   }
+
+   public void ToXml(Stream stream)
+   {
+      XmlSerializer xs = new XmlSerializer(typeof(TreeViewColors));
+      xs.Serialize(stream, this);
    }
 
    public static TreeViewColors MaxColors

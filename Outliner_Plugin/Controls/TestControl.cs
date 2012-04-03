@@ -21,9 +21,9 @@ namespace Outliner.Controls
 
       public void UpdateColors()
       {
-         Autodesk.Max.IIColorManager cM = Autodesk.Max.GlobalInterface.Instance.ColorManager;
-         this.BackColor = Color.FromArgb(255, cM.GetColor(Autodesk.Max.GuiColors.Background));
-         this.treeView1.Colors = TreeViewColors.MayaColors;
+         this.BackColor = ColorHelpers.FromMaxGuiColor(Autodesk.Max.GuiColors.Background);
+         this.treeView1.Colors.UpdateColors();
+         this.treeView1.Update(TreeViewUpdateFlags.Brushes | TreeViewUpdateFlags.Redraw);
       }
    }
 }

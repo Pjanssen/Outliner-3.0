@@ -192,7 +192,6 @@ public class TreeView : ScrollableControl
 
       if (tn.BackColor != Color.Empty)
          return tn.BackColor;
-      //return ColorHelpers.OverlayColor(bgColor, tn.BackColor);
       else
          return bgColor;
    }
@@ -330,6 +329,11 @@ public class TreeView : ScrollableControl
       if (this.beginUpdateCalls <= 0)
       {
          this.beginUpdateCalls = 0;
+
+         if (this.TestUpdateFlag(TreeViewUpdateFlags.Brushes))
+         {
+            this.brushBackground = null;
+         }
 
          if (this.TestUpdateFlag(TreeViewUpdateFlags.Bounds))
          {
@@ -780,9 +784,10 @@ public class TreeView : ScrollableControl
 [Flags]
 public enum TreeViewUpdateFlags
 {
-   None = 0x00,
-   Redraw = 0x01,
-   Bounds = 0x02,
-   All = 0x03 //When adding new flags, adjust this value.
+   None    = 0x00,
+   Redraw  = 0x01,
+   Bounds  = 0x02,
+   Brushes = 0x04,
+   All     = 0x07 //When adding new flags, adjust this value.
 }
 }

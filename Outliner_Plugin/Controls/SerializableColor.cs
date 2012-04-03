@@ -8,6 +8,10 @@ using System.Drawing;
 
 namespace Outliner.Controls
 {
+   /// <summary>
+   /// A Color structure which can be serialized to Xml.
+   /// Also includes 
+   /// </summary>
 public struct SerializableColor : IXmlSerializable
 {
    private const String ValueAttributeName = "value";
@@ -17,6 +21,8 @@ public struct SerializableColor : IXmlSerializable
    private GuiColors guiColor;
    private Color color;
 
+   public Boolean IsGuiColor { get { return this.isGuiColor; } }
+   public GuiColors GuiColor { get { return this.guiColor; } }
    public Color Color { get { return this.color; } }
 
    public SerializableColor(Color color)
@@ -39,7 +45,6 @@ public struct SerializableColor : IXmlSerializable
       this.color = ColorHelpers.FromMaxGuiColor(color);
    }
 
-
    public System.Xml.Schema.XmlSchema GetSchema()
    {
       return null;
@@ -47,14 +52,14 @@ public struct SerializableColor : IXmlSerializable
 
    public void ReadXml(System.Xml.XmlReader reader)
    {
-      String c = reader.GetAttribute("value");
+      String c = reader.GetAttribute(ValueAttributeName);
       if (c == null)
          throw new System.Xml.XmlException("Expected value attribute in SerializableColor element.");
 
-      if (c.StartsWith("GuiColors"))
+      if (c.StartsWith("GuiColors."))
       {
          this.isGuiColor = true;
-         this.guiColor = (GuiColors)Enum.Parse(typeof(GuiColors), c);
+         this.guiColor = (GuiColors)Enum.Parse(typeof(GuiColors), c.Substring(10));
          this.color = ColorHelpers.FromMaxGuiColor(this.guiColor);
       }
       else
