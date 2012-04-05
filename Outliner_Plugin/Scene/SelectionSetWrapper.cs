@@ -55,6 +55,10 @@ namespace Outliner.Scene
          get { return false; }
       }
 
+      public override bool IsNodeType(MaxNodeTypes types)
+      {
+         return types.HasFlag(MaxNodeTypes.SelectionSet);
+      }
 
 
       public const String IMGKEY_SELECTIONSET = "selectionset";

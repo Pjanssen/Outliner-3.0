@@ -15,10 +15,10 @@ public class AddButton : ImageButton
                              OutlinerResources.button_add_disabled)
    { }
 
-   public override Boolean IsVisible(TreeNode tn)
+   public override MaxNodeTypes VisibleTypes
    {
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
-      return node is IILayerWrapper || node is SelectionSetWrapper;
+      get { return base.VisibleTypes & (MaxNodeTypes.SelectionSet | MaxNodeTypes.Layer); }
+      set { }
    }
 
    public override bool IsEnabled(TreeNode tn)

@@ -119,6 +119,11 @@ namespace Outliner.Scene
          get { return false; }
       }
 
+      public override bool IsNodeType(MaxNodeTypes types)
+      {
+         return types.HasFlag(MaxNodeTypes.Layer);
+      }
+
 
       public override bool IsHidden
       {

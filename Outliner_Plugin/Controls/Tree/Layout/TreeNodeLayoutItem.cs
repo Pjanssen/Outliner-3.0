@@ -5,6 +5,8 @@ using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using System.ComponentModel;
+using Outliner.Scene;
 
 namespace Outliner.Controls.Tree.Layout
 {
@@ -22,6 +24,11 @@ namespace Outliner.Controls.Tree.Layout
    [XmlInclude(typeof(WireColorButton))]
    public abstract class TreeNodeLayoutItem
    {
+      public TreeNodeLayoutItem()
+      {
+         this.VisibleTypes = MaxNodeTypes.All;
+      }
+
       [XmlIgnore]
       public TreeNodeLayout Layout { get; internal set; }
 
@@ -40,11 +47,22 @@ namespace Outliner.Controls.Tree.Layout
       public virtual Int32 PaddingRight { get; set; }
 
       /// <summary>
+      /// Determines for which MaxNodeTypes this item will be visible.
+      /// </summary>
+      [XmlAttribute("visible_types")]
+      [DefaultValue(MaxNodeTypes.All)]
+      public virtual MaxNodeTypes VisibleTypes { get; set; }
+
+      /// <summary>
       /// The item will only be shown if this method returns true.
       /// </summary>
       public virtual Boolean IsVisible(TreeNode tn)
       {
-         return true;
+         IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+         if (node == null)
+            return true;
+         else
+            return node.IsNodeType(this.VisibleTypes);
       }
 
       /// <summary>

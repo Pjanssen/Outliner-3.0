@@ -781,6 +781,6 @@ public enum TreeViewUpdateFlags
    TreeNodeBounds = 0x02,
    Scrollbars     = 0x04,
    Brushes        = 0x08,
-   All            = 0x0F //When adding new flags, adjust this value.
+   All            = Redraw | TreeNodeBounds | Scrollbars | Brushes
 }
 }

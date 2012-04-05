@@ -31,6 +31,7 @@ public class NameFilterTest
       public override Autodesk.Max.SClass_ID SuperClassID { get { return Autodesk.Max.SClass_ID.Utility; } }
       public override Autodesk.Max.IClass_ID ClassID { get { return null; } }
       public override bool Selected { get { return false; } }
+      public override bool IsNodeType(MaxNodeTypes types) { return false; }
    }
 
    /// <summary>

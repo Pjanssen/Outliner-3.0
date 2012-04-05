@@ -162,6 +162,7 @@
     <Compile Include="Scene\IILayerWrapper.cs" />
     <Compile Include="Scene\IINodeWrapper.cs" />
     <Compile Include="Scene\IMaxNodeWrapper.cs" />
+    <Compile Include="Scene\MaxNodeTypes.cs" />
     <Compile Include="Scene\SelectionSetWrapper.cs" />
     <Compile Include="TreeModes\FlatObjectListMode.cs" />
     <Compile Include="HelperMethods.cs" />

@@ -186,11 +186,16 @@ public class TreeNodeLayout
    /// </summary>
    public static TreeNodeLayout FromXml(String file)
    {
-      XmlSerializer xs = new XmlSerializer(typeof(TreeNodeLayout));
-      using (FileStream st = new FileStream(file, FileMode.Open))
+      using (FileStream stream = new FileStream(file, FileMode.Open))
       {
-         return (TreeNodeLayout)xs.Deserialize(st);
+         return TreeNodeLayout.FromXml(stream);
       }
+   }
+
+   public static TreeNodeLayout FromXml(Stream stream)
+   {
+      XmlSerializer xs = new XmlSerializer(typeof(TreeNodeLayout));
+      return (TreeNodeLayout)xs.Deserialize(stream);
    }
 
    /// <summary>
@@ -198,12 +203,17 @@ public class TreeNodeLayout
    /// </summary>
    public void ToXml(String file)
    {
-      XmlSerializer xs = new XmlSerializer(typeof(TreeNodeLayout));
       using (FileStream st = new FileStream(file, FileMode.Create))
-      using (StreamWriter stWr = new StreamWriter(st, Encoding.Unicode))
+      //using (StreamWriter stWr = new StreamWriter(st, Encoding.Unicode))
       {
-         xs.Serialize(stWr, this);
+         this.ToXml(st);
       }
+   }
+
+   public void ToXml(Stream stream)
+   {
+      XmlSerializer xs = new XmlSerializer(typeof(TreeNodeLayout));
+      xs.Serialize(stream, this);
    }
 
 

@@ -102,6 +102,11 @@ public class IINodeWrapper : IMaxNodeWrapper
       get { return this.node.Selected; }
    }
 
+   public override bool IsNodeType(MaxNodeTypes types)
+   {
+      return types.HasFlag(MaxNodeTypes.Object);
+   }
+
    public override bool IsHidden
    {
       get { return this.node.IsObjectHidden; }
