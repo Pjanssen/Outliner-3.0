@@ -31,6 +31,7 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
       this.Filters.Add(new InvisibleNodeFilter());
 
       this.tree.SelectionChanged += new EventHandler<SelectionChangedEventArgs>(tree_SelectionChanged);
+      this.tree.BeforeNodeTextEdit += new EventHandler<BeforeNodeTextEditEventArgs>(tree_BeforeNodeTextEdit);
       this.tree.AfterNodeTextEdit += new EventHandler<AfterNodeTextEditEventArgs>(tree_AfterNodeTextEdit);
 
       IGlobal iGlobal = GlobalInterface.Instance;
@@ -129,9 +130,10 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
       foreach (IINode node in nodes.NodeKeysToINodeList())
       {
          TreeNode tn = this.GetTreeNode(node);
-         if (tn != null)
+         IMaxNodeWrapper wrapper = HelperMethods.GetMaxNode(tn);
+         if (tn != null && wrapper != null)
          {
-            tn.Text = node.Name;
+            tn.Text = wrapper.DisplayName;
             this.tree.AddToSortQueue(tn);
          }
       }
@@ -182,6 +184,19 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
       cmd.Execute(true);
    }
 
+   void tree_BeforeNodeTextEdit(object sender, BeforeNodeTextEditEventArgs e)
+   {
+      IMaxNodeWrapper node = HelperMethods.GetMaxNode(e.TreeNode);
+      if (node == null)
+      {
+         e.Cancel = true;
+         return;
+      }
+      //TODO add CanEditName or something like that
+
+      e.EditText = node.Name;
+   }
+
    void tree_AfterNodeTextEdit(object sender, AfterNodeTextEditEventArgs e)
    {
       IMaxNodeWrapper node = HelperMethods.GetMaxNode(e.TreeNode);
@@ -191,7 +206,8 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
       RenameCommand cmd = new RenameCommand(new List<IMaxNodeWrapper>(1) { node }, e.NewText);
       cmd.Execute(false);
 
-      //Note: sort is handled by nodenamechanged callback.
+      //Note: setting treenode text to displayname and sorting are
+      //      handled by nodenamechanged callback.
    }
 
    #endregion

@@ -38,7 +38,7 @@ namespace Outliner.Scene
             if (this.manager == null)
                return false;
             else
-               return this.manager.RootLayer == this.layer;
+               return this.manager.RootLayer.Handle == this.layer.Handle;
          }
       }
 
@@ -62,6 +62,17 @@ namespace Outliner.Scene
       {
          get { return layer.Name; }
          set { layer.SetName(ref value); }
+      }
+
+      public override string DisplayName
+      {
+         get
+         {
+            if (this.IsDefault)
+               return this.Name + " (default)";
+            else
+               return this.Name;
+         }
       }
 
       public override IEnumerable<IMaxNodeWrapper> ChildNodes

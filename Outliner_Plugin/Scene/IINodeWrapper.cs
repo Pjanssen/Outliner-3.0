@@ -65,6 +65,28 @@ public class IINodeWrapper : IMaxNodeWrapper
       set { this.node.Name = value; }
    }
 
+   public override string DisplayName
+   {
+      get
+      {
+         if (this.Name == String.Empty)
+            return "-unnamed-";
+
+         Boolean isGroupedNode = this.node.IsGroupHead || this.node.IsGroupMember;
+         if (HelperMethods.IsXref(this.node))
+         {
+            if (isGroupedNode)
+               return "{[" + this.Name + "]}";
+            else
+               return "{" + this.Name + "}";
+         }
+         else if (isGroupedNode)
+            return "[" + this.Name + "]";
+         else
+            return this.Name;
+      }
+   }
+
    public override IClass_ID ClassID
    {
       get { return this.node.ObjectRef.ClassID; }

@@ -28,6 +28,7 @@ namespace Outliner.Scene
       }
 
       public abstract String Name { get; set; }
+      public virtual String DisplayName { get { return this.Name; } }
       public abstract SClass_ID SuperClassID { get; }
       public abstract IClass_ID ClassID { get; }
       public abstract Boolean Selected { get; } //TODO check if set should be added?
@@ -42,19 +43,16 @@ namespace Outliner.Scene
          get { return false; }
          set { }
       }
-
       public virtual Boolean BoxMode
       {
          get { return false; }
          set { }
       }
-
       public virtual Color WireColor
       {
          get { return Color.Empty; }
          set { }
       }
-
       public virtual Boolean Renderable
       {
          get { return false; }
@@ -74,6 +72,7 @@ namespace Outliner.Scene
       {
          get { return Outliner.Controls.IconHelperMethods.IMGKEY_UNKNOWN; }
       }
+
 
       public static IMaxNodeWrapper Create(Object node)
       {

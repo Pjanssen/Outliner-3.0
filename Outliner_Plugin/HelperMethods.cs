@@ -34,7 +34,7 @@ public static class HelperMethods
       if (node == null)
          return null;
 
-      TreeNode tn = new TreeNode(node.Name);
+      TreeNode tn = new TreeNode(node.DisplayName);
       tn.Tag = node;
       tn.ImageKey = node.ImageKey;
       return tn;
