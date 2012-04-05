@@ -75,6 +75,11 @@ namespace Outliner.Scene
          }
       }
 
+      public override bool CanEditName
+      {
+         get { return !this.IsDefault; }
+      }
+
       public override IEnumerable<IMaxNodeWrapper> ChildNodes
       {
          get

@@ -192,7 +192,17 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
          e.Cancel = true;
          return;
       }
-      //TODO add CanEditName or something like that
+
+      if (!node.CanEditName)
+      {
+         WinForms::MessageBox.Show(tree, 
+                                   OutlinerResources.Warning_CannotEditName, 
+                                   OutlinerResources.Warning_CannotEditNameTitle, 
+                                   WinForms::MessageBoxButtons.OK, 
+                                   WinForms::MessageBoxIcon.Warning);
+         e.Cancel = true;
+         return;
+      }
 
       e.EditText = node.Name;
    }

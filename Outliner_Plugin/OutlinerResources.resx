@@ -679,4 +679,10 @@
   <data name="Tooltip_Inherited" xml:space="preserve">
     <value>(inherited from layer)</value>
   </data>
+  <data name="Warning_CannotEditName" xml:space="preserve">
+    <value>The name of this node cannot be edited.</value>
+  </data>
+  <data name="Warning_CannotEditNameTitle" xml:space="preserve">
+    <value>Cannot edit name</value>
+  </data>
 </root>

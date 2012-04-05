@@ -325,5 +325,23 @@ namespace Outliner {
                 return ResourceManager.GetString("Tooltip_WireColor", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of this node cannot be edited..
+        /// </summary>
+        internal static string Warning_CannotEditName {
+            get {
+                return ResourceManager.GetString("Warning_CannotEditName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot edit name.
+        /// </summary>
+        internal static string Warning_CannotEditNameTitle {
+            get {
+                return ResourceManager.GetString("Warning_CannotEditNameTitle", resourceCulture);
+            }
+        }
     }
 }

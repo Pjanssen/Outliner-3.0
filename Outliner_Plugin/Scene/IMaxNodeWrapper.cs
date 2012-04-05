@@ -29,6 +29,7 @@ namespace Outliner.Scene
 
       public abstract String Name { get; set; }
       public virtual String DisplayName { get { return this.Name; } }
+      public virtual Boolean CanEditName { get { return true; } }
       public abstract SClass_ID SuperClassID { get; }
       public abstract IClass_ID ClassID { get; }
       public abstract Boolean Selected { get; } //TODO check if set should be added?
