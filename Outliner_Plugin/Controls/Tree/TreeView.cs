@@ -110,16 +110,6 @@ public class TreeView : ScrollableControl
       }
    }
 
-   public void Invalidate(TreeNode tn)
-   {
-      if (tn == null)
-         return;
-
-      Rectangle tnBounds = tn.Bounds;
-      if (this.ClientRectangle.IntersectsWith(tnBounds))
-         this.Invalidate(tnBounds);
-   }
-
 
 
    private SolidBrush brushBackground;
@@ -261,14 +251,6 @@ public class TreeView : ScrollableControl
 
 
    #region Update
-
-   public void InvalidateTreeNode(TreeNode tn)
-   {
-      if (tn == null)
-         return;
-
-      this.Invalidate(tn.Bounds);
-   }
 
    private Int32 beginUpdateCalls = 0;
    private TreeViewUpdateFlags updating = TreeViewUpdateFlags.None;

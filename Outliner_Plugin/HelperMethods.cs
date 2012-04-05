@@ -11,6 +11,7 @@ using WinForms = System.Windows.Forms;
 using Outliner.Controls;
 using Outliner.Controls.Tree;
 using Outliner.Scene;
+using Outliner.Commands;
 
 
 namespace Outliner
@@ -228,7 +229,6 @@ public static class HelperMethods
       return ClassIDEquals(cID, BuiltInClassIDA.XREFOBJ_CLASS_ID)
           || ClassIDEquals(cID, BuiltInClassIDA.XREFMATERIAL_CLASS_ID, BuiltInClassIDB.XREFMATERIAL_CLASS_ID);
    }
-
 
 
    private static IInterface_ID nodeLayerProperties;

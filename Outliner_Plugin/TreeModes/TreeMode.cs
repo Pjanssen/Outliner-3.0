@@ -143,7 +143,11 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
    public override void DisplayPropertiesChanged(ITab<UIntPtr> nodes)
    {
       foreach (IINode node in nodes.NodeKeysToINodeList())
-         this.tree.InvalidateTreeNode(this.GetTreeNode(node));
+      {
+         TreeNode tn = this.GetTreeNode(node);
+         if (tn != null)
+            tn.Invalidate();
+      }
    }
 
    #endregion

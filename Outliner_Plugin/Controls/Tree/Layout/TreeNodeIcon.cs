@@ -119,6 +119,8 @@ public class TreeNodeIcon : TreeNodeButton
          {
             SetActiveLayerCommand cmd = new SetActiveLayerCommand(layer);
             cmd.Execute(false);
+
+            tn.ImageKey = layer.ImageKey;
          }
       }
       else if (node.SuperClassID == Autodesk.Max.SClass_ID.Light)

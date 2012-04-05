@@ -19,12 +19,12 @@ public class TreeNode
    private Rectangle bounds;
    private Color backColor;
    private Color foreColor;
+   private String imageKey;
 
    public TreeNodeCollection Nodes { get; private set; }
    public DragDropHandler DragDropHandler { get; set; }
    public FilterResults FilterResult { get; set; }
    public Object Tag { get; set; }
-   public String ImageKey { get; set; }
 
    public TreeNode() : this("") { }
    internal TreeNode(TreeView tree, String text) : this(text)
@@ -49,8 +49,7 @@ public class TreeNode
       {
          this.text = value;
          TreeView tree = this.TreeView;
-         if (tree != null)
-            tree.Invalidate(this);
+         this.Invalidate();
       }
    }
 
@@ -60,8 +59,7 @@ public class TreeNode
       set
       {
          this.backColor = value;
-         if (this.TreeView != null)
-            this.TreeView.InvalidateTreeNode(this);
+         this.Invalidate();
       }
    }
 
@@ -71,8 +69,26 @@ public class TreeNode
       set
       {
          this.foreColor = value;
-         if (this.TreeView != null)
-            this.TreeView.InvalidateTreeNode(this);
+         this.Invalidate();
+      }
+   }
+
+   public String ImageKey 
+   {
+      get { return this.imageKey; }
+      set
+      {
+         this.imageKey = value;
+         this.Invalidate();
+      }
+   }
+
+   public void Invalidate()
+   {
+      if (this.TreeView != null)
+      {
+         if (this.TreeView.ClientRectangle.IntersectsWith(this.Bounds))
+            this.TreeView.Invalidate(this.Bounds);
       }
    }
 

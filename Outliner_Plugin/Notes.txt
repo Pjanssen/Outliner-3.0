@@ -2,11 +2,10 @@
 -------
 * Try making Command unit tests.
 * Generalize addNode method in TreeMode.
-* Introduce displayname?
 * Unhide/unfreeze layer when unhiding/unfreezing node
 * Superclass sorter does not really work with exceptions (target, bones, etc). -> use imagekey instead?
 * SetViewCameraCommand: properly store previous state.
-* Check set current layer command.
+* Check set current layer command. => Old current layer imagekey should be reset somewhere..
 * Wirecolor "by layer" button.
 
 TREEVIEW
@@ -15,6 +14,7 @@ TREEVIEW
 * TreeNode.PreviousVisibleNode implementation is slow.
 * Horizontal resize with flexiblespace does not work well.
 * FlexibleSpace.MinWidth
+* Add constructor to TreeNode that sets all members, to avoid unnecessary Invalidate calls.
 
 NODE BUTTONS
 ------------
