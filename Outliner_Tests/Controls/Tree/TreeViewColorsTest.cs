@@ -22,8 +22,8 @@ namespace Outliner_Tests.Controls.Tree
       [TestMethod]
       public void SerializeTest()
       {
-         TreeViewColors source = new TreeViewColors();
-         TreeViewColors result = null;
+         TreeViewColorScheme source = new TreeViewColorScheme();
+         TreeViewColorScheme result = null;
 
          Random r = new Random();
 
@@ -40,12 +40,12 @@ namespace Outliner_Tests.Controls.Tree
          source.SelectionForeground  = this.randomColor(r.Next());
 
          //Serialize, then deserialize.
-         XmlSerializer xs = new XmlSerializer(typeof(TreeViewColors));
+         XmlSerializer xs = new XmlSerializer(typeof(TreeViewColorScheme));
          using (MemoryStream stream = new MemoryStream())
          {
             xs.Serialize(stream, source);
             stream.Position = 0;
-            result = xs.Deserialize(stream) as TreeViewColors;
+            result = xs.Deserialize(stream) as TreeViewColorScheme;
          }
 
          Assert.IsNotNull(result);

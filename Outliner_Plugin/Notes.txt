@@ -6,12 +6,13 @@
 * Unhide/unfreeze layer when unhiding/unfreezing node
 * Superclass sorter does not really work with exceptions (target, bones, etc). -> use imagekey instead?
 * SetViewCameraCommand: properly store previous state.
+* Check set current layer command.
+* Wirecolor "by layer" button.
 
 TREEVIEW
 --------
 * Parent highlighting
 * TreeNode.PreviousVisibleNode implementation is slow.
-* Investigate performance of treenodelayoutitem drawing / getpos
 * Horizontal resize with flexiblespace does not work well.
 * FlexibleSpace.MinWidth
 

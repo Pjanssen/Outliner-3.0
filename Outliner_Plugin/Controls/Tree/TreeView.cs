@@ -18,7 +18,7 @@ public class TreeView : ScrollableControl
    {
       //Member initialization.
       this.root = new TreeNode(this, "root");
-      this.Colors = new TreeViewColors();
+      this.Colors = new TreeViewColorScheme();
       this.SelectedNodes = new HashSet<TreeNode>();
       this.TreeNodeLayout = TreeNodeLayout.DefaultLayout; //TODO check that this does not cause unnecessary redrawing.
 
@@ -87,6 +87,11 @@ public class TreeView : ScrollableControl
       }
    }
 
+   protected override void OnResize(EventArgs e)
+   {
+      this.Update(TreeViewUpdateFlags.TreeNodeBounds);
+   }
+
    #region Paint
 
    private TreeNodeLayout treeNodeLayout;
@@ -119,10 +124,10 @@ public class TreeView : ScrollableControl
 
    private SolidBrush brushBackground;
 
-   private TreeViewColors colors;
+   private TreeViewColorScheme colors;
    [Browsable(false)]
    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-   public TreeViewColors Colors 
+   public TreeViewColorScheme Colors 
    {
       get { return this.colors; }
       set
@@ -335,9 +340,14 @@ public class TreeView : ScrollableControl
             this.brushBackground = null;
          }
 
-         if (this.TestUpdateFlag(TreeViewUpdateFlags.Bounds))
+         if (this.TestUpdateFlag(TreeViewUpdateFlags.TreeNodeBounds))
          {
-            this.RemoveUpdateFlag(TreeViewUpdateFlags.Bounds);
+            this.root.InvalidateBounds(false, true);
+         }
+
+         if (this.TestUpdateFlag(TreeViewUpdateFlags.Scrollbars))
+         {
+            this.RemoveUpdateFlag(TreeViewUpdateFlags.Scrollbars);
             this.AutoScrollMinSize = this.getMaxBounds();
          }
 
@@ -613,7 +623,7 @@ public class TreeView : ScrollableControl
          if (this._sortQueue == null || this._sortQueue.Count == 0)
             return;
 
-         this.BeginUpdate(TreeViewUpdateFlags.Redraw | TreeViewUpdateFlags.Bounds);
+         this.BeginUpdate(TreeViewUpdateFlags.Redraw | TreeViewUpdateFlags.Scrollbars);
 
          foreach (TreeNodeCollection nodes in this._sortQueue)
          {
@@ -784,10 +794,11 @@ public class TreeView : ScrollableControl
 [Flags]
 public enum TreeViewUpdateFlags
 {
-   None    = 0x00,
-   Redraw  = 0x01,
-   Bounds  = 0x02,
-   Brushes = 0x04,
-   All     = 0x07 //When adding new flags, adjust this value.
+   None           = 0x00,
+   Redraw         = 0x01,
+   TreeNodeBounds = 0x02,
+   Scrollbars     = 0x04,
+   Brushes        = 0x08,
+   All            = 0x0F //When adding new flags, adjust this value.
 }
 }

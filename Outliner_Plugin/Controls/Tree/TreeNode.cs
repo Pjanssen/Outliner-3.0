@@ -203,18 +203,24 @@ public class TreeNode
          return localBounds;
       } 
    }
-   internal void InvalidateBounds(Boolean invalidateNextNodes)
+   internal void InvalidateBounds(Boolean includeNextNodes, Boolean includeChildren)
    {
       this.bounds = Rectangle.Empty;
       this.boundsValid = false;
 
-      if (invalidateNextNodes)
+      if (includeChildren)
+      {
+         foreach (TreeNode tn in this.Nodes)
+            tn.InvalidateBounds(includeNextNodes, includeChildren);
+      }
+
+      if (includeNextNodes)
       {
          //Loop over next visible nodes (avoiding recursion because of potential stack-overflow).
          TreeNode nextNode = this.NextVisibleNode;
          while (nextNode != null)
          {
-            nextNode.InvalidateBounds(false);
+            nextNode.InvalidateBounds(false, includeChildren);
             nextNode = nextNode.NextVisibleNode;
          }
       }
@@ -234,12 +240,12 @@ public class TreeNode
          TreeNode nextVisibleNode = this.NextVisibleNode;
 
          if (nextVisibleNode != null)
-            nextVisibleNode.InvalidateBounds(true);
+            nextVisibleNode.InvalidateBounds(true, false);
 
          this.isExpanded = value;
 
          if (this.TreeView != null)
-            this.TreeView.Update(TreeViewUpdateFlags.Bounds | TreeViewUpdateFlags.Redraw);
+            this.TreeView.Update(TreeViewUpdateFlags.Scrollbars | TreeViewUpdateFlags.Redraw);
       }
    }
 
@@ -249,7 +255,7 @@ public class TreeNode
    public void ExpandAll() 
    {
       if (this.TreeView != null)
-         this.TreeView.BeginUpdate(TreeViewUpdateFlags.Bounds | TreeViewUpdateFlags.Redraw);
+         this.TreeView.BeginUpdate(TreeViewUpdateFlags.Scrollbars | TreeViewUpdateFlags.Redraw);
       
       foreach (TreeNode tn in this.Nodes)
          tn.ExpandAll();

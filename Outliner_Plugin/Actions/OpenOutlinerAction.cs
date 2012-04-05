@@ -47,7 +47,7 @@ namespace Outliner.Actions
          IPath colorFile = path.Create(scriptDir);
          colorFile.Append(path.Create("outliner_colors.xml"));
          if (colorFile.Exists)
-            tc.treeView1.Colors = TreeViewColors.FromXml(colorFile.String);
+            tc.treeView1.Colors = TreeViewColorScheme.FromXml(colorFile.String);
          else
             tc.treeView1.Colors.ToXml(colorFile.String);
 

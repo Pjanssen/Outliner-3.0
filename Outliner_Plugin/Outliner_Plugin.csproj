@@ -153,7 +153,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TreeIcons_Max.resx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Tree\TreeViewColors.cs" />
+    <Compile Include="Controls\Tree\TreeViewColorScheme.cs" />
     <Compile Include="NodeSorters\AlphabeticalSorter.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="OutlinerDescriptor.cs" />

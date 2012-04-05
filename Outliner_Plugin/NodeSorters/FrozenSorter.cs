@@ -11,6 +11,9 @@ namespace Outliner.NodeSorters
    {
       public int Compare(TreeNode x, TreeNode y)
       {
+         if (x == y)
+            return 0;
+
          IMaxNodeWrapper nodeX = HelperMethods.GetMaxNode(x);
          if (nodeX == null || !nodeX.IsValid) return 0;
 

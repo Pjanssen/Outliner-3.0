@@ -23,7 +23,7 @@ public class TreeNodeCollection : ICollection<TreeNode>
    {
       TreeView tree = this.owner.TreeView;
       if (tree != null)
-         tree.Update(TreeViewUpdateFlags.Bounds | TreeViewUpdateFlags.Redraw);
+         tree.Update(TreeViewUpdateFlags.Scrollbars | TreeViewUpdateFlags.Redraw);
    }
 
    #region ICollection members
@@ -146,7 +146,7 @@ public class TreeNodeCollection : ICollection<TreeNode>
          return;
 
       if (this.owner.TreeView != null)
-         this.owner.TreeView.BeginUpdate(TreeViewUpdateFlags.Redraw | TreeViewUpdateFlags.Bounds);
+         this.owner.TreeView.BeginUpdate(TreeViewUpdateFlags.Redraw | TreeViewUpdateFlags.Scrollbars);
 
       this.nodes.Sort(comparer);
 

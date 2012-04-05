@@ -142,7 +142,7 @@ namespace Outliner.Scene
             if (!base.IsValid)
                return false;
 
-            try { return this.layer.TestAFlag(AnimatableFlags.IsDeleted); }
+            try { return !this.layer.TestAFlag(AnimatableFlags.IsDeleted); }
             catch { return false; }
          }
       }

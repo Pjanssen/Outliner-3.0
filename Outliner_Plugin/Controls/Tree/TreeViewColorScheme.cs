@@ -10,7 +10,7 @@ using System.IO;
 
 namespace Outliner.Controls.Tree
 {
-public class TreeViewColors
+public class TreeViewColorScheme
 {
    public SerializableColor ForegroundLight { get; set; }
    public SerializableColor ForegroundDark { get; set; }
@@ -27,7 +27,7 @@ public class TreeViewColors
    public SerializableColor ParentForeground { get; set; }
    public SerializableColor ParentBackground { get; set; }
 
-   public TreeViewColors()
+   public TreeViewColorScheme()
    {
       this.ForegroundLight      = new SerializableColor(Color.White);
       this.ForegroundDark       = new SerializableColor(Color.Black);
@@ -65,18 +65,18 @@ public class TreeViewColors
          this.ParentBackground = new SerializableColor(this.ParentBackground.GuiColor);
    }
 
-   public static TreeViewColors FromXml(String path)
+   public static TreeViewColorScheme FromXml(String path)
    {
       using (FileStream stream = new FileStream(path, FileMode.Open))
       {
-         return TreeViewColors.FromXml(stream);
+         return TreeViewColorScheme.FromXml(stream);
       }
    }
 
-   public static TreeViewColors FromXml(Stream stream)
+   public static TreeViewColorScheme FromXml(Stream stream)
    {
-      XmlSerializer xs = new XmlSerializer(typeof(TreeViewColors));
-      return xs.Deserialize(stream) as TreeViewColors;
+      XmlSerializer xs = new XmlSerializer(typeof(TreeViewColorScheme));
+      return xs.Deserialize(stream) as TreeViewColorScheme;
    }
 
    public void ToXml(String path)
@@ -89,15 +89,15 @@ public class TreeViewColors
 
    public void ToXml(Stream stream)
    {
-      XmlSerializer xs = new XmlSerializer(typeof(TreeViewColors));
+      XmlSerializer xs = new XmlSerializer(typeof(TreeViewColorScheme));
       xs.Serialize(stream, this);
    }
 
-   public static TreeViewColors MaxColors
+   public static TreeViewColorScheme MaxColors
    {
       get
       {
-         TreeViewColors c = new TreeViewColors();
+         TreeViewColorScheme c = new TreeViewColorScheme();
          
          c.ForegroundLight      = new SerializableColor(200, 200, 200);
          c.ForegroundDark       = new SerializableColor(42, 42, 42);
@@ -116,11 +116,11 @@ public class TreeViewColors
       }
    }
 
-   public static TreeViewColors MayaColors
+   public static TreeViewColorScheme MayaColors
    {
       get
       {
-         TreeViewColors c = new TreeViewColors();
+         TreeViewColorScheme c = new TreeViewColorScheme();
          
          c.ForegroundLight      = new SerializableColor(220, 220, 220);
          c.ForegroundDark       = new SerializableColor(32, 32, 32);

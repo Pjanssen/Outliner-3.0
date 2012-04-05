@@ -8,10 +8,10 @@ using System.Drawing;
 
 namespace Outliner.Controls
 {
-   /// <summary>
-   /// A Color structure which can be serialized to Xml.
-   /// Also includes 
-   /// </summary>
+/// <summary>
+/// A Color structure which can be serialized to Xml.
+/// Also includes 
+/// </summary>
 public struct SerializableColor : IXmlSerializable
 {
    private const String ValueAttributeName = "value";
@@ -101,9 +101,10 @@ public struct SerializableColor : IXmlSerializable
       stringBuilder.Append(base.GetType().Name);
       stringBuilder.Append(" [");
       if (this.isGuiColor)
-         stringBuilder.Append(this.guiColor.ToString());
+         stringBuilder.Append("GuiColors." + this.guiColor.ToString());
       else
-         stringBuilder.Append(this.color.ToString());
+         stringBuilder.Append(this.color.ToString().Replace("Color [", "").Replace("]", ""));
+      stringBuilder.Append("]");
 
       return stringBuilder.ToString();
    }
