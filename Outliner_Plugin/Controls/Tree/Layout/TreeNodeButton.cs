@@ -21,10 +21,11 @@ public abstract class TreeNodeButton : TreeNodeLayoutItem, IDisposable
       if (this.Layout != null && this.Layout.TreeView != null)
       {
          String tooltipText = this.GetTooltipText(tn);
-         if (tooltipText != null)
-         {
+         if (this.Clickable(tn))
             this.Layout.TreeView.Cursor = Cursors.Hand;
 
+         if (tooltipText != null)
+         {
             this.tooltip = new ToolTip();
             this.tooltip.InitialDelay = TOOLTIP_INITIAL_DELAY;
             this.tooltip.AutoPopDelay = TOOLTIP_AUTOPOP_DELAY;
@@ -37,6 +38,11 @@ public abstract class TreeNodeButton : TreeNodeLayoutItem, IDisposable
    protected virtual String GetTooltipText(TreeNode tn)
    {
       return null;
+   }
+
+   protected virtual Boolean Clickable(TreeNode tn)
+   {
+      return true;
    }
 
    public override void HandleMouseLeave(MouseEventArgs e, TreeNode tn)

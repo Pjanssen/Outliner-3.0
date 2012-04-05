@@ -83,6 +83,11 @@ public class WireColorButton : TreeNodeButton
       }
    }
 
+   protected override bool Clickable(TreeNode tn)
+   {
+      return !this.inheritFromLayer(HelperMethods.GetMaxNode(tn));
+   }
+
    protected override string GetTooltipText(TreeNode tn)
    {
       if (tn == null)

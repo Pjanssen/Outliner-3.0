@@ -637,10 +637,10 @@
 </value>
   </data>
   <data name="Tooltip_Add_Layer" xml:space="preserve">
-    <value>Add nodes to layer</value>
+    <value>Add selected nodes to layer</value>
   </data>
   <data name="Tooltip_Add_SelSet" xml:space="preserve">
-    <value>Add nodes to selection set</value>
+    <value>Add selected nodes to selection-set</value>
   </data>
   <data name="Tooltip_BoxMode" xml:space="preserve">
     <value>Toggle boxmode</value>

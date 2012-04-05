@@ -210,7 +210,7 @@ namespace Outliner {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add nodes to layer.
+        ///   Looks up a localized string similar to Add selected nodes to layer.
         /// </summary>
         internal static string Tooltip_Add_Layer {
             get {
@@ -219,7 +219,7 @@ namespace Outliner {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add nodes to selection set.
+        ///   Looks up a localized string similar to Add selected nodes to selection-set.
         /// </summary>
         internal static string Tooltip_Add_SelSet {
             get {

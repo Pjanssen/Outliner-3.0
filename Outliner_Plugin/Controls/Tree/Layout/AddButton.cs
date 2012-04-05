@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using Outliner.Scene;
 using Outliner.Commands;
 using Autodesk.Max;
+using System.Xml.Serialization;
+using System.ComponentModel;
 
 namespace Outliner.Controls.Tree.Layout
 {
@@ -15,10 +17,12 @@ public class AddButton : ImageButton
                              OutlinerResources.button_add_disabled)
    { }
 
+   [XmlAttribute("visible_types")]
+   [DefaultValue(MaxNodeTypes.SelectionSet | MaxNodeTypes.Layer)]
    public override MaxNodeTypes VisibleTypes
    {
       get { return base.VisibleTypes & (MaxNodeTypes.SelectionSet | MaxNodeTypes.Layer); }
-      set { }
+      set { base.VisibleTypes = value; }
    }
 
    public override bool IsEnabled(TreeNode tn)
