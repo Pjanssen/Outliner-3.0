@@ -5,9 +5,7 @@
 * Unhide/unfreeze layer when unhiding/unfreezing node
 * Superclass sorter does not really work with exceptions (target, bones, etc). -> use imagekey instead?
 * SetViewCameraCommand: properly store previous state.
-* Check set current layer command. => Old current layer imagekey should be reset somewhere..
 * Wirecolor "by layer" button.
-* Deselect doesn't work? (in treeview)
 
 TREEVIEW
 --------

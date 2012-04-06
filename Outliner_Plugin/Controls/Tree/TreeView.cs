@@ -414,10 +414,13 @@ public class TreeView : ScrollableControl
       this.Select(); //Select the treeview to be able to end a potential TreeNodeText::TextEdit.
 
       TreeNode tn = this.GetNodeAt(e.Location);
-      if (tn == null && !HelperMethods.ControlPressed && !HelperMethods.ShiftPressed && !HelperMethods.AltPressed)
+      if (tn != null)
+         this.TreeNodeLayout.HandleClick(e, tn);
+      else if (!HelperMethods.ControlPressed && !HelperMethods.ShiftPressed && !HelperMethods.AltPressed)
+      {
          this.SelectAllNodes(false);
-
-      this.TreeNodeLayout.HandleClick(e, tn);
+         this.OnSelectionChanged();
+      }
    }
 
    protected override void OnMouseDoubleClick(MouseEventArgs e)
