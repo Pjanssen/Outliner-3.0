@@ -185,6 +185,15 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set Current Layer.
+        /// </summary>
+        internal static string Command_SetCurrentLayer {
+            get {
+                return ResourceManager.GetString("Command_SetCurrentLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change Renderable.
         /// </summary>
         internal static string Command_SetRenderable {

@@ -685,4 +685,7 @@
   <data name="Warning_CannotEditNameTitle" xml:space="preserve">
     <value>Cannot edit name</value>
   </data>
+  <data name="Command_SetCurrentLayer" xml:space="preserve">
+    <value>Set Current Layer</value>
+  </data>
 </root>

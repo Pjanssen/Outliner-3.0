@@ -117,7 +117,7 @@ public class TreeNodeIcon : TreeNodeButton
          IILayerWrapper layer = (IILayerWrapper)node;
          if (!layer.IsCurrent)
          {
-            SetActiveLayerCommand cmd = new SetActiveLayerCommand(layer);
+            SetCurrentLayerCommand cmd = new SetCurrentLayerCommand(layer);
             cmd.Execute(false);
 
             tn.TreeView.Invalidate();

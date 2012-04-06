@@ -63,7 +63,7 @@
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\RenameCommand.cs" />
     <Compile Include="Commands\SelectCommand.cs" />
-    <Compile Include="Commands\SetActiveLayerCommand.cs" />
+    <Compile Include="Commands\SetCurrentLayerCommand.cs" />
     <Compile Include="Commands\SetBoxModeCommand.cs" />
     <Compile Include="Commands\FreezeCommand.cs" />
     <Compile Include="Commands\HideCommand.cs" />
