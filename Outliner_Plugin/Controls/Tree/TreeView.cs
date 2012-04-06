@@ -372,28 +372,34 @@ public class TreeView : ScrollableControl
 
    protected override void OnMouseDown(MouseEventArgs e)
    {
-      TreeNode tn = this.GetNodeAt(e.Location);
-      if (tn == null)
-         return;
-
-      //this.DoDragDrop(this.SelectedNodes, DragDropEffects.All);
+      if (e.Button == MouseButtons.Left)
+         this.dragStartPos = e.Location;
    }
 
    protected override void OnDragEnter(DragEventArgs drgevent)
    {
+      this.isDragging = true;
       drgevent.Effect = DragDropEffects.Move;
    }
 
-
+   private Point dragStartPos;
+   private Boolean isDragging;
    protected override void OnMouseMove(MouseEventArgs e)
    {
       if (e == null || this.TreeNodeLayout == null)
          return;
 
+      if (e.Button != MouseButtons.Left)
+      {
+         this.isDragging = false;
+         this.dragStartPos = Point.Empty;
+      }
+
       TreeNode tn = this.GetNodeAt(e.Location);
       if (tn != null)
       {
-         if (e.Button == System.Windows.Forms.MouseButtons.Left)
+         if (e.Button == MouseButtons.Left && !this.isDragging &&
+             HelperMethods.Distance(e.Location, this.dragStartPos) > 5)
             this.DoDragDrop(this.SelectedNodes, DragDropEffects.Move);
          else
             this.TreeNodeLayout.HandleMouseMove(e, tn);

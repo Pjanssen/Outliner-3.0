@@ -53,12 +53,15 @@ public class TreeNodeText : TreeNodeLayoutItem
                         fgBrush = new SolidBrush(fgColor))
       {
          Rectangle gBounds = this.GetBounds(tn);
-         
+
          if (!this.Layout.FullRowSelect)
             graphics.FillRectangle(bgBrush, gBounds);
-         
-         graphics.DrawString(tn.Text, tree.Font, fgBrush, 
-                      gBounds.X, gBounds.Y + ((gBounds.Height - this.GetTextSize(tn).Height) / 2), StringFormat.GenericDefault);
+
+         using (Font f = new Font(tree.Font, tn.FontStyle))
+         {
+            graphics.DrawString(tn.Text, f, fgBrush,
+                         gBounds.X, gBounds.Y + ((gBounds.Height - this.GetTextSize(tn).Height) / 2), StringFormat.GenericDefault);
+         }
       }
    }
 

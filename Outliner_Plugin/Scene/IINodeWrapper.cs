@@ -150,6 +150,16 @@ public class IINodeWrapper : IMaxNodeWrapper
       }
    }
 
+   public bool IsInstance
+   {
+      get
+      {
+         IINodeTab instances = GlobalInterface.Instance.INodeTabNS.Create();
+         uint numInstances = HelperMethods.InstanceMgr.GetInstances(this.node, instances);
+         return numInstances > 1;
+      }
+   }
+
    public const String IMGKEY_BONE      = "bone";
    public const String IMGKEY_CAMERA    = "camera";
    public const String IMGKEY_GEOMETRY  = "geometry";

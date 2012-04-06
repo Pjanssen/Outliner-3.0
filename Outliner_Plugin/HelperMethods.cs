@@ -35,9 +35,10 @@ public static class HelperMethods
       if (node == null)
          return null;
 
-      TreeNode tn = new TreeNode(node.DisplayName);
-      tn.Tag = node;
-      tn.ImageKey = node.ImageKey;
+      //TreeNode tn = new TreeNode(node.DisplayName);
+      //tn.Tag = node;
+      //tn.ImageKey = node.ImageKey;
+      MaxTreeNode tn = new MaxTreeNode(node);
       return tn;
    }
 
@@ -243,6 +244,14 @@ public static class HelperMethods
       }
    }
 
+   public static IIInstanceMgr InstanceMgr
+   {
+      get
+      {
+         return GlobalInterface.Instance.IInstanceMgr.InstanceMgr;
+      }
+   }
+
    /// <summary>
    /// Iterates over all elements in the collection with the supplied function.
    /// </summary>
@@ -280,6 +289,14 @@ public static class HelperMethods
    public static Boolean ShiftPressed
    {
       get { return WinForms::Control.ModifierKeys.HasFlag(WinForms::Keys.Shift); }
+   }
+
+
+   public static Double Distance(Point pt1, Point pt2)
+   {
+      double a = Math.Pow(pt1.X - pt2.X, 2);
+      double b = Math.Pow(pt1.Y - pt2.Y, 2);
+      return Math.Sqrt(a + b);
    }
 }
 

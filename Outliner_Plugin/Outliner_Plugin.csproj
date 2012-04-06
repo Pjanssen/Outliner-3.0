@@ -90,6 +90,7 @@
     <Compile Include="Controls\Tree\Layout\ExpandButton.cs" />
     <Compile Include="Controls\Tree\Layout\MayaStyleIndent.cs" />
     <Compile Include="Controls\Tree\Layout\TreeNodeIndent.cs" />
+    <Compile Include="Controls\Tree\MaxTreeNode.cs" />
     <Compile Include="Controls\Tree\SelectionChangedEventArgs.cs" />
     <Compile Include="Controls\TreeIcons_Maya.Designer.cs">
       <AutoGen>True</AutoGen>

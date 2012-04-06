@@ -7,6 +7,8 @@
 * SetViewCameraCommand: properly store previous state.
 * Check set current layer command. => Old current layer imagekey should be reset somewhere..
 * Wirecolor "by layer" button.
+* Deselect doesn't work? (in treeview)
+* SetActiveLayer rename + description.
 
 TREEVIEW
 --------

@@ -19,12 +19,13 @@ public class TreeNode
    private Rectangle bounds;
    private Color backColor;
    private Color foreColor;
+   private FontStyle fontStyle;
    private String imageKey;
 
    public TreeNodeCollection Nodes { get; private set; }
-   public DragDropHandler DragDropHandler { get; set; }
-   public FilterResults FilterResult { get; set; }
-   public Object Tag { get; set; }
+   public virtual DragDropHandler DragDropHandler { get; set; }
+   public virtual FilterResults FilterResult { get; set; }
+   public virtual Object Tag { get; set; }
 
    public TreeNode() : this("") { }
    internal TreeNode(TreeView tree, String text) : this(text)
@@ -42,7 +43,7 @@ public class TreeNode
       this.foreColor = Color.Empty;
    }
 
-   public String Text 
+   public virtual String Text 
    {
       get { return this.text; }
       set
@@ -53,7 +54,7 @@ public class TreeNode
       }
    }
 
-   public Color BackColor
+   public virtual Color BackColor
    {
       get { return this.backColor; }
       set
@@ -63,7 +64,7 @@ public class TreeNode
       }
    }
 
-   public Color ForeColor
+   public virtual Color ForeColor
    {
       get { return this.foreColor; }
       set
@@ -73,7 +74,17 @@ public class TreeNode
       }
    }
 
-   public String ImageKey 
+   public virtual FontStyle FontStyle
+   {
+      get { return this.fontStyle; }
+      set
+      {
+         this.fontStyle = value;
+         this.Invalidate();
+      }
+   }
+
+   public virtual String ImageKey 
    {
       get { return this.imageKey; }
       set

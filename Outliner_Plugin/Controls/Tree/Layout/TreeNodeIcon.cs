@@ -120,7 +120,8 @@ public class TreeNodeIcon : TreeNodeButton
             SetActiveLayerCommand cmd = new SetActiveLayerCommand(layer);
             cmd.Execute(false);
 
-            tn.ImageKey = layer.ImageKey;
+            tn.TreeView.Invalidate();
+            //tn.ImageKey = layer.ImageKey;
          }
       }
       else if (node.SuperClassID == Autodesk.Max.SClass_ID.Light)
@@ -141,6 +142,25 @@ public class TreeNodeIcon : TreeNodeButton
          SetViewCameraCommand cmd = new SetViewCameraCommand(node, vpt);
          cmd.Execute(true);
       }
+   }
+
+   protected override bool Clickable(TreeNode tn)
+   {
+      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      if (node == null)
+         return false;
+
+      if (node is IILayerWrapper)
+      {
+         if (!((IILayerWrapper)node).IsCurrent)
+            return true;
+      }
+      else if (node.SuperClassID == Autodesk.Max.SClass_ID.Light)
+         return true;
+      else if (node.SuperClassID == Autodesk.Max.SClass_ID.Camera)
+         return true;
+      
+      return false;
    }
 
    protected override string GetTooltipText(TreeNode tn)
