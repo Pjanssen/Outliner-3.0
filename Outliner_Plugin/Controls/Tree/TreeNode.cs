@@ -32,15 +32,21 @@ public class TreeNode
    {
       this.TreeView = tree;
    }
-
-   public TreeNode(String text)
+   public TreeNode(String text) 
+      : this (text, Color.Empty, Color.Empty, FontStyle.Regular, String.Empty, FilterResults.Show)
+   { }
+   public TreeNode(String text, Color backColor, Color foreColor,
+                   FontStyle fontStyle, String imageKey, 
+                   FilterResults filterResult)
    {
       this.text = text;
+      this.backColor = backColor;
+      this.foreColor = foreColor;
+      this.fontStyle = fontStyle;
+      this.imageKey = imageKey;
+
       this.boundsValid = false;
       this.Nodes = new TreeNodeCollection(this);
-      this.FilterResult = FilterResults.Show;
-      this.backColor = Color.Empty;
-      this.foreColor = Color.Empty;
    }
 
    public virtual String Text 

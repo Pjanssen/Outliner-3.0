@@ -13,7 +13,6 @@ TREEVIEW
 * TreeNode.PreviousVisibleNode implementation is slow.
 * Horizontal resize with flexiblespace does not work well.
 * FlexibleSpace.MinWidth
-* Add constructor to TreeNode that sets all members, to avoid unnecessary Invalidate calls.
 
 NODE BUTTONS
 ------------
