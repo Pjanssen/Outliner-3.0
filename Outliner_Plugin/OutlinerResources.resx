@@ -688,4 +688,10 @@
   <data name="Command_SetCurrentLayer" xml:space="preserve">
     <value>Set Current Layer</value>
   </data>
+  <data name="Command_Link" xml:space="preserve">
+    <value>Link</value>
+  </data>
+  <data name="Command_Unlink" xml:space="preserve">
+    <value>Unlink</value>
+  </data>
 </root>

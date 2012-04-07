@@ -158,6 +158,15 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Link.
+        /// </summary>
+        internal static string Command_Link {
+            get {
+                return ResourceManager.GetString("Command_Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rename.
         /// </summary>
         internal static string Command_Rename {
@@ -208,6 +217,15 @@ namespace Outliner {
         internal static string Command_SetWireColor {
             get {
                 return ResourceManager.GetString("Command_SetWireColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unlink.
+        /// </summary>
+        internal static string Command_Unlink {
+            get {
+                return ResourceManager.GetString("Command_Unlink", resourceCulture);
             }
         }
         

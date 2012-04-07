@@ -40,6 +40,7 @@ public class HierarchyMode : TreeMode
       {
          TreeNode tn = HelperMethods.CreateTreeNode(wrapper);
          tn.FilterResult = filterResult;
+         tn.DragDropHandler = new Outliner.Controls.Tree.DragDropHandlers.IINodeDragDropHandler(wrapper);
 
          this.treeNodes.Add(node, tn);
 
@@ -73,7 +74,35 @@ public class HierarchyMode : TreeMode
          if (parentCol != null)
             this.addNode(node, parentCol, true);
       }
-      this.tree.TimedSort(false);
+      this.tree.StartTimedSort(false);
+   }
+
+   public override void LinkChanged(ITab<UIntPtr> nodes)
+   {
+      foreach (IINode node in nodes.NodeKeysToINodeList())
+      {
+         TreeNode tn = this.GetTreeNode(node);
+         if (tn != null)
+         {
+            TreeNodeCollection newParentCol = null;
+            if (node.ParentNode == null || node.ParentNode.IsRootNode)
+               newParentCol = this.tree.Nodes;
+            else
+            {
+               TreeNode newParentTn = this.GetTreeNode(node.ParentNode);
+               if (newParentTn != null)
+                  newParentCol = newParentTn.Nodes;
+               //TODO add logic for filtered / not yet added node.
+            }
+
+            if (newParentCol != null)
+            {
+               newParentCol.Add(tn);
+               this.tree.AddToSortQueue(newParentCol);
+               this.tree.StartTimedSort(true);
+            }
+         }
+      }
    }
 }
 }

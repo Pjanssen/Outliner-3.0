@@ -137,7 +137,7 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
             this.tree.AddToSortQueue(tn);
          }
       }
-      this.tree.TimedSort(true);
+      this.tree.StartTimedSort(true);
    }
 
    public override void DisplayPropertiesChanged(ITab<UIntPtr> nodes)

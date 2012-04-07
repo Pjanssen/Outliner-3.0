@@ -47,7 +47,7 @@ public class FlatObjectListMode : TreeMode
    {
       foreach (IINode node in nodes.NodeKeysToINodeList())
          this.addNode(IMaxNodeWrapper.Create(node), this.tree.Nodes);
-      this.tree.TimedSort(false);
+      this.tree.StartTimedSort(false);
    }
 }
 }

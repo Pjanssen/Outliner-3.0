@@ -61,6 +61,7 @@
     <Compile Include="AssemblyFunctions.cs" />
     <Compile Include="Commands\AddToLayerCommand.cs" />
     <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\LinkIINodeCommand.cs" />
     <Compile Include="Commands\RenameCommand.cs" />
     <Compile Include="Commands\SelectCommand.cs" />
     <Compile Include="Commands\SetCurrentLayerCommand.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Controls\ColorHelpers.cs" />
     <Compile Include="Controls\SerializableColor.cs" />
     <Compile Include="Controls\Tree\DragDropHandlers\DragDropHandler.cs" />
+    <Compile Include="Controls\Tree\DragDropHandlers\IINodeDragDropHandler.cs" />
     <Compile Include="Controls\Tree\Layout\AddButton.cs" />
     <Compile Include="Controls\Tree\Layout\BoxModeButton.cs" />
     <Compile Include="Controls\Tree\Layout\FlexibleSpace.cs" />

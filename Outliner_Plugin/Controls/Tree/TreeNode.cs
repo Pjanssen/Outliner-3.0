@@ -127,11 +127,14 @@ public class TreeNode
       }
       set
       {
-         if (this.parent != null)
-            this.parent.Nodes.Remove(this);
+         if (value != this.parent)
+         {
+            if (this.parent != null)
+               this.parent.Nodes.Remove(this);
 
-         if (value != null)
-            value.Nodes.Add(this);
+            if (value != null)
+               value.Nodes.Add(this);
+         }
       }
    }
 
@@ -403,6 +406,31 @@ public class TreeNode
 
       }
    }
+
+   /// <summary>
+   /// Tests if this TreeNode has the supplied flag set.
+   /// </summary>
+   public Boolean HasStateFlag(TreeNodeStates stateFlag) 
+   {
+      return this.State.HasFlag(stateFlag);
+   }
+
+   /// <summary>
+   /// Sets the supplied State flag.
+   /// </summary>
+   public void SetStateFlag(TreeNodeStates stateFlag) 
+   {
+      this.State |= stateFlag;
+   }
+
+   /// <summary>
+   /// Removes the supplied State flag
+   /// </summary>
+   public void RemoveStateFlag(TreeNodeStates stateFlag) 
+   {
+      this.State &= ~stateFlag;
+   }
+
 
    public override string ToString()
    {

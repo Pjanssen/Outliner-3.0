@@ -49,10 +49,13 @@ namespace Outliner.Actions
          if (colorFile.Exists)
             tc.treeView1.Colors = TreeViewColorScheme.FromXml(colorFile.String);
          else
+         {
+            tc.treeView1.Colors = TreeViewColorScheme.MayaColors;
             tc.treeView1.Colors.ToXml(colorFile.String);
+         }
 
          tc.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
-         TreeMode tm = new LayerMode(tc.treeView1, Autodesk.Max.GlobalInterface.Instance.COREInterface);
+         TreeMode tm = new HierarchyMode(tc.treeView1, Autodesk.Max.GlobalInterface.Instance.COREInterface);
          //SelectionSetMode(tc.treeView1, Autodesk.Max.GlobalInterface.Instance.COREInterface);
          //LayerMode(tc.treeView1, Autodesk.Max.GlobalInterface.Instance.COREInterface);
          //HierarchyMode(tc.treeView1, Autodesk.Max.GlobalInterface.Instance.COREInterface);

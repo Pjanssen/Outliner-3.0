@@ -46,7 +46,7 @@ namespace Outliner.Controls.Tree.Layout
          if (tree.NodeSorter is FrozenSorter)
          {
             tree.AddToSortQueue(tn);
-            tree.TimedSort(true);
+            tree.StartTimedSort(true);
          }
       }
 

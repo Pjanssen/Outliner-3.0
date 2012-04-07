@@ -11,11 +11,17 @@ namespace Outliner.Scene
    {
       public abstract Object WrappedNode { get; }
 
+      public virtual IMaxNodeWrapper Parent { get { return null; }  }
       public abstract IEnumerable<IMaxNodeWrapper> ChildNodes { get; }
       public virtual void AddChildNode(IMaxNodeWrapper node) { }
       public virtual void AddChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
       {
          nodes.ForEach(this.AddChildNode);
+      }
+      public virtual void RemoveChildNode(IMaxNodeWrapper node) { }
+      public virtual void RemoveChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
+      {
+         nodes.ForEach(this.RemoveChildNode);
       }
 
       public virtual Boolean CanAddChildNode(IMaxNodeWrapper node) 
@@ -75,6 +81,19 @@ namespace Outliner.Scene
          get { return Outliner.Controls.IconHelperMethods.IMGKEY_UNKNOWN; }
       }
 
+      public override bool Equals(object obj)
+      {
+         IMaxNodeWrapper otherObj = obj as IMaxNodeWrapper;
+         if (otherObj != null)
+            return this.WrappedNode == otherObj.WrappedNode;
+         else
+            return false;
+      }
+
+      public override int GetHashCode()
+      {
+         return this.WrappedNode.GetHashCode();
+      }
 
       public static IMaxNodeWrapper Create(Object node)
       {

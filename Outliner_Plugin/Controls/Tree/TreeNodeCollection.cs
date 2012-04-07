@@ -33,16 +33,27 @@ public class TreeNodeCollection : ICollection<TreeNode>
       if (item == null)
          throw new ArgumentNullException("item");
 
+      //Stop if item is already in the collection.
+      if (this.Contains(item))
+         return;
+
+      //Remove item from old parent collection.
+      item.Remove();
+
+      //Set next/previous node links.
       if (this.nodes.Count > 0)
       {
          TreeNode lastNode = this.nodes[this.nodes.Count - 1];
          lastNode.NextNode = item;
          item.PreviousNode = lastNode;
       }
+
+      //Add item to collection.
       this.nodes.Add(item);
       item.parent = this.owner;
       item.TreeView = this.owner.TreeView;
 
+      //Invalidate tree bounds.
       this.boundsChanged(item);
    }
 
@@ -84,10 +95,22 @@ public class TreeNodeCollection : ICollection<TreeNode>
       if (item == null)
          return false;
 
+      if (!this.Contains(item))
+         return false;
+
+      Boolean isVisible = item.IsVisible;
+
       item.TreeView = null;
       item.parent = null;
+      if (item.PreviousNode != null)
+         item.PreviousNode.NextNode = item.NextNode;
+      if (item.NextNode != null)
+         item.NextNode.PreviousNode = item.PreviousNode;
       item.PreviousNode = null;
       item.NextNode = null;
+
+      item.InvalidateBounds(isVisible, true);
+      
       return this.nodes.Remove(item);
    }
 
@@ -153,15 +176,19 @@ public class TreeNodeCollection : ICollection<TreeNode>
       TreeNode prevNode = null;
       foreach (TreeNode tn in this.nodes)
       {
-         //Sort childnodes.
-         if (sortChildren && tn.Nodes.Count > 0)
-            tn.Nodes.Sort(comparer, sortChildren);
-
          //Maintain previous-/nextnode links
          if (prevNode != null)
             prevNode.NextNode = tn;
          tn.PreviousNode = prevNode;
          prevNode = tn;
+         
+         //Invalidate treenode bounds, including children unless children 
+         //are also going to be sorted.
+         tn.InvalidateBounds(false, !sortChildren);
+
+         //Sort childnodes.
+         if (sortChildren && tn.Nodes.Count > 0)
+            tn.Nodes.Sort(comparer, sortChildren);
       }
       if (prevNode != null)
          prevNode.NextNode = null;

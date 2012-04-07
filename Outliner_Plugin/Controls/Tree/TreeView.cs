@@ -7,6 +7,7 @@ using System.Drawing;
 using Outliner.Controls.Tree.Layout;
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
+using Outliner.Controls.Tree.DragDropHandlers;
 
 namespace Outliner.Controls.Tree
 {
@@ -376,14 +377,6 @@ public class TreeView : ScrollableControl
          this.dragStartPos = e.Location;
    }
 
-   protected override void OnDragEnter(DragEventArgs drgevent)
-   {
-      this.isDragging = true;
-      drgevent.Effect = DragDropEffects.Move;
-   }
-
-   private Point dragStartPos;
-   private Boolean isDragging;
    protected override void OnMouseMove(MouseEventArgs e)
    {
       if (e == null || this.TreeNodeLayout == null)
@@ -398,9 +391,14 @@ public class TreeView : ScrollableControl
       TreeNode tn = this.GetNodeAt(e.Location);
       if (tn != null)
       {
-         if (e.Button == MouseButtons.Left && !this.isDragging &&
-             HelperMethods.Distance(e.Location, this.dragStartPos) > 5)
-            this.DoDragDrop(this.SelectedNodes, DragDropEffects.Move);
+         if (!this.isDragging && e.Button == MouseButtons.Left
+             && HelperMethods.Distance(e.Location, this.dragStartPos) > 5
+             && this.SelectedNodes.Count > 0)
+         {
+            DataObject data = new DataObject(typeof(IEnumerable<TreeNode>).FullName, 
+                                             this.SelectedNodes);
+            this.DoDragDrop(data, TreeView.AllowedDragDropEffects);
+         }
          else
             this.TreeNodeLayout.HandleMouseMove(e, tn);
       }
@@ -432,6 +430,88 @@ public class TreeView : ScrollableControl
 
       if (tn != null)
          this.TreeNodeLayout.HandleMouseDoubleClick(e, tn);
+   }
+
+   #endregion
+
+   #region DragDrop
+
+   private const DragDropEffects AllowedDragDropEffects = DragDropEffects.Copy
+                                                        | DragDropEffects.Link
+                                                        | DragDropEffects.Move;
+
+   private Point dragStartPos;
+   private Boolean isDragging;
+   private TreeNode prevDragTarget;
+   private ToolTip dragTooltip;
+
+   public DragDropHandler DragDropHandler { get; set; }
+
+   protected override void OnDragEnter(DragEventArgs drgevent)
+   {
+      this.isDragging = true;
+      drgevent.Effect = DragDropEffects.None;
+      
+      base.OnDragEnter(drgevent);
+   }
+
+   protected override void OnDragLeave(EventArgs e)
+   {
+      if (this.prevDragTarget != null)
+         prevDragTarget.RemoveStateFlag(TreeNodeStates.DropTarget);
+
+      base.OnDragLeave(e);
+   }
+
+   protected override void OnDragOver(DragEventArgs drgevent)
+   {
+      Point location = this.PointToClient(new Point(drgevent.X, drgevent.Y));
+      TreeNode tn = this.GetNodeAt(location);
+      DragDropHandler dragDropHandler = (tn != null) ? tn.DragDropHandler 
+                                                     : this.DragDropHandler;
+
+      if (prevDragTarget != null && prevDragTarget != tn)
+      {
+         prevDragTarget.RemoveStateFlag(TreeNodeStates.DropTarget);
+         prevDragTarget = null;
+      }
+
+      if (dragDropHandler != null && dragDropHandler.IsValidDropTarget(drgevent.Data))
+      {
+         drgevent.Effect = dragDropHandler.GetDragDropEffect(drgevent.Data);
+
+         if (tn != null)
+         {
+            tn.SetStateFlag(TreeNodeStates.DropTarget);
+            prevDragTarget = tn;
+         }
+      }
+      else
+         drgevent.Effect = DragDropEffects.None;
+
+      base.OnDragOver(drgevent);
+   }
+
+   protected override void OnDragDrop(DragEventArgs drgevent)
+   {
+      Point location = this.PointToClient(new Point(drgevent.X, drgevent.Y));
+      TreeNode tn = this.GetNodeAt(location);
+
+      DragDropHandler dragDropHandler = (tn != null) ? tn.DragDropHandler
+                                                     : this.DragDropHandler;
+
+      if (prevDragTarget != null)
+      {
+         prevDragTarget.RemoveStateFlag(TreeNodeStates.DropTarget);
+         prevDragTarget = null;
+      }
+
+      if (dragDropHandler != null && dragDropHandler.IsValidDropTarget(drgevent.Data))
+      {
+         dragDropHandler.HandleDrop(drgevent.Data);
+      }
+      
+      base.OnDragDrop(drgevent);
    }
 
    #endregion
@@ -632,7 +712,7 @@ public class TreeView : ScrollableControl
    /// Sorts the TreeView after a certain amount of time has expired without this method being called.
    /// </summary>
    /// <param name="queueOnly">Sort is applied only to nodes in the sortqueue if true, or to all nodes otherwise.</param>
-   public void TimedSort(Boolean queueOnly)
+   public void StartTimedSort(Boolean queueOnly)
    {
       if (_sortTimer == null)
       {

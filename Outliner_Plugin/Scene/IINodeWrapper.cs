@@ -47,6 +47,14 @@ public class IINodeWrapper : IMaxNodeWrapper
       }
    }
 
+   public override IMaxNodeWrapper Parent
+   {
+      get
+      {
+         return new IINodeWrapper(this.node.ParentNode);
+      }
+   }
+
    public override IEnumerable<IMaxNodeWrapper> ChildNodes
    {
       get 
@@ -57,6 +65,27 @@ public class IINodeWrapper : IMaxNodeWrapper
             nodes.Add(IMaxNodeWrapper.Create(this.node.GetChildNode(i)));
          return nodes;
       }
+   }
+
+   public override bool CanAddChildNode(IMaxNodeWrapper node)
+   {
+      return node is IINodeWrapper && node != this;
+   }
+   public override bool CanAddChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
+   {
+      return nodes.All(this.CanAddChildNode);
+   }
+
+   public override void AddChildNode(IMaxNodeWrapper node)
+   {
+      if (node.WrappedNode is IINode)
+         this.node.AttachChild((IINode)node.WrappedNode, true);
+   }
+
+   public override void RemoveChildNode(IMaxNodeWrapper node)
+   {
+      if (node is IINodeWrapper)
+         ((IINodeWrapper)node).node.Detach(0, true);
    }
 
    public override String Name

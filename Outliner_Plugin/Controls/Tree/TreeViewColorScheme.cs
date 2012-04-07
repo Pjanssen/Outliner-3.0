@@ -129,7 +129,7 @@ public class TreeViewColorScheme
          c.SelectionForeground  = new SerializableColor(255, 255, 255);
          c.SelectionBackground  = new SerializableColor(103, 141, 178);
          c.DropTargetForeground = new SerializableColor(0, 0, 0);
-         c.DropTargetBackground = new SerializableColor(103, 141, 178);
+         c.DropTargetBackground = new SerializableColor(255, 177, 177);
          c.ParentForeground     = new SerializableColor(220, 220, 220);
          c.ParentBackground     = new SerializableColor(65, 77, 90);
 
