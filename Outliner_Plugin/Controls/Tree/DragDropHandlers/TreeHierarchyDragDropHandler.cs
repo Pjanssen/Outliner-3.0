@@ -8,13 +8,13 @@ using Outliner.Commands;
 
 namespace Outliner.Controls.Tree.DragDropHandlers
 {
-public class IINodeDragDropHandler : DragDropHandler
+public class TreeHierarchyDragDropHandler : DragDropHandler
 {
-   public IINodeDragDropHandler(IMaxNodeWrapper data) : base(data) { }
+   public TreeHierarchyDragDropHandler() : base(null) { }
 
    public override bool AllowDrag
    {
-      get { return true; }
+      get { return false; }
    }
 
    public override bool IsValidDropTarget(IDataObject dragData)
@@ -23,13 +23,13 @@ public class IINodeDragDropHandler : DragDropHandler
       if (draggedNodes == null)
          return false;
 
-      return this.Data.CanAddChildNodes(HelperMethods.GetMaxNodes(draggedNodes));
+      return HelperMethods.GetMaxNodes(draggedNodes).All(n => n is IINodeWrapper);
    }
 
    public override DragDropEffects GetDragDropEffect(IDataObject dragData)
    {
       if (this.IsValidDropTarget(dragData))
-         return DragDropEffects.Link;
+         return DragDropEffects.Move;
       else
          return DragDropEffects.None;
    }
@@ -43,7 +43,7 @@ public class IINodeDragDropHandler : DragDropHandler
       if (draggedNodes == null)
          return;
 
-      LinkIINodeCommand cmd = new LinkIINodeCommand(HelperMethods.GetMaxNodes(draggedNodes), this.Data);
+      LinkIINodeCommand cmd = new LinkIINodeCommand(HelperMethods.GetMaxNodes(draggedNodes), null);
       cmd.Execute(true);
    }
 }

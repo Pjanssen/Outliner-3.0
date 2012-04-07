@@ -5,8 +5,9 @@ using System.Text;
 using Outliner.Controls;
 using Autodesk.Max;
 using Outliner.Scene;
-using Outliner.Controls.Tree;
 using Outliner.Filters;
+using Outliner.Controls.Tree;
+using Outliner.Controls.Tree.DragDropHandlers;
 
 namespace Outliner.TreeModes
 {
@@ -14,7 +15,9 @@ public class HierarchyMode : TreeMode
 {
    public HierarchyMode(TreeView tree, IInterface ip)
       : base(tree, ip)
-   { }
+   {
+      tree.DragDropHandler = new TreeHierarchyDragDropHandler();
+   }
 
    public override void FillTree()
    {

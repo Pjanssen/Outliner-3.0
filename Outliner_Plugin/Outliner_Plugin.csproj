@@ -78,6 +78,7 @@
     <Compile Include="Controls\SerializableColor.cs" />
     <Compile Include="Controls\Tree\DragDropHandlers\DragDropHandler.cs" />
     <Compile Include="Controls\Tree\DragDropHandlers\IINodeDragDropHandler.cs" />
+    <Compile Include="Controls\Tree\DragDropHandlers\TreeHierarchyDragDropHandler.cs" />
     <Compile Include="Controls\Tree\Layout\AddButton.cs" />
     <Compile Include="Controls\Tree\Layout\BoxModeButton.cs" />
     <Compile Include="Controls\Tree\Layout\FlexibleSpace.cs" />
