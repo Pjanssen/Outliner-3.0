@@ -737,6 +737,9 @@ public class TreeView : ScrollableControl
    /// </summary>
    public void AddToSortQueue(TreeNodeCollection nodes)
    {
+      if (nodes == null)
+         return;
+
       if (this._sortQueue == null)
          this._sortQueue = new List<TreeNodeCollection>();
 
@@ -755,6 +758,16 @@ public class TreeView : ScrollableControl
          this.AddToSortQueue(tn.Parent.Nodes);
       else
          this.AddToSortQueue(this.Nodes);
+   }
+   /// <summary>
+   /// Adds all TreeNodes in the collection to the sort queue.
+   /// </summary>
+   public void AddToSortQueue(IEnumerable<TreeNode> nodes)
+   {
+      if (nodes == null)
+         return;
+
+      nodes.ForEach(AddToSortQueue);
    }
 
    #endregion

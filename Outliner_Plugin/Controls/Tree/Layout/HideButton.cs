@@ -34,18 +34,19 @@ namespace Outliner.Controls.Tree.Layout
             return;
 
          TreeView tree = this.Layout.TreeView;
-         IEnumerable<IMaxNodeWrapper> nodes = null;
-         if (HelperMethods.ControlPressed && tree.IsSelectedNode(tn))
-            nodes = HelperMethods.GetMaxNodes(tree.SelectedNodes);
+         IEnumerable<TreeNode> nodes = null;
+         if (tree.IsSelectedNode(tn) && !HelperMethods.ControlPressed)
+            nodes = tree.SelectedNodes;
          else
-            nodes = new List<IMaxNodeWrapper>(1) { node };
+            nodes = new List<TreeNode>(1) { tn };
 
-         HideCommand cmd = new HideCommand(nodes, !node.IsHidden);
+         HideCommand cmd = new HideCommand(HelperMethods.GetMaxNodes(nodes),
+                                           !node.IsHidden);
          cmd.Execute(true);
 
          if (tree.NodeSorter is HiddenSorter)
          {
-            tree.AddToSortQueue(tn);
+            tree.AddToSortQueue(nodes);
             tree.StartTimedSort(true);
          }
       }

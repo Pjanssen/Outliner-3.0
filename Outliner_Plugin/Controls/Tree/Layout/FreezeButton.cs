@@ -9,59 +9,60 @@ using Outliner.NodeSorters;
 
 namespace Outliner.Controls.Tree.Layout
 {
-   public class FreezeButton : ImageButton
+public class FreezeButton : ImageButton
+{
+   public FreezeButton() : base(OutlinerResources.button_freeze,
+                                 OutlinerResources.button_freeze_disabled)
+   { }
+
+   public override bool IsEnabled(TreeNode tn)
    {
-      public FreezeButton() : base(OutlinerResources.button_freeze,
-                                   OutlinerResources.button_freeze_disabled)
-      { }
+      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      if (node == null)
+         return false;
 
-      public override bool IsEnabled(TreeNode tn)
+      return node.IsFrozen;
+   }
+
+   public override void HandleClick(MouseEventArgs e, TreeNode tn)
+   {
+      if (this.Layout == null || this.Layout.TreeView == null)
+         return;
+
+      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      if (node == null)
+         return;
+
+      TreeView tree = this.Layout.TreeView;
+      IEnumerable<TreeNode> nodes = null;
+      if (tree.IsSelectedNode(tn) && !HelperMethods.ControlPressed)
+         nodes = tree.SelectedNodes;
+      else
+         nodes = new List<TreeNode>(1) { tn };
+
+      FreezeCommand cmd = new FreezeCommand(HelperMethods.GetMaxNodes(nodes), 
+                                            !node.IsFrozen);
+      cmd.Execute(true);
+
+      if (tree.NodeSorter is FrozenSorter)
       {
-         IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
-         if (node == null)
-            return false;
-
-         return node.IsFrozen;
-      }
-
-      public override void HandleClick(MouseEventArgs e, TreeNode tn)
-      {
-         if (this.Layout == null || this.Layout.TreeView == null)
-            return;
-
-         IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
-         if (node == null)
-            return;
-
-         TreeView tree = this.Layout.TreeView;
-         IEnumerable<IMaxNodeWrapper> nodes = null;
-         if (HelperMethods.ControlPressed && tree.IsSelectedNode(tn))
-            nodes = HelperMethods.GetMaxNodes(tree.SelectedNodes);
-         else
-            nodes = new List<IMaxNodeWrapper>(1) { node };
-
-         FreezeCommand cmd = new FreezeCommand(nodes, !node.IsFrozen);
-         cmd.Execute(true);
-
-         if (tree.NodeSorter is FrozenSorter)
-         {
-            tree.AddToSortQueue(tn);
-            tree.StartTimedSort(true);
-         }
-      }
-
-      protected override string GetTooltipText(TreeNode tn)
-      {
-         IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
-         if (node != null)
-         {
-            if (node.IsFrozen)
-               return OutlinerResources.Tooltip_Unfreeze;
-            else
-               return OutlinerResources.Tooltip_Freeze;
-         }
-
-         return null;
+         tree.AddToSortQueue(nodes);
+         tree.StartTimedSort(true);
       }
    }
+
+   protected override string GetTooltipText(TreeNode tn)
+   {
+      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      if (node != null)
+      {
+         if (node.IsFrozen)
+            return OutlinerResources.Tooltip_Unfreeze;
+         else
+            return OutlinerResources.Tooltip_Freeze;
+      }
+
+      return null;
+   }
+}
 }
