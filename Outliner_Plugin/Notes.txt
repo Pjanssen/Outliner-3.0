@@ -6,13 +6,6 @@
 * Superclass sorter does not really work with exceptions (target, bones, etc). -> use imagekey instead?
 * SetViewCameraCommand: properly store previous state.
 * Wirecolor "by layer" button.
-* Sort ascending / descending
-
-TREEVIEW
---------
-* Parent highlighting
-* TreeNode.PreviousVisibleNode implementation is slow.
-* Horizontal resize with flexiblespace does not work well.
 * FlexibleSpace.MinWidth
 * TreeNodeIcon with modifier (e.g. geometry + skin)
 * TreeNode selection implementation is a bit shoddy.

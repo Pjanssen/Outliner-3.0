@@ -7,9 +7,12 @@ using Outliner.Controls.Tree;
 
 namespace Outliner.NodeSorters
 {
-   public class FrozenSorter : IComparer<TreeNode>
+   public class FrozenSorter : NodeSorter
    {
-      public int Compare(TreeNode x, TreeNode y)
+      public FrozenSorter() : base() { }
+      public FrozenSorter(Boolean invert) : base(invert) { }
+
+      protected override int InternalCompare(TreeNode x, TreeNode y)
       {
          if (x == y)
             return 0;

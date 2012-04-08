@@ -115,6 +115,7 @@
     <Compile Include="NodeSorters\FrozenSorter.cs" />
     <Compile Include="NodeSorters\INodeHandleSorter.cs" />
     <Compile Include="NodeSorters\HiddenSorter.cs" />
+    <Compile Include="NodeSorters\NodeSorter.cs" />
     <Compile Include="NodeSorters\SuperClassSorter.cs" />
     <Compile Include="Controls\Tree\NodeTextEditEventArgs.cs" />
     <Compile Include="OutlinerResources.Designer.cs">

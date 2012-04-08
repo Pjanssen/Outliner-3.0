@@ -8,9 +8,12 @@ using Autodesk.Max;
 
 namespace Outliner.NodeSorters
 {
-   public class INodeHandleSorter : IComparer<TreeNode>
+   public class INodeHandleSorter : NodeSorter
    {
-      public int Compare(TreeNode x, TreeNode y)
+      public INodeHandleSorter() : base() { }
+      public INodeHandleSorter(Boolean invert) : base(invert) { }
+
+      protected override int InternalCompare(TreeNode x, TreeNode y)
       {
          if (x == y)
             return 0;

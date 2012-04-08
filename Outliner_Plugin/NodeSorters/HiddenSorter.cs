@@ -7,9 +7,12 @@ using Outliner.Scene;
 
 namespace Outliner.NodeSorters
 {
-   public class HiddenSorter : IComparer<TreeNode>
+   public class HiddenSorter : NodeSorter
    {
-      public int Compare(TreeNode x, TreeNode y)
+      public HiddenSorter() : base() { }
+      public HiddenSorter(Boolean invert) : base(invert) { }
+
+      protected override int InternalCompare(TreeNode x, TreeNode y)
       {
          if (x == y)
             return 0;

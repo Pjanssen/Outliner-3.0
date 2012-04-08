@@ -8,9 +8,12 @@ using Outliner.Scene;
 
 namespace Outliner.NodeSorters
 {
-   public class AlphabeticalSorter : IComparer<TreeNode>
+   public class AlphabeticalSorter : NodeSorter
    {
-      public int Compare(TreeNode x, TreeNode y)
+      public AlphabeticalSorter() : base() { }
+      public AlphabeticalSorter(Boolean invert) : base(invert) { }
+
+      protected override int InternalCompare(TreeNode x, TreeNode y)
       {
          if (x == y)
             return 0;
