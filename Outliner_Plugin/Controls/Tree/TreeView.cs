@@ -68,6 +68,16 @@ public class TreeView : ScrollableControl
       return tn;
    }
 
+   private BorderStyle borderStyle = BorderStyle.FixedSingle;
+   public BorderStyle BorderStyle 
+   {
+      get { return this.borderStyle; }
+      set
+      {
+         this.borderStyle = value;
+         this.Invalidate();
+      }
+   }
    protected override CreateParams CreateParams
    {
       get
@@ -75,15 +85,15 @@ public class TreeView : ScrollableControl
          const int WS_BORDER = 0x00800000;
          const int WS_EX_STATICEDGE = 0x00020000;
          CreateParams cp = base.CreateParams;
-         //switch (_borderStyle)
-         //{
-         //   case BorderStyle.FixedSingle:
+         switch (this.BorderStyle)
+         {
+            case BorderStyle.FixedSingle:
                cp.Style |= WS_BORDER;
-         //      break;
-         //   case BorderStyle.Fixed3D:
-         //      cp.ExStyle |= WS_EX_STATICEDGE;
-         //      break;
-         //}
+               break;
+            case BorderStyle.Fixed3D:
+               cp.ExStyle |= WS_EX_STATICEDGE;
+               break;
+         }
          return cp;
       }
    }
