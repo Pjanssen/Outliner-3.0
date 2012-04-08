@@ -31,33 +31,20 @@ public class HierarchyMode : TreeMode
       this.tree.EndUpdate();
    }
 
-   private void addNode(IINode node, TreeNodeCollection parentCol)
+   protected override TreeNode addNode(Object node, TreeNodeCollection parentCol)
    {
-      this.addNode(node, parentCol, true);
-   }
-   private void addNode(IINode node, TreeNodeCollection parentCol, Boolean addChildren)
-   {
-      IMaxNodeWrapper wrapper = IMaxNodeWrapper.Create(node);
-      FilterResults filterResult = this.Filters.ShowNode(wrapper);
-      if (filterResult != FilterResults.Hide && !this.treeNodes.ContainsKey(node))
-      {
-         TreeNode tn = HelperMethods.CreateTreeNode(wrapper);
-         tn.FilterResult = filterResult;
-         tn.DragDropHandler = new Outliner.Controls.Tree.DragDropHandlers.IINodeDragDropHandler(wrapper);
+      IINode inode = node as IINode;
+      if (inode == null)
+         return null;
 
-         this.treeNodes.Add(node, tn);
+      TreeNode tn = base.addNode(node, parentCol);
+      IMaxNodeWrapper wrapper = HelperMethods.GetMaxNode(tn);
+      tn.DragDropHandler = new IINodeDragDropHandler(wrapper);
 
-         if (addChildren)
-         {
-            for (int i = 0; i < node.NumberOfChildren; i++)
-               addNode(node.GetChildNode(i), tn.Nodes, addChildren);
-         }
+      for (int i = 0; i < inode.NumberOfChildren; i++)
+         addNode(inode.GetChildNode(i), tn.Nodes);
 
-         parentCol.Add(tn);
-
-         if (node.Selected)
-            this.tree.SelectNode(tn, true);
-      }
+      return tn;
    }
 
    public override void Added(ITab<UIntPtr> nodes)
@@ -75,7 +62,7 @@ public class HierarchyMode : TreeMode
             parentCol = this.tree.Nodes;
 
          if (parentCol != null)
-            this.addNode(node, parentCol, true);
+            this.addNode(node, parentCol);
       }
       this.tree.StartTimedSort(false);
    }

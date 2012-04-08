@@ -60,7 +60,16 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
 
 
    #region Helper methods
-      
+   
+   public virtual TreeNode CreateTreeNode(IMaxNodeWrapper node)
+   {
+      if (node == null)
+         return null;
+
+      MaxTreeNode tn = new MaxTreeNode(node);
+      return tn;
+   }
+
    public virtual TreeNode GetTreeNode(Object node)
    {
       TreeNode tn = null;
@@ -69,28 +78,32 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
       return tn;
    }
 
-   protected virtual TreeNode addNode(IMaxNodeWrapper node, TreeNodeCollection parentCol)
+   protected virtual TreeNode addNode(Object node, TreeNodeCollection parentCol)
    {
       if (node == null || parentCol == null)
          return null;
 
-      FilterResults filterResult = this.Filters.ShowNode(node);
-      if (filterResult != FilterResults.Hide && !this.treeNodes.ContainsKey(node))
+      TreeNode tn = null;
+      IMaxNodeWrapper wrapper = null;
+      if (this.treeNodes.TryGetValue(node, out tn))
+         wrapper = HelperMethods.GetMaxNode(tn);
+      else
       {
-         TreeNode tn = HelperMethods.CreateTreeNode(node);
-         tn.FilterResult = filterResult;
-
+         wrapper = IMaxNodeWrapper.Create(node);
+         tn = this.CreateTreeNode(wrapper);
          this.treeNodes.Add(node, tn);
+      }
+
+      tn.FilterResult = this.Filters.ShowNode(wrapper);
+      if (tn.FilterResult != FilterResults.Hide)
          parentCol.Add(tn);
 
-         if (node.Selected)
-            this.tree.SelectNode(tn, true);
+      if (wrapper.Selected)
+         this.tree.SelectNode(tn, true);
 
-         return tn;
-      }
-      else
-         return null;
+      return tn;
    }
+
 
    public virtual void RemoveTreeNode(Object node)
    {
@@ -234,7 +247,7 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
       if (node == null)
          return null;
 
-      return node.ChildNodes;
+      return node.WrappedChildNodes;
    }
 
    private FilterCollection<IMaxNodeWrapper> _filters;

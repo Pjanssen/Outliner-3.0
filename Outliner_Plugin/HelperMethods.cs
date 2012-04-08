@@ -20,30 +20,6 @@ namespace Outliner
 public static class HelperMethods
 {
    /// <summary>
-   /// Creates a new TreeNode object with a correct TreeNodeData object as its Tag.
-   /// </summary>
-   public static TreeNode CreateTreeNode(IINode node)
-   {
-      return HelperMethods.CreateTreeNode(IMaxNodeWrapper.Create(node));
-   }
-
-   /// <summary>
-   /// Creates a new TreeNode object with a correct TreeNodeData object as its Tag.
-   /// </summary>
-   public static TreeNode CreateTreeNode(IMaxNodeWrapper node)
-   {
-      if (node == null)
-         return null;
-
-      //TreeNode tn = new TreeNode(node.DisplayName);
-      //tn.Tag = node;
-      //tn.ImageKey = node.ImageKey;
-      MaxTreeNode tn = new MaxTreeNode(node);
-      return tn;
-   }
-
-
-   /// <summary>
    /// Returns the NodeWrapper from the Tag of a TreeNode.
    /// </summary>
    public static IMaxNodeWrapper GetMaxNode(TreeNode tn)

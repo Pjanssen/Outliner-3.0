@@ -33,7 +33,7 @@ namespace Outliner.Actions
       public override object CreateDockableContent()
       {
          Outliner.Controls.TestControl tc = new Controls.TestControl();
-         
+
          IIPathConfigMgr pathMgr = Autodesk.Max.GlobalInterface.Instance.IPathConfigMgr.PathConfigMgr;
          IGlobal.IGlobalMaxSDK.IGlobalUtil.IGlobalPath path = GlobalInterface.Instance.MaxSDK.Util.Path;
          IPath scriptDir = path.Create(pathMgr.GetDir(MaxDirectory.UserScripts));

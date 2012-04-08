@@ -55,14 +55,14 @@ public class IINodeWrapper : IMaxNodeWrapper
       }
    }
 
-   public override IEnumerable<IMaxNodeWrapper> ChildNodes
+   public override IEnumerable<Object> ChildNodes
    {
       get 
       {
          int numChildren = this.node.NumberOfChildren;
-         List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(numChildren);
+         List<IINode> nodes = new List<IINode>(numChildren);
          for (int i = 0; i < numChildren; i++)
-            nodes.Add(IMaxNodeWrapper.Create(this.node.GetChildNode(i)));
+            nodes.Add(this.node.GetChildNode(i));
          return nodes;
       }
    }

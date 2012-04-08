@@ -30,6 +30,7 @@ public class FlatObjectListMode : TreeMode
       this.tree.EndUpdate();
    }
 
+   /*
    protected override TreeNode addNode(IMaxNodeWrapper node, TreeNodeCollection parentCol)
    {
       TreeNode tn = base.addNode(node, parentCol);
@@ -40,7 +41,7 @@ public class FlatObjectListMode : TreeMode
       }
 
       return tn;
-   }
+   }*/
    
 
    public override void Added(ITab<UIntPtr> nodes)

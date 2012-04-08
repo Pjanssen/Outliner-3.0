@@ -30,7 +30,7 @@ public class SelectionSetMode : TreeMode
       FilterResults filterResult = this.Filters.ShowNode(wrapper);
       if (filterResult != FilterResults.Hide && !this.treeNodes.ContainsKey(index))
       {
-         TreeNode tn = HelperMethods.CreateTreeNode(wrapper);
+         TreeNode tn = this.CreateTreeNode(wrapper);
          tn.FilterResult = filterResult;
 
          this.treeNodes.Add(index, tn);
@@ -58,7 +58,7 @@ public class SelectionSetMode : TreeMode
       FilterResults filterResult = this.Filters.ShowNode(wrapper);
       if (filterResult != FilterResults.Hide && !this.treeNodes.ContainsKey(node))
       {
-         TreeNode tn = HelperMethods.CreateTreeNode(wrapper);
+         TreeNode tn = this.CreateTreeNode(wrapper);
          tn.FilterResult = filterResult;
 
          this.treeNodes.Add(node, tn);

@@ -80,11 +80,11 @@ namespace Outliner.Scene
          get { return !this.IsDefault; }
       }
 
-      public override IEnumerable<IMaxNodeWrapper> ChildNodes
+      public override IEnumerable<Object> ChildNodes
       {
          get
          {
-            List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>();
+            List<Object> nodes = new List<Object>();
             //for (int i = 0; i < this.node.NumberOfChildren; i++)
             //   nodes.Add(IMaxNodeWrapper.Create(this.node.GetChildNode(i)));
             return nodes;

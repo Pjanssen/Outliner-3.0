@@ -12,7 +12,11 @@ namespace Outliner.Scene
       public abstract Object WrappedNode { get; }
 
       public virtual IMaxNodeWrapper Parent { get { return null; }  }
-      public abstract IEnumerable<IMaxNodeWrapper> ChildNodes { get; }
+      public abstract IEnumerable<Object> ChildNodes { get; }
+      public virtual IEnumerable<IMaxNodeWrapper> WrappedChildNodes 
+      {
+         get { return this.ChildNodes.Select(IMaxNodeWrapper.Create); }
+      }
       public virtual void AddChildNode(IMaxNodeWrapper node) { }
       public virtual void AddChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
       {

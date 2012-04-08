@@ -21,7 +21,7 @@ public class NameFilterTest
 
       public override object WrappedNode { get { return null; } }
 
-      public override System.Collections.Generic.IEnumerable<IMaxNodeWrapper> ChildNodes
+      public override System.Collections.Generic.IEnumerable<Object> ChildNodes
       {
          get { return null; }
       }

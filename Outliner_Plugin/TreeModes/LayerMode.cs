@@ -61,7 +61,7 @@ public class LayerMode : TreeMode
       FilterResults filterResult = this.Filters.ShowNode(wrapper);
       if (filterResult != FilterResults.Hide && !this.treeNodes.ContainsKey(layer))
       {
-         TreeNode tn = HelperMethods.CreateTreeNode(wrapper);
+         TreeNode tn = this.CreateTreeNode(wrapper);
          tn.FilterResult = filterResult;
 
          if (this.tree.TreeNodeLayout.UseLayerColors)
@@ -89,7 +89,7 @@ public class LayerMode : TreeMode
 
          if (parentTn != null)
          {
-            TreeNode tn = HelperMethods.CreateTreeNode(wrapper);
+            TreeNode tn = this.CreateTreeNode(wrapper);
             tn.FilterResult = filterResult;
 
             if (this.tree.TreeNodeLayout.UseLayerColors)

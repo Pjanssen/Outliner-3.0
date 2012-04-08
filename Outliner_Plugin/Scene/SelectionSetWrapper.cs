@@ -22,14 +22,14 @@ namespace Outliner.Scene
          get { return null; }
       }
 
-      public override IEnumerable<IMaxNodeWrapper> ChildNodes
+      public override IEnumerable<Object> ChildNodes
       {
          get
          {
             int numChildren = this.manager.GetNamedSelSetItemCount(this.index);
-            List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(numChildren);
+            List<IINode> nodes = new List<IINode>(numChildren);
             for (int i = 0; i < numChildren; i++)
-               nodes.Add(IMaxNodeWrapper.Create(this.manager.GetNamedSelSetItem(this.index, i)));
+               nodes.Add(this.manager.GetNamedSelSetItem(this.index, i));
             return nodes;
          }
       }
