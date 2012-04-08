@@ -76,6 +76,7 @@ public class TreeNodeText : TreeNodeLayoutItem
       {
          if (!isSelected)
          {
+            tree.SelectAllNodes(false);
             tree.SelectNode(tn, true);
             tree.OnSelectionChanged();
          }

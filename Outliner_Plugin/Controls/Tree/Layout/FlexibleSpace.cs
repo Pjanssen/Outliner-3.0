@@ -53,6 +53,7 @@ public class FlexibleSpace : TreeNodeLayoutItem
       {
          if (!isSelected && this.Layout.FullRowSelect)
          {
+            tree.SelectAllNodes(false);
             tree.SelectNode(tn, true);
             tree.OnSelectionChanged();
          }
