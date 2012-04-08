@@ -31,7 +31,7 @@ public class IINodeDragDropHandler : DragDropHandler
       if (this.IsValidDropTarget(dragData))
          return DragDropEffects.Link;
       else
-         return DragDropEffects.None;
+         return TreeView.NoneDragDropEffects;
    }
 
    public override void HandleDrop(IDataObject dragData)

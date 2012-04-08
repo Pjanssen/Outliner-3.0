@@ -373,8 +373,36 @@ public class TreeView : ScrollableControl
 
    protected override void OnMouseDown(MouseEventArgs e)
    {
+      if (e == null || this.TreeNodeLayout == null)
+         return;
+
       if (e.Button == MouseButtons.Left)
          this.dragStartPos = e.Location;
+
+      TreeNode tn = this.GetNodeAt(e.Location);
+      if (tn != null)
+         this.TreeNodeLayout.HandleMouseDown(e, tn);
+      
+      base.OnMouseDown(e);
+   }
+
+   protected override void OnMouseUp(MouseEventArgs e)
+   {
+      if (e == null || this.TreeNodeLayout == null)
+         return;
+
+      this.Select(); //Select the treeview to be able to end a potential TreeNodeText::TextEdit.
+
+      TreeNode tn = this.GetNodeAt(e.Location);
+      if (tn != null)
+         this.TreeNodeLayout.HandleMouseUp(e, tn);
+      else if (!HelperMethods.ControlPressed && !HelperMethods.ShiftPressed && !HelperMethods.AltPressed)
+      {
+         this.SelectAllNodes(false);
+         this.OnSelectionChanged();
+      }
+
+      base.OnMouseUp(e);
    }
 
    protected override void OnMouseMove(MouseEventArgs e)
@@ -404,23 +432,6 @@ public class TreeView : ScrollableControl
       }
    }
 
-   protected override void OnMouseClick(MouseEventArgs e)
-   {
-      if (e == null || this.TreeNodeLayout == null)
-         return;
-
-      this.Select(); //Select the treeview to be able to end a potential TreeNodeText::TextEdit.
-
-      TreeNode tn = this.GetNodeAt(e.Location);
-      if (tn != null)
-         this.TreeNodeLayout.HandleClick(e, tn);
-      else if (!HelperMethods.ControlPressed && !HelperMethods.ShiftPressed && !HelperMethods.AltPressed)
-      {
-         this.SelectAllNodes(false);
-         this.OnSelectionChanged();
-      }
-   }
-
    protected override void OnMouseDoubleClick(MouseEventArgs e)
    {
       if (e == null || this.TreeNodeLayout == null)
@@ -434,23 +445,37 @@ public class TreeView : ScrollableControl
 
    #endregion
 
+
    #region DragDrop
 
+   /// <summary>
+   /// The allowed DragDropEffects to use in a drag action.
+   /// </summary>
    private const DragDropEffects AllowedDragDropEffects = DragDropEffects.Copy
                                                         | DragDropEffects.Link
                                                         | DragDropEffects.Move;
+   
+   /// <summary>
+   /// Use DragDropEffects.Scroll instead of DragDropEffects.None, 
+   /// otherwise the OnDragDrop event won't be raised.
+   /// </summary>
+   internal const DragDropEffects NoneDragDropEffects = DragDropEffects.Scroll;
 
    private Point dragStartPos;
    private Boolean isDragging;
    private TreeNode prevDragTarget;
-   private ToolTip dragTooltip;
 
+   /// <summary>
+   /// The DragDropHandler for the TreeView.
+   /// </summary>
+   [Browsable(false)]
+   [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
    public DragDropHandler DragDropHandler { get; set; }
 
    protected override void OnDragEnter(DragEventArgs drgevent)
    {
       this.isDragging = true;
-      drgevent.Effect = DragDropEffects.None;
+      drgevent.Effect = TreeView.NoneDragDropEffects;
       
       base.OnDragEnter(drgevent);
    }
@@ -487,7 +512,7 @@ public class TreeView : ScrollableControl
          }
       }
       else
-         drgevent.Effect = DragDropEffects.None;
+         drgevent.Effect = TreeView.NoneDragDropEffects;
 
       base.OnDragOver(drgevent);
    }
@@ -680,7 +705,6 @@ public class TreeView : ScrollableControl
    {
       this.Sort(false);
    }
-
    /// <summary>
    /// Sorts the nodes in this TreeView.
    /// </summary>

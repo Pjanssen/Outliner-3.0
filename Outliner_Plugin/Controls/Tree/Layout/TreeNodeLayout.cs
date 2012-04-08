@@ -148,7 +148,7 @@ public class TreeNodeLayout
       }
    }
 
-   public void HandleClick(MouseEventArgs e, TreeNode tn)
+   public void HandleMouseDown(MouseEventArgs e, TreeNode tn)
    {
       if (e == null)
          return;
@@ -157,7 +157,22 @@ public class TreeNodeLayout
       {
          if (i.GetBounds(tn).Contains(e.Location))
          {
-            i.HandleClick(e, tn);
+            i.HandleMouseDown(e, tn);
+            break;
+         }
+      }
+   }
+
+   public void HandleMouseUp(MouseEventArgs e, TreeNode tn)
+   {
+      if (e == null)
+         return;
+
+      foreach (TreeNodeLayoutItem i in this.layoutItems)
+      {
+         if (i.GetBounds(tn).Contains(e.Location))
+         {
+            i.HandleMouseUp(e, tn);
             break;
          }
       }

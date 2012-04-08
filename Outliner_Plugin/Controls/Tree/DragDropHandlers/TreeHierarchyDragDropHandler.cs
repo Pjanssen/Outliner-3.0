@@ -31,7 +31,7 @@ public class TreeHierarchyDragDropHandler : DragDropHandler
       if (this.IsValidDropTarget(dragData))
          return DragDropEffects.Move;
       else
-         return DragDropEffects.None;
+         return TreeView.NoneDragDropEffects;
    }
 
    public override void HandleDrop(IDataObject dragData)

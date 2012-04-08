@@ -106,7 +106,7 @@ public class TreeNodeIcon : TreeNodeButton
       graphics.DrawImage(icon, this.GetBounds(tn));
    }
 
-   public override void HandleClick(MouseEventArgs e, TreeNode tn) 
+   public override void HandleMouseUp(MouseEventArgs e, TreeNode tn) 
    {
       IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
       if (node == null)

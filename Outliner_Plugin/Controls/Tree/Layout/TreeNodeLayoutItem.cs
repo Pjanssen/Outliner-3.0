@@ -149,9 +149,16 @@ namespace Outliner.Controls.Tree.Layout
       public virtual void HandleMouseLeave(MouseEventArgs e, TreeNode tn) { }
 
       /// <summary>
-      /// This method is called when a TreeNode is clicked.
+      /// This method is called when a mouse button is held down over a TreeNode.
       /// </summary>
-      public virtual void HandleClick(MouseEventArgs e, TreeNode tn) { }
+      /// <param name="e"></param>
+      /// <param name="tn"></param>
+      public virtual void HandleMouseDown(MouseEventArgs e, TreeNode tn) { }
+
+      /// <summary>
+      /// This method is called when a mouse button is released over a TreeNode.
+      /// </summary>
+      public virtual void HandleMouseUp(MouseEventArgs e, TreeNode tn) { }
 
       /// <summary>
       /// This method is called when a TreeNode is double-clicked.

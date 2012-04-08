@@ -15,6 +15,7 @@ TREEVIEW
 * Horizontal resize with flexiblespace does not work well.
 * FlexibleSpace.MinWidth
 * TreeNodeIcon with modifier (e.g. geometry + skin)
+* TreeNode selection implementation is a bit shoddy.
 
 NODE BUTTONS
 ------------

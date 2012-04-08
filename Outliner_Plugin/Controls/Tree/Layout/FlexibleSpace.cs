@@ -42,23 +42,42 @@ public class FlexibleSpace : TreeNodeLayoutItem
       //FlexibleSpace does not draw anything.
    }
 
-   public override void HandleClick(MouseEventArgs e, TreeNode tn)
+   public override void HandleMouseDown(MouseEventArgs e, TreeNode tn)
    {
       if (this.Layout == null || this.Layout.TreeView == null)
          return;
 
-      Keys modKeys = Control.ModifierKeys;
       TreeView tree = this.Layout.TreeView;
+      Boolean isSelected = tree.IsSelectedNode(tn);
+      if (!HelperMethods.ControlPressed && !HelperMethods.ShiftPressed)
+      {
+         if (!isSelected && this.Layout.FullRowSelect)
+         {
+            tree.SelectNode(tn, true);
+            tree.OnSelectionChanged();
+         }
+      }
+   }
+
+   public override void HandleMouseUp(MouseEventArgs e, TreeNode tn)
+   {
+      if (this.Layout == null || this.Layout.TreeView == null)
+         return;
+
+      TreeView tree = this.Layout.TreeView;
+      Boolean isSelected = tree.IsSelectedNode(tn);
 
       if (!HelperMethods.ControlPressed && !HelperMethods.ShiftPressed)
+      {
          tree.SelectAllNodes(false);
+      }
 
       if (this.Layout.FullRowSelect)
       {
          if (HelperMethods.ShiftPressed && tree.LastSelectedNode != null)
             tree.SelectNodesInsideRange(tree.LastSelectedNode, tn);
          else if (HelperMethods.ControlPressed)
-            tree.SelectNode(tn, !tree.IsSelectedNode(tn));
+            tree.SelectNode(tn, !isSelected);
          else
             tree.SelectNode(tn, true);
       }

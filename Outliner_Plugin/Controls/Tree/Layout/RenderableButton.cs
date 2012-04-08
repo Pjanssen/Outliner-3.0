@@ -47,7 +47,7 @@ public class RenderableButton : ImageButton
          base.Draw(graphics, tn);
    }
 
-   public override void HandleClick(System.Windows.Forms.MouseEventArgs e, TreeNode tn)
+   public override void HandleMouseUp(System.Windows.Forms.MouseEventArgs e, TreeNode tn)
    {
       if (this.Layout == null || this.Layout.TreeView == null)
          return;

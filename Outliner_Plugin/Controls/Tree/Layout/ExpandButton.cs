@@ -106,7 +106,7 @@ public class ExpandButton : TreeNodeLayoutItem
    }
 
 
-   public override void HandleClick(MouseEventArgs e, TreeNode tn)
+   public override void HandleMouseUp(MouseEventArgs e, TreeNode tn)
    {
       if (e == null || tn == null)
          return;
