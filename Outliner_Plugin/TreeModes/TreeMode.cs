@@ -14,11 +14,12 @@ using WinForms = System.Windows.Forms;
 
 namespace Outliner.TreeModes
 {
-public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
+public abstract class TreeMode //: Autodesk.Max.Plugins.INodeEventCallback
 {
    protected TreeView tree { get; private set; }
    protected Autodesk.Max.IInterface ip { get; private set; }
-   private uint sceneEventCbKey;
+   protected DefaultNodeEventCallbacks defaultCb;
+   protected uint defaultCbKey;
 
    protected Dictionary<Object, TreeNode> treeNodes { get; private set; }
 
@@ -34,26 +35,45 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
       this.tree.BeforeNodeTextEdit += new EventHandler<BeforeNodeTextEditEventArgs>(tree_BeforeNodeTextEdit);
       this.tree.AfterNodeTextEdit += new EventHandler<AfterNodeTextEditEventArgs>(tree_AfterNodeTextEdit);
 
-      IGlobal iGlobal = GlobalInterface.Instance;
-      iGlobal.RegisterNotification(PostReset, null, SystemNotificationCode.SystemPostReset);
-      iGlobal.RegisterNotification(SelectionsetChanged, null, SystemNotificationCode.SelectionsetChanged);
-
-      this.sceneEventCbKey = iGlobal.ISceneEventManager.RegisterCallback(this, false, 100, true);
+      this.RegisterSystemNotifications();
+      this.RegisterNodeCallbacks();
    }
 
+   public virtual void RegisterSystemNotifications()
+   {
+      IGlobal iGlobal = GlobalInterface.Instance;
+      iGlobal.RegisterNotification(SystemPreNew, null, SystemNotificationCode.SystemPreNew);
+      iGlobal.RegisterNotification(SystemPostNew, null, SystemNotificationCode.SystemPostNew);
+      iGlobal.RegisterNotification(SystemPreReset, null, SystemNotificationCode.SystemPreReset);
+      iGlobal.RegisterNotification(SystemPostReset, null, SystemNotificationCode.SystemPostReset);
+      iGlobal.RegisterNotification(FilePreOpen, null, SystemNotificationCode.FilePreOpen);
+      iGlobal.RegisterNotification(FilePostOpen, null, SystemNotificationCode.FilePostOpen);
+      iGlobal.RegisterNotification(SelectionsetChanged, null, SystemNotificationCode.SelectionsetChanged);
+   }
 
    /// <summary>
    /// Cleanup of event notifications and callbacks.
    /// </summary>
-   public void Unregister()
+   public virtual void UnregisterSystemNotifications()
    {
       IGlobal iGlobal = GlobalInterface.Instance;
-      iGlobal.UnRegisterNotification(PostReset, null);
+      iGlobal.UnRegisterNotification(SystemPostReset, null);
       iGlobal.UnRegisterNotification(SelectionsetChanged, null);
+   }
 
-      iGlobal.ISceneEventManager.UnRegisterCallback(this.sceneEventCbKey);
+   public virtual void RegisterNodeCallbacks()
+   {
+      this.defaultCb = new DefaultNodeEventCallbacks(this);
+      IISceneEventManager sceneEventMgr = GlobalInterface.Instance.ISceneEventManager;
+      this.defaultCbKey = sceneEventMgr.RegisterCallback(this.defaultCb, false, 100, true);
+   }
 
-      base.Dispose();
+   public virtual void UnregisterNodeCallbacks()
+   {
+      IISceneEventManager sceneEventMgr = GlobalInterface.Instance.ISceneEventManager;
+      sceneEventMgr.UnRegisterCallback(this.defaultCbKey);
+      this.defaultCb.Dispose();
+      this.defaultCb = null;
    }
 
    public abstract void FillTree();
@@ -78,7 +98,7 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
       return tn;
    }
 
-   protected virtual TreeNode addNode(Object node, TreeNodeCollection parentCol)
+   public virtual TreeNode AddNode(Object node, TreeNodeCollection parentCol)
    {
       if (node == null || parentCol == null)
          return null;
@@ -116,52 +136,35 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
       }
    }
 
-   #endregion
 
-
-
-   #region NodeEvent Callbacks
-
-   public override void CallbackBegin()
+   public void ClearTreeNodes()
    {
-      this.tree.BeginUpdate();
+      this.tree.Nodes.Clear();
+      this.treeNodes.Clear();
    }
 
-   public override void CallbackEnd()
-   {
-      this.tree.EndUpdate();
-   }
 
-   public override void Deleted(ITab<UIntPtr> nodes)
-   {
-      foreach (IINode node in nodes.NodeKeysToINodeList())
-         this.RemoveTreeNode(node);
-   }
-
-   public override void NameChanged(ITab<UIntPtr> nodes)
-   {
-      foreach (IINode node in nodes.NodeKeysToINodeList())
-      {
-         TreeNode tn = this.GetTreeNode(node);
-         IMaxNodeWrapper wrapper = HelperMethods.GetMaxNode(tn);
-         if (tn != null && wrapper != null)
-         {
-            tn.Text = wrapper.DisplayName;
-            this.tree.AddToSortQueue(tn);
-         }
-      }
-      this.tree.StartTimedSort(true);
-   }
-
-   public override void DisplayPropertiesChanged(ITab<UIntPtr> nodes)
+   public virtual void InvalidateTreeNodes(ITab<UIntPtr> nodes, Boolean invalidateBounds, Boolean sort)
    {
       foreach (IINode node in nodes.NodeKeysToINodeList())
       {
          TreeNode tn = this.GetTreeNode(node);
          if (tn != null)
+         {
+            if (invalidateBounds)
+               tn.InvalidateBounds(false, false);
+
             tn.Invalidate();
+
+            if (sort)
+               this.tree.AddToSortQueue(tn);
+         }
       }
+
+      if (sort)
+         this.tree.StartTimedSort(true);
    }
+
 
    #endregion
 
@@ -184,10 +187,40 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
       }
    }
 
-   public virtual void PostReset(IntPtr param, IntPtr info)
+   public virtual void SystemPreNew(IntPtr param, IntPtr info)
    {
-      this.tree.Nodes.Clear();
-      this.treeNodes.Clear();
+      this.UnregisterNodeCallbacks();
+      this.ClearTreeNodes();
+   }
+
+   public virtual void SystemPostNew(IntPtr param, IntPtr info)
+   {
+      this.RegisterNodeCallbacks();
+      this.FillTree();
+   }
+
+   public virtual void SystemPreReset(IntPtr param, IntPtr info)
+   {
+      this.UnregisterNodeCallbacks();
+      this.ClearTreeNodes();
+   }
+
+   public virtual void SystemPostReset(IntPtr param, IntPtr info)
+   {
+      this.RegisterNodeCallbacks();
+      this.FillTree();
+   }
+
+   public virtual void FilePreOpen(IntPtr param, IntPtr info)
+   {
+      this.UnregisterNodeCallbacks();
+      this.ClearTreeNodes();
+   }
+
+   public virtual void FilePostOpen(IntPtr param, IntPtr info)
+   {
+      this.RegisterNodeCallbacks();
+      this.FillTree();
    }
 
    #endregion
@@ -301,5 +334,55 @@ public abstract class TreeMode : Autodesk.Max.Plugins.INodeEventCallback
    }
 
    #endregion
+
+
+   protected abstract class TreeModeNodeEventCallbacks : Autodesk.Max.Plugins.INodeEventCallback
+   {
+      protected TreeMode treeMode;
+      protected TreeView tree { get { return this.treeMode.tree; } }
+      protected Dictionary<Object, TreeNode> treeNodes { get { return this.treeMode.treeNodes; } }
+
+      public TreeModeNodeEventCallbacks(TreeMode treeMode)
+      {
+         this.treeMode = treeMode;
+      }
+   }
+   protected class DefaultNodeEventCallbacks : TreeModeNodeEventCallbacks
+   {
+      public DefaultNodeEventCallbacks(TreeMode treeMode) : base(treeMode) { }
+
+      public override void CallbackBegin()
+      {
+         this.tree.BeginUpdate();
+      }
+
+      public override void CallbackEnd()
+      {
+         this.tree.EndUpdate();
+      }
+
+      public override void Deleted(ITab<UIntPtr> nodes)
+      {
+         foreach (IINode node in nodes.NodeKeysToINodeList())
+            this.treeMode.RemoveTreeNode(node);
+      }
+
+      public override void NameChanged(ITab<UIntPtr> nodes)
+      {
+         this.treeMode.InvalidateTreeNodes(nodes, true, true);
+      }
+
+      public override void DisplayPropertiesChanged(ITab<UIntPtr> nodes)
+      {
+         Boolean sort = this.tree.NodeSorter is NodeSorters.FrozenSorter
+                      || this.tree.NodeSorter is NodeSorters.HiddenSorter;
+         this.treeMode.InvalidateTreeNodes(nodes, false, sort);
+      }
+
+      public override void RenderPropertiesChanged(ITab<UIntPtr> nodes)
+      {
+         this.treeMode.InvalidateTreeNodes(nodes, false, false);
+      }
+   }
 }
 }

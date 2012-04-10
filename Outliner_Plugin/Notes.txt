@@ -9,6 +9,8 @@
 * FlexibleSpace.MinWidth
 * TreeNodeIcon with modifier (e.g. geometry + skin)
 * TreeNode selection implementation is a bit shoddy.
+* Color sorter
+* Suspend callbacks at SystemPreNew, FilePreOpen, etc
 
 NODE BUTTONS
 ------------
@@ -18,24 +20,7 @@ NODE BUTTONS
 * Check if node button click handling can be generalized to get rid of some 
   boilerplate code.
 
-HIERARCHY MODE
---------------
 
-
-LAYER MODE
-----------
-
-
-SELECTIONSET MODE
------------------
-
-
-FLAT OBJECTLIST MODE
---------------------
-
-
-MATERIAL MODE
--------------
 
 ICON CLICK ACTIONS:
 Layer        - Set as current

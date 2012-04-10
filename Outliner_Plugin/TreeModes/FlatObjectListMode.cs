@@ -23,32 +23,60 @@ public class FlatObjectListMode : TreeMode
 
       IINode rootNode = this.ip.RootNode;
       for (int i = 0; i < rootNode.NumberOfChildren; i++)
-         this.addNode(IMaxNodeWrapper.Create(rootNode.GetChildNode(i)), this.tree.Nodes);
+         this.AddNode(rootNode.GetChildNode(i), this.tree.Nodes);
 
       this.tree.Sort();
 
       this.tree.EndUpdate();
    }
 
-   /*
-   protected override TreeNode addNode(IMaxNodeWrapper node, TreeNodeCollection parentCol)
+   public override TreeNode AddNode(Object node, TreeNodeCollection parentCol)
    {
-      TreeNode tn = base.addNode(node, parentCol);
-      if (tn != null)
-      {
-         foreach (IMaxNodeWrapper child in node.ChildNodes)
-            this.addNode(child, parentCol);
-      }
+      IINode inode = node as IINode;
+      if (inode == null)
+         return null;
+
+      TreeNode tn = base.AddNode(node, parentCol);
+
+      for (int i = 0; i < inode.NumberOfChildren; i++)
+         AddNode(inode.GetChildNode(i), parentCol);
 
       return tn;
-   }*/
-   
+   }
 
-   public override void Added(ITab<UIntPtr> nodes)
+   protected FlatListNodeEventCallbacks flatListCb;
+   protected uint flatListCbKey;
+
+   public override void RegisterNodeCallbacks()
    {
-      foreach (IINode node in nodes.NodeKeysToINodeList())
-         this.addNode(IMaxNodeWrapper.Create(node), this.tree.Nodes);
-      this.tree.StartTimedSort(false);
+      IISceneEventManager eventMan = GlobalInterface.Instance.ISceneEventManager;
+      this.flatListCb = new FlatListNodeEventCallbacks(this);
+      this.flatListCbKey = eventMan.RegisterCallback(this.flatListCb, false, 100, true);
+
+      base.RegisterNodeCallbacks();
+   }
+
+   public override void UnregisterNodeCallbacks()
+   {
+      GlobalInterface.Instance.ISceneEventManager.UnRegisterCallback(this.flatListCbKey);
+      this.flatListCb.Dispose();
+      this.flatListCb = null;
+
+      base.UnregisterNodeCallbacks();
+   }
+
+   protected class FlatListNodeEventCallbacks : TreeModeNodeEventCallbacks
+   {
+      public FlatListNodeEventCallbacks(TreeMode treeMode) : base(treeMode) { }
+
+      public override void Added(ITab<UIntPtr> nodes)
+      {
+         foreach (IINode node in nodes.NodeKeysToINodeList())
+         {
+            this.treeMode.AddNode(node, this.tree.Nodes);
+         }
+         this.tree.StartTimedSort(false);
+      }
    }
 }
 }

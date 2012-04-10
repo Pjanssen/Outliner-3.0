@@ -30,7 +30,7 @@ public class IINodeWrapper : IMaxNodeWrapper
    {
       get
       {
-         IBaseInterface baseInterface = this.node.GetInterface(HelperMethods.NodeLayerProperties);
+         IBaseInterface baseInterface = this.node.GetInterface(MaxInterfaces.NodeLayerProperties);
          return baseInterface as IINodeLayerProperties;
       }
    }
@@ -184,7 +184,7 @@ public class IINodeWrapper : IMaxNodeWrapper
       get
       {
          IINodeTab instances = GlobalInterface.Instance.INodeTabNS.Create();
-         uint numInstances = HelperMethods.InstanceMgr.GetInstances(this.node, instances);
+         uint numInstances = MaxInterfaces.InstanceMgr.GetInstances(this.node, instances);
          return numInstances > 1;
       }
    }

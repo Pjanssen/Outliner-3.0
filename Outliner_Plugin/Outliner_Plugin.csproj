@@ -112,6 +112,7 @@
     <Compile Include="Filters\InvisibleNodeFilter.cs" />
     <Compile Include="Filters\NurbsFilter.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="MaxInterfaces.cs" />
     <Compile Include="NodeSorters\FrozenSorter.cs" />
     <Compile Include="NodeSorters\INodeHandleSorter.cs" />
     <Compile Include="NodeSorters\HiddenSorter.cs" />

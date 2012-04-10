@@ -8,21 +8,46 @@ using Outliner.Controls.Tree;
 using Outliner.Filters;
 using System.Drawing;
 using Outliner.Controls;
+using Outliner.Controls.Tree.DragDropHandlers;
 
 namespace Outliner.TreeModes
 {
 public class LayerMode : TreeMode
 {
+   private readonly Dictionary<GlobalDelegates.Delegate5, SystemNotificationCode> systemNotifications;
+
    public LayerMode(TreeView tree, Autodesk.Max.IInterface ip)
-      : base(tree, ip)
+      : base(tree, ip) 
+   {
+      this.systemNotifications = new Dictionary<GlobalDelegates.Delegate5, SystemNotificationCode>()
+      {
+         { this.LayerCreated, SystemNotificationCode.LayerCreated },
+         { this.LayerDeleted, SystemNotificationCode.LayerDeleted },
+         { this.LayerRenamed, SystemNotificationCode.LayerRenamed },
+         { this.LayerPropChanged, SystemNotificationCode.LayerHiddenStateChanged },
+         { this.LayerPropChanged, SystemNotificationCode.LayerFrozenStateChanged }
+      };
+   }
+
+
+   public override void RegisterSystemNotifications()
    {
       IGlobal iGlobal = GlobalInterface.Instance;
-      iGlobal.RegisterNotification(LayerCreated, null, SystemNotificationCode.LayerCreated);
-      iGlobal.RegisterNotification(LayerDeleted, null, SystemNotificationCode.LayerDeleted);
-      //The following notifications don't actually seem to work in the SDK... :
-      iGlobal.RegisterNotification(LayerRenamed, null, SystemNotificationCode.LayerRenamed);
-      iGlobal.RegisterNotification(LayerPropChanged, null, SystemNotificationCode.LayerHiddenStateChanged);
-      iGlobal.RegisterNotification(LayerPropChanged, null, SystemNotificationCode.LayerFrozenStateChanged);
+
+      foreach (KeyValuePair<GlobalDelegates.Delegate5, SystemNotificationCode> c in this.systemNotifications)
+         iGlobal.RegisterNotification(c.Key, null, c.Value);
+
+      base.RegisterSystemNotifications();
+   }
+
+   public override void UnregisterSystemNotifications()
+   {
+      IGlobal iGlobal = GlobalInterface.Instance;
+
+      foreach (KeyValuePair<GlobalDelegates.Delegate5, SystemNotificationCode> c in this.systemNotifications)
+         iGlobal.UnRegisterNotification(c.Key, null, c.Value);
+      
+      base.UnregisterSystemNotifications();
    }
 
    private const int IILAYERMANAGER_REF_INDEX = 10;
@@ -30,94 +55,102 @@ public class LayerMode : TreeMode
    public override void FillTree()
    {
       this.tree.BeginUpdate();
-      /*
-      IGlobal g = GlobalInterface.Instance;
-      IInterface_ID int_ID = g.Interface_ID.Create((uint)BuiltInInterfaceIDA.LAYERMANAGER_INTERFACE,
-                                                   (uint)BuiltInInterfaceIDB.LAYERMANAGER_INTERFACE);
-      IIFPLayerManager lm = (IIFPLayerManager)g.GetCOREInterface(int_ID);
-
+      
+      IIFPLayerManager lm = MaxInterfaces.IIFPLayerManager;
+      
       for (int i = 0; i < lm.Count; i++)
       {
          IILayerProperties l = lm.GetLayer(i);
-         this.addNode(l, this.tree.Nodes);
-      }*/
-      
-      IINode rootNode = this.ip.RootNode;
-      for (int i = 0; i < rootNode.NumberOfChildren; i++)
-      {
-         addNode(rootNode.GetChildNode(i));
+         this.AddNode(l, this.tree.Nodes);
       }
 
       this.tree.Sort();
-
       this.tree.EndUpdate();
    }
 
-
-
-   private TreeNode addNode(IILayer layer, TreeNodeCollection parentCol)
+   public override TreeNode AddNode(object node, TreeNodeCollection parentCol)
    {
-      IMaxNodeWrapper wrapper = IMaxNodeWrapper.Create(layer);
-      FilterResults filterResult = this.Filters.ShowNode(wrapper);
-      if (filterResult != FilterResults.Hide && !this.treeNodes.ContainsKey(layer))
-      {
-         TreeNode tn = this.CreateTreeNode(wrapper);
-         tn.FilterResult = filterResult;
-
-         if (this.tree.TreeNodeLayout.UseLayerColors)
-         {
-            tn.BackColor = Color.FromArgb(255, wrapper.WireColor);
-         }
-         this.treeNodes.Add(layer, tn);
-         parentCol.Add(tn);
-         return tn;
-      }
-      return null;
+      if (node is IILayerProperties)
+         return this.addNode((IILayerProperties)node, parentCol);
+      else if (node is IINode)
+         return this.addNode((IINode)node, parentCol);
+      else
+         return null;
    }
 
-   private void addNode(IINode node)
+   private TreeNode addNode(IILayerProperties layer, TreeNodeCollection parentCol)
    {
-      IINodeWrapper wrapper = new IINodeWrapper(node);
-      FilterResults filterResult = this.Filters.ShowNode(wrapper);
-      if (filterResult != FilterResults.Hide && !this.treeNodes.ContainsKey(node))
+      TreeNode tn = base.AddNode(layer, parentCol);
+      IMaxNodeWrapper wrapper = HelperMethods.GetMaxNode(tn);
+      //TODO tn.DragDropHandler = new IILayerDragDropHandler(wrapper);
+      if (this.tree.TreeNodeLayout.UseLayerColors)
       {
-         //Add layer node if it doesn't exist yet.
-         IILayer l = (IILayer)node.GetReference((int)ReferenceNumbers.NodeLayerRef);
-         TreeNode parentTn = null;
-         if (!this.treeNodes.TryGetValue(l, out parentTn))
-            parentTn = this.addNode(l, this.tree.Nodes);
-
-         if (parentTn != null)
-         {
-            TreeNode tn = this.CreateTreeNode(wrapper);
-            tn.FilterResult = filterResult;
-
-            if (this.tree.TreeNodeLayout.UseLayerColors)
-            {
-               tn.BackColor = Color.FromArgb(170, ColorHelpers.FromMaxColor(wrapper.Layer.WireColor));
-            }
-
-            this.treeNodes.Add(node, tn);
-            parentTn.Nodes.Add(tn);
-
-            if (node.Selected)
-               this.tree.SelectNode(tn, true);
-
-            for (int i = 0; i < node.NumberOfChildren; i++)
-               this.addNode(node.GetChildNode(i));
-         }
+         tn.BackColor = Color.FromArgb(255, wrapper.WireColor);
       }
+
+      //Add nodes belonging to this layer.
+      ITab<IINode> nodes = GlobalInterface.Instance.INodeTabNS.Create();
+      layer.Nodes(nodes);
+      for (int i = 0; i < nodes.Count; i++)
+      {
+         this.addNode(nodes[(IntPtr)i], tn.Nodes);
+      }
+
+      return tn;
+   }
+
+   private TreeNode addNode(IINode inode, TreeNodeCollection parentCol)
+   {
+      TreeNode tn = base.AddNode(inode, parentCol);
+      IINodeWrapper wrapper = HelperMethods.GetMaxNode(tn) as IINodeWrapper;
+      if (wrapper == null)
+         return tn;
+
+      tn.DragDropHandler = new IINodeDragDropHandler(wrapper);
+
+      if (this.tree.TreeNodeLayout.UseLayerColors)
+      {
+         tn.BackColor = Color.FromArgb(170, ColorHelpers.FromMaxColor(wrapper.Layer.WireColor));
+      }
+
+      return tn;
    }
 
 
    #region NodeEventCallbacks
-   
-   public override void LayerChanged(ITab<UIntPtr> nodes)
+
+   protected LayerNodeEventCallbacks layerCb;
+   protected uint layerCbKey;
+   public override void RegisterNodeCallbacks()
    {
-      foreach (IINode node in nodes.NodeKeysToINodeList())
+      IISceneEventManager eventMan = GlobalInterface.Instance.ISceneEventManager;
+      this.layerCb = new LayerNodeEventCallbacks(this);
+      this.layerCbKey = eventMan.RegisterCallback(this.layerCb, false, 100, true);
+
+      base.RegisterNodeCallbacks();
+   }
+
+   public override void UnregisterNodeCallbacks()
+   {
+      GlobalInterface.Instance.ISceneEventManager.UnRegisterCallback(this.layerCbKey);
+      this.layerCb.Dispose();
+      this.layerCb = null;
+
+      base.UnregisterNodeCallbacks();
+   }
+
+   protected class LayerNodeEventCallbacks : TreeModeNodeEventCallbacks
+   {
+      public LayerNodeEventCallbacks(TreeMode treeMode) : base(treeMode) { }
+
+      public override void LayerChanged(ITab<UIntPtr> nodes)
       {
-         this.RemoveTreeNode(node);
-         //this.addNode(node);
+         foreach (IINode node in nodes.NodeKeysToINodeList())
+         {
+            this.treeMode.RemoveTreeNode(node);
+            //TODO this.addNode(node);
+            //TODO sort
+         }
       }
    }
 
@@ -130,7 +163,11 @@ public class LayerMode : TreeMode
    {
       INotifyInfo notifyInfo = HelperMethods.GetNotifyInfo(info);
       if (notifyInfo != null && notifyInfo.CallParam is IILayer)
-         this.addNode((IILayer)notifyInfo.CallParam, this.tree.Nodes);
+      {
+         IILayer ilayer = (IILayer)notifyInfo.CallParam;
+         IILayerProperties l = MaxInterfaces.IIFPLayerManager.GetLayer(ilayer.Name);
+         this.AddNode(l, this.tree.Nodes);
+      }
    }
 
    public virtual void LayerDeleted(IntPtr param, IntPtr info)

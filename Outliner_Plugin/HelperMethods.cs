@@ -208,25 +208,7 @@ public static class HelperMethods
    }
 
 
-   private static IInterface_ID nodeLayerProperties;
-   public static IInterface_ID NodeLayerProperties
-   {
-      get
-      {
-         if (nodeLayerProperties == null)
-            nodeLayerProperties = GlobalInterface.Instance.Interface_ID.Create(0x44e025f8, 0x6b071e44);
-
-         return nodeLayerProperties;
-      }
-   }
-
-   public static IIInstanceMgr InstanceMgr
-   {
-      get
-      {
-         return GlobalInterface.Instance.IInstanceMgr.InstanceMgr;
-      }
-   }
+   
 
    /// <summary>
    /// Iterates over all elements in the collection with the supplied function.

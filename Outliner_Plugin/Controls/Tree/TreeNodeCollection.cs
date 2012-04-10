@@ -68,6 +68,9 @@ public class TreeNodeCollection : ICollection<TreeNode>
       }
 
       this.nodes.Clear();
+
+      if (this.owner != null && this.owner.TreeView != null)
+         this.owner.TreeView.Update(TreeViewUpdateFlags.All);
    }
 
    public bool Contains(TreeNode item)
@@ -98,7 +101,7 @@ public class TreeNodeCollection : ICollection<TreeNode>
       if (!this.Contains(item))
          return false;
 
-      Boolean isVisible = item.IsVisible;
+      item.InvalidateBounds(item.IsVisible, true);
 
       item.TreeView = null;
       item.parent = null;
@@ -108,8 +111,6 @@ public class TreeNodeCollection : ICollection<TreeNode>
          item.NextNode.PreviousNode = item.PreviousNode;
       item.PreviousNode = null;
       item.NextNode = null;
-
-      item.InvalidateBounds(isVisible, true);
       
       return this.nodes.Remove(item);
    }
