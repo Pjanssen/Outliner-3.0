@@ -47,24 +47,10 @@ public class HierarchyMode : TreeMode
       return tn;
    }
 
-   protected HierarchyNodeEventCallbacks hierarchyCb;
-   protected uint hierarchyCbKey;
-   public override void RegisterNodeCallbacks()
+   public override void RegisterNodeEventCallbacks()
    {
-      IISceneEventManager eventMan = GlobalInterface.Instance.ISceneEventManager;
-      this.hierarchyCb = new HierarchyNodeEventCallbacks(this);
-      this.hierarchyCbKey = eventMan.RegisterCallback(this.hierarchyCb, false, 100, true);
-
-      base.RegisterNodeCallbacks();
-   }
-
-   public override void  UnregisterNodeCallbacks()
-   {
-      GlobalInterface.Instance.ISceneEventManager.UnRegisterCallback(this.hierarchyCbKey);
-      this.hierarchyCb.Dispose();
-      this.hierarchyCb = null;
-
-      base.UnregisterNodeCallbacks();
+      this.RegisterNodeEventCallbackObject(new HierarchyNodeEventCallbacks(this));
+      base.RegisterNodeEventCallbacks();
    }
 
    protected class HierarchyNodeEventCallbacks : TreeModeNodeEventCallbacks

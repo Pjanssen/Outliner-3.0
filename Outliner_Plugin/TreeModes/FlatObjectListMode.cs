@@ -44,25 +44,10 @@ public class FlatObjectListMode : TreeMode
       return tn;
    }
 
-   protected FlatListNodeEventCallbacks flatListCb;
-   protected uint flatListCbKey;
-
-   public override void RegisterNodeCallbacks()
+   public override void RegisterNodeEventCallbacks()
    {
-      IISceneEventManager eventMan = GlobalInterface.Instance.ISceneEventManager;
-      this.flatListCb = new FlatListNodeEventCallbacks(this);
-      this.flatListCbKey = eventMan.RegisterCallback(this.flatListCb, false, 100, true);
-
-      base.RegisterNodeCallbacks();
-   }
-
-   public override void UnregisterNodeCallbacks()
-   {
-      GlobalInterface.Instance.ISceneEventManager.UnRegisterCallback(this.flatListCbKey);
-      this.flatListCb.Dispose();
-      this.flatListCb = null;
-
-      base.UnregisterNodeCallbacks();
+      this.RegisterNodeEventCallbackObject(new FlatListNodeEventCallbacks(this));
+      base.RegisterNodeEventCallbacks();
    }
 
    protected class FlatListNodeEventCallbacks : TreeModeNodeEventCallbacks

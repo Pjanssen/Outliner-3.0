@@ -14,41 +14,9 @@ namespace Outliner.TreeModes
 {
 public class LayerMode : TreeMode
 {
-   private readonly Dictionary<GlobalDelegates.Delegate5, SystemNotificationCode> systemNotifications;
-
    public LayerMode(TreeView tree, Autodesk.Max.IInterface ip)
-      : base(tree, ip) 
-   {
-      this.systemNotifications = new Dictionary<GlobalDelegates.Delegate5, SystemNotificationCode>()
-      {
-         { this.LayerCreated, SystemNotificationCode.LayerCreated },
-         { this.LayerDeleted, SystemNotificationCode.LayerDeleted },
-         { this.LayerRenamed, SystemNotificationCode.LayerRenamed },
-         { this.LayerPropChanged, SystemNotificationCode.LayerHiddenStateChanged },
-         { this.LayerPropChanged, SystemNotificationCode.LayerFrozenStateChanged }
-      };
-   }
+      : base(tree, ip) { }
 
-
-   public override void RegisterSystemNotifications()
-   {
-      IGlobal iGlobal = GlobalInterface.Instance;
-
-      foreach (KeyValuePair<GlobalDelegates.Delegate5, SystemNotificationCode> c in this.systemNotifications)
-         iGlobal.RegisterNotification(c.Key, null, c.Value);
-
-      base.RegisterSystemNotifications();
-   }
-
-   public override void UnregisterSystemNotifications()
-   {
-      IGlobal iGlobal = GlobalInterface.Instance;
-
-      foreach (KeyValuePair<GlobalDelegates.Delegate5, SystemNotificationCode> c in this.systemNotifications)
-         iGlobal.UnRegisterNotification(c.Key, null, c.Value);
-      
-      base.UnregisterSystemNotifications();
-   }
 
    private const int IILAYERMANAGER_REF_INDEX = 10;
 
@@ -119,24 +87,11 @@ public class LayerMode : TreeMode
 
    #region NodeEventCallbacks
 
-   protected LayerNodeEventCallbacks layerCb;
-   protected uint layerCbKey;
-   public override void RegisterNodeCallbacks()
+   public override void RegisterNodeEventCallbacks()
    {
-      IISceneEventManager eventMan = GlobalInterface.Instance.ISceneEventManager;
-      this.layerCb = new LayerNodeEventCallbacks(this);
-      this.layerCbKey = eventMan.RegisterCallback(this.layerCb, false, 100, true);
+      this.RegisterNodeEventCallbackObject(new LayerNodeEventCallbacks(this));
 
-      base.RegisterNodeCallbacks();
-   }
-
-   public override void UnregisterNodeCallbacks()
-   {
-      GlobalInterface.Instance.ISceneEventManager.UnRegisterCallback(this.layerCbKey);
-      this.layerCb.Dispose();
-      this.layerCb = null;
-
-      base.UnregisterNodeCallbacks();
+      base.RegisterNodeEventCallbacks();
    }
 
    protected class LayerNodeEventCallbacks : TreeModeNodeEventCallbacks
@@ -158,6 +113,17 @@ public class LayerMode : TreeMode
 
 
    #region System notifications
+
+   public override void RegisterSystemNotifications()
+   {
+      this.RegisterSystemNotification(this.LayerCreated, SystemNotificationCode.LayerCreated);
+      this.RegisterSystemNotification(this.LayerDeleted, SystemNotificationCode.LayerDeleted);
+      this.RegisterSystemNotification(this.LayerRenamed, SystemNotificationCode.LayerRenamed);
+      this.RegisterSystemNotification(this.LayerPropChanged, SystemNotificationCode.LayerHiddenStateChanged);
+      this.RegisterSystemNotification(this.LayerPropChanged, SystemNotificationCode.LayerFrozenStateChanged);
+
+      base.RegisterSystemNotifications();
+   }
 
    public virtual void LayerCreated(IntPtr param, IntPtr info)
    {
