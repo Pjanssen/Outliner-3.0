@@ -1,16 +1,13 @@
 ﻿GENERAL
 -------
 * Try making Command unit tests.
-* Generalize addNode method in TreeMode.
 * Unhide/unfreeze layer when unhiding/unfreezing node
 * Superclass sorter does not really work with exceptions (target, bones, etc). -> use imagekey instead?
 * SetViewCameraCommand: properly store previous state.
 * Wirecolor "by layer" button.
 * FlexibleSpace.MinWidth
-* TreeNodeIcon with modifier (e.g. geometry + skin)
 * TreeNode selection implementation is a bit shoddy.
 * Color sorter
-* Suspend callbacks at SystemPreNew, FilePreOpen, etc
 
 NODE BUTTONS
 ------------

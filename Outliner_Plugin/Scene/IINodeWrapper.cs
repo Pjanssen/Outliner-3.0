@@ -123,7 +123,7 @@ public class IINodeWrapper : IMaxNodeWrapper
 
    public override SClass_ID SuperClassID
    {
-      get { return this.node.ObjectRef.SuperClassID; }
+      get { return this.node.ObjectRef.FindBaseObject().SuperClassID; }
    }
 
    public override bool Selected

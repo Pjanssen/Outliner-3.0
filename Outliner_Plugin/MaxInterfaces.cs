@@ -20,20 +20,6 @@ public static class MaxInterfaces
       }
    }
 
-   private static IInterface_ID layerManagerID;
-   public static IInterface_ID LayerManagerID
-   {
-      get
-      {
-         if (layerManagerID == null)
-         {
-            layerManagerID = GlobalInterface.Instance.Interface_ID.Create(
-                                 (uint)BuiltInInterfaceIDA.LAYERMANAGER_INTERFACE,
-                                 (uint)BuiltInInterfaceIDB.LAYERMANAGER_INTERFACE);
-         }
-         return layerManagerID;
-      }
-   }
 
    private static IIFPLayerManager iIFPLayerManager;
    public static IIFPLayerManager IIFPLayerManager
@@ -42,9 +28,24 @@ public static class MaxInterfaces
       {
          if (iIFPLayerManager == null)
          {
-            iIFPLayerManager = (IIFPLayerManager)GlobalInterface.Instance.GetCOREInterface(LayerManagerID);
+            IInterface_ID iIFPLayerManagerID = GlobalInterface.Instance.Interface_ID.Create(
+                                 (uint)BuiltInInterfaceIDA.LAYERMANAGER_INTERFACE,
+                                 (uint)BuiltInInterfaceIDB.LAYERMANAGER_INTERFACE);
+            iIFPLayerManager = (IIFPLayerManager)GlobalInterface.Instance.GetCOREInterface(iIFPLayerManagerID);
          }
          return iIFPLayerManager;
+      }
+   }
+
+   private static IILayerManager iILayerManager;
+   public static IILayerManager IILayerManager
+   {
+      get
+      {
+         if (iILayerManager == null)
+            iILayerManager = (IILayerManager)GlobalInterface.Instance.COREInterface.ScenePointer.GetReference(10);
+
+         return iILayerManager;
       }
    }
 

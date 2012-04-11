@@ -14,12 +14,12 @@ using WinForms = System.Windows.Forms;
 
 namespace Outliner.TreeModes
 {
-public abstract class TreeMode //: Autodesk.Max.Plugins.INodeEventCallback
+public abstract class TreeMode
 {
    protected TreeView tree { get; private set; }
    protected Autodesk.Max.IInterface ip { get; private set; }
-   protected Dictionary<GlobalDelegates.Delegate5, SystemNotificationCode> systemNotifications;
-   protected Dictionary<uint, TreeModeNodeEventCallbacks> nodeEventCallbacks;
+   protected List<KeyValuePair<GlobalDelegates.Delegate5, SystemNotificationCode>> systemNotifications;
+   protected List<KeyValuePair<uint, TreeModeNodeEventCallbacks>> nodeEventCallbacks;
    protected Dictionary<Object, TreeNode> treeNodes { get; private set; }
 
    protected TreeMode(TreeView tree, Autodesk.Max.IInterface ip)
@@ -49,10 +49,10 @@ public abstract class TreeMode //: Autodesk.Max.Plugins.INodeEventCallback
    protected virtual void RegisterSystemNotification(GlobalDelegates.Delegate5 proc, SystemNotificationCode code)
    {
       if (this.systemNotifications == null)
-         this.systemNotifications = new Dictionary<GlobalDelegates.Delegate5, SystemNotificationCode>();
+         this.systemNotifications = new List<KeyValuePair<GlobalDelegates.Delegate5, SystemNotificationCode>>();
 
       GlobalInterface.Instance.RegisterNotification(proc, null, code);
-      this.systemNotifications.Add(proc, code);
+      this.systemNotifications.Add(new KeyValuePair<GlobalDelegates.Delegate5, SystemNotificationCode>(proc, code));
    }
 
    /// <summary>
@@ -93,12 +93,12 @@ public abstract class TreeMode //: Autodesk.Max.Plugins.INodeEventCallback
    protected virtual void RegisterNodeEventCallbackObject(TreeModeNodeEventCallbacks cb)
    {
       if (nodeEventCallbacks == null)
-         this.nodeEventCallbacks = new Dictionary<uint, TreeModeNodeEventCallbacks>();
+         this.nodeEventCallbacks = new List<KeyValuePair<uint, TreeModeNodeEventCallbacks>>();
       
       IISceneEventManager sceneEventMgr = GlobalInterface.Instance.ISceneEventManager;
       uint cbKey = sceneEventMgr.RegisterCallback(cb, false, 100, true);
 
-      this.nodeEventCallbacks.Add(cbKey, cb);
+      this.nodeEventCallbacks.Add(new KeyValuePair<uint, TreeModeNodeEventCallbacks>(cbKey, cb));
    }
 
    /// <summary>
@@ -125,6 +125,28 @@ public abstract class TreeMode //: Autodesk.Max.Plugins.INodeEventCallback
       }
       this.nodeEventCallbacks.Clear();
       this.nodeEventCallbacks = null;
+   }
+
+   protected abstract class TreeModeNodeEventCallbacks : Autodesk.Max.Plugins.INodeEventCallback
+   {
+      protected TreeMode treeMode;
+      protected TreeView tree { get { return this.treeMode.tree; } }
+      protected Dictionary<Object, TreeNode> treeNodes { get { return this.treeMode.treeNodes; } }
+
+      public TreeModeNodeEventCallbacks(TreeMode treeMode)
+      {
+         this.treeMode = treeMode;
+      }
+
+      public override void CallbackBegin()
+      {
+         this.tree.BeginUpdate(TreeViewUpdateFlags.Redraw);
+      }
+
+      public override void CallbackEnd()
+      {
+         this.tree.EndUpdate();
+      }
    }
 
    #endregion
@@ -279,30 +301,9 @@ public abstract class TreeMode //: Autodesk.Max.Plugins.INodeEventCallback
 
    #region NodeEventCallbacks
 
-   protected abstract class TreeModeNodeEventCallbacks : Autodesk.Max.Plugins.INodeEventCallback
-   {
-      protected TreeMode treeMode;
-      protected TreeView tree { get { return this.treeMode.tree; } }
-      protected Dictionary<Object, TreeNode> treeNodes { get { return this.treeMode.treeNodes; } }
-
-      public TreeModeNodeEventCallbacks(TreeMode treeMode)
-      {
-         this.treeMode = treeMode;
-      }
-   }
    protected class DefaultNodeEventCallbacks : TreeModeNodeEventCallbacks
    {
       public DefaultNodeEventCallbacks(TreeMode treeMode) : base(treeMode) { }
-
-      public override void CallbackBegin()
-      {
-         this.tree.BeginUpdate();
-      }
-
-      public override void CallbackEnd()
-      {
-         this.tree.EndUpdate();
-      }
 
       public override void Deleted(ITab<UIntPtr> nodes)
       {

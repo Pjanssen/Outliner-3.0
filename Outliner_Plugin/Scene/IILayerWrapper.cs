@@ -10,18 +10,28 @@ namespace Outliner.Scene
    public class IILayerWrapper : IMaxNodeWrapper
    {
       private IILayer layer;
-      //private IIFPLayerManager manager;
-      private IILayerManager manager;
+      private IILayerProperties layerProperties;
 
       public IILayerWrapper(IILayer layer)
       {
          this.layer = layer;
-         IGlobal g = GlobalInterface.Instance;
-         //IInterface_ID int_ID = g.Interface_ID.Create((uint)BuiltInInterfaceIDA.LAYERMANAGER_INTERFACE, 
-         //                                             (uint)BuiltInInterfaceIDB.LAYERMANAGER_INTERFACE);
-         //this.manager = (IIFPLayerManager)g.GetCOREInterface(int_ID);
-         this.manager = (IILayerManager)g.COREInterface.ScenePointer.GetReference(10);
+         this.layerProperties = MaxInterfaces.IIFPLayerManager.GetLayer(layer.Name);
       }
+
+      public IILayerWrapper(IILayerProperties layerProperties)
+      {
+         this.layerProperties = layerProperties;
+
+         String layerName = layerProperties.Name;
+         this.layer = MaxInterfaces.IILayerManager.GetLayer(ref layerName);
+      }
+
+      public IILayerWrapper(IILayer layer, IILayerProperties layerProperties)
+      {
+         this.layer = layer;
+         this.layerProperties = layerProperties;
+      }
+
 
       public override object WrappedNode
       {
@@ -35,26 +45,19 @@ namespace Outliner.Scene
       {
          get
          {
-            if (this.manager == null)
-               return false;
-            else
-               return this.manager.RootLayer.Handle == this.layer.Handle;
+            return MaxInterfaces.IILayerManager.RootLayer.Handle == this.layer.Handle;
          }
       }
 
       public Boolean IsCurrent
       {
-         get { return this.manager.CurrentLayer.Handle == this.layer.Handle; }
+         get { return this.layerProperties.Current; }
          set
          {
             if (!value)
                throw new ArgumentException("Cannot set IsCurrent to false. Instead, use IsCurrent = true on the new current layer.");
 
-            if (this.manager != null)
-            {
-               String name = this.Name;
-               this.manager.SetCurrentLayer(ref name);
-            }
+            this.layerProperties.Current = true;
          }
       }
 
@@ -84,10 +87,9 @@ namespace Outliner.Scene
       {
          get
          {
-            List<Object> nodes = new List<Object>();
-            //for (int i = 0; i < this.node.NumberOfChildren; i++)
-            //   nodes.Add(IMaxNodeWrapper.Create(this.node.GetChildNode(i)));
-            return nodes;
+            ITab<IINode> nodes = GlobalInterface.Instance.INodeTabNS.Create();
+            this.layerProperties.Nodes(nodes);
+            return nodes.ToIEnumerable();
          }
       }
 

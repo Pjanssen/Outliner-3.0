@@ -108,6 +108,8 @@ namespace Outliner.Scene
             return new IINodeWrapper((IINode)node);
          else if (node is IILayer)
             return new IILayerWrapper((IILayer)node);
+         else if (node is IILayerProperties)
+            return new IILayerWrapper((IILayerProperties)node);
          else if (node is KeyValuePair<IINamedSelectionSetManager, int>)
          {
             KeyValuePair<IINamedSelectionSetManager, int> kvp = (KeyValuePair<IINamedSelectionSetManager, int>)node;

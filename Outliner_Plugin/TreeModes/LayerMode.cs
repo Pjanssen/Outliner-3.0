@@ -17,18 +17,14 @@ public class LayerMode : TreeMode
    public LayerMode(TreeView tree, Autodesk.Max.IInterface ip)
       : base(tree, ip) { }
 
-
-   private const int IILAYERMANAGER_REF_INDEX = 10;
-
    public override void FillTree()
    {
       this.tree.BeginUpdate();
-      
-      IIFPLayerManager lm = MaxInterfaces.IIFPLayerManager;
-      
-      for (int i = 0; i < lm.Count; i++)
+
+      IILayerManager lm = MaxInterfaces.IILayerManager;
+      for (int i = 0; i < lm.LayerCount; i++)
       {
-         IILayerProperties l = lm.GetLayer(i);
+         IILayer l = lm.GetLayer(i);
          this.AddNode(l, this.tree.Nodes);
       }
 
@@ -38,31 +34,28 @@ public class LayerMode : TreeMode
 
    public override TreeNode AddNode(object node, TreeNodeCollection parentCol)
    {
-      if (node is IILayerProperties)
-         return this.addNode((IILayerProperties)node, parentCol);
+      if (node is IILayer)
+         return this.addNode((IILayer)node, parentCol);
       else if (node is IINode)
          return this.addNode((IINode)node, parentCol);
       else
          return null;
    }
 
-   private TreeNode addNode(IILayerProperties layer, TreeNodeCollection parentCol)
+   private TreeNode addNode(IILayer layer, TreeNodeCollection parentCol)
    {
       TreeNode tn = base.AddNode(layer, parentCol);
       IMaxNodeWrapper wrapper = HelperMethods.GetMaxNode(tn);
       //TODO tn.DragDropHandler = new IILayerDragDropHandler(wrapper);
+
       if (this.tree.TreeNodeLayout.UseLayerColors)
       {
          tn.BackColor = Color.FromArgb(255, wrapper.WireColor);
       }
 
       //Add nodes belonging to this layer.
-      ITab<IINode> nodes = GlobalInterface.Instance.INodeTabNS.Create();
-      layer.Nodes(nodes);
-      for (int i = 0; i < nodes.Count; i++)
-      {
-         this.addNode(nodes[(IntPtr)i], tn.Nodes);
-      }
+      foreach (Object node in wrapper.ChildNodes)
+         this.AddNode(node, tn.Nodes);
 
       return tn;
    }
@@ -98,14 +91,47 @@ public class LayerMode : TreeMode
    {
       public LayerNodeEventCallbacks(TreeMode treeMode) : base(treeMode) { }
 
+      public override void Added(ITab<UIntPtr> nodes)
+      {
+         foreach (IINode node in HelperMethods.NodeKeysToINodeList(nodes))
+         {
+            IILayer layer = node.GetReference((int)ReferenceNumbers.NodeLayerRef) as IILayer;
+            if (layer == null)
+               continue;
+
+            TreeNode layerTn = this.treeMode.GetTreeNode(layer);
+            if (layerTn == null)
+               continue;
+
+            this.treeMode.AddNode(node, layerTn.Nodes);
+            this.tree.AddToSortQueue(layerTn.Nodes);
+         }
+         this.tree.StartTimedSort(true);
+      }
+
       public override void LayerChanged(ITab<UIntPtr> nodes)
       {
          foreach (IINode node in nodes.NodeKeysToINodeList())
          {
-            this.treeMode.RemoveTreeNode(node);
-            //TODO this.addNode(node);
-            //TODO sort
+            TreeNode tn = this.treeMode.GetTreeNode(node);
+            if (tn == null)
+               return;
+
+            IILayer layer = node.GetReference((int)ReferenceNumbers.NodeLayerRef) as IILayer;
+            if (layer == null)
+               continue;
+
+            TreeNode layerTn = this.treeMode.GetTreeNode(layer);
+            if (layerTn == null)
+               continue;
+
+            layerTn.Nodes.Add(tn);
+            this.tree.AddToSortQueue(layerTn.Nodes);
+
+            if (this.tree.TreeNodeLayout.UseLayerColors)
+               tn.BackColor = Color.FromArgb(170, ColorHelpers.FromMaxColor(layer.WireColor));
          }
+         this.tree.StartTimedSort(true);
       }
    }
 
@@ -130,9 +156,8 @@ public class LayerMode : TreeMode
       INotifyInfo notifyInfo = HelperMethods.GetNotifyInfo(info);
       if (notifyInfo != null && notifyInfo.CallParam is IILayer)
       {
-         IILayer ilayer = (IILayer)notifyInfo.CallParam;
-         IILayerProperties l = MaxInterfaces.IIFPLayerManager.GetLayer(ilayer.Name);
-         this.AddNode(l, this.tree.Nodes);
+         IILayer layer = (IILayer)notifyInfo.CallParam;
+         this.AddNode(layer, this.tree.Nodes);
       }
    }
 

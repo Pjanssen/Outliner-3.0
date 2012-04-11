@@ -107,6 +107,16 @@ public class HierarchyMode : TreeMode
          }
          this.tree.StartTimedSort(true);
       }
+
+      public override void ModelStructured(ITab<UIntPtr> nodes)
+      {
+         foreach (IINode node in nodes.NodeKeysToINodeList())
+         {
+            TreeNode tn = this.treeMode.GetTreeNode(node);
+            if (tn != null)
+               tn.Invalidate();
+         }
+      }
    }
 }
 }
