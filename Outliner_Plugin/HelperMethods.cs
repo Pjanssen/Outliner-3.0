@@ -61,7 +61,7 @@ public static class HelperMethods
    /// </summary>
    public static INotifyInfo GetNotifyInfo(IntPtr info)
    {
-      return GlobalInterface.Instance.NotifyInfo.Marshal(info);
+      return MaxInterfaces.Global.NotifyInfo.Marshal(info);
    }
 
    /// <summary>
@@ -84,7 +84,7 @@ public static class HelperMethods
       if (nodes == null)
          throw new ArgumentNullException("nodes");
 
-      IINodeTab tab = GlobalInterface.Instance.INodeTabNS.Create();
+      IINodeTab tab = MaxInterfaces.Global.INodeTabNS.Create();
       Int32 nodeCount = nodes.Count();
       if (nodes.Count() > 0)
       {
@@ -103,7 +103,7 @@ public static class HelperMethods
    /// </summary>
    public static IEnumerable<IINode> NodeKeysToINodeList(this ITab<UIntPtr> handles)
    {
-      return handles.ToIEnumerable().Select(GlobalInterface.Instance.NodeEventNamespace.GetNodeByKey);
+      return handles.ToIEnumerable().Select(MaxInterfaces.Global.NodeEventNamespace.GetNodeByKey);
    }
 
 

@@ -20,6 +20,8 @@ public class NameFilterTest
       }
 
       public override object WrappedNode { get { return null; } }
+      public override bool Equals(object obj) { return false; }
+      public override int GetHashCode() { return 0; }
 
       public override System.Collections.Generic.IEnumerable<Object> ChildNodes
       {

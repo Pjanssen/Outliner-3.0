@@ -38,6 +38,17 @@ namespace Outliner.Scene
          get { return this.layer; }
       }
 
+      public override bool Equals(object obj)
+      {
+         IILayerWrapper otherObj = obj as IILayerWrapper;
+         return otherObj != null && this.layer.Handle == otherObj.layer.Handle;
+      }
+
+      public override int GetHashCode()
+      {
+         return this.WrappedNode.GetHashCode();
+      }
+
       /// <summary>
       /// Gets whether this layer is the default (0) layer.
       /// </summary>
@@ -87,7 +98,7 @@ namespace Outliner.Scene
       {
          get
          {
-            ITab<IINode> nodes = GlobalInterface.Instance.INodeTabNS.Create();
+            ITab<IINode> nodes = MaxInterfaces.Global.INodeTabNS.Create();
             this.layerProperties.Nodes(nodes);
             return nodes.ToIEnumerable();
          }

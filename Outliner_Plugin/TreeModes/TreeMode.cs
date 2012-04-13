@@ -51,7 +51,7 @@ public abstract class TreeMode
       if (this.systemNotifications == null)
          this.systemNotifications = new List<KeyValuePair<GlobalDelegates.Delegate5, SystemNotificationCode>>();
 
-      GlobalInterface.Instance.RegisterNotification(proc, null, code);
+      MaxInterfaces.Global.RegisterNotification(proc, null, code);
       this.systemNotifications.Add(new KeyValuePair<GlobalDelegates.Delegate5, SystemNotificationCode>(proc, code));
    }
 
@@ -74,13 +74,11 @@ public abstract class TreeMode
    /// </summary>
    public virtual void UnregisterSystemNotifications()
    {
-      IGlobal iGlobal = GlobalInterface.Instance;
-
       if (this.systemNotifications == null)
          return;
 
       foreach (KeyValuePair<GlobalDelegates.Delegate5, SystemNotificationCode> notif in this.systemNotifications)
-         iGlobal.UnRegisterNotification(notif.Key, null, notif.Value);
+         MaxInterfaces.Global.UnRegisterNotification(notif.Key, null, notif.Value);
 
       this.systemNotifications.Clear();
       this.systemNotifications = null;
@@ -95,7 +93,7 @@ public abstract class TreeMode
       if (nodeEventCallbacks == null)
          this.nodeEventCallbacks = new List<KeyValuePair<uint, TreeModeNodeEventCallbacks>>();
       
-      IISceneEventManager sceneEventMgr = GlobalInterface.Instance.ISceneEventManager;
+      IISceneEventManager sceneEventMgr = MaxInterfaces.Global.ISceneEventManager;
       uint cbKey = sceneEventMgr.RegisterCallback(cb, false, 100, true);
 
       this.nodeEventCallbacks.Add(new KeyValuePair<uint, TreeModeNodeEventCallbacks>(cbKey, cb));
@@ -117,7 +115,7 @@ public abstract class TreeMode
       if (this.nodeEventCallbacks == null)
          return;
 
-      IISceneEventManager sceneEventMgr = GlobalInterface.Instance.ISceneEventManager;
+      IISceneEventManager sceneEventMgr = MaxInterfaces.Global.ISceneEventManager;
       foreach (KeyValuePair<uint, TreeModeNodeEventCallbacks> cb in this.nodeEventCallbacks)
       {
          sceneEventMgr.UnRegisterCallback(cb.Key);

@@ -10,6 +10,8 @@ namespace Outliner.Scene
    public abstract class IMaxNodeWrapper
    {
       public abstract Object WrappedNode { get; }
+      public override abstract bool Equals(object obj);
+      public override abstract int GetHashCode();
 
       public virtual IMaxNodeWrapper Parent { get { return null; }  }
       public abstract IEnumerable<Object> ChildNodes { get; }
@@ -83,20 +85,6 @@ namespace Outliner.Scene
       public virtual String ImageKey
       {
          get { return Outliner.Controls.IconHelperMethods.IMGKEY_UNKNOWN; }
-      }
-
-      public override bool Equals(object obj)
-      {
-         IMaxNodeWrapper otherObj = obj as IMaxNodeWrapper;
-         if (otherObj != null)
-            return this.WrappedNode == otherObj.WrappedNode;
-         else
-            return false;
-      }
-
-      public override int GetHashCode()
-      {
-         return this.WrappedNode.GetHashCode();
       }
 
       public static IMaxNodeWrapper Create(Object node)

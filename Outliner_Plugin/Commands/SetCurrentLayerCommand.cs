@@ -24,7 +24,7 @@ namespace Outliner.Commands
 
       public override void Do()
       {
-         IInterface ip = GlobalInterface.Instance.COREInterface;
+         IInterface ip = MaxInterfaces.Global.COREInterface;
          IILayerManager manager = ip.ScenePointer.GetReference(10) as IILayerManager;
          if (manager != null)
             oldCurrentLayer = IMaxNodeWrapper.Create(manager.CurrentLayer) as IILayerWrapper;

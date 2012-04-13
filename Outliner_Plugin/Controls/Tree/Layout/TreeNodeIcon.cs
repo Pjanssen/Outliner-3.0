@@ -137,7 +137,7 @@ public class TreeNodeIcon : TreeNodeButton
       }
       else if (node.SuperClassID == Autodesk.Max.SClass_ID.Camera)
       {
-         Autodesk.Max.IInterface ip = Autodesk.Max.GlobalInterface.Instance.COREInterface;
+         Autodesk.Max.IInterface ip = MaxInterfaces.Global.COREInterface;
          Autodesk.Max.IViewExp vpt = ip.ActiveViewExp;
          SetViewCameraCommand cmd = new SetViewCameraCommand(node, vpt);
          cmd.Execute(true);

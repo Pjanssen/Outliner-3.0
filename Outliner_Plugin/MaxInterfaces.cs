@@ -3,18 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
+using Autodesk.Max.Remoting;
 
 namespace Outliner
 {
 public static class MaxInterfaces
 {
+   private static IGlobal global;
+   public static IGlobal Global
+   {
+      get 
+      {
+         if (global == null)
+            global = GlobalInterface.Instance;
+
+         if (global == null)
+         {
+            IManager manager = (IManager)Activator.GetObject(typeof(RManager),
+                                                             "tcp://localhost:9998/Manager");
+            global = manager.Global;
+         }
+
+         return global;
+      }
+   }
+
    private static IInterface_ID nodeLayerProperties;
    public static IInterface_ID NodeLayerProperties
    {
       get
       {
          if (nodeLayerProperties == null)
-            nodeLayerProperties = GlobalInterface.Instance.Interface_ID.Create(0x44e025f8, 0x6b071e44);
+            nodeLayerProperties = MaxInterfaces.Global.Interface_ID.Create(0x44e025f8, 0x6b071e44);
 
          return nodeLayerProperties;
       }
@@ -28,10 +48,10 @@ public static class MaxInterfaces
       {
          if (iIFPLayerManager == null)
          {
-            IInterface_ID iIFPLayerManagerID = GlobalInterface.Instance.Interface_ID.Create(
+            IInterface_ID iIFPLayerManagerID = MaxInterfaces.Global.Interface_ID.Create(
                                  (uint)BuiltInInterfaceIDA.LAYERMANAGER_INTERFACE,
                                  (uint)BuiltInInterfaceIDB.LAYERMANAGER_INTERFACE);
-            iIFPLayerManager = (IIFPLayerManager)GlobalInterface.Instance.GetCOREInterface(iIFPLayerManagerID);
+            iIFPLayerManager = (IIFPLayerManager)MaxInterfaces.Global.GetCOREInterface(iIFPLayerManagerID);
          }
          return iIFPLayerManager;
       }
@@ -43,7 +63,7 @@ public static class MaxInterfaces
       get
       {
          if (iILayerManager == null)
-            iILayerManager = (IILayerManager)GlobalInterface.Instance.COREInterface.ScenePointer.GetReference(10);
+            iILayerManager = (IILayerManager)MaxInterfaces.Global.COREInterface.ScenePointer.GetReference(10);
 
          return iILayerManager;
       }
@@ -54,7 +74,7 @@ public static class MaxInterfaces
    {
       get
       {
-         return GlobalInterface.Instance.IInstanceMgr.InstanceMgr;
+         return MaxInterfaces.Global.IInstanceMgr.InstanceMgr;
       }
    }
 }

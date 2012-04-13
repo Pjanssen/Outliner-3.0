@@ -21,6 +21,17 @@ public class IINodeWrapper : IMaxNodeWrapper
       get { return this.node; }
    }
 
+   public override bool Equals(object obj)
+   {
+      IINodeWrapper otherObj = obj as IINodeWrapper;
+      return otherObj != null && this.node.Handle == otherObj.node.Handle;
+   }
+
+   public override int GetHashCode()
+   {
+      return this.WrappedNode.GetHashCode();
+   }
+
    public IINode IINode
    {
       get { return this.node; }
@@ -183,7 +194,7 @@ public class IINodeWrapper : IMaxNodeWrapper
    {
       get
       {
-         IINodeTab instances = GlobalInterface.Instance.INodeTabNS.Create();
+         IINodeTab instances = MaxInterfaces.Global.INodeTabNS.Create();
          uint numInstances = MaxInterfaces.InstanceMgr.GetInstances(this.node, instances);
          return numInstances > 1;
       }

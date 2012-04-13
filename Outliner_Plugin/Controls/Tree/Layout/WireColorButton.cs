@@ -111,7 +111,7 @@ public class WireColorButton : TreeNodeButton
          return;
 
       Color wc = node.WireColor;
-      IInterface ip = Autodesk.Max.GlobalInterface.Instance.COREInterface;
+      IInterface ip = MaxInterfaces.Global.COREInterface;
       if (ip.NodeColorPicker(ip.MAXHWnd, ref wc))
       {
          TreeView tree = this.Layout.TreeView;

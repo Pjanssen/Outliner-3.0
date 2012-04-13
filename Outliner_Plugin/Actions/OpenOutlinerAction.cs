@@ -34,8 +34,8 @@ namespace Outliner.Actions
       {
          Outliner.Controls.TestControl tc = new Controls.TestControl();
 
-         IIPathConfigMgr pathMgr = Autodesk.Max.GlobalInterface.Instance.IPathConfigMgr.PathConfigMgr;
-         IGlobal.IGlobalMaxSDK.IGlobalUtil.IGlobalPath path = GlobalInterface.Instance.MaxSDK.Util.Path;
+         IIPathConfigMgr pathMgr = MaxInterfaces.Global.IPathConfigMgr.PathConfigMgr;
+         IGlobal.IGlobalMaxSDK.IGlobalUtil.IGlobalPath path = MaxInterfaces.Global.MaxSDK.Util.Path;
          IPath scriptDir = path.Create(pathMgr.GetDir(MaxDirectory.UserScripts));
          IPath layoutFile = path.Create(scriptDir);
          layoutFile.Append(path.Create("outliner_layout.xml"));
@@ -55,7 +55,7 @@ namespace Outliner.Actions
          }
 
          tc.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
-         TreeMode tm = new LayerMode(tc.treeView1, Autodesk.Max.GlobalInterface.Instance.COREInterface);
+         TreeMode tm = new LayerMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
          //SelectionSetMode(tc.treeView1, Autodesk.Max.GlobalInterface.Instance.COREInterface);
          //LayerMode(tc.treeView1, Autodesk.Max.GlobalInterface.Instance.COREInterface);
          //HierarchyMode(tc.treeView1, Autodesk.Max.GlobalInterface.Instance.COREInterface);

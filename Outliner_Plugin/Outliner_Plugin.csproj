@@ -37,6 +37,9 @@
       <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\Autodesk.Max.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Autodesk.Max.Remoting">
+      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\Autodesk.Max.Remoting.dll</HintPath>
+    </Reference>
     <Reference Include="MaxCustomControls">
       <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\MaxCustomControls.dll</HintPath>
       <Private>False</Private>

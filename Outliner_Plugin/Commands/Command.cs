@@ -27,8 +27,7 @@ namespace Outliner.Commands
       /// </summary>
       public virtual void Execute(Boolean redrawViews) 
       {
-         IGlobal iGlobal = Autodesk.Max.GlobalInterface.Instance;
-         IHold theHold = iGlobal.TheHold;
+         IHold theHold = MaxInterfaces.Global.TheHold;
          if (!theHold.Holding)
             theHold.Begin();
 
@@ -39,7 +38,7 @@ namespace Outliner.Commands
 
          if (redrawViews)
          {
-            IInterface ip = iGlobal.COREInterface;
+            IInterface ip = MaxInterfaces.Global.COREInterface;
             ip.RedrawViews(ip.Time, RedrawFlags.Normal, null);
          }
       }

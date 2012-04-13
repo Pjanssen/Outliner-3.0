@@ -27,9 +27,9 @@ public class SelectCommand : Command
 
    public override void Do()
    {
-      IInterface ip = GlobalInterface.Instance.COREInterface;
+      IInterface ip = MaxInterfaces.Global.COREInterface;
       Int32 selNodeCount = ip.SelNodeCount;
-      this.prevSelection = GlobalInterface.Instance.INodeTabNS.Create();
+      this.prevSelection = MaxInterfaces.Global.INodeTabNS.Create();
       for (int i = 0; i < selNodeCount; i++)
       {
          this.prevSelection.AppendNode(ip.GetSelNode(i), true, 0);
@@ -40,7 +40,7 @@ public class SelectCommand : Command
 
    public override void Undo()
    {
-      SelectNodes(GlobalInterface.Instance.COREInterface, this.prevSelection);
+      SelectNodes(MaxInterfaces.Global.COREInterface, this.prevSelection);
    }
 
    protected static void SelectNodes(IInterface ip, IINodeTab nodes)

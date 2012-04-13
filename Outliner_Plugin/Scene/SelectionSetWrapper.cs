@@ -22,6 +22,17 @@ namespace Outliner.Scene
          get { return null; }
       }
 
+      public override bool Equals(object obj)
+      {
+         SelectionSetWrapper otherObj = obj as SelectionSetWrapper;
+         return otherObj != null && this.index == otherObj.index;
+      }
+
+      public override int GetHashCode()
+      {
+         return this.WrappedNode.GetHashCode();
+      }
+
       public override IEnumerable<Object> ChildNodes
       {
          get

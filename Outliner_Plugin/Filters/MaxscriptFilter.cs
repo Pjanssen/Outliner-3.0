@@ -37,7 +37,7 @@ namespace Outliner.Filters
          if (data is IINodeWrapper)
          {
             String script = String.Format(CultureInfo.InvariantCulture, _filterFn, ((IINode)data.WrappedNode).Handle);
-            if (GlobalInterface.Instance.ExecuteMAXScriptScript(script, true, null))
+            if (MaxInterfaces.Global.ExecuteMAXScriptScript(script, true, null))
                return FilterResults.Hide;
             else
                return FilterResults.Show;

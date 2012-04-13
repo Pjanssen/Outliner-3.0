@@ -64,10 +64,7 @@ public static class ColorHelpers
    /// </summary>
    public static Color FromMaxGuiColor(GuiColors color)
    {
-      IGlobal ip = GlobalInterface.Instance;
-      if (ip == null)
-         throw new NullReferenceException("Could not get 3dsMax global interface");
-      IIColorManager cm = GlobalInterface.Instance.ColorManager;
+      IIColorManager cm = MaxInterfaces.Global.ColorManager;
       return ColorHelpers.FromMaxColor(cm.GetColor(color));
    }
 

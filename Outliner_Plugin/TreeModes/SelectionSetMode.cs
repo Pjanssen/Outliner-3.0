@@ -17,7 +17,7 @@ public class SelectionSetMode : TreeMode
 
    public override void FillTree()
    {
-      IINamedSelectionSetManager selSetMan = GlobalInterface.Instance.INamedSelectionSetManager.Instance;
+      IINamedSelectionSetManager selSetMan = MaxInterfaces.Global.INamedSelectionSetManager.Instance;
       for (int i = 0; i < selSetMan.NumNamedSelSets; i++)
       {
          this.addSelSetNode(selSetMan, i);
@@ -39,7 +39,7 @@ public class SelectionSetMode : TreeMode
          Int32 nodeCount = manager.GetNamedSelSetItemCount(index);
          if (nodeCount > 0)
          {
-            IINodeTab nodes = Autodesk.Max.GlobalInterface.Instance.INodeTabNS.Create();
+            IINodeTab nodes = MaxInterfaces.Global.INodeTabNS.Create();
             manager.GetNamedSelSetList(nodes, index);
             for (int j = 0; j < nodeCount; j++) 
             {
