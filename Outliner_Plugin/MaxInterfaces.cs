@@ -17,12 +17,14 @@ public static class MaxInterfaces
          if (global == null)
             global = GlobalInterface.Instance;
 
+         #if DEBUG
          if (global == null)
          {
             IManager manager = (IManager)Activator.GetObject(typeof(RManager),
                                                              "tcp://localhost:9998/Manager");
             global = manager.Global;
          }
+         #endif
 
          return global;
       }

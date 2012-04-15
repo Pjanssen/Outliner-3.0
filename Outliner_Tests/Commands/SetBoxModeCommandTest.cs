@@ -9,28 +9,28 @@ using Outliner.Commands;
 namespace Outliner_Tests.Commands
 {
 [TestClass]
-public class HideCommandTest : MaxIntegrationTest
+public class SetBoxModeCommandTest : MaxIntegrationTest
 {
    [TestMethod]
-   public void HideTest()
+   public void BoxModeTest()
    {
       IINodeWrapper node = IMaxNodeWrapper.Create(MaxRemoting.CreateBox()) as IINodeWrapper;
       Assert.IsNotNull(node);
       IILayerWrapper layer = IMaxNodeWrapper.Create(MaxRemoting.CreateLayer()) as IILayerWrapper;
       Assert.IsNotNull(layer);
 
-      Boolean nodeHidden = node.IsHidden;
-      Boolean layerHidden = layer.IsHidden;
+      Boolean nodeBoxMode = node.BoxMode;
+      Boolean layerBoxMode = layer.BoxMode;
       List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(2) { node, layer };
-      HideCommand cmd = new HideCommand(nodes, !nodeHidden);
-
+      SetBoxModeCommand cmd = new SetBoxModeCommand(nodes, !nodeBoxMode);
+      
       cmd.Do();
-      Assert.AreEqual(!nodeHidden, node.IsHidden);
-      Assert.AreEqual(!layerHidden, layer.IsHidden);
+      Assert.AreEqual(!nodeBoxMode, node.BoxMode);
+      Assert.AreEqual(!layerBoxMode, layer.BoxMode);
 
       cmd.Undo();
-      Assert.AreEqual(nodeHidden, node.IsHidden);
-      Assert.AreEqual(layerHidden, layer.IsHidden);
+      Assert.AreEqual(nodeBoxMode, node.BoxMode);
+      Assert.AreEqual(layerBoxMode, layer.BoxMode);
    }
 }
 }

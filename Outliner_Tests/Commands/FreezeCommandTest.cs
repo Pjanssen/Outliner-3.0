@@ -14,9 +14,9 @@ public class FreezeCommandTest : MaxIntegrationTest
    [TestMethod]
    public void FreezeTest()
    {
-      IMaxNodeWrapper node = IMaxNodeWrapper.Create(MaxRemoting.CreateBox());
+      IINodeWrapper node = IMaxNodeWrapper.Create(MaxRemoting.CreateBox()) as IINodeWrapper;
       Assert.IsNotNull(node);
-      IMaxNodeWrapper layer = IMaxNodeWrapper.Create(MaxRemoting.CreateLayer());
+      IILayerWrapper layer = IMaxNodeWrapper.Create(MaxRemoting.CreateLayer()) as IILayerWrapper;
       Assert.IsNotNull(layer);
 
       Boolean nodeFrozen = node.IsFrozen;

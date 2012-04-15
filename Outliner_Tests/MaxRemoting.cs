@@ -6,19 +6,16 @@ using Autodesk.Max;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Autodesk.Max.Remoting;
 using Outliner;
+using System.Diagnostics;
 
 namespace Outliner_Tests
 {
 internal static class MaxRemoting
 {
-   //private static Process maxProcess;
    internal static IGlobal Global
    {
       get
       {
-         //  maxProcess = Process.Start(@"C:\Program Files\Autodesk\3ds Max 2013\3dsmax.exe");
-         //  maxProcess.WaitForInputIdle();
-
          IGlobal global = null;
          try
          {
@@ -69,7 +66,7 @@ internal static class MaxRemoting
 /// A generic test baseclass, which automates 3dsMax scene cleanup after each test.
 /// </summary>
 [TestClass]
-public class MaxIntegrationTest
+public abstract class MaxIntegrationTest
 {
    [TestCleanup]
    public void TestCleanup()

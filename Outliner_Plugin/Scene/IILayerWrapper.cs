@@ -49,6 +49,11 @@ namespace Outliner.Scene
          return this.WrappedNode.GetHashCode();
       }
 
+      public IILayer IILayer
+      {
+         get { return this.layer; }
+      }
+
       /// <summary>
       /// Gets whether this layer is the default (0) layer.
       /// </summary>

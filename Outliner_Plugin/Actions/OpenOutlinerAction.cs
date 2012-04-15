@@ -55,7 +55,7 @@ namespace Outliner.Actions
          }
 
          tc.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
-         TreeMode tm = new LayerMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
+         TreeMode tm = new HierarchyMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
          //SelectionSetMode(tc.treeView1, Autodesk.Max.GlobalInterface.Instance.COREInterface);
          //LayerMode(tc.treeView1, Autodesk.Max.GlobalInterface.Instance.COREInterface);
          //HierarchyMode(tc.treeView1, Autodesk.Max.GlobalInterface.Instance.COREInterface);
