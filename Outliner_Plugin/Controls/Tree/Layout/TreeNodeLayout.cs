@@ -17,7 +17,6 @@ public class TreeNodeLayout
    private TreeView treeView;
    private Int32 itemHeight;
    private Boolean fullRowSelect;
-   private Boolean alternateBackground;
 
    [XmlIgnore]
    public TreeView TreeView 
@@ -61,19 +60,6 @@ public class TreeNodeLayout
       }
    }
 
-   [XmlElement("AlternateBackground")]
-   [DefaultValue(false)]
-   public Boolean AlternateBackground
-   {
-      get { return this.alternateBackground; }
-      set
-      {
-         this.alternateBackground = value;
-         if (this.TreeView != null)
-            this.TreeView.Invalidate();
-      }
-   }
-
    [XmlElement("UseLayerColors")]
    [DefaultValue(false)]
    public Boolean UseLayerColors { get; set; }
@@ -94,7 +80,6 @@ public class TreeNodeLayout
       this.LayoutItems = new TreeNodeLayoutItemCollection();
       this.itemHeight = 18;
       this.fullRowSelect = false;
-      this.alternateBackground = false;
       this.UseLayerColors = false;
    }
 

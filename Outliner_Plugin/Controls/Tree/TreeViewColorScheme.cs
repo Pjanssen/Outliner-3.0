@@ -7,6 +7,7 @@ using Autodesk.Max;
 using System.Reflection;
 using System.Xml.Serialization;
 using System.IO;
+using System.ComponentModel;
 
 namespace Outliner.Controls.Tree
 {
@@ -26,6 +27,9 @@ public class TreeViewColorScheme
 
    public SerializableColor ParentForeground { get; set; }
    public SerializableColor ParentBackground { get; set; }
+
+   [DefaultValue(false)]
+   public Boolean AlternateBackground { get; set; }
 
    public TreeViewColorScheme()
    {

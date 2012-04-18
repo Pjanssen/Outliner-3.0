@@ -12,7 +12,6 @@ TREEVIEW
 --------
 * FlexibleSpace.MinWidth
 * TreeNode selection implementation is a bit shoddy. MouseDown+MouseUp both fire selectionchangedevent
-* Move alternate backcolor to Color class.
 
 NODE BUTTONS
 ------------
