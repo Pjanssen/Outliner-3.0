@@ -4,9 +4,15 @@
 * Superclass sorter does not really work with exceptions (target, bones, etc). -> use imagekey instead?
 * SetViewCameraCommand: properly store previous state.
 * Wirecolor "by layer" button.
-* FlexibleSpace.MinWidth
-* TreeNode selection implementation is a bit shoddy.
 * Color sorter
+* ToggleLightTest use IInterface.CreateLightObject ?
+* Use IInterface selection set methods for selectionsetmode?
+
+TREEVIEW
+--------
+* FlexibleSpace.MinWidth
+* TreeNode selection implementation is a bit shoddy. MouseDown+MouseUp both fire selectionchangedevent
+* Move alternate backcolor to Color class.
 
 NODE BUTTONS
 ------------

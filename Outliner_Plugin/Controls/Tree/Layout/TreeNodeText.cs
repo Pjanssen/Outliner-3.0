@@ -65,11 +65,14 @@ public class TreeNodeText : TreeNodeLayoutItem
       }
    }
 
+   private Boolean clickHandledAtMouseDown;
+
    public override void HandleMouseDown(MouseEventArgs e, TreeNode tn)
    {
       if (this.Layout == null || this.Layout.TreeView == null)
          return;
 
+      this.clickHandledAtMouseDown = false;
       TreeView tree          = this.Layout.TreeView;
       Boolean isSelected     = tree.IsSelectedNode(tn);
       if (!HelperMethods.ControlPressed && !HelperMethods.ShiftPressed)
@@ -79,6 +82,7 @@ public class TreeNodeText : TreeNodeLayoutItem
             tree.SelectAllNodes(false);
             tree.SelectNode(tn, true);
             tree.OnSelectionChanged();
+            this.clickHandledAtMouseDown = true;
          }
       }
    }
@@ -86,6 +90,9 @@ public class TreeNodeText : TreeNodeLayoutItem
    public override void HandleMouseUp(MouseEventArgs e, TreeNode tn)
    {
       if (this.Layout == null || this.Layout.TreeView == null)
+         return;
+
+      if (this.clickHandledAtMouseDown)
          return;
 
       TreeView tree          = this.Layout.TreeView;

@@ -5,6 +5,7 @@ using System.Text;
 using Autodesk.Max.Plugins;
 using Outliner.Controls;
 using Autodesk.Max;
+using Outliner.Scene;
 
 namespace Outliner
 {
@@ -19,42 +20,109 @@ namespace Outliner
 
    public class OutlinerGUP : GUP
    {
-      public override uint Start
+      private List<IINodeWrapper> openedGroupHeads;
+      private uint closeGroupHeadsCbKey = 0;
+
+      public OutlinerGUP()
       {
-         get { return (uint)GupResult.Keep; }
+         this.openedGroupHeads = new List<IINodeWrapper>();
       }
 
-      public override void Stop() { }
-
-      private MainWindow mainWindow;
-      public Boolean MainWindowOpen { get; private set; }
-
-      public void OpenMainWindow() 
+      public override uint Start
       {
-         if (!MainWindowOpen)
+         get 
          {
-            //if (this.mainWindow == null)
-               this.mainWindow = new MainWindow();
-
-            this.mainWindow.FormClosed += new System.Windows.Forms.FormClosedEventHandler(mainWindow_FormClosed);
-            this.mainWindow.ShowModeless();
-
-            this.MainWindowOpen = true;
+            return (uint)GupResult.Keep; 
          }
       }
 
-      void mainWindow_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)
+      public override void Stop() 
       {
-         this.mainWindow.FormClosed -= mainWindow_FormClosed;
-         this.MainWindowOpen = false;
+         this.UnRegisterCloseGroupHeadsCb();
       }
 
-      public void CloseMainWindow() 
-      {
-         if (this.mainWindow != null)
-            this.mainWindow.Close();
 
-         this.MainWindowOpen = false;
+
+      /// <summary>
+      /// Opens any closed group heads in the provided list of nodewrappers.
+      /// When the selection changes, the opened heads are closed automatically as required.
+      /// </summary>
+      public void OpenSelectedGroupHeads(IEnumerable<IMaxNodeWrapper> nodes)
+      {
+         foreach (IMaxNodeWrapper node in nodes)
+         {
+            IINodeWrapper inode = node as IINodeWrapper;
+            if (inode == null)
+               continue;
+
+            if (inode.IINode.IsGroupMember && !inode.IINode.IsOpenGroupMember)
+            {
+               IINodeWrapper parent = inode.Parent as IINodeWrapper;
+               while (parent != null && (parent.IINode.IsGroupMember || parent.IINode.IsGroupHead))
+               {
+                  if (parent.IINode.IsGroupHead && !parent.IINode.IsOpenGroupHead)
+                  {
+                     HelperMethods.OpenCloseGroup(parent, true);
+                     this.openedGroupHeads.Add(parent);
+                  }
+                  parent = parent.Parent as IINodeWrapper;
+               }
+               inode.IINode.SetGroupMemberOpen(true);
+            }
+         }
+
+         if (this.closeGroupHeadsCbKey == 0)
+         {
+            CloseGroupHeadsNodeEventCb cb = new CloseGroupHeadsNodeEventCb(this);
+            IISceneEventManager sceneEventMgr = MaxInterfaces.Global.ISceneEventManager;
+            this.closeGroupHeadsCbKey = sceneEventMgr.RegisterCallback(cb, false, 50, true);
+         }
+      }
+
+      /// <summary>
+      /// Closes any group heads that were opened using OpenGroupHeads() and are no longer a parent of a selected node.
+      /// </summary>
+      public void CloseUnselectedGroupHeads()
+      {
+         for (int i = this.openedGroupHeads.Count - 1; i >= 0; i--)
+         {
+            IINodeWrapper groupHead = this.openedGroupHeads[i];
+            if (!HelperMethods.IsParentOfSelected(groupHead))
+            {
+               HelperMethods.OpenCloseGroup(groupHead, false);
+               this.openedGroupHeads.RemoveAt(i);
+            }
+         }
+
+         if (this.openedGroupHeads.Count == 0)
+         {
+            this.UnRegisterCloseGroupHeadsCb();
+         }
+      }
+
+      private void UnRegisterCloseGroupHeadsCb()
+      {
+         if (this.closeGroupHeadsCbKey == 0)
+            return;
+
+         IISceneEventManager sceneEventMgr = MaxInterfaces.Global.ISceneEventManager;
+         sceneEventMgr.UnRegisterCallback(this.closeGroupHeadsCbKey);
+         this.closeGroupHeadsCbKey = 0;
+      }
+
+      protected class CloseGroupHeadsNodeEventCb : INodeEventCallback
+      {
+         private OutlinerGUP gup;
+         public CloseGroupHeadsNodeEventCb(OutlinerGUP gup)
+         {
+            this.gup = gup;
+         }
+
+         public override void SelectionChanged(ITab<UIntPtr> nodes)
+         {
+            gup.CloseUnselectedGroupHeads();
+            gup.Max.RedrawViews(gup.Max.Time, RedrawFlags.Normal, null);
+         }
       }
    }
 }

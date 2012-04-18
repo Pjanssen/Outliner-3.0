@@ -334,7 +334,9 @@ public abstract class TreeMode
 
    void tree_SelectionChanged(object sender, SelectionChangedEventArgs e)
    {
-      SelectCommand cmd = new SelectCommand(HelperMethods.GetMaxNodes(e.Nodes));
+      IEnumerable<IMaxNodeWrapper> selNodes = HelperMethods.GetMaxNodes(e.Nodes);
+      OutlinerDescriptor.Instance.OpenSelectedGroupHeads(selNodes);
+      SelectCommand cmd = new SelectCommand(selNodes);
       cmd.Execute(true);
    }
 

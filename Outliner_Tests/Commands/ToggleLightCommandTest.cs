@@ -16,7 +16,10 @@ public class ToggleLightCommandTest : MaxIntegrationTest
    {
       IInterface ip = MaxRemoting.Global.COREInterface;
       ILightObject light = ip.CreateInstance(SClass_ID.Light, MaxRemoting.Global.Class_ID.Create((uint)BuiltInClassIDA.OMNI_LIGHT_CLASS_ID, 0)) as ILightObject;
-      return ip.CreateObjectNode(light);
+      IINode inode = ip.CreateObjectNode(light);
+      ip.AddLightToScene(inode);
+
+      return inode;
    }
 
    [TestMethod]

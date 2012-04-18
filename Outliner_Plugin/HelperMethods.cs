@@ -207,8 +207,45 @@ public static class HelperMethods
           || ClassIDEquals(cID, BuiltInClassIDA.XREFMATERIAL_CLASS_ID, BuiltInClassIDB.XREFMATERIAL_CLASS_ID);
    }
 
+   /// <summary>
+   /// Returns true if the supplied node is a selected node, or a parent of a selected node.
+   /// </summary>
+   public static Boolean IsParentOfSelected(IMaxNodeWrapper node)
+   {
+      if (node.Selected)
+         return true;
 
-   
+      foreach (IMaxNodeWrapper child in node.WrappedChildNodes)
+      {
+         if (child.Selected || HelperMethods.IsParentOfSelected(child))
+            return true;
+      }
+      
+      return false;
+   }
+
+   /// <summary>
+   /// Opens or closes a group head.
+   /// </summary>
+   /// <param name="groupHead">The group head node to open or close.</param>
+   public static void OpenCloseGroup(IINodeWrapper groupHead, Boolean open)
+   {
+      if (groupHead == null)
+         return;
+
+      if (groupHead.IINode.IsGroupHead)
+         groupHead.IINode.SetGroupHeadOpen(open);
+
+      foreach (IMaxNodeWrapper child in groupHead.WrappedChildNodes)
+      {
+         IINodeWrapper inodeChild = child as IINodeWrapper;
+         if (inodeChild != null && !inodeChild.IINode.IsGroupHead && inodeChild.IINode.IsGroupMember)
+         {
+            inodeChild.IINode.SetGroupMemberOpen(open);
+            OpenCloseGroup(inodeChild, open);
+         }
+      }
+   }
 
    /// <summary>
    /// Iterates over all elements in the collection with the supplied function.

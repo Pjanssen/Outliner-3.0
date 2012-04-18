@@ -29,6 +29,15 @@ internal static class MaxRemoting
       }
    }
 
+   internal static IINode CreateDummy()
+   {
+      IInterface ip = Global.COREInterface;
+      IDummyObject dummy = ip.CreateInstance(SClass_ID.Helper, Global.Class_ID.Create((uint)BuiltInClassIDA.DUMMY_CLASS_ID, 0)) as IDummyObject;
+      dummy.Box = Global.Box3.Create(Global.Point3.Create(-5, -5, -5), 
+                                     Global.Point3.Create( 5,  5,  5));
+      return ip.CreateObjectNode(dummy);
+   }
+
    internal static IINode CreateBox()
    {
       IInterface ip = Global.COREInterface;
