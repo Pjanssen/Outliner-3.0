@@ -39,13 +39,6 @@ public static class HelperMethods
       return lst;
    }
 
-   /// <summary>
-   /// Retrieves the IINodes from a ITab of handles.
-   /// </summary>
-   public static IEnumerable<IINode> NodeKeysToINodeList(this ITab<UIntPtr> handles)
-   {
-      return handles.ToIEnumerable().Select(MaxInterfaces.Global.NodeEventNamespace.GetNodeByKey);
-   }
 
 
    public static void RunResourceScript(Assembly assembly, String res)

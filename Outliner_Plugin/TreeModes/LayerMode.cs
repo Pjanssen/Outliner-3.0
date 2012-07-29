@@ -94,7 +94,7 @@ public class LayerMode : TreeMode
 
       public override void Added(ITab<UIntPtr> nodes)
       {
-         foreach (IINode node in HelperMethods.NodeKeysToINodeList(nodes))
+         foreach (IINode node in IINodeHelpers.NodeKeysToINodeList(nodes))
          {
             IILayer layer = node.GetReference((int)ReferenceNumbers.NodeLayerRef) as IILayer;
             if (layer == null)

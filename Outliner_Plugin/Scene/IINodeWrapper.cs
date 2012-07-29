@@ -110,7 +110,7 @@ public class IINodeWrapper : IMaxNodeWrapper
             return "-unnamed-";
 
          Boolean isGroupedNode = this.node.IsGroupHead || this.node.IsGroupMember;
-         if (HelperMethods.IsXref(this.node))
+         if (IINodeHelpers.IsXref(this.node))
          {
             if (isGroupedNode)
                return "{[" + this.Name + "]}";
@@ -229,7 +229,7 @@ public class IINodeWrapper : IMaxNodeWrapper
             case SClass_ID.WsmObject: return IMGKEY_SPACEWARP;
          }
 
-         if (superClass == SClass_ID.System && HelperMethods.IsXref(node))
+         if (superClass == SClass_ID.System && IINodeHelpers.IsXref(node))
             return IMGKEY_XREF;
 
          if (superClass == SClass_ID.Helper)
@@ -259,7 +259,7 @@ public class IINodeWrapper : IMaxNodeWrapper
                return IMGKEY_PARTICLE;
 
             //Bone and biped objects have Geomobject as a superclass.
-            if (HelperMethods.IsBone(node))
+            if (IINodeHelpers.IsBone(node))
                return IMGKEY_BONE;
 
             //All other geometry objects.

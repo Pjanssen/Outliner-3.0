@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Outliner.Scene;
+using MaxUtils;
 
 namespace Outliner.Filters
 {
@@ -27,7 +28,7 @@ namespace Outliner.Filters
          if (inodeWrapper == null)
             return FilterResults.Show;
 
-         if (!inodeWrapper.IsValid || HelperMethods.IsInvisibleNode(inodeWrapper.IINode))
+         if (!inodeWrapper.IsValid || IINodeHelpers.IsInvisibleNode(inodeWrapper.IINode))
             return FilterResults.Hide;
          else
             return FilterResults.Show;

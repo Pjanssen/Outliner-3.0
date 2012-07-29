@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimatableProperty.cs" />
+    <Compile Include="ClassIDHelpers.cs" />
     <Compile Include="HelperMethods.cs" />
+    <Compile Include="IINodeHelpers.cs" />
     <Compile Include="MaxInterfaces.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

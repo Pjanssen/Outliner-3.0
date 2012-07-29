@@ -58,20 +58,6 @@ public static class HelperMethods
    }
 
 
-   /// <summary>
-   /// Converts the ITab to a more convenient IEnumerable.
-   /// </summary>
-   public static IEnumerable<T> ToIEnumerable<T>(this ITab<T> tab)
-   {
-      if (tab == null)
-         throw new ArgumentNullException("tab");
-
-      List<T> lst = new List<T>(tab.Count);
-      for (int i = 0; i < tab.Count; i++)
-         lst.Add(tab[(IntPtr)i]);
-
-      return lst;
-   }
 
    public static IINodeTab ToIINodeTab(IEnumerable<IMaxNodeWrapper> nodes)
    {
@@ -92,114 +78,6 @@ public static class HelperMethods
       return tab;
    }
 
-   /// <summary>
-   /// Retrieves the IINodes from a ITab of handles.
-   /// </summary>
-   public static IEnumerable<IINode> NodeKeysToINodeList(this ITab<UIntPtr> handles)
-   {
-      return handles.ToIEnumerable().Select(MaxInterfaces.Global.NodeEventNamespace.GetNodeByKey);
-   }
-
-
-   public static bool ClassIDEquals(IClass_ID cid, BuiltInClassIDA cidA)
-   {
-      return ClassIDEquals(cid, (uint)cidA);
-   }
-
-   public static bool ClassIDEquals(IClass_ID cid, BuiltInClassIDA cidA, BuiltInClassIDB cidB)
-   {
-      return ClassIDEquals(cid, (uint)cidA, (uint)cidB);
-   }
-
-   public static bool ClassIDEquals(IClass_ID cid, uint cidA)
-   {
-      return ClassIDEquals(cid, cidA, 0);
-   }
-
-   public static bool ClassIDEquals(IClass_ID cid, uint cidA, uint cidB)
-   {
-      if (cid == null)
-         return false;
-      else
-         return cid.PartA == cidA && cid.PartB == cidB;
-   }
-
-
-   public const uint BIPED_CLASSIDA               = 0x9155;
-   public const uint SKELOBJ_CLASSIDA             = 0x9125;
-   public const uint CATBONE_CLASSIDA             = 0x2E6A0C09;
-   public const uint CATBONE_CLASSIDB             = 0x43D5C9C0;
-   public const uint CATHUB_CLASSIDA              = 0x73DC4833;
-   public const uint CATHUB_CLASSIDB              = 0x65C93CAA;
-   public const uint PARTICLECHANNELCLASSID_PARTB = 0x1eb34100;
-   public const uint PFACTIONCLASSID_PARTB        = 0x1eb34200;
-   public const uint PFACTORCLASSID_PARTB         = 0x1eb34300;
-   public const uint PFMATERIALCLASSID_PARTB      = 0x1eb34400;
-   public const String CAM_3DXSTUDIO_NAME         = "3DxStudio Perspective";
-
-   /// <summary>
-   /// Tests if the supplied IINode is an "invisible" node.
-   /// </summary>
-   public static Boolean IsInvisibleNode(IINode node)
-   {
-      if (node == null)
-         return false;
-      else
-         return IsPFHelper(node) || node.Name == CAM_3DXSTUDIO_NAME;
-   }
-
-   /// <summary>
-   /// Tests whether the supplied IINode is a bone object.
-   /// </summary>
-   public static Boolean IsBone(IINode node)
-   {
-      if (node != null && node.ObjectRef != null && node.ObjectRef.SuperClassID == SClass_ID.Geomobject)
-      {
-         IClass_ID classID = node.ObjectRef.ClassID;
-         return ClassIDEquals(classID, BuiltInClassIDA.BONE_OBJ_CLASSID, BuiltInClassIDB.BONE_OBJ_CLASSID)
-             || ClassIDEquals(classID, SKELOBJ_CLASSIDA)
-             || ClassIDEquals(classID, BIPED_CLASSIDA)
-             || ClassIDEquals(classID, CATBONE_CLASSIDA, CATBONE_CLASSIDB)
-             || ClassIDEquals(classID, CATHUB_CLASSIDA, CATHUB_CLASSIDB);
-      }
-      return false;
-   }
-
-   /// <summary>
-   /// Tests whether the supplied IINode is a particle flow helper object.
-   /// </summary>
-   public static bool IsPFHelper(IINode node)
-   {
-      if (node == null || node.ObjectRef == null)
-         return false;
-
-      IObject objRef = node.ObjectRef;
-
-      uint classID_B = objRef.ClassID.PartB;
-      return classID_B == PARTICLECHANNELCLASSID_PARTB
-          || classID_B == PFACTIONCLASSID_PARTB
-          || classID_B == PFACTORCLASSID_PARTB
-          || classID_B == PFMATERIALCLASSID_PARTB;
-   }
-
-   /// <summary>
-   /// Tests if the supplied IINode is an xref node.
-   /// </summary>
-   /// <param name="node"></param>
-   /// <returns></returns>
-   public static Boolean IsXref(IINode node)
-   {
-      if (node == null || node.ObjectRef == null)
-         return false;
-
-      IObject objRef = node.ObjectRef;
-      if (objRef.SuperClassID != SClass_ID.System)
-         return false;
-
-      IClass_ID cID = objRef.ClassID;
-      return ClassIDEquals(cID, BuiltInClassIDA.XREFOBJ_CLASS_ID)
-          || ClassIDEquals(cID, BuiltInClassIDA.XREFMATERIAL_CLASS_ID, BuiltInClassIDB.XREFMATERIAL_CLASS_ID);
-   }
 
    /// <summary>
    /// Returns true if the supplied node is a selected node, or a parent of a selected node.
@@ -240,6 +118,7 @@ public static class HelperMethods
          }
       }
    }
+
 
    /// <summary>
    /// Iterates over all elements in the collection with the supplied function.

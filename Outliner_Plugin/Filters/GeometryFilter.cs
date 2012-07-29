@@ -1,6 +1,7 @@
 ﻿using Autodesk.Max;
 using Outliner.Scene;
 using Outliner.TreeModes;
+using MaxUtils;
 
 namespace Outliner.Filters
 {
@@ -15,7 +16,7 @@ namespace Outliner.Filters
             return FilterResults.Show;
 
          IINode node = (IINode)data.WrappedNode;
-         if (node.IsTarget || HelperMethods.IsBone(node) 
+         if (node.IsTarget || IINodeHelpers.IsBone(node) 
                            || node.ObjectRef.IsParticleSystem)
             return FilterResults.Show;
          else

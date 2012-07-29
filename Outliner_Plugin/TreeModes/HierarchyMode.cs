@@ -8,6 +8,7 @@ using Outliner.Scene;
 using Outliner.Filters;
 using Outliner.Controls.Tree;
 using Outliner.Controls.Tree.DragDropHandlers;
+using MaxUtils;
 
 namespace Outliner.TreeModes
 {

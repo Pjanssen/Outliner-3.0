@@ -1,6 +1,7 @@
 ﻿using Outliner.Scene;
 using Autodesk.Max;
 using Outliner.TreeModes;
+using MaxUtils;
 
 namespace Outliner.Filters
 {
@@ -11,7 +12,7 @@ namespace Outliner.Filters
            if (data == null || !(data is IINodeWrapper))
               return FilterResults.Show;
 
-           if (HelperMethods.IsBone((IINode)data.WrappedNode))
+           if (IINodeHelpers.IsBone((IINode)data.WrappedNode))
               return FilterResults.Hide;
            else
               return FilterResults.Show;
