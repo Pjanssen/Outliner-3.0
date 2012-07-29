@@ -6,63 +6,37 @@ using System.Windows.Forms;
 using Outliner.Scene;
 using Outliner.Commands;
 using Outliner.NodeSorters;
+using MaxUtils;
 
 namespace Outliner.Controls.Tree.Layout
 {
-public class FreezeButton : ImageButton
-{
-   public FreezeButton() : base(OutlinerResources.button_freeze,
-                                 OutlinerResources.button_freeze_disabled)
-   { }
-
-   public override bool IsEnabled(TreeNode tn)
+   public class FreezeButton : AnimatablePropertyButton
    {
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
-      if (node == null)
-         return false;
+      public FreezeButton() { }
 
-      return node.IsFrozen;
-   }
-
-   public override void HandleMouseUp(MouseEventArgs e, TreeNode tn)
-   {
-      if (this.Layout == null || this.Layout.TreeView == null)
-         return;
-
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
-      if (node == null)
-         return;
-
-      TreeView tree = this.Layout.TreeView;
-      IEnumerable<TreeNode> nodes = null;
-      if (tree.IsSelectedNode(tn) && !HelperMethods.ControlPressed)
-         nodes = tree.SelectedNodes;
-      else
-         nodes = new List<TreeNode>(1) { tn };
-
-      FreezeCommand cmd = new FreezeCommand(HelperMethods.GetMaxNodes(nodes), 
-                                            !node.IsFrozen);
-      cmd.Execute(true);
-
-      if (tree.NodeSorter is FrozenSorter)
+      protected override AnimatableProperty Property
       {
-         tree.AddToSortQueue(nodes);
-         tree.StartTimedSort(true);
-      }
-   }
-
-   protected override string GetTooltipText(TreeNode tn)
-   {
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
-      if (node != null)
-      {
-         if (node.IsFrozen)
-            return OutlinerResources.Tooltip_Unfreeze;
-         else
-            return OutlinerResources.Tooltip_Freeze;
+         get { return AnimatableProperty.IsFrozen; }
       }
 
-      return null;
+      protected override Type SetPropertyCommandType
+      {
+         get { return typeof(FreezeCommand); }
+      }
+
+      protected override string ToolTipEnabled
+      {
+         get { return OutlinerResources.Tooltip_Unfreeze; }
+      }
+
+      protected override string ToolTipDisabled
+      {
+         get { return OutlinerResources.Tooltip_Freeze; }
+      }
+
+      protected override System.Drawing.Bitmap ImageEnabled
+      {
+         get { return OutlinerResources.button_freeze; }
+      }
    }
-}
 }

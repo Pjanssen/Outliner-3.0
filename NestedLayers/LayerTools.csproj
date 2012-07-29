@@ -58,7 +58,6 @@
     <Compile Include="AutoInheritProperties\AutoInheritPropertiesMXS.cs" />
     <Compile Include="Functor.cs" />
     <Compile Include="NestedLayers\NestedLayersMXS.cs" />
-    <Compile Include="NestedLayers\TestAction2.cs" />
     <Compile Include="NestedLayers\NestedLayers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="NestedLayers\TestAction.cs" />

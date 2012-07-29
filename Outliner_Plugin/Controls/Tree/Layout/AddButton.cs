@@ -13,9 +13,7 @@ namespace Outliner.Controls.Tree.Layout
 {
 public class AddButton : ImageButton
 {
-   public AddButton() : base(OutlinerResources.button_add,
-                             OutlinerResources.button_add_disabled)
-   { }
+   public AddButton() : base(OutlinerResources.button_add) { }
 
    [XmlAttribute("visible_types")]
    [DefaultValue(MaxNodeTypes.SelectionSet | MaxNodeTypes.Layer)]

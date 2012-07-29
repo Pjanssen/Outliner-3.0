@@ -102,10 +102,21 @@ public class TreeNode
 
    public void Invalidate()
    {
-      if (this.TreeView != null)
+      this.Invalidate(false);
+   }
+
+   public void Invalidate(Boolean recursive)
+   {
+      if (this.TreeView == null)
+         return;
+
+      if (this.TreeView.ClientRectangle.IntersectsWith(this.Bounds))
+         this.TreeView.Invalidate(this.Bounds);
+
+      if (recursive)
       {
-         if (this.TreeView.ClientRectangle.IntersectsWith(this.Bounds))
-            this.TreeView.Invalidate(this.Bounds);
+         foreach (TreeNode tn in this.Nodes)
+            tn.Invalidate(recursive);
       }
    }
 

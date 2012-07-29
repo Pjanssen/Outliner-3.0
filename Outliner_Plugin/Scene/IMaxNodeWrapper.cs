@@ -4,9 +4,14 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using System.Drawing;
+using MaxUtils;
 
 namespace Outliner.Scene
 {
+   /// <summary>
+   /// IMaxNodeWrapper is an adapter class which provides a common interface
+   /// for INodes, ILayers and other 3dsmax objects.
+   /// </summary>
    public abstract class IMaxNodeWrapper
    {
       public abstract Object WrappedNode { get; }
@@ -72,7 +77,24 @@ namespace Outliner.Scene
          get { return false; }
          set { }
       }
+      public virtual Boolean XRayMtl 
+      {
+         get { return false; }
+         set { }
+      }
 
+      public virtual Boolean GetBoolProperty(AnimatableProperty property)
+      {
+         switch (property)
+         {
+            case AnimatableProperty.BoxMode: return this.BoxMode;
+            case AnimatableProperty.IsFrozen: return this.IsFrozen;
+            case AnimatableProperty.IsHidden: return this.IsHidden;
+            case AnimatableProperty.Renderable: return this.Renderable;
+            case AnimatableProperty.XRayMtl: return this.XRayMtl;
+            default: return false;
+         }  
+      }
 
       /// <summary>
       /// Tests if the wrapped node is still a valid scene node and hasn't been deleted.

@@ -10,6 +10,7 @@ using System.Xml.Serialization;
 using System.ComponentModel;
 using Outliner.Scene;
 using Outliner.Commands;
+using MaxUtils;
 
 namespace Outliner.Controls.Tree.Layout
 {

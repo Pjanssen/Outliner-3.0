@@ -21,16 +21,16 @@ public class AutoInheritPropertiesMXS
       return anim.GetAnimByHandle(new UIntPtr(layerHandle)) as IILayer;
    }
 
-   private static AutoInheritProperties.InheritProperty getProperty(String name)
+   private static AutoInheritProperties.NodeLayerProperty getProperty(String name)
    {
-      Type t = typeof(AutoInheritProperties.InheritProperty);
-      return (AutoInheritProperties.InheritProperty)Enum.Parse(t, name);
+      Type t = typeof(AutoInheritProperties.NodeLayerProperty);
+      return (AutoInheritProperties.NodeLayerProperty)Enum.Parse(t, name);
    }
 
    public static Boolean GetAutoInherit(UInt64 layerHandle, String propName)
    {
       IILayer layer = getLayer(layerHandle);
-      AutoInheritProperties.InheritProperty prop = getProperty(propName);
+      AutoInheritProperties.NodeLayerProperty prop = getProperty(propName);
 
       return AutoInheritProperties.GetAutoInherit(layer, prop);
    }
@@ -38,7 +38,7 @@ public class AutoInheritPropertiesMXS
    public static void SetAutoInherit(UInt64 layerHandle, String propName, Boolean value)
    {
       IILayer layer = getLayer(layerHandle);
-      AutoInheritProperties.InheritProperty prop = getProperty(propName);
+      AutoInheritProperties.NodeLayerProperty prop = getProperty(propName);
 
       AutoInheritProperties.SetAutoInherit(layer, prop, value);
    }

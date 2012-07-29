@@ -13,12 +13,12 @@ namespace Outliner.Controls.Tree
 {
 public class TreeView : ScrollableControl
 {
-   private TreeNode root;
+   internal TreeNode Root { get; private set; }
 
    public TreeView()
    {
       //Member initialization.
-      this.root = new TreeNode(this, "root");
+      this.Root = new TreeNode(this, "root");
       this.Colors = new TreeViewColorScheme();
       this.SelectedNodes = new HashSet<TreeNode>();
       this.TreeNodeLayout = TreeNodeLayout.DefaultLayout; //TODO check that this does not cause unnecessary redrawing.
@@ -44,7 +44,7 @@ public class TreeView : ScrollableControl
 
    public TreeNodeCollection Nodes
    {
-      get { return this.root.Nodes; }
+      get { return this.Root.Nodes; }
    }
 
 
@@ -151,7 +151,11 @@ public class TreeView : ScrollableControl
    }
 
 
-   internal Color GetNodeForeColor(TreeNode tn)
+   /// <summary>
+   /// Gets the foreground color for a treenode.
+   /// </summary>
+   /// <param name="highlight">True if the foreground color is part of a highlight area (e.g. selection, drop-target)</param>
+   internal Color GetNodeForeColor(TreeNode tn, Boolean highlight)
    {
       if (tn == null || this.Colors == null)
          return Color.Empty;
@@ -167,7 +171,7 @@ public class TreeView : ScrollableControl
          return tn.ForeColor;
       else
       {
-         float bBack = this.GetNodeBackColor(tn).GetBrightness();
+         float bBack = this.GetNodeBackColor(tn, highlight).GetBrightness();
          float bDark = this.Colors.ForegroundDark.Color.GetBrightness();
          float bLight = this.Colors.ForegroundLight.Color.GetBrightness();
 
@@ -178,18 +182,22 @@ public class TreeView : ScrollableControl
       }
    }
 
-   internal Color GetNodeBackColor(TreeNode tn)
+   /// <summary>
+   /// Gets the background color for a treenode.
+   /// </summary>
+   /// <param name="highlight">True if the background color is part of a highlight area (e.g. selection, drop-target)</param>
+   internal Color GetNodeBackColor(TreeNode tn, Boolean highlight)
    {
       if (tn == null || this.Colors == null || this.TreeNodeLayout == null)
          return Color.Empty;
 
-      Boolean fullRowSelect = this.TreeNodeLayout.FullRowSelect;
+      highlight |= this.TreeNodeLayout.FullRowSelect;
 
-      if (fullRowSelect && tn.State.HasFlag(TreeNodeStates.DropTarget))
+      if (highlight && tn.State.HasFlag(TreeNodeStates.DropTarget))
          return this.Colors.DropTargetBackground.Color;
-      if (fullRowSelect && tn.State.HasFlag(TreeNodeStates.Selected))
+      if (highlight && tn.State.HasFlag(TreeNodeStates.Selected))
          return this.Colors.SelectionBackground.Color;
-      if (fullRowSelect && tn.State.HasFlag(TreeNodeStates.ParentOfSelected))
+      if (highlight && tn.State.HasFlag(TreeNodeStates.ParentOfSelected))
          return this.Colors.ParentBackground.Color;
 
       Color bgColor = this.Colors.Background.Color;
@@ -241,7 +249,7 @@ public class TreeView : ScrollableControl
          {
             if (layout.FullRowSelect || this.Colors.AlternateBackground || layout.UseLayerColors)
             {
-               Color bgColor = this.GetNodeBackColor(tn);
+               Color bgColor = this.GetNodeBackColor(tn, false);
                using (SolidBrush bgBrush = new SolidBrush(bgColor))
                {
                   //Color bgGradColor = Color.FromArgb(bgColor.A, Math.Min(bgColor.R + 25, 255), Math.Min(bgColor.G + 25, 255), Math.Min(bgColor.B + 25, 255));
@@ -337,7 +345,7 @@ public class TreeView : ScrollableControl
 
          if (this.TestUpdateFlag(TreeViewUpdateFlags.TreeNodeBounds))
          {
-            this.root.InvalidateBounds(false, true);
+            this.Root.InvalidateBounds(false, true);
          }
 
          if (this.TestUpdateFlag(TreeViewUpdateFlags.Scrollbars))
@@ -375,7 +383,7 @@ public class TreeView : ScrollableControl
          maxHeight += itemHeight;
          tn = tn.NextVisibleNode;
       }
-      return new Size(maxWidth + 5, maxHeight);
+      return new Size(maxWidth, maxHeight);
    }
 
    #endregion

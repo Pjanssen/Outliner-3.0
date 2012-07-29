@@ -12,6 +12,7 @@ using Outliner.Controls;
 using Outliner.Controls.Tree;
 using Outliner.Scene;
 using Outliner.Commands;
+using MaxUtils;
 
 
 namespace Outliner
@@ -56,13 +57,6 @@ public static class HelperMethods
       return wrappers.Where(w => w.WrappedNode is T).Select(n => (T)n.WrappedNode);
    }
 
-   /// <summary>
-   /// Marshals the INotifyInfo object from a pointer sent by a general event callback.
-   /// </summary>
-   public static INotifyInfo GetNotifyInfo(IntPtr info)
-   {
-      return MaxInterfaces.Global.NotifyInfo.Marshal(info);
-   }
 
    /// <summary>
    /// Converts the ITab to a more convenient IEnumerable.

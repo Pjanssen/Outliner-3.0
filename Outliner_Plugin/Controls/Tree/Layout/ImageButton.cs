@@ -7,9 +7,12 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.ComponentModel;
 using Outliner.Filters;
+using Outliner.Scene;
 
 namespace Outliner.Controls.Tree.Layout
 {
+
+
 public abstract class ImageButton : TreeNodeButton
 {
    [XmlAttribute("invert_behavior")]
@@ -23,6 +26,24 @@ public abstract class ImageButton : TreeNodeButton
    private Bitmap enabledImage_Filtered;
    private Bitmap disabledImage_Filtered;
 
+   public static Bitmap CreateDisabledImage(Bitmap image)
+   {
+      Bitmap img = (Bitmap)image.Clone();
+      BitmapProcessing.Desaturate(img);
+      BitmapProcessing.Opacity(img, 90);
+      return img;
+   }
+
+   public static Bitmap CreateFilteredImage(Bitmap image)
+   {
+      Bitmap img = (Bitmap)image.Clone();
+      BitmapProcessing.Opacity(img, IconHelperMethods.FILTERED_OPACITY);
+      return img;
+   }
+
+   protected ImageButton(Bitmap enabledImage)
+      : this(enabledImage, CreateDisabledImage(enabledImage)) { }
+
    protected ImageButton(Bitmap enabledImage, Bitmap disabledImage)
    {
       if (enabledImage == null)
@@ -33,10 +54,8 @@ public abstract class ImageButton : TreeNodeButton
       this.enabledImage  = enabledImage;
       this.disabledImage = (disabledImage != null) ? disabledImage : enabledImage;
 
-      this.enabledImage_Filtered = (Bitmap)enabledImage.Clone();
-      this.disabledImage_Filtered = (Bitmap)this.disabledImage.Clone();
-      BitmapProcessing.Opacity(this.enabledImage_Filtered, IconHelperMethods.FILTERED_OPACITY);
-      BitmapProcessing.Opacity(this.disabledImage_Filtered, IconHelperMethods.FILTERED_OPACITY);
+      this.enabledImage_Filtered = CreateFilteredImage(enabledImage);
+      this.disabledImage_Filtered = CreateFilteredImage(this.disabledImage);
    }
 
    public override int GetWidth(TreeNode tn)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using Autodesk.Max;
+using MaxUtils;
 
 namespace Outliner.Controls
 {

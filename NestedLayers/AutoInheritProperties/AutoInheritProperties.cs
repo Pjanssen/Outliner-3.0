@@ -14,8 +14,8 @@ public static class AutoInheritProperties
    private static uint CID_A = 0x1ECA7d7A;
    private static uint CID_B = 0x7B6B1447;
    private static IClass_ID classID;
-   
-   public enum InheritProperty : uint
+
+   public enum NodeLayerProperty : uint
    {
       Color,
       Display,
@@ -54,10 +54,10 @@ public static class AutoInheritProperties
       object callParam = MaxInterfaces.Global.NotifyInfo.Marshal(info).CallParam;
       INodeLayerChangeParams layerChangeParams = callParam as INodeLayerChangeParams;
 
-      IEnumerable<InheritProperty> layerProps = Enum.GetValues(typeof(InheritProperty))
-                                                    .Cast<InheritProperty>();
+      IEnumerable<NodeLayerProperty> layerProps = Enum.GetValues(typeof(NodeLayerProperty))
+                                                      .Cast<NodeLayerProperty>();
 
-      foreach (InheritProperty prop in layerProps)
+      foreach (NodeLayerProperty prop in layerProps)
       {
          Boolean autoInheritOld = false;
          if (layerChangeParams.OldLayer != null)
@@ -76,8 +76,8 @@ public static class AutoInheritProperties
    {
       public override void Added(ITab<UIntPtr> nodes)
       {
-         IEnumerable<InheritProperty> layerProps = Enum.GetValues(typeof(InheritProperty))
-                                                       .Cast<InheritProperty>();
+         IEnumerable<NodeLayerProperty> layerProps = Enum.GetValues(typeof(NodeLayerProperty))
+                                                         .Cast<NodeLayerProperty>();
 
          foreach (IINode node in nodes.NodeKeysToINodeList())
          {
@@ -91,7 +91,7 @@ public static class AutoInheritProperties
             if (layer == null)
                continue;
 
-            foreach (InheritProperty prop in layerProps)
+            foreach (NodeLayerProperty prop in layerProps)
             {
                Boolean byLayer = GetAutoInherit(layer, prop);
                if (byLayer)
@@ -107,7 +107,7 @@ public static class AutoInheritProperties
       }
    }
 
-   private static void setNodeInheritProperty(IINode node, InheritProperty prop, Boolean value)
+   private static void setNodeInheritProperty(IINode node, NodeLayerProperty prop, Boolean value)
    {
       IINodeLayerProperties nodeProps = node.GetInterface(MaxInterfaces.NodeLayerProperties) as IINodeLayerProperties;
       if (nodeProps == null)
@@ -115,18 +115,18 @@ public static class AutoInheritProperties
 
       switch (prop)
       {
-         case InheritProperty.Color: nodeProps.ColorByLayer = value; break;
-         case InheritProperty.Display: nodeProps.DisplayByLayer = value; break;
-         case InheritProperty.GlobalIllumination: nodeProps.GlobalIlluminationByLayer = value; break;
-         case InheritProperty.Motion: nodeProps.MotionByLayer = value; break;
-         case InheritProperty.Render: nodeProps.RenderByLayer = value; break;
+         case NodeLayerProperty.Color: nodeProps.ColorByLayer = value; break;
+         case NodeLayerProperty.Display: nodeProps.DisplayByLayer = value; break;
+         case NodeLayerProperty.GlobalIllumination: nodeProps.GlobalIlluminationByLayer = value; break;
+         case NodeLayerProperty.Motion: nodeProps.MotionByLayer = value; break;
+         case NodeLayerProperty.Render: nodeProps.RenderByLayer = value; break;
       }
    }
 
    /// <summary>
    /// Gets AutoInherit on a layer for a specific property.
    /// </summary>
-   public static Boolean GetAutoInherit(IILayer layer, InheritProperty prop)
+   public static Boolean GetAutoInherit(IILayer layer, NodeLayerProperty prop)
    {
       if (layer == null)
          throw new ArgumentNullException("layer");
@@ -138,7 +138,7 @@ public static class AutoInheritProperties
    /// <summary>
    /// Sets AutoInherit on a layer for a specific property.
    /// </summary>
-   public static void SetAutoInherit(IILayer layer, InheritProperty prop, Boolean value)
+   public static void SetAutoInherit(IILayer layer, NodeLayerProperty prop, Boolean value)
    {
       if (layer == null)
          throw new ArgumentNullException("layer");
@@ -163,13 +163,13 @@ public static class AutoInheritProperties
    public static void ClearScene()
    {
       IILayerManager layerManager = MaxInterfaces.IILayerManager;
-      IEnumerable<InheritProperty> layerProps = Enum.GetValues(typeof(InheritProperty))
-                                                    .Cast<InheritProperty>();
+      IEnumerable<NodeLayerProperty> layerProps = Enum.GetValues(typeof(NodeLayerProperty))
+                                                      .Cast<NodeLayerProperty>();
 
       for (int i = 0; i < layerManager.LayerCount; i++)
       {
          IILayer layer = layerManager.GetLayer(i);
-         foreach (InheritProperty prop in layerProps)
+         foreach (NodeLayerProperty prop in layerProps)
          {
             layer.RemoveAppDataChunk(classID, SClass_ID.Gup, (uint)prop);
          }

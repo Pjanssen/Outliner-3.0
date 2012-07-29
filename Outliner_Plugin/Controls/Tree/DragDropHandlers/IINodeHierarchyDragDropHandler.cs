@@ -8,9 +8,9 @@ using Outliner.Commands;
 
 namespace Outliner.Controls.Tree.DragDropHandlers
 {
-public class IINodeDragDropHandler : DragDropHandler
+public class IINodeHierarchyDragDropHandler : DragDropHandler
 {
-   public IINodeDragDropHandler(IMaxNodeWrapper data) : base(data) { }
+   public IINodeHierarchyDragDropHandler(IMaxNodeWrapper data) : base(data) { }
 
    public override bool AllowDrag
    {
@@ -43,7 +43,8 @@ public class IINodeDragDropHandler : DragDropHandler
       if (draggedNodes == null)
          return;
 
-      LinkIINodeCommand cmd = new LinkIINodeCommand(HelperMethods.GetMaxNodes(draggedNodes), this.Data);
+      MoveMaxNodeCommand cmd = new MoveMaxNodeCommand(HelperMethods.GetMaxNodes(draggedNodes), this.Data, 
+         OutlinerResources.Command_Link, OutlinerResources.Command_Unlink);
       cmd.Execute(true);
    }
 }

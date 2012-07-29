@@ -30,6 +30,11 @@ public static class MaxInterfaces
       }
    }
 
+   public static IInterface COREInterface
+   {
+      get { return MaxInterfaces.Global.COREInterface; }
+   }
+
    private static IInterface_ID nodeLayerProperties;
    public static IInterface_ID NodeLayerProperties
    {

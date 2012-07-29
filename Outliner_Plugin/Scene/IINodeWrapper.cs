@@ -5,6 +5,7 @@ using System.Text;
 using Autodesk.Max;
 using System.Drawing;
 using Outliner.Controls;
+using MaxUtils;
 
 namespace Outliner.Scene
 {
@@ -46,15 +47,11 @@ public class IINodeWrapper : IMaxNodeWrapper
       }
    }
 
-   public IILayerProperties Layer
+   public IILayer IILayer
    {
       get
       {
-         IINodeLayerProperties nodeLayerProperties = this.NodeLayerProperties;
-         if (nodeLayerProperties != null)
-            return nodeLayerProperties.Layer;
-         else
-            return null;
+         return this.IINode.GetReference((int)ReferenceNumbers.NodeLayerRef) as IILayer;
       }
    }
 

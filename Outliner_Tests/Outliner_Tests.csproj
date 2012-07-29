@@ -83,12 +83,21 @@
     <Compile Include="Controls\Tree\TreeNodeTest.cs" />
     <Compile Include="Controls\Tree\TreeViewColorsTest.cs" />
     <Compile Include="Controls\Tree\TreeViewTest.cs" />
-    <Compile Include="Commands\LinkIINodeCommandTest.cs" />
+    <Compile Include="Commands\MoveMaxNodeCommandTest.cs" />
     <Compile Include="MaxRemoting.cs" />
+    <Compile Include="NestedLayersTest.cs" />
     <Compile Include="OutlinerGUPTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MaxUtils\MaxUtils.csproj">
+      <Project>{0CA16252-FD2C-4078-819F-C9ABD2735765}</Project>
+      <Name>MaxUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NestedLayers\LayerTools.csproj">
+      <Project>{D89AAF44-43BA-48F2-BEEC-852FC3AB4655}</Project>
+      <Name>LayerTools</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Outliner_Plugin\Outliner_Plugin.csproj">
       <Project>{AA8562B6-988F-4AFE-94EB-BF2FD64BE93E}</Project>
       <Name>Outliner_Plugin</Name>

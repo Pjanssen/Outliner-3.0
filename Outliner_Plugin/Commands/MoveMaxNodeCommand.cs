@@ -6,16 +6,27 @@ using Outliner.Scene;
 
 namespace Outliner.Commands
 {
-   public class LinkIINodeCommand : Command
+   /// <summary>
+   /// A generic command used to link nodes, move them to a new layer, or 
+   /// reparent layers.
+   /// </summary>
+   public class MoveMaxNodeCommand : Command
    {
       private IEnumerable<IMaxNodeWrapper> nodes;
       private IMaxNodeWrapper newParent;
       private Dictionary<IMaxNodeWrapper, IMaxNodeWrapper> oldParents;
+      private String linkDescription;
+      private String unlinkDescription;
 
-      public LinkIINodeCommand(IEnumerable<IMaxNodeWrapper> nodes, IMaxNodeWrapper newParent) 
+      public MoveMaxNodeCommand( IEnumerable<IMaxNodeWrapper> nodes
+                               , IMaxNodeWrapper newParent
+                               , String linkDescription
+                               , String unlinkDescription)
       {
          this.nodes = nodes;
          this.newParent = newParent;
+         this.linkDescription = linkDescription;
+         this.unlinkDescription = unlinkDescription;
       }
 
       public override string Description
@@ -23,9 +34,9 @@ namespace Outliner.Commands
          get
          {
             if (this.newParent != null)
-               return OutlinerResources.Command_Link;
+               return this.linkDescription;
             else
-               return OutlinerResources.Command_Unlink;
+               return this.unlinkDescription;
          }
       }
 

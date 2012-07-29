@@ -6,6 +6,7 @@ using Autodesk.Max;
 using Outliner.Scene;
 using Outliner.Controls.Tree;
 using Outliner.Filters;
+using MaxUtils;
 
 namespace Outliner.TreeModes
 {

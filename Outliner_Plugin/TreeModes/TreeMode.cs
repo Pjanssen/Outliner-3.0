@@ -11,6 +11,8 @@ using Outliner.Filters;
 // Import System.Windows.Forms with alias to avoid ambiguity 
 // between System.Windows.TreeNode and Outliner.Controls.TreeNode.
 using WinForms = System.Windows.Forms;
+using MaxUtils;
+using Outliner.NodeSorters;
 
 namespace Outliner.TreeModes
 {
@@ -21,6 +23,7 @@ public abstract class TreeMode
    protected List<KeyValuePair<GlobalDelegates.Delegate5, SystemNotificationCode>> systemNotifications;
    protected List<KeyValuePair<uint, TreeModeNodeEventCallbacks>> nodeEventCallbacks;
    protected Dictionary<Object, TreeNode> treeNodes { get; private set; }
+   protected Boolean selectedInOutliner;
 
    protected TreeMode(TreeView tree, Autodesk.Max.IInterface ip)
    {
@@ -66,6 +69,7 @@ public abstract class TreeMode
       this.RegisterSystemNotification(this.SystemPostReset, SystemNotificationCode.SystemPostReset);
       this.RegisterSystemNotification(this.FilePreOpen, SystemNotificationCode.FilePreOpen);
       this.RegisterSystemNotification(this.FilePostOpen, SystemNotificationCode.FilePostOpen);
+      this.RegisterSystemNotification(this.FilePostMerge, SystemNotificationCode.FilePostMerge);
       this.RegisterSystemNotification(this.SelectionsetChanged, SystemNotificationCode.SelectionsetChanged);
    }
 
@@ -215,6 +219,19 @@ public abstract class TreeMode
    }
 
 
+
+   public virtual void InvalidateObject(Object obj, Boolean recursive)
+   {
+      if (obj != null)
+      {
+         TreeNode tn = this.GetTreeNode(obj);
+         if (tn != null)
+         {
+            tn.Invalidate(recursive);
+         }
+      }
+   }
+
    public virtual void InvalidateTreeNodes(ITab<UIntPtr> nodes, Boolean invalidateBounds, Boolean sort)
    {
       foreach (IINode node in nodes.NodeKeysToINodeList())
@@ -244,6 +261,9 @@ public abstract class TreeMode
 
    public virtual void SelectionsetChanged(IntPtr param, IntPtr info)
    {
+      if (this.selectedInOutliner)
+         return;
+
       this.tree.SelectAllNodes(false);
 
       Int32 selNodeCount = this.ip.SelNodeCount;
@@ -294,6 +314,13 @@ public abstract class TreeMode
       this.FillTree();
    }
 
+   public virtual void FilePostMerge(IntPtr param, IntPtr info)
+   {
+      //TODO: Handle premerge
+      this.ClearTreeNodes();
+      this.FillTree();
+   }
+
    #endregion
 
 
@@ -316,8 +343,7 @@ public abstract class TreeMode
 
       public override void DisplayPropertiesChanged(ITab<UIntPtr> nodes)
       {
-         Boolean sort = this.tree.NodeSorter is NodeSorters.FrozenSorter
-                      || this.tree.NodeSorter is NodeSorters.HiddenSorter;
+         Boolean sort = this.tree.NodeSorter is AnimatablePropertySorter;
          this.treeMode.InvalidateTreeNodes(nodes, false, sort);
       }
 
@@ -334,10 +360,14 @@ public abstract class TreeMode
 
    void tree_SelectionChanged(object sender, SelectionChangedEventArgs e)
    {
+      this.selectedInOutliner = true;
+
       IEnumerable<IMaxNodeWrapper> selNodes = HelperMethods.GetMaxNodes(e.Nodes);
       OutlinerDescriptor.Instance.OpenSelectedGroupHeads(selNodes);
       SelectCommand cmd = new SelectCommand(selNodes);
       cmd.Execute(true);
+
+      this.selectedInOutliner = false;
    }
 
    void tree_BeforeNodeTextEdit(object sender, BeforeNodeTextEditEventArgs e)

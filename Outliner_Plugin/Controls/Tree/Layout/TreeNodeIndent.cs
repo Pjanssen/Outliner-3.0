@@ -46,7 +46,7 @@ public class TreeNodeIndent : ExpandButton
          return;
 
       TreeView tree = this.Layout.TreeView;
-      using (Pen linePen = new Pen(tree.GetNodeForeColor(tn)))
+      using (Pen linePen = new Pen(tree.GetNodeForeColor(tn, false)))
       {
          linePen.DashStyle = DashStyle.Dot;
             

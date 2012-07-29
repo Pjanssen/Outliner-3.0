@@ -123,5 +123,27 @@ public static class HelperMethods
    {
       return getHwndTitle(hwnd) == "Slate Material Editor";
    }
+
+
+   /// <summary>
+   /// Marshals the INotifyInfo object from a pointer sent by a general event callback.
+   /// </summary>
+   public static INotifyInfo GetNotifyInfo(IntPtr info)
+   {
+      return MaxInterfaces.Global.NotifyInfo.Marshal(info);
+   }
+
+   /// <summary>
+   /// Gets the callparam object from an INotifyInfo pointer.
+   /// </summary>
+   /// <param name="info">A pointer to a NotifyInfo object</param>
+   public static Object GetCallParam(IntPtr info)
+   {
+      INotifyInfo notifyInfo = HelperMethods.GetNotifyInfo(info);
+      if (notifyInfo != null)
+         return notifyInfo.CallParam;
+      else
+         return null;
+   }
 }
 }

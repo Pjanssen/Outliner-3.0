@@ -7,10 +7,10 @@ using System.Collections.Generic;
 namespace Outliner_Tests.Commands
 {
 [TestClass]
-public class LinkIINodeCommandTest : MaxIntegrationTest
+public class MoveMaxNodeCommandTest : MaxIntegrationTest
 {
    [TestMethod]
-   public void LinkTest()
+   public void LinkIINodeTest()
    {
       IMaxNodeWrapper nodeA = IMaxNodeWrapper.Create(MaxRemoting.CreateBox());
       IMaxNodeWrapper nodeB = IMaxNodeWrapper.Create(MaxRemoting.CreateBox());
@@ -21,7 +21,7 @@ public class LinkIINodeCommandTest : MaxIntegrationTest
       IMaxNodeWrapper nodeBParent = nodeB.Parent;
 
       List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(1) { nodeA };
-      LinkIINodeCommand cmd = new LinkIINodeCommand(nodes, nodeB);
+      MoveMaxNodeCommand cmd = new MoveMaxNodeCommand(nodes, nodeB, "", "");
 
       cmd.Do();
       Assert.AreNotEqual(nodeAParent, nodeA.Parent);
@@ -34,7 +34,7 @@ public class LinkIINodeCommandTest : MaxIntegrationTest
    }
 
    [TestMethod]
-   public void UnlinkTest()
+   public void UnlinkIINodeTest()
    {
       IMaxNodeWrapper nodeA = IMaxNodeWrapper.Create(MaxRemoting.CreateBox());
       IMaxNodeWrapper nodeB = IMaxNodeWrapper.Create(MaxRemoting.CreateBox());
@@ -47,7 +47,7 @@ public class LinkIINodeCommandTest : MaxIntegrationTest
       Assert.AreEqual(nodeA, nodeB.Parent);
 
       List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(1) { nodeB };
-      LinkIINodeCommand cmd = new LinkIINodeCommand(nodes, null);
+      MoveMaxNodeCommand cmd = new MoveMaxNodeCommand(nodes, null, "", "");
 
       cmd.Do();
       Assert.AreNotEqual(nodeA, nodeB.Parent);

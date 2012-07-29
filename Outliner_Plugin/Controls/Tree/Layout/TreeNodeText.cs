@@ -43,8 +43,8 @@ public class TreeNodeText : TreeNodeLayoutItem
 
       TreeView tree = this.Layout.TreeView;
       TreeViewColorScheme colors = tree.Colors;
-      Color bgColor = tree.GetNodeBackColor(tn);
-      Color fgColor = tree.GetNodeForeColor(tn);
+      Color bgColor = tree.GetNodeBackColor(tn, true);
+      Color fgColor = tree.GetNodeForeColor(tn, true);
 
       if (tn.FilterResult == FilterResults.ShowChildren)
          fgColor = Color.FromArgb(IconHelperMethods.FILTERED_OPACITY, fgColor);
@@ -54,8 +54,7 @@ public class TreeNodeText : TreeNodeLayoutItem
       {
          Rectangle gBounds = this.GetBounds(tn);
 
-         if (!this.Layout.FullRowSelect)
-            graphics.FillRectangle(bgBrush, gBounds);
+         graphics.FillRectangle(bgBrush, gBounds);
 
          using (Font f = new Font(tree.Font, tn.FontStyle))
          {

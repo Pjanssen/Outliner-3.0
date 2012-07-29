@@ -8,6 +8,7 @@ using Autodesk.Max;
 using Outliner;
 using Outliner.Scene;
 using Outliner.Commands;
+using MaxUtils;
 
 namespace Outliner_Tests.Commands
 {

@@ -10,6 +10,8 @@ using Outliner.Controls;
 using Autodesk.Max.MaxSDK.Util;
 using Outliner.Controls.Tree.Layout;
 using Outliner.Controls.Tree;
+using MaxUtils;
+using Outliner.NodeSorters;
 
 namespace Outliner.Actions
 {
@@ -22,7 +24,7 @@ namespace Outliner.Actions
 
       public override string Category
       {
-         get { return "Outliner"; }
+         get { return "Outliner Plugin"; }
       }
 
       public override Type ContentType
@@ -54,12 +56,14 @@ namespace Outliner.Actions
             tc.treeView1.Colors.ToXml(colorFile.String);
          }
 
-         tc.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
-         TreeMode tm = new HierarchyMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
-         //SelectionSetMode(tc.treeView1, Autodesk.Max.GlobalInterface.Instance.COREInterface);
-         //LayerMode(tc.treeView1, Autodesk.Max.GlobalInterface.Instance.COREInterface);
-         //HierarchyMode(tc.treeView1, Autodesk.Max.GlobalInterface.Instance.COREInterface);
-         //FlatObjectListMode(tc.treeView1, Autodesk.Max.GlobalInterface.Instance.COREInterface);
+         //tc.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
+         tc.treeView1.NodeSorter = new AnimatablePropertySorter(AnimatableProperty.IsHidden);
+         TreeMode tm = //new HierarchyMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
+            //SelectionSetMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
+         new LayerMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
+         //HierarchyMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
+         //FlatObjectListMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
+         
          //tm.Filters.Add(new Filters.HelperFilter());
          //tm.Filters.Enabled = true;
          tm.FillTree();

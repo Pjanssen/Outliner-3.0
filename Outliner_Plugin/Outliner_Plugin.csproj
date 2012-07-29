@@ -64,7 +64,7 @@
     <Compile Include="AssemblyFunctions.cs" />
     <Compile Include="Commands\AddToLayerCommand.cs" />
     <Compile Include="Commands\Command.cs" />
-    <Compile Include="Commands\LinkIINodeCommand.cs" />
+    <Compile Include="Commands\MoveMaxNodeCommand.cs" />
     <Compile Include="Commands\RenameCommand.cs" />
     <Compile Include="Commands\SelectCommand.cs" />
     <Compile Include="Commands\SetCurrentLayerCommand.cs" />
@@ -78,11 +78,21 @@
     <Compile Include="Commands\ToggleLightCommand.cs" />
     <Compile Include="Controls\BitmapProcessing.cs" />
     <Compile Include="Controls\ColorHelpers.cs" />
+    <Compile Include="Controls\Options\ColorSchemeEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Options\ColorSchemeEditor.Designer.cs">
+      <DependentUpon>ColorSchemeEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Options\EditColorButton.cs" />
     <Compile Include="Controls\SerializableColor.cs" />
+    <Compile Include="Controls\Tree\DragDropHandlers\IILayerDragDropHandler.cs" />
     <Compile Include="Controls\Tree\DragDropHandlers\DragDropHandler.cs" />
-    <Compile Include="Controls\Tree\DragDropHandlers\IINodeDragDropHandler.cs" />
+    <Compile Include="Controls\Tree\DragDropHandlers\IINodeHierarchyDragDropHandler.cs" />
+    <Compile Include="Controls\Tree\DragDropHandlers\IINodeLayerDragDropHandler.cs" />
     <Compile Include="Controls\Tree\DragDropHandlers\TreeHierarchyDragDropHandler.cs" />
     <Compile Include="Controls\Tree\Layout\AddButton.cs" />
+    <Compile Include="Controls\Tree\Layout\AnimatablePropertyButton.cs" />
     <Compile Include="Controls\Tree\Layout\BoxModeButton.cs" />
     <Compile Include="Controls\Tree\Layout\FlexibleSpace.cs" />
     <Compile Include="Controls\Tree\Layout\FreezeButton.cs" />
@@ -115,10 +125,8 @@
     <Compile Include="Filters\InvisibleNodeFilter.cs" />
     <Compile Include="Filters\NurbsFilter.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="MaxInterfaces.cs" />
-    <Compile Include="NodeSorters\FrozenSorter.cs" />
+    <Compile Include="NodeSorters\AnimatablePropertySorter.cs" />
     <Compile Include="NodeSorters\INodeHandleSorter.cs" />
-    <Compile Include="NodeSorters\HiddenSorter.cs" />
     <Compile Include="NodeSorters\NodeSorter.cs" />
     <Compile Include="NodeSorters\SuperClassSorter.cs" />
     <Compile Include="Controls\Tree\NodeTextEditEventArgs.cs" />
@@ -183,6 +191,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Controls\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Options\ColorSchemeEditor.resx">
+      <DependentUpon>ColorSchemeEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TestControl.resx">
       <DependentUpon>TestControl.cs</DependentUpon>
@@ -264,32 +275,20 @@
     <EmbeddedResource Include="Resources\max_icons\xref_group.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\node_buttons\add_button.png" />
+    <EmbeddedResource Include="Resources\node_buttons\button_add.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\node_buttons\add_button_disabled.png" />
+    <EmbeddedResource Include="Resources\node_buttons\button_boxmode.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\node_buttons\boxmode_button.png" />
+    <EmbeddedResource Include="Resources\node_buttons\button_freeze.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\node_buttons\boxmode_button_disabled.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\node_buttons\freeze_button.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\node_buttons\freeze_button_disabled.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\node_buttons\hide_button.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\node_buttons\hide_button_disabled.png" />
+    <EmbeddedResource Include="Resources\node_buttons\button_hide.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Notes.txt" />
-    <EmbeddedResource Include="Resources\node_buttons\layer_small.png" />
+    <EmbeddedResource Include="Resources\node_buttons\button_layer.png" />
     <EmbeddedResource Include="Resources\maya_icons\layer.png" />
     <EmbeddedResource Include="Resources\maya_icons\layer_active.png" />
     <EmbeddedResource Include="Resources\maya_icons\unknown.png" />
@@ -303,10 +302,18 @@
     <EmbeddedResource Include="Resources\maya_icons\helper.png" />
     <EmbeddedResource Include="Resources\maya_icons\geometry.PNG" />
     <EmbeddedResource Include="Resources\maya_icons\light.png" />
-    <EmbeddedResource Include="Resources\node_buttons\render_disabled.png" />
-    <EmbeddedResource Include="Resources\node_buttons\render.png" />
+    <EmbeddedResource Include="Resources\node_buttons\button_render.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MaxUtils\MaxUtils.csproj">
+      <Project>{0CA16252-FD2C-4078-819F-C9ABD2735765}</Project>
+      <Name>MaxUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NestedLayers\LayerTools.csproj">
+      <Project>{D89AAF44-43BA-48F2-BEEC-852FC3AB4655}</Project>
+      <Name>LayerTools</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "C:\Program Files\Autodesk\3ds Max 2013\bin\assemblies\$(TargetFileName)"</PostBuildEvent>

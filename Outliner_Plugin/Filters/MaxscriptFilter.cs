@@ -5,6 +5,7 @@ using System.Text;
 using Autodesk.Max;
 using Outliner.Scene;
 using System.Globalization;
+using MaxUtils;
 
 namespace Outliner.Filters
 {

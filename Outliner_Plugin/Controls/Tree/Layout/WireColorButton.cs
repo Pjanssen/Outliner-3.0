@@ -9,6 +9,7 @@ using Autodesk.Max;
 using Outliner.Commands;
 using System.Xml.Serialization;
 using System.ComponentModel;
+using MaxUtils;
 
 namespace Outliner.Controls.Tree.Layout
 {
@@ -67,7 +68,7 @@ public class WireColorButton : TreeNodeButton
       {
          if (this.inheritFromLayer(node))
          {
-            Image img = OutlinerResources.layer_small;
+            Image img = OutlinerResources.button_layer;
             graphics.DrawImage(img, rBounds.Left + (int)Math.Ceiling((rBounds.Width - img.Width) / 2f), 
                                     tn.Bounds.Top + (int)Math.Ceiling((tn.Bounds.Height - img.Height) / 2f), 
                                     img.Width, img.Height);

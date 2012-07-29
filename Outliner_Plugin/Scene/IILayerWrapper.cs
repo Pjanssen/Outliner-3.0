@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using Outliner.Controls;
+using MaxUtils;
+using Outliner.LayerTools;
 
 namespace Outliner.Scene
 {
@@ -54,58 +56,39 @@ namespace Outliner.Scene
          get { return this.layer; }
       }
 
-      /// <summary>
-      /// Gets whether this layer is the default (0) layer.
-      /// </summary>
-      public Boolean IsDefault
+      public IILayerProperties IILayerProperties
+      {
+         get { return this.layerProperties; }
+      }
+
+      #region Nested Layers & Adding IINodes
+      
+      public override IMaxNodeWrapper Parent
       {
          get
          {
-            return MaxInterfaces.IILayerManager.RootLayer.Handle == this.layer.Handle;
-         }
-      }
-
-      public Boolean IsCurrent
-      {
-         get { return this.layerProperties.Current; }
-         set
-         {
-            if (!value)
-               throw new ArgumentException("Cannot set IsCurrent to false. Instead, use IsCurrent = true on the new current layer.");
-
-            this.layerProperties.Current = true;
-         }
-      }
-
-      public override string Name
-      {
-         get { return layer.Name; }
-         set { layer.SetName(ref value); }
-      }
-
-      public override string DisplayName
-      {
-         get
-         {
-            if (this.IsDefault)
-               return this.Name + " (default)";
+            IILayer parent = NestedLayers.GetParent(this.IILayer);
+            if (parent != null)
+               return new IILayerWrapper(parent);
             else
-               return this.Name;
+               return null;
          }
-      }
-
-      public override bool CanEditName
-      {
-         get { return !this.IsDefault; }
       }
 
       public override IEnumerable<Object> ChildNodes
       {
          get
          {
+            List<IILayer> childLayers = NestedLayers.GetChildren(this.IILayer, false);
+
             ITab<IINode> nodes = MaxInterfaces.Global.INodeTabNS.Create();
             this.layerProperties.Nodes(nodes);
-            return nodes.ToIEnumerable();
+
+            List<Object> childNodes = new List<object>();
+            childNodes.AddRange(childLayers);
+            childNodes.AddRange(nodes.ToIEnumerable());
+
+            return childNodes;
          }
       }
 
@@ -117,64 +100,152 @@ namespace Outliner.Scene
             IILayer l = (IILayer)n.GetReference((int)ReferenceNumbers.NodeLayerRef);
             return this.layer.Handle != l.Handle;
          }
+         else if (node is IILayerWrapper)
+         {
+            //TODO check if node is parent of this, etc.
+            return node != this;
+         }
          else
             return false;
       }
 
-      public override IClass_ID ClassID
+      public override void AddChildNode(IMaxNodeWrapper node)
+      {
+         if (node is IINodeWrapper)
+            this.IILayer.AddToLayer(((IINodeWrapper)node).IINode);
+         else if (node is IILayerWrapper)
+            NestedLayers.SetParent(((IILayerWrapper)node).IILayer, this.IILayer);
+      }
+
+      public override void RemoveChildNode(IMaxNodeWrapper node)
+      {
+         if (node is IINodeWrapper)
+         {
+            IILayer defaultLayer = MaxInterfaces.IILayerManager.GetLayer(0);
+            defaultLayer.AddToLayer(((IINodeWrapper)node).IINode);
+         }
+         else if (node is IILayerWrapper)
+         {
+            NestedLayers.SetParent(((IILayerWrapper)node).IILayer, null);
+         }
+      }
+      
+      #endregion
+
+      /// <summary>
+      /// Gets whether this layer is the default (0) layer.
+      /// </summary>
+      public Boolean IsDefault 
+      {
+         get
+         {
+            return MaxInterfaces.IILayerManager.RootLayer.Handle == this.layer.Handle;
+         }
+      }
+
+      /// <summary>
+      /// Gets or sets if this layer is the currently active layer.
+      /// </summary>
+      public Boolean IsCurrent 
+      {
+         get { return this.layerProperties.Current; }
+         set
+         {
+            if (!value)
+               throw new ArgumentException("Cannot set IsCurrent to false. Instead, use IsCurrent = true on the new current layer.");
+
+            this.layerProperties.Current = true;
+         }
+      }
+
+      public override string Name 
+      {
+         get { return layer.Name; }
+         set { layer.SetName(ref value); }
+      }
+
+      public override string DisplayName 
+      {
+         get
+         {
+            if (this.IsDefault)
+               return this.Name + " (default)";
+            else
+               return this.Name;
+         }
+      }
+
+      public override bool CanEditName 
+      {
+         get { return !this.IsDefault; }
+      }
+
+      public override IClass_ID ClassID 
       {
          get { return layer.ClassID; }
       }
 
-      public override SClass_ID SuperClassID
+      public override SClass_ID SuperClassID 
       {
          get { return layer.SuperClassID; }
       }
 
 
-      public override bool Selected
+      public override bool Selected 
       {
          get { return false; }
       }
 
-      public override bool IsNodeType(MaxNodeTypes types)
+      public override bool IsNodeType(MaxNodeTypes types) 
       {
          return types.HasFlag(MaxNodeTypes.Layer);
       }
 
 
-      public override bool IsHidden
+      public override bool IsHidden 
       {
          get { return this.layer.IsHidden; }
-         set { this.layer.IsHidden = value; }
+         set 
+         { 
+            //this.layer.IsHidden = value;
+            NestedLayers.SetProperty(this.layer, AnimatableProperty.IsHidden, value);
+            //Broadcast notification (3dsmax won't do it for you...)
+            //MaxInterfaces.Global.BroadcastNotification(SystemNotificationCode.LayerHiddenStateChanged, this.IILayer);
+         }
       }
 
-      public override bool IsFrozen
+      public override bool IsFrozen 
       {
          get { return this.layer.IsFrozen; }
-         set { this.layer.IsFrozen = value; }
+         set 
+         {
+            NestedLayers.SetProperty(this.layer, AnimatableProperty.IsFrozen, value);
+         }
       }
 
-      public override bool BoxMode
+      public override bool BoxMode 
       {
          get { return this.layer.BoxMode; }
          set { this.layer.BoxMode = value; }
       }
 
-      public override System.Drawing.Color WireColor
+      public override System.Drawing.Color WireColor 
       {
          get { return ColorHelpers.FromMaxColor(this.layer.WireColor); }
          set { this.layer.WireColor = value; }
       }
 
-      public override bool Renderable
+      public override bool Renderable 
       {
          get { return this.layer.Renderable; }
-         set { this.layer.Renderable = value; }
+         set
+         {
+            NestedLayers.SetProperty(this.layer, AnimatableProperty.Renderable, value);
+         }
       }
 
 
-      public override bool IsValid
+      public override bool IsValid 
       {
          get
          {

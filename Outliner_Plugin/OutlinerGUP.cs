@@ -6,6 +6,7 @@ using Autodesk.Max.Plugins;
 using Outliner.Controls;
 using Autodesk.Max;
 using Outliner.Scene;
+using MaxUtils;
 
 namespace Outliner
 {

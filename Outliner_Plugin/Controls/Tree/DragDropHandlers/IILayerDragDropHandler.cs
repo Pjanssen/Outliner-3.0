@@ -8,13 +8,17 @@ using Outliner.Commands;
 
 namespace Outliner.Controls.Tree.DragDropHandlers
 {
-public class TreeHierarchyDragDropHandler : DragDropHandler
+public class IILayerDragDropHandler : DragDropHandler
 {
-   public TreeHierarchyDragDropHandler() : base(null) { }
+   private IILayerWrapper layer;
+   public IILayerDragDropHandler(IILayerWrapper data) : base(data) 
+   {
+      this.layer = data;
+   }
 
    public override bool AllowDrag
    {
-      get { return false; }
+      get { return !this.layer.IsDefault; }
    }
 
    public override bool IsValidDropTarget(IDataObject dragData)
@@ -23,13 +27,13 @@ public class TreeHierarchyDragDropHandler : DragDropHandler
       if (draggedNodes == null)
          return false;
 
-      return HelperMethods.GetMaxNodes(draggedNodes).All(n => n is IINodeWrapper);
+      return this.Data.CanAddChildNodes(HelperMethods.GetMaxNodes(draggedNodes));
    }
 
    public override DragDropEffects GetDragDropEffect(IDataObject dragData)
    {
       if (this.IsValidDropTarget(dragData))
-         return DragDropEffects.Move;
+         return DragDropEffects.Copy;
       else
          return TreeView.NoneDragDropEffects;
    }
@@ -43,8 +47,8 @@ public class TreeHierarchyDragDropHandler : DragDropHandler
       if (draggedNodes == null)
          return;
 
-      MoveMaxNodeCommand cmd = new MoveMaxNodeCommand(HelperMethods.GetMaxNodes(draggedNodes), null,
-         OutlinerResources.Command_Link, OutlinerResources.Command_Unlink);
+      MoveMaxNodeCommand cmd = new MoveMaxNodeCommand(HelperMethods.GetMaxNodes(draggedNodes), this.Data, 
+         OutlinerResources.Command_AddToLayer, OutlinerResources.Command_UnlinkLayer);
       cmd.Execute(true);
    }
 }

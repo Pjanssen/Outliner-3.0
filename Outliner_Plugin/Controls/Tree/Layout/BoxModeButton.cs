@@ -8,44 +8,28 @@ using Outliner.Commands;
 
 namespace Outliner.Controls.Tree.Layout
 {
-   public class BoxModeButton : ImageButton
+   public class BoxModeButton : AnimatablePropertyButton
    {
-      public BoxModeButton() : base(OutlinerResources.button_boxmode,
-                                   OutlinerResources.button_boxmode_disabled)
-      { }
+      public BoxModeButton() { }
 
-      public override bool IsEnabled(TreeNode tn)
+      protected override MaxUtils.AnimatableProperty Property
       {
-         IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
-         if (node == null)
-            return false;
-
-         return node.BoxMode;
+         get { return MaxUtils.AnimatableProperty.BoxMode; }
       }
 
-      public override void HandleMouseUp(MouseEventArgs e, TreeNode tn)
+      protected override Type SetPropertyCommandType
       {
-         if (this.Layout == null || this.Layout.TreeView == null)
-            return;
-
-         IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
-         if (node == null)
-            return;
-
-         TreeView tree = this.Layout.TreeView;
-         IEnumerable<IMaxNodeWrapper> nodes = null;
-         if (HelperMethods.ControlPressed && tree.IsSelectedNode(tn))
-            nodes = HelperMethods.GetMaxNodes(tree.SelectedNodes);
-         else
-            nodes = new List<IMaxNodeWrapper>(1) { node };
-
-         SetBoxModeCommand cmd = new SetBoxModeCommand(nodes, !node.BoxMode);
-         cmd.Execute(true); 
+         get { return typeof(SetBoxModeCommand); }
       }
 
-      protected override string GetTooltipText(TreeNode tn)
+      protected override string ToolTipEnabled
       {
-         return OutlinerResources.Tooltip_BoxMode;
+         get { return OutlinerResources.Tooltip_BoxMode; }
+      }
+
+      protected override System.Drawing.Bitmap ImageEnabled
+      {
+         get { return OutlinerResources.button_boxmode; }
       }
    }
 }

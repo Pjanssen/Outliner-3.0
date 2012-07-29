@@ -6,63 +6,37 @@ using System.Windows.Forms;
 using Outliner.Scene;
 using Outliner.Commands;
 using Outliner.NodeSorters;
+using MaxUtils;
 
 namespace Outliner.Controls.Tree.Layout
 {
-   public class HideButton : ImageButton
+   public class HideButton : AnimatablePropertyButton
    {
-      public HideButton() : base(OutlinerResources.button_hide,
-                                 OutlinerResources.button_hide_disabled)
-      { }
+      public HideButton() { }
 
-      public override bool IsEnabled(TreeNode tn)
+      protected override AnimatableProperty Property
       {
-         IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
-         if (node == null)
-            return false;
-
-         return node.IsHidden;
+         get { return AnimatableProperty.IsHidden; }
       }
 
-      public override void HandleMouseUp(MouseEventArgs e, TreeNode tn)
+      protected override Type SetPropertyCommandType
       {
-         if (this.Layout == null || this.Layout.TreeView == null)
-            return;
-
-         IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
-         if (node == null)
-            return;
-
-         TreeView tree = this.Layout.TreeView;
-         IEnumerable<TreeNode> nodes = null;
-         if (tree.IsSelectedNode(tn) && !HelperMethods.ControlPressed)
-            nodes = tree.SelectedNodes;
-         else
-            nodes = new List<TreeNode>(1) { tn };
-
-         HideCommand cmd = new HideCommand(HelperMethods.GetMaxNodes(nodes),
-                                           !node.IsHidden);
-         cmd.Execute(true);
-
-         if (tree.NodeSorter is HiddenSorter)
-         {
-            tree.AddToSortQueue(nodes);
-            tree.StartTimedSort(true);
-         }
+         get { return typeof(HideCommand); }
       }
 
-      protected override string GetTooltipText(TreeNode tn)
+      protected override System.Drawing.Bitmap ImageEnabled
       {
-         IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
-         if (node != null)
-         {
-            if (node.IsHidden)
-               return OutlinerResources.Tooltip_Unhide;
-            else
-               return OutlinerResources.Tooltip_Hide;
-         }
+         get { return OutlinerResources.button_hide; }
+      }
 
-         return null;
+      protected override string ToolTipEnabled
+      {
+         get { return OutlinerResources.Tooltip_Unhide; }
+      }
+
+      protected override string ToolTipDisabled
+      {
+         get { return OutlinerResources.Tooltip_Hide; }
       }
    }
 }

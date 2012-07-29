@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max.Plugins;
 using Autodesk.Max;
+using MaxUtils;
 
 namespace Outliner.Commands
 {

@@ -24,6 +24,7 @@ public class HierarchyMode : TreeMode
       this.tree.BeginUpdate();
 
       IINode rootNode = this.ip.RootNode;
+      this.treeNodes.Add(rootNode, this.tree.Root);
       for (int i = 0; i < rootNode.NumberOfChildren; i++)
          AddNode(rootNode.GetChildNode(i), this.tree.Nodes);
 
@@ -39,7 +40,7 @@ public class HierarchyMode : TreeMode
 
       TreeNode tn = base.AddNode(node, parentCol);
       IMaxNodeWrapper wrapper = HelperMethods.GetMaxNode(tn);
-      tn.DragDropHandler = new IINodeDragDropHandler(wrapper);
+      tn.DragDropHandler = new IINodeHierarchyDragDropHandler(wrapper);
 
       for (int i = 0; i < inode.NumberOfChildren; i++)
          this.AddNode(inode.GetChildNode(i), tn.Nodes);
