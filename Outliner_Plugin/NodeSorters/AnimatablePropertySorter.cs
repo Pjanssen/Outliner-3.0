@@ -32,13 +32,15 @@ public class AnimatablePropertySorter : NodeSorter
       IMaxNodeWrapper nodeY = HelperMethods.GetMaxNode(y);
       if (nodeY == null || !nodeY.IsValid) return 0;
 
-      Boolean propValueX = nodeX.GetBoolProperty(this.Property);
-      Boolean propValueY = nodeY.GetBoolProperty(this.Property);
+      Object propValueX = nodeX.GetProperty(this.Property);
+      Object propValueY = nodeY.GetProperty(this.Property);
 
       if (propValueX == propValueY)
          return NativeMethods.StrCmpLogicalW(nodeX.Name, nodeY.Name);
+      else if (propValueX is IComparable)
+         return ((IComparable)propValueX).CompareTo(propValueY);
       else
-         return propValueX.CompareTo(propValueY);
+         return 0;
    }
 }
 }

@@ -83,28 +83,43 @@ namespace Outliner.Scene
          set { }
       }
 
-      public virtual Boolean GetBoolProperty(AnimatableProperty property)
+      public virtual Object GetProperty(AnimatableProperty property)
+      {
+         if (AnimatablePropertyHelpers.IsBooleanProperty(property))
+            return this.GetProperty(AnimatablePropertyHelpers.ToBooleanProperty(property));
+         else
+         {
+            switch (property)
+            {
+               case AnimatableProperty.WireColor: return this.WireColor;
+               case AnimatableProperty.Name: return this.Name;
+               default: return null;
+            }
+         }
+      }
+
+      public virtual Boolean GetProperty(AnimatableBooleanProperty property)
       {
          switch (property)
          {
-            case AnimatableProperty.BoxMode: return this.BoxMode;
-            case AnimatableProperty.IsFrozen: return this.IsFrozen;
-            case AnimatableProperty.IsHidden: return this.IsHidden;
-            case AnimatableProperty.Renderable: return this.Renderable;
-            case AnimatableProperty.XRayMtl: return this.XRayMtl;
+            case AnimatableBooleanProperty.BoxMode: return this.BoxMode;
+            case AnimatableBooleanProperty.IsFrozen: return this.IsFrozen;
+            case AnimatableBooleanProperty.IsHidden: return this.IsHidden;
+            case AnimatableBooleanProperty.Renderable: return this.Renderable;
+            case AnimatableBooleanProperty.XRayMtl: return this.XRayMtl;
             default: return false;
          }  
       }
 
-      public virtual void SetBoolProperty(AnimatableProperty property, Boolean newValue)
+      public virtual void SetProperty(AnimatableBooleanProperty property, Boolean newValue)
       {
          switch (property)
          {
-            case AnimatableProperty.BoxMode: this.BoxMode = newValue; break;
-            case AnimatableProperty.IsFrozen: this.IsFrozen = newValue; break;
-            case AnimatableProperty.IsHidden: this.IsHidden = newValue; break;
-            case AnimatableProperty.Renderable: this.Renderable = newValue; break;
-            case AnimatableProperty.XRayMtl: this.XRayMtl = newValue; break;
+            case AnimatableBooleanProperty.BoxMode: this.BoxMode = newValue; break;
+            case AnimatableBooleanProperty.IsFrozen: this.IsFrozen = newValue; break;
+            case AnimatableBooleanProperty.IsHidden: this.IsHidden = newValue; break;
+            case AnimatableBooleanProperty.Renderable: this.Renderable = newValue; break;
+            case AnimatableBooleanProperty.XRayMtl: this.XRayMtl = newValue; break;
          } 
       }
 

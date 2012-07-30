@@ -207,10 +207,7 @@ namespace Outliner.Scene
          get { return this.layer.IsHidden; }
          set 
          { 
-            //this.layer.IsHidden = value;
-            NestedLayers.SetProperty(this.layer, AnimatableProperty.IsHidden, value);
-            //Broadcast notification (3dsmax won't do it for you...)
-            //MaxInterfaces.Global.BroadcastNotification(SystemNotificationCode.LayerHiddenStateChanged, this.IILayer);
+            NestedLayers.SetProperty(this.layer, AnimatableBooleanProperty.IsHidden, value);
          }
       }
 
@@ -219,7 +216,7 @@ namespace Outliner.Scene
          get { return this.layer.IsFrozen; }
          set 
          {
-            NestedLayers.SetProperty(this.layer, AnimatableProperty.IsFrozen, value);
+            NestedLayers.SetProperty(this.layer, AnimatableBooleanProperty.IsFrozen, value);
          }
       }
 
@@ -228,14 +225,18 @@ namespace Outliner.Scene
          get { return this.layer.BoxMode; }
          set 
          {
-            NestedLayers.SetProperty(this.layer, AnimatableProperty.BoxMode, value);
+            NestedLayers.SetProperty(this.layer, AnimatableBooleanProperty.BoxMode, value);
          }
       }
 
       public override System.Drawing.Color WireColor 
       {
          get { return ColorHelpers.FromMaxColor(this.layer.WireColor); }
-         set { this.layer.WireColor = value; }
+         set 
+         { 
+            this.layer.WireColor = value;
+            MaxInterfaces.Global.BroadcastNotification(NestedLayers.LayerPropertyChanged, this.IILayer);
+         }
       }
 
       public override bool Renderable 
@@ -243,7 +244,7 @@ namespace Outliner.Scene
          get { return this.layer.Renderable; }
          set
          {
-            NestedLayers.SetProperty(this.layer, AnimatableProperty.Renderable, value);
+            NestedLayers.SetProperty(this.layer, AnimatableBooleanProperty.Renderable, value);
          }
       }
 

@@ -13,7 +13,7 @@ using MaxUtils;
 
 namespace Outliner.Controls.Tree.Layout
 {
-public class WireColorButton : TreeNodeButton
+public class WireColorButton : AnimatablePropertyButton
 {
    [XmlAttribute("button_width")]
    [DefaultValue(12)]
@@ -22,7 +22,7 @@ public class WireColorButton : TreeNodeButton
    [XmlAttribute("button_height")]
    [DefaultValue(8)]
    public Int32 ButtonHeight { get; set; }
-   
+
    public WireColorButton()
    {
       this.ButtonWidth = 12;
@@ -44,16 +44,31 @@ public class WireColorButton : TreeNodeButton
       get { return true; }
    }
 
-   private Boolean inheritFromLayer(IMaxNodeWrapper node)
+   protected override AnimatableProperty Property
    {
-      return node is IINodeWrapper 
-             && ((IINodeWrapper)node).NodeLayerProperties.ColorByLayer;
+      get { return AnimatableProperty.WireColor; }
    }
+
+   protected override string ToolTipEnabled
+   {
+      get { return OutlinerResources.Tooltip_WireColor; }
+   }
+
+   protected override Bitmap ImageEnabled { get { return null; } }
+   protected override Bitmap ImageDisabled { get { return null; } }
+   protected override Bitmap ImageEnabled_Filtered { get { return null; } }
+   protected override Bitmap ImageDisabled_Filtered { get { return null; } }
 
    public override void Draw(Graphics graphics, TreeNode tn)
    {
       if (graphics == null || tn == null)
          return;
+
+      if (this.isInheritedFromLayer(tn))
+      {
+         base.Draw(graphics, tn);
+         return;
+      }
 
       if (this.Layout == null || this.Layout.TreeView == null)
          return;
@@ -65,41 +80,12 @@ public class WireColorButton : TreeNodeButton
       Color wc = node.WireColor;
       Rectangle rBounds = this.GetBounds(tn);
       using (Pen linePen = new Pen(Color.Black))
+      using (SolidBrush brush = new SolidBrush(wc))
       {
-         if (this.inheritFromLayer(node))
-         {
-            Image img = OutlinerResources.button_layer;
-            graphics.DrawImage(img, rBounds.Left + (int)Math.Ceiling((rBounds.Width - img.Width) / 2f), 
-                                    tn.Bounds.Top + (int)Math.Ceiling((tn.Bounds.Height - img.Height) / 2f), 
-                                    img.Width, img.Height);
-         }
-         else
-         {
-            using (SolidBrush brush = new SolidBrush(wc))
-            {
-               graphics.FillRectangle(brush, rBounds);
-               graphics.DrawRectangle(linePen, rBounds);
-            }
-         }
+         graphics.FillRectangle(brush, rBounds);
+         graphics.DrawRectangle(linePen, rBounds);
+
       }
-   }
-
-   protected override bool Clickable(TreeNode tn)
-   {
-      return !this.inheritFromLayer(HelperMethods.GetMaxNode(tn));
-   }
-
-   protected override string GetTooltipText(TreeNode tn)
-   {
-      if (tn == null)
-         return null;
-
-      String tooltip = OutlinerResources.Tooltip_WireColor;
-
-      if (this.inheritFromLayer(HelperMethods.GetMaxNode(tn)))
-         tooltip += " " + OutlinerResources.Tooltip_Inherited;
-
-      return tooltip;
    }
 
    public override void HandleMouseUp(System.Windows.Forms.MouseEventArgs e, TreeNode tn)

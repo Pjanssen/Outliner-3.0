@@ -27,13 +27,13 @@ public static class NestedLayers
    }
 
 
-   private static Dictionary<AnimatableProperty, Func<Boolean, Boolean, Boolean>> propertyOps =
-         new Dictionary<AnimatableProperty, Func<Boolean, Boolean, Boolean>>() {
-            {AnimatableProperty.IsHidden, Functor.Or},
-            {AnimatableProperty.IsFrozen, Functor.Or},
-            {AnimatableProperty.BoxMode, Functor.Or},
-            {AnimatableProperty.XRayMtl, Functor.Or},
-            {AnimatableProperty.Renderable, Functor.And}
+   private static Dictionary<AnimatableBooleanProperty, Func<Boolean, Boolean, Boolean>> propertyOps =
+         new Dictionary<AnimatableBooleanProperty, Func<Boolean, Boolean, Boolean>>() {
+            {AnimatableBooleanProperty.IsHidden, Functor.Or},
+            {AnimatableBooleanProperty.IsFrozen, Functor.Or},
+            {AnimatableBooleanProperty.BoxMode, Functor.Or},
+            {AnimatableBooleanProperty.XRayMtl, Functor.Or},
+            {AnimatableBooleanProperty.Renderable, Functor.And}
          };
 
 
@@ -68,7 +68,7 @@ public static class NestedLayers
    {
       return NestedLayers.getAppData(anim, (uint)sbid);
    }
-   private static byte[] getAppData(IAnimatable anim, AnimatableProperty sbid)
+   private static byte[] getAppData(IAnimatable anim, AnimatableBooleanProperty sbid)
    {
       return NestedLayers.getAppData(anim, PropertySbidOffset + (uint)sbid);
    }
@@ -82,7 +82,7 @@ public static class NestedLayers
    {
       NestedLayers.setAppData(anim, (uint)sbid, data);
    }
-   private static void setAppData(IAnimatable anim, AnimatableProperty sbid, byte[] data)
+   private static void setAppData(IAnimatable anim, AnimatableBooleanProperty sbid, byte[] data)
    {
       NestedLayers.setAppData(anim, PropertySbidOffset + (uint)sbid, data);
    }
@@ -96,7 +96,7 @@ public static class NestedLayers
    {
       NestedLayers.removeAppData(anim, (uint)sbid);
    }
-   private static void removeAppData(IAnimatable anim, AnimatableProperty sbid)
+   private static void removeAppData(IAnimatable anim, AnimatableBooleanProperty sbid)
    {
       NestedLayers.removeAppData(anim, PropertySbidOffset + (uint)sbid);
    }
@@ -207,9 +207,9 @@ public static class NestedLayers
    /// Returns the value of a property on the layer.
    /// It will return the layer's own value, regardless of whether it has been overridden by a parent layer.
    /// </summary>
-   public static Boolean GetProperty(IILayer layer, AnimatableProperty prop)
+   public static Boolean GetProperty(IILayer layer, AnimatableBooleanProperty prop)
    {
-      String propName = Enum.GetName(typeof(AnimatableProperty), prop);
+      String propName = Enum.GetName(typeof(AnimatableBooleanProperty), prop);
       PropertyInfo propInfo = typeof(IILayer).GetProperty(propName);
       Boolean ownValue = (Boolean)propInfo.GetValue(layer, null);
 
@@ -223,18 +223,18 @@ public static class NestedLayers
    /// <summary>
    /// Sets a layer property and propagates it to its children.
    /// </summary>
-   public static void SetProperty(IILayer layer, AnimatableProperty prop, Boolean value)
+   public static void SetProperty(IILayer layer, AnimatableBooleanProperty prop, Boolean value)
    {
       NestedLayers.SetProperty(layer, prop, value, false);
    }
 
-   private static void SetProperty(IILayer layer, AnimatableProperty prop, Boolean value, Boolean setByParent)
+   private static void SetProperty(IILayer layer, AnimatableBooleanProperty prop, Boolean value, Boolean setByParent)
    {
       if (layer == null)
          return;
       
       //Store new value in AppDataChunk.
-      String propName = Enum.GetName(typeof(AnimatableProperty), prop);
+      String propName = Enum.GetName(typeof(AnimatableBooleanProperty), prop);
       PropertyInfo propInfo = typeof(IILayer).GetProperty(propName);
 
       if (!setByParent)
@@ -258,9 +258,9 @@ public static class NestedLayers
 
       //Broadcast notification.
       SystemNotificationCode notifCode = NestedLayers.LayerPropertyChanged;
-      if (prop == AnimatableProperty.IsHidden)
+      if (prop == AnimatableBooleanProperty.IsHidden)
          notifCode = SystemNotificationCode.LayerHiddenStateChanged;
-      else if (prop == AnimatableProperty.IsFrozen)
+      else if (prop == AnimatableBooleanProperty.IsFrozen)
          notifCode = SystemNotificationCode.LayerFrozenStateChanged;
       MaxInterfaces.Global.BroadcastNotification(notifCode, layer);
 
@@ -272,14 +272,14 @@ public static class NestedLayers
       }
    }
 
-   public static Boolean IsPropertyInherited(IILayer layer, AnimatableProperty prop)
+   public static Boolean IsPropertyInherited(IILayer layer, AnimatableBooleanProperty prop)
    {
       if (layer == null)
          return false;
 
       Boolean ownValue = NestedLayers.GetProperty(layer, prop);
 
-      String propName = Enum.GetName(typeof(AnimatableProperty), prop);
+      String propName = Enum.GetName(typeof(AnimatableBooleanProperty), prop);
       PropertyInfo propInfo = typeof(IILayer).GetProperty(propName);
       Boolean actualValue = (Boolean)propInfo.GetValue(layer, null);
 
@@ -288,12 +288,12 @@ public static class NestedLayers
 
    private static void updateProperties(IILayer layer, Boolean recursive)
    {
-      IEnumerable<AnimatableProperty> layerProps = Enum.GetValues(typeof(AnimatableProperty))
-                                                  .Cast<AnimatableProperty>();
+      IEnumerable<AnimatableBooleanProperty> layerProps = Enum.GetValues(typeof(AnimatableBooleanProperty))
+                                                  .Cast<AnimatableBooleanProperty>();
 
       IILayer parent = NestedLayers.GetParent(layer);
 
-      foreach (AnimatableProperty prop in layerProps)
+      foreach (AnimatableBooleanProperty prop in layerProps)
       {
          NestedLayers.SetProperty(layer, prop, NestedLayers.GetProperty(layer, prop));
       }
@@ -318,8 +318,8 @@ public static class NestedLayers
    public static void ClearScene()
    {
       IEnumerable<SubID> subIDs = Enum.GetValues(typeof(SubID)).Cast<SubID>();
-      IEnumerable<AnimatableProperty> layerProps = Enum.GetValues(typeof(AnimatableProperty))
-                                                  .Cast<AnimatableProperty>();
+      IEnumerable<AnimatableBooleanProperty> layerProps = Enum.GetValues(typeof(AnimatableBooleanProperty))
+                                                  .Cast<AnimatableBooleanProperty>();
 
       IILayerManager layerManager = MaxInterfaces.IILayerManager;
 
@@ -330,7 +330,7 @@ public static class NestedLayers
          foreach (SubID subId in subIDs)
             NestedLayers.removeAppData(layer, subId);
 
-         foreach (AnimatableProperty prop in layerProps)
+         foreach (AnimatableBooleanProperty prop in layerProps)
             NestedLayers.removeAppData(layer, prop);
       }
    }
@@ -427,15 +427,15 @@ public static class NestedLayers
 
    private static void writeProperties(BinaryWriter writer, IILayer layer)
    {
-      IEnumerable<AnimatableProperty> layerProps = Enum.GetValues(typeof(AnimatableProperty))
-                                                  .Cast<AnimatableProperty>();
+      IEnumerable<AnimatableBooleanProperty> layerProps = Enum.GetValues(typeof(AnimatableBooleanProperty))
+                                                  .Cast<AnimatableBooleanProperty>();
 
       //Write property chunk size in bytes.
       //1 byte for each enum value, 1 byte for each property value
       writer.Write((byte)(layerProps.Count() * 2));
 
       //Write property values.
-      foreach (AnimatableProperty prop in layerProps)
+      foreach (AnimatableBooleanProperty prop in layerProps)
       {
          writer.Write((byte)prop);
          writer.Write(NestedLayers.GetProperty(layer, prop));
@@ -448,7 +448,7 @@ public static class NestedLayers
       for (int p = 0; p < numProps; p++)
       {
          Byte propByte = reader.ReadByte();
-         AnimatableProperty prop = (AnimatableProperty)Enum.ToObject(typeof(AnimatableProperty), propByte);
+         AnimatableBooleanProperty prop = (AnimatableBooleanProperty)Enum.ToObject(typeof(AnimatableBooleanProperty), propByte);
          Boolean propValue = reader.ReadBoolean();
          NestedLayers.SetProperty(layer, prop, propValue);
       }
