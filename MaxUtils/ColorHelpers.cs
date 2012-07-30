@@ -6,7 +6,7 @@ using System.Drawing;
 using Autodesk.Max;
 using MaxUtils;
 
-namespace Outliner.Controls
+namespace MaxUtils
 {
 public static class ColorHelpers
 {

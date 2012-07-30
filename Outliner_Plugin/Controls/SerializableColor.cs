@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml.Serialization;
 using Autodesk.Max;
 using System.Drawing;
+using MaxUtils;
 
 namespace Outliner.Controls
 {
