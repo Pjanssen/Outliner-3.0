@@ -10,33 +10,33 @@ using MaxUtils;
 
 namespace Outliner.Controls.Tree.Layout
 {
-   public class FreezeButton : AnimatablePropertyButton
+public class FreezeButton : AnimatablePropertyButton
+{
+   public FreezeButton() { }
+
+   protected override AnimatableProperty Property
    {
-      public FreezeButton() { }
-
-      protected override AnimatableProperty Property
-      {
-         get { return AnimatableProperty.IsFrozen; }
-      }
-
-      protected override Type SetPropertyCommandType
-      {
-         get { return typeof(FreezeCommand); }
-      }
-
-      protected override string ToolTipEnabled
-      {
-         get { return OutlinerResources.Tooltip_Unfreeze; }
-      }
-
-      protected override string ToolTipDisabled
-      {
-         get { return OutlinerResources.Tooltip_Freeze; }
-      }
-
-      protected override System.Drawing.Bitmap ImageEnabled
-      {
-         get { return OutlinerResources.button_freeze; }
-      }
+      get { return AnimatableProperty.IsFrozen; }
    }
+
+   protected override SetNodePropertyCommand<Boolean> CreateCommand(IEnumerable<IMaxNodeWrapper> nodes, bool newValue)
+   {
+      return new FreezeCommand(nodes, newValue);
+   }
+
+   protected override string ToolTipEnabled
+   {
+      get { return OutlinerResources.Tooltip_Unfreeze; }
+   }
+
+   protected override string ToolTipDisabled
+   {
+      get { return OutlinerResources.Tooltip_Freeze; }
+   }
+
+   protected override System.Drawing.Bitmap ImageEnabled
+   {
+      get { return OutlinerResources.button_freeze; }
+   }
+}
 }

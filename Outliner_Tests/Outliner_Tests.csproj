@@ -69,13 +69,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\AddToLayerCommandTest.cs" />
-    <Compile Include="Commands\SetBoxModeCommandTest.cs" />
     <Compile Include="Commands\FreezeCommandTest.cs" />
     <Compile Include="Commands\HideCommandTest.cs" />
     <Compile Include="Commands\RenameCommandTest.cs" />
     <Compile Include="Commands\SelectCommandTest.cs" />
-    <Compile Include="Commands\SetRenderableCommandTest.cs" />
-    <Compile Include="Commands\SetWireColorCommandTest.cs" />
     <Compile Include="Commands\ToggleLightCommandTest.cs" />
     <Compile Include="Filters\NameFilterTest.cs" />
     <Compile Include="Filters\NodeFilterCollectionTest.cs" />

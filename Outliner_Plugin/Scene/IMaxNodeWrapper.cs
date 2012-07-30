@@ -96,6 +96,18 @@ namespace Outliner.Scene
          }  
       }
 
+      public virtual void SetBoolProperty(AnimatableProperty property, Boolean newValue)
+      {
+         switch (property)
+         {
+            case AnimatableProperty.BoxMode: this.BoxMode = newValue; break;
+            case AnimatableProperty.IsFrozen: this.IsFrozen = newValue; break;
+            case AnimatableProperty.IsHidden: this.IsHidden = newValue; break;
+            case AnimatableProperty.Renderable: this.Renderable = newValue; break;
+            case AnimatableProperty.XRayMtl: this.XRayMtl = newValue; break;
+         } 
+      }
+
       /// <summary>
       /// Tests if the wrapped node is still a valid scene node and hasn't been deleted.
       /// </summary>

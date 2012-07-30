@@ -223,4 +223,7 @@
   <data name="Tooltip_ByLayer" xml:space="preserve">
     <value>(overridden by parent/layer)</value>
   </data>
+  <data name="Command_SetProperty" xml:space="preserve">
+    <value>Change node property</value>
+  </data>
 </root>

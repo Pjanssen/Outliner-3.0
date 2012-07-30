@@ -17,11 +17,6 @@ namespace Outliner.Controls.Tree.Layout
          get { return MaxUtils.AnimatableProperty.BoxMode; }
       }
 
-      protected override Type SetPropertyCommandType
-      {
-         get { return typeof(SetBoxModeCommand); }
-      }
-
       protected override string ToolTipEnabled
       {
          get { return OutlinerResources.Tooltip_BoxMode; }

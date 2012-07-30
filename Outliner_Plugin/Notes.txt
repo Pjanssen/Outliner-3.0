@@ -7,6 +7,7 @@
 * Color sorter
 * ToggleLightTest use IInterface.CreateLightObject ?
 * Use IInterface selection set methods for selectionsetmode?
+* Move ColorHelpers to MaxUtils
 
 TREEVIEW
 --------

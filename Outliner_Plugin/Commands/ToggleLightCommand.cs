@@ -10,14 +10,14 @@ namespace Outliner.Commands
 public class ToggleLightCommand : SetNodePropertyCommand<Boolean>
 {
    public ToggleLightCommand(IEnumerable<IMaxNodeWrapper> nodes, Boolean on)
-      : base(nodes, on) { }
+      : base(nodes, "UseLight", on) { }
 
    public override string Description
    {
       get { return "Toggle light"; }
    }
 
-   public override bool GetValue(Scene.IMaxNodeWrapper node)
+   protected override bool GetValue(Scene.IMaxNodeWrapper node)
    {
       if (node == null)
          return false;
@@ -35,7 +35,7 @@ public class ToggleLightCommand : SetNodePropertyCommand<Boolean>
       return light.UseLight;
    }
 
-   public override void SetValue(Scene.IMaxNodeWrapper node, bool value)
+   protected override void SetValue(Scene.IMaxNodeWrapper node, bool value)
    {
       if (node == null)
          return;

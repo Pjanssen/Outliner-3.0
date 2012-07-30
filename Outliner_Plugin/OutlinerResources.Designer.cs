@@ -184,6 +184,15 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change node property.
+        /// </summary>
+        internal static string Command_SetProperty {
+            get {
+                return ResourceManager.GetString("Command_SetProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change Renderable.
         /// </summary>
         internal static string Command_SetRenderable {

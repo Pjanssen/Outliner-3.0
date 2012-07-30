@@ -2,24 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MaxUtils;
 using Outliner.Scene;
+using System.Reflection;
 
 namespace Outliner.Commands
 {
-public abstract class SetNodePropertyCommand<T> : Command
+public class SetNodePropertyCommand<T> : Command
 {
+   private PropertyInfo propInfo;
    private IEnumerable<IMaxNodeWrapper> nodes;
    private T newValue;
    private Dictionary<IMaxNodeWrapper, T> prevValues;
 
-   protected SetNodePropertyCommand(IEnumerable<IMaxNodeWrapper> nodes, T newValue)
+   public SetNodePropertyCommand(IEnumerable<IMaxNodeWrapper> nodes,
+                                       AnimatableProperty property,
+                                       T newValue)
+      : this(nodes, Enum.GetName(typeof(AnimatableProperty), property), newValue) { }
+
+   public SetNodePropertyCommand(IEnumerable<IMaxNodeWrapper> nodes,
+                                       String propertyName,
+                                       T newValue)
    {
       this.nodes = nodes.ToArray();
+      this.propInfo = typeof(IMaxNodeWrapper).GetProperty(propertyName);
       this.newValue = newValue;
    }
 
-   public abstract T GetValue(IMaxNodeWrapper node);
-   public abstract void SetValue(IMaxNodeWrapper node, T value);
+   public override string Description
+   {
+      get { return OutlinerResources.Command_SetProperty; }
+   }
 
    public override void Do()
    {
@@ -44,6 +57,16 @@ public abstract class SetNodePropertyCommand<T> : Command
       {
          this.SetValue(n.Key, n.Value);
       }
+   }
+
+   protected virtual T GetValue(IMaxNodeWrapper node)
+   {
+      return (T)propInfo.GetValue(node, null);
+   }
+
+   protected virtual void SetValue(IMaxNodeWrapper node, T value)
+   {
+      this.propInfo.SetValue(node, value, null);
    }
 }
 }

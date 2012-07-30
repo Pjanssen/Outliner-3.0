@@ -117,12 +117,12 @@ public class WireColorButton : TreeNodeButton
       {
          TreeView tree = this.Layout.TreeView;
          IEnumerable<IMaxNodeWrapper> nodes = null;
-         if (HelperMethods.ControlPressed && tree.IsSelectedNode(tn))
+         if (!HelperMethods.ControlPressed && tree.IsSelectedNode(tn))
             nodes = HelperMethods.GetMaxNodes(tree.SelectedNodes);
          else
             nodes = new List<IMaxNodeWrapper>(1) { node };
 
-         SetWireColorCommand cmd = new SetWireColorCommand(nodes, ColorHelpers.FromMaxColor(wc));
+         SetNodePropertyCommand<Color> cmd = new SetNodePropertyCommand<Color>(nodes, "WireColor", ColorHelpers.FromMaxColor(wc));
          cmd.Execute(true);
       }
    }

@@ -4,33 +4,18 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using Outliner.Scene;
+using MaxUtils;
 
 namespace Outliner.Commands
 {
-public class HideCommand : SetNodePropertyCommand<Boolean>
-{
-   public HideCommand(IEnumerable<IMaxNodeWrapper> nodes, Boolean newValue)
-      : base(nodes, newValue) { }
-
-   public override string Description
+   public class HideCommand : SetNodePropertyCommand<Boolean>
    {
-      get { return OutlinerResources.Command_Hide; }
-   }
+      public HideCommand(IEnumerable<IMaxNodeWrapper> nodes, Boolean newValue)
+         : base(nodes, AnimatableProperty.IsHidden, newValue) { }
 
-   public override bool GetValue(IMaxNodeWrapper node)
-   {
-      if (node == null)
-         return false;
-      else
-         return node.IsHidden;
+      public override string Description
+      {
+         get { return OutlinerResources.Command_Hide; }
+      }
    }
-
-   public override void SetValue(IMaxNodeWrapper node, bool value)
-   {
-      if (node == null)
-         return;
-      else
-         node.IsHidden = value;
-   }
-}
 }

@@ -29,7 +29,10 @@ public abstract class AnimatablePropertyButton : TreeNodeButton
 
 
    protected abstract AnimatableProperty Property { get; }
-   protected abstract Type SetPropertyCommandType { get; }
+   protected virtual SetNodePropertyCommand<Boolean> CreateCommand(IEnumerable<IMaxNodeWrapper> nodes, Boolean newValue)
+   {
+      return new SetNodePropertyCommand<Boolean>(nodes, this.Property, newValue);
+   }
    protected abstract String ToolTipEnabled { get; }
    protected virtual String ToolTipDisabled { get { return this.ToolTipEnabled; } }
 
@@ -197,8 +200,8 @@ public abstract class AnimatablePropertyButton : TreeNodeButton
          nodes = new List<TreeNode>(1) { tn };
 
       Boolean nodeValue = node.GetBoolProperty(this.Property);
-      Object[] cmdArgs = new Object[] {HelperMethods.GetMaxNodes(nodes), !nodeValue};
-      SetNodePropertyCommand<Boolean> cmd = Activator.CreateInstance(this.SetPropertyCommandType, cmdArgs) as SetNodePropertyCommand<Boolean>;
+      IEnumerable<IMaxNodeWrapper> maxNodes = HelperMethods.GetMaxNodes(nodes);
+      SetNodePropertyCommand<Boolean> cmd = this.CreateCommand(maxNodes, !nodeValue);
       if (cmd != null)
          cmd.Execute(true);
 

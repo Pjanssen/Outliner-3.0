@@ -67,14 +67,11 @@
     <Compile Include="Commands\MoveMaxNodeCommand.cs" />
     <Compile Include="Commands\RenameCommand.cs" />
     <Compile Include="Commands\SelectCommand.cs" />
+    <Compile Include="Commands\SetNodePropertyCommand.cs" />
     <Compile Include="Commands\SetCurrentLayerCommand.cs" />
-    <Compile Include="Commands\SetBoxModeCommand.cs" />
     <Compile Include="Commands\FreezeCommand.cs" />
     <Compile Include="Commands\HideCommand.cs" />
-    <Compile Include="Commands\SetRenderableCommand.cs" />
     <Compile Include="Commands\SetViewCameraCommand.cs" />
-    <Compile Include="Commands\SetWireColorCommand.cs" />
-    <Compile Include="Commands\SetNodePropertyCommand.cs" />
     <Compile Include="Commands\ToggleLightCommand.cs" />
     <Compile Include="Controls\BitmapProcessing.cs" />
     <Compile Include="Controls\ColorHelpers.cs" />

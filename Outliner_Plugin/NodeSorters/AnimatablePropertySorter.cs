@@ -37,10 +37,8 @@ public class AnimatablePropertySorter : NodeSorter
 
       if (propValueX == propValueY)
          return NativeMethods.StrCmpLogicalW(nodeX.Name, nodeY.Name);
-      else if (propValueX)
-         return 1;
       else
-         return -1;
+         return propValueX.CompareTo(propValueY);
    }
 }
 }

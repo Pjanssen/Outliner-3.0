@@ -226,7 +226,10 @@ namespace Outliner.Scene
       public override bool BoxMode 
       {
          get { return this.layer.BoxMode; }
-         set { this.layer.BoxMode = value; }
+         set 
+         {
+            NestedLayers.SetProperty(this.layer, AnimatableProperty.BoxMode, value);
+         }
       }
 
       public override System.Drawing.Color WireColor 
@@ -243,7 +246,6 @@ namespace Outliner.Scene
             NestedLayers.SetProperty(this.layer, AnimatableProperty.Renderable, value);
          }
       }
-
 
       public override bool IsValid 
       {

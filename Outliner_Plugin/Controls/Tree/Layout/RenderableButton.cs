@@ -17,11 +17,6 @@ namespace Outliner.Controls.Tree.Layout
          get { return MaxUtils.AnimatableProperty.Renderable; }
       }
 
-      protected override Type SetPropertyCommandType
-      {
-         get { return typeof(SetRenderableCommand); }
-      }
-
       protected override string ToolTipEnabled
       {
          get { return OutlinerResources.Tooltip_Renderable; }
