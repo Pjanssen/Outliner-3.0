@@ -13,7 +13,7 @@ namespace Outliner.Controls.Tree.Layout
 {
 public class AddButton : ImageButton
 {
-   public AddButton() : base(OutlinerResources.button_add) { }
+   public AddButton() : base() { }
 
    [XmlAttribute("visible_types")]
    [DefaultValue(MaxNodeTypes.SelectionSet | MaxNodeTypes.Layer)]
@@ -21,6 +21,11 @@ public class AddButton : ImageButton
    {
       get { return base.VisibleTypes & (MaxNodeTypes.SelectionSet | MaxNodeTypes.Layer); }
       set { base.VisibleTypes = value; }
+   }
+
+   protected override System.Drawing.Image ImageEnabled
+   {
+      get { return OutlinerResources.button_add; }
    }
 
    public override bool IsEnabled(TreeNode tn)
@@ -48,12 +53,9 @@ public class AddButton : ImageButton
       if (node == null)
          return;
 
-      if (node is IILayerWrapper)
-      {
-         IEnumerable<IINode> nodes = HelperMethods.GetWrappedNodes<IINode>(this.Layout.TreeView.SelectedNodes);
-         AddToLayerCommand cmd = new AddToLayerCommand(nodes, (IILayer)node.WrappedNode);
-         cmd.Execute(true);
-      }
+      IEnumerable<IMaxNodeWrapper> nodes = HelperMethods.GetMaxNodes(this.Layout.TreeView.SelectedNodes);
+      MoveMaxNodeCommand cmd = new MoveMaxNodeCommand(nodes, node, OutlinerResources.Command_AddToLayer, OutlinerResources.Command_UnlinkLayer);
+      cmd.Execute(true);
    }
 
 
