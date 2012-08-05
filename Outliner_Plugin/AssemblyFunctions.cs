@@ -8,14 +8,11 @@ namespace Outliner
 {
    public static class AssemblyFunctions
    {
-      public static void AssemblyMain()
+      public static void AssemblyMain() 
       {
-         IGlobal g = GlobalInterface.Instance;
-         g.COREInterface.AddClass(new OutlinerDescriptor(g));
+         OutlinerGUP.Start();
       }
 
-      public static void AssemblyShutdown()
-      {
-      }
+      public static void AssemblyShutdown() { }
    }
 }

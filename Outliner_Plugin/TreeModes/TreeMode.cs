@@ -363,7 +363,7 @@ public abstract class TreeMode
       this.selectedInOutliner = true;
 
       IEnumerable<IMaxNodeWrapper> selNodes = HelperMethods.GetMaxNodes(e.Nodes);
-      OutlinerDescriptor.Instance.OpenSelectedGroupHeads(selNodes);
+      OutlinerGUP.Instance.OpenSelectedGroupHeads(selNodes);
       SelectCommand cmd = new SelectCommand(selNodes);
       cmd.Execute(true);
 

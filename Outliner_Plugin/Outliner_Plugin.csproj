@@ -233,7 +233,6 @@
     <Compile Include="Controls\Tree\TreeViewColorScheme.cs" />
     <Compile Include="NodeSorters\AlphabeticalSorter.cs" />
     <Compile Include="NativeMethods.cs" />
-    <Compile Include="OutlinerDescriptor.cs" />
     <Compile Include="OutlinerGUP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene\IILayerWrapper.cs" />

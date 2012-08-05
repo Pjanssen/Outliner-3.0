@@ -10,17 +10,10 @@ using MaxUtils;
 
 namespace Outliner
 {
-   //These values do not seem to be defined in Autodesk.Max.dll,
-   //so they are copied from gup.h :
-   public enum GupResult : uint
+   public class OutlinerGUP
    {
-      Keep = 0x00,
-      NoKeep = 0x01,
-      Abort = 0x03
-   }
+      public static OutlinerGUP Instance { get; private set; }
 
-   public class OutlinerGUP : GUP
-   {
       private List<IINodeWrapper> openedGroupHeads;
       private uint closeGroupHeadsCbKey = 0;
 
@@ -29,15 +22,12 @@ namespace Outliner
          this.openedGroupHeads = new List<IINodeWrapper>();
       }
 
-      public override uint Start
+      internal static void Start()
       {
-         get 
-         {
-            return (uint)GupResult.Keep; 
-         }
+         OutlinerGUP.Instance = new OutlinerGUP();
       }
 
-      public override void Stop() 
+      internal void Stop() 
       {
          this.UnRegisterCloseGroupHeadsCb();
       }
@@ -116,16 +106,17 @@ namespace Outliner
 
       protected class CloseGroupHeadsNodeEventCb : INodeEventCallback
       {
-         private OutlinerGUP gup;
-         public CloseGroupHeadsNodeEventCb(OutlinerGUP gup)
+         private OutlinerGUP outliner;
+         public CloseGroupHeadsNodeEventCb(OutlinerGUP outliner)
          {
-            this.gup = gup;
+            this.outliner = outliner;
          }
 
          public override void SelectionChanged(ITab<UIntPtr> nodes)
          {
-            gup.CloseUnselectedGroupHeads();
-            gup.Max.RedrawViews(gup.Max.Time, RedrawFlags.Normal, null);
+            outliner.CloseUnselectedGroupHeads();
+            IInterface core = MaxInterfaces.COREInterface;
+            core.RedrawViews(core.Time, RedrawFlags.Normal, null);
          }
       }
    }
