@@ -24,6 +24,9 @@ public class TreeNodeLayout
       get { return this.treeView; }
       set
       {
+         if (value == null)
+            throw new ArgumentNullException("value");
+
          this.treeView = value;
          value.VerticalScroll.SmallChange = this.ItemHeight;
          value.VerticalScroll.LargeChange = this.ItemHeight * 3;
@@ -64,12 +67,15 @@ public class TreeNodeLayout
    [DefaultValue(false)]
    public Boolean UseLayerColors { get; set; }
 
-   [XmlArray("LayoutItems")]
+   [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly"), XmlArray("LayoutItems")]
    public TreeNodeLayoutItemCollection LayoutItems
    {
       get { return this.layoutItems; }
       set
       {
+         if (value == null)
+            throw new ArgumentNullException("value");
+
          this.layoutItems = value;
          value.Layout = this;
       }

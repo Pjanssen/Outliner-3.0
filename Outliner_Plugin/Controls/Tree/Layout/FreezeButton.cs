@@ -34,7 +34,7 @@ public class FreezeButton : AnimatablePropertyButton
       get { return OutlinerResources.Tooltip_Freeze; }
    }
 
-   protected override System.Drawing.Bitmap ImageEnabled
+   protected override System.Drawing.Image ImageEnabled
    {
       get { return OutlinerResources.button_freeze; }
    }

@@ -110,7 +110,7 @@ public class FilterCollection<T>
 
       foreach (Filter<T> filter in this.filters)
       {
-         if (!filter.OverrideEnabled || clearPermanentFilters)
+         if (!filter.AlwaysEnabled || clearPermanentFilters)
             filtersToRemove.Add(filter);
       }
 
@@ -174,7 +174,7 @@ public class FilterCollection<T>
       // Loop through filters.
       foreach (Filter<T> filter in this.filters)
       {
-         if (this.Enabled || filter.OverrideEnabled)
+         if (this.Enabled || filter.AlwaysEnabled)
          {
             if (filter.ShowNode(node) == FilterResults.Hide)
             {

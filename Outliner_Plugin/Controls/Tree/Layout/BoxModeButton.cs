@@ -22,7 +22,7 @@ namespace Outliner.Controls.Tree.Layout
          get { return OutlinerResources.Tooltip_BoxMode; }
       }
 
-      protected override System.Drawing.Bitmap ImageEnabled
+      protected override System.Drawing.Image ImageEnabled
       {
          get { return OutlinerResources.button_boxmode; }
       }

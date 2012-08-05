@@ -54,10 +54,10 @@ public class WireColorButton : AnimatablePropertyButton
       get { return OutlinerResources.Tooltip_WireColor; }
    }
 
-   protected override Bitmap ImageEnabled { get { return null; } }
-   protected override Bitmap ImageDisabled { get { return null; } }
-   protected override Bitmap ImageEnabled_Filtered { get { return null; } }
-   protected override Bitmap ImageDisabled_Filtered { get { return null; } }
+   protected override Image ImageEnabled { get { return null; } }
+   protected override Image ImageDisabled { get { return null; } }
+   protected override Image ImageEnabled_Filtered { get { return null; } }
+   protected override Image ImageDisabled_Filtered { get { return null; } }
 
    public override void Draw(Graphics graphics, TreeNode tn)
    {

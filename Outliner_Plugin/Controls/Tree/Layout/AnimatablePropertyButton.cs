@@ -16,17 +16,9 @@ using Outliner.NodeSorters;
 
 namespace Outliner.Controls.Tree.Layout
 {
-public abstract class AnimatablePropertyButton : TreeNodeButton
+public abstract class AnimatablePropertyButton : ImageButton
 {
-   [XmlAttribute("invert_behavior")]
-   [DefaultValue(false)]
-   public Boolean InvertBehavior { get; set; }
-
-   protected AnimatablePropertyButton() 
-   {
-      this.InvertBehavior = false;
-   }
-
+   protected AnimatablePropertyButton() { }
 
    protected abstract AnimatableProperty Property { get; }
    protected virtual SetNodePropertyCommand<Boolean> CreateCommand(IEnumerable<IMaxNodeWrapper> nodes, Boolean newValue)
@@ -36,46 +28,9 @@ public abstract class AnimatablePropertyButton : TreeNodeButton
    protected abstract String ToolTipEnabled { get; }
    protected virtual String ToolTipDisabled { get { return this.ToolTipEnabled; } }
 
-   protected abstract Bitmap ImageEnabled { get; }
-   private Bitmap imageDisabled;
-   protected virtual Bitmap ImageDisabled 
-   { 
-      get 
-      {
-         if (this.imageDisabled == null)
-         {
-            this.imageDisabled = ImageButton.CreateDisabledImage(this.ImageEnabled);
-         }
-         return this.imageDisabled; 
-      } 
-   }
-   protected virtual Bitmap ImageByLayer { get { return OutlinerResources.button_layer; } }
-   private Bitmap imageEnabled_Filtered;
-   protected virtual Bitmap ImageEnabled_Filtered 
-   { 
-      get
-      {
-         if (this.imageEnabled_Filtered == null)
-         {
-            this.imageEnabled_Filtered = ImageButton.CreateFilteredImage(this.ImageEnabled);
-         }
-         return this.imageEnabled_Filtered;
-      }
-   }
-   private Bitmap imageDisabled_Filtered;
-   protected virtual Bitmap ImageDisabled_Filtered
-   {
-      get
-      {
-         if (this.imageDisabled_Filtered == null)
-         {
-            this.imageDisabled_Filtered = ImageButton.CreateFilteredImage(this.ImageDisabled);
-         }
-         return this.imageDisabled_Filtered;
-      }
-   }
-   private Bitmap imageByLayer_Filtered;
-   protected virtual Bitmap ImageByLayer_Filtered
+   protected virtual Image ImageByLayer { get { return OutlinerResources.button_layer; } }
+   private Image imageByLayer_Filtered;
+   protected virtual Image ImageByLayer_Filtered
    {
       get
       {
@@ -120,7 +75,7 @@ public abstract class AnimatablePropertyButton : TreeNodeButton
          return false;
    }
 
-   public virtual Boolean IsEnabled(TreeNode tn)
+   override public Boolean IsEnabled(TreeNode tn)
    {
       IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
       if (node == null)
@@ -133,37 +88,19 @@ public abstract class AnimatablePropertyButton : TreeNodeButton
    }
 
 
-
-   public override int GetWidth(TreeNode tn)
-   {
-      return this.ImageEnabled.Width;
-   }
-
-   public override int GetHeight(TreeNode tn)
-   {
-      return this.ImageEnabled.Height;
-   }
-
-
    public override void Draw(Graphics graphics, TreeNode tn)
    {
       if (graphics == null || tn == null)
          return;
 
-      Boolean isFiltered = !tn.FilterResult.HasFlag(FilterResults.Show);
-
-      Image img = null;
       if (this.isInheritedFromLayer(tn))
-         img = (isFiltered) ? this.ImageByLayer_Filtered : this.ImageByLayer;
-      else if (this.IsEnabled(tn))
-         img = (isFiltered) ? this.ImageEnabled_Filtered : this.ImageEnabled;
+      {
+         Boolean isFiltered = !tn.FilterResult.HasFlag(FilterResults.Show);
+         Image img = (isFiltered) ? this.ImageByLayer_Filtered : this.ImageByLayer;
+         this.DrawImage(graphics, tn, img);
+      }
       else
-         img = (isFiltered) ? this.ImageDisabled_Filtered : this.ImageDisabled;
-
-      Rectangle bounds = this.GetBounds(tn);
-      bounds.X += (bounds.Width - img.Width) / 2;
-      bounds.Size = img.Size;
-      graphics.DrawImage(img, bounds);
+         base.Draw(graphics, tn);
    }
 
       

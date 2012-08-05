@@ -20,10 +20,10 @@ public abstract class TreeMode
 {
    protected TreeView tree { get; private set; }
    protected Autodesk.Max.IInterface ip { get; private set; }
-   protected List<KeyValuePair<GlobalDelegates.Delegate5, SystemNotificationCode>> systemNotifications;
-   protected List<KeyValuePair<uint, TreeModeNodeEventCallbacks>> nodeEventCallbacks;
+   private ICollection<KeyValuePair<GlobalDelegates.Delegate5, SystemNotificationCode>> systemNotifications;
+   private ICollection<KeyValuePair<uint, TreeModeNodeEventCallbacks>> nodeEventCallbacks;
    protected Dictionary<Object, TreeNode> treeNodes { get; private set; }
-   protected Boolean selectedInOutliner;
+   protected Boolean selectedInOutliner { get; set; }
 
    protected TreeMode(TreeView tree, Autodesk.Max.IInterface ip)
    {
@@ -49,7 +49,7 @@ public abstract class TreeMode
    /// <summary>
    /// Registers a SystemNotification proc, which will be automatically unregistered when <see cref="UnregisterSystemNotifications"/> is called.
    /// </summary>
-   protected virtual void RegisterSystemNotification(GlobalDelegates.Delegate5 proc, SystemNotificationCode code)
+   protected void RegisterSystemNotification(GlobalDelegates.Delegate5 proc, SystemNotificationCode code)
    {
       if (this.systemNotifications == null)
          this.systemNotifications = new List<KeyValuePair<GlobalDelegates.Delegate5, SystemNotificationCode>>();
@@ -61,7 +61,7 @@ public abstract class TreeMode
    /// <summary>
    /// Registers the default SystemNotifications.
    /// </summary>
-   public virtual void RegisterSystemNotifications()
+   private void RegisterSystemNotifications()
    {
       this.RegisterSystemNotification(this.SystemPreNew, SystemNotificationCode.SystemPreNew);
       this.RegisterSystemNotification(this.SystemPostNew, SystemNotificationCode.SystemPostNew);
@@ -92,7 +92,7 @@ public abstract class TreeMode
    /// <summary>
    /// Registers a NodeEventCallback object, which will be automatically unregistered when <see cref="UnregisterNodeEventCallbacks"/> is called.
    /// </summary>
-   protected virtual void RegisterNodeEventCallbackObject(TreeModeNodeEventCallbacks cb)
+   protected void RegisterNodeEventCallbackObject(TreeModeNodeEventCallbacks cb)
    {
       if (nodeEventCallbacks == null)
          this.nodeEventCallbacks = new List<KeyValuePair<uint, TreeModeNodeEventCallbacks>>();
@@ -106,7 +106,7 @@ public abstract class TreeMode
    /// <summary>
    /// Registers the default NodeEventCallbacks.
    /// </summary>
-   public virtual void RegisterNodeEventCallbacks()
+   private void RegisterNodeEventCallbacks()
    {
       this.RegisterNodeEventCallbackObject(new DefaultNodeEventCallbacks(this));
    }
@@ -131,11 +131,11 @@ public abstract class TreeMode
 
    protected abstract class TreeModeNodeEventCallbacks : Autodesk.Max.Plugins.INodeEventCallback
    {
-      protected TreeMode treeMode;
+      protected TreeMode treeMode { get; private set; }
       protected TreeView tree { get { return this.treeMode.tree; } }
       protected Dictionary<Object, TreeNode> treeNodes { get { return this.treeMode.treeNodes; } }
 
-      public TreeModeNodeEventCallbacks(TreeMode treeMode)
+      protected TreeModeNodeEventCallbacks(TreeMode treeMode)
       {
          this.treeMode = treeMode;
       }

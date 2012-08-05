@@ -50,6 +50,9 @@ namespace Outliner
       /// </summary>
       public void OpenSelectedGroupHeads(IEnumerable<IMaxNodeWrapper> nodes)
       {
+         if (nodes == null)
+            throw new ArgumentNullException("nodes");
+
          foreach (IMaxNodeWrapper node in nodes)
          {
             IINodeWrapper inode = node as IINodeWrapper;

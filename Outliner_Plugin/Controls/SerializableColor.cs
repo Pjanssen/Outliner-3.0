@@ -53,11 +53,14 @@ public struct SerializableColor : IXmlSerializable
 
    public void ReadXml(System.Xml.XmlReader reader)
    {
+      if (reader == null)
+         throw new ArgumentNullException("reader");
+
       String c = reader.GetAttribute(ValueAttributeName);
       if (c == null)
          throw new System.Xml.XmlException("Expected value attribute in SerializableColor element.");
 
-      if (c.StartsWith("GuiColors."))
+      if (c.StartsWith("GuiColors.", StringComparison.Ordinal))
       {
          this.isGuiColor = true;
          this.guiColor = (GuiColors)Enum.Parse(typeof(GuiColors), c.Substring(10));
@@ -72,6 +75,9 @@ public struct SerializableColor : IXmlSerializable
 
    public void WriteXml(System.Xml.XmlWriter writer)
    {
+      if (writer == null)
+         throw new ArgumentNullException("writer");
+
       if (this.isGuiColor)
          writer.WriteAttributeString(ValueAttributeName, "GuiColors." + this.guiColor.ToString());
       else
@@ -82,11 +88,11 @@ public struct SerializableColor : IXmlSerializable
    {
       if (obj is SerializableColor)
       {
-         SerializableColor color = (SerializableColor)obj;
+         SerializableColor col = (SerializableColor)obj;
          if (this.isGuiColor)
-            return color.isGuiColor && this.guiColor == color.guiColor;
+            return col.isGuiColor && this.guiColor == col.guiColor;
          else
-            return !color.isGuiColor && this.color == color.color;
+            return !col.isGuiColor && this.color == col.color;
       }
       return false;
    }
@@ -94,6 +100,16 @@ public struct SerializableColor : IXmlSerializable
    public override int GetHashCode()
    {
       return this.isGuiColor.GetHashCode() ^ this.guiColor.GetHashCode() ^ this.color.GetHashCode();
+   }
+
+   public static Boolean operator ==(SerializableColor colA, SerializableColor colB)
+   {
+      return colA.Equals(colB);
+   }
+
+   public static Boolean operator !=(SerializableColor colA, SerializableColor colB)
+   {
+      return !colA.Equals(colB);
    }
 
    public override string ToString()

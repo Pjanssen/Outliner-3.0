@@ -265,6 +265,25 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Collapse node.
+        /// </summary>
+        internal static string Tooltip_Collapse {
+            get {
+                return ResourceManager.GetString("Tooltip_Collapse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expand node
+        ///Use {0} to expand entire hierarchy..
+        /// </summary>
+        internal static string Tooltip_Expand {
+            get {
+                return ResourceManager.GetString("Tooltip_Expand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Freeze.
         /// </summary>
         internal static string Tooltip_Freeze {

@@ -11,61 +11,89 @@ using Outliner.Scene;
 
 namespace Outliner.Controls.Tree.Layout
 {
-
-
 public abstract class ImageButton : TreeNodeButton
 {
    [XmlAttribute("invert_behavior")]
    [DefaultValue(false)]
    public Boolean InvertBehavior { get; set; }
 
+   protected ImageButton()
+   {
+      this.InvertBehavior = false;
+   }
+
+
    public abstract Boolean IsEnabled(TreeNode tn);
 
-   private Bitmap enabledImage;
-   private Bitmap disabledImage;
-   private Bitmap enabledImage_Filtered;
-   private Bitmap disabledImage_Filtered;
-
-   public static Bitmap CreateDisabledImage(Bitmap image)
+   protected static Image CreateDisabledImage(Image image)
    {
-      Bitmap img = (Bitmap)image.Clone();
+      if (image == null)
+         throw new ArgumentNullException("image");
+
+      Bitmap img = image.Clone() as Bitmap;
       BitmapProcessing.Desaturate(img);
       BitmapProcessing.Opacity(img, 90);
       return img;
    }
 
-   public static Bitmap CreateFilteredImage(Bitmap image)
+   protected static Image CreateFilteredImage(Image image)
    {
-      Bitmap img = (Bitmap)image.Clone();
+      if (image == null)
+         throw new ArgumentNullException("image");
+
+      Bitmap img = image.Clone() as Bitmap;
       BitmapProcessing.Opacity(img, IconHelperMethods.FILTERED_OPACITY);
       return img;
    }
 
-   protected ImageButton(Bitmap enabledImage)
-      : this(enabledImage, CreateDisabledImage(enabledImage)) { }
-
-   protected ImageButton(Bitmap enabledImage, Bitmap disabledImage)
+   protected abstract Image ImageEnabled { get; }
+   private Image imageDisabled;
+   protected virtual Image ImageDisabled
    {
-      if (enabledImage == null)
-         throw new ArgumentNullException("enabledImage");
-
-      this.InvertBehavior = false;
-
-      this.enabledImage  = enabledImage;
-      this.disabledImage = (disabledImage != null) ? disabledImage : enabledImage;
-
-      this.enabledImage_Filtered = CreateFilteredImage(enabledImage);
-      this.disabledImage_Filtered = CreateFilteredImage(this.disabledImage);
+      get
+      {
+         if (this.imageDisabled == null)
+         {
+            this.imageDisabled = ImageButton.CreateDisabledImage(this.ImageEnabled);
+         }
+         return this.imageDisabled;
+      }
    }
+   private Image imageEnabled_Filtered;
+   protected virtual Image ImageEnabled_Filtered
+   {
+      get
+      {
+         if (this.imageEnabled_Filtered == null)
+         {
+            this.imageEnabled_Filtered = ImageButton.CreateFilteredImage(this.ImageEnabled);
+         }
+         return this.imageEnabled_Filtered;
+      }
+   }
+   private Image imageDisabled_Filtered;
+   protected virtual Image ImageDisabled_Filtered
+   {
+      get
+      {
+         if (this.imageDisabled_Filtered == null)
+         {
+            this.imageDisabled_Filtered = ImageButton.CreateFilteredImage(this.ImageDisabled);
+         }
+         return this.imageDisabled_Filtered;
+      }
+   }
+
+
 
    public override int GetWidth(TreeNode tn)
    {
-      return this.enabledImage.Width;
+      return this.ImageEnabled.Width;
    }
 
    public override int GetHeight(TreeNode tn)
    {
-      return this.enabledImage.Height;
+      return this.ImageEnabled.Height;
    }
 
    public override void Draw(Graphics graphics, TreeNode tn)
@@ -77,11 +105,24 @@ public abstract class ImageButton : TreeNodeButton
 
       Image img = null;
       if (this.IsEnabled(tn) != this.InvertBehavior)
-         img = (isFiltered) ? this.enabledImage_Filtered : this.enabledImage;
+         img = (isFiltered) ? this.ImageEnabled_Filtered : this.ImageEnabled;
       else
-         img = (isFiltered) ? this.disabledImage_Filtered : this.disabledImage;
+         img = (isFiltered) ? this.ImageDisabled_Filtered : this.ImageDisabled;
 
-      graphics.DrawImage(img, this.GetBounds(tn));
+      this.DrawImage(graphics, tn, img);
+   }
+
+   protected void DrawImage(Graphics graphics, TreeNode tn, Image img)
+   {
+      if (graphics == null)
+         throw new ArgumentNullException("graphics");
+      if (img == null)
+         throw new ArgumentNullException("img");
+
+      Rectangle bounds = this.GetBounds(tn);
+      bounds.X += (bounds.Width - img.Width) / 2;
+      bounds.Size = img.Size;
+      graphics.DrawImage(img, bounds);
    }
 }
 }

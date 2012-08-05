@@ -24,7 +24,7 @@ namespace Outliner.Controls.Tree.Layout
    [XmlInclude(typeof(WireColorButton))]
    public abstract class TreeNodeLayoutItem
    {
-      public TreeNodeLayoutItem()
+      protected TreeNodeLayoutItem()
       {
          this.VisibleTypes = MaxNodeTypes.All;
       }

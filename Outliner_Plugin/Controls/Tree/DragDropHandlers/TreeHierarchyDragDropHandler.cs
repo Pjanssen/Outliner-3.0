@@ -19,7 +19,7 @@ public class TreeHierarchyDragDropHandler : DragDropHandler
 
    public override bool IsValidDropTarget(IDataObject dragData)
    {
-      IEnumerable<TreeNode> draggedNodes = this.GetNodesFromDataObject(dragData);
+      IEnumerable<TreeNode> draggedNodes = DragDropHandler.GetNodesFromDataObject(dragData);
       if (draggedNodes == null)
          return false;
 
@@ -39,7 +39,7 @@ public class TreeHierarchyDragDropHandler : DragDropHandler
       if (!this.IsValidDropTarget(dragData))
          return;
 
-      IEnumerable<TreeNode> draggedNodes = this.GetNodesFromDataObject(dragData);
+      IEnumerable<TreeNode> draggedNodes = DragDropHandler.GetNodesFromDataObject(dragData);
       if (draggedNodes == null)
          return;
 

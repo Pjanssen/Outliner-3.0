@@ -151,6 +151,28 @@ public class TreeView : ScrollableControl
    }
 
 
+   internal Color GetLineColor(TreeNode tn)
+   {
+      if (this.TreeNodeLayout.FullRowSelect)
+         return GetNodeForeColor(tn, true);
+      else
+      {
+         if (tn.ForeColor != Color.Empty)
+            return tn.ForeColor;
+         else
+         {
+            float bBack = this.GetNodeBackColor(tn, false).GetBrightness();
+            float bDark = this.Colors.ForegroundDark.Color.GetBrightness();
+            float bLight = this.Colors.ForegroundLight.Color.GetBrightness();
+
+            if (Math.Abs(bBack - bDark) > Math.Abs(bBack - bLight))
+               return this.Colors.ForegroundDark.Color;
+            else
+               return this.Colors.ForegroundLight.Color;
+         }
+      }
+   }
+
    /// <summary>
    /// Gets the foreground color for a treenode.
    /// </summary>
@@ -437,19 +459,19 @@ public class TreeView : ScrollableControl
       }
 
       TreeNode tn = this.GetNodeAt(e.Location);
-      if (tn != null)
+
+      //Start dragging.
+      if (tn != null && !this.isDragging 
+          && e.Button == MouseButtons.Left
+          && HelperMethods.Distance(e.Location, this.dragStartPos) > 5
+          && this.SelectedNodes.Count > 0)
       {
-         if (!this.isDragging && e.Button == MouseButtons.Left
-             && HelperMethods.Distance(e.Location, this.dragStartPos) > 5
-             && this.SelectedNodes.Count > 0)
-         {
-            DataObject data = new DataObject(typeof(IEnumerable<TreeNode>).FullName, 
-                                             this.SelectedNodes);
-            this.DoDragDrop(data, TreeView.AllowedDragDropEffects);
-         }
-         else
-            this.TreeNodeLayout.HandleMouseMove(e, tn);
+         DataObject data = new DataObject(typeof(IEnumerable<TreeNode>).FullName,
+                                          this.SelectedNodes);
+         this.DoDragDrop(data, TreeView.AllowedDragDropEffects);
       }
+      else
+         this.TreeNodeLayout.HandleMouseMove(e, tn);
    }
 
    protected override void OnMouseDoubleClick(MouseEventArgs e)
@@ -494,6 +516,9 @@ public class TreeView : ScrollableControl
 
    protected override void OnDragEnter(DragEventArgs drgevent)
    {
+      if (drgevent == null)
+         throw new ArgumentNullException("drgevent");
+
       this.isDragging = true;
       drgevent.Effect = TreeView.NoneDragDropEffects;
       
@@ -510,6 +535,9 @@ public class TreeView : ScrollableControl
 
    protected override void OnDragOver(DragEventArgs drgevent)
    {
+      if (drgevent == null)
+         throw new ArgumentNullException("drgevent");
+
       Point location = this.PointToClient(new Point(drgevent.X, drgevent.Y));
       TreeNode tn = this.GetNodeAt(location);
       DragDropHandler dragDropHandler = (tn != null) ? tn.DragDropHandler 
@@ -539,6 +567,9 @@ public class TreeView : ScrollableControl
 
    protected override void OnDragDrop(DragEventArgs drgevent)
    {
+      if (drgevent == null)
+         throw new ArgumentNullException("drgevent");
+
       Point location = this.PointToClient(new Point(drgevent.X, drgevent.Y));
       TreeNode tn = this.GetNodeAt(location);
 

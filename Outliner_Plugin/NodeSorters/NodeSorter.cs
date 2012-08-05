@@ -8,8 +8,8 @@ namespace Outliner.NodeSorters
 {
    public abstract class NodeSorter : IComparer<TreeNode>
    {
-      public NodeSorter() : this(false) { }
-      public NodeSorter(Boolean invert)
+      protected NodeSorter() : this(false) { }
+      protected NodeSorter(Boolean invert)
       {
          this.invert = invert;
       }

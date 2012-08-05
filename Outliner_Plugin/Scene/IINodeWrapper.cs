@@ -11,21 +11,21 @@ namespace Outliner.Scene
 {
 public class IINodeWrapper : IMaxNodeWrapper
 {
-   private IINode node;
+   private IINode iinode;
    public IINodeWrapper(IINode node)
    {
-      this.node = node;
+      this.iinode = node;
    }
 
    public override object WrappedNode
    {
-      get { return this.node; }
+      get { return this.iinode; }
    }
 
    public override bool Equals(object obj)
    {
       IINodeWrapper otherObj = obj as IINodeWrapper;
-      return otherObj != null && this.node.Handle == otherObj.node.Handle;
+      return otherObj != null && this.iinode.Handle == otherObj.iinode.Handle;
    }
 
    public override int GetHashCode()
@@ -35,14 +35,14 @@ public class IINodeWrapper : IMaxNodeWrapper
 
    public IINode IINode
    {
-      get { return this.node; }
+      get { return this.iinode; }
    }
 
    public  IINodeLayerProperties NodeLayerProperties
    {
       get
       {
-         IBaseInterface baseInterface = this.node.GetInterface(MaxInterfaces.NodeLayerProperties);
+         IBaseInterface baseInterface = this.iinode.GetInterface(MaxInterfaces.NodeLayerProperties);
          return baseInterface as IINodeLayerProperties;
       }
    }
@@ -59,7 +59,7 @@ public class IINodeWrapper : IMaxNodeWrapper
    {
       get
       {
-         return new IINodeWrapper(this.node.ParentNode);
+         return new IINodeWrapper(this.iinode.ParentNode);
       }
    }
 
@@ -67,10 +67,10 @@ public class IINodeWrapper : IMaxNodeWrapper
    {
       get 
       {
-         int numChildren = this.node.NumberOfChildren;
+         int numChildren = this.iinode.NumberOfChildren;
          List<IINode> nodes = new List<IINode>(numChildren);
          for (int i = 0; i < numChildren; i++)
-            nodes.Add(this.node.GetChildNode(i));
+            nodes.Add(this.iinode.GetChildNode(i));
          return nodes;
       }
    }
@@ -86,31 +86,34 @@ public class IINodeWrapper : IMaxNodeWrapper
 
    public override void AddChildNode(IMaxNodeWrapper node)
    {
+      if (node == null)
+         throw new ArgumentNullException("node");
+
       if (node.WrappedNode is IINode)
-         this.node.AttachChild((IINode)node.WrappedNode, true);
+         this.iinode.AttachChild((IINode)node.WrappedNode, true);
    }
 
    public override void RemoveChildNode(IMaxNodeWrapper node)
    {
       if (node is IINodeWrapper)
-         ((IINodeWrapper)node).node.Detach(0, true);
+         ((IINodeWrapper)node).iinode.Detach(0, true);
    }
 
    public override String Name
    {
-      get { return this.node.Name; }
-      set { this.node.Name = value; }
+      get { return this.iinode.Name; }
+      set { this.iinode.Name = value; }
    }
 
    public override string DisplayName
    {
       get
       {
-         if (this.Name == String.Empty)
+         if (String.IsNullOrEmpty(this.Name))
             return "-unnamed-";
 
-         Boolean isGroupedNode = this.node.IsGroupHead || this.node.IsGroupMember;
-         if (IINodeHelpers.IsXref(this.node))
+         Boolean isGroupedNode = this.iinode.IsGroupHead || this.iinode.IsGroupMember;
+         if (IINodeHelpers.IsXref(this.iinode))
          {
             if (isGroupedNode)
                return "{[" + this.Name + "]}";
@@ -126,17 +129,17 @@ public class IINodeWrapper : IMaxNodeWrapper
 
    public override IClass_ID ClassID
    {
-      get { return this.node.ObjectRef.ClassID; }
+      get { return this.iinode.ObjectRef.ClassID; }
    }
 
    public override SClass_ID SuperClassID
    {
-      get { return this.node.ObjectRef.FindBaseObject().SuperClassID; }
+      get { return this.iinode.ObjectRef.FindBaseObject().SuperClassID; }
    }
 
    public override bool Selected
    {
-      get { return this.node.Selected; }
+      get { return this.iinode.Selected; }
    }
 
    public override bool IsNodeType(MaxNodeTypes types)
@@ -146,32 +149,32 @@ public class IINodeWrapper : IMaxNodeWrapper
 
    public override bool IsHidden
    {
-      get { return this.node.IsObjectHidden; }
-      set { this.node.Hide(value); }
+      get { return this.iinode.IsObjectHidden; }
+      set { this.iinode.Hide(value); }
    }
 
    public override bool IsFrozen
    {
-      get { return this.node.IsObjectFrozen; }
-      set { this.node.IsFrozen = value; }
+      get { return this.iinode.IsObjectFrozen; }
+      set { this.iinode.IsFrozen = value; }
    }
 
    public override bool BoxMode
    {
-      get { return this.node.BoxMode_ != 0; }
-      set { this.node.BoxMode(value); }
+      get { return this.iinode.BoxMode_ != 0; }
+      set { this.iinode.BoxMode(value); }
    }
 
    public override Color WireColor
    {
-      get { return ColorHelpers.FromMaxColor(this.node.WireColor); }
-      set { this.node.WireColor = value; }
+      get { return ColorHelpers.FromMaxColor(this.iinode.WireColor); }
+      set { this.iinode.WireColor = value; }
    }
 
    public override bool Renderable
    {
-      get { return this.node.Renderable != 0; }
-      set { this.node.SetRenderable(value); }
+      get { return this.iinode.Renderable != 0; }
+      set { this.iinode.SetRenderable(value); }
    }
 
 
@@ -182,7 +185,7 @@ public class IINodeWrapper : IMaxNodeWrapper
          if (!base.IsValid)
             return false;
 
-         try { return !this.node.TestAFlag(AnimatableFlags.IsDeleted); }
+         try { return !this.iinode.TestAFlag(AnimatableFlags.IsDeleted); }
          catch { return false; }
       }
    }
@@ -192,7 +195,7 @@ public class IINodeWrapper : IMaxNodeWrapper
       get
       {
          IINodeTab instances = MaxInterfaces.Global.INodeTabNS.Create();
-         uint numInstances = MaxInterfaces.InstanceMgr.GetInstances(this.node, instances);
+         uint numInstances = MaxInterfaces.InstanceMgr.GetInstances(this.iinode, instances);
          return numInstances > 1;
       }
    }
@@ -216,7 +219,7 @@ public class IINodeWrapper : IMaxNodeWrapper
    {
       get
       {
-         if (this.node == null || this.node.ObjectRef == null)
+         if (this.iinode == null || this.iinode.ObjectRef == null)
             return base.ImageKey;
 
          SClass_ID superClass = this.SuperClassID;
@@ -229,12 +232,12 @@ public class IINodeWrapper : IMaxNodeWrapper
             case SClass_ID.WsmObject: return IMGKEY_SPACEWARP;
          }
 
-         if (superClass == SClass_ID.System && IINodeHelpers.IsXref(node))
+         if (superClass == SClass_ID.System && IINodeHelpers.IsXref(iinode))
             return IMGKEY_XREF;
 
          if (superClass == SClass_ID.Helper)
          {
-            if (this.node.IsGroupHead)
+            if (this.iinode.IsGroupHead)
                return IMGKEY_GROUPHEAD;
             else
                return IMGKEY_HELPER;
@@ -243,10 +246,10 @@ public class IINodeWrapper : IMaxNodeWrapper
          if (superClass == SClass_ID.Geomobject)
          {
             //Target objects (for light/camera target)
-            if (node.IsTarget)
+            if (iinode.IsTarget)
                return IMGKEY_TARGET;
 
-            IObject objRef = node.ObjectRef;
+            IObject objRef = iinode.ObjectRef;
             if (objRef == null)
                return IMGKEY_GEOMETRY;
 
@@ -259,7 +262,7 @@ public class IINodeWrapper : IMaxNodeWrapper
                return IMGKEY_PARTICLE;
 
             //Bone and biped objects have Geomobject as a superclass.
-            if (IINodeHelpers.IsBone(node))
+            if (IINodeHelpers.IsBone(iinode))
                return IMGKEY_BONE;
 
             //All other geometry objects.

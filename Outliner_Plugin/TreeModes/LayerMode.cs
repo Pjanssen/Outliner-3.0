@@ -18,7 +18,11 @@ namespace Outliner.TreeModes
 public class LayerMode : TreeMode
 {
    public LayerMode(TreeView tree, Autodesk.Max.IInterface ip)
-      : base(tree, ip) { }
+      : base(tree, ip) 
+   {
+      this.RegisterSystemNotifications();
+      this.RegisterNodeEventCallbacks();
+   }
 
    public override void FillTree()
    {
@@ -81,11 +85,9 @@ public class LayerMode : TreeMode
 
    #region NodeEventCallbacks
 
-   public override void RegisterNodeEventCallbacks()
+   private void RegisterNodeEventCallbacks()
    {
       this.RegisterNodeEventCallbackObject(new LayerNodeEventCallbacks(this));
-
-      base.RegisterNodeEventCallbacks();
    }
 
    protected class LayerNodeEventCallbacks : TreeModeNodeEventCallbacks
@@ -141,7 +143,7 @@ public class LayerMode : TreeMode
 
    #region System notifications
 
-   public override void RegisterSystemNotifications()
+   private void RegisterSystemNotifications()
    {
       this.RegisterSystemNotification(this.LayerCreated, SystemNotificationCode.LayerCreated);
       this.RegisterSystemNotification(this.LayerDeleted, SystemNotificationCode.LayerDeleted);
@@ -150,8 +152,6 @@ public class LayerMode : TreeMode
       this.RegisterSystemNotification(this.LayerFrozenChanged, SystemNotificationCode.LayerFrozenStateChanged);
       this.RegisterSystemNotification(this.layerParented, NestedLayers.LayerParented);
       this.RegisterSystemNotification(this.LayerPropChanged, NestedLayers.LayerPropertyChanged);
-     
-      base.RegisterSystemNotifications();
    }
 
    public virtual void LayerCreated(IntPtr param, IntPtr info)

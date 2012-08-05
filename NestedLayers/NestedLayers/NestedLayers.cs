@@ -345,6 +345,7 @@ public static class NestedLayers
    /// Int                  | Bool  | .. | Bool  | String
    /// Number of properties | prop1 | .. | propx | Parent Name
    /// </remarks>
+   [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
    private static void StoreHierarchy()
    {
       IILayerManager layerManager = MaxInterfaces.IILayerManager;
@@ -383,6 +384,7 @@ public static class NestedLayers
    /// <summary>
    /// Recreates the ParentHandle and LayerProperties AppDataChunks from the LayerHierarchy.
    /// </summary>
+   [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
    private static void RebuildHierarchy(Boolean recursive)
    {
       IILayerManager layerManager = MaxInterfaces.IILayerManager;

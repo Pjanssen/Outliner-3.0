@@ -226,4 +226,11 @@
   <data name="Command_SetProperty" xml:space="preserve">
     <value>Change node property</value>
   </data>
+  <data name="Tooltip_Collapse" xml:space="preserve">
+    <value>Collapse node</value>
+  </data>
+  <data name="Tooltip_Expand" xml:space="preserve">
+    <value>Expand node
+Use {0} to expand entire hierarchy.</value>
+  </data>
 </root>

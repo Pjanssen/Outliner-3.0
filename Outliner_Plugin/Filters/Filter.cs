@@ -7,12 +7,12 @@ namespace Outliner.Filters
 {
    public abstract class Filter<T>
    {
-      protected Filter()
-      {
-         this.OverrideEnabled = false;
-      }
+      protected Filter() { }
 
-      public virtual Boolean OverrideEnabled { get; set; }
+      public virtual Boolean AlwaysEnabled 
+      {
+         get { return false; }
+      }
 
       /// <summary>
       /// Returns whether the node should be shown or hidden. 

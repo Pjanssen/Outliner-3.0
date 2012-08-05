@@ -56,8 +56,8 @@ namespace Outliner.Actions
             tc.treeView1.Colors.ToXml(colorFile.String);
          }
 
-         //tc.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
-         tc.treeView1.NodeSorter = new AnimatablePropertySorter(AnimatableProperty.IsHidden);
+         tc.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
+         //tc.treeView1.NodeSorter = new AnimatablePropertySorter(AnimatableProperty.WireColor);
          TreeMode tm = //new HierarchyMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
             //SelectionSetMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
          new LayerMode(tc.treeView1, MaxInterfaces.Global.COREInterface);

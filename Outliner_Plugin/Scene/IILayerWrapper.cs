@@ -16,12 +16,18 @@ namespace Outliner.Scene
 
       public IILayerWrapper(IILayer layer)
       {
+         if (layer == null)
+            throw new ArgumentNullException("layer");
+
          this.layer = layer;
          this.layerProperties = MaxInterfaces.IIFPLayerManager.GetLayer(layer.Name);
       }
 
       public IILayerWrapper(IILayerProperties layerProperties)
       {
+         if (layerProperties == null)
+            throw new ArgumentNullException("layerProperties");
+
          this.layerProperties = layerProperties;
 
          String layerName = layerProperties.Name;

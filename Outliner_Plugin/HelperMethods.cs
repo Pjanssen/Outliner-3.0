@@ -84,6 +84,9 @@ public static class HelperMethods
    /// </summary>
    public static Boolean IsParentOfSelected(IMaxNodeWrapper node)
    {
+      if (node == null)
+         throw new ArgumentNullException("node");
+
       if (node.Selected)
          return true;
 

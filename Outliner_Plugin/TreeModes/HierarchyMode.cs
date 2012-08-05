@@ -17,7 +17,12 @@ public class HierarchyMode : TreeMode
    public HierarchyMode(TreeView tree, IInterface ip)
       : base(tree, ip)
    {
+      if (tree == null)
+         throw new ArgumentNullException("tree");
+
       tree.DragDropHandler = new TreeHierarchyDragDropHandler();
+
+      this.RegisterNodeEventCallbacks();
    }
 
    public override void FillTree()
@@ -49,10 +54,9 @@ public class HierarchyMode : TreeMode
       return tn;
    }
 
-   public override void RegisterNodeEventCallbacks()
+   private void RegisterNodeEventCallbacks()
    {
       this.RegisterNodeEventCallbackObject(new HierarchyNodeEventCallbacks(this));
-      base.RegisterNodeEventCallbacks();
    }
 
    protected class HierarchyNodeEventCallbacks : TreeModeNodeEventCallbacks

@@ -24,7 +24,7 @@ public class HideButton : AnimatablePropertyButton
       return new HideCommand(nodes, newValue);
    }
 
-   protected override System.Drawing.Bitmap ImageEnabled
+   protected override System.Drawing.Image ImageEnabled
    {
       get { return OutlinerResources.button_hide; }
    }

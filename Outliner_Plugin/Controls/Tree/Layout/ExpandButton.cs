@@ -10,14 +10,14 @@ using System.ComponentModel;
 
 namespace Outliner.Controls.Tree.Layout
 {
-public class ExpandButton : TreeNodeLayoutItem
+public class ExpandButton : TreeNodeButton
 {
    protected const Int32 GUTTERWIDTH = 15;
    protected const Int32 GUTTERHMID = 7;
    protected const Int32 GLYPHSIZE = 9;
    protected const Int32 GLYPHMID = 4;
 
-   protected Boolean fillBackground;
+   protected Boolean fillBackground { get; set; }
 
    [XmlAttribute("use_visual_styles")]
    [DefaultValue(true)]
@@ -27,6 +27,23 @@ public class ExpandButton : TreeNodeLayoutItem
    {
       this.fillBackground = false;
       this.UseVisualStyles = true;
+   }
+
+   protected override bool Clickable(TreeNode tn)
+   {
+      return tn.Nodes.Count > 0;
+   }
+
+   protected override string GetTooltipText(TreeNode tn)
+   {
+      String tooltip = String.Empty;
+      if (this.Clickable(tn))
+      {
+         tooltip = (tn.IsExpanded) ? OutlinerResources.Tooltip_Collapse 
+                                   : OutlinerResources.Tooltip_Expand;
+      }
+
+      return String.Format(tooltip, Keys.Control.ToString());
    }
 
    public override bool CenterVertically { get { return false; } }
@@ -111,18 +128,14 @@ public class ExpandButton : TreeNodeLayoutItem
       if (e == null || tn == null)
          return;
 
-      Rectangle glyphBounds = this.GetGlyphBounds(tn);
-      if (glyphBounds.Contains(e.Location))
+      if (Control.ModifierKeys.HasFlag(Keys.Control) && !tn.IsExpanded)
       {
-         if (Control.ModifierKeys.HasFlag(Keys.Control) && !tn.IsExpanded)
-         {
-            this.Layout.TreeView.BeginUpdate();
-            tn.ExpandAll();
-            this.Layout.TreeView.EndUpdate();
-         }
-         else
-            tn.IsExpanded = !tn.IsExpanded;
+         this.Layout.TreeView.BeginUpdate();
+         tn.ExpandAll();
+         this.Layout.TreeView.EndUpdate();
       }
+      else
+         tn.IsExpanded = !tn.IsExpanded;
    }
 }
 }

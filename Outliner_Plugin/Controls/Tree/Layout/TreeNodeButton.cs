@@ -60,8 +60,17 @@ public abstract class TreeNodeButton : TreeNodeLayoutItem, IDisposable
 
    public void Dispose()
    {
-      if (this.tooltip != null)
-         this.tooltip.Dispose();
+      this.Dispose(true);
+      GC.SuppressFinalize(this);
+   }
+
+   protected virtual void Dispose(Boolean disposing)
+   {
+      if (disposing)
+      {
+         if (this.tooltip != null)
+            this.tooltip.Dispose();
+      }
    }
 }
 }

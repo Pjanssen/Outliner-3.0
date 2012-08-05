@@ -16,6 +16,7 @@ public class FlatObjectListMode : TreeMode
       : base(tree, ip) 
    {
       this.Filters = new FlatListFilterCollection<IMaxNodeWrapper>(base.Filters);
+      this.RegisterNodeEventCallbacks();
    }
 
    public override void FillTree()
@@ -45,10 +46,9 @@ public class FlatObjectListMode : TreeMode
       return tn;
    }
 
-   public override void RegisterNodeEventCallbacks()
+   private void RegisterNodeEventCallbacks()
    {
       this.RegisterNodeEventCallbackObject(new FlatListNodeEventCallbacks(this));
-      base.RegisterNodeEventCallbacks();
    }
 
    protected class FlatListNodeEventCallbacks : TreeModeNodeEventCallbacks

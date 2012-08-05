@@ -13,10 +13,9 @@ namespace Outliner.Filters
    /// </summary>
    public class InvisibleNodeFilter : Filter<IMaxNodeWrapper>
    {
-      public override bool OverrideEnabled
+      public override bool AlwaysEnabled
       {
          get { return true; }
-         set { }
       }
 
       public override FilterResults ShowNode(IMaxNodeWrapper data)

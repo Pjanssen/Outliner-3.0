@@ -23,9 +23,9 @@ public class TreeNode
    private String imageKey;
 
    public TreeNodeCollection Nodes { get; private set; }
-   public virtual DragDropHandler DragDropHandler { get; set; }
-   public virtual FilterResults FilterResult { get; set; }
-   public virtual Object Tag { get; set; }
+   public DragDropHandler DragDropHandler { get; set; }
+   public FilterResults FilterResult { get; set; }
+   public Object Tag { get; set; }
 
    public TreeNode() : this("") { }
    internal TreeNode(TreeView tree, String text) : this(text)
@@ -44,6 +44,7 @@ public class TreeNode
       this.foreColor = foreColor;
       this.fontStyle = fontStyle;
       this.imageKey = imageKey;
+      this.FilterResult = filterResult;
 
       this.boundsValid = false;
       this.Nodes = new TreeNodeCollection(this);
@@ -55,7 +56,6 @@ public class TreeNode
       set
       {
          this.text = value;
-         TreeView tree = this.TreeView;
          this.Invalidate();
       }
    }

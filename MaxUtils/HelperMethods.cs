@@ -41,6 +41,7 @@ public static class HelperMethods
 
 
 
+   [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
    public static void RunResourceScript(Assembly assembly, String res)
    {
       String script = String.Empty;

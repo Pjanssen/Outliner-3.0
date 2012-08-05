@@ -19,10 +19,9 @@ public class NodeFilterCollectionTest
 
    public class MockPermanentFilter : MockFilter
    {
-      public override bool OverrideEnabled
+      public override bool AlwaysEnabled
       {
          get { return true; }
-         set { }
       }
    }
 

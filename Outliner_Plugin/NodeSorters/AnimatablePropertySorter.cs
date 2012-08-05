@@ -37,10 +37,14 @@ public class AnimatablePropertySorter : NodeSorter
 
       if (propValueX == propValueY)
          return NativeMethods.StrCmpLogicalW(nodeX.Name, nodeY.Name);
-      else if (propValueX is IComparable)
-         return ((IComparable)propValueX).CompareTo(propValueY);
       else
-         return 0;
+      {
+         IComparable iCompX = propValueX as IComparable;
+         if (iCompX != null)
+            return iCompX.CompareTo(propValueY);
+         else
+            return 0;
+      }
    }
 }
 }

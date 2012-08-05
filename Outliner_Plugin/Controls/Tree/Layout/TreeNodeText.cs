@@ -42,7 +42,6 @@ public class TreeNodeText : TreeNodeLayoutItem
          return;
 
       TreeView tree = this.Layout.TreeView;
-      TreeViewColorScheme colors = tree.Colors;
       Color bgColor = tree.GetNodeBackColor(tn, true);
       Color fgColor = tree.GetNodeForeColor(tn, true);
 

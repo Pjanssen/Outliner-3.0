@@ -109,6 +109,9 @@ public class TreeNodeIcon : TreeNodeButton
 
    public override void HandleMouseUp(MouseEventArgs e, TreeNode tn) 
    {
+      if (tn == null)
+         throw new ArgumentNullException("tn");
+
       IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
       if (node == null)
          return;
