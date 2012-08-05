@@ -57,12 +57,11 @@ namespace Outliner.Actions
          }
 
          tc.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
-         //tc.treeView1.NodeSorter = new AnimatablePropertySorter(AnimatableProperty.WireColor);
-         TreeMode tm = //new HierarchyMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
+         TreeMode tm = 
             //SelectionSetMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
-         new LayerMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
-         //HierarchyMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
-         //FlatObjectListMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
+            new LayerMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
+            //HierarchyMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
+            //FlatObjectListMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
          
          //tm.Filters.Add(new Filters.HelperFilter());
          //tm.Filters.Enabled = true;

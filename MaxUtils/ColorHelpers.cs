@@ -82,5 +82,9 @@ public static class ColorHelpers
          (byte)Math.Round(baseColor.B * baseAmount + overlayColor.B * overlayAmount));
    }
 
+   public static int Compare(Color colorA, Color colorB)
+   {
+      return colorA.ToArgb().CompareTo(colorB.ToArgb());
+   }
 }
 }

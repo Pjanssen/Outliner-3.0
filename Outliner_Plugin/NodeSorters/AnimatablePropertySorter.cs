@@ -5,6 +5,7 @@ using System.Text;
 using MaxUtils;
 using Outliner.Controls.Tree;
 using Outliner.Scene;
+using System.Drawing;
 
 namespace Outliner.NodeSorters
 {
@@ -42,6 +43,8 @@ public class AnimatablePropertySorter : NodeSorter
          IComparable iCompX = propValueX as IComparable;
          if (iCompX != null)
             return iCompX.CompareTo(propValueY);
+         else if (propValueX is Color && propValueY is Color)
+            return ColorHelpers.Compare((Color)propValueX, (Color)propValueY);
          else
             return 0;
       }

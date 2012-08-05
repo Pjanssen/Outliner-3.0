@@ -10,6 +10,7 @@ using Outliner.Commands;
 using System.Xml.Serialization;
 using System.ComponentModel;
 using MaxUtils;
+using Outliner.NodeSorters;
 
 namespace Outliner.Controls.Tree.Layout
 {
@@ -102,14 +103,22 @@ public class WireColorButton : AnimatablePropertyButton
       if (ip.NodeColorPicker(ip.MAXHWnd, ref wc))
       {
          TreeView tree = this.Layout.TreeView;
-         IEnumerable<IMaxNodeWrapper> nodes = null;
-         if (!HelperMethods.ControlPressed && tree.IsSelectedNode(tn))
-            nodes = HelperMethods.GetMaxNodes(tree.SelectedNodes);
+         IEnumerable<TreeNode> nodes = null;
+         if (tree.IsSelectedNode(tn) && !HelperMethods.ControlPressed)
+            nodes = tree.SelectedNodes;
          else
-            nodes = new List<IMaxNodeWrapper>(1) { node };
+            nodes = new List<TreeNode>(1) { tn };
 
-         SetNodePropertyCommand<Color> cmd = new SetNodePropertyCommand<Color>(nodes, "WireColor", ColorHelpers.FromMaxColor(wc));
+         IEnumerable<IMaxNodeWrapper> maxNodes = HelperMethods.GetMaxNodes(nodes);
+         SetNodePropertyCommand<Color> cmd = new SetNodePropertyCommand<Color>(maxNodes, "WireColor", ColorHelpers.FromMaxColor(wc));
          cmd.Execute(true);
+
+         if (tree.NodeSorter is AnimatablePropertySorter &&
+          ((AnimatablePropertySorter)tree.NodeSorter).Property == this.Property)
+         {
+            tree.AddToSortQueue(nodes);
+            tree.StartTimedSort(true);
+         }
       }
    }
 }
