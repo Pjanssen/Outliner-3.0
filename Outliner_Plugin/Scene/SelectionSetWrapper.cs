@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
+using MaxUtils;
 
 namespace Outliner.Scene
 {
    public class SelectionSetWrapper : IMaxNodeWrapper
    {
-      private IINamedSelectionSetManager manager;
       private Int32 index;
 
-      public SelectionSetWrapper(IINamedSelectionSetManager manager, Int32 index) 
+      public SelectionSetWrapper(Int32 index) 
       {
          this.index = index;
-         this.manager = manager;
       }
 
       public override object WrappedNode
@@ -37,18 +36,18 @@ namespace Outliner.Scene
       {
          get
          {
-            int numChildren = this.manager.GetNamedSelSetItemCount(this.index);
+            int numChildren = MaxInterfaces.SelectionSetManager.GetNamedSelSetItemCount(this.index);
             List<IINode> nodes = new List<IINode>(numChildren);
             for (int i = 0; i < numChildren; i++)
-               nodes.Add(this.manager.GetNamedSelSetItem(this.index, i));
+               nodes.Add(MaxInterfaces.SelectionSetManager.GetNamedSelSetItem(this.index, i));
             return nodes;
          }
       }
 
       public override string Name
       {
-         get { return this.manager.GetNamedSelSetName(this.index); }
-         set { this.manager.SetNamedSelSetName(this.index, ref value); }
+         get { return MaxInterfaces.SelectionSetManager.GetNamedSelSetName(this.index); }
+         set { MaxInterfaces.SelectionSetManager.SetNamedSelSetName(this.index, ref value); }
       }
 
       public override Autodesk.Max.IClass_ID ClassID
@@ -58,7 +57,7 @@ namespace Outliner.Scene
 
       public override Autodesk.Max.SClass_ID SuperClassID
       {
-         get { return this.manager.Cd.SuperClassID; }// return 0; }
+         get { return MaxInterfaces.SelectionSetManager.Cd.SuperClassID; }
       }
 
       public override bool Selected

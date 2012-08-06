@@ -423,7 +423,7 @@ public class TreeNode
    /// </summary>
    public Boolean HasStateFlag(TreeNodeStates stateFlag) 
    {
-      return this.State.HasFlag(stateFlag);
+      return (this.State & stateFlag) == stateFlag;
    }
 
    /// <summary>

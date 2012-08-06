@@ -4,11 +4,7 @@
 * Superclass sorter does not really work with exceptions (target, bones, etc). -> use imagekey instead?
 * SetViewCameraCommand: properly store previous state.
 * ToggleLightTest use IInterface.CreateLightObject ?
-* Use IInterface selection set methods for selectionsetmode?
 
-OPTIMIZATION
-------------
-* Check if IMaxNodeWrapper.IsValid is necessary (18ms)
 
 TREEVIEW
 --------

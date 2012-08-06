@@ -41,9 +41,9 @@ namespace Outliner.Actions
 
          tc.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
          TreeMode tm = new
-            //SelectionSetMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
+            SelectionSetMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
             //LayerMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
-            HierarchyMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
+            //HierarchyMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
             //FlatObjectListMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
          
          //tm.Filters.Add(new Filters.HelperFilter());

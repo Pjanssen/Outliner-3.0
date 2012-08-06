@@ -18,56 +18,22 @@ public class SelectionSetMode : TreeMode
 
    public override void FillTree()
    {
-      IINamedSelectionSetManager selSetMan = MaxInterfaces.Global.INamedSelectionSetManager.Instance;
+      IINamedSelectionSetManager selSetMan = MaxInterfaces.SelectionSetManager;
       for (int i = 0; i < selSetMan.NumNamedSelSets; i++)
       {
-         this.addSelSetNode(selSetMan, i);
+         this.AddNode(i, this.tree.Nodes);
       }
    }
 
-   private void addSelSetNode(IINamedSelectionSetManager manager, int index)
+   public override TreeNode AddNode(object node, TreeNodeCollection parentCol)
    {
-      IMaxNodeWrapper wrapper = IMaxNodeWrapper.Create(new KeyValuePair<IINamedSelectionSetManager, int>(manager, index));
-      FilterResults filterResult = this.Filters.ShowNode(wrapper);
-      if (filterResult != FilterResults.Hide && !this.treeNodes.ContainsKey(index))
-      {
-         TreeNode tn = this.CreateTreeNode(wrapper);
-         tn.FilterResult = filterResult;
+      TreeNode tn = base.AddNode(node, parentCol);
+      IMaxNodeWrapper wrapper = HelperMethods.GetMaxNode(tn);
 
-         this.treeNodes.Add(index, tn);
-         this.tree.Nodes.Add(tn);
+      foreach (Object child in wrapper.ChildNodes)
+         this.AddNode(child, tn.Nodes);
 
-         Int32 nodeCount = manager.GetNamedSelSetItemCount(index);
-         if (nodeCount > 0)
-         {
-            IINodeTab nodes = MaxInterfaces.Global.INodeTabNS.Create();
-            manager.GetNamedSelSetList(nodes, index);
-            for (int j = 0; j < nodeCount; j++) 
-            {
-               this.addNode(nodes[(IntPtr)j], tn.Nodes);
-            }
-         }
-      }
-   }
-
-   protected void addNode(IINode node, TreeNodeCollection parentCol)
-   {
-      if (node == null || parentCol == null)
-         return;
-
-      IMaxNodeWrapper wrapper = IMaxNodeWrapper.Create(node);
-      FilterResults filterResult = this.Filters.ShowNode(wrapper);
-      if (filterResult != FilterResults.Hide && !this.treeNodes.ContainsKey(node))
-      {
-         TreeNode tn = this.CreateTreeNode(wrapper);
-         tn.FilterResult = filterResult;
-
-         this.treeNodes.Add(node, tn);
-         parentCol.Add(tn);
-
-         if (node.Selected)
-            this.tree.SelectNode(tn, true);
-      }
+      return tn;
    }
 }
 }

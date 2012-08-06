@@ -147,11 +147,8 @@ namespace Outliner.Scene
             return new IILayerWrapper((IILayer)node);
          else if (node is IILayerProperties)
             return new IILayerWrapper((IILayerProperties)node);
-         else if (node is KeyValuePair<IINamedSelectionSetManager, int>)
-         {
-            KeyValuePair<IINamedSelectionSetManager, int> kvp = (KeyValuePair<IINamedSelectionSetManager, int>)node;
-            return new SelectionSetWrapper(kvp.Key, kvp.Value);
-         }
+         else if (node is int)
+            return new SelectionSetWrapper((int)node);
          else
             throw new ArgumentException("Cannot create wrapper for type " + node.GetType().ToString());
       }

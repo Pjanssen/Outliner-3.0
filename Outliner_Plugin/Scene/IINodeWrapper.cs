@@ -179,19 +179,6 @@ public class IINodeWrapper : IMaxNodeWrapper
       set { this.iinode.SetRenderable(value); }
    }
 
-
-   public override bool IsValid
-   {
-      get
-      {
-         if (!base.IsValid)
-            return false;
-
-         try { return !this.iinode.TestAFlag(AnimatableFlags.IsDeleted); }
-         catch { return false; }
-      }
-   }
-
    public bool IsInstance
    {
       get

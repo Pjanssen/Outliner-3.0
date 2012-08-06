@@ -21,7 +21,7 @@ public class TreeView : ScrollableControl
       this.Root = new TreeNode(this, "root");
       this.Colors = new TreeViewColorScheme();
       this.SelectedNodes = new HashSet<TreeNode>();
-      this.TreeNodeLayout = TreeNodeLayout.DefaultLayout; //TODO check that this does not cause unnecessary redrawing.
+      this.TreeNodeLayout = TreeNodeLayout.SimpleLayout; //TODO check that this does not cause unnecessary redrawing.
 
       //Set double buffered user paint style.
       this.SetStyle(ControlStyles.UserPaint, true);

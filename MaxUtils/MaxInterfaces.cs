@@ -84,5 +84,17 @@ public static class MaxInterfaces
          return MaxInterfaces.Global.IInstanceMgr.InstanceMgr;
       }
    }
+
+   private static IINamedSelectionSetManager selectionSetManager;
+   public static IINamedSelectionSetManager SelectionSetManager
+   {
+      get
+      {
+         if (selectionSetManager == null)
+            selectionSetManager = MaxInterfaces.Global.INamedSelectionSetManager.Instance;
+
+         return selectionSetManager;
+      }
+   }
 }
 }

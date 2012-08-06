@@ -223,6 +223,18 @@ public class TreeNodeLayout
    }
 
 
+   public static TreeNodeLayout SimpleLayout
+   {
+      get
+      {
+         TreeNodeLayout layout = new TreeNodeLayout();
+         layout.LayoutItems.Add(new TreeNodeIndent());
+         layout.LayoutItems.Add(new TreeNodeText());
+         layout.LayoutItems.Add(new FlexibleSpace());
+         return layout;
+      }
+   }
+
    /// <summary>
    /// The standard 3dsMax-style layout.
    /// Itemheight = 18, FullRowSelect = false.
