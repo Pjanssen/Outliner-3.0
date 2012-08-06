@@ -13,6 +13,9 @@ namespace Outliner
          OutlinerGUP.Start();
       }
 
-      public static void AssemblyShutdown() { }
+      public static void AssemblyShutdown() 
+      {
+         OutlinerGUP.Instance.Stop();
+      }
    }
 }

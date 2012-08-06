@@ -13,7 +13,8 @@ namespace Outliner.Controls.Tree.Layout
 {
 public class AddButton : ImageButton
 {
-   public AddButton() : base() { }
+   public AddButton() 
+      : base(NodeButtonImages.GetButtonImages(NodeButtonImages.Images.Add)) { }
 
    [XmlAttribute("visible_types")]
    [DefaultValue(MaxNodeTypes.SelectionSet | MaxNodeTypes.Layer)]
@@ -21,11 +22,6 @@ public class AddButton : ImageButton
    {
       get { return base.VisibleTypes & (MaxNodeTypes.SelectionSet | MaxNodeTypes.Layer); }
       set { base.VisibleTypes = value; }
-   }
-
-   protected override System.Drawing.Image ImageEnabled
-   {
-      get { return OutlinerResources.button_add; }
    }
 
    public override bool IsEnabled(TreeNode tn)

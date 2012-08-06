@@ -19,6 +19,12 @@ namespace Outliner.Controls.Tree.Layout
 public abstract class AnimatablePropertyButton : ImageButton
 {
    protected AnimatablePropertyButton() { }
+   protected AnimatablePropertyButton(ButtonImages images) : base(images) 
+   {
+      ButtonImages layerImages = NodeButtonImages.GetButtonImages(NodeButtonImages.Images.Layer);
+      imageByLayer = layerImages.Regular;
+      imageByLayer_Filtered = layerImages.RegularFiltered;
+   }
 
    protected abstract AnimatableProperty Property { get; }
    protected virtual SetNodePropertyCommand<Boolean> CreateCommand(IEnumerable<IMaxNodeWrapper> nodes, Boolean newValue)
@@ -28,7 +34,8 @@ public abstract class AnimatablePropertyButton : ImageButton
    protected abstract String ToolTipEnabled { get; }
    protected virtual String ToolTipDisabled { get { return this.ToolTipEnabled; } }
 
-   protected virtual Image ImageByLayer { get { return OutlinerResources.button_layer; } }
+   private Image imageByLayer;
+   protected virtual Image ImageByLayer { get { return imageByLayer; } }
    private Image imageByLayer_Filtered;
    protected virtual Image ImageByLayer_Filtered
    {

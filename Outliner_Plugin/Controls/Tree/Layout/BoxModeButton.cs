@@ -10,7 +10,8 @@ namespace Outliner.Controls.Tree.Layout
 {
    public class BoxModeButton : AnimatablePropertyButton
    {
-      public BoxModeButton() { }
+      public BoxModeButton() 
+         : base(NodeButtonImages.GetButtonImages(NodeButtonImages.Images.BoxMode)) { }
 
       protected override MaxUtils.AnimatableProperty Property
       {

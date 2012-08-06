@@ -7,12 +7,17 @@ using Outliner.Controls;
 using Autodesk.Max;
 using Outliner.Scene;
 using MaxUtils;
+using Outliner.Controls.Tree;
+using Outliner.Controls.Tree.Layout;
+using Autodesk.Max.MaxSDK.Util;
 
 namespace Outliner
 {
    public class OutlinerGUP
    {
       public static OutlinerGUP Instance { get; private set; }
+      public TreeViewColorScheme ColorScheme { get; private set; }
+      public TreeNodeLayout Layout { get; private set; }
 
       private List<IINodeWrapper> openedGroupHeads;
       private uint closeGroupHeadsCbKey = 0;
@@ -20,6 +25,8 @@ namespace Outliner
       public OutlinerGUP()
       {
          this.openedGroupHeads = new List<IINodeWrapper>();
+         this.Layout = this.loadLayout();
+         this.ColorScheme = this.loadColors();
       }
 
       internal static void Start()
@@ -33,6 +40,34 @@ namespace Outliner
       }
 
 
+
+      private TreeNodeLayout loadLayout()
+      {
+         IIPathConfigMgr pathMgr = MaxInterfaces.Global.IPathConfigMgr.PathConfigMgr;
+         IGlobal.IGlobalMaxSDK.IGlobalUtil.IGlobalPath path = MaxInterfaces.Global.MaxSDK.Util.Path;
+         IPath scriptDir = path.Create(pathMgr.GetDir(MaxDirectory.UserScripts));
+         IPath layoutFile = path.Create(scriptDir).Append(path.Create("outliner_layout.xml"));
+         if (layoutFile.Exists)
+            return TreeNodeLayout.FromXml(layoutFile.String);
+         else
+            return TreeNodeLayout.DefaultLayout;
+         //   this.Layout.ToXml(layoutFile.String);
+      }
+
+      private TreeViewColorScheme loadColors()
+      {
+         IIPathConfigMgr pathMgr = MaxInterfaces.Global.IPathConfigMgr.PathConfigMgr;
+         IGlobal.IGlobalMaxSDK.IGlobalUtil.IGlobalPath path = MaxInterfaces.Global.MaxSDK.Util.Path;
+         IPath scriptDir = path.Create(pathMgr.GetDir(MaxDirectory.UserScripts));
+         IPath colorFile = path.Create(scriptDir).Append(path.Create("outliner_colors.xml"));
+         if (colorFile.Exists)
+            return TreeViewColorScheme.FromXml(colorFile.String);
+         else
+         {
+            return TreeViewColorScheme.MayaColors;
+            //tc.treeView1.Colors.ToXml(colorFile.String);
+         }
+      }
 
       /// <summary>
       /// Opens any closed group heads in the provided list of nodewrappers.

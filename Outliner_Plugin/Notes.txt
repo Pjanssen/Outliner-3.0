@@ -6,6 +6,10 @@
 * ToggleLightTest use IInterface.CreateLightObject ?
 * Use IInterface selection set methods for selectionsetmode?
 
+OPTIMIZATION
+------------
+* Check if IMaxNodeWrapper.IsValid is necessary (18ms)
+
 TREEVIEW
 --------
 * FlexibleSpace.MinWidth

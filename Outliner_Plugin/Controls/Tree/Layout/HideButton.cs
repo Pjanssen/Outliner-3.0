@@ -12,7 +12,8 @@ namespace Outliner.Controls.Tree.Layout
 {
 public class HideButton : AnimatablePropertyButton
 {
-   public HideButton() { }
+   public HideButton() 
+      : base(NodeButtonImages.GetButtonImages(NodeButtonImages.Images.Hide)) { }
 
    protected override AnimatableProperty Property
    {
@@ -22,11 +23,6 @@ public class HideButton : AnimatablePropertyButton
    protected override SetNodePropertyCommand<Boolean> CreateCommand(IEnumerable<IMaxNodeWrapper> nodes, bool newValue)
    {
       return new HideCommand(nodes, newValue);
-   }
-
-   protected override System.Drawing.Image ImageEnabled
-   {
-      get { return OutlinerResources.button_hide; }
    }
 
    protected override string ToolTipEnabled

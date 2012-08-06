@@ -46,7 +46,17 @@ public abstract class ImageButton : TreeNodeButton
       return img;
    }
 
-   protected abstract Image ImageEnabled { get; }
+
+   public ImageButton(ButtonImages images) : this()
+   {
+      imageEnabled = images.Regular;
+      imageEnabled_Filtered = images.RegularFiltered;
+      imageDisabled = images.Disabled;
+      imageDisabled_Filtered = images.DisabledFiltered;
+   }
+
+   private Image imageEnabled;
+   protected virtual Image ImageEnabled { get { return imageEnabled; } }
    private Image imageDisabled;
    protected virtual Image ImageDisabled
    {

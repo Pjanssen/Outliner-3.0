@@ -36,31 +36,14 @@ namespace Outliner.Actions
       {
          Outliner.Controls.TestControl tc = new Controls.TestControl();
 
-         IIPathConfigMgr pathMgr = MaxInterfaces.Global.IPathConfigMgr.PathConfigMgr;
-         IGlobal.IGlobalMaxSDK.IGlobalUtil.IGlobalPath path = MaxInterfaces.Global.MaxSDK.Util.Path;
-         IPath scriptDir = path.Create(pathMgr.GetDir(MaxDirectory.UserScripts));
-         IPath layoutFile = path.Create(scriptDir);
-         layoutFile.Append(path.Create("outliner_layout.xml"));
-         if (layoutFile.Exists)
-            tc.treeView1.TreeNodeLayout = TreeNodeLayout.FromXml(layoutFile.String);
-         else
-            tc.treeView1.TreeNodeLayout.ToXml(layoutFile.String);
-
-         IPath colorFile = path.Create(scriptDir);
-         colorFile.Append(path.Create("outliner_colors.xml"));
-         if (colorFile.Exists)
-            tc.treeView1.Colors = TreeViewColorScheme.FromXml(colorFile.String);
-         else
-         {
-            tc.treeView1.Colors = TreeViewColorScheme.MayaColors;
-            tc.treeView1.Colors.ToXml(colorFile.String);
-         }
+         tc.treeView1.TreeNodeLayout = OutlinerGUP.Instance.Layout;
+         tc.treeView1.Colors = OutlinerGUP.Instance.ColorScheme;
 
          tc.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
-         TreeMode tm = 
+         TreeMode tm = new
             //SelectionSetMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
-            new LayerMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
-            //HierarchyMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
+            //LayerMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
+            HierarchyMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
             //FlatObjectListMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
          
          //tm.Filters.Add(new Filters.HelperFilter());
@@ -79,7 +62,8 @@ namespace Outliner.Actions
       {
          get
          {
-            return DockStates.Dock.Left | DockStates.Dock.Right | DockStates.Dock.Floating | DockStates.Dock.Viewport;
+            return DockStates.Dock.Left | DockStates.Dock.Right 
+                   | DockStates.Dock.Floating | DockStates.Dock.Viewport;
          }
       }
 

@@ -10,7 +10,8 @@ namespace Outliner.Controls.Tree.Layout
 {
    public class RenderableButton : AnimatablePropertyButton
    {
-      public RenderableButton() { }
+      public RenderableButton() 
+         : base(NodeButtonImages.GetButtonImages(NodeButtonImages.Images.Renderable)) { }
 
       protected override MaxUtils.AnimatableProperty Property
       {

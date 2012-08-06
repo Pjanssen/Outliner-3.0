@@ -109,21 +109,23 @@ public class IINodeWrapper : IMaxNodeWrapper
    {
       get
       {
-         if (String.IsNullOrEmpty(this.Name))
+         String name = this.Name;
+
+         if (String.IsNullOrEmpty(name))
             return "-unnamed-";
 
          Boolean isGroupedNode = this.iinode.IsGroupHead || this.iinode.IsGroupMember;
          if (IINodeHelpers.IsXref(this.iinode))
          {
             if (isGroupedNode)
-               return "{[" + this.Name + "]}";
+               return "{[" + name + "]}";
             else
-               return "{" + this.Name + "}";
+               return "{" + name + "}";
          }
          else if (isGroupedNode)
-            return "[" + this.Name + "]";
+            return "[" + name + "]";
          else
-            return this.Name;
+            return name;
       }
    }
 
@@ -144,7 +146,7 @@ public class IINodeWrapper : IMaxNodeWrapper
 
    public override bool IsNodeType(MaxNodeTypes types)
    {
-      return types.HasFlag(MaxNodeTypes.Object);
+      return (types & MaxNodeTypes.Object) == MaxNodeTypes.Object;
    }
 
    public override bool IsHidden

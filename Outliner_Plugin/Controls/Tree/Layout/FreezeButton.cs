@@ -12,7 +12,8 @@ namespace Outliner.Controls.Tree.Layout
 {
 public class FreezeButton : AnimatablePropertyButton
 {
-   public FreezeButton() { }
+   public FreezeButton() 
+      : base(NodeButtonImages.GetButtonImages(NodeButtonImages.Images.Freeze)) { }
 
    protected override AnimatableProperty Property
    {
@@ -32,11 +33,6 @@ public class FreezeButton : AnimatablePropertyButton
    protected override string ToolTipDisabled
    {
       get { return OutlinerResources.Tooltip_Freeze; }
-   }
-
-   protected override System.Drawing.Image ImageEnabled
-   {
-      get { return OutlinerResources.button_freeze; }
    }
 }
 }

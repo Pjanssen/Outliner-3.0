@@ -185,6 +185,7 @@
     <Compile Include="Filters\InvisibleNodeFilter.cs" />
     <Compile Include="Filters\NurbsFilter.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="NodeButtonImages.cs" />
     <Compile Include="NodeSorters\AnimatablePropertySorter.cs" />
     <Compile Include="NodeSorters\INodeHandleSorter.cs" />
     <Compile Include="NodeSorters\NodeSorter.cs" />
