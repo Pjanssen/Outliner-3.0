@@ -90,7 +90,7 @@ public static class MaxInterfaces
    {
       get
       {
-         if (selectionSetManager == null)
+         //if (selectionSetManager == null)
             selectionSetManager = MaxInterfaces.Global.INamedSelectionSetManager.Instance;
 
          return selectionSetManager;

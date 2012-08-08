@@ -41,9 +41,9 @@ namespace Outliner.Actions
 
          tc.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
          TreeMode tm = new
+            //HierarchyMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
             SelectionSetMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
             //LayerMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
-            //HierarchyMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
             //FlatObjectListMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
          
          //tm.Filters.Add(new Filters.HelperFilter());
@@ -67,11 +67,6 @@ namespace Outliner.Actions
          }
       }
 
-      public override bool NeedsKeyboardFocus
-      {
-         get { return true; }
-      }
-
       public override bool DestroyOnClose
       {
          get { return true; }
@@ -80,9 +75,8 @@ namespace Outliner.Actions
 
       public override bool IsMainContent
       {
-         get { return true; }
+         get { return false; }
       }
-
    }
 
 }

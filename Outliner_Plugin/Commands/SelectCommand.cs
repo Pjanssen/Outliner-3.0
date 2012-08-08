@@ -67,6 +67,13 @@ public class SelectCommand : Command
       {
          layer.IILayerProperties.Select(true);
       }
+
+      //Select SelectionSets
+      IEnumerable<SelectionSetWrapper> selsets = nodes.Where(n => n is SelectionSetWrapper).Cast<SelectionSetWrapper>();
+      foreach (SelectionSetWrapper selset in selsets)
+      {
+         ip.SelectNodeTab(HelperMethods.ToIINodeTab(selset.ChildNodes), true, false);
+      }
    }
 }
 }

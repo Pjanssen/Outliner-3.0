@@ -60,6 +60,15 @@ namespace Outliner {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to - All objects -.
+        /// </summary>
+        internal static string AllObjectsSelSet {
+            get {
+                return ResourceManager.GetString("AllObjectsSelSet", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap button_add {
             get {
                 object obj = ResourceManager.GetObject("button_add", resourceCulture);

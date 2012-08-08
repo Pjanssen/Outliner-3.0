@@ -30,7 +30,8 @@ public class HierarchyMode : TreeMode
       this.tree.BeginUpdate();
 
       IINode rootNode = this.ip.RootNode;
-      this.treeNodes.Add(rootNode, this.tree.Root);
+      this.RegisterNode(rootNode, this.tree.Root);
+
       for (int i = 0; i < rootNode.NumberOfChildren; i++)
          AddNode(rootNode.GetChildNode(i), this.tree.Nodes);
 
@@ -70,8 +71,8 @@ public class HierarchyMode : TreeMode
             TreeNodeCollection parentCol = null;
             if (node.ParentNode != null && !node.ParentNode.IsRootNode)
             {
-               TreeNode parentTn = null;
-               if (this.treeNodes.TryGetValue(node, out parentTn))
+               TreeNode parentTn = this.treeMode.GetFirstTreeNode(node);
+               if (parentTn != null)
                   parentCol = parentTn.Nodes;
             }
             else
@@ -90,7 +91,7 @@ public class HierarchyMode : TreeMode
       {
          foreach (IINode node in nodes.NodeKeysToINodeList())
          {
-            TreeNode tn = this.treeMode.GetTreeNode(node);
+            TreeNode tn = this.treeMode.GetFirstTreeNode(node);
             if (tn != null)
             {
                TreeNodeCollection newParentCol = null;
@@ -98,7 +99,7 @@ public class HierarchyMode : TreeMode
                   newParentCol = this.tree.Nodes;
                else
                {
-                  TreeNode newParentTn = this.treeMode.GetTreeNode(node.ParentNode);
+                  TreeNode newParentTn = this.treeMode.GetFirstTreeNode(node.ParentNode);
                   if (newParentTn != null)
                      newParentCol = newParentTn.Nodes;
                   //TODO add logic for filtered / not yet added node.
@@ -118,7 +119,7 @@ public class HierarchyMode : TreeMode
       {
          foreach (IINode node in nodes.NodeKeysToINodeList())
          {
-            TreeNode tn = this.treeMode.GetTreeNode(node);
+            TreeNode tn = this.treeMode.GetFirstTreeNode(node);
             if (tn != null)
                tn.Invalidate();
          }

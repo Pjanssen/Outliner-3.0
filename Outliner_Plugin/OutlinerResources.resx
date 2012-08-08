@@ -233,4 +233,7 @@
     <value>Expand node
 Use {0} to expand entire hierarchy.</value>
   </data>
+  <data name="AllObjectsSelSet" xml:space="preserve">
+    <value>- All objects -</value>
+  </data>
 </root>

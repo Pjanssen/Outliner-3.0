@@ -873,6 +873,7 @@ public class TreeView : ScrollableControl
 
    private TextBox editTextBox;
    private TreeNode editingTreeNode;
+   private Boolean editTextBoxOpening;
 
    public void BeginNodeTextEdit(TreeNode tn)
    {
@@ -894,23 +895,38 @@ public class TreeView : ScrollableControl
          return;
 
       this.editingTreeNode = tn;
-      Rectangle bounds = layoutItem.GetBounds(tn);
+      this.editTextBoxOpening = true;
       this.editTextBox = new TextBox();
-      this.editTextBox.Parent = this;
+
+      Rectangle bounds = layoutItem.GetBounds(tn);
       this.editTextBox.Location = bounds.Location;
       this.editTextBox.Size = new Size (Math.Max(100, bounds.Width), 18);
       this.editTextBox.Text = e.EditText;
-      this.editTextBox.SelectAll();
+      this.editTextBox.GotFocus += new EventHandler(editTextBox_GotFocus);
       this.editTextBox.KeyDown += new KeyEventHandler(editTextBox_KeyDown);
       this.editTextBox.LostFocus += new EventHandler(editTextBox_LostFocus);
 
-      this.editTextBox.Show();
+      this.editTextBox.Parent = this;
       this.editTextBox.Focus();
+      this.editTextBox.SelectAll();
+      
+   }
+
+   void editTextBox_GotFocus(object sender, EventArgs e)
+   {
+      MaxUtils.HelperMethods.WriteToListener("got focus");
    }
 
    private void editTextBox_LostFocus(object sender, EventArgs e)
    {
-      this.EndNodeTextEdit(true);
+      MaxUtils.HelperMethods.WriteToListener("lost focus");
+      if (this.editTextBoxOpening)
+      {
+         this.editTextBox.Focus();
+         this.editTextBoxOpening = false;
+      }
+      else
+         this.EndNodeTextEdit(false);
    }
 
    private void editTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -948,6 +964,8 @@ public class TreeView : ScrollableControl
    }
 
    #endregion
+
+   public UICuesEventHandler editTextBox_ChangeUICues { get; set; }
 }
 
 [Flags]

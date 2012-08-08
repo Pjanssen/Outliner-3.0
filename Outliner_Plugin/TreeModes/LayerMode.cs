@@ -102,7 +102,7 @@ public class LayerMode : TreeMode
             if (layer == null)
                continue;
 
-            TreeNode layerTn = this.treeMode.GetTreeNode(layer);
+            TreeNode layerTn = this.treeMode.GetFirstTreeNode(layer);
             if (layerTn == null)
                continue;
 
@@ -116,7 +116,7 @@ public class LayerMode : TreeMode
       {
          foreach (IINode node in nodes.NodeKeysToINodeList())
          {
-            TreeNode tn = this.treeMode.GetTreeNode(node);
+            TreeNode tn = this.treeMode.GetFirstTreeNode(node);
             if (tn == null)
                return;
 
@@ -124,7 +124,7 @@ public class LayerMode : TreeMode
             if (layer == null)
                continue;
 
-            TreeNode layerTn = this.treeMode.GetTreeNode(layer);
+            TreeNode layerTn = this.treeMode.GetFirstTreeNode(layer);
             if (layerTn == null)
                continue;
 
@@ -184,7 +184,7 @@ public class LayerMode : TreeMode
          if (tree.NodeSorter is AnimatablePropertySorter &&
           ((AnimatablePropertySorter)tree.NodeSorter).Property == AnimatableProperty.IsHidden)
          {
-            this.tree.AddToSortQueue(this.GetTreeNode(layer));
+            this.tree.AddToSortQueue(this.GetTreeNodes(layer));
             this.tree.StartTimedSort(true);
          }
       }
@@ -199,7 +199,7 @@ public class LayerMode : TreeMode
          if (tree.NodeSorter is AnimatablePropertySorter &&
           ((AnimatablePropertySorter)tree.NodeSorter).Property == AnimatableProperty.IsFrozen)
          {
-            this.tree.AddToSortQueue(this.GetTreeNode(layer));
+            this.tree.AddToSortQueue(this.GetTreeNodes(layer));
             this.tree.StartTimedSort(true);
          }
       }
@@ -219,13 +219,13 @@ public class LayerMode : TreeMode
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
       if (layer != null)
       {
-         TreeNode tn = this.GetTreeNode(layer);
+         TreeNode tn = this.GetFirstTreeNode(layer);
          if (tn != null)
          {
             tn.Remove();
 
             TreeNodeCollection newParentCol = this.tree.Nodes;
-            TreeNode newParentTn = this.GetTreeNode(NestedLayers.GetParent(layer));
+            TreeNode newParentTn = this.GetFirstTreeNode(NestedLayers.GetParent(layer));
             if (newParentTn != null)
                newParentCol = newParentTn.Nodes;
 

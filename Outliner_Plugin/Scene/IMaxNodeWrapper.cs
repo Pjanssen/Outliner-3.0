@@ -141,14 +141,15 @@ namespace Outliner.Scene
          if (node == null)
             throw new ArgumentNullException("node");
 
+         if (node is IMaxNodeWrapper)
+            return (IMaxNodeWrapper)node;
+
          if (node is IINode)
             return new IINodeWrapper((IINode)node);
          else if (node is IILayer)
             return new IILayerWrapper((IILayer)node);
          else if (node is IILayerProperties)
             return new IILayerWrapper((IILayerProperties)node);
-         else if (node is int)
-            return new SelectionSetWrapper((int)node);
          else
             throw new ArgumentException("Cannot create wrapper for type " + node.GetType().ToString());
       }

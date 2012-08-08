@@ -21,6 +21,7 @@ public class TreeNodeCollection : ICollection<TreeNode>
 
    private void boundsChanged(TreeNode tn)
    {
+      tn.InvalidateBounds(tn.IsVisible, tn.IsExpanded);
       TreeView tree = this.owner.TreeView;
       if (tree != null)
          tree.Update(TreeViewUpdateFlags.Scrollbars | TreeViewUpdateFlags.Redraw);
@@ -111,8 +112,14 @@ public class TreeNodeCollection : ICollection<TreeNode>
          item.NextNode.PreviousNode = item.PreviousNode;
       item.PreviousNode = null;
       item.NextNode = null;
-      
-      return this.nodes.Remove(item);
+
+      if (this.nodes.Remove(item))
+      {
+         this.owner.TreeView.Invalidate();
+         return true;
+      }
+      else
+         return false;
    }
 
    public IEnumerator<TreeNode> GetEnumerator()

@@ -59,7 +59,7 @@ public static class HelperMethods
 
 
 
-   public static IINodeTab ToIINodeTab(IEnumerable<IMaxNodeWrapper> nodes)
+   public static IINodeTab ToIINodeTab(IEnumerable<Object> nodes)
    {
       if (nodes == null)
          throw new ArgumentNullException("nodes");
@@ -69,13 +69,22 @@ public static class HelperMethods
       if (nodes.Count() > 0)
       {
          tab.Resize(nodeCount);
-         foreach (IMaxNodeWrapper node in nodes)
+         foreach (Object node in nodes)
          {
-            if (node is IINodeWrapper)
-               tab.AppendNode((IINode)node.WrappedNode, true, 0);
+            IINode inode = node as IINode;
+            if (inode != null)
+               tab.AppendNode(inode, true, 0);
          }
       }
       return tab;
+   }
+
+   public static IINodeTab ToIINodeTab(IEnumerable<IMaxNodeWrapper> nodes)
+   {
+      if (nodes == null)
+         throw new ArgumentNullException("nodes");
+
+      return HelperMethods.ToIINodeTab(nodes.Select(n => n.WrappedNode));
    }
 
 
