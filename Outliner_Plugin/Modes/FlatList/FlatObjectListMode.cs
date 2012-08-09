@@ -8,7 +8,7 @@ using Outliner.Scene;
 using Outliner.Filters;
 using MaxUtils;
 
-namespace Outliner.TreeModes
+namespace Outliner.Modes.FlatList
 {
 public class FlatObjectListMode : TreeMode
 {

@@ -8,9 +8,8 @@ using Outliner.Controls.Tree;
 using Outliner.Filters;
 using MaxUtils;
 using System.Runtime.InteropServices;
-using Outliner.Controls.Tree.DragDropHandlers;
 
-namespace Outliner.TreeModes.SelectionSet
+namespace Outliner.Modes.SelectionSet
 {
 public class SelectionSetMode : TreeMode
 {
@@ -60,7 +59,7 @@ public class SelectionSetMode : TreeMode
       if (wrapper is SelectionSetWrapper)
          return new SelectionSetDragDropHandler((SelectionSetWrapper)wrapper);
       else if (wrapper is IINodeWrapper)
-         return new DragOnlyDragDropHandler(wrapper);
+         return new IINodeDragDropHandler(wrapper);
 
       return null;
    }

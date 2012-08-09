@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
+using WinForms = System.Windows.Forms;
 using Outliner.Scene;
 using Outliner.Commands;
+using Outliner.Controls.Tree;
 
-namespace Outliner.Controls.Tree.DragDropHandlers
+namespace Outliner.Modes.Layer
 {
 public class IILayerDragDropHandler : DragDropHandler
 {
@@ -21,7 +22,7 @@ public class IILayerDragDropHandler : DragDropHandler
       get { return !this.layer.IsDefault; }
    }
 
-   public override bool IsValidDropTarget(IDataObject dragData)
+   public override bool IsValidDropTarget(WinForms::IDataObject dragData)
    {
       IEnumerable<TreeNode> draggedNodes = DragDropHandler.GetNodesFromDataObject(dragData);
       if (draggedNodes == null)
@@ -30,15 +31,15 @@ public class IILayerDragDropHandler : DragDropHandler
       return this.Data.CanAddChildNodes(HelperMethods.GetMaxNodes(draggedNodes));
    }
 
-   public override DragDropEffects GetDragDropEffect(IDataObject dragData)
+   public override WinForms::DragDropEffects GetDragDropEffect(WinForms::IDataObject dragData)
    {
       if (this.IsValidDropTarget(dragData))
-         return DragDropEffects.Copy;
+         return WinForms::DragDropEffects.Copy;
       else
          return TreeView.NoneDragDropEffects;
    }
 
-   public override void HandleDrop(IDataObject dragData)
+   public override void HandleDrop(WinForms::IDataObject dragData)
    {
       if (!this.IsValidDropTarget(dragData))
          return;

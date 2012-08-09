@@ -8,12 +8,11 @@ using Outliner.Controls.Tree;
 using Outliner.Filters;
 using System.Drawing;
 using Outliner.Controls;
-using Outliner.Controls.Tree.DragDropHandlers;
 using MaxUtils;
 using Outliner.LayerTools;
 using Outliner.NodeSorters;
 
-namespace Outliner.TreeModes
+namespace Outliner.Modes.Layer
 {
 public class LayerMode : TreeMode
 {
@@ -72,7 +71,7 @@ public class LayerMode : TreeMode
       if (wrapper == null)
          return tn;
 
-      tn.DragDropHandler = new IINodeLayerDragDropHandler(wrapper);
+      tn.DragDropHandler = new IINodeDragDropHandler(wrapper);
 
       if (this.tree.TreeNodeLayout.UseLayerColors)
       {

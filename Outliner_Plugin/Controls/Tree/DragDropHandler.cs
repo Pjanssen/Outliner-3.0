@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using Outliner.Scene;
 
-namespace Outliner.Controls.Tree.DragDropHandlers
+namespace Outliner.Controls.Tree
 {
 public abstract class DragDropHandler
 {

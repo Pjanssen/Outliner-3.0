@@ -1,6 +1,6 @@
 ﻿using Autodesk.Max;
 using Outliner.Scene;
-using Outliner.TreeModes;
+using Outliner.Modes;
 using MaxUtils;
 
 namespace Outliner.Filters

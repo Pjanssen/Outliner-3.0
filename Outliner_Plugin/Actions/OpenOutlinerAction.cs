@@ -5,14 +5,14 @@ using System.Text;
 using Autodesk.Max.Plugins;
 using UiViewModels.Actions;
 using Autodesk.Max;
-using Outliner.TreeModes;
+using Outliner.Modes;
 using Outliner.Controls;
 using Autodesk.Max.MaxSDK.Util;
 using Outliner.Controls.Tree.Layout;
 using Outliner.Controls.Tree;
 using MaxUtils;
 using Outliner.NodeSorters;
-using Outliner.TreeModes.SelectionSet;
+using Outliner.Modes.SelectionSet;
 
 namespace Outliner.Actions
 {

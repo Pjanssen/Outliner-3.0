@@ -14,7 +14,7 @@ using WinForms = System.Windows.Forms;
 using MaxUtils;
 using Outliner.NodeSorters;
 
-namespace Outliner.TreeModes
+namespace Outliner.Modes
 {
 public abstract class TreeMode
 {

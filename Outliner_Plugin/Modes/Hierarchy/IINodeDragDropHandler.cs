@@ -2,21 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Controls.Tree.DragDropHandlers;
 using WinForms = System.Windows.Forms;
 using Outliner.Scene;
-using Outliner.Controls.Tree;
 using Outliner.Commands;
+using Outliner.Controls.Tree;
 
-namespace Outliner.TreeModes.SelectionSet
+namespace Outliner.Modes.Hierarchy
 {
-public class SelectionSetDragDropHandler : DragDropHandler
+public class IINodeDragDropHandler : DragDropHandler
 {
-   public SelectionSetDragDropHandler(SelectionSetWrapper data) : base(data) { }
+   public IINodeDragDropHandler(IMaxNodeWrapper data) : base(data) { }
 
    public override bool AllowDrag
    {
-      get { return false; }
+      get { return true; }
    }
 
    public override bool IsValidDropTarget(WinForms::IDataObject dragData)
@@ -31,12 +30,12 @@ public class SelectionSetDragDropHandler : DragDropHandler
    public override WinForms::DragDropEffects GetDragDropEffect(WinForms::IDataObject dragData)
    {
       if (this.IsValidDropTarget(dragData))
-         return WinForms::DragDropEffects.Copy;
+         return WinForms::DragDropEffects.Link;
       else
          return TreeView.NoneDragDropEffects;
    }
 
-   public override void HandleDrop(System.Windows.Forms.IDataObject dragData)
+   public override void HandleDrop(WinForms::IDataObject dragData)
    {
       if (!this.IsValidDropTarget(dragData))
          return;
@@ -45,10 +44,8 @@ public class SelectionSetDragDropHandler : DragDropHandler
       if (draggedNodes == null)
          return;
 
-      IEnumerable<IMaxNodeWrapper> nodes = HelperMethods.GetMaxNodes(draggedNodes);
-      SelectionSetWrapper selSet = (SelectionSetWrapper)this.Data;
-      IEnumerable<IMaxNodeWrapper> newNodes = selSet.WrappedChildNodes.Union(nodes);
-      ModifySelectionSetCommand cmd = new ModifySelectionSetCommand(selSet, newNodes.ToList());
+      MoveMaxNodeCommand cmd = new MoveMaxNodeCommand(HelperMethods.GetMaxNodes(draggedNodes), this.Data, 
+         OutlinerResources.Command_Link, OutlinerResources.Command_Unlink);
       cmd.Execute(true);
    }
 }

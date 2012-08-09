@@ -7,7 +7,6 @@ using System.Drawing;
 using Outliner.Controls.Tree.Layout;
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
-using Outliner.Controls.Tree.DragDropHandlers;
 
 namespace Outliner.Controls.Tree
 {

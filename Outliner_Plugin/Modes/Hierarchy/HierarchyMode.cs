@@ -7,10 +7,9 @@ using Autodesk.Max;
 using Outliner.Scene;
 using Outliner.Filters;
 using Outliner.Controls.Tree;
-using Outliner.Controls.Tree.DragDropHandlers;
 using MaxUtils;
 
-namespace Outliner.TreeModes
+namespace Outliner.Modes.Hierarchy
 {
 public class HierarchyMode : TreeMode
 {
@@ -20,7 +19,7 @@ public class HierarchyMode : TreeMode
       if (tree == null)
          throw new ArgumentNullException("tree");
 
-      tree.DragDropHandler = new TreeHierarchyDragDropHandler();
+      tree.DragDropHandler = new TreeViewDragDropHandler();
 
       this.RegisterNodeEventCallbacks();
    }
@@ -47,7 +46,7 @@ public class HierarchyMode : TreeMode
 
       TreeNode tn = base.AddNode(node, parentCol);
       IMaxNodeWrapper wrapper = HelperMethods.GetMaxNode(tn);
-      tn.DragDropHandler = new IINodeHierarchyDragDropHandler(wrapper);
+      tn.DragDropHandler = new IINodeDragDropHandler(wrapper);
 
       for (int i = 0; i < inode.NumberOfChildren; i++)
          this.AddNode(inode.GetChildNode(i), tn.Nodes);
