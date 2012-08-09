@@ -45,6 +45,15 @@ namespace Outliner.Scene
       {
          return false;
       }
+      public override void AddChildNode(IMaxNodeWrapper node) { }
+      public override void AddChildNodes(IEnumerable<IMaxNodeWrapper> nodes) { }
+
+      public override bool CanRemoveChildNode(IMaxNodeWrapper node)
+      {
+         return false;
+      }
+      public override void RemoveChildNode(IMaxNodeWrapper node) { }
+      public override void RemoveChildNodes(IEnumerable<IMaxNodeWrapper> nodes) { }
 
       public override bool Equals(object obj)
       {

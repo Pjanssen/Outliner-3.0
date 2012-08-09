@@ -104,6 +104,13 @@ namespace Outliner {
             }
         }
         
+        internal static System.Drawing.Bitmap button_remove {
+            get {
+                object obj = ResourceManager.GetObject("button_remove", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap button_render {
             get {
                 object obj = ResourceManager.GetObject("button_render", resourceCulture);
@@ -153,6 +160,15 @@ namespace Outliner {
         internal static string Command_LinkLayer {
             get {
                 return ResourceManager.GetString("Command_LinkLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modify Selection-set.
+        /// </summary>
+        internal static string Command_ModifySelSet {
+            get {
+                return ResourceManager.GetString("Command_ModifySelSet", resourceCulture);
             }
         }
         
@@ -316,6 +332,15 @@ namespace Outliner {
         internal static string Tooltip_Inherited {
             get {
                 return ResourceManager.GetString("Tooltip_Inherited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove selected nodes from selection-set.
+        /// </summary>
+        internal static string Tooltip_Remove_SelSet {
+            get {
+                return ResourceManager.GetString("Tooltip_Remove_SelSet", resourceCulture);
             }
         }
         

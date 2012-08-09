@@ -800,6 +800,18 @@ public class TreeView : ScrollableControl
       _timedSortQueueOnly = queueOnly;
    }
 
+   public void StartTimedSort(TreeNode tn)
+   {
+      this.AddToSortQueue(tn);
+      this.StartTimedSort(true);
+   }
+
+   public void StartTimedSort(IEnumerable<TreeNode> tns)
+   {
+      this.AddToSortQueue(tns);
+      this.StartTimedSort(true);
+   }
+
    private void _sortTimer_Tick(object sender, EventArgs e)
    {
       _sortTimer.Stop();
@@ -902,7 +914,6 @@ public class TreeView : ScrollableControl
       this.editTextBox.Location = bounds.Location;
       this.editTextBox.Size = new Size (Math.Max(100, bounds.Width), 18);
       this.editTextBox.Text = e.EditText;
-      this.editTextBox.GotFocus += new EventHandler(editTextBox_GotFocus);
       this.editTextBox.KeyDown += new KeyEventHandler(editTextBox_KeyDown);
       this.editTextBox.LostFocus += new EventHandler(editTextBox_LostFocus);
 
@@ -912,14 +923,8 @@ public class TreeView : ScrollableControl
       
    }
 
-   void editTextBox_GotFocus(object sender, EventArgs e)
-   {
-      MaxUtils.HelperMethods.WriteToListener("got focus");
-   }
-
    private void editTextBox_LostFocus(object sender, EventArgs e)
    {
-      MaxUtils.HelperMethods.WriteToListener("lost focus");
       if (this.editTextBoxOpening)
       {
          this.editTextBox.Focus();

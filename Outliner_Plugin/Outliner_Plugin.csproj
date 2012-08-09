@@ -129,6 +129,7 @@
     <Compile Include="AssemblyFunctions.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\MoveMaxNodeCommand.cs" />
+    <Compile Include="Commands\ModifySelectionSetCommand.cs" />
     <Compile Include="Commands\RenameCommand.cs" />
     <Compile Include="Commands\SelectCommand.cs" />
     <Compile Include="Commands\SetNodePropertyCommand.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Controls\Tree\Layout\AddButton.cs" />
     <Compile Include="Controls\Tree\Layout\AnimatablePropertyButton.cs" />
     <Compile Include="Controls\Tree\Layout\BoxModeButton.cs" />
+    <Compile Include="Controls\Tree\Layout\RemoveButton.cs" />
     <Compile Include="Controls\Tree\Layout\FlexibleSpace.cs" />
     <Compile Include="Controls\Tree\Layout\FreezeButton.cs" />
     <Compile Include="Controls\Tree\Layout\HideButton.cs" />
@@ -349,6 +351,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Notes.txt" />
+    <EmbeddedResource Include="Resources\node_buttons\button_remove.png" />
     <EmbeddedResource Include="Resources\node_buttons\button_layer.png" />
     <EmbeddedResource Include="Resources\maya_icons\layer.png" />
     <EmbeddedResource Include="Resources\maya_icons\layer_active.png" />

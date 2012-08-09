@@ -115,7 +115,8 @@ public class TreeNodeCollection : ICollection<TreeNode>
 
       if (this.nodes.Remove(item))
       {
-         this.owner.TreeView.Invalidate();
+         if (this.owner != null && this.owner.TreeView != null)
+            this.owner.TreeView.Invalidate();
          return true;
       }
       else

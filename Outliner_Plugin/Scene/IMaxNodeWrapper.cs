@@ -24,10 +24,28 @@ namespace Outliner.Scene
       {
          get { return this.ChildNodes.Select(IMaxNodeWrapper.Create); }
       }
+
+      public virtual Boolean CanAddChildNode(IMaxNodeWrapper node)
+      {
+         return false;
+      }
+      public virtual Boolean CanAddChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
+      {
+         return nodes.Any(this.CanAddChildNode);
+      }
       public virtual void AddChildNode(IMaxNodeWrapper node) { }
       public virtual void AddChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
       {
          nodes.ForEach(this.AddChildNode);
+      }
+
+      public virtual Boolean CanRemoveChildNode(IMaxNodeWrapper node) 
+      {
+         return false; 
+      }
+      public virtual Boolean CanRemoveChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
+      {
+         return nodes.Any(this.CanRemoveChildNode);
       }
       public virtual void RemoveChildNode(IMaxNodeWrapper node) { }
       public virtual void RemoveChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
@@ -35,14 +53,7 @@ namespace Outliner.Scene
          nodes.ForEach(this.RemoveChildNode);
       }
 
-      public virtual Boolean CanAddChildNode(IMaxNodeWrapper node) 
-      {
-         return false; 
-      }
-      public virtual Boolean CanAddChildNodes(IEnumerable<IMaxNodeWrapper> nodes) 
-      {
-         return nodes.Any(this.CanAddChildNode);
-      }
+      
 
       public abstract String Name { get; set; }
       public virtual String DisplayName { get { return this.Name; } }

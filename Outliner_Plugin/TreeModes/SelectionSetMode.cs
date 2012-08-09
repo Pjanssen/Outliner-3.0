@@ -114,7 +114,7 @@ public class SelectionSetMode : TreeMode
       String selSetName = Marshal.PtrToStringUni(callParam);
 
       if (this.modifyingSelSetName == null || this.modifyingSelSetName != selSetName)
-         this.RemoveTreeNode(selSetName);
+         this.RemoveNode(selSetName);
    }
 
    protected virtual void NamedSelSetPreModify(IntPtr param, IntPtr info)
@@ -134,7 +134,8 @@ public class SelectionSetMode : TreeMode
       if (tn == null || wrapper == null)
          return;
 
-      foreach (TreeNode childTn in tn.Nodes)
+      List<TreeNode> tnNodes = tn.Nodes.ToList();
+      foreach (TreeNode childTn in tnNodes)
       {
          this.RemoveTreeNode(childTn);
       }
@@ -143,6 +144,8 @@ public class SelectionSetMode : TreeMode
       {
          this.AddNode(node, tn.Nodes);
       }
+
+      this.tree.StartTimedSort(tn.Nodes);
 
       this.modifyingSelSetName = null;
    }

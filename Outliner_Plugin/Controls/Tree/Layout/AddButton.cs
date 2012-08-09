@@ -50,7 +50,18 @@ public class AddButton : ImageButton
          return;
 
       IEnumerable<IMaxNodeWrapper> nodes = HelperMethods.GetMaxNodes(this.Layout.TreeView.SelectedNodes);
-      MoveMaxNodeCommand cmd = new MoveMaxNodeCommand(nodes, node, OutlinerResources.Command_AddToLayer, OutlinerResources.Command_UnlinkLayer);
+      Command cmd;
+      if (node is SelectionSetWrapper)
+      {
+         SelectionSetWrapper selSet = (SelectionSetWrapper)node;
+         IEnumerable<IMaxNodeWrapper> newNodes = node.WrappedChildNodes.Union(nodes);
+         cmd = new ModifySelectionSetCommand(selSet, newNodes.ToList());
+      }
+      else
+      {
+         cmd = new MoveMaxNodeCommand(nodes, node, OutlinerResources.Command_AddToLayer, OutlinerResources.Command_UnlinkLayer);
+      }
+
       cmd.Execute(true);
    }
 

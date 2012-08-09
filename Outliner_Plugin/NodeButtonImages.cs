@@ -31,6 +31,7 @@ namespace Outliner
          Hide,
          Freeze,
          Add,
+         Remove,
          Layer,
          BoxMode,
          Renderable
@@ -47,6 +48,7 @@ namespace Outliner
              {Images.Hide, CreateImages(OutlinerResources.button_hide)}
            , {Images.Freeze, CreateImages(OutlinerResources.button_freeze)}
            , {Images.Add, CreateImages(OutlinerResources.button_add)}
+           , {Images.Remove, CreateImages(OutlinerResources.button_remove)}
            , {Images.Layer, CreateImages(OutlinerResources.button_layer)}
            , {Images.BoxMode, CreateImages(OutlinerResources.button_boxmode)}
            , {Images.Renderable, CreateImages(OutlinerResources.button_render)}

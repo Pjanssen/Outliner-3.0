@@ -167,7 +167,7 @@ public class LayerMode : TreeMode
    {
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
       if (layer != null)
-         this.RemoveTreeNode(layer);
+         this.RemoveNode(layer);
    }
 
    public virtual void LayerRenamed(IntPtr param, IntPtr info)

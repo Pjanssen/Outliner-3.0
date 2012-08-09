@@ -280,12 +280,12 @@ public abstract class TreeMode
    }
 
 
-   public virtual void RemoveTreeNode(IMaxNodeWrapper wrapper)
+   public virtual void RemoveNode(IMaxNodeWrapper wrapper)
    {
-      this.RemoveTreeNode(wrapper.WrappedNode);
+      this.RemoveNode(wrapper.WrappedNode);
    }
 
-   public virtual void RemoveTreeNode(Object node)
+   public virtual void RemoveNode(Object node)
    {
       List<TreeNode> tns = this.GetTreeNodes(node);
       if (tns != null)
@@ -296,6 +296,22 @@ public abstract class TreeMode
             tn.Remove();
          }
          this.UnregisterNode(node);
+      }
+   }
+
+   public virtual void RemoveTreeNode(TreeNode tn)
+   {
+      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      if (node == null)
+         return;
+
+      this.tree.SelectedNodes.Remove(tn);
+      tn.Remove();
+
+      List<TreeNode> tns = this.GetTreeNodes(node);
+      if (tns != null)
+      {
+         tns.Remove(tn);
       }
    }
 
@@ -419,7 +435,7 @@ public abstract class TreeMode
       public override void Deleted(ITab<UIntPtr> nodes)
       {
          foreach (IINode node in nodes.NodeKeysToINodeList())
-            this.treeMode.RemoveTreeNode(node);
+            this.treeMode.RemoveNode(node);
       }
 
       public override void NameChanged(ITab<UIntPtr> nodes)

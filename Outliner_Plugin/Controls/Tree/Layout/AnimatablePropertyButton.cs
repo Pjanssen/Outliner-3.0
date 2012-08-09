@@ -71,8 +71,8 @@ public abstract class AnimatablePropertyButton : ImageButton
             case AnimatableProperty.BoxMode: return inode.NodeLayerProperties.DisplayByLayer;
             case AnimatableProperty.XRayMtl: return inode.NodeLayerProperties.DisplayByLayer;
             case AnimatableProperty.Renderable: return inode.NodeLayerProperties.RenderByLayer;
-            case AnimatableProperty.IsHidden: return inode.IILayer.IsHidden;
-            case AnimatableProperty.IsFrozen: return inode.IILayer.IsFrozen;
+            case AnimatableProperty.IsHidden: return inode.IILayer != null && inode.IILayer.IsHidden;
+            case AnimatableProperty.IsFrozen: return inode.IILayer != null && inode.IILayer.IsFrozen;
             case AnimatableProperty.WireColor: return inode.NodeLayerProperties.ColorByLayer;
             case AnimatableProperty.Name: return false;
             default: return false;

@@ -64,6 +64,7 @@ namespace Outliner.Scene
          return this.name.GetHashCode();
       }
 
+
       public override IEnumerable<Object> ChildNodes
       {
          get
@@ -83,16 +84,15 @@ namespace Outliner.Scene
          }
       }
 
+
       public override bool CanAddChildNode(IMaxNodeWrapper node)
       {
          return node is IINodeWrapper && !this.WrappedChildNodes.Contains(node);
       }
-
       public override void AddChildNode(IMaxNodeWrapper node)
       {
          this.AddChildNodes(new List<IMaxNodeWrapper>() { node });
       }
-
       public override void AddChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
       {
          IINodeTab nodeTab = HelperMethods.ToIINodeTab(this.ChildNodes);
@@ -109,6 +109,46 @@ namespace Outliner.Scene
 
          MaxInterfaces.SelectionSetManager.ReplaceNamedSelSet(nodeTab, ref this.name);
       }
+
+
+      public override bool CanRemoveChildNode(IMaxNodeWrapper node)
+      {
+         IINodeWrapper inodeWrapper = node as IINodeWrapper;
+         if (inodeWrapper == null)
+            return false;
+
+         return this.ChildIINodes.Contains(inodeWrapper.IINode);
+      }
+      public override void RemoveChildNode(IMaxNodeWrapper node)
+      {
+         this.RemoveChildNodes(new List<IMaxNodeWrapper>() { node });
+      }
+      public override void RemoveChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
+      {
+         IINodeTab nodeTab = HelperMethods.ToIINodeTab(this.ChildNodes);
+
+         foreach (IMaxNodeWrapper node in nodes)
+         {
+            IINodeWrapper inodeWrapper = node as IINodeWrapper;
+            if (inodeWrapper == null)
+               continue;
+            else
+               nodeTab.RemoveNode(inodeWrapper.IINode);
+         }
+
+         MaxInterfaces.SelectionSetManager.ReplaceNamedSelSet(nodeTab, ref this.name);
+      }
+
+
+      public virtual void ReplaceNodeset(IEnumerable<IMaxNodeWrapper> nodes)
+      {
+         if (nodes == null)
+            return;
+
+         IINodeTab nodeTab = HelperMethods.ToIINodeTab(nodes);
+         MaxInterfaces.SelectionSetManager.ReplaceNamedSelSet(nodeTab, ref this.name);
+      }
+
 
       public override string Name
       {
