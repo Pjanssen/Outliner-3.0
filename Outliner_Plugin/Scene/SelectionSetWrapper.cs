@@ -198,19 +198,29 @@ namespace Outliner.Scene
          return types.HasFlag(MaxNodeTypes.SelectionSet);
       }
 
+
+      private Boolean getSelSetProperty(Func<IINode, Boolean> fn)
+      {
+         IEnumerable<IINode> childIINodes = this.ChildIINodes;
+         if (childIINodes.Count() == 0)
+            return false;
+         else
+            return this.ChildIINodes.All(fn);
+      }
+      private void setSelSetProperty(Action<IINode> fn)
+      {
+         this.ChildIINodes.ForEach(fn);
+      }
+
       public override bool IsHidden
       {
          get
          {
-            IEnumerable<IINode> childIINodes = this.ChildIINodes;
-            if (childIINodes.Count() == 0)
-               return false;
-            else
-               return this.ChildIINodes.All(n => n.IsObjectHidden);
+            return this.getSelSetProperty(n => n.IsObjectHidden);
          }
          set
          {
-            this.ChildIINodes.ForEach(n => n.Hide(value));
+            this.setSelSetProperty(n => n.Hide(value));
          }
       }
 
@@ -218,18 +228,61 @@ namespace Outliner.Scene
       {
          get
          {
-            IEnumerable<IINode> childIINodes = this.ChildIINodes;
-            if (childIINodes.Count() == 0)
-               return false;
-            else
-               return this.ChildIINodes.All(n => n.IsObjectFrozen);
+            return this.getSelSetProperty(n => n.IsObjectFrozen);
          }
          set
          {
-            this.ChildIINodes.ForEach(n => n.IsFrozen = value);
+            this.setSelSetProperty(n => n.IsFrozen = value);
          }
       }
 
+      public override bool Renderable
+      {
+         get
+         {
+            return getSelSetProperty(n => n.Renderable != 0);
+         }
+         set
+         {
+            this.setSelSetProperty(n => n.SetRenderable(value));
+         }
+      }
+
+      public override bool BoxMode
+      {
+         get
+         {
+            return this.getSelSetProperty(n => n.BoxMode_ != 0);
+         }
+         set
+         {
+            this.setSelSetProperty(n => n.BoxMode(value));
+         }
+      }
+
+      public override bool XRayMtl
+      {
+         get
+         {
+            return this.getSelSetProperty(n => n.XRayMtl_ != 0);
+         }
+         set
+         {
+            this.setSelSetProperty(n => n.XRayMtl(value));
+         }
+      }
+
+      public override System.Drawing.Color WireColor
+      {
+         get
+         {
+            return System.Drawing.Color.Black;
+         }
+         set 
+         {
+            this.setSelSetProperty(n => n.WireColor = value);
+         }
+      }
 
       public const String IMGKEY_SELECTIONSET = "selectionset";
       public override string ImageKey

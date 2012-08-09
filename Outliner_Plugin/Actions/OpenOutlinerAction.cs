@@ -12,6 +12,7 @@ using Outliner.Controls.Tree.Layout;
 using Outliner.Controls.Tree;
 using MaxUtils;
 using Outliner.NodeSorters;
+using Outliner.TreeModes.SelectionSet;
 
 namespace Outliner.Actions
 {

@@ -116,8 +116,7 @@ public class WireColorButton : AnimatablePropertyButton
          if (tree.NodeSorter is AnimatablePropertySorter &&
           ((AnimatablePropertySorter)tree.NodeSorter).Property == this.Property)
          {
-            tree.AddToSortQueue(nodes);
-            tree.StartTimedSort(true);
+            tree.StartTimedSort(nodes);
          }
       }
    }

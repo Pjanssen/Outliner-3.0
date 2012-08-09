@@ -533,6 +533,16 @@ public class TreeView : ScrollableControl
       base.OnDragLeave(e);
    }
 
+   private DragDropHandler getDragDropHandler(TreeNode tn, Point location)
+   {
+      TreeNodeLayoutItem layoutItem = this.TreeNodeLayout.GetItemAt(tn, location);
+
+      if (layoutItem == null || (layoutItem is FlexibleSpace && !this.TreeNodeLayout.FullRowSelect))
+         return this.DragDropHandler;
+      else
+         return tn.DragDropHandler;
+   }
+
    protected override void OnDragOver(DragEventArgs drgevent)
    {
       if (drgevent == null)
@@ -540,8 +550,7 @@ public class TreeView : ScrollableControl
 
       Point location = this.PointToClient(new Point(drgevent.X, drgevent.Y));
       TreeNode tn = this.GetNodeAt(location);
-      DragDropHandler dragDropHandler = (tn != null) ? tn.DragDropHandler 
-                                                     : this.DragDropHandler;
+      DragDropHandler dragDropHandler = this.getDragDropHandler(tn, location);
 
       if (prevDragTarget != null && prevDragTarget != tn)
       {
@@ -553,7 +562,7 @@ public class TreeView : ScrollableControl
       {
          drgevent.Effect = dragDropHandler.GetDragDropEffect(drgevent.Data);
 
-         if (tn != null)
+         if (tn != null && dragDropHandler != this.DragDropHandler)
          {
             tn.SetStateFlag(TreeNodeStates.DropTarget);
             prevDragTarget = tn;
@@ -572,9 +581,7 @@ public class TreeView : ScrollableControl
 
       Point location = this.PointToClient(new Point(drgevent.X, drgevent.Y));
       TreeNode tn = this.GetNodeAt(location);
-
-      DragDropHandler dragDropHandler = (tn != null) ? tn.DragDropHandler
-                                                     : this.DragDropHandler;
+      DragDropHandler dragDropHandler = this.getDragDropHandler(tn, location);
 
       if (prevDragTarget != null)
       {
@@ -582,7 +589,7 @@ public class TreeView : ScrollableControl
          prevDragTarget = null;
       }
 
-      if (dragDropHandler != null && dragDropHandler.IsValidDropTarget(drgevent.Data))
+      if (dragDropHandler != null)
       {
          dragDropHandler.HandleDrop(drgevent.Data);
       }

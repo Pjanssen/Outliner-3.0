@@ -184,8 +184,7 @@ public class LayerMode : TreeMode
          if (tree.NodeSorter is AnimatablePropertySorter &&
           ((AnimatablePropertySorter)tree.NodeSorter).Property == AnimatableProperty.IsHidden)
          {
-            this.tree.AddToSortQueue(this.GetTreeNodes(layer));
-            this.tree.StartTimedSort(true);
+            this.tree.StartTimedSort(this.GetTreeNodes(layer));
          }
       }
    }
@@ -199,8 +198,7 @@ public class LayerMode : TreeMode
          if (tree.NodeSorter is AnimatablePropertySorter &&
           ((AnimatablePropertySorter)tree.NodeSorter).Property == AnimatableProperty.IsFrozen)
          {
-            this.tree.AddToSortQueue(this.GetTreeNodes(layer));
-            this.tree.StartTimedSort(true);
+            this.tree.StartTimedSort(this.GetTreeNodes(layer));
          }
       }
    }

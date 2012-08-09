@@ -244,11 +244,14 @@
     <Compile Include="Scene\IMaxNodeWrapper.cs" />
     <Compile Include="Scene\MaxNodeTypes.cs" />
     <Compile Include="Scene\SelectionSetWrapper.cs" />
+    <Compile Include="TreeModes\DragOnlyDragDropHandler.cs" />
     <Compile Include="TreeModes\FlatObjectListMode.cs" />
     <Compile Include="HelperMethods.cs" />
     <Compile Include="TreeModes\HierarchyMode.cs" />
     <Compile Include="TreeModes\LayerMode.cs" />
-    <Compile Include="TreeModes\SelectionSetMode.cs" />
+    <Compile Include="TreeModes\SelectionSet\SelectionSetDragDropHandler.cs" />
+    <Compile Include="TreeModes\SelectionSet\SelectionSetMode.cs" />
+    <Compile Include="TreeModes\SelectionSet\TreeViewDragDropHandler.cs" />
     <Compile Include="TreeModes\TreeMode.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -105,6 +105,24 @@ public class TreeNodeLayout
       }
    }
 
+   public TreeNodeLayoutItem GetItemAt(TreeNode tn, Point location)
+   {
+      return this.GetItemAt(tn, location.X, location.Y);
+   }
+   public TreeNodeLayoutItem GetItemAt(TreeNode tn, Int32 x, Int32 y)
+   {
+      if (tn == null)
+         return null;
+
+      foreach (TreeNodeLayoutItem item in this.layoutItems)
+      {
+         if (item.IsVisible(tn) && item.GetBounds(tn).Contains(x, y))
+            return item;
+      }
+
+      return null;
+   }
+
    private TreeNode prevMouseOverTn;
    private TreeNodeLayoutItem prevMouseOverItem;
 

@@ -8,8 +8,9 @@ using Outliner.Controls.Tree;
 using Outliner.Filters;
 using MaxUtils;
 using System.Runtime.InteropServices;
+using Outliner.Controls.Tree.DragDropHandlers;
 
-namespace Outliner.TreeModes
+namespace Outliner.TreeModes.SelectionSet
 {
 public class SelectionSetMode : TreeMode
 {
@@ -19,6 +20,8 @@ public class SelectionSetMode : TreeMode
       : base(tree, ip)
    {
       this.allObjectsSelSet = new AllObjectsSelectionSet();
+      this.tree.DragDropHandler = new TreeViewDragDropHandler();
+
       this.RegisterNodeEventCallbackObject(new SelectionSetNodeEventCallbacks(this));
       this.RegisterSystemNotifications();
    }
@@ -41,6 +44,7 @@ public class SelectionSetMode : TreeMode
    public override TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol)
    {
       TreeNode tn = base.AddNode(wrapper, parentCol);
+      tn.DragDropHandler = this.createDragDropHandler(wrapper);
 
       if (wrapper is SelectionSetWrapper)
       {
@@ -49,6 +53,16 @@ public class SelectionSetMode : TreeMode
       }
 
       return tn;
+   }
+
+   private DragDropHandler createDragDropHandler(IMaxNodeWrapper wrapper)
+   {
+      if (wrapper is SelectionSetWrapper)
+         return new SelectionSetDragDropHandler((SelectionSetWrapper)wrapper);
+      else if (wrapper is IINodeWrapper)
+         return new DragOnlyDragDropHandler(wrapper);
+
+      return null;
    }
 
 
@@ -104,6 +118,7 @@ public class SelectionSetMode : TreeMode
          SelectionSetWrapper wrapper = new SelectionSetWrapper(selSetName);
          TreeNode tn = this.AddNode(wrapper, this.tree.Nodes);
          this.tree.AddToSortQueue(tn);
+         this.tree.AddToSortQueue(tn.Nodes);
          this.tree.StartTimedSort(true);
       }
    }
@@ -172,8 +187,7 @@ public class SelectionSetMode : TreeMode
          wrapper.UpdateName(nameChange.newName);
          this.RegisterNode(wrapper, tn);
          tn.Invalidate();
-         this.tree.AddToSortQueue(tn);
-         this.tree.StartTimedSort(true);
+         this.tree.StartTimedSort(tn);
       }
    }
 

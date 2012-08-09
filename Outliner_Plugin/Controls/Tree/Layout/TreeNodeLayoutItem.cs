@@ -122,7 +122,7 @@ namespace Outliner.Controls.Tree.Layout
       /// </summary>
       public virtual Rectangle GetBounds(TreeNode tn)
       {
-         if (this.Layout == null)
+         if (this.Layout == null || tn == null)
             return Rectangle.Empty;
 
          Rectangle b = new Rectangle(this.GetPos(tn), this.GetSize(tn));
