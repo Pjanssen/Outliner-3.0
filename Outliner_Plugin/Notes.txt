@@ -7,7 +7,6 @@
 
 TREEVIEW
 --------
-* FlexibleSpace.MinWidth
 * TreeNode selection implementation is a bit shoddy. MouseDown+MouseUp both fire selectionchangedevent
 
 NODE BUTTONS

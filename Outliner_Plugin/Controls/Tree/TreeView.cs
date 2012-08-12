@@ -101,7 +101,6 @@ public class TreeView : ScrollableControl
    protected override void OnResize(EventArgs e)
    {
       this.Update(TreeViewUpdateFlags.TreeNodeBounds | TreeViewUpdateFlags.Scrollbars);
-      //this.AutoScrollMinSize = this.getMaxBounds();
    }
 
    #region Paint
@@ -386,7 +385,7 @@ public class TreeView : ScrollableControl
          {
             this.RemoveUpdateFlag(TreeViewUpdateFlags.Scrollbars);
             this.AutoScrollMinSize = this.getMaxBounds();
-            //this.AutoScroll = true;
+            this.AutoScroll = true;
          }
 
          if (this.TestUpdateFlag(TreeViewUpdateFlags.Redraw))
@@ -421,8 +420,6 @@ public class TreeView : ScrollableControl
       maxWidth = this.Width - 2;
       if (this.VerticalScroll.Visible)
          maxWidth -= SystemInformation.VerticalScrollBarWidth;
-
-      MaxUtils.HelperMethods.WriteToListener(this.Width.ToString() + " : " + maxWidth.ToString());
 
       return new Size(maxWidth, maxHeight);
    }
@@ -1000,8 +997,6 @@ public class TreeView : ScrollableControl
    }
 
    #endregion
-
-   public UICuesEventHandler editTextBox_ChangeUICues { get; set; }
 }
 
 [Flags]

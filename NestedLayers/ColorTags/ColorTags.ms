@@ -8,6 +8,19 @@
         getHandleByAnim node;
     ),
 
+    public function getNumTags =
+    (
+        local ColorTagClass = dotnetClass "Outliner.LayerTools.ColorTags";
+        ColorTagClass.GetNumTags();
+    ),
+
+    public function getTagColor tag =
+    (
+        local ColorTagClass = dotnetClass "Outliner.LayerTools.ColorTags";
+        local col = ColorTagClass.GetColor tag;
+        color col.R col.G col.B col.A;
+    ),
+
     public function hasTag node =
     (
         local ColorTagClass = dotnetClass "Outliner.LayerTools.ColorTagsMXS";
@@ -43,5 +56,6 @@
     (
         local ColorTagClass = dotnetClass "Outliner.LayerTools.ColorTagsMXS";
         ColorTagClass.RemoveTag (ColorTags.getHandle node);
+        OK;
     )
 )
