@@ -41,6 +41,10 @@ public static class ColorTags
       }
    }
 
+   public static Int32 GetNumTags()
+   {
+      return colors.Count;
+   }
 
    /// <summary>
    /// Returns true if the supplied node has a tag set on it.
@@ -85,6 +89,14 @@ public static class ColorTags
          return ColorTags.getWireColor(node);
       else
          return ColorTags.getTagColor(tag);
+   }
+
+   /// <summary>
+   /// Gets the color of the supplied tag.
+   /// </summary>
+   public static Color GetColor(byte tag)
+   {
+      return ColorTags.getTagColor(tag);
    }
 
    /// <summary>
