@@ -4,11 +4,34 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace Outliner.Controls.Tree.Layout
 {
-public class FlexibleSpace : TreeNodeLayoutItem
+public class EmptySpace : TreeNodeLayoutItem
 {
+   [XmlAttribute("padding_left")]
+   [System.ComponentModel.DefaultValue(2)]
+   public override int PaddingLeft
+   {
+      get { return 2; }
+      set { }
+   }
+
+   [XmlAttribute("padding_right")]
+   [System.ComponentModel.DefaultValue(2)]
+   public override int PaddingRight
+   {
+      get { return 2; }
+      set { }
+   }
+
+
+   public override bool IsVisible(TreeNode tn)
+   {
+      return true;
+   }
+
    public override int GetWidth(TreeNode tn)
    {
       if (this.Layout == null || this.Layout.TreeView == null)
@@ -18,15 +41,20 @@ public class FlexibleSpace : TreeNodeLayoutItem
       Int32 w = tree.Width;
       foreach (TreeNodeLayoutItem item in this.Layout.LayoutItems)
       {
-         if (item != this && item.IsVisible(tn))
-            w -= item.GetWidth(tn) + item.PaddingLeft + item.PaddingRight;
+         if (item.IsVisible(tn))
+         {
+            w -= item.PaddingLeft + item.PaddingRight;
+            if (item != this)
+               w -= item.GetWidth(tn);
+         }
       }
 
-      w -= 4;
+      w -= 2; //A few pixels for the borders.
+
       if (tree.VerticalScroll.Visible)
          w -= SystemInformation.VerticalScrollBarWidth;
 
-      return w;
+      return Math.Max(w, 0);
    }
 
    public override int GetHeight(TreeNode tn)
@@ -39,7 +67,7 @@ public class FlexibleSpace : TreeNodeLayoutItem
 
    public override void Draw(Graphics g, TreeNode tn)
    {
-      //FlexibleSpace does not draw anything.
+      //EmptySpace does not draw anything.
    }
 
    public override void HandleMouseDown(MouseEventArgs e, TreeNode tn)

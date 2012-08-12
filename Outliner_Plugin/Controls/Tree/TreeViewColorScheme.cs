@@ -134,11 +134,12 @@ public class TreeViewColorScheme
       {
          TreeViewColorScheme c = new TreeViewColorScheme();
 
+         c.AlternateBackground  = true;
          c.Editable             = false;
          c.ForegroundLight      = new SerializableColor(220, 220, 220);
          c.ForegroundDark       = new SerializableColor(32, 32, 32);
          c.Background           = new SerializableColor(42, 42, 42);
-         c.AltBackground        = new SerializableColor(52, 52, 52);
+         c.AltBackground        = new SerializableColor(48, 48, 48);
          c.SelectionForeground  = new SerializableColor(255, 255, 255);
          c.SelectionBackground  = new SerializableColor(103, 141, 178);
          c.DropTargetForeground = new SerializableColor(0, 0, 0);

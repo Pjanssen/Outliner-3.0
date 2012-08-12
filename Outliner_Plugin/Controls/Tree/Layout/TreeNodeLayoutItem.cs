@@ -13,7 +13,7 @@ namespace Outliner.Controls.Tree.Layout
    [XmlInclude(typeof(AddButton))]
    [XmlInclude(typeof(BoxModeButton))]
    [XmlInclude(typeof(ExpandButton))]
-   [XmlInclude(typeof(FlexibleSpace))]
+   [XmlInclude(typeof(EmptySpace))]
    [XmlInclude(typeof(FreezeButton))]
    [XmlInclude(typeof(HideButton))]
    [XmlInclude(typeof(MayaStyleIndent))]

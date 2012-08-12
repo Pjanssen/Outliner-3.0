@@ -160,7 +160,7 @@
     <Compile Include="Controls\Tree\Layout\AnimatablePropertyButton.cs" />
     <Compile Include="Controls\Tree\Layout\BoxModeButton.cs" />
     <Compile Include="Controls\Tree\Layout\RemoveButton.cs" />
-    <Compile Include="Controls\Tree\Layout\FlexibleSpace.cs" />
+    <Compile Include="Controls\Tree\Layout\EmptySpace.cs" />
     <Compile Include="Controls\Tree\Layout\FreezeButton.cs" />
     <Compile Include="Controls\Tree\Layout\HideButton.cs" />
     <Compile Include="Controls\Tree\Layout\ImageButton.cs" />

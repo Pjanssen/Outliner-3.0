@@ -8,7 +8,7 @@ using Outliner.Filters;
 
 namespace Outliner.Controls.Tree.Layout
 {
-public class TreeNodeText : TreeNodeLayoutItem
+public class TreeNodeText : TreeNodeButton //TreeNodeLayoutItem
 {
    public override bool CenterVertically { get { return false; } }
 
@@ -22,7 +22,20 @@ public class TreeNodeText : TreeNodeLayoutItem
 
    public override int GetWidth(TreeNode tn)
    {
-      return this.GetTextSize(tn).Width;
+      int textWidth = this.GetTextSize(tn).Width + 1;
+      int maxWidth = this.getMaxWidth(tn);
+
+      return Math.Min(maxWidth, textWidth);
+   }
+
+   private int getMaxWidth(TreeNode tn)
+   {
+      int maxWidth = this.Layout.TreeView.Width - widthOtherItems(tn);
+      maxWidth -= 2; //A few pixels for the borders.
+      if (this.Layout.TreeView.VerticalScroll.Visible)
+         maxWidth -= SystemInformation.VerticalScrollBarWidth;
+
+      return maxWidth;
    }
 
    public override int GetHeight(TreeNode tn)
@@ -31,6 +44,38 @@ public class TreeNodeText : TreeNodeLayoutItem
          return 0;
 
       return this.Layout.ItemHeight;
+   }
+
+
+   private int widthOtherItems(TreeNode tn)
+   {
+      int w = 0;
+      foreach (TreeNodeLayoutItem item in this.Layout.LayoutItems)
+      {
+         if (item != this && item.IsVisible(tn))
+         {
+            w += item.PaddingLeft + item.PaddingRight;
+            if (!(item is EmptySpace))
+               w += item.GetWidth(tn);
+         }
+      }
+      return w;
+   }
+
+   protected override bool Clickable(TreeNode tn)
+   {
+      return false;
+   }
+
+   protected override string GetTooltipText(TreeNode tn)
+   {
+      int textWidth = this.GetTextSize(tn).Width + 1;
+      int maxWidth = this.getMaxWidth(tn);
+
+      if (textWidth > maxWidth)
+         return tn.Text;
+      else
+         return null;
    }
 
    public override void Draw(Graphics graphics, TreeNode tn)
@@ -58,8 +103,18 @@ public class TreeNodeText : TreeNodeLayoutItem
 
          using (Font f = new Font(tree.Font, tn.FontStyle))
          {
-            graphics.DrawString(tn.Text, f, fgBrush,
-                         gBounds.X, gBounds.Y + ((gBounds.Height - this.GetTextSize(tn).Height) / 2), StringFormat.GenericDefault);
+            //graphics.SetClip(new RectangleF(gBounds.X, gBounds.Y,  
+            //                                (gBounds.Width + emptySpaceWidth(tn)) - widthAfterThis(tn),
+            //                                this.Layout.ItemHeight));
+            StringFormat format = new StringFormat();
+            format.LineAlignment = StringAlignment.Center;
+            format.FormatFlags = StringFormatFlags.NoWrap;
+            format.Trimming = StringTrimming.EllipsisPath;
+            graphics.DrawString(tn.Text, f, fgBrush, gBounds, format);
+            //graphics.DrawString(tn.Text, f, fgBrush,
+            //                    gBounds.X, 
+            //                    gBounds.Y + ((gBounds.Height - this.GetTextSize(tn).Height) / 2));
+            //graphics.ResetClip();
          }
       }
    }

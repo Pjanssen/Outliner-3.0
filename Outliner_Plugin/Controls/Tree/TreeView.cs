@@ -28,6 +28,7 @@ public class TreeView : ScrollableControl
       this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 
       this.AutoScroll = true;
+      this.AutoScrollMinSize = this.Size;
       this.AllowDrop = true;
    }
 
@@ -99,7 +100,8 @@ public class TreeView : ScrollableControl
 
    protected override void OnResize(EventArgs e)
    {
-      this.Update(TreeViewUpdateFlags.TreeNodeBounds);
+      this.Update(TreeViewUpdateFlags.TreeNodeBounds | TreeViewUpdateFlags.Scrollbars);
+      //this.AutoScrollMinSize = this.getMaxBounds();
    }
 
    #region Paint
@@ -271,7 +273,8 @@ public class TreeView : ScrollableControl
             Color bgColor = this.GetNodeBackColor(tn, false);
             if (bgColor != this.Colors.Background.Color)
             {
-               if (tn.State == TreeNodeStates.None)
+               Boolean isAltBg = this.Colors.AlternateBackground && bgColor == this.Colors.AltBackground.Color;
+               if (tn.State == TreeNodeStates.None && !isAltBg)
                {
                   Color bgGradColor = Color.FromArgb( bgColor.A
                                                     , Math.Min(bgColor.R + 25, 255)
@@ -383,6 +386,7 @@ public class TreeView : ScrollableControl
          {
             this.RemoveUpdateFlag(TreeViewUpdateFlags.Scrollbars);
             this.AutoScrollMinSize = this.getMaxBounds();
+            //this.AutoScroll = true;
          }
 
          if (this.TestUpdateFlag(TreeViewUpdateFlags.Redraw))
@@ -406,14 +410,20 @@ public class TreeView : ScrollableControl
       TreeNode tn = this.Nodes[0];
       while (tn != null)
       {
-         //tn.InvalidateBounds();
-         Int32 nodeWidth = this.TreeNodeLayout.GetTreeNodeWidth(tn);
-         if (nodeWidth > maxWidth)
-            maxWidth = nodeWidth;
+         //Int32 nodeWidth = this.TreeNodeLayout.GetTreeNodeWidth(tn);
+         //if (nodeWidth > maxWidth)
+         //   maxWidth = nodeWidth;
 
          maxHeight += itemHeight;
          tn = tn.NextVisibleNode;
       }
+      
+      maxWidth = this.Width - 2;
+      if (this.VerticalScroll.Visible)
+         maxWidth -= SystemInformation.VerticalScrollBarWidth;
+
+      MaxUtils.HelperMethods.WriteToListener(this.Width.ToString() + " : " + maxWidth.ToString());
+
       return new Size(maxWidth, maxHeight);
    }
 
@@ -551,7 +561,7 @@ public class TreeView : ScrollableControl
    {
       TreeNodeLayoutItem layoutItem = this.TreeNodeLayout.GetItemAt(tn, location);
 
-      if (layoutItem == null || (layoutItem is FlexibleSpace && !this.TreeNodeLayout.FullRowSelect))
+      if (layoutItem == null || (layoutItem is EmptySpace && !this.TreeNodeLayout.FullRowSelect))
          return this.DragDropHandler;
       else
          return tn.DragDropHandler;

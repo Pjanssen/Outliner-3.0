@@ -243,7 +243,7 @@ public class TreeNodeLayout
          TreeNodeLayout layout = new TreeNodeLayout();
          layout.LayoutItems.Add(new TreeNodeIndent());
          layout.LayoutItems.Add(new TreeNodeText());
-         layout.LayoutItems.Add(new FlexibleSpace());
+         layout.LayoutItems.Add(new EmptySpace());
          return layout;
       }
    }
@@ -262,7 +262,7 @@ public class TreeNodeLayout
          layout.LayoutItems.Add(new FreezeButton());
          layout.LayoutItems.Add(new TreeNodeIcon(IconSet.Max, false));
          layout.LayoutItems.Add(new TreeNodeText() { PaddingLeft = 1 });
-         layout.LayoutItems.Add(new FlexibleSpace());
+         layout.LayoutItems.Add(new EmptySpace());
          return layout;
       }
    }
@@ -282,9 +282,9 @@ public class TreeNodeLayout
          layout.LayoutItems.Add(new TreeNodeIcon(IconSet.Maya, false));
          layout.LayoutItems.Add(new MayaStyleIndent());
          layout.LayoutItems.Add(new TreeNodeText());
-         layout.LayoutItems.Add(new FlexibleSpace());
+         layout.LayoutItems.Add(new EmptySpace());
          layout.LayoutItems.Add(new HideButton());
-         layout.LayoutItems.Add(new FreezeButton());
+         layout.LayoutItems.Add(new FreezeButton() { PaddingRight = 2 });
          return layout;
       }
    }

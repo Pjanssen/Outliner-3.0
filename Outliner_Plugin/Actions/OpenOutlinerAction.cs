@@ -46,13 +46,13 @@ namespace Outliner.Actions
          Outliner.Controls.TestControl tc = new Controls.TestControl();
 
          tc.treeView1.TreeNodeLayout = TreeNodeLayout.MayaLayout; //OutlinerGUP.Instance.Layout;
-         tc.treeView1.Colors = OutlinerGUP.Instance.ColorScheme;
+         tc.treeView1.Colors = TreeViewColorScheme.MayaColors; //OutlinerGUP.Instance.ColorScheme;
 
          tc.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
          TreeMode tm = new
-            //HierarchyMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
+            HierarchyMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
             //SelectionSetMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
-            LayerMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
+            //LayerMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
             //FlatObjectListMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
          
          //tm.Filters.Add(new Filters.HelperFilter());
