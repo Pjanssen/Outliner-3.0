@@ -12,8 +12,8 @@ namespace Outliner.LayerTools
 {
 public static class NestedLayers
 {
-   private static uint CID_A = 0x48197F50;
-   private static uint CID_B = 0x9D545B8;
+   private const uint CID_A = 0x48197F50;
+   private const uint CID_B = 0x9D545B8;
    private static IClass_ID classID;
    private const uint PropertySbidOffset = 10;
 

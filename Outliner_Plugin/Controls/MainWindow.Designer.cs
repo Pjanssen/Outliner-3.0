@@ -30,24 +30,14 @@ namespace Outliner.Controls
       private void InitializeComponent()
       {
          this.components = new System.ComponentModel.Container();
-         this.treeView1 = new TreeView();
          this.SuspendLayout();
-         // 
-         // treeView1
-         // 
-         this.treeView1.AllowDrop = true;
-         this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.treeView1.Location = new System.Drawing.Point(0, 0);
-         this.treeView1.Name = "treeView1";
-         this.treeView1.Size = new System.Drawing.Size(260, 259);
-         this.treeView1.TabIndex = 0;
+
          // 
          // MainWindow
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.ClientSize = new System.Drawing.Size(260, 259);
-         this.Controls.Add(this.treeView1);
          this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
          this.Name = "MainWindow";
          this.Text = "MainWindow";
@@ -56,8 +46,6 @@ namespace Outliner.Controls
       }
 
       #endregion
-
-      public TreeView treeView1 { get; private set; }
 
 
 

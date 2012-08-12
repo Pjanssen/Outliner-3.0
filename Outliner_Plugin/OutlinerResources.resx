@@ -245,4 +245,13 @@ Use {0} to expand entire hierarchy.</value>
   <data name="Tooltip_Remove_SelSet" xml:space="preserve">
     <value>Remove selected nodes from selection-set</value>
   </data>
+  <data name="Context_Hide" xml:space="preserve">
+    <value>Hide selection</value>
+  </data>
+  <data name="Context_Unhide" xml:space="preserve">
+    <value>Unhide selection</value>
+  </data>
+  <data name="Action_ToggleOutliner" xml:space="preserve">
+    <value>Toggle Outliner</value>
+  </data>
 </root>

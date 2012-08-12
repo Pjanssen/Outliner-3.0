@@ -51,11 +51,6 @@ public class LayerMode : TreeMode
       TreeNode tn = base.AddNode(layer, parentCol);
       IMaxNodeWrapper wrapper = HelperMethods.GetMaxNode(tn);
       tn.DragDropHandler = new IILayerDragDropHandler(wrapper as IILayerWrapper);
-      
-      if (this.tree.TreeNodeLayout.UseLayerColors)
-      {
-         tn.BackColor = Color.FromArgb(255, wrapper.WireColor);
-      }
 
       //Add nodes belonging to this layer.
       foreach (Object node in wrapper.ChildNodes)
@@ -72,11 +67,6 @@ public class LayerMode : TreeMode
          return tn;
 
       tn.DragDropHandler = new IINodeDragDropHandler(wrapper);
-
-      if (this.tree.TreeNodeLayout.UseLayerColors)
-      {
-         tn.BackColor = Color.FromArgb(170, ColorHelpers.FromMaxColor(wrapper.IILayer.WireColor));
-      }
 
       return tn;
    }
@@ -129,9 +119,6 @@ public class LayerMode : TreeMode
 
             layerTn.Nodes.Add(tn);
             this.tree.AddToSortQueue(layerTn.Nodes);
-
-            if (this.tree.TreeNodeLayout.UseLayerColors)
-               tn.BackColor = Color.FromArgb(170, ColorHelpers.FromMaxColor(layer.WireColor));
          }
          this.tree.StartTimedSort(true);
       }

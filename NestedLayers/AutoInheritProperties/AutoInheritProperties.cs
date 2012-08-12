@@ -11,8 +11,8 @@ namespace Outliner.LayerTools
 {
 public static class AutoInheritProperties
 {
-   private static uint CID_A = 0x1ECA7d7A;
-   private static uint CID_B = 0x7B6B1447;
+   private const uint CID_A = 0x1ECA7d7A;
+   private const uint CID_B = 0x7B6B1447;
    private static IClass_ID classID;
 
    public enum NodeLayerProperty : uint

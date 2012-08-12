@@ -268,16 +268,26 @@ public class TreeView : ScrollableControl
       {
          if (curY >= startY)
          {
-            if (layout.FullRowSelect || this.Colors.AlternateBackground || layout.UseLayerColors)
+            Color bgColor = this.GetNodeBackColor(tn, false);
+            if (bgColor != this.Colors.Background.Color)
             {
-               Color bgColor = this.GetNodeBackColor(tn, false);
-               using (SolidBrush bgBrush = new SolidBrush(bgColor))
+               if (tn.State == TreeNodeStates.None)
                {
-                  //Color bgGradColor = Color.FromArgb(bgColor.A, Math.Min(bgColor.R + 25, 255), Math.Min(bgColor.G + 25, 255), Math.Min(bgColor.B + 25, 255));
-                  //LinearGradientBrush brush = new LinearGradientBrush(tn.Bounds, bgGradColor, bgColor, LinearGradientMode.Vertical);
-                  e.Graphics.FillRectangle(bgBrush, tn.Bounds);
-                  //Pen lPen = new Pen(Color.FromArgb(bgColor.A, Math.Max(bgColor.R - 10, 0), Math.Max(bgColor.G - 10, 0), Math.Max(bgColor.B - 10, 0)));
-                  //e.Graphics.DrawLine(lPen, tn.Bounds.Left, tn.Bounds.Bottom - 1, tn.Bounds.Right, tn.Bounds.Bottom -1);
+                  Color bgGradColor = Color.FromArgb( bgColor.A
+                                                    , Math.Min(bgColor.R + 25, 255)
+                                                    , Math.Min(bgColor.G + 25, 255)
+                                                    , Math.Min(bgColor.B + 25, 255));
+                  using (LinearGradientBrush brush = new LinearGradientBrush(tn.Bounds, bgGradColor, bgColor, LinearGradientMode.Vertical))
+                  {
+                     e.Graphics.FillRectangle(brush, tn.Bounds);
+                  }
+               }
+               else
+               {
+                  using (SolidBrush bgBrush = new SolidBrush(bgColor))
+                  {
+                     e.Graphics.FillRectangle(bgBrush, tn.Bounds);
+                  }
                }
             }
             
@@ -441,6 +451,11 @@ public class TreeView : ScrollableControl
       {
          this.SelectAllNodes(false);
          this.OnSelectionChanged();
+      }
+
+      if ((e.Button & MouseButtons.Right) == MouseButtons.Right && this.ContextMenu != null)
+      {
+         this.ContextMenu.Show(this, e.Location);
       }
 
       base.OnMouseUp(e);

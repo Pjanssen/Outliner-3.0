@@ -10,6 +10,9 @@ using MaxUtils;
 using Outliner.Controls.Tree;
 using Outliner.Controls.Tree.Layout;
 using Autodesk.Max.MaxSDK.Util;
+using Outliner.Modes.Hierarchy;
+using Outliner.Modes;
+using Outliner.Modes.SelectionSet;
 
 namespace Outliner
 {
@@ -64,9 +67,32 @@ namespace Outliner
             return TreeViewColorScheme.FromXml(colorFile.String);
          else
          {
-            return TreeViewColorScheme.MayaColors;
+            return TreeViewColorScheme.MaxColors;
             //tc.treeView1.Colors.ToXml(colorFile.String);
          }
+      }
+
+      public OutlinerSplitContainer GetContainer()
+      {
+         OutlinerSplitContainer container = new OutlinerSplitContainer();
+         TreeView tree1 = new TreeView();
+         tree1.TreeNodeLayout = this.Layout;
+         tree1.Colors = this.ColorScheme;
+         tree1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
+         TreeMode mode1 = new HierarchyMode(tree1, MaxInterfaces.COREInterface);
+         TreeView tree2 = new TreeView();
+         tree2.TreeNodeLayout = this.Layout;
+         tree2.Colors = this.ColorScheme;
+         tree2.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
+         TreeMode mode2 = new SelectionSetMode(tree2, MaxInterfaces.COREInterface);
+
+         mode1.FillTree();
+         mode2.FillTree();
+
+         container.Panel1.Controls.Add(tree1);
+         container.Panel2.Controls.Add(tree2);
+
+         return container;
       }
 
       /// <summary>

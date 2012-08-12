@@ -13,8 +13,11 @@ namespace Outliner.Controls.Tree
 {
 public class TreeViewColorScheme
 {
+   /// <summary>
+   /// Indicates whether the ColorScheme can be edited by the user.
+   /// </summary>
    [XmlIgnore]
-   public Boolean CanEdit { get; set; }
+   public Boolean Editable { get; set; }
 
    public SerializableColor ForegroundLight { get; set; }
    public SerializableColor ForegroundDark { get; set; }
@@ -36,7 +39,7 @@ public class TreeViewColorScheme
 
    public TreeViewColorScheme()
    {
-      this.CanEdit              = true;
+      this.Editable             = true;
       this.ForegroundLight      = new SerializableColor(Color.White);
       this.ForegroundDark       = new SerializableColor(Color.Black);
       this.Background           = new SerializableColor(Color.White);
@@ -107,7 +110,7 @@ public class TreeViewColorScheme
       {
          TreeViewColorScheme c = new TreeViewColorScheme();
          
-         c.CanEdit              = false;
+         c.Editable             = false;
          c.ForegroundLight      = new SerializableColor(200, 200, 200);
          c.ForegroundDark       = new SerializableColor(42, 42, 42);
          c.Background           = new SerializableColor(GuiColors.Window);
@@ -131,7 +134,7 @@ public class TreeViewColorScheme
       {
          TreeViewColorScheme c = new TreeViewColorScheme();
 
-         c.CanEdit              = false;
+         c.Editable             = false;
          c.ForegroundLight      = new SerializableColor(220, 220, 220);
          c.ForegroundDark       = new SerializableColor(32, 32, 32);
          c.Background           = new SerializableColor(42, 42, 42);

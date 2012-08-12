@@ -53,7 +53,8 @@ public class TreeNodeText : TreeNodeLayoutItem
       {
          Rectangle gBounds = this.GetBounds(tn);
 
-         graphics.FillRectangle(bgBrush, gBounds);
+         if (tn.State != TreeNodeStates.None)
+            graphics.FillRectangle(bgBrush, gBounds);
 
          using (Font f = new Font(tree.Font, tn.FontStyle))
          {

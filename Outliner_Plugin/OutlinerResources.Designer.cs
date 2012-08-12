@@ -61,6 +61,15 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toggle Outliner.
+        /// </summary>
+        internal static string Action_ToggleOutliner {
+            get {
+                return ResourceManager.GetString("Action_ToggleOutliner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to - All objects -.
         /// </summary>
         internal static string AllObjectsSelSet {
@@ -250,6 +259,24 @@ namespace Outliner {
         internal static string Command_UnlinkLayer {
             get {
                 return ResourceManager.GetString("Command_UnlinkLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide selection.
+        /// </summary>
+        internal static string Context_Hide {
+            get {
+                return ResourceManager.GetString("Context_Hide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unhide selection.
+        /// </summary>
+        internal static string Context_Unhide {
+            get {
+                return ResourceManager.GetString("Context_Unhide", resourceCulture);
             }
         }
         

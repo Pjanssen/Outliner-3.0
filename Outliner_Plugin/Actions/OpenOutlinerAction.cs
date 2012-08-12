@@ -13,6 +13,8 @@ using Outliner.Controls.Tree;
 using MaxUtils;
 using Outliner.NodeSorters;
 using Outliner.Modes.SelectionSet;
+using Outliner.Modes.Hierarchy;
+using Outliner.Modes.Layer;
 
 namespace Outliner.Actions
 {
@@ -20,7 +22,7 @@ namespace Outliner.Actions
    {
       public override string ActionText
       {
-         get { return "Toggle Outliner"; }
+         get { return OutlinerResources.Action_ToggleOutliner; }
       }
 
       public override string Category
@@ -30,21 +32,27 @@ namespace Outliner.Actions
 
       public override Type ContentType
       {
-         get { return typeof(Outliner.Controls.TestControl); }
+         get
+         {
+            return typeof(Outliner.Controls.TestControl); 
+            //return typeof(Control);
+         }
       }
 
       public override object CreateDockableContent()
       {
+         //return OutlinerGUP.Instance.GetContainer();
+         
          Outliner.Controls.TestControl tc = new Controls.TestControl();
 
-         tc.treeView1.TreeNodeLayout = OutlinerGUP.Instance.Layout;
+         tc.treeView1.TreeNodeLayout = TreeNodeLayout.MayaLayout; //OutlinerGUP.Instance.Layout;
          tc.treeView1.Colors = OutlinerGUP.Instance.ColorScheme;
 
          tc.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
          TreeMode tm = new
             //HierarchyMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
-            SelectionSetMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
-            //LayerMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
+            //SelectionSetMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
+            LayerMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
             //FlatObjectListMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
          
          //tm.Filters.Add(new Filters.HelperFilter());

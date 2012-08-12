@@ -23,6 +23,10 @@ public class SelectionSetMode : TreeMode
 
       this.RegisterNodeEventCallbackObject(new SelectionSetNodeEventCallbacks(this));
       this.RegisterSystemNotifications();
+
+      this.tree.ContextMenu = new System.Windows.Forms.ContextMenu();
+      this.tree.ContextMenu.MenuItems.Add("test");
+      
    }
 
    public override void FillTree()

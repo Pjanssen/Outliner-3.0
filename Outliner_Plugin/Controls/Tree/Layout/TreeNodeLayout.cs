@@ -63,10 +63,6 @@ public class TreeNodeLayout
       }
    }
 
-   [XmlElement("UseLayerColors")]
-   [DefaultValue(false)]
-   public Boolean UseLayerColors { get; set; }
-
    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly"), XmlArray("LayoutItems")]
    public TreeNodeLayoutItemCollection LayoutItems
    {
@@ -86,7 +82,6 @@ public class TreeNodeLayout
       this.LayoutItems = new TreeNodeLayoutItemCollection();
       this.itemHeight = 18;
       this.fullRowSelect = false;
-      this.UseLayerColors = false;
    }
 
    public Int32 GetTreeNodeWidth(TreeNode tn)
@@ -266,7 +261,7 @@ public class TreeNodeLayout
          layout.LayoutItems.Add(new HideButton());
          layout.LayoutItems.Add(new FreezeButton());
          layout.LayoutItems.Add(new TreeNodeIcon(IconSet.Max, false));
-         layout.LayoutItems.Add(new TreeNodeText());
+         layout.LayoutItems.Add(new TreeNodeText() { PaddingLeft = 1 });
          layout.LayoutItems.Add(new FlexibleSpace());
          return layout;
       }

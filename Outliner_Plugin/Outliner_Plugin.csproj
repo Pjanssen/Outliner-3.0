@@ -139,6 +139,7 @@
     <Compile Include="Commands\SetViewCameraCommand.cs" />
     <Compile Include="Commands\ToggleLightCommand.cs" />
     <Compile Include="Controls\BitmapProcessing.cs" />
+    <Compile Include="Controls\ContextMenu\MenuItemData.cs" />
     <Compile Include="Controls\Options\ColorSchemeEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -146,6 +147,9 @@
       <DependentUpon>ColorSchemeEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Options\EditColorButton.cs" />
+    <Compile Include="Controls\OutlinerSplitContainer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\SerializableColor.cs" />
     <Compile Include="Modes\Layer\IILayerDragDropHandler.cs" />
     <Compile Include="Controls\Tree\DragDropHandler.cs" />

@@ -13,6 +13,8 @@ using Outliner.Filters;
 using WinForms = System.Windows.Forms;
 using MaxUtils;
 using Outliner.NodeSorters;
+using Outliner.LayerTools;
+using System.Drawing;
 
 namespace Outliner.Modes
 {
@@ -59,21 +61,6 @@ public abstract class TreeMode
    }
 
    /// <summary>
-   /// Registers the default SystemNotifications.
-   /// </summary>
-   private void RegisterSystemNotifications()
-   {
-      this.RegisterSystemNotification(this.SystemPreNew, SystemNotificationCode.SystemPreNew);
-      this.RegisterSystemNotification(this.SystemPostNew, SystemNotificationCode.SystemPostNew);
-      this.RegisterSystemNotification(this.SystemPreReset, SystemNotificationCode.SystemPreReset);
-      this.RegisterSystemNotification(this.SystemPostReset, SystemNotificationCode.SystemPostReset);
-      this.RegisterSystemNotification(this.FilePreOpen, SystemNotificationCode.FilePreOpen);
-      this.RegisterSystemNotification(this.FilePostOpen, SystemNotificationCode.FilePostOpen);
-      this.RegisterSystemNotification(this.FilePostMerge, SystemNotificationCode.FilePostMerge);
-      this.RegisterSystemNotification(this.SelectionsetChanged, SystemNotificationCode.SelectionsetChanged);
-   }
-
-   /// <summary>
    /// Unregisters all SystemNotifications registered using <see cref="RegisterSystemNotification"/>.
    /// </summary>
    public virtual void UnregisterSystemNotifications()
@@ -103,13 +90,7 @@ public abstract class TreeMode
       this.nodeEventCallbacks.Add(new KeyValuePair<uint, TreeModeNodeEventCallbacks>(cbKey, cb));
    }
 
-   /// <summary>
-   /// Registers the default NodeEventCallbacks.
-   /// </summary>
-   private void RegisterNodeEventCallbacks()
-   {
-      this.RegisterNodeEventCallbackObject(new DefaultNodeEventCallbacks(this));
-   }
+
 
    /// <summary>
    /// Unregisters all NodeEventCallbacks registered using <see cref="RegisterNodeEventCallbackObject"/>.
@@ -261,6 +242,13 @@ public abstract class TreeMode
       TreeNode tn = this.CreateTreeNode(wrapper);
       this.RegisterNode(wrapper, tn);
 
+      IAnimatable node = wrapper.WrappedNode as IAnimatable;
+      if (node != null && Outliner.LayerTools.ColorTags.HasTag(node))
+      {
+         System.Drawing.Color color = Outliner.LayerTools.ColorTags.GetColor(node);
+         tn.BackColor = System.Drawing.Color.FromArgb(255, color);
+      }
+
       tn.FilterResult = this.Filters.ShowNode(wrapper);
       if (tn.FilterResult != FilterResults.Hide)
          parentCol.Add(tn);
@@ -361,6 +349,22 @@ public abstract class TreeMode
 
    #region System notifications
 
+   /// <summary>
+   /// Registers the default SystemNotifications.
+   /// </summary>
+   private void RegisterSystemNotifications()
+   {
+      this.RegisterSystemNotification(this.SystemPreNew, SystemNotificationCode.SystemPreNew);
+      this.RegisterSystemNotification(this.SystemPostNew, SystemNotificationCode.SystemPostNew);
+      this.RegisterSystemNotification(this.SystemPreReset, SystemNotificationCode.SystemPreReset);
+      this.RegisterSystemNotification(this.SystemPostReset, SystemNotificationCode.SystemPostReset);
+      this.RegisterSystemNotification(this.FilePreOpen, SystemNotificationCode.FilePreOpen);
+      this.RegisterSystemNotification(this.FilePostOpen, SystemNotificationCode.FilePostOpen);
+      this.RegisterSystemNotification(this.FilePostMerge, SystemNotificationCode.FilePostMerge);
+      this.RegisterSystemNotification(this.SelectionsetChanged, SystemNotificationCode.SelectionsetChanged);
+      this.RegisterSystemNotification(this.ColorTagChanged, ColorTags.TagChanged);
+   }
+
    public virtual void SelectionsetChanged(IntPtr param, IntPtr info)
    {
       if (this.selectedInOutliner)
@@ -423,10 +427,29 @@ public abstract class TreeMode
       this.FillTree();
    }
 
+   public virtual void ColorTagChanged(IntPtr param, IntPtr info)
+   {
+      IAnimatable node = MaxUtils.HelperMethods.GetCallParam(info) as IAnimatable;
+      List<TreeNode> tns = this.GetTreeNodes(node);
+      if (node == null || tns == null)
+         return;
+
+      Color color = ColorTags.GetColor(node);
+      tns.ForEach(tn => tn.BackColor = color);
+   }
+
    #endregion
 
 
    #region NodeEventCallbacks
+
+   /// <summary>
+   /// Registers the default NodeEventCallbacks.
+   /// </summary>
+   private void RegisterNodeEventCallbacks()
+   {
+      this.RegisterNodeEventCallbackObject(new DefaultNodeEventCallbacks(this));
+   }
 
    protected class DefaultNodeEventCallbacks : TreeModeNodeEventCallbacks
    {
@@ -440,17 +463,43 @@ public abstract class TreeMode
 
       public override void NameChanged(ITab<UIntPtr> nodes)
       {
-         this.treeMode.InvalidateTreeNodes(nodes, true, true);
+         Boolean sort = this.tree.NodeSorter is AlphabeticalSorter;
+         this.treeMode.InvalidateTreeNodes(nodes, true, sort);
       }
+
+      public override void WireColorChanged(ITab<UIntPtr> nodes)
+      {
+         foreach (IINode node in nodes.NodeKeysToINodeList())
+         {
+            List<TreeNode> tns = this.treeMode.GetTreeNodes(node);
+            if (tns != null)
+            {
+               Color color = ColorTags.GetColor(node);
+               tns.ForEach(tn => tn.BackColor = color);
+            }
+         }
+
+         AnimatablePropertySorter sorter = this.tree.NodeSorter as AnimatablePropertySorter;
+         Boolean sort = sorter != null && sorter.Property == AnimatableProperty.WireColor;
+         this.treeMode.InvalidateTreeNodes(nodes, false, sort);
+      }
+
 
       public override void DisplayPropertiesChanged(ITab<UIntPtr> nodes)
       {
-         Boolean sort = this.tree.NodeSorter is AnimatablePropertySorter;
+         AnimatablePropertySorter sorter = this.tree.NodeSorter as AnimatablePropertySorter;
+         Boolean sort = sorter != null && (sorter.Property == AnimatableProperty.BoxMode)
+                                       && (sorter.Property == AnimatableProperty.IsFrozen)
+                                       && (sorter.Property == AnimatableProperty.IsHidden)
+                                       && (sorter.Property == AnimatableProperty.Name)
+                                       && (sorter.Property == AnimatableProperty.XRayMtl);
          this.treeMode.InvalidateTreeNodes(nodes, false, sort);
       }
 
       public override void RenderPropertiesChanged(ITab<UIntPtr> nodes)
       {
+         AnimatablePropertySorter sorter = this.tree.NodeSorter as AnimatablePropertySorter;
+         Boolean sort = (sorter != null && sorter.Property == AnimatableProperty.Renderable);
          this.treeMode.InvalidateTreeNodes(nodes, false, false);
       }
    }

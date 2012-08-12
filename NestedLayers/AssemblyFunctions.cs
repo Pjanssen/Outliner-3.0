@@ -24,6 +24,8 @@ namespace Outliner.LayerTools
          NestedLayersMXS.Start(global);
          AutoInheritProperties.Start(global);
          AutoInheritPropertiesMXS.Start(global);
+         ColorTags.Start(global);
+         ColorTagsMXS.Start(global);
       }
 
       public static void AssemblyShutdown()
