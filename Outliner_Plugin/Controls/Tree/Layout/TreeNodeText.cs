@@ -93,28 +93,22 @@ public class TreeNodeText : TreeNodeButton //TreeNodeLayoutItem
       if (tn.FilterResult == FilterResults.ShowChildren)
          fgColor = Color.FromArgb(IconHelperMethods.FILTERED_OPACITY, fgColor);
 
-      using (SolidBrush bgBrush = new SolidBrush(bgColor),
-                        fgBrush = new SolidBrush(fgColor))
+      using (SolidBrush fgBrush = new SolidBrush(fgColor))
       {
          Rectangle gBounds = this.GetBounds(tn);
 
-         if (tn.State != TreeNodeStates.None)
-            graphics.FillRectangle(bgBrush, gBounds);
+         Boolean gradient = tn.State == TreeNodeStates.None && !tn.BackColor.IsEmpty;
+         tree.drawBackground(graphics, gBounds, bgColor, gradient);
 
          using (Font f = new Font(tree.Font, tn.FontStyle))
          {
-            //graphics.SetClip(new RectangleF(gBounds.X, gBounds.Y,  
-            //                                (gBounds.Width + emptySpaceWidth(tn)) - widthAfterThis(tn),
-            //                                this.Layout.ItemHeight));
-            StringFormat format = new StringFormat();
-            format.LineAlignment = StringAlignment.Center;
-            format.FormatFlags = StringFormatFlags.NoWrap;
-            format.Trimming = StringTrimming.EllipsisPath;
-            graphics.DrawString(tn.Text, f, fgBrush, gBounds, format);
-            //graphics.DrawString(tn.Text, f, fgBrush,
-            //                    gBounds.X, 
-            //                    gBounds.Y + ((gBounds.Height - this.GetTextSize(tn).Height) / 2));
-            //graphics.ResetClip();
+            using (StringFormat format = new StringFormat())
+            {
+               format.LineAlignment = StringAlignment.Center;
+               format.FormatFlags = StringFormatFlags.NoWrap;
+               format.Trimming = StringTrimming.EllipsisPath;
+               graphics.DrawString(tn.Text, f, fgBrush, gBounds, format);
+            }
          }
       }
    }

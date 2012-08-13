@@ -103,32 +103,13 @@ public class TreeView : ScrollableControl
       this.Update(TreeViewUpdateFlags.TreeNodeBounds | TreeViewUpdateFlags.Scrollbars);
    }
 
-   #region Paint
 
-   private TreeNodeLayout treeNodeLayout;
-   [Browsable(false)]
-   [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-   public TreeNodeLayout TreeNodeLayout 
-   {
-      get { return this.treeNodeLayout; }
-      set
-      {
-         if (value == null)
-            throw new ArgumentNullException("value");
-
-         this.treeNodeLayout = value;
-         this.treeNodeLayout.TreeView = this;
-      }
-   }
-
-
-
-   private SolidBrush brushBackground;
+   #region Colors
 
    private TreeViewColorScheme colors;
    [Browsable(false)]
    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-   public TreeViewColorScheme Colors 
+   public TreeViewColorScheme Colors
    {
       get { return this.colors; }
       set
@@ -149,7 +130,6 @@ public class TreeView : ScrollableControl
          this.brushBackground = null;
       }
    }
-
 
    internal Color GetLineColor(TreeNode tn)
    {
@@ -204,6 +184,7 @@ public class TreeView : ScrollableControl
       }
    }
 
+
    /// <summary>
    /// Gets the background color for a treenode.
    /// </summary>
@@ -222,17 +203,47 @@ public class TreeView : ScrollableControl
       if (highlight && tn.State.HasFlag(TreeNodeStates.ParentOfSelected))
          return this.Colors.ParentBackground.Color;
 
-      Color bgColor = this.Colors.Background.Color;
-      if (this.Colors.AlternateBackground && (tn.Bounds.Y / this.TreeNodeLayout.ItemHeight) % 2 != 0)
-         bgColor = this.Colors.AltBackground.Color;
-
-      if (tn.BackColor != Color.Empty)
+      if (highlight && !tn.BackColor.IsEmpty)
          return tn.BackColor;
+      else if (this.Colors.AlternateBackground && this.isAlternatingTn(tn))
+         return this.Colors.AltBackground.Color;
       else
-         return bgColor;
+         return this.Colors.Background.Color;
    }
 
+   private Boolean isAlternatingTn(TreeNode tn)
+   {
+      return (tn.Bounds.Y / this.TreeNodeLayout.ItemHeight) % 2 != 0;
+   }
 
+   private Boolean isGradientTn(TreeNode tn)
+   {
+      return this.TreeNodeLayout.FullRowSelect && tn.State == TreeNodeStates.None
+                                               && !tn.BackColor.IsEmpty;
+   }
+
+   #endregion
+
+
+   #region Paint
+
+   private TreeNodeLayout treeNodeLayout;
+   [Browsable(false)]
+   [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+   public TreeNodeLayout TreeNodeLayout 
+   {
+      get { return this.treeNodeLayout; }
+      set
+      {
+         if (value == null)
+            throw new ArgumentNullException("value");
+
+         this.treeNodeLayout = value;
+         this.treeNodeLayout.TreeView = this;
+      }
+   }
+
+   private SolidBrush brushBackground;
 
    protected override void OnPaintBackground(PaintEventArgs e)
    {
@@ -270,28 +281,7 @@ public class TreeView : ScrollableControl
          if (curY >= startY)
          {
             Color bgColor = this.GetNodeBackColor(tn, false);
-            if (bgColor != this.Colors.Background.Color)
-            {
-               Boolean isAltBg = this.Colors.AlternateBackground && bgColor == this.Colors.AltBackground.Color;
-               if (tn.State == TreeNodeStates.None && !isAltBg)
-               {
-                  Color bgGradColor = Color.FromArgb( bgColor.A
-                                                    , Math.Min(bgColor.R + 25, 255)
-                                                    , Math.Min(bgColor.G + 25, 255)
-                                                    , Math.Min(bgColor.B + 25, 255));
-                  using (LinearGradientBrush brush = new LinearGradientBrush(tn.Bounds, bgGradColor, bgColor, LinearGradientMode.Vertical))
-                  {
-                     e.Graphics.FillRectangle(brush, tn.Bounds);
-                  }
-               }
-               else
-               {
-                  using (SolidBrush bgBrush = new SolidBrush(bgColor))
-                  {
-                     e.Graphics.FillRectangle(bgBrush, tn.Bounds);
-                  }
-               }
-            }
+            this.drawBackground(e.Graphics, tn.Bounds, bgColor, this.isGradientTn(tn));
             
             this.TreeNodeLayout.DrawTreeNode(e.Graphics, tn);
          }
@@ -299,6 +289,25 @@ public class TreeView : ScrollableControl
          tn = tn.NextVisibleNode;
          curY += itemHeight;
       }
+   }
+
+   internal void drawBackground(Graphics g, Rectangle bounds, Color color, Boolean gradient)
+   {
+      Brush bgBrush;
+
+      if (gradient)
+      {
+         Color bgGradColor = Color.FromArgb(color.A
+                                           , Math.Min(color.R + 25, 255)
+                                           , Math.Min(color.G + 25, 255)
+                                           , Math.Min(color.B + 25, 255));
+         bgBrush = new LinearGradientBrush(bounds, bgGradColor, color, LinearGradientMode.Vertical);
+      }
+      else
+         bgBrush = new SolidBrush(color);
+
+      g.FillRectangle(bgBrush, bounds);
+      bgBrush.Dispose();
    }
 
    #endregion
@@ -579,11 +588,12 @@ public class TreeView : ScrollableControl
          prevDragTarget = null;
       }
 
-      if (dragDropHandler != null && dragDropHandler.IsValidDropTarget(drgevent.Data))
+      if (dragDropHandler != null)
       {
          drgevent.Effect = dragDropHandler.GetDragDropEffect(drgevent.Data);
 
-         if (tn != null && dragDropHandler != this.DragDropHandler)
+         if (tn != null && drgevent.Effect != TreeView.NoneDragDropEffects
+                        && dragDropHandler != this.DragDropHandler)
          {
             tn.SetStateFlag(TreeNodeStates.DropTarget);
             prevDragTarget = tn;

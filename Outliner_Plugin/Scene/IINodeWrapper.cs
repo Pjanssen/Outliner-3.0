@@ -77,7 +77,17 @@ public class IINodeWrapper : IMaxNodeWrapper
 
    public override bool CanAddChildNode(IMaxNodeWrapper node)
    {
-      return node is IINodeWrapper && node != this;
+      IINodeWrapper iinodeWrapper = node as IINodeWrapper;
+      if (iinodeWrapper == null)
+         return false;
+
+      if (node.Parent.Equals(this))
+         return false;
+
+      RefResult loop = this.iinode.TestForLoop( MaxInterfaces.Interval_Forever
+                                              , iinodeWrapper.IINode as IReferenceMaker);
+
+      return loop == RefResult.Succeed;
    }
    public override bool CanAddChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
    {

@@ -94,7 +94,10 @@ public struct SerializableColor : IXmlSerializable
          else
             return !col.isGuiColor && this.color == col.color;
       }
-      return false;
+      else if (obj is Color)
+         return this.Color.Equals(obj);
+      else
+         return false;
    }
 
    public override int GetHashCode()

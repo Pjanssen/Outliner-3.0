@@ -22,8 +22,8 @@ public abstract class TreeMode
 {
    protected TreeView tree { get; private set; }
    protected Autodesk.Max.IInterface ip { get; private set; }
-   private ICollection<KeyValuePair<GlobalDelegates.Delegate5, SystemNotificationCode>> systemNotifications;
-   private ICollection<KeyValuePair<uint, TreeModeNodeEventCallbacks>> nodeEventCallbacks;
+   private ICollection<Tuple<GlobalDelegates.Delegate5, SystemNotificationCode>> systemNotifications;
+   private ICollection<Tuple<uint, TreeModeNodeEventCallbacks>> nodeEventCallbacks;
    protected Dictionary<Object, List<TreeNode>> treeNodes { get; private set; }
    protected Boolean selectedInOutliner { get; set; }
 
@@ -54,10 +54,10 @@ public abstract class TreeMode
    protected void RegisterSystemNotification(GlobalDelegates.Delegate5 proc, SystemNotificationCode code)
    {
       if (this.systemNotifications == null)
-         this.systemNotifications = new List<KeyValuePair<GlobalDelegates.Delegate5, SystemNotificationCode>>();
+         this.systemNotifications = new List<Tuple<GlobalDelegates.Delegate5, SystemNotificationCode>>();
 
       MaxInterfaces.Global.RegisterNotification(proc, null, code);
-      this.systemNotifications.Add(new KeyValuePair<GlobalDelegates.Delegate5, SystemNotificationCode>(proc, code));
+      this.systemNotifications.Add(new Tuple<GlobalDelegates.Delegate5, SystemNotificationCode>(proc, code));
    }
 
    /// <summary>
@@ -68,8 +68,8 @@ public abstract class TreeMode
       if (this.systemNotifications == null)
          return;
 
-      foreach (KeyValuePair<GlobalDelegates.Delegate5, SystemNotificationCode> notif in this.systemNotifications)
-         MaxInterfaces.Global.UnRegisterNotification(notif.Key, null, notif.Value);
+      foreach (Tuple<GlobalDelegates.Delegate5, SystemNotificationCode> notif in this.systemNotifications)
+         MaxInterfaces.Global.UnRegisterNotification(notif.Item1, null, notif.Item2);
 
       this.systemNotifications.Clear();
       this.systemNotifications = null;
@@ -82,12 +82,12 @@ public abstract class TreeMode
    protected void RegisterNodeEventCallbackObject(TreeModeNodeEventCallbacks cb)
    {
       if (nodeEventCallbacks == null)
-         this.nodeEventCallbacks = new List<KeyValuePair<uint, TreeModeNodeEventCallbacks>>();
+         this.nodeEventCallbacks = new List<Tuple<uint, TreeModeNodeEventCallbacks>>();
       
       IISceneEventManager sceneEventMgr = MaxInterfaces.Global.ISceneEventManager;
       uint cbKey = sceneEventMgr.RegisterCallback(cb, false, 100, true);
 
-      this.nodeEventCallbacks.Add(new KeyValuePair<uint, TreeModeNodeEventCallbacks>(cbKey, cb));
+      this.nodeEventCallbacks.Add(new Tuple<uint, TreeModeNodeEventCallbacks>(cbKey, cb));
    }
 
 
@@ -101,10 +101,10 @@ public abstract class TreeMode
          return;
 
       IISceneEventManager sceneEventMgr = MaxInterfaces.Global.ISceneEventManager;
-      foreach (KeyValuePair<uint, TreeModeNodeEventCallbacks> cb in this.nodeEventCallbacks)
+      foreach (Tuple<uint, TreeModeNodeEventCallbacks> cb in this.nodeEventCallbacks)
       {
-         sceneEventMgr.UnRegisterCallback(cb.Key);
-         cb.Value.Dispose();
+         sceneEventMgr.UnRegisterCallback(cb.Item1);
+         cb.Item2.Dispose();
       }
       this.nodeEventCallbacks.Clear();
       this.nodeEventCallbacks = null;

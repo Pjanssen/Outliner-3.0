@@ -254,4 +254,10 @@ Use {0} to expand entire hierarchy.</value>
   <data name="Action_ToggleOutliner" xml:space="preserve">
     <value>Toggle Outliner</value>
   </data>
+  <data name="Command_Group" xml:space="preserve">
+    <value>Group nodes</value>
+  </data>
+  <data name="Command_Ungroup" xml:space="preserve">
+    <value>Ungroup nodes</value>
+  </data>
 </root>

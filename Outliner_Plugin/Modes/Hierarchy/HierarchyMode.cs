@@ -38,21 +38,27 @@ public class HierarchyMode : TreeMode
       this.tree.EndUpdate();
    }
 
-   public override TreeNode AddNode(Object node, TreeNodeCollection parentCol)
+   public override TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol)
    {
-      IINode inode = node as IINode;
-      if (inode == null)
-         return null;
+      TreeNode tn = base.AddNode(wrapper, parentCol);
 
-      TreeNode tn = base.AddNode(node, parentCol);
-      IMaxNodeWrapper wrapper = HelperMethods.GetMaxNode(tn);
-      tn.DragDropHandler = new IINodeDragDropHandler(wrapper);
+      IINodeWrapper iinodeWrapper = wrapper as IINodeWrapper;
+      if (iinodeWrapper != null)
+      {
+         if (iinodeWrapper.IINode.IsGroupMember || iinodeWrapper.IINode.IsGroupHead)
+            tn.DragDropHandler = new GroupDragDropHandler(wrapper);
+         else
+            tn.DragDropHandler = new IINodeDragDropHandler(wrapper);
+      }
 
-      for (int i = 0; i < inode.NumberOfChildren; i++)
-         this.AddNode(inode.GetChildNode(i), tn.Nodes);
-
+      foreach (Object child in wrapper.ChildNodes)
+      {
+         this.AddNode(child, tn.Nodes);
+      }
+      
       return tn;
    }
+
 
    private void RegisterNodeEventCallbacks()
    {

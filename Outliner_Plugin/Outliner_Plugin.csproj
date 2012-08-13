@@ -127,6 +127,7 @@
   <ItemGroup>
     <Compile Include="Actions\OpenOutlinerAction.cs" />
     <Compile Include="AssemblyFunctions.cs" />
+    <Compile Include="Commands\ChangeGroupCommand.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\MoveMaxNodeCommand.cs" />
     <Compile Include="Commands\ModifySelectionSetCommand.cs" />
@@ -151,6 +152,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\SerializableColor.cs" />
+    <Compile Include="Modes\Hierarchy\GroupDragDropHandler.cs" />
     <Compile Include="Modes\Layer\IILayerDragDropHandler.cs" />
     <Compile Include="Controls\Tree\DragDropHandler.cs" />
     <Compile Include="Modes\Hierarchy\IINodeDragDropHandler.cs" />

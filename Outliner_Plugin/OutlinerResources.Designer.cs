@@ -146,6 +146,15 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group nodes.
+        /// </summary>
+        internal static string Command_Group {
+            get {
+                return ResourceManager.GetString("Command_Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hide.
         /// </summary>
         internal static string Command_Hide {
@@ -241,6 +250,15 @@ namespace Outliner {
         internal static string Command_SetWireColor {
             get {
                 return ResourceManager.GetString("Command_SetWireColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ungroup nodes.
+        /// </summary>
+        internal static string Command_Ungroup {
+            get {
+                return ResourceManager.GetString("Command_Ungroup", resourceCulture);
             }
         }
         

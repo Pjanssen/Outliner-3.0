@@ -4,6 +4,7 @@
 * Superclass sorter does not really work with exceptions (target, bones, etc). -> use imagekey instead?
 * SetViewCameraCommand: properly store previous state.
 * ToggleLightTest use IInterface.CreateLightObject ?
+* Remove SerializableColor ==, replace by Equals
 
 TREEVIEW
 --------
