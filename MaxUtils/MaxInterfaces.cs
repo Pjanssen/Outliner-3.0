@@ -85,15 +85,25 @@ public static class MaxInterfaces
       }
    }
 
-   private static IINamedSelectionSetManager selectionSetManager;
    public static IINamedSelectionSetManager SelectionSetManager
    {
       get
       {
-         //if (selectionSetManager == null)
-            selectionSetManager = MaxInterfaces.Global.INamedSelectionSetManager.Instance;
+         return MaxInterfaces.Global.INamedSelectionSetManager.Instance;
+      }
+   }
 
-         return selectionSetManager;
+   private static IInterval interval_forever;
+   public static IInterval Interval_Forever
+   {
+      get
+      {
+         if (interval_forever == null)
+         {
+            interval_forever = MaxInterfaces.Global.Interval.Create();
+            interval_forever.SetInfinite();
+         }
+         return interval_forever;
       }
    }
 }

@@ -5,6 +5,7 @@
 * SetViewCameraCommand: properly store previous state.
 * ToggleLightTest use IInterface.CreateLightObject ?
 * Remove SerializableColor ==, replace by Equals
+* Filters: should enabling e.g. bonefilter show only bones, or hide only bones?
 
 TREEVIEW
 --------

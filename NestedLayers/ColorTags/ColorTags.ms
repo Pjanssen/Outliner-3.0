@@ -49,7 +49,7 @@
 
     public mapped function setWireColorTag node =
     (
-        ColorTags.setTag node (dotnetClass "Outliner.LayerTools.ColorTags").UseWireColor;
+        ColorTags.setTag node (dotnetClass "Outliner.LayerTools.ColorTag").WireColor;
     ),
 
     public mapped function removeTag node =

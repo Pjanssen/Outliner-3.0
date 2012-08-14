@@ -31,7 +31,19 @@ namespace Outliner.LayerTools
       public static byte GetTag(UInt64 nodeHandle)
       {
          IAnimatable node = getNode(nodeHandle);
-         return ColorTags.GetTag(node);
+         ColorTag tag = ColorTags.GetTag(node);
+         
+         IEnumerable<ColorTag> tags = Enum.GetValues(typeof(ColorTag)).Cast<ColorTag>();
+         byte index = 0;
+         foreach (ColorTag colorTag in tags)
+         {
+            if (colorTag == tag)
+               return index;
+
+            index++;
+         }
+
+         return 0;
       }
 
       public static Color GetColor(UInt64 nodeHandle)
@@ -40,9 +52,10 @@ namespace Outliner.LayerTools
          return ColorTags.GetColor(node);
       }
 
-      public static void SetTag(UInt64 nodeHandle, byte tag)
+      public static void SetTag(UInt64 nodeHandle, byte tagIndex)
       {
          IAnimatable node = getNode(nodeHandle);
+         ColorTag tag = (ColorTag)Enum.GetValues(typeof(ColorTag)).GetValue(tagIndex);
          ColorTags.SetTag(node, tag);
       }
 

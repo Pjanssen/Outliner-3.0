@@ -257,6 +257,7 @@ public class TreeNodeLayout
       get
       {
          TreeNodeLayout layout = new TreeNodeLayout();
+         layout.FullRowSelect = true;
          layout.LayoutItems.Add(new TreeNodeIndent());
          layout.LayoutItems.Add(new HideButton());
          layout.LayoutItems.Add(new FreezeButton());
@@ -278,13 +279,14 @@ public class TreeNodeLayout
          TreeNodeLayout layout = new TreeNodeLayout();
          layout.ItemHeight = 20;
          layout.FullRowSelect = true;
-         layout.LayoutItems.Add(new ExpandButton() { PaddingRight = 5, UseVisualStyles = false });
+         layout.LayoutItems.Add(new ExpandButton() { PaddingRight = 3, UseVisualStyles = false });
          layout.LayoutItems.Add(new TreeNodeIcon(IconSet.Maya, false));
          layout.LayoutItems.Add(new MayaStyleIndent());
          layout.LayoutItems.Add(new TreeNodeText());
          layout.LayoutItems.Add(new EmptySpace());
          layout.LayoutItems.Add(new HideButton());
          layout.LayoutItems.Add(new FreezeButton() { PaddingRight = 2 });
+         layout.LayoutItems.Add(new ColorTagButton() { PaddingRight = 2 });
          return layout;
       }
    }

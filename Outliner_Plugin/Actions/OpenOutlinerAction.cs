@@ -15,6 +15,7 @@ using Outliner.NodeSorters;
 using Outliner.Modes.SelectionSet;
 using Outliner.Modes.Hierarchy;
 using Outliner.Modes.Layer;
+using Outliner.LayerTools;
 
 namespace Outliner.Actions
 {
@@ -55,7 +56,7 @@ namespace Outliner.Actions
             //LayerMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
             //FlatObjectListMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
          
-         //tm.Filters.Add(new Filters.HelperFilter());
+         //tm.Filters.Add(new Filters.ColorTagsFilter(ColorTag.Green | ColorTag.Blue));
          //tm.Filters.Enabled = true;
          tm.FillTree();
          

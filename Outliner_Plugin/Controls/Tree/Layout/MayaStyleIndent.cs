@@ -45,7 +45,7 @@ public class MayaStyleIndent : TreeNodeLayoutItem
       TreeView tree = this.Layout.TreeView;
       Rectangle bounds = this.GetBounds(tn);
 
-      Color lineColor = tree.GetNodeForeColor(tn, false);
+      Color lineColor = tree.GetLineColor(tn);
 
       using (Pen linePen = new Pen(lineColor))
       {

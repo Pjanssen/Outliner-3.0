@@ -93,12 +93,12 @@ public class TreeNodeText : TreeNodeButton //TreeNodeLayoutItem
       if (tn.FilterResult == FilterResults.ShowChildren)
          fgColor = Color.FromArgb(IconHelperMethods.FILTERED_OPACITY, fgColor);
 
-      using (SolidBrush fgBrush = new SolidBrush(fgColor))
+      using (SolidBrush bgBrush = new SolidBrush(bgColor), 
+                        fgBrush = new SolidBrush(fgColor))
       {
          Rectangle gBounds = this.GetBounds(tn);
 
-         Boolean gradient = tn.State == TreeNodeStates.None && !tn.BackColor.IsEmpty;
-         tree.drawBackground(graphics, gBounds, bgColor, gradient);
+         graphics.FillRectangle(bgBrush, gBounds);
 
          using (Font f = new Font(tree.Font, tn.FontStyle))
          {

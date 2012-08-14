@@ -243,11 +243,6 @@ public abstract class TreeMode
       this.RegisterNode(wrapper, tn);
 
       IAnimatable node = wrapper.WrappedNode as IAnimatable;
-      if (node != null && Outliner.LayerTools.ColorTags.HasTag(node))
-      {
-         System.Drawing.Color color = Outliner.LayerTools.ColorTags.GetColor(node);
-         tn.BackColor = System.Drawing.Color.FromArgb(255, color);
-      }
 
       tn.FilterResult = this.Filters.ShowNode(wrapper);
       if (tn.FilterResult != FilterResults.Hide)
@@ -430,12 +425,17 @@ public abstract class TreeMode
    public virtual void ColorTagChanged(IntPtr param, IntPtr info)
    {
       IAnimatable node = MaxUtils.HelperMethods.GetCallParam(info) as IAnimatable;
-      List<TreeNode> tns = this.GetTreeNodes(node);
-      if (node == null || tns == null)
-         return;
+      this.InvalidateObject(node, false);
 
-      Color color = ColorTags.GetColor(node);
-      tns.ForEach(tn => tn.BackColor = color);
+      //FilterResults filterResult = this.Filters.ShowNode(IMaxNodeWrapper.Create(node));
+      //if (filterResult == FilterResults.Hide)
+      //   this.RemoveNode(node);
+      //else
+      //{
+      //   List<TreeNode> tns = this.GetTreeNodes(node);
+      //   if (tns == null)
+      //      this.AddNode(node, this.tree.Nodes); // temporary
+      //}
    }
 
    #endregion

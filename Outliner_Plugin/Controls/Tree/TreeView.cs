@@ -191,10 +191,8 @@ public class TreeView : ScrollableControl
    /// <param name="highlight">True if the background color is part of a highlight area (e.g. selection, drop-target)</param>
    internal Color GetNodeBackColor(TreeNode tn, Boolean highlight)
    {
-      if (tn == null || this.Colors == null || this.TreeNodeLayout == null)
+      if (tn == null || this.Colors == null)
          return Color.Empty;
-
-      highlight |= this.TreeNodeLayout.FullRowSelect;
 
       if (highlight && tn.State.HasFlag(TreeNodeStates.DropTarget))
          return this.Colors.DropTargetBackground.Color;
@@ -214,12 +212,6 @@ public class TreeView : ScrollableControl
    private Boolean isAlternatingTn(TreeNode tn)
    {
       return (tn.Bounds.Y / this.TreeNodeLayout.ItemHeight) % 2 != 0;
-   }
-
-   private Boolean isGradientTn(TreeNode tn)
-   {
-      return this.TreeNodeLayout.FullRowSelect && tn.State == TreeNodeStates.None
-                                               && !tn.BackColor.IsEmpty;
    }
 
    #endregion
@@ -280,8 +272,11 @@ public class TreeView : ScrollableControl
       {
          if (curY >= startY)
          {
-            Color bgColor = this.GetNodeBackColor(tn, false);
-            this.drawBackground(e.Graphics, tn.Bounds, bgColor, this.isGradientTn(tn));
+            Color bgColor = this.GetNodeBackColor(tn, this.TreeNodeLayout.FullRowSelect);
+            using (SolidBrush brush = new SolidBrush(bgColor))
+            {
+               e.Graphics.FillRectangle(brush, tn.Bounds);
+            }
             
             this.TreeNodeLayout.DrawTreeNode(e.Graphics, tn);
          }
@@ -289,25 +284,6 @@ public class TreeView : ScrollableControl
          tn = tn.NextVisibleNode;
          curY += itemHeight;
       }
-   }
-
-   internal void drawBackground(Graphics g, Rectangle bounds, Color color, Boolean gradient)
-   {
-      Brush bgBrush;
-
-      if (gradient)
-      {
-         Color bgGradColor = Color.FromArgb(color.A
-                                           , Math.Min(color.R + 25, 255)
-                                           , Math.Min(color.G + 25, 255)
-                                           , Math.Min(color.B + 25, 255));
-         bgBrush = new LinearGradientBrush(bounds, bgGradColor, color, LinearGradientMode.Vertical);
-      }
-      else
-         bgBrush = new SolidBrush(color);
-
-      g.FillRectangle(bgBrush, bounds);
-      bgBrush.Dispose();
    }
 
    #endregion
