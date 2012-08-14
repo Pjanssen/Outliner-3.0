@@ -23,7 +23,7 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CodeAnalysisRuleSet>..\..\cs_rules.ruleset</CodeAnalysisRuleSet>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -198,6 +198,7 @@
     <Compile Include="Modes\SelectionSet\IINodeDragDropHandler.cs" />
     <Compile Include="NodeButtonImages.cs" />
     <Compile Include="NodeSorters\AnimatablePropertySorter.cs" />
+    <Compile Include="NodeSorters\ColorTagsSorter.cs" />
     <Compile Include="NodeSorters\INodeHandleSorter.cs" />
     <Compile Include="NodeSorters\NodeSorter.cs" />
     <Compile Include="NodeSorters\SuperClassSorter.cs" />

@@ -20,10 +20,10 @@ public class TreeNode
    private Color foreColor;
    private FontStyle fontStyle;
    private String imageKey;
+   private FilterResults filterResult;
 
    public TreeNodeCollection Nodes { get; private set; }
    public DragDropHandler DragDropHandler { get; set; }
-   public FilterResults FilterResult { get; set; }
    public Object Tag { get; set; }
 
    public TreeNode() : this("") { }
@@ -43,7 +43,7 @@ public class TreeNode
       this.foreColor = foreColor;
       this.fontStyle = fontStyle;
       this.imageKey = imageKey;
-      this.FilterResult = filterResult;
+      this.filterResult = filterResult;
 
       this.boundsValid = false;
       this.Nodes = new TreeNodeCollection(this);
@@ -165,7 +165,7 @@ public class TreeNode
    /// <summary>
    /// Removes the node from the parent's TreeNodeCollection.
    /// </summary>
-   public void Remove()
+   public void Remove() 
    {
       if (this.parent != null)
          this.parent.Nodes.Remove(this);
@@ -198,6 +198,8 @@ public class TreeNode
             return this.parent.Nodes.IndexOf(this);
       } 
    }
+
+   #region Bounds
    
    /// <summary>
    /// Returns the node's bounds without taking the TreeView's scroll positions into account.
@@ -249,6 +251,7 @@ public class TreeNode
          return localBounds;
       } 
    }
+
    internal void InvalidateBounds(Boolean includeNextNodes, Boolean includeChildren)
    {
       this.bounds = Rectangle.Empty;
@@ -271,6 +274,9 @@ public class TreeNode
          }
       }
    }
+
+   #endregion
+
 
    /// <summary>
    /// Gets or sets the expanded state of the node.
@@ -311,6 +317,7 @@ public class TreeNode
          this.TreeView.EndUpdate();
    }
 
+
    /// <summary>
    /// Tests if this TreeNode is not hidden by a parent being collapsed.
    /// </summary>
@@ -318,6 +325,9 @@ public class TreeNode
    {
       get 
       {
+         //if (this.FilterResult == FilterResults.Hide)
+         //   return false;
+
          TreeNode pn = this.Parent;
          while (pn != null)
          {
@@ -328,6 +338,44 @@ public class TreeNode
          return true;
       }
    }
+
+
+   #region Filter
+   
+   public FilterResults FilterResult
+   {
+      get { return this.filterResult; }
+      set
+      {
+         if (this.filterResult != value)
+         {
+            this.filterResult = value;
+            if (this.parent != null)
+            {
+               this.parent.Nodes.updateFilter(this);
+               this.Invalidate();
+            }
+         }
+      }
+   }
+
+   internal Boolean HasUnfilteredChildren
+   {
+      get
+      {
+         foreach (TreeNode tn in this.Nodes)
+         {
+            if (tn.FilterResult == FilterResults.Show || tn.HasUnfilteredChildren)
+               return true;
+         }
+         return false;
+      }
+   }
+
+   #endregion
+
+
+   #region Next / Previous Node
 
    /// <summary>
    /// The next node in the parent's node collection. Null if this is the last node.
@@ -369,7 +417,7 @@ public class TreeNode
    /// Null if the node is the first node in the entire hierarchy.
    /// </summary>
    /// <remarks>Current implementation seems to perform poorly...</remarks>
-   public TreeNode PreviousVisibleNode
+   public TreeNode PreviousVisibleNode 
    {
       get
       {
@@ -389,6 +437,11 @@ public class TreeNode
             return null;
       }
    }
+
+   #endregion
+
+
+   #region TreeNodeState
 
    /// <summary>
    /// Gets or sets the selection state of the treenode.
@@ -440,6 +493,8 @@ public class TreeNode
    {
       this.State &= ~stateFlag;
    }
+
+   #endregion
 
 
    public override string ToString()

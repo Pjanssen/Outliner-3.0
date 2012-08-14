@@ -166,12 +166,9 @@ public class LayerMode : TreeMode
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
       if (layer != null)
       {
-         this.InvalidateObject(layer, true);
-         if (tree.NodeSorter is AnimatablePropertySorter &&
-          ((AnimatablePropertySorter)tree.NodeSorter).Property == AnimatableProperty.IsHidden)
-         {
-            this.tree.StartTimedSort(this.GetTreeNodes(layer));
-         }
+         AnimatablePropertySorter sorter = tree.NodeSorter as AnimatablePropertySorter;
+         Boolean sort = sorter != null && sorter.Property == AnimatableProperty.IsHidden;
+         this.InvalidateObject(layer, true, sort);
       }
    }
 
@@ -180,12 +177,9 @@ public class LayerMode : TreeMode
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
       if (layer != null)
       {
-         this.InvalidateObject(layer, true);
-         if (tree.NodeSorter is AnimatablePropertySorter &&
-          ((AnimatablePropertySorter)tree.NodeSorter).Property == AnimatableProperty.IsFrozen)
-         {
-            this.tree.StartTimedSort(this.GetTreeNodes(layer));
-         }
+         AnimatablePropertySorter sorter = tree.NodeSorter as AnimatablePropertySorter;
+         Boolean sort = sorter != null && sorter.Property == AnimatableProperty.IsFrozen;
+         this.InvalidateObject(layer, true, sort);
       }
    }
 
@@ -194,7 +188,8 @@ public class LayerMode : TreeMode
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
       if (layer != null)
       {
-         this.InvalidateObject(layer, true);
+         //TODO: check which properties should sort.
+         this.InvalidateObject(layer, true, false);
       }
    }
 

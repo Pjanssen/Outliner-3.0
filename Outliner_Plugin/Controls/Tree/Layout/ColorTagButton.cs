@@ -48,14 +48,11 @@ public class ColorTagButton : TreeNodeButton
       if (node == null)
          return;
 
-      Color color = ColorTags.GetColor(node.WrappedNode as IAnimatable);
-      Color gradColor = Color.FromArgb(color.A , Math.Min(color.R + 40, 255)
-                                               , Math.Min(color.G + 40, 255)
-                                               , Math.Min(color.B + 40, 255));
+      Int32 opacity = this.Layout.TreeView.GetNodeOpacity(tn);
+      Boolean hasTag = ColorTags.HasTag(node.WrappedNode as IAnimatable);
+      
       Rectangle rBounds = this.GetBounds(tn);
-      using (Pen linePen = new Pen(Color.Black))
-      using (LinearGradientBrush brush = 
-                new LinearGradientBrush(rBounds, gradColor, color, LinearGradientMode.Vertical))
+      using (Pen linePen = new Pen(Color.FromArgb(opacity, Color.Black)))
       {
          graphics.DrawLine(linePen, rBounds.Left + 1, rBounds.Top
                                   , rBounds.Right - 2, rBounds.Top);
@@ -64,10 +61,20 @@ public class ColorTagButton : TreeNodeButton
          graphics.DrawLine(linePen, rBounds.Left, rBounds.Top + 1
                                   , rBounds.Left, rBounds.Bottom - 2);
          graphics.DrawLine(linePen, rBounds.Right - 1, rBounds.Top + 1
-                                  , rBounds.Right - 1, rBounds.Bottom - 2);
+                                  , rBounds.Right - 1, rBounds.Bottom - 2);         
+      }
 
-         rBounds.Inflate(-1, -1);
-         graphics.FillRectangle(brush, rBounds);
+      if (hasTag)
+      {
+         Color color = Color.FromArgb(opacity, ColorTags.GetColor(node.WrappedNode as IAnimatable));
+         Color gradColor = Color.FromArgb(opacity, Math.Min(color.R + 40, 255)
+                                                  , Math.Min(color.G + 40, 255)
+                                                  , Math.Min(color.B + 40, 255));
+         using (LinearGradientBrush brush = new LinearGradientBrush(rBounds, gradColor, color, LinearGradientMode.Vertical))
+         {
+            rBounds.Inflate(-1, -1);
+            graphics.FillRectangle(brush, rBounds);
+         }
       }
    }
 }

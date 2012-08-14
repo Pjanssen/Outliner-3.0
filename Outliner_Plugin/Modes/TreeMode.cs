@@ -245,8 +245,7 @@ public abstract class TreeMode
       IAnimatable node = wrapper.WrappedNode as IAnimatable;
 
       tn.FilterResult = this.Filters.ShowNode(wrapper);
-      if (tn.FilterResult != FilterResults.Hide)
-         parentCol.Add(tn);
+      parentCol.Add(tn);
 
       if (wrapper.Selected)
          this.tree.SelectNode(tn, true);
@@ -307,13 +306,17 @@ public abstract class TreeMode
 
 
 
-   public virtual void InvalidateObject(Object obj, Boolean recursive)
+   public virtual void InvalidateObject(Object obj, Boolean recursive, Boolean sort)
    {
       if (obj != null)
       {
          List<TreeNode> tns = this.GetTreeNodes(obj);
          if (tns != null)
+         {
             tns.ForEach(tn => tn.Invalidate(recursive));
+            if (sort)
+               this.tree.StartTimedSort(tns);
+         }
       }
    }
 
@@ -336,6 +339,22 @@ public abstract class TreeMode
 
       if (sort)
          this.tree.StartTimedSort(true);
+   }
+
+   public virtual void UpdateFilter(Object obj)
+   {
+      if (obj != null)
+      {
+         List<TreeNode> tns = this.GetTreeNodes(obj);
+         if (tns != null)
+         {
+            foreach (TreeNode tn in tns)
+            {
+               IMaxNodeWrapper wrapper = HelperMethods.GetMaxNode(tn);
+               tn.FilterResult = this.Filters.ShowNode(wrapper);
+            }
+         }
+      }
    }
 
 
@@ -425,17 +444,10 @@ public abstract class TreeMode
    public virtual void ColorTagChanged(IntPtr param, IntPtr info)
    {
       IAnimatable node = MaxUtils.HelperMethods.GetCallParam(info) as IAnimatable;
-      this.InvalidateObject(node, false);
-
-      //FilterResults filterResult = this.Filters.ShowNode(IMaxNodeWrapper.Create(node));
-      //if (filterResult == FilterResults.Hide)
-      //   this.RemoveNode(node);
-      //else
-      //{
-      //   List<TreeNode> tns = this.GetTreeNodes(node);
-      //   if (tns == null)
-      //      this.AddNode(node, this.tree.Nodes); // temporary
-      //}
+      if (this.Filters.Contains(typeof(ColorTagsFilter)))
+         this.UpdateFilter(node);
+      
+      this.InvalidateObject(node, false, this.tree.NodeSorter is ColorTagsSorter);
    }
 
    #endregion

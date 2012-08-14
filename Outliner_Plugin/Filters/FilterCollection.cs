@@ -184,11 +184,7 @@ public class FilterCollection<T>
          }
       }
 
-      // If any of the filters return FilterResult.Hide, loop through children too.
-      if (filterResult == FilterResults.Hide)
-         return this.ShowChildNodes(node);
-      else
-         return filterResult;
+      return filterResult;
    }
 
    /// <summary>

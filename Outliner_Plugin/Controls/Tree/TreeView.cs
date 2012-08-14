@@ -131,6 +131,17 @@ public class TreeView : ScrollableControl
       }
    }
 
+   internal Int32 GetNodeOpacity(TreeNode tn)
+   {
+      if (tn == null)
+         return 0;
+
+      if (tn.FilterResult == Filters.FilterResults.Show)
+         return 255;
+      else
+         return IconHelperMethods.FILTERED_OPACITY;
+   }
+
    internal Color GetLineColor(TreeNode tn)
    {
       if (this.TreeNodeLayout.FullRowSelect)
@@ -162,15 +173,16 @@ public class TreeView : ScrollableControl
       if (tn == null || this.Colors == null)
          return Color.Empty;
 
-      if (tn.State.HasFlag(TreeNodeStates.DropTarget))
+      if (tn.HasStateFlag(TreeNodeStates.DropTarget))
          return this.Colors.DropTargetForeground.Color;
-      if (tn.State.HasFlag(TreeNodeStates.Selected))
-         return this.Colors.SelectionForeground.Color;
-      if (tn.State.HasFlag(TreeNodeStates.ParentOfSelected))
+      else if (tn.HasStateFlag(TreeNodeStates.Selected))
+         return  this.Colors.SelectionForeground.Color;
+      else if (tn.HasStateFlag(TreeNodeStates.ParentOfSelected))
          return this.Colors.ParentForeground.Color;
 
+      Color color;
       if (tn.ForeColor != Color.Empty)
-         return tn.ForeColor;
+         color = tn.ForeColor;
       else
       {
          float bBack = this.GetNodeBackColor(tn, highlight).GetBrightness();
@@ -178,10 +190,12 @@ public class TreeView : ScrollableControl
          float bLight = this.Colors.ForegroundLight.Color.GetBrightness();
 
          if (Math.Abs(bBack - bDark) > Math.Abs(bBack - bLight))
-            return this.Colors.ForegroundDark.Color;
+            color = this.Colors.ForegroundDark.Color;
          else
-            return this.Colors.ForegroundLight.Color;
+            color = this.Colors.ForegroundLight.Color;
       }
+
+      return Color.FromArgb(this.GetNodeOpacity(tn), color);
    }
 
 
@@ -194,11 +208,11 @@ public class TreeView : ScrollableControl
       if (tn == null || this.Colors == null)
          return Color.Empty;
 
-      if (highlight && tn.State.HasFlag(TreeNodeStates.DropTarget))
+      if (highlight && tn.HasStateFlag(TreeNodeStates.DropTarget))
          return this.Colors.DropTargetBackground.Color;
-      if (highlight && tn.State.HasFlag(TreeNodeStates.Selected))
+      if (highlight && tn.HasStateFlag(TreeNodeStates.Selected))
          return this.Colors.SelectionBackground.Color;
-      if (highlight && tn.State.HasFlag(TreeNodeStates.ParentOfSelected))
+      if (highlight && tn.HasStateFlag(TreeNodeStates.ParentOfSelected))
          return this.Colors.ParentBackground.Color;
 
       if (highlight && !tn.BackColor.IsEmpty)

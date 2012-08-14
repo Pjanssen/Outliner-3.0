@@ -8,7 +8,8 @@ namespace Outliner.Controls.Tree
 public class TreeNodeCollection : ICollection<TreeNode>
 {
    private TreeNode owner;
-   private List<TreeNode> nodes;
+   private List<TreeNode> unfilteredNodes;
+   private List<TreeNode> filteredNodes;
 
    public TreeNodeCollection(TreeNode owner)
    {
@@ -16,7 +17,8 @@ public class TreeNodeCollection : ICollection<TreeNode>
          throw new ArgumentNullException("owner");
 
       this.owner = owner;
-      this.nodes = new List<TreeNode>();
+      this.unfilteredNodes = new List<TreeNode>();
+      this.filteredNodes = new List<TreeNode>();
    }
 
    private void boundsChanged(TreeNode tn)
@@ -41,26 +43,18 @@ public class TreeNodeCollection : ICollection<TreeNode>
       //Remove item from old parent collection.
       item.Remove();
 
-      //Set next/previous node links.
-      if (this.nodes.Count > 0)
-      {
-         TreeNode lastNode = this.nodes[this.nodes.Count - 1];
-         lastNode.NextNode = item;
-         item.PreviousNode = lastNode;
-      }
+      this.unfilteredNodes.Add(item);
 
-      //Add item to collection.
-      this.nodes.Add(item);
       item.parent = this.owner;
       item.TreeView = this.owner.TreeView;
 
-      //Invalidate tree bounds.
-      this.boundsChanged(item);
+      if (item.FilterResult != Filters.FilterResults.Hide)
+         this.addFiltered(item);
    }
 
    public void Clear()
    {
-      foreach (TreeNode tn in this.nodes)
+      foreach (TreeNode tn in this.unfilteredNodes)
       {
          tn.TreeView = null;
          tn.parent = null;
@@ -68,7 +62,8 @@ public class TreeNodeCollection : ICollection<TreeNode>
          tn.NextNode = null;
       }
 
-      this.nodes.Clear();
+      this.unfilteredNodes.Clear();
+      this.filteredNodes.Clear();
 
       if (this.owner != null && this.owner.TreeView != null)
          this.owner.TreeView.Update(TreeViewUpdateFlags.All);
@@ -76,17 +71,17 @@ public class TreeNodeCollection : ICollection<TreeNode>
 
    public bool Contains(TreeNode item)
    {
-      return this.nodes.Contains(item);
+      return this.unfilteredNodes.Contains(item);
    }
 
    public void CopyTo(TreeNode[] array, int arrayIndex)
    {
-      this.nodes.CopyTo(array, arrayIndex);
+      this.unfilteredNodes.CopyTo(array, arrayIndex);
    }
 
    public int Count
    {
-      get { return this.nodes.Count; }
+      get { return this.filteredNodes.Count; }
    }
 
    public bool IsReadOnly
@@ -102,47 +97,84 @@ public class TreeNodeCollection : ICollection<TreeNode>
       if (!this.Contains(item))
          return false;
 
-      item.InvalidateBounds(item.IsVisible, true);
+      this.removeFiltered(item);
 
       item.TreeView = null;
       item.parent = null;
-      if (item.PreviousNode != null)
-         item.PreviousNode.NextNode = item.NextNode;
-      if (item.NextNode != null)
-         item.NextNode.PreviousNode = item.PreviousNode;
-      item.PreviousNode = null;
-      item.NextNode = null;
 
-      if (this.nodes.Remove(item))
-      {
-         if (this.owner != null && this.owner.TreeView != null)
-            this.owner.TreeView.Invalidate();
-         return true;
-      }
-      else
-         return false;
+      return this.unfilteredNodes.Remove(item);
    }
 
    public IEnumerator<TreeNode> GetEnumerator()
    {
-      return this.nodes.GetEnumerator();
+      return this.filteredNodes.GetEnumerator();
    }
 
    System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
    {
-      return this.nodes.GetEnumerator();
+      return this.filteredNodes.GetEnumerator();
    }
 
    #endregion
+
+
+
+
+   private void addFiltered(TreeNode tn)
+   {
+      //Set next/previous node links.
+      if (this.filteredNodes.Count > 0)
+      {
+         TreeNode lastNode = this.filteredNodes[this.filteredNodes.Count - 1];
+         lastNode.NextNode = tn;
+         tn.PreviousNode = lastNode;
+      }
+
+      //Add item to collection.
+      this.filteredNodes.Add(tn);
+
+      //Invalidate tree bounds.
+      this.boundsChanged(tn);
+
+      if (tn.Parent != null && tn.Parent.FilterResult == Filters.FilterResults.Hide)
+         tn.Parent.parent.Nodes.addFiltered(tn.Parent);
+   }
+
+   private void removeFiltered(TreeNode tn) 
+   {
+      tn.InvalidateBounds(true, true);
+
+      if (tn.PreviousNode != null)
+         tn.PreviousNode.NextNode = tn.NextNode;
+      if (tn.NextNode != null)
+         tn.NextNode.PreviousNode = tn.PreviousNode;
+      tn.PreviousNode = null;
+      tn.NextNode = null;
+
+      if (tn.Parent != null && tn.Parent.FilterResult == Filters.FilterResults.Hide)
+         tn.Parent.parent.Nodes.removeFiltered(tn.Parent);
+
+      this.filteredNodes.Remove(tn);
+   }
+
+   internal void updateFilter(TreeNode tn)
+   {
+      if (tn.FilterResult == Filters.FilterResults.Hide && !tn.HasUnfilteredChildren)
+         this.removeFiltered(tn);
+      else if (!this.filteredNodes.Contains(tn))
+         this.addFiltered(tn);
+   }
+
+
 
 
    public TreeNode this[Int32 index]
    {
       get 
       {
-         if (index < 0 || index > this.nodes.Count - 1)
+         if (index < 0 || index > this.filteredNodes.Count - 1)
             return null;
-         return this.nodes[index]; 
+         return this.filteredNodes[index]; 
       }
       set 
       {
@@ -151,25 +183,25 @@ public class TreeNodeCollection : ICollection<TreeNode>
 
          if (index > 0)
          {
-            TreeNode prevNode = this.nodes[index - 1];
+            TreeNode prevNode = this.filteredNodes[index - 1];
             prevNode.NextNode = value;
             value.PreviousNode = prevNode;
          }
-         if (index < this.nodes.Count - 1)
+         if (index < this.filteredNodes.Count - 1)
          {
-            TreeNode nextNode = this.nodes[index + 1];
+            TreeNode nextNode = this.filteredNodes[index + 1];
             nextNode.PreviousNode = value;
             value.NextNode = nextNode;
          }
          value.TreeView = this.owner.TreeView;
          value.parent = this.owner;
-         this.nodes[index] = value;
+         this.filteredNodes[index] = value;
       }
    }
 
    public Int32 IndexOf(TreeNode item)
    {
-      return this.nodes.IndexOf(item);
+      return this.filteredNodes.IndexOf(item);
    }
 
    public void Sort(IComparer<TreeNode> comparer, Boolean sortChildren)
@@ -180,10 +212,10 @@ public class TreeNodeCollection : ICollection<TreeNode>
       if (this.owner.TreeView != null)
          this.owner.TreeView.BeginUpdate(TreeViewUpdateFlags.Redraw | TreeViewUpdateFlags.Scrollbars);
 
-      this.nodes.Sort(comparer);
+      this.filteredNodes.Sort(comparer);
 
       TreeNode prevNode = null;
-      foreach (TreeNode tn in this.nodes)
+      foreach (TreeNode tn in this.filteredNodes)
       {
          //Maintain previous-/nextnode links
          if (prevNode != null)
