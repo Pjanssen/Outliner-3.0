@@ -16,8 +16,7 @@ namespace Outliner.Modes.Layer
 {
 public class LayerMode : TreeMode
 {
-   public LayerMode(TreeView tree, Autodesk.Max.IInterface ip)
-      : base(tree, ip) 
+   public LayerMode(TreeView tree, Autodesk.Max.IInterface ip) : base(tree, ip) 
    {
       this.RegisterSystemNotifications();
       this.RegisterNodeEventCallbacks();
@@ -36,40 +35,27 @@ public class LayerMode : TreeMode
       this.tree.EndUpdate();
    }
 
-   public override TreeNode AddNode(object node, TreeNodeCollection parentCol)
+   public override TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol)
    {
-      if (node is IILayer)
-         return this.addNode((IILayer)node, parentCol);
-      else if (node is IINode)
-         return this.addNode((IINode)node, parentCol);
-      else
-         return null;
-   }
+      TreeNode tn = base.AddNode(wrapper, parentCol);
 
-   private TreeNode addNode(IILayer layer, TreeNodeCollection parentCol)
-   {
-      TreeNode tn = base.AddNode(layer, parentCol);
-      IMaxNodeWrapper wrapper = HelperMethods.GetMaxNode(tn);
-      tn.DragDropHandler = new IILayerDragDropHandler(wrapper as IILayerWrapper);
+      IILayerWrapper layerWrapper = wrapper as IILayerWrapper;
+      if (layerWrapper != null)
+      {
+         //Set italic font for default layer.
+         if (layerWrapper.IsDefault)
+            tn.FontStyle = FontStyle.Italic;
 
-      if (wrapper is IILayerWrapper && ((IILayerWrapper)wrapper).IsDefault)
-         tn.FontStyle = FontStyle.Italic;
+         //Add nodes belonging to this layer.
+         foreach (Object node in wrapper.ChildNodes)
+            this.AddNode(node, tn.Nodes);
 
-      //Add nodes belonging to this layer.
-      foreach (Object node in wrapper.ChildNodes)
-         this.AddNode(node, tn.Nodes);
-
-      return tn;
-   }
-
-   private TreeNode addNode(IINode inode, TreeNodeCollection parentCol)
-   {
-      TreeNode tn = base.AddNode(inode, parentCol);
-      IINodeWrapper wrapper = HelperMethods.GetMaxNode(tn) as IINodeWrapper;
-      if (wrapper == null)
-         return tn;
-
-      tn.DragDropHandler = new IINodeDragDropHandler(wrapper);
+         tn.DragDropHandler = new IILayerDragDropHandler(layerWrapper);
+      }
+      else if (wrapper is IINodeWrapper)
+      {
+         tn.DragDropHandler = new IINodeDragDropHandler(wrapper);
+      }
 
       return tn;
    }
@@ -147,9 +133,7 @@ public class LayerMode : TreeMode
    {
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
       if (layer != null)
-      {
          this.AddNode(layer, this.tree.Nodes);
-      }
    }
 
    public virtual void LayerDeleted(IntPtr param, IntPtr info)
