@@ -154,7 +154,7 @@
       <Project>{0CA16252-FD2C-4078-819F-C9ABD2735765}</Project>
       <Name>MaxUtils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NestedLayers\LayerTools.csproj">
+    <ProjectReference Include="..\LayerTools\LayerTools.csproj">
       <Project>{D89AAF44-43BA-48F2-BEEC-852FC3AB4655}</Project>
       <Name>LayerTools</Name>
     </ProjectReference>
