@@ -52,6 +52,9 @@ public class LayerMode : TreeMode
       IMaxNodeWrapper wrapper = HelperMethods.GetMaxNode(tn);
       tn.DragDropHandler = new IILayerDragDropHandler(wrapper as IILayerWrapper);
 
+      if (wrapper is IILayerWrapper && ((IILayerWrapper)wrapper).IsDefault)
+         tn.FontStyle = FontStyle.Italic;
+
       //Add nodes belonging to this layer.
       foreach (Object node in wrapper.ChildNodes)
          this.AddNode(node, tn.Nodes);

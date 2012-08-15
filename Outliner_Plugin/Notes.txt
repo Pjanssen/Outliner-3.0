@@ -5,7 +5,6 @@
 * SetViewCameraCommand: properly store previous state.
 * ToggleLightTest use IInterface.CreateLightObject ?
 * Filters: should enabling e.g. bonefilter show only bones, or hide only bones?
-* Set FontStyle on ALlObjects TreeNode selset to italic?
 
 TREEVIEW
 --------

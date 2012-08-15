@@ -33,7 +33,9 @@ public class SelectionSetMode : TreeMode
    {
       this.tree.BeginUpdate();
 
-      this.AddNode(this.allObjectsSelSet, this.tree.Nodes);
+      TreeNode allObjTn = this.AddNode(this.allObjectsSelSet, this.tree.Nodes);
+      allObjTn.FontStyle = System.Drawing.FontStyle.Italic;
+
       IINamedSelectionSetManager selSetMan = MaxInterfaces.SelectionSetManager;
       for (int i = 0; i < selSetMan.NumNamedSelSets; i++)
       {

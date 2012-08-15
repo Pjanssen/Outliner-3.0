@@ -32,12 +32,16 @@ namespace Outliner.Controls.Tree
       {
          get
          {
+            System.Drawing.FontStyle style = base.FontStyle;
             if (this.MaxNode is IINodeWrapper && ((IINodeWrapper)this.MaxNode).IsInstance)
-               return System.Drawing.FontStyle.Bold;
+               return style | System.Drawing.FontStyle.Bold;
             else
-               return System.Drawing.FontStyle.Regular;
+               return style;
          }
-         set { }
+         set 
+         {
+            base.FontStyle = value;
+         }
       }
    }
 }

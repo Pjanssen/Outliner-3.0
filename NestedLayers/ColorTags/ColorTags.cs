@@ -67,7 +67,7 @@ public static class ColorTags
    public static Boolean HasTag(IAnimatable node)
    {
       if (node == null)
-         throw new ArgumentNullException("node");
+         return false;
 
       ColorTag tag = ColorTags.GetTag(node);
       return tag != ColorTag.None;
@@ -79,7 +79,7 @@ public static class ColorTags
    public static Boolean HasTag(IAnimatable node, ColorTag tags)
    {
       if (node == null)
-         throw new ArgumentNullException("node");
+         return false;
 
       ColorTag nodeTag = ColorTags.GetTag(node);
       return (nodeTag & tags) != 0;
@@ -91,7 +91,7 @@ public static class ColorTags
    public static ColorTag GetTag(IAnimatable node)
    {
       if (node == null)
-         throw new ArgumentNullException("node");
+         return ColorTag.None;
 
       IAppDataChunk chunk = node.GetAppDataChunk(ColorTags.classID, SClass_ID.Utility, 0);
       if (chunk == null || chunk.Data == null || chunk.Data.Length == 0)
@@ -106,7 +106,7 @@ public static class ColorTags
    public static Color GetColor(IAnimatable node)
    {
       if (node == null)
-         throw new ArgumentNullException("node");
+         return Color.Empty;
 
       ColorTag tag = ColorTags.GetTag(node);
 

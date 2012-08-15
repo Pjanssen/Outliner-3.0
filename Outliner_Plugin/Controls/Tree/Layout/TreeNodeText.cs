@@ -90,9 +90,6 @@ public class TreeNodeText : TreeNodeButton //TreeNodeLayoutItem
       Color bgColor = tree.GetNodeBackColor(tn, true);
       Color fgColor = tree.GetNodeForeColor(tn, true);
 
-      //if (tn.FilterResult == FilterResults.ShowChildren)
-      //   fgColor = Color.FromArgb(IconHelperMethods.FILTERED_OPACITY, fgColor);
-
       using (SolidBrush bgBrush = new SolidBrush(bgColor), 
                         fgBrush = new SolidBrush(fgColor))
       {
