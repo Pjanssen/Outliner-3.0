@@ -78,4 +78,12 @@ public class ColorTagButton : TreeNodeButton
       }
    }
 }
+
+internal class ColorTagSelector : System.Windows.Forms.Form
+{
+   internal ColorTagSelector()
+   {
+      //this.
+   }
+}
 }

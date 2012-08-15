@@ -9,18 +9,23 @@ namespace Outliner
 {
    public struct ButtonImages
    {
-      public Image Regular;
-      public Image Disabled;
-      public Image RegularFiltered;
-      public Image DisabledFiltered;
+      private Image regular;
+      private Image disabled;
+      private Image regularFiltered;
+      private Image disabledFiltered;
+
+      public Image Regular { get { return this.regular; } }
+      public Image Disabled { get { return this.disabled; } }
+      public Image RegularFiltered { get { return this.regularFiltered; } }
+      public Image DisabledFiltered { get { return this.disabledFiltered; } }
 
       public ButtonImages(Image regular, Image disabled,
                           Image regularFiltered, Image disabledFiltered)
       {
-         Regular = regular;
-         Disabled = disabled;
-         RegularFiltered = regularFiltered;
-         DisabledFiltered = disabledFiltered;
+         this.regular = regular;
+         this.disabled = disabled;
+         this.regularFiltered = regularFiltered;
+         this.disabledFiltered = disabledFiltered;
       }
    }
 

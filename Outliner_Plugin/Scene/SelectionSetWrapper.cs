@@ -95,6 +95,9 @@ namespace Outliner.Scene
       }
       public override void AddChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
       {
+         if (nodes == null)
+            return;
+
          IINodeTab nodeTab = HelperMethods.ToIINodeTab(this.ChildNodes);
          nodeTab.Resize(nodeTab.Count + nodes.Count());
 
@@ -125,6 +128,9 @@ namespace Outliner.Scene
       }
       public override void RemoveChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
       {
+         if (nodes == null)
+            return;
+
          IINodeTab nodeTab = HelperMethods.ToIINodeTab(this.ChildNodes);
 
          foreach (IMaxNodeWrapper node in nodes)
@@ -284,10 +290,10 @@ namespace Outliner.Scene
          }
       }
 
-      public const String IMGKEY_SELECTIONSET = "selectionset";
+      public const String ImgKeySelectionSet = "selectionset";
       public override string ImageKey
       {
-         get { return IMGKEY_SELECTIONSET; }
+         get { return ImgKeySelectionSet; }
       }
    }
 }

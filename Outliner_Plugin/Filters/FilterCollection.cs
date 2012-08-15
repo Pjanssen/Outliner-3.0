@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace Outliner.Filters
 {
-public class FilterCollection<T>
+public class FilterCollection<T> : ICollection<Filter<T>>
 {
-   public delegate IEnumerable<T> GetChildNodes(T node);
-   public GetChildNodes GetChildNodesFn { get; set; }
-
    private Boolean enabled;
    private List<Filter<T>> filters;
 
@@ -26,7 +24,7 @@ public class FilterCollection<T>
       }
    }
 
-   
+
    /// <summary>
    /// Gets or sets whether the FilterCollection is enabled.
    /// </summary>
@@ -40,66 +38,30 @@ public class FilterCollection<T>
       }
    }
 
-   /// <summary>
-   /// Adds the supplied filter to the collection as non-permanent.
-   /// </summary>
-   public void Add(Filter<T> filter)
-   {
-      if (filter == null)
-         return;
 
-      if (!this.filters.Contains(filter))
-         this.filters.Add(filter);
-
-      filter.FilterChanged += filterChanged;
-
-      this.OnFilterAdded(filter);
-   }
+   #region ICollection members
    
-
-
-   /// <summary>
-   /// Removes the supplied filter from the collection.
-   /// </summary>
-   public void Remove(Filter<T> filter)
+   public void Add(Filter<T> item)
    {
-      if (filter == null)
+      if (item == null)
          return;
 
-      this.filters.Remove(filter);
+      if (!this.filters.Contains(item))
+         this.filters.Add(item);
 
-      filter.FilterChanged -= filterChanged;
+      item.FilterChanged += filterChanged;
 
-      this.OnFilterRemoved(filter);
-   }
-   /// <summary>
-   /// Removes all filters of the supplied type from the collection.
-   /// </summary>
-   public void Remove(Type filterType)
-   {
-      List<Filter<T>> filtersToRemove = new List<Filter<T>>();
-
-      foreach (Filter<T> filter in this.filters)
-      {
-         if (filter.GetType().Equals(filterType))
-            filtersToRemove.Add(filter);
-      }
-      
-      foreach (Filter<T> filter in filtersToRemove)
-      {
-         this.Remove(filter);
-      }
-      filtersToRemove.Clear();
+      this.OnFilterAdded(item);
    }
 
-
-   /// <summary>
+   ///<summary>
    /// Removes all non-permanent filters from the collection.
    /// </summary>
    public void Clear()
    {
       this.Clear(false);
    }
+
    /// <summary>
    /// Removes all filters from the collection.
    /// </summary>
@@ -119,16 +81,79 @@ public class FilterCollection<T>
          this.Remove(filter);
       }
       filtersToRemove.Clear();
-
+      
       this.OnFiltersCleared();
    }
 
-   /// <summary>
-   /// The number of filters in the FilterCollection.
-   /// </summary>
-   public Int32 Count
+   public bool Contains(Filter<T> item)
+   {
+      return this.filters.Contains(item);
+   }
+   
+   public Boolean Contains(Type filterType)
+   {
+      return this.Get(filterType) != null;
+   }
+
+   public void CopyTo(Filter<T>[] array, int arrayIndex)
+   {
+      this.filters.CopyTo(array, arrayIndex);
+   }
+
+   public int Count
    {
       get { return this.filters.Count; }
+   }
+
+   public bool IsReadOnly
+   {
+      get { return false; }
+   }
+
+   public bool Remove(Filter<T> item)
+   {
+      if (item == null)
+         return false;
+
+      item.FilterChanged -= filterChanged;
+
+      if (this.filters.Remove(item))
+      {
+         this.OnFilterRemoved(item);
+         return true;
+      }
+      else
+         return false;
+   }
+
+   /// <summary>
+   /// Removes all filters of the supplied type from the collection.
+   /// </summary>
+   public void Remove(Type filterType)
+   {
+      List<Filter<T>> filtersToRemove = new List<Filter<T>>();
+
+      foreach (Filter<T> filter in this.filters)
+      {
+         if (filter.GetType().Equals(filterType))
+            filtersToRemove.Add(filter);
+      }
+
+      foreach (Filter<T> filter in filtersToRemove)
+      {
+         this.Remove(filter);
+      }
+      filtersToRemove.Clear();
+   }
+
+   public IEnumerator<Filter<T>> GetEnumerator()
+   {
+      return this.filters.GetEnumerator();
+   }
+
+   IEnumerator IEnumerable.GetEnumerator()
+   {
+      return this.filters.GetEnumerator();
    }
 
    public Filter<T> Get(Int32 index)
@@ -138,6 +163,7 @@ public class FilterCollection<T>
 
       return this.filters[index];
    }
+
    /// <summary>
    /// Retrieves the first found filter in the collection of the supplied type.
    /// </summary>
@@ -146,22 +172,7 @@ public class FilterCollection<T>
       return this.filters.Find(f => f.GetType().Equals(filterType));
    }
 
-
-   /// <summary>
-   /// Returns true if the collection contains the supplied filter.
-   /// </summary>
-   public Boolean Contains(Filter<T> filter)
-   {
-      return this.filters.Contains(filter);
-   }
-   /// <summary>
-   /// Returns true if the collection contains a filter of the supplied type.
-   /// </summary>
-   public Boolean Contains(Type filterType)
-   {
-      return this.Get(filterType) != null;
-   }
-
+   #endregion
 
 
    /// <summary>
@@ -187,31 +198,8 @@ public class FilterCollection<T>
       return filterResult;
    }
 
-   /// <summary>
-   /// Tests whether the children of the supplied node should be shown.
-   /// </summary>
-   protected virtual FilterResults ShowChildNodes(T node)
-   {
-      if (node == null || this.GetChildNodesFn == null)
-         return FilterResults.Hide;
 
-      IEnumerable<T> childNodes = this.GetChildNodesFn(node);
-      if (childNodes != null)
-      {
-         foreach (T child in childNodes)
-         {
-            if (this.ShowNode(child) == FilterResults.Show
-               || this.ShowChildNodes(child) == FilterResults.ShowChildren)
-               return FilterResults.ShowChildren;
-         }
-      }
-
-      return FilterResults.Hide;
-   }
-
-
-
-   // Events.
+   #region Events.
 
    /// <summary>
    /// Raised when the filter collection's Enabled property has been changed.
@@ -262,8 +250,9 @@ public class FilterCollection<T>
       if (this.FilterChanged != null)
          this.FilterChanged(this, new FilterChangedEventArgs<T>(sender as Filter<T>));
    }
-}
 
+   #endregion
+}
 
 public class FilterChangedEventArgs<T> : EventArgs
 {

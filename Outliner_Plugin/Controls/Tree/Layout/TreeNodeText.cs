@@ -69,6 +69,9 @@ public class TreeNodeText : TreeNodeButton //TreeNodeLayoutItem
 
    protected override string GetTooltipText(TreeNode tn)
    {
+      if (tn == null)
+         return String.Empty;
+
       int textWidth = this.GetTextSize(tn).Width + 1;
       int maxWidth = this.getMaxWidth(tn);
 

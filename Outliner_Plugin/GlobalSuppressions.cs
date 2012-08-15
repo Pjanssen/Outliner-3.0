@@ -49,3 +49,5 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily", Scope = "member", Target = "Outliner.Controls.Tree.Layout.TreeNodeIcon.#HandleMouseUp(System.Windows.Forms.MouseEventArgs,Outliner.Controls.Tree.TreeNode)")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily", Scope = "member", Target = "Outliner.Controls.Tree.Layout.TreeNodeIcon.#GetTooltipText(Outliner.Controls.Tree.TreeNode)")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "Outliner.Controls.Tree.Layout.TreeNodeLayoutItemCollection.#Layout")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "ID", Scope = "member", Target = "Outliner.Scene.IMaxNodeWrapper.#SuperClassID")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1020:AvoidNamespacesWithFewTypes", Scope = "namespace", Target = "Outliner.Modes.Layer")]

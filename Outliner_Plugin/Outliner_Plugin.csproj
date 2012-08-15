@@ -152,7 +152,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\SerializableColor.cs" />
-    <Compile Include="Controls\Tree\Layout\ColorTagButton.cs" />
+    <Compile Include="Controls\Tree\Layout\ColorTagButton.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Filters\ColorTagsFilter.cs" />
     <Compile Include="Modes\Hierarchy\GroupDragDropHandler.cs" />
     <Compile Include="Modes\Layer\IILayerDragDropHandler.cs" />
@@ -212,7 +214,6 @@
     <Compile Include="Filters\CustomFilters.cs" />
     <Compile Include="Filters\CustomNodeFilter.cs" />
     <Compile Include="Filters\FilterResult.cs" />
-    <Compile Include="Filters\FlatListFilterCollection.cs" />
     <Compile Include="Filters\FrozenFilter.cs" />
     <Compile Include="Filters\GeometryFilter.cs" />
     <Compile Include="Filters\HelperFilter.cs" />

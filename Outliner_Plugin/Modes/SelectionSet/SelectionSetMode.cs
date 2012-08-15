@@ -13,7 +13,7 @@ namespace Outliner.Modes.SelectionSet
 {
 public class SelectionSetMode : TreeMode
 {
-   protected AllObjectsSelectionSet allObjectsSelSet;
+   private AllObjectsSelectionSet allObjectsSelSet;
 
    public SelectionSetMode(TreeView tree) : base(tree)
    {

@@ -39,6 +39,11 @@ public class HierarchyMode : TreeMode
 
    public override TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol)
    {
+      if (wrapper == null)
+         throw new ArgumentNullException("wrapper");
+      if (parentCol == null)
+         throw new ArgumentNullException("parentCol");
+
       TreeNode tn = base.AddNode(wrapper, parentCol);
 
       IINodeWrapper iinodeWrapper = wrapper as IINodeWrapper;

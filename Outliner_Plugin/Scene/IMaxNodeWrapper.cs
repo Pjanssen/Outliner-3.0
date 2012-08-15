@@ -94,13 +94,13 @@ namespace Outliner.Scene
          set { }
       }
 
-      public virtual Object GetProperty(AnimatableProperty property)
+      public virtual Object GetProperty(AnimatableProperty prop)
       {
-         if (AnimatablePropertyHelpers.IsBooleanProperty(property))
-            return this.GetProperty(AnimatablePropertyHelpers.ToBooleanProperty(property));
+         if (AnimatablePropertyHelpers.IsBooleanProperty(prop))
+            return this.GetProperty(AnimatablePropertyHelpers.ToBooleanProperty(prop));
          else
          {
-            switch (property)
+            switch (prop)
             {
                case AnimatableProperty.WireColor: return this.WireColor;
                case AnimatableProperty.Name: return this.Name;
@@ -109,9 +109,9 @@ namespace Outliner.Scene
          }
       }
 
-      public virtual Boolean GetProperty(AnimatableBooleanProperty property)
+      public virtual Boolean GetProperty(AnimatableBooleanProperty prop)
       {
-         switch (property)
+         switch (prop)
          {
             case AnimatableBooleanProperty.BoxMode: return this.BoxMode;
             case AnimatableBooleanProperty.IsFrozen: return this.IsFrozen;
@@ -122,9 +122,9 @@ namespace Outliner.Scene
          }  
       }
 
-      public virtual void SetProperty(AnimatableBooleanProperty property, Boolean newValue)
+      public virtual void SetProperty(AnimatableBooleanProperty prop, Boolean newValue)
       {
-         switch (property)
+         switch (prop)
          {
             case AnimatableBooleanProperty.BoxMode: this.BoxMode = newValue; break;
             case AnimatableBooleanProperty.IsFrozen: this.IsFrozen = newValue; break;

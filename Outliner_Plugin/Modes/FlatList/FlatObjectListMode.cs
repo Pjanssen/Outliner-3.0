@@ -14,7 +14,6 @@ public class FlatObjectListMode : TreeMode
 {
    public FlatObjectListMode(TreeView tree) : base(tree) 
    {
-      this.Filters = new FlatListFilterCollection<IMaxNodeWrapper>(base.Filters);
       this.RegisterNodeEventCallbacks();
    }
 

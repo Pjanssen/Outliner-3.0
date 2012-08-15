@@ -199,19 +199,19 @@ public class IINodeWrapper : IMaxNodeWrapper
       }
    }
 
-   public const String IMGKEY_BONE      = "bone";
-   public const String IMGKEY_CAMERA    = "camera";
-   public const String IMGKEY_GEOMETRY  = "geometry";
-   public const String IMGKEY_GROUPHEAD = "group";
-   public const String IMGKEY_HELPER    = "helper";
-   public const String IMGKEY_LIGHT     = "light";
-   public const String IMGKEY_MATERIAL  = "material";
-   public const String IMGKEY_NURBS     = "nurbs";
-   public const String IMGKEY_PARTICLE  = "particle";
-   public const String IMGKEY_SHAPE     = "shape";
-   public const String IMGKEY_SPACEWARP = "spacewarp";
-   public const String IMGKEY_TARGET    = "helper";
-   public const String IMGKEY_XREF      = "xref";
+   public const String ImgKeyBone      = "bone";
+   public const String ImgKeyCamera    = "camera";
+   public const String ImgKeyGeometry  = "geometry";
+   public const String ImgKeyGroupHead = "group";
+   public const String ImgKeyHelper    = "helper";
+   public const String ImgKeyLight     = "light";
+   public const String ImgKeyMaterial  = "material";
+   public const String ImgKeyNurbs     = "nurbs";
+   public const String ImgKeyParticle  = "particle";
+   public const String ImgKeyShape     = "shape";
+   public const String ImgKeySpaceWarp = "spacewarp";
+   public const String ImgKeyTarget    = "helper";
+   public const String ImgKeyXref      = "xref";
    
 
    public override string ImageKey
@@ -224,48 +224,48 @@ public class IINodeWrapper : IMaxNodeWrapper
          SClass_ID superClass = this.SuperClassID;
          switch (superClass)
          {
-            case SClass_ID.Camera: return IMGKEY_CAMERA;
-            case SClass_ID.Light: return IMGKEY_LIGHT;
-            case SClass_ID.Material: return IMGKEY_MATERIAL;
-            case SClass_ID.Shape: return IMGKEY_SHAPE;
-            case SClass_ID.WsmObject: return IMGKEY_SPACEWARP;
+            case SClass_ID.Camera: return ImgKeyCamera;
+            case SClass_ID.Light: return ImgKeyLight;
+            case SClass_ID.Material: return ImgKeyMaterial;
+            case SClass_ID.Shape: return ImgKeyShape;
+            case SClass_ID.WsmObject: return ImgKeySpaceWarp;
          }
 
          if (superClass == SClass_ID.System && IINodeHelpers.IsXref(iinode))
-            return IMGKEY_XREF;
+            return ImgKeyXref;
 
          if (superClass == SClass_ID.Helper)
          {
             if (this.iinode.IsGroupHead)
-               return IMGKEY_GROUPHEAD;
+               return ImgKeyGroupHead;
             else
-               return IMGKEY_HELPER;
+               return ImgKeyHelper;
          }
 
          if (superClass == SClass_ID.Geomobject)
          {
             //Target objects (for light/camera target)
             if (iinode.IsTarget)
-               return IMGKEY_TARGET;
+               return ImgKeyTarget;
 
             IObject objRef = iinode.ObjectRef;
             if (objRef == null)
-               return IMGKEY_GEOMETRY;
+               return ImgKeyGeometry;
 
             //Nurbs / Shape objects.
             if (objRef.IsShapeObject)
-               return IMGKEY_NURBS;
+               return ImgKeyNurbs;
 
             //Particle objects.
             if (objRef.IsParticleSystem)
-               return IMGKEY_PARTICLE;
+               return ImgKeyParticle;
 
             //Bone and biped objects have Geomobject as a superclass.
             if (IINodeHelpers.IsBone(iinode))
-               return IMGKEY_BONE;
+               return ImgKeyBone;
 
             //All other geometry objects.
-            return IMGKEY_GEOMETRY;
+            return ImgKeyGeometry;
          }
 
          return base.ImageKey;

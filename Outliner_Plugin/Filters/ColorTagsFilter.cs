@@ -30,6 +30,9 @@ namespace Outliner.Filters
 
       public override FilterResults ShowNode(IMaxNodeWrapper data)
       {
+         if (data == null)
+            return FilterResults.Hide;
+
          IAnimatable anim = data.WrappedNode as IAnimatable;
          if (anim == null)
             return FilterResults.Hide;

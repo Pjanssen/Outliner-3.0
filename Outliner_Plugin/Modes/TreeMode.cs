@@ -241,6 +241,11 @@ public abstract class TreeMode
 
    public virtual TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol)
    {
+      if (wrapper == null)
+         throw new ArgumentNullException("wrapper");
+      if (parentCol == null)
+         throw new ArgumentNullException("parentCol");
+
       TreeNode tn = this.CreateTreeNode(wrapper);
       this.RegisterNode(wrapper, tn);
 
@@ -257,8 +262,10 @@ public abstract class TreeMode
 
    public virtual TreeNode AddNode(Object node, TreeNodeCollection parentCol)
    {
-      if (node == null || parentCol == null)
-         return null;
+      if (node == null)
+         throw new ArgumentNullException("node");
+      if (parentCol == null)
+         throw new ArgumentNullException("parentCol");
 
       return this.AddNode(IMaxNodeWrapper.Create(node), parentCol);
    }
@@ -583,14 +590,6 @@ public abstract class TreeMode
 
    #region Filters
 
-   protected IEnumerable<IMaxNodeWrapper> GetChildNodes(IMaxNodeWrapper node)
-   {
-      if (node == null)
-         return null;
-
-      return node.WrappedChildNodes;
-   }
-
    public FilterCollection<IMaxNodeWrapper> Filters
    {
       get { return _filters; }
@@ -609,8 +608,6 @@ public abstract class TreeMode
          }
 
          _filters = value;
-         _filters.GetChildNodesFn = this.GetChildNodes;
-
          _filters.FiltersEnabled += this.filtersEnabled;
          _filters.FiltersCleared += this.filtersCleared;
          _filters.FilterAdded += this.filterAdded;

@@ -125,25 +125,25 @@ public class LayerMode : TreeMode
       this.RegisterSystemNotification(this.LayerRenamed, SystemNotificationCode.LayerRenamed);
       this.RegisterSystemNotification(this.LayerHiddenChanged, SystemNotificationCode.LayerHiddenStateChanged);
       this.RegisterSystemNotification(this.LayerFrozenChanged, SystemNotificationCode.LayerFrozenStateChanged);
-      this.RegisterSystemNotification(this.layerParented, NestedLayers.LayerParented);
+      this.RegisterSystemNotification(this.LayerParented, NestedLayers.LayerParented);
       this.RegisterSystemNotification(this.LayerPropChanged, NestedLayers.LayerPropertyChanged);
    }
 
-   public virtual void LayerCreated(IntPtr param, IntPtr info)
+   protected virtual void LayerCreated(IntPtr param, IntPtr info)
    {
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
       if (layer != null)
          this.AddNode(layer, this.tree.Nodes);
    }
 
-   public virtual void LayerDeleted(IntPtr param, IntPtr info)
+   protected virtual void LayerDeleted(IntPtr param, IntPtr info)
    {
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
       if (layer != null)
          this.RemoveNode(layer);
    }
 
-   public virtual void LayerRenamed(IntPtr param, IntPtr info)
+   protected virtual void LayerRenamed(IntPtr param, IntPtr info)
    {
       Console.WriteLine(MaxUtils.HelperMethods.GetCallParam(info));
    }
@@ -170,7 +170,7 @@ public class LayerMode : TreeMode
       }
    }
 
-   public virtual void LayerPropChanged(IntPtr param, IntPtr info)
+   protected virtual void LayerPropChanged(IntPtr param, IntPtr info)
    {
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
       if (layer != null)
@@ -180,7 +180,7 @@ public class LayerMode : TreeMode
       }
    }
 
-   public virtual void layerParented(IntPtr param, IntPtr info)
+   protected virtual void LayerParented(IntPtr param, IntPtr info)
    {
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
       if (layer != null)

@@ -267,16 +267,16 @@ namespace Outliner.Scene
       }
 
 
-      public const String IMGKEY_LAYER        = "layer";
-      public const String IMGKEY_LAYER_ACTIVE = "layer_active";
+      public const String ImgKeyLayer       = "layer";
+      public const String ImgKeyLayerActive = "layer_active";
       public override string ImageKey
       {
          get
          {
             if (this.IsCurrent)
-               return IMGKEY_LAYER_ACTIVE;
+               return ImgKeyLayerActive;
             else
-               return IMGKEY_LAYER;
+               return ImgKeyLayer;
          }
       }
    }

@@ -70,25 +70,6 @@ public class NodeFilterCollectionTest
    }
 
    [TestMethod()]
-   public void ShowNodeWithChildnodesTest()
-   {
-      FilterCollection<Boolean> target = new FilterCollection<Boolean>();
-      target.Enabled = true;
-      target.Add(new MockFilter());
-
-      Assert.AreEqual(FilterResults.Show, target.ShowNode(true), "MockFilter, no childnodesfn, true value");
-      Assert.AreEqual(FilterResults.Hide, target.ShowNode(false), "MockFilter, no childnodesfn, false value");
-
-      target.GetChildNodesFn = GetChildNodesFalse;
-      Assert.AreEqual(FilterResults.Show, target.ShowNode(true), "MockFilter, GetChildNodesFalse, true value");
-      Assert.AreEqual(FilterResults.Hide, target.ShowNode(false), "MockFilter, GetChildNodesFalse, false value");
-
-      target.GetChildNodesFn = GetChildNodesTrue;
-      Assert.AreEqual(FilterResults.Show, target.ShowNode(true), "MockFilter, GetChildNodesTrue, true value");
-      Assert.AreEqual(FilterResults.ShowChildren, target.ShowNode(false), "MockFilter, GetChildNodesTrue, false value");
-   }
-
-   [TestMethod()]
    public void AddContainsTest()
    {
       FilterCollection<Boolean> target = new FilterCollection<Boolean>();
