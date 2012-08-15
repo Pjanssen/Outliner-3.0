@@ -45,21 +45,21 @@ public static class NestedLayers
          {NestedLayers.FilePostMerge, SystemNotificationCode.FilePostMerge}
       };
 
-   internal static void Start(IGlobal global)
+   internal static void Start()
    {
-      NestedLayers.classID = global.Class_ID.Create(CID_A, CID_B);
+      NestedLayers.classID = MaxInterfaces.Global.Class_ID.Create(CID_A, CID_B);
 
       foreach (KeyValuePair<GlobalDelegates.Delegate5, SystemNotificationCode> cb in NestedLayers.callbacks)
       {
-         global.RegisterNotification(cb.Key, null, cb.Value);
+         MaxInterfaces.Global.RegisterNotification(cb.Key, null, cb.Value);
       }
    }
 
-   internal static void Stop(IGlobal global)
+   internal static void Stop()
    {
       foreach (KeyValuePair<GlobalDelegates.Delegate5, SystemNotificationCode> cb in NestedLayers.callbacks)
       {
-         global.UnRegisterNotification(cb.Key, null, cb.Value);
+         MaxInterfaces.Global.UnRegisterNotification(cb.Key, null, cb.Value);
       }
    }
 
@@ -153,7 +153,7 @@ public static class NestedLayers
    /// Returns a list with all direct children of a layer (non-recursive).
    /// </summary>
    /// <param name="parent">The parent layer to get the childlayers from.</param>
-   public static List<IILayer> GetChildren(IILayer parent)
+   public static IEnumerable<IILayer> GetChildren(IILayer parent)
    {
       return NestedLayers.GetChildren(parent, false);
    }
@@ -163,7 +163,7 @@ public static class NestedLayers
    /// </summary>
    /// <param name="parent">The parent layer to get the childlayers from.</param>
    /// <param name="recursive">Include the entire layer tree.</param>
-   public static List<IILayer> GetChildren(IILayer parent, Boolean recursive)
+   public static IEnumerable<IILayer> GetChildren(IILayer parent, Boolean recursive)
    {
       List<IILayer> children = new List<IILayer>();
       IILayerManager layerManager = MaxInterfaces.IILayerManager;
@@ -265,7 +265,7 @@ public static class NestedLayers
       MaxInterfaces.Global.BroadcastNotification(notifCode, layer);
 
       //Propagate to children.
-      List<IILayer> childLayers = NestedLayers.GetChildren(layer, false);
+      IEnumerable<IILayer> childLayers = NestedLayers.GetChildren(layer, false);
       foreach (IILayer childLayer in childLayers)
       {
          NestedLayers.SetProperty(childLayer, prop, value, true);
@@ -290,8 +290,6 @@ public static class NestedLayers
    {
       IEnumerable<AnimatableBooleanProperty> layerProps = Enum.GetValues(typeof(AnimatableBooleanProperty))
                                                   .Cast<AnimatableBooleanProperty>();
-
-      IILayer parent = NestedLayers.GetParent(layer);
 
       foreach (AnimatableBooleanProperty prop in layerProps)
       {

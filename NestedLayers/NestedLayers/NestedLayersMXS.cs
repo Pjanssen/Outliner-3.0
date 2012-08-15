@@ -8,12 +8,12 @@ using System.IO;
 
 namespace Outliner.LayerTools
 {
-public static class NestedLayersMXS
+public static class NestedLayersMxs
 {
-   internal static void Start(IGlobal global)
+   internal static void Start()
    {
-      HelperMethods.RunResourceScript(typeof(NestedLayersMXS).Assembly,
-                                      "Outliner.LayerTools.NestedLayers.NestedLayersMXS.ms");
+      HelperMethods.RunResourceScript(typeof(NestedLayersMxs).Assembly,
+                                      "Outliner.LayerTools.NestedLayers.NestedLayersMxs.ms");
    }
 
    public const UInt64 RootHandle = 0;
@@ -24,7 +24,7 @@ public static class NestedLayersMXS
       IILayer layer = anim.GetAnimByHandle(new UIntPtr(layerHandle)) as IILayer;
       IILayer parent = NestedLayers.GetParent(layer);
       if (parent == null)
-         return NestedLayersMXS.RootHandle;
+         return NestedLayersMxs.RootHandle;
       else
          return anim.GetHandleByAnim(parent).ToUInt64();
    }
@@ -33,7 +33,7 @@ public static class NestedLayersMXS
    {
       IGlobal.IGlobalAnimatable anim = MaxInterfaces.Global.Animatable;
       IILayer layer = anim.GetAnimByHandle(new UIntPtr(layerHandle)) as IILayer;
-      IILayer parent = (parentHandle != NestedLayersMXS.RootHandle) ?
+      IILayer parent = (parentHandle != NestedLayersMxs.RootHandle) ?
             anim.GetAnimByHandle(new UIntPtr(parentHandle)) as IILayer
          : null;
       NestedLayers.SetParent(layer, parent);

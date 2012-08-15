@@ -8,7 +8,7 @@ namespace MaxUtils
 {
 public static class IINodeHelpers
 {
-   public const String CAM_3DXSTUDIO_NAME = "3DxStudio Perspective";
+   public const String Cam3DXStudioName = "3DxStudio Perspective";
 
    /// <summary>
    /// Tests if the supplied IINode is an "invisible" node.
@@ -18,7 +18,7 @@ public static class IINodeHelpers
       if (node == null)
          return false;
       else
-         return IsPFHelper(node) || node.Name == CAM_3DXSTUDIO_NAME;
+         return IsPFHelper(node) || node.Name == IINodeHelpers.Cam3DXStudioName;
    }
 
    /// <summary>
@@ -30,10 +30,10 @@ public static class IINodeHelpers
       {
          IClass_ID classID = node.ObjectRef.ClassID;
          return ClassIDHelpers.Equals(classID, BuiltInClassIDA.BONE_OBJ_CLASSID, BuiltInClassIDB.BONE_OBJ_CLASSID)
-               || ClassIDHelpers.Equals(classID, ClassIDHelpers.SKELOBJ_CLASSIDA)
-               || ClassIDHelpers.Equals(classID, ClassIDHelpers.BIPED_CLASSIDA)
-               || ClassIDHelpers.Equals(classID, ClassIDHelpers.CATBONE_CLASSIDA, ClassIDHelpers.CATBONE_CLASSIDB)
-               || ClassIDHelpers.Equals(classID, ClassIDHelpers.CATHUB_CLASSIDA, ClassIDHelpers.CATHUB_CLASSIDB);
+               || ClassIDHelpers.Equals(classID, ClassIDHelpers.SkelObjClassIDA)
+               || ClassIDHelpers.Equals(classID, ClassIDHelpers.BipedClassIDA)
+               || ClassIDHelpers.Equals(classID, ClassIDHelpers.CatBoneClassIDA, ClassIDHelpers.CatBoneClassIDB)
+               || ClassIDHelpers.Equals(classID, ClassIDHelpers.CatHubClassIDA, ClassIDHelpers.CatHubClassIDB);
       }
       return false;
    }
@@ -49,10 +49,10 @@ public static class IINodeHelpers
       IObject objRef = node.ObjectRef;
 
       uint classID_B = objRef.ClassID.PartB;
-      return classID_B == ClassIDHelpers.PARTICLECHANNEL_CLASSIDB
-            || classID_B == ClassIDHelpers.PFACTION_CLASSIDB
-            || classID_B == ClassIDHelpers.PFACTOR_CLASSIDB
-            || classID_B == ClassIDHelpers.PFMATERIAL_CLASSIDB;
+      return classID_B == ClassIDHelpers.ParticleChannelClassIDB
+            || classID_B == ClassIDHelpers.PFActionClassIDB
+            || classID_B == ClassIDHelpers.PFActorClassIDB
+            || classID_B == ClassIDHelpers.PFMaterialClassIDB;
    }
 
    /// <summary>

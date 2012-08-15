@@ -32,15 +32,15 @@ namespace MaxUtils
       }
 
 
-      public const uint BIPED_CLASSIDA = 0x9155;
-      public const uint SKELOBJ_CLASSIDA = 0x9125;
-      public const uint CATBONE_CLASSIDA = 0x2E6A0C09;
-      public const uint CATBONE_CLASSIDB = 0x43D5C9C0;
-      public const uint CATHUB_CLASSIDA = 0x73DC4833;
-      public const uint CATHUB_CLASSIDB = 0x65C93CAA;
-      public const uint PARTICLECHANNEL_CLASSIDB = 0x1eb34100;
-      public const uint PFACTION_CLASSIDB = 0x1eb34200;
-      public const uint PFACTOR_CLASSIDB = 0x1eb34300;
-      public const uint PFMATERIAL_CLASSIDB = 0x1eb34400;  
+      public const uint BipedClassIDA = 0x9155;
+      public const uint SkelObjClassIDA = 0x9125;
+      public const uint CatBoneClassIDA = 0x2E6A0C09;
+      public const uint CatBoneClassIDB = 0x43D5C9C0;
+      public const uint CatHubClassIDA = 0x73DC4833;
+      public const uint CatHubClassIDB = 0x65C93CAA;
+      public const uint ParticleChannelClassIDB = 0x1eb34100;
+      public const uint PFActionClassIDB = 0x1eb34200;
+      public const uint PFActorClassIDB = 0x1eb34300;
+      public const uint PFMaterialClassIDB = 0x1eb34400;  
    }
 }

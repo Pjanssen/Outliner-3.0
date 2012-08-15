@@ -84,7 +84,7 @@ public class IINodeWrapper : IMaxNodeWrapper
       if (node.Parent.Equals(this))
          return false;
 
-      RefResult loop = this.iinode.TestForLoop( MaxInterfaces.Interval_Forever
+      RefResult loop = this.iinode.TestForLoop( MaxInterfaces.IntervalForever
                                               , iinodeWrapper.IINode as IReferenceMaker);
 
       return loop == RefResult.Succeed;

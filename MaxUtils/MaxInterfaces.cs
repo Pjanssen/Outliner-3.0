@@ -93,17 +93,17 @@ public static class MaxInterfaces
       }
    }
 
-   private static IInterval interval_forever;
-   public static IInterval Interval_Forever
+   private static IInterval intervalForever;
+   public static IInterval IntervalForever
    {
       get
       {
-         if (interval_forever == null)
+         if (intervalForever == null)
          {
-            interval_forever = MaxInterfaces.Global.Interval.Create();
-            interval_forever.SetInfinite();
+            intervalForever = MaxInterfaces.Global.Interval.Create();
+            intervalForever.SetInfinite();
          }
-         return interval_forever;
+         return intervalForever;
       }
    }
 }

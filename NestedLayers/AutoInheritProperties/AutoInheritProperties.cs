@@ -9,38 +9,38 @@ using MaxUtils;
 
 namespace Outliner.LayerTools
 {
+public enum NodeLayerProperty : int
+{
+   Color,
+   Display,
+   GlobalIllumination,
+   Motion,
+   Render
+}
+
 public static class AutoInheritProperties
 {
    private const uint CID_A = 0x1ECA7d7A;
    private const uint CID_B = 0x7B6B1447;
    private static IClass_ID classID;
 
-   public enum NodeLayerProperty : uint
-   {
-      Color,
-      Display,
-      GlobalIllumination,
-      Motion,
-      Render
-   }
-
    private static uint cbKey;
    private static INodeEventCallback cbObject;
 
-   internal static void Start(IGlobal global)
+   internal static void Start()
    {
-      AutoInheritProperties.classID = global.Class_ID.Create(CID_A, CID_B);
+      AutoInheritProperties.classID = MaxInterfaces.Global.Class_ID.Create(CID_A, CID_B);
 
-      global.RegisterNotification(layerChanged, null, SystemNotificationCode.NodeLayerChanged);
+      MaxInterfaces.Global.RegisterNotification(layerChanged, null, SystemNotificationCode.NodeLayerChanged);
       
       IISceneEventManager sceneEventMgr = MaxInterfaces.Global.ISceneEventManager;
       cbObject = new LayerCallbacks();
       cbKey = sceneEventMgr.RegisterCallback(cbObject, false, 100, true);
    }
 
-   internal static void Stop(IGlobal global)
+   internal static void Stop()
    {
-      global.UnRegisterNotification(layerChanged, null, SystemNotificationCode.NodeLayerChanged);
+      MaxInterfaces.Global.UnRegisterNotification(layerChanged, null, SystemNotificationCode.NodeLayerChanged);
 
       IISceneEventManager sceneEventMgr = MaxInterfaces.Global.ISceneEventManager;
       sceneEventMgr.UnRegisterCallback(cbKey);

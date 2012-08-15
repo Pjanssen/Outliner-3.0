@@ -15,8 +15,7 @@ public class SelectionSetMode : TreeMode
 {
    protected AllObjectsSelectionSet allObjectsSelSet;
 
-   public SelectionSetMode(TreeView tree, Autodesk.Max.IInterface ip)
-      : base(tree, ip)
+   public SelectionSetMode(TreeView tree) : base(tree)
    {
       this.allObjectsSelSet = new AllObjectsSelectionSet();
       this.tree.DragDropHandler = new TreeViewDragDropHandler();

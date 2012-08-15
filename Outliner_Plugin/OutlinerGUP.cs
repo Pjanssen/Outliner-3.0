@@ -79,12 +79,12 @@ namespace Outliner
          tree1.TreeNodeLayout = this.Layout;
          tree1.Colors = this.ColorScheme;
          tree1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
-         TreeMode mode1 = new HierarchyMode(tree1, MaxInterfaces.COREInterface);
+         TreeMode mode1 = new HierarchyMode(tree1);
          TreeView tree2 = new TreeView();
          tree2.TreeNodeLayout = this.Layout;
          tree2.Colors = this.ColorScheme;
          tree2.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
-         TreeMode mode2 = new SelectionSetMode(tree2, MaxInterfaces.COREInterface);
+         TreeMode mode2 = new SelectionSetMode(tree2);
 
          mode1.FillTree();
          mode2.FillTree();

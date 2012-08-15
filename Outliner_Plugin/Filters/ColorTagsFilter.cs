@@ -10,12 +10,22 @@ namespace Outliner.Filters
 {
    public class ColorTagsFilter : Filter<IMaxNodeWrapper>
    {
-      public ColorTag Tags { get; set; }
+      private ColorTag tags;
 
-      public ColorTagsFilter() : this(ColorTag.None) { }
+      public ColorTagsFilter() : this(ColorTag.All) { }
       public ColorTagsFilter(ColorTag tags)
       {
-         this.Tags = tags;
+         this.tags = tags;
+      }
+
+      public ColorTag Tags 
+      {
+         get { return this.tags; }
+         set
+         {
+            this.tags = value;
+            this.OnFilterChanged();
+         }
       }
 
       public override FilterResults ShowNode(IMaxNodeWrapper data)

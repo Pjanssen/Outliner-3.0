@@ -16,7 +16,7 @@ namespace Outliner.Modes.Layer
 {
 public class LayerMode : TreeMode
 {
-   public LayerMode(TreeView tree, Autodesk.Max.IInterface ip) : base(tree, ip) 
+   public LayerMode(TreeView tree) : base(tree) 
    {
       this.RegisterSystemNotifications();
       this.RegisterNodeEventCallbacks();

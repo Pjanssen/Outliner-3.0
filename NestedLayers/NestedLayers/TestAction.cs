@@ -23,7 +23,7 @@ namespace Outliner.LayerTools
 
       public override void Execute(object parameter)
       {
-         HelperMethods.WriteToListener(HelperMethods.GetMtlEditorHWND().ToString());
+         HelperMethods.WriteToListener(HelperMethods.MtlEditorHwnd.ToString());
          //mgr.EnableDandD()
          IILayerManager layerManager = MaxInterfaces.IILayerManager;
          IILayer child = layerManager.GetLayer(1);

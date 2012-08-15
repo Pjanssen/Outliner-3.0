@@ -85,7 +85,7 @@ namespace Outliner.Scene
       {
          get
          {
-            List<IILayer> childLayers = NestedLayers.GetChildren(this.IILayer, false);
+            IEnumerable<IILayer> childLayers = NestedLayers.GetChildren(this.IILayer, false);
 
             ITab<IINode> nodes = MaxInterfaces.Global.INodeTabNS.Create();
             this.layerProperties.Nodes(nodes);

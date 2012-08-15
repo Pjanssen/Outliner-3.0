@@ -11,6 +11,7 @@ internal static class NativeMethods
    internal delegate bool WindowEnumProc(IntPtr hwnd, IntPtr lparam);
 
    [DllImport("user32.dll")]
+   [return: MarshalAs(UnmanagedType.Bool)]
    internal static extern bool EnumWindows(WindowEnumProc callPtr, IntPtr lParam);
 
    [DllImport("user32.dll", CharSet = CharSet.Unicode)]

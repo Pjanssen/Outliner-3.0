@@ -27,6 +27,9 @@ public static class ColorHelpers
    /// <returns></returns>
    public static Color FromMaxColor(IColor color)
    {
+      if (color == null)
+         throw new ArgumentNullException("color");
+
       return FromMaxColor(Color.FromArgb((int)color.ToRGB));
    }
 
@@ -51,6 +54,9 @@ public static class ColorHelpers
    /// <returns></returns>
    public static Color FromHtml(String htmlColor)
    {
+      if (htmlColor == null)
+         throw new ArgumentNullException("htmlColor");
+
       if (htmlColor.Length == 9 && htmlColor[0] == '#')
          return Color.FromArgb(Convert.ToInt32(htmlColor.Substring(1, 2), 16),
                                  Convert.ToInt32(htmlColor.Substring(3, 2), 16),
@@ -70,16 +76,16 @@ public static class ColorHelpers
    }
 
 
-   public static Color OverlayColor(Color baseColor, Color overlayColor)
+   public static Color OverlayColor(Color colorA, Color colorB)
    {
-      float overlayAmount = overlayColor.A / 255f;
+      float overlayAmount = colorB.A / 255f;
       float baseAmount = 1.0f - overlayAmount;
 
       return Color.FromArgb(
          255,
-         (byte)Math.Round(baseColor.R * baseAmount + overlayColor.R * overlayAmount),
-         (byte)Math.Round(baseColor.G * baseAmount + overlayColor.G * overlayAmount),
-         (byte)Math.Round(baseColor.B * baseAmount + overlayColor.B * overlayAmount));
+         (byte)Math.Round(colorA.R * baseAmount + colorB.R * overlayAmount),
+         (byte)Math.Round(colorA.G * baseAmount + colorB.G * overlayAmount),
+         (byte)Math.Round(colorA.B * baseAmount + colorB.B * overlayAmount));
    }
 
    public static int Compare(Color colorA, Color colorB)

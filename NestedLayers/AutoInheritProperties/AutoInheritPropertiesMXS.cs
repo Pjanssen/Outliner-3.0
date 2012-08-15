@@ -7,12 +7,12 @@ using MaxUtils;
 
 namespace Outliner.LayerTools
 {
-public class AutoInheritPropertiesMXS
+public static class AutoInheritPropertiesMxs
 {
-   internal static void Start(IGlobal global)
+   internal static void Start()
    {
-      HelperMethods.RunResourceScript(typeof(AutoInheritPropertiesMXS).Assembly,
-                                      "Outliner.LayerTools.AutoInheritProperties.AutoInheritPropertiesMXS.ms");
+      HelperMethods.RunResourceScript(typeof(AutoInheritPropertiesMxs).Assembly,
+                                      "Outliner.LayerTools.AutoInheritProperties.AutoInheritPropertiesMxs.ms");
    }
 
    private static IILayer getLayer(UInt64 layerHandle)
@@ -21,16 +21,16 @@ public class AutoInheritPropertiesMXS
       return anim.GetAnimByHandle(new UIntPtr(layerHandle)) as IILayer;
    }
 
-   private static AutoInheritProperties.NodeLayerProperty getProperty(String name)
+   private static NodeLayerProperty getProperty(String name)
    {
-      Type t = typeof(AutoInheritProperties.NodeLayerProperty);
-      return (AutoInheritProperties.NodeLayerProperty)Enum.Parse(t, name);
+      Type t = typeof(NodeLayerProperty);
+      return (NodeLayerProperty)Enum.Parse(t, name);
    }
 
    public static Boolean GetAutoInherit(UInt64 layerHandle, String propName)
    {
       IILayer layer = getLayer(layerHandle);
-      AutoInheritProperties.NodeLayerProperty prop = getProperty(propName);
+      NodeLayerProperty prop = getProperty(propName);
 
       return AutoInheritProperties.GetAutoInherit(layer, prop);
    }
@@ -38,7 +38,7 @@ public class AutoInheritPropertiesMXS
    public static void SetAutoInherit(UInt64 layerHandle, String propName, Boolean value)
    {
       IILayer layer = getLayer(layerHandle);
-      AutoInheritProperties.NodeLayerProperty prop = getProperty(propName);
+      NodeLayerProperty prop = getProperty(propName);
 
       AutoInheritProperties.SetAutoInherit(layer, prop, value);
    }

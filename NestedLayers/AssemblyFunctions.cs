@@ -19,20 +19,18 @@ namespace Outliner.LayerTools
 
       private static void postStart(IntPtr param, IntPtr info)
       {
-         IGlobal global = MaxInterfaces.Global;
-         NestedLayers.Start(global);
-         NestedLayersMXS.Start(global);
-         AutoInheritProperties.Start(global);
-         AutoInheritPropertiesMXS.Start(global);
-         ColorTags.Start(global);
-         ColorTagsMXS.Start(global);
+         NestedLayers.Start();
+         NestedLayersMxs.Start();
+         AutoInheritProperties.Start();
+         AutoInheritPropertiesMxs.Start();
+         ColorTags.Start();
+         ColorTagsMxs.Start();
       }
 
       public static void AssemblyShutdown()
       {
-         IGlobal global = MaxInterfaces.Global;
-         NestedLayers.Stop(global);
-         AutoInheritProperties.Stop(global);
+         NestedLayers.Stop();
+         AutoInheritProperties.Stop();
       }
    }
 }

@@ -44,6 +44,11 @@ public static class HelperMethods
    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
    public static void RunResourceScript(Assembly assembly, String res)
    {
+      if (assembly == null)
+         throw new ArgumentNullException("assembly");
+      if (res == null)
+         throw new ArgumentNullException("res");
+
       String script = String.Empty;
 
       using (Stream stream = assembly.GetManifestResourceStream(res))
@@ -52,7 +57,7 @@ public static class HelperMethods
          script = sr.ReadToEnd();
       }
 
-      if (script != String.Empty)
+      if (!String.IsNullOrWhiteSpace(script))
       {
          MaxInterfaces.Global.ExecuteMAXScriptScript(script, true, null);
       }
@@ -65,38 +70,44 @@ public static class HelperMethods
    }
 
 
-   public static IntPtr GetMtlEditorHWND()
+   public static IntPtr MtlEditorHwnd
    {
-      IntPtr mtlPtr = IntPtr.Zero;
-      NativeMethods.EnumWindows(
-          (IntPtr hwnd, IntPtr lparam) =>
-          {
-             if (HwndIsMtlEditor(hwnd))
+      get
+      {
+         IntPtr mtlPtr = IntPtr.Zero;
+         NativeMethods.EnumWindows(
+             (IntPtr hwnd, IntPtr lparam) =>
              {
-                mtlPtr = hwnd;
-                return false;
+                if (HwndIsMtlEditor(hwnd))
+                {
+                   mtlPtr = hwnd;
+                   return false;
+                }
+                return true;
              }
-             return true;
-          }
-          , IntPtr.Zero);
-      return mtlPtr;
+             , IntPtr.Zero);
+         return mtlPtr;
+      }
    }
 
-   public static IntPtr GetSlateMtlEditorHWND()
+   public static IntPtr SlateMtlEditorHwnd
    {
-      IntPtr mtlPtr = IntPtr.Zero;
-      NativeMethods.EnumWindows(
-          (IntPtr hwnd, IntPtr lparam) =>
-          {
-             if (HwndIsSlateMtlEditor(hwnd))
+      get
+      {
+         IntPtr mtlPtr = IntPtr.Zero;
+         NativeMethods.EnumWindows(
+             (IntPtr hwnd, IntPtr lparam) =>
              {
-                mtlPtr = hwnd;
-                return false;
+                if (HwndIsSlateMtlEditor(hwnd))
+                {
+                   mtlPtr = hwnd;
+                   return false;
+                }
+                return true;
              }
-             return true;
-          }
-          , IntPtr.Zero);
-      return mtlPtr;
+             , IntPtr.Zero);
+         return mtlPtr;
+      }
    }
 
 
@@ -104,13 +115,16 @@ public static class HelperMethods
    {
       int textLength = NativeMethods.GetWindowTextLength(hwnd);
       StringBuilder windowText = new StringBuilder(textLength + 1);
-      NativeMethods.GetWindowText(hwnd, windowText, windowText.Capacity);
-      return windowText.ToString();
+      if (NativeMethods.GetWindowText(hwnd, windowText, windowText.Capacity) > 0)
+         return windowText.ToString();
+      else
+         return String.Empty;
    }
 
    private static bool HwndIsMtlEditor(IntPtr hwnd)
    {
-      return getHwndTitle(hwnd).StartsWith("Material Editor");
+      //TODO: verify if this works in non-English 3dsmax versions
+      return getHwndTitle(hwnd).StartsWith("Material Editor", StringComparison.Ordinal);
    }
 
    private static bool HwndIsSlateMtlEditor(IntPtr hwnd)

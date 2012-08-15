@@ -19,7 +19,8 @@ public enum ColorTag : byte
    Blue      = 0x10,
    Purple    = 0x20,
    Grey      = 0x40,
-   WireColor = 0x80
+   WireColor = 0x80,
+   All       = 0xFF
 }
 
 public static class ColorTags
@@ -41,9 +42,9 @@ public static class ColorTags
       , { ColorTag.Grey,   new Tuple<uint, Color>(0x4F014CFB, Color.FromArgb(169, 169, 169)) }
       };
 
-   internal static void Start(IGlobal global)
+   internal static void Start()
    {
-      ColorTags.classID = global.Class_ID.Create(CID_A, CID_B);
+      ColorTags.classID = MaxInterfaces.Global.Class_ID.Create(CID_A, CID_B);
 
       IIColorManager colorMan = MaxInterfaces.Global.ColorManager;
 
@@ -56,9 +57,9 @@ public static class ColorTags
       }
    }
 
-   public static Int32 GetNumTags()
+   public static Int32 NumTags
    {
-      return colors.Count;
+      get { return colors.Count; }
    }
 
    /// <summary>

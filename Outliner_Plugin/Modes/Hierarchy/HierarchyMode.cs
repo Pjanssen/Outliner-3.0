@@ -13,8 +13,7 @@ namespace Outliner.Modes.Hierarchy
 {
 public class HierarchyMode : TreeMode
 {
-   public HierarchyMode(TreeView tree, IInterface ip)
-      : base(tree, ip)
+   public HierarchyMode(TreeView tree) : base(tree)
    {
       if (tree == null)
          throw new ArgumentNullException("tree");
@@ -28,7 +27,7 @@ public class HierarchyMode : TreeMode
    {
       this.tree.BeginUpdate();
 
-      IINode rootNode = this.ip.RootNode;
+      IINode rootNode = MaxInterfaces.COREInterface.RootNode;
       this.RegisterNode(rootNode, this.tree.Root);
 
       for (int i = 0; i < rootNode.NumberOfChildren; i++)

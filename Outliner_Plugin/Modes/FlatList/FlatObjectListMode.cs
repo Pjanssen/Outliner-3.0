@@ -12,8 +12,7 @@ namespace Outliner.Modes.FlatList
 {
 public class FlatObjectListMode : TreeMode
 {
-   public FlatObjectListMode(TreeView tree, Autodesk.Max.IInterface ip) 
-      : base(tree, ip) 
+   public FlatObjectListMode(TreeView tree) : base(tree) 
    {
       this.Filters = new FlatListFilterCollection<IMaxNodeWrapper>(base.Filters);
       this.RegisterNodeEventCallbacks();
@@ -23,7 +22,7 @@ public class FlatObjectListMode : TreeMode
    {
       this.tree.BeginUpdate();
 
-      IINode rootNode = this.ip.RootNode;
+      IINode rootNode = MaxInterfaces.COREInterface.RootNode;
       for (int i = 0; i < rootNode.NumberOfChildren; i++)
          this.AddNode(rootNode.GetChildNode(i), this.tree.Nodes);
 
@@ -32,19 +31,15 @@ public class FlatObjectListMode : TreeMode
       this.tree.EndUpdate();
    }
 
-   public override TreeNode AddNode(Object node, TreeNodeCollection parentCol)
+   public override TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol)
    {
-      IINode inode = node as IINode;
-      if (inode == null)
-         return null;
+      TreeNode tn = base.AddNode(wrapper, parentCol);
 
-      TreeNode tn = base.AddNode(node, parentCol);
-
-      for (int i = 0; i < inode.NumberOfChildren; i++)
-         AddNode(inode.GetChildNode(i), parentCol);
+      wrapper.ChildNodes.ForEach(node => this.AddNode(node, parentCol));
 
       return tn;
    }
+
 
    private void RegisterNodeEventCallbacks()
    {

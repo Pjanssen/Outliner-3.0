@@ -16,6 +16,7 @@ using Outliner.Modes.SelectionSet;
 using Outliner.Modes.Hierarchy;
 using Outliner.Modes.Layer;
 using Outliner.LayerTools;
+using Outliner.Modes.FlatList;
 
 namespace Outliner.Actions
 {
@@ -51,10 +52,10 @@ namespace Outliner.Actions
 
          tc.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
          TreeMode tm = new
-            //HierarchyMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
-            //SelectionSetMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
-            LayerMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
-            //FlatObjectListMode(tc.treeView1, MaxInterfaces.Global.COREInterface);
+            //HierarchyMode(tc.treeView1);
+            //SelectionSetMode(tc.treeView1);
+            //LayerMode(tc.treeView1);
+            FlatObjectListMode(tc.treeView1);
          
          //tm.Filters.Add(new Filters.ColorTagsFilter(ColorTag.Green | ColorTag.Blue));
          //tm.Filters.Enabled = true;

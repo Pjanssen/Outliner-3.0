@@ -21,16 +21,18 @@ namespace Outliner.Modes
 public abstract class TreeMode
 {
    protected TreeView tree { get; private set; }
-   protected Autodesk.Max.IInterface ip { get; private set; }
    private ICollection<Tuple<GlobalDelegates.Delegate5, SystemNotificationCode>> systemNotifications;
    private ICollection<Tuple<uint, TreeModeNodeEventCallbacks>> nodeEventCallbacks;
    protected Dictionary<Object, List<TreeNode>> treeNodes { get; private set; }
    protected Boolean selectedInOutliner { get; set; }
+   private FilterCollection<IMaxNodeWrapper> _filters;
 
-   protected TreeMode(TreeView tree, Autodesk.Max.IInterface ip)
+   protected TreeMode(TreeView tree)
    {
+      if (tree == null)
+         throw new ArgumentNullException("tree");
+
       this.tree = tree;
-      this.ip = ip;
       this.treeNodes = new Dictionary<Object, List<TreeNode>>();
       this.Filters = new FilterCollection<IMaxNodeWrapper>();
       this.Filters.Add(new InvisibleNodeFilter());
@@ -386,12 +388,12 @@ public abstract class TreeMode
 
       this.tree.SelectAllNodes(false);
 
-      Int32 selNodeCount = this.ip.SelNodeCount;
+      Int32 selNodeCount = MaxInterfaces.COREInterface.SelNodeCount;
       if (selNodeCount > 0)
       {
          for (Int32 i = 0; i < selNodeCount; i++)
          {
-            List<TreeNode> tns = this.GetTreeNodes(ip.GetSelNode(i));
+            List<TreeNode> tns = this.GetTreeNodes(MaxInterfaces.COREInterface.GetSelNode(i));
             if (tns != null)
                tns.ForEach(tn => this.tree.SelectNode(tn, true));
          }
@@ -589,7 +591,6 @@ public abstract class TreeMode
       return node.WrappedChildNodes;
    }
 
-   private FilterCollection<IMaxNodeWrapper> _filters;
    public FilterCollection<IMaxNodeWrapper> Filters
    {
       get { return _filters; }
@@ -620,7 +621,7 @@ public abstract class TreeMode
 
    private void filtersEnabled(object sender, EventArgs e)
    {
-
+       
    }
    private void filtersCleared(object sender, EventArgs e)
    {
@@ -628,7 +629,7 @@ public abstract class TreeMode
    }
    private void filterAdded(object sender, FilterChangedEventArgs<IMaxNodeWrapper> e)
    {
-
+      
    }
    private void filterRemoved(object sender, FilterChangedEventArgs<IMaxNodeWrapper> e)
    {
