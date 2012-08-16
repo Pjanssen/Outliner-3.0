@@ -260,4 +260,13 @@ Use {0} to expand entire hierarchy.</value>
   <data name="Command_Ungroup" xml:space="preserve">
     <value>Ungroup nodes</value>
   </data>
+  <data name="delete_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\delete_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="color_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\color_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Command_SetColorTag" xml:space="preserve">
+    <value>Set color tag</value>
+  </data>
 </root>

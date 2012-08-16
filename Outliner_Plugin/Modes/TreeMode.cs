@@ -490,16 +490,6 @@ public abstract class TreeMode
 
       public override void WireColorChanged(ITab<UIntPtr> nodes)
       {
-         foreach (IINode node in nodes.NodeKeysToINodeList())
-         {
-            List<TreeNode> tns = this.treeMode.GetTreeNodes(node);
-            if (tns != null)
-            {
-               Color color = ColorTags.GetColor(node);
-               tns.ForEach(tn => tn.BackColor = color);
-            }
-         }
-
          AnimatablePropertySorter sorter = this.tree.NodeSorter as AnimatablePropertySorter;
          Boolean sort = sorter != null && sorter.Property == AnimatableProperty.WireColor;
          this.treeMode.InvalidateTreeNodes(nodes, false, sort);

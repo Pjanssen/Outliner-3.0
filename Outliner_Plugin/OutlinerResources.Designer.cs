@@ -127,6 +127,13 @@ namespace Outliner {
             }
         }
         
+        internal static System.Drawing.Bitmap color_small {
+            get {
+                object obj = ResourceManager.GetObject("color_small", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Add To Layer.
         /// </summary>
@@ -218,6 +225,15 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set color tag.
+        /// </summary>
+        internal static string Command_SetColorTag {
+            get {
+                return ResourceManager.GetString("Command_SetColorTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set Current Layer.
         /// </summary>
         internal static string Command_SetCurrentLayer {
@@ -295,6 +311,13 @@ namespace Outliner {
         internal static string Context_Unhide {
             get {
                 return ResourceManager.GetString("Context_Unhide", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap delete_small {
+            get {
+                object obj = ResourceManager.GetObject("delete_small", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

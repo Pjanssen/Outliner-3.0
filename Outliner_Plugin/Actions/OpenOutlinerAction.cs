@@ -50,7 +50,7 @@ namespace Outliner.Actions
          tc.treeView1.TreeNodeLayout = TreeNodeLayout.MayaLayout; //OutlinerGUP.Instance.Layout;
          tc.treeView1.Colors = TreeViewColorScheme.MayaColors; //OutlinerGUP.Instance.ColorScheme;
 
-         tc.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
+         tc.treeView1.NodeSorter = new Outliner.NodeSorters.ColorTagsSorter();//.AlphabeticalSorter();
          TreeMode tm = new
             //HierarchyMode(tc.treeView1);
             //SelectionSetMode(tc.treeView1);

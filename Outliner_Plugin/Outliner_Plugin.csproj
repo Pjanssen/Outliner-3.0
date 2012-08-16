@@ -133,6 +133,7 @@
     <Compile Include="Commands\ModifySelectionSetCommand.cs" />
     <Compile Include="Commands\RenameCommand.cs" />
     <Compile Include="Commands\SelectCommand.cs" />
+    <Compile Include="Commands\SetColorTagCommand.cs" />
     <Compile Include="Commands\SetNodePropertyCommand.cs" />
     <Compile Include="Commands\SetCurrentLayerCommand.cs" />
     <Compile Include="Commands\FreezeCommand.cs" />
@@ -140,7 +141,11 @@
     <Compile Include="Commands\SetViewCameraCommand.cs" />
     <Compile Include="Commands\ToggleLightCommand.cs" />
     <Compile Include="Controls\BitmapProcessing.cs" />
+    <Compile Include="Controls\ColorTagToolStripButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\ContextMenu\MenuItemData.cs" />
+    <Compile Include="Controls\OutlinerColorTable.cs" />
     <Compile Include="Controls\Options\ColorSchemeEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -152,9 +157,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\SerializableColor.cs" />
-    <Compile Include="Controls\Tree\Layout\ColorTagButton.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Controls\Tree\Layout\ColorTagButton.cs" />
     <Compile Include="Filters\ColorTagsFilter.cs" />
     <Compile Include="Modes\Hierarchy\GroupDragDropHandler.cs" />
     <Compile Include="Modes\Layer\IILayerDragDropHandler.cs" />
@@ -364,6 +367,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Notes.txt" />
+    <EmbeddedResource Include="Resources\color_small.png" />
+    <EmbeddedResource Include="Resources\delete_small.png" />
     <EmbeddedResource Include="Resources\node_buttons\button_remove.png" />
     <EmbeddedResource Include="Resources\node_buttons\button_layer.png" />
     <EmbeddedResource Include="Resources\maya_icons\layer.png" />

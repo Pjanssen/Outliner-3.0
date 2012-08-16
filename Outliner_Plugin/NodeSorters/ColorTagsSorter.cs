@@ -27,6 +27,10 @@ namespace Outliner.NodeSorters
 
          if (tagX == tagY)
             return NativeMethods.StrCmpLogicalW(nodeX.Name, nodeY.Name);
+         else if (tagX == ColorTag.None)
+            return 1;
+         else if (tagY == ColorTag.None)
+            return -1;
          else
             return tagX.CompareTo(tagY);
       }
