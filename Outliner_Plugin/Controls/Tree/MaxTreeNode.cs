@@ -13,7 +13,6 @@ namespace Outliner.Controls.Tree
       public MaxTreeNode(IMaxNodeWrapper maxNode)
       {
          this.MaxNode = maxNode;
-         this.Tag = maxNode; //TODO temporary
       }
 
       public override string Text

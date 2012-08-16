@@ -142,15 +142,6 @@ public abstract class TreeMode
 
    #region Helper methods
    
-   public virtual TreeNode CreateTreeNode(IMaxNodeWrapper node)
-   {
-      if (node == null)
-         return null;
-
-      MaxTreeNode tn = new MaxTreeNode(node);
-      return tn;
-   }
-
    public virtual List<TreeNode> GetTreeNodes(IMaxNodeWrapper wrapper)
    {
       if (wrapper == null)
@@ -246,7 +237,7 @@ public abstract class TreeMode
       if (parentCol == null)
          throw new ArgumentNullException("parentCol");
 
-      TreeNode tn = this.CreateTreeNode(wrapper);
+      TreeNode tn = new MaxTreeNode(wrapper);
       this.RegisterNode(wrapper, tn);
 
       IAnimatable node = wrapper.WrappedNode as IAnimatable;

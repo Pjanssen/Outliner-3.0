@@ -28,7 +28,11 @@ public static class HelperMethods
       if (tn == null)
          return null;
 
-      return tn.Tag as IMaxNodeWrapper;
+      MaxTreeNode maxTn = tn as MaxTreeNode;
+      if (maxTn == null)
+         return null;
+      else
+         return maxTn.MaxNode;
    }
 
    /// <summary>

@@ -20,11 +20,11 @@ using Outliner.Modes.FlatList;
 
 namespace Outliner.Actions
 {
-   public class OpenOutlinerAction : CuiDockableContentAdapter
+   public class OpenLayerOutlinerAction : CuiDockableContentAdapter
    {
       public override string ActionText
       {
-         get { return OutlinerResources.Action_ToggleOutliner; }
+         get { return "Open LayerMode"; }
       }
 
       public override string Category
@@ -50,11 +50,11 @@ namespace Outliner.Actions
          tc.treeView1.TreeNodeLayout = TreeNodeLayout.MayaLayout; //OutlinerGUP.Instance.Layout;
          tc.treeView1.Colors = TreeViewColorScheme.MayaColors; //OutlinerGUP.Instance.ColorScheme;
 
-         tc.treeView1.NodeSorter = new Outliner.NodeSorters.ColorTagsSorter();//.AlphabeticalSorter();
+         tc.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
          TreeMode tm = new
-            HierarchyMode(tc.treeView1);
+            //HierarchyMode(tc.treeView1);
             //SelectionSetMode(tc.treeView1);
-            //LayerMode(tc.treeView1);
+            LayerMode(tc.treeView1);
             //FlatObjectListMode(tc.treeView1);
          
          //tm.Filters.Add(new Filters.ColorTagsFilter(ColorTag.Green | ColorTag.Blue));
@@ -66,7 +66,7 @@ namespace Outliner.Actions
 
       public override string WindowTitle
       {
-         get { return "Outliner"; }
+         get { return "Outliner - Layer Mode"; }
       }
 
       public override DockStates.Dock DockingModes

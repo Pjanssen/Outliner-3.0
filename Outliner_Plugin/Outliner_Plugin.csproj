@@ -125,6 +125,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\OpenOutliner_SelSetMode.cs" />
+    <Compile Include="Actions\OpenOutliner_LayerMode.cs" />
     <Compile Include="Actions\OpenOutlinerAction.cs" />
     <Compile Include="AssemblyFunctions.cs" />
     <Compile Include="Commands\ChangeGroupCommand.cs" />
@@ -367,8 +369,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Notes.txt" />
-    <EmbeddedResource Include="Resources\color_small.png" />
-    <EmbeddedResource Include="Resources\delete_small.png" />
     <EmbeddedResource Include="Resources\node_buttons\button_remove.png" />
     <EmbeddedResource Include="Resources\node_buttons\button_layer.png" />
     <EmbeddedResource Include="Resources\maya_icons\layer.png" />

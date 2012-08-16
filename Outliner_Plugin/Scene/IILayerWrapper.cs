@@ -111,16 +111,23 @@ namespace Outliner.Scene
             //TODO check if node is parent of this, etc.
             return node != this;
          }
+         else if (node is SelectionSetWrapper)
+            return this.CanAddChildNodes(node.WrappedChildNodes);
          else
             return false;
       }
 
       public override void AddChildNode(IMaxNodeWrapper node)
       {
+         if (!this.CanAddChildNode(node))
+            return;
+
          if (node is IINodeWrapper)
             this.IILayer.AddToLayer(((IINodeWrapper)node).IINode);
          else if (node is IILayerWrapper)
             NestedLayers.SetParent(((IILayerWrapper)node).IILayer, this.IILayer);
+         else if (node is SelectionSetWrapper)
+            this.AddChildNodes(node.WrappedChildNodes);
       }
 
       public override void RemoveChildNode(IMaxNodeWrapper node)

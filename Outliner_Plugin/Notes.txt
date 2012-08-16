@@ -7,6 +7,8 @@
 * Filters: should enabling e.g. bonefilter show only bones, or hide only bones?
 * Save filter presets.
 * Check if Commands throw null-exception in ctor
+* Add ExceptionHelper class
+* drag-drop of selectionset should work the same as a node selection: Challenge ^-^
 
 TREEVIEW
 --------

@@ -77,6 +77,11 @@ public class IINodeWrapper : IMaxNodeWrapper
 
    public override bool CanAddChildNode(IMaxNodeWrapper node)
    {
+      //SelectionSet
+      if (node is SelectionSetWrapper)
+         return this.CanAddChildNodes(node.WrappedChildNodes);
+
+      //IINode
       IINodeWrapper iinodeWrapper = node as IINodeWrapper;
       if (iinodeWrapper == null)
          return false;
@@ -99,8 +104,15 @@ public class IINodeWrapper : IMaxNodeWrapper
       if (node == null)
          throw new ArgumentNullException("node");
 
-      if (node.WrappedNode is IINode)
-         this.iinode.AttachChild((IINode)node.WrappedNode, true);
+      if (!this.CanAddChildNode(node))
+         return;
+
+      if (node is SelectionSetWrapper)
+         this.AddChildNodes(node.WrappedChildNodes);
+
+      IINode iinode = node.WrappedNode as IINode;
+      if (iinode != null)
+         this.iinode.AttachChild(iinode, true);
    }
 
    public override void RemoveChildNode(IMaxNodeWrapper node)
