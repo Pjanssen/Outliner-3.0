@@ -269,4 +269,7 @@ Use {0} to expand entire hierarchy.</value>
   <data name="Command_SetColorTag" xml:space="preserve">
     <value>Set color tag</value>
   </data>
+  <data name="Tooltip_ColorTag" xml:space="preserve">
+    <value>Color Tag: </value>
+  </data>
 </root>

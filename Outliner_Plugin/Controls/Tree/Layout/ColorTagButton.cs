@@ -47,7 +47,7 @@ public class ColorTagButton : TreeNodeButton
       if (anim == null)
          return String.Empty;
 
-      return "Color Tag: " + ColorTags.GetTag(anim).ToString();
+      return OutlinerResources.Tooltip_ColorTag + ColorTags.GetTag(anim).ToString();
    }
    
    public override void Draw(Graphics graphics, TreeNode tn)

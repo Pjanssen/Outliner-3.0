@@ -367,6 +367,15 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Color Tag: .
+        /// </summary>
+        internal static string Tooltip_ColorTag {
+            get {
+                return ResourceManager.GetString("Tooltip_ColorTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Expand node
         ///Use {0} to expand entire hierarchy..
         /// </summary>
