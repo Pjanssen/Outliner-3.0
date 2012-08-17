@@ -16,8 +16,7 @@ public class SetColorTagCommand : Command
 
    public SetColorTagCommand(IEnumerable<IMaxNodeWrapper> nodes, ColorTag tag)
    {
-      if (nodes == null)
-         throw new ArgumentNullException("nodes");
+      ExceptionHelper.ThrowIfArgumentIsNull(nodes, "nodes");
 
       this.nodes = nodes;
       this.tag = tag;

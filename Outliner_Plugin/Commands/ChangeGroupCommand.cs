@@ -15,6 +15,9 @@ public class ChangeGroupCommand : Command
 
    public ChangeGroupCommand(IEnumerable<IMaxNodeWrapper> nodes, IMaxNodeWrapper groupHead, Boolean group)
    {
+      ExceptionHelper.ThrowIfArgumentIsNull(nodes, "nodes");
+      ExceptionHelper.ThrowIfArgumentIsNull(groupHead, "groupHead");
+
       this.groupHead = groupHead;
       this.nodes = nodes;
       this.group = group;

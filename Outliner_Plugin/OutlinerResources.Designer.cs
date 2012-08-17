@@ -270,6 +270,15 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toggle Light.
+        /// </summary>
+        internal static string Command_ToggleLight {
+            get {
+                return ResourceManager.GetString("Command_ToggleLight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ungroup nodes.
         /// </summary>
         internal static string Command_Ungroup {

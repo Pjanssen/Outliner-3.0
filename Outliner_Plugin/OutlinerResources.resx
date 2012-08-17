@@ -272,4 +272,7 @@ Use {0} to expand entire hierarchy.</value>
   <data name="Tooltip_ColorTag" xml:space="preserve">
     <value>Color Tag: </value>
   </data>
+  <data name="Command_ToggleLight" xml:space="preserve">
+    <value>Toggle Light</value>
+  </data>
 </root>

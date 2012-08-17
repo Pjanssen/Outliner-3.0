@@ -15,8 +15,7 @@ public class SelectCommand : Command
 
    public SelectCommand(IEnumerable<IMaxNodeWrapper> nodes)
    {
-      if (nodes == null)
-         throw new ArgumentNullException("nodes");
+      ExceptionHelper.ThrowIfArgumentIsNull(nodes, "nodes");
 
       this.newSelection = nodes;
    }

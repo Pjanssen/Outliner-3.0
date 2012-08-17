@@ -25,6 +25,12 @@ public class ColorTagButton : TreeNodeButton
       this.ButtonWidth = 10;
    }
 
+   public override MaxNodeTypes VisibleTypes
+   {
+      get { return MaxNodeTypes.Layer | MaxNodeTypes.Object | MaxNodeTypes.SelectionSet; }
+      set { }
+   }
+
    public override int GetWidth(TreeNode tn)
    {
       return this.ButtonWidth;

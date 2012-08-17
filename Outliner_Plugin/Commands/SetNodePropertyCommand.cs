@@ -24,6 +24,9 @@ public class SetNodePropertyCommand<T> : Command
                                        String propertyName,
                                        T newValue)
    {
+      ExceptionHelper.ThrowIfArgumentIsNull(nodes, "nodes");
+      ExceptionHelper.ThrowIfArgumentIsNull(propertyName, "propertyName");
+
       this.nodes = nodes.ToArray();
       this.propInfo = typeof(IMaxNodeWrapper).GetProperty(propertyName);
       this.newValue = newValue;

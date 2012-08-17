@@ -160,6 +160,7 @@
     </Compile>
     <Compile Include="Controls\SerializableColor.cs" />
     <Compile Include="Controls\Tree\Layout\ColorTagButton.cs" />
+    <Compile Include="ExceptionHelper.cs" />
     <Compile Include="Filters\ColorTagsFilter.cs" />
     <Compile Include="Modes\Hierarchy\GroupDragDropHandler.cs" />
     <Compile Include="Modes\Layer\IILayerDragDropHandler.cs" />

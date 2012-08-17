@@ -14,7 +14,7 @@ public class ToggleLightCommand : SetNodePropertyCommand<Boolean>
 
    public override string Description
    {
-      get { return "Toggle light"; }
+      get { return OutlinerResources.Command_ToggleLight; }
    }
 
    protected override bool GetValue(Scene.IMaxNodeWrapper node)
