@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using MaxUtils;
+using Outliner.LayerTools;
 
 namespace Outliner.Scene
 {
@@ -287,6 +288,23 @@ namespace Outliner.Scene
          set 
          {
             this.setSelSetProperty(n => n.WireColor = value);
+         }
+      }
+
+      public override ColorTag ColorTag
+      {
+         get
+         {
+            IEnumerable<IINode> childIINodes = this.ChildIINodes;
+            if (childIINodes.Count() == 0)
+               return LayerTools.ColorTag.None;
+            else
+               return childIINodes.Aggregate(LayerTools.ColorTag.All, (tag, n) =>
+                                                tag &= LayerTools.ColorTags.GetTag(n));
+         }
+         set
+         {
+            this.setSelSetProperty(n => ColorTags.SetTag(n, value));
          }
       }
 

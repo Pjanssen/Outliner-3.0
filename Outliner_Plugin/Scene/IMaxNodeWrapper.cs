@@ -5,6 +5,7 @@ using System.Text;
 using Autodesk.Max;
 using System.Drawing;
 using MaxUtils;
+using Outliner.LayerTools;
 
 namespace Outliner.Scene
 {
@@ -132,6 +133,12 @@ namespace Outliner.Scene
             case AnimatableBooleanProperty.Renderable: this.Renderable = newValue; break;
             case AnimatableBooleanProperty.XRayMtl: this.XRayMtl = newValue; break;
          } 
+      }
+
+      public virtual ColorTag ColorTag
+      {
+         get { return ColorTags.GetTag(this.WrappedNode as IAnimatable); }
+         set { ColorTags.SetTag(this.WrappedNode as IAnimatable, value); }
       }
 
       /// <summary>

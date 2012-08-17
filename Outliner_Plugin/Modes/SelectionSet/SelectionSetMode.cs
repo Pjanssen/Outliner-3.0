@@ -8,6 +8,7 @@ using Outliner.Controls.Tree;
 using Outliner.Filters;
 using MaxUtils;
 using System.Runtime.InteropServices;
+using Outliner.LayerTools;
 
 namespace Outliner.Modes.SelectionSet
 {
@@ -108,6 +109,7 @@ public class SelectionSetMode : TreeMode
       this.RegisterSystemNotification(this.NamedSelSetRenamed, SystemNotificationCode.NamedSelSetRenamed);
       this.RegisterSystemNotification(this.NamedSelSetPreModify, SystemNotificationCode.NamedSelSetPreModify);
       this.RegisterSystemNotification(this.NamedSelSetPostModify, SystemNotificationCode.NamedSelSetPostModify);
+      this.RegisterSystemNotification(this.ColorTagChanged, ColorTags.TagChanged);
    }
 
    private String modifyingSelSetName = null;
@@ -193,6 +195,14 @@ public class SelectionSetMode : TreeMode
          tn.Invalidate();
          this.tree.StartTimedSort(tn);
       }
+   }
+
+   //Invalidate selection sets explicitly when colortag has changed.
+   public virtual void ColorTagChanged(IntPtr param, IntPtr info)
+   {
+      IAnimatable node = MaxUtils.HelperMethods.GetCallParam(info) as IAnimatable;
+      List<TreeNode> tns = this.GetTreeNodes(node);
+      tns.ForEach(tn => tn.Parent.Invalidate());
    }
 
    #endregion

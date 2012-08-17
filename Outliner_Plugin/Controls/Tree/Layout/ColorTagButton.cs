@@ -43,11 +43,8 @@ public class ColorTagButton : TreeNodeButton
       IMaxNodeWrapper wrapper = HelperMethods.GetMaxNode(tn);
       if (wrapper == null)
          return String.Empty;
-      IAnimatable anim = wrapper.WrappedNode as IAnimatable;
-      if (anim == null)
-         return String.Empty;
 
-      return OutlinerResources.Tooltip_ColorTag + ColorTags.GetTag(anim).ToString();
+      return OutlinerResources.Tooltip_ColorTag + wrapper.ColorTag.ToString();
    }
    
    public override void Draw(Graphics graphics, TreeNode tn)
@@ -63,7 +60,9 @@ public class ColorTagButton : TreeNodeButton
          return;
 
       Int32 opacity = this.Layout.TreeView.GetNodeOpacity(tn);
-      Boolean hasTag = ColorTags.HasTag(node.WrappedNode as IAnimatable);
+      ColorTag tag = node.ColorTag;
+      Color tagColor = ColorTags.GetTagColor(node.ColorTag);
+      Boolean hasTag = tag != ColorTag.None;
       
       Rectangle rBounds = this.GetBounds(tn);
       using (Pen linePen = new Pen(Color.FromArgb(opacity, Color.Black)))
@@ -80,7 +79,7 @@ public class ColorTagButton : TreeNodeButton
 
       if (hasTag)
       {
-         Color color = Color.FromArgb(opacity, ColorTags.GetColor(node.WrappedNode as IAnimatable));
+         Color color = Color.FromArgb(opacity, ColorTags.GetTagColor(node.ColorTag));
          Color gradColor = Color.FromArgb(opacity, Math.Min(color.R + 40, 255)
                                                  , Math.Min(color.G + 40, 255)
                                                  , Math.Min(color.B + 40, 255));
@@ -102,7 +101,7 @@ public class ColorTagButton : TreeNodeButton
       IMaxNodeWrapper wrapper = HelperMethods.GetMaxNode(tn);
       if (wrapper != null)
       {
-         currentTag = ColorTags.GetTag(wrapper.WrappedNode as IAnimatable);
+         currentTag = wrapper.ColorTag;
       }
 
       ToolStripDropDown strip = new ToolStripDropDown();

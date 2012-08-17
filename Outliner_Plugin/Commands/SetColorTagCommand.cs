@@ -33,14 +33,10 @@ public class SetColorTagCommand : Command
       this.oldTags = new Dictionary<IMaxNodeWrapper, ColorTag>();
       foreach (IMaxNodeWrapper node in this.nodes)
       {
-         IAnimatable anim = node.WrappedNode as IAnimatable;
-         if (anim != null)
-         {
-            if (!oldTags.ContainsKey(node))
-               oldTags.Add(node, ColorTags.GetTag(anim));
+         if (!oldTags.ContainsKey(node))
+            oldTags.Add(node, node.ColorTag);
 
-            ColorTags.SetTag(anim, this.tag);
-         }
+         node.ColorTag = this.tag;
       }
    }
 
@@ -51,11 +47,7 @@ public class SetColorTagCommand : Command
 
       foreach (KeyValuePair<IMaxNodeWrapper, ColorTag> node in this.oldTags)
       {
-         IAnimatable anim = node.Key.WrappedNode as IAnimatable;
-         if (anim != null)
-         {
-            ColorTags.SetTag(anim, node.Value);
-         }
+         node.Key.ColorTag = node.Value;
       }
    }
 }
