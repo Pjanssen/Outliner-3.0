@@ -94,6 +94,35 @@ public static class ColorTags
       if (node == null)
          return ColorTag.None;
 
+      IAnimatable targetNode = node;
+
+      //Try to retrieve layer tag (overrides IINode tag).
+      IINode iinode = node as IINode;
+      if (iinode != null)
+      {
+         IILayer layer = iinode.GetReference((int)ReferenceNumbers.NodeLayerRef) as IILayer;
+         if (layer != null)
+         {
+            ColorTag layerTag = ColorTags.GetTag(layer);
+            if (layerTag != ColorTag.None)
+               return layerTag;
+         }
+      }
+
+      //Get parent layer tag.
+      IILayer iilayer = node as IILayer;
+      if (iilayer != null)
+      {
+         IILayer parent = NestedLayers.GetParent(iilayer);
+         if (parent != null)
+         {
+            ColorTag layerTag = ColorTags.GetTag(parent);
+            if (layerTag != ColorTag.None)
+               return layerTag;
+         }
+      }
+
+      //Retrieve the animatable's own tag.
       IAppDataChunk chunk = node.GetAppDataChunk(ColorTags.classID, SClass_ID.Utility, 0);
       if (chunk == null || chunk.Data == null || chunk.Data.Length == 0)
          return ColorTag.None;
@@ -136,6 +165,23 @@ public static class ColorTags
       }
 
       MaxInterfaces.Global.BroadcastNotification(ColorTags.TagChanged, node);
+
+      //Broadcast changed notification for all layer nodes.
+      IILayer layer = node as IILayer;
+      if (layer != null)
+      {
+         IILayerProperties layerProperties = MaxInterfaces.IIFPLayerManager.GetLayer(layer.Name);
+         if (layerProperties != null)
+         {
+            ITab<IINode> nodes = MaxInterfaces.Global.INodeTabNS.Create();
+            layerProperties.Nodes(nodes);
+
+            foreach (IINode layerNode in nodes.ToIEnumerable())
+            {
+               MaxInterfaces.Global.BroadcastNotification(ColorTags.TagChanged, layerNode);
+            }
+         }
+      }
    }
 
    /// <summary>
