@@ -25,12 +25,17 @@ public abstract class TreeMode
    private ICollection<Tuple<GlobalDelegates.Delegate5, SystemNotificationCode>> systemNotifications;
    private ICollection<Tuple<uint, TreeModeNodeEventCallbacks>> nodeEventCallbacks;
    protected Dictionary<Object, List<TreeNode>> treeNodes { get; private set; }
-   protected Boolean selectedInOutliner { get; set; }
    private FilterCollection<IMaxNodeWrapper> _filters;
 
    protected TreeMode(TreeView tree)
    {
       ExceptionHelper.ThrowIfArgumentIsNull(tree, "tree");
+
+      proc_PausePreSystemEvent = new GlobalDelegates.Delegate5(this.PausePreSystemEvent);
+      proc_ResumePostSystemEvent = new GlobalDelegates.Delegate5(this.ResumePostSystemEvent);
+      proc_Stop = new GlobalDelegates.Delegate5(this.Stop);
+      proc_SelectionsetChanged = new GlobalDelegates.Delegate5(this.SelectionSetChanged);
+      proc_ColorTagChanged = new GlobalDelegates.Delegate5(this.ColorTagChanged);
 
       this.Tree = tree;
       this.treeNodes = new Dictionary<Object, List<TreeNode>>();
@@ -48,13 +53,13 @@ public abstract class TreeMode
       if (started)
          return;
 
-      this.RegisterSystemNotification(this.PausePreSystemEvent, SystemNotificationCode.SystemPreNew);
-      this.RegisterSystemNotification(this.PausePreSystemEvent, SystemNotificationCode.SystemPreReset);
-      this.RegisterSystemNotification(this.PausePreSystemEvent, SystemNotificationCode.FilePreOpen);
-      this.RegisterSystemNotification(this.PausePreSystemEvent, SystemNotificationCode.FilePreMerge);
-      this.RegisterSystemNotification(this.Stop, SystemNotificationCode.SystemShutdown);
-      this.RegisterSystemNotification(this.SelectionsetChanged, SystemNotificationCode.SelectionsetChanged);
-      this.RegisterSystemNotification(this.ColorTagChanged, ColorTags.TagChanged);
+      this.RegisterSystemNotification(proc_PausePreSystemEvent, SystemNotificationCode.SystemPreNew);
+      this.RegisterSystemNotification(proc_PausePreSystemEvent, SystemNotificationCode.SystemPreReset);
+      this.RegisterSystemNotification(proc_PausePreSystemEvent, SystemNotificationCode.FilePreOpen);
+      this.RegisterSystemNotification(proc_PausePreSystemEvent, SystemNotificationCode.FilePreMerge);
+      this.RegisterSystemNotification(proc_Stop, SystemNotificationCode.SystemShutdown);
+      this.RegisterSystemNotification(proc_SelectionsetChanged, SystemNotificationCode.SelectionsetChanged);
+      this.RegisterSystemNotification(proc_ColorTagChanged, ColorTags.TagChanged);
 
       this.RegisterNodeEventCallbackObject(new DefaultNodeEventCallbacks(this));
 
@@ -86,6 +91,7 @@ public abstract class TreeMode
       this.started = false;
    }
 
+   protected GlobalDelegates.Delegate5 proc_Stop;
    protected virtual void Stop(IntPtr param, IntPtr info)
    {
       this.Stop();
@@ -101,8 +107,23 @@ public abstract class TreeMode
       if (this.systemNotifications == null)
          this.systemNotifications = new List<Tuple<GlobalDelegates.Delegate5, SystemNotificationCode>>();
 
-      MaxInterfaces.Global.RegisterNotification(proc, null, code);
-      this.systemNotifications.Add(new Tuple<GlobalDelegates.Delegate5, SystemNotificationCode>(proc, code));
+      int regResult = MaxInterfaces.Global.RegisterNotification(proc, null, code);
+      if (regResult != 0)
+         this.systemNotifications.Add(new Tuple<GlobalDelegates.Delegate5, SystemNotificationCode>(proc, code));
+   }
+
+   /// <summary>
+   /// Unregisters a SystemNotification. 
+   /// Be sure not to create new delegates when calling this method, but stored ones used when registering it.
+   /// </summary>
+   protected void UnregisterSystemNotification(GlobalDelegates.Delegate5 proc, SystemNotificationCode code)
+   {
+      int unregResult = MaxInterfaces.Global.UnRegisterNotification(proc, null, code);
+
+      if (unregResult != 0 && this.systemNotifications != null)
+      {
+         this.systemNotifications.Remove(new Tuple<GlobalDelegates.Delegate5, SystemNotificationCode>(proc, code));
+      }
    }
 
    /// <summary>
@@ -113,8 +134,8 @@ public abstract class TreeMode
       if (this.systemNotifications == null)
          return;
 
-      this.systemNotifications.ForEach(n => 
-         MaxInterfaces.Global.UnRegisterNotification(n.Item1, n.Item2));
+      this.systemNotifications.ForEach(n =>
+         MaxInterfaces.Global.UnRegisterNotification(n.Item1, null, n.Item2));
       
       this.systemNotifications.Clear();
       this.systemNotifications = null;
@@ -134,8 +155,6 @@ public abstract class TreeMode
 
       this.nodeEventCallbacks.Add(new Tuple<uint, TreeModeNodeEventCallbacks>(cbKey, cb));
    }
-
-
 
    /// <summary>
    /// Unregisters all NodeEventCallbacks registered using <see cref="RegisterNodeEventCallbackObject"/>.
@@ -406,26 +425,28 @@ public abstract class TreeMode
 
    #region System notifications
 
+   protected GlobalDelegates.Delegate5 proc_PausePreSystemEvent;
    protected virtual void PausePreSystemEvent(IntPtr param, IntPtr info)
    {
       this.Stop();
-      this.RegisterSystemNotification(this.ResumePostSystemEvent, SystemNotificationCode.SystemPostNew);
-      this.RegisterSystemNotification(this.ResumePostSystemEvent, SystemNotificationCode.SystemPostReset);
-      this.RegisterSystemNotification(this.ResumePostSystemEvent, SystemNotificationCode.FilePostOpen);
-      this.RegisterSystemNotification(this.ResumePostSystemEvent, SystemNotificationCode.FilePostMerge);
+
+      this.RegisterSystemNotification(this.proc_ResumePostSystemEvent, SystemNotificationCode.SystemPostNew);
+      this.RegisterSystemNotification(this.proc_ResumePostSystemEvent, SystemNotificationCode.SystemPostReset);
+      this.RegisterSystemNotification(this.proc_ResumePostSystemEvent, SystemNotificationCode.FilePostOpen);
+      this.RegisterSystemNotification(this.proc_ResumePostSystemEvent, SystemNotificationCode.FilePostMerge);
    }
 
+   protected GlobalDelegates.Delegate5 proc_ResumePostSystemEvent;
    protected virtual void ResumePostSystemEvent(IntPtr param, IntPtr info)
    {
       this.UnregisterSystemNotifications();
+      
       this.Start();
    }
 
-   protected virtual void SelectionsetChanged(IntPtr param, IntPtr info)
+   protected GlobalDelegates.Delegate5 proc_SelectionsetChanged;
+   protected virtual void SelectionSetChanged(IntPtr param, IntPtr info)
    {
-      if (this.selectedInOutliner)
-         return;
-
       this.Tree.SelectAllNodes(false);
 
       Int32 selNodeCount = MaxInterfaces.COREInterface.SelNodeCount;
@@ -440,7 +461,7 @@ public abstract class TreeMode
       }
    }
 
-
+   protected GlobalDelegates.Delegate5 proc_ColorTagChanged;
    protected virtual void ColorTagChanged(IntPtr param, IntPtr info)
    {
       IAnimatable node = MaxUtils.HelperMethods.GetCallParam(info) as IAnimatable;
@@ -505,14 +526,14 @@ public abstract class TreeMode
 
    protected virtual void tree_SelectionChanged(object sender, SelectionChangedEventArgs e)
    {
-      this.selectedInOutliner = true;
+      this.UnregisterSystemNotification(proc_SelectionsetChanged, SystemNotificationCode.SelectionsetChanged);
 
-      IEnumerable<IMaxNodeWrapper> selNodes = HelperMethods.GetMaxNodes(e.Nodes);
+      IEnumerable<IMaxNodeWrapper> selNodes = HelperMethods.GetMaxNodes(e.Nodes).ToList();
       OutlinerGUP.Instance.OpenSelectedGroupHeads(selNodes);
       SelectCommand cmd = new SelectCommand(selNodes);
       cmd.Execute(true);
 
-      this.selectedInOutliner = false;
+      this.RegisterSystemNotification(proc_SelectionsetChanged, SystemNotificationCode.SelectionsetChanged);
    }
 
    protected virtual void tree_BeforeNodeTextEdit(object sender, BeforeNodeTextEditEventArgs e)

@@ -67,6 +67,7 @@ public class HierarchyMode : TreeMode
       base.Start();
    }
 
+
    protected class HierarchyNodeEventCallbacks : TreeModeNodeEventCallbacks
    {
       public HierarchyNodeEventCallbacks(TreeMode treeMode) : base(treeMode) { }

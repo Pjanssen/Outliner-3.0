@@ -21,6 +21,14 @@ public class LayerMode : TreeMode
    public LayerMode(TreeView tree) : base(tree) 
    {
       this.LayersOnly = false;
+
+      proc_LayerCreated = new GlobalDelegates.Delegate5(this.LayerCreated);
+      proc_LayerDeleted = new GlobalDelegates.Delegate5(this.LayerDeleted);
+      proc_LayerRenamed = new GlobalDelegates.Delegate5(this.LayerRenamed);
+      proc_LayerHiddenChanged = new GlobalDelegates.Delegate5(this.LayerHiddenChanged);
+      proc_LayerFrozenChanged = new GlobalDelegates.Delegate5(this.LayerFrozenChanged);
+      proc_LayerParented = new GlobalDelegates.Delegate5(this.LayerParented);
+      proc_LayerPropChanged = new GlobalDelegates.Delegate5(this.LayerPropChanged);
    }
 
    protected override void FillTree()
@@ -67,13 +75,13 @@ public class LayerMode : TreeMode
 
    public override void Start()
    {
-      this.RegisterSystemNotification(this.LayerCreated, SystemNotificationCode.LayerCreated);
-      this.RegisterSystemNotification(this.LayerDeleted, SystemNotificationCode.LayerDeleted);
-      this.RegisterSystemNotification(this.LayerRenamed, SystemNotificationCode.LayerRenamed);
-      this.RegisterSystemNotification(this.LayerHiddenChanged, SystemNotificationCode.LayerHiddenStateChanged);
-      this.RegisterSystemNotification(this.LayerFrozenChanged, SystemNotificationCode.LayerFrozenStateChanged);
-      this.RegisterSystemNotification(this.LayerParented, NestedLayers.LayerParented);
-      this.RegisterSystemNotification(this.LayerPropChanged, NestedLayers.LayerPropertyChanged);
+      this.RegisterSystemNotification(proc_LayerCreated, SystemNotificationCode.LayerCreated);
+      this.RegisterSystemNotification(proc_LayerDeleted, SystemNotificationCode.LayerDeleted);
+      this.RegisterSystemNotification(proc_LayerRenamed, SystemNotificationCode.LayerRenamed);
+      this.RegisterSystemNotification(proc_LayerHiddenChanged, SystemNotificationCode.LayerHiddenStateChanged);
+      this.RegisterSystemNotification(proc_LayerFrozenChanged, SystemNotificationCode.LayerFrozenStateChanged);
+      this.RegisterSystemNotification(proc_LayerParented, NestedLayers.LayerParented);
+      this.RegisterSystemNotification(proc_LayerPropChanged, NestedLayers.LayerPropertyChanged);
 
       this.RegisterNodeEventCallbackObject(new LayerNodeEventCallbacks(this));
 
@@ -137,6 +145,7 @@ public class LayerMode : TreeMode
 
    #region System notifications
 
+   protected GlobalDelegates.Delegate5 proc_LayerCreated;
    protected virtual void LayerCreated(IntPtr param, IntPtr info)
    {
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
@@ -144,6 +153,7 @@ public class LayerMode : TreeMode
          this.AddNode(layer, this.Tree.Nodes);
    }
 
+   protected GlobalDelegates.Delegate5 proc_LayerDeleted;
    protected virtual void LayerDeleted(IntPtr param, IntPtr info)
    {
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
@@ -151,11 +161,13 @@ public class LayerMode : TreeMode
          this.RemoveNode(layer);
    }
 
+   protected GlobalDelegates.Delegate5 proc_LayerRenamed;
    protected virtual void LayerRenamed(IntPtr param, IntPtr info)
    {
       Console.WriteLine(MaxUtils.HelperMethods.GetCallParam(info));
    }
 
+   protected GlobalDelegates.Delegate5 proc_LayerHiddenChanged;
    protected virtual void LayerHiddenChanged(IntPtr param, IntPtr info)
    {
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
@@ -167,6 +179,7 @@ public class LayerMode : TreeMode
       }
    }
 
+   protected GlobalDelegates.Delegate5 proc_LayerFrozenChanged;
    protected virtual void LayerFrozenChanged(IntPtr param, IntPtr info)
    {
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
@@ -178,6 +191,7 @@ public class LayerMode : TreeMode
       }
    }
 
+   protected GlobalDelegates.Delegate5 proc_LayerPropChanged;
    protected virtual void LayerPropChanged(IntPtr param, IntPtr info)
    {
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
@@ -188,6 +202,7 @@ public class LayerMode : TreeMode
       }
    }
 
+   protected GlobalDelegates.Delegate5 proc_LayerParented;
    protected virtual void LayerParented(IntPtr param, IntPtr info)
    {
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;

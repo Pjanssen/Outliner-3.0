@@ -449,8 +449,10 @@ public class TreeView : ScrollableControl
          this.TreeNodeLayout.HandleMouseUp(e, tn);
       else if (!HelperMethods.ControlPressed && !HelperMethods.ShiftPressed && !HelperMethods.AltPressed)
       {
+         int selCount = this.SelectedNodes.Count;
          this.SelectAllNodes(false);
-         this.OnSelectionChanged();
+         if (selCount > 0)
+            this.OnSelectionChanged();
       }
 
       if ((e.Button & MouseButtons.Right) == MouseButtons.Right && this.ContextMenu != null)
@@ -639,7 +641,7 @@ public class TreeView : ScrollableControl
          if (!this.IsSelectedNode(tn))
             this.SelectedNodes.Add(tn);
 
-         //            this.HighlightParentNodes(tn);
+         //TODO:  this.HighlightParentNodes(tn);
 
          this.LastSelectedNode = tn;
       }
@@ -652,7 +654,7 @@ public class TreeView : ScrollableControl
          else
             tn.State = TreeNodeStates.None;
 
-         //            this.RemoveParentHighlights(tn);
+         //TODO: this.RemoveParentHighlights(tn);
       }
    }
 

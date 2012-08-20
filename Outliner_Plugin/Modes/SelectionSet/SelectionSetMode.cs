@@ -18,6 +18,12 @@ public class SelectionSetMode : TreeMode
 
    public SelectionSetMode(TreeView tree) : base(tree)
    {
+      proc_NamedSelSetCreated = new GlobalDelegates.Delegate5(this.NamedSelSetCreated);
+      proc_NamedSelSetDeleted = new GlobalDelegates.Delegate5(this.NamedSelSetDeleted);
+      proc_NamedSelSetPreModify = new GlobalDelegates.Delegate5(this.NamedSelSetPreModify);
+      proc_NamedSelSetPostModify = new GlobalDelegates.Delegate5(this.NamedSelSetPostModify);
+      proc_NamedSelSetRenamed = new GlobalDelegates.Delegate5(this.NamedSelSetRenamed);
+
       this.allObjectsSelSet = new AllObjectsSelectionSet();
       this.Tree.DragDropHandler = new TreeViewDragDropHandler();
    }
@@ -66,16 +72,17 @@ public class SelectionSetMode : TreeMode
 
    public override void Start()
    {
-      this.RegisterSystemNotification(this.NamedSelSetCreated, SystemNotificationCode.NamedSelSetCreated);
-      this.RegisterSystemNotification(this.NamedSelSetDeleted, SystemNotificationCode.NamedSelSetDeleted);
-      this.RegisterSystemNotification(this.NamedSelSetRenamed, SystemNotificationCode.NamedSelSetRenamed);
-      this.RegisterSystemNotification(this.NamedSelSetPreModify, SystemNotificationCode.NamedSelSetPreModify);
-      this.RegisterSystemNotification(this.NamedSelSetPostModify, SystemNotificationCode.NamedSelSetPostModify);
+      this.RegisterSystemNotification(proc_NamedSelSetCreated, SystemNotificationCode.NamedSelSetCreated);
+      this.RegisterSystemNotification(proc_NamedSelSetDeleted, SystemNotificationCode.NamedSelSetDeleted);
+      this.RegisterSystemNotification(proc_NamedSelSetRenamed, SystemNotificationCode.NamedSelSetRenamed);
+      this.RegisterSystemNotification(proc_NamedSelSetPreModify, SystemNotificationCode.NamedSelSetPreModify);
+      this.RegisterSystemNotification(proc_NamedSelSetPostModify, SystemNotificationCode.NamedSelSetPostModify);
 
       this.RegisterNodeEventCallbackObject(new SelectionSetNodeEventCallbacks(this));
 
       base.Start();
    }
+
 
    #region NodeEventCallbacks
 
@@ -105,11 +112,13 @@ public class SelectionSetMode : TreeMode
 
    #endregion
 
+
    #region System notifications
 
    private String modifyingSelSetName = null;
 
-   public virtual void NamedSelSetCreated(IntPtr param, IntPtr info)
+   protected GlobalDelegates.Delegate5 proc_NamedSelSetCreated;
+   protected virtual void NamedSelSetCreated(IntPtr param, IntPtr info)
    {
       IntPtr callParam = (IntPtr)MaxUtils.HelperMethods.GetCallParam(info);
       String selSetName = Marshal.PtrToStringUni(callParam);
@@ -124,7 +133,8 @@ public class SelectionSetMode : TreeMode
       }
    }
 
-   public virtual void NamedSelSetDeleted(IntPtr param, IntPtr info)
+   protected GlobalDelegates.Delegate5 proc_NamedSelSetDeleted;
+   protected virtual void NamedSelSetDeleted(IntPtr param, IntPtr info)
    {
       IntPtr callParam = (IntPtr)MaxUtils.HelperMethods.GetCallParam(info);
       String selSetName = Marshal.PtrToStringUni(callParam);
@@ -133,6 +143,7 @@ public class SelectionSetMode : TreeMode
          this.RemoveNode(selSetName);
    }
 
+   protected GlobalDelegates.Delegate5 proc_NamedSelSetPreModify;
    protected virtual void NamedSelSetPreModify(IntPtr param, IntPtr info)
    {
       IntPtr callParam = (IntPtr)MaxUtils.HelperMethods.GetCallParam(info);
@@ -140,6 +151,7 @@ public class SelectionSetMode : TreeMode
       this.modifyingSelSetName = selSetName;
    }
 
+   protected GlobalDelegates.Delegate5 proc_NamedSelSetPostModify;
    protected virtual void NamedSelSetPostModify(IntPtr param, IntPtr info)
    {
       if (this.modifyingSelSetName == null)
@@ -175,6 +187,7 @@ public class SelectionSetMode : TreeMode
       public String newName;
    }
 
+   protected GlobalDelegates.Delegate5 proc_NamedSelSetRenamed;
    protected virtual void NamedSelSetRenamed(IntPtr param, IntPtr info)
    {
       IntPtr callParam = (IntPtr)MaxUtils.HelperMethods.GetCallParam(info);

@@ -57,13 +57,16 @@ namespace Outliner.Actions
 
          //this.treeController1.Filters.Add(new Filters.ColorTagsFilter(ColorTag.Green | ColorTag.Blue));
          //this.treeController1.Filters.Enabled = true;
-         this.treeController1.Start();
+         if (!tc.outlinerSplitContainer1.Panel1Collapsed)
+            this.treeController1.Start();
 
          tc.treeView2.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
          tc.treeView2.TreeNodeLayout = TreeNodeLayout.MayaLayout;
          tc.treeView2.Colors = TreeViewColorScheme.MayaColors;
          this.treeController2 = new HierarchyMode(tc.treeView2);
-         this.treeController2.Start();
+
+         //if (!tc.outlinerSplitContainer1.Panel2Collapsed)
+         //   this.treeController2.Start();
          
          return tc;
       }
