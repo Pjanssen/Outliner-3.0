@@ -6,8 +6,7 @@
 * ToggleLightTest use IInterface.CreateLightObject ?
 * Filters: should enabling e.g. bonefilter show only bones, or hide only bones?
 * Save filter presets.
-* Check if Commands throw null-exception in ctor
-* Add ExceptionHelper class
+* Crash when setting layer colortag to wirecolor
 
 TREEVIEW
 --------

@@ -15,26 +15,23 @@ public class HierarchyMode : TreeMode
 {
    public HierarchyMode(TreeView tree) : base(tree)
    {
-      if (tree == null)
-         throw new ArgumentNullException("tree");
+      ExceptionHelper.ThrowIfArgumentIsNull(tree, "tree");
 
       tree.DragDropHandler = new TreeViewDragDropHandler();
-
-      this.RegisterNodeEventCallbacks();
    }
 
-   public override void FillTree()
+   protected override void FillTree()
    {
-      this.tree.BeginUpdate();
+      this.Tree.BeginUpdate();
 
       IINode rootNode = MaxInterfaces.COREInterface.RootNode;
-      this.RegisterNode(rootNode, this.tree.Root);
+      this.RegisterNode(rootNode, this.Tree.Root);
 
       for (int i = 0; i < rootNode.NumberOfChildren; i++)
-         AddNode(rootNode.GetChildNode(i), this.tree.Nodes);
+         AddNode(rootNode.GetChildNode(i), this.Tree.Nodes);
 
-      this.tree.Sort();
-      this.tree.EndUpdate();
+      this.Tree.Sort();
+      this.Tree.EndUpdate();
    }
 
    public override TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol)
@@ -64,9 +61,10 @@ public class HierarchyMode : TreeMode
    }
 
 
-   private void RegisterNodeEventCallbacks()
+   public override void Start()
    {
       this.RegisterNodeEventCallbackObject(new HierarchyNodeEventCallbacks(this));
+      base.Start();
    }
 
    protected class HierarchyNodeEventCallbacks : TreeModeNodeEventCallbacks

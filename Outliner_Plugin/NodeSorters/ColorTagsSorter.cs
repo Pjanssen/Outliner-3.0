@@ -11,6 +11,9 @@ namespace Outliner.NodeSorters
 {
    public class ColorTagsSorter : NodeSorter
    {
+      public ColorTagsSorter() : this(false) { }
+      public ColorTagsSorter(Boolean invert) : base(invert) { }
+
       protected override int InternalCompare(TreeNode x, TreeNode y)
       {
          if (x == y)

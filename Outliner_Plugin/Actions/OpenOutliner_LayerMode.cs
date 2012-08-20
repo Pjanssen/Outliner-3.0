@@ -59,7 +59,7 @@ namespace Outliner.Actions
          
          //tm.Filters.Add(new Filters.ColorTagsFilter(ColorTag.Green | ColorTag.Blue));
          //tm.Filters.Enabled = true;
-         tm.FillTree();
+         tm.Start();
          
          return tc;
       }

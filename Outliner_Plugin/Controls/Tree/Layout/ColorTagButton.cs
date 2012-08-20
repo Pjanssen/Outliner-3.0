@@ -11,6 +11,7 @@ using Autodesk.Max;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using Outliner.Commands;
+using Outliner.Controls.ContextMenu;
 
 namespace Outliner.Controls.Tree.Layout
 {

@@ -33,11 +33,7 @@ namespace Outliner.Filters
          if (data == null)
             return FilterResults.Hide;
 
-         IAnimatable anim = data.WrappedNode as IAnimatable;
-         if (anim == null)
-            return FilterResults.Hide;
-
-         if (ColorTags.HasTag(anim, this.Tags))
+         if ((data.ColorTag & this.tags) != 0)
             return FilterResults.Show;
          else
             return FilterResults.Hide;

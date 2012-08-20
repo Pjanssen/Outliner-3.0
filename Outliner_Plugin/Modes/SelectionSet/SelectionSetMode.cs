@@ -19,31 +19,24 @@ public class SelectionSetMode : TreeMode
    public SelectionSetMode(TreeView tree) : base(tree)
    {
       this.allObjectsSelSet = new AllObjectsSelectionSet();
-      this.tree.DragDropHandler = new TreeViewDragDropHandler();
-
-      this.RegisterNodeEventCallbackObject(new SelectionSetNodeEventCallbacks(this));
-      this.RegisterSystemNotifications();
-
-      this.tree.ContextMenu = new System.Windows.Forms.ContextMenu();
-      this.tree.ContextMenu.MenuItems.Add("test");
-      
+      this.Tree.DragDropHandler = new TreeViewDragDropHandler();
    }
 
-   public override void FillTree()
+   protected override void FillTree()
    {
-      this.tree.BeginUpdate();
+      this.Tree.BeginUpdate();
 
-      TreeNode allObjTn = this.AddNode(this.allObjectsSelSet, this.tree.Nodes);
+      TreeNode allObjTn = this.AddNode(this.allObjectsSelSet, this.Tree.Nodes);
       allObjTn.FontStyle = System.Drawing.FontStyle.Italic;
 
       IINamedSelectionSetManager selSetMan = MaxInterfaces.SelectionSetManager;
       for (int i = 0; i < selSetMan.NumNamedSelSets; i++)
       {
-         this.AddNode(new SelectionSetWrapper(i), this.tree.Nodes);
+         this.AddNode(new SelectionSetWrapper(i), this.Tree.Nodes);
       }
 
-      this.tree.Sort();
-      this.tree.EndUpdate();
+      this.Tree.Sort();
+      this.Tree.EndUpdate();
    }
 
    public override TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol)
@@ -71,6 +64,18 @@ public class SelectionSetMode : TreeMode
    }
 
 
+   public override void Start()
+   {
+      this.RegisterSystemNotification(this.NamedSelSetCreated, SystemNotificationCode.NamedSelSetCreated);
+      this.RegisterSystemNotification(this.NamedSelSetDeleted, SystemNotificationCode.NamedSelSetDeleted);
+      this.RegisterSystemNotification(this.NamedSelSetRenamed, SystemNotificationCode.NamedSelSetRenamed);
+      this.RegisterSystemNotification(this.NamedSelSetPreModify, SystemNotificationCode.NamedSelSetPreModify);
+      this.RegisterSystemNotification(this.NamedSelSetPostModify, SystemNotificationCode.NamedSelSetPostModify);
+
+      this.RegisterNodeEventCallbackObject(new SelectionSetNodeEventCallbacks(this));
+
+      base.Start();
+   }
 
    #region NodeEventCallbacks
 
@@ -102,16 +107,6 @@ public class SelectionSetMode : TreeMode
 
    #region System notifications
 
-   private void RegisterSystemNotifications()
-   {
-      this.RegisterSystemNotification(this.NamedSelSetCreated, SystemNotificationCode.NamedSelSetCreated);
-      this.RegisterSystemNotification(this.NamedSelSetDeleted, SystemNotificationCode.NamedSelSetDeleted);
-      this.RegisterSystemNotification(this.NamedSelSetRenamed, SystemNotificationCode.NamedSelSetRenamed);
-      this.RegisterSystemNotification(this.NamedSelSetPreModify, SystemNotificationCode.NamedSelSetPreModify);
-      this.RegisterSystemNotification(this.NamedSelSetPostModify, SystemNotificationCode.NamedSelSetPostModify);
-      this.RegisterSystemNotification(this.ColorTagChanged, ColorTags.TagChanged);
-   }
-
    private String modifyingSelSetName = null;
 
    public virtual void NamedSelSetCreated(IntPtr param, IntPtr info)
@@ -122,10 +117,10 @@ public class SelectionSetMode : TreeMode
       if (this.modifyingSelSetName == null || this.modifyingSelSetName != selSetName)
       {
          SelectionSetWrapper wrapper = new SelectionSetWrapper(selSetName);
-         TreeNode tn = this.AddNode(wrapper, this.tree.Nodes);
-         this.tree.AddToSortQueue(tn);
-         this.tree.AddToSortQueue(tn.Nodes);
-         this.tree.StartTimedSort(true);
+         TreeNode tn = this.AddNode(wrapper, this.Tree.Nodes);
+         this.Tree.AddToSortQueue(tn);
+         this.Tree.AddToSortQueue(tn.Nodes);
+         this.Tree.StartTimedSort(true);
       }
    }
 
@@ -166,7 +161,7 @@ public class SelectionSetMode : TreeMode
          this.AddNode(node, tn.Nodes);
       }
 
-      this.tree.StartTimedSort(tn.Nodes);
+      this.Tree.StartTimedSort(tn.Nodes);
 
       this.modifyingSelSetName = null;
    }
@@ -193,13 +188,14 @@ public class SelectionSetMode : TreeMode
          wrapper.UpdateName(nameChange.newName);
          this.RegisterNode(wrapper, tn);
          tn.Invalidate();
-         this.tree.StartTimedSort(tn);
+         this.Tree.StartTimedSort(tn);
       }
    }
 
    //Invalidate selection sets explicitly when colortag has changed.
-   public virtual void ColorTagChanged(IntPtr param, IntPtr info)
+   override protected void ColorTagChanged(IntPtr param, IntPtr info)
    {
+      base.ColorTagChanged(param, info);
       IAnimatable node = MaxUtils.HelperMethods.GetCallParam(info) as IAnimatable;
       List<TreeNode> tns = this.GetTreeNodes(node);
       tns.ForEach(tn => tn.Parent.Invalidate());

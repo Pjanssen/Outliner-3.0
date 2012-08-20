@@ -29,8 +29,14 @@ namespace Outliner.Controls
       /// </summary>
       private void InitializeComponent()
       {
-         this.treeView1 = new TreeView();
+         this.treeView1 = new Outliner.Controls.Tree.TreeView();
+         this.outlinerSplitContainer1 = new Outliner.Controls.OutlinerSplitContainer();
+         this.treeView2 = new Outliner.Controls.Tree.TreeView();
          this.panel1 = new System.Windows.Forms.Panel();
+         ((System.ComponentModel.ISupportInitialize)(this.outlinerSplitContainer1)).BeginInit();
+         this.outlinerSplitContainer1.Panel1.SuspendLayout();
+         this.outlinerSplitContainer1.Panel2.SuspendLayout();
+         this.outlinerSplitContainer1.SuspendLayout();
          this.panel1.SuspendLayout();
          this.SuspendLayout();
          // 
@@ -38,21 +44,53 @@ namespace Outliner.Controls
          // 
          this.treeView1.AllowDrop = true;
          this.treeView1.AutoScroll = true;
+         this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
          this.treeView1.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.treeView1.Location = new System.Drawing.Point(4, 4);
+         this.treeView1.Location = new System.Drawing.Point(0, 0);
          this.treeView1.Name = "treeView1";
-         this.treeView1.Size = new System.Drawing.Size(201, 229);
+         this.treeView1.Size = new System.Drawing.Size(306, 408);
          this.treeView1.TabIndex = 0;
+         // 
+         // outlinerSplitContainer1
+         // 
+         this.outlinerSplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.outlinerSplitContainer1.Location = new System.Drawing.Point(4, 4);
+         this.outlinerSplitContainer1.Name = "outlinerSplitContainer1";
+         this.outlinerSplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+         // 
+         // outlinerSplitContainer1.Panel1
+         // 
+         this.outlinerSplitContainer1.Panel1.Controls.Add(this.treeView1);
+         // 
+         // outlinerSplitContainer1.Panel2
+         // 
+         this.outlinerSplitContainer1.Panel2.Controls.Add(this.treeView2);
+         this.outlinerSplitContainer1.Panel2Collapsed = true;
+         this.outlinerSplitContainer1.Size = new System.Drawing.Size(306, 408);
+         this.outlinerSplitContainer1.SplitterDistance = 144;
+         this.outlinerSplitContainer1.TabIndex = 2;
+         // 
+         // treeView2
+         // 
+         this.treeView2.AllowDrop = true;
+         this.treeView2.AutoScroll = true;
+         this.treeView2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.treeView2.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.treeView2.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.treeView2.Location = new System.Drawing.Point(0, 0);
+         this.treeView2.Name = "treeView2";
+         this.treeView2.Size = new System.Drawing.Size(150, 46);
+         this.treeView2.TabIndex = 1;
          // 
          // panel1
          // 
-         this.panel1.Controls.Add(this.treeView1);
+         this.panel1.Controls.Add(this.outlinerSplitContainer1);
          this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
          this.panel1.Location = new System.Drawing.Point(0, 0);
          this.panel1.Name = "panel1";
          this.panel1.Padding = new System.Windows.Forms.Padding(4);
-         this.panel1.Size = new System.Drawing.Size(209, 237);
+         this.panel1.Size = new System.Drawing.Size(314, 416);
          this.panel1.TabIndex = 1;
          // 
          // TestControl
@@ -62,7 +100,11 @@ namespace Outliner.Controls
          this.Controls.Add(this.panel1);
          this.MinimumSize = new System.Drawing.Size(100, 150);
          this.Name = "TestControl";
-         this.Size = new System.Drawing.Size(209, 237);
+         this.Size = new System.Drawing.Size(314, 416);
+         this.outlinerSplitContainer1.Panel1.ResumeLayout(false);
+         this.outlinerSplitContainer1.Panel2.ResumeLayout(false);
+         ((System.ComponentModel.ISupportInitialize)(this.outlinerSplitContainer1)).EndInit();
+         this.outlinerSplitContainer1.ResumeLayout(false);
          this.panel1.ResumeLayout(false);
          this.ResumeLayout(false);
 
@@ -71,7 +113,9 @@ namespace Outliner.Controls
       #endregion
 
       public TreeView treeView1;
+      public TreeView treeView2;
       private System.Windows.Forms.Panel panel1;
+      internal OutlinerSplitContainer outlinerSplitContainer1;
 
 
    }

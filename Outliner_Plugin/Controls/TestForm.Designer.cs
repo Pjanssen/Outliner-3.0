@@ -1,7 +1,6 @@
-﻿using Outliner.Controls.Tree;
-namespace Outliner.Controls
+﻿namespace Outliner.Controls
 {
-   partial class MainWindow
+   partial class TestForm
    {
       /// <summary>
       /// Required designer variable.
@@ -30,24 +29,10 @@ namespace Outliner.Controls
       private void InitializeComponent()
       {
          this.components = new System.ComponentModel.Container();
-         this.SuspendLayout();
-
-         // 
-         // MainWindow
-         // 
-         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.ClientSize = new System.Drawing.Size(260, 259);
-         this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-         this.Name = "MainWindow";
-         this.Text = "MainWindow";
-         this.ResumeLayout(false);
-
+         this.Text = "TestForm";
       }
 
       #endregion
-
-
-
    }
 }

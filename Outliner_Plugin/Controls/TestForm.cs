@@ -6,13 +6,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using MaxCustomControls;
+using UiViewModels.Actions;
 
 namespace Outliner.Controls
 {
-   public partial class MainWindow : MaxForm
+   public partial class TestForm : Form
    {
-      public MainWindow()
+      public TestForm()
       {
          InitializeComponent();
       }

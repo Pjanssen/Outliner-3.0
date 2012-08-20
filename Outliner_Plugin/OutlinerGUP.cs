@@ -86,12 +86,12 @@ namespace Outliner
          tree2.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
          TreeMode mode2 = new SelectionSetMode(tree2);
 
-         mode1.FillTree();
-         mode2.FillTree();
+         mode1.Start();
+         mode2.Start();
 
          container.Panel1.Controls.Add(tree1);
          container.Panel2.Controls.Add(tree2);
-
+         
          return container;
       }
 

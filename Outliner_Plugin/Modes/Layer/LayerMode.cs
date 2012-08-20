@@ -16,23 +16,24 @@ namespace Outliner.Modes.Layer
 {
 public class LayerMode : TreeMode
 {
+   public Boolean LayersOnly { get; set; }
+
    public LayerMode(TreeView tree) : base(tree) 
    {
-      this.RegisterSystemNotifications();
-      this.RegisterNodeEventCallbacks();
+      this.LayersOnly = false;
    }
 
-   public override void FillTree()
+   protected override void FillTree()
    {
-      this.tree.BeginUpdate();
+      this.Tree.BeginUpdate();
 
       foreach (IILayer layer in NestedLayers.RootLayers)
       {
-         this.AddNode(layer, this.tree.Nodes);
+         this.AddNode(layer, this.Tree.Nodes);
       }
 
-      this.tree.Sort();
-      this.tree.EndUpdate();
+      this.Tree.Sort();
+      this.Tree.EndUpdate();
    }
 
    public override TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol)
@@ -48,7 +49,10 @@ public class LayerMode : TreeMode
 
          //Add nodes belonging to this layer.
          foreach (Object node in wrapper.ChildNodes)
-            this.AddNode(node, tn.Nodes);
+         {
+            if (!this.LayersOnly || node is IILayer)
+               this.AddNode(node, tn.Nodes);
+         }
 
          tn.DragDropHandler = new IILayerDragDropHandler(layerWrapper);
       }
@@ -61,12 +65,23 @@ public class LayerMode : TreeMode
    }
 
 
-   #region NodeEventCallbacks
-
-   private void RegisterNodeEventCallbacks()
+   public override void Start()
    {
+      this.RegisterSystemNotification(this.LayerCreated, SystemNotificationCode.LayerCreated);
+      this.RegisterSystemNotification(this.LayerDeleted, SystemNotificationCode.LayerDeleted);
+      this.RegisterSystemNotification(this.LayerRenamed, SystemNotificationCode.LayerRenamed);
+      this.RegisterSystemNotification(this.LayerHiddenChanged, SystemNotificationCode.LayerHiddenStateChanged);
+      this.RegisterSystemNotification(this.LayerFrozenChanged, SystemNotificationCode.LayerFrozenStateChanged);
+      this.RegisterSystemNotification(this.LayerParented, NestedLayers.LayerParented);
+      this.RegisterSystemNotification(this.LayerPropChanged, NestedLayers.LayerPropertyChanged);
+
       this.RegisterNodeEventCallbackObject(new LayerNodeEventCallbacks(this));
+
+      base.Start();
    }
+
+
+   #region NodeEventCallbacks
 
    protected class LayerNodeEventCallbacks : TreeModeNodeEventCallbacks
    {
@@ -74,6 +89,10 @@ public class LayerMode : TreeMode
 
       public override void Added(ITab<UIntPtr> nodes)
       {
+         LayerMode layerMode = this.treeMode as LayerMode;
+         if (layerMode == null || layerMode.LayersOnly)
+            return;
+
          foreach (IINode node in IINodeHelpers.NodeKeysToINodeList(nodes))
          {
             IILayer layer = node.GetReference((int)ReferenceNumbers.NodeLayerRef) as IILayer;
@@ -118,22 +137,11 @@ public class LayerMode : TreeMode
 
    #region System notifications
 
-   private void RegisterSystemNotifications()
-   {
-      this.RegisterSystemNotification(this.LayerCreated, SystemNotificationCode.LayerCreated);
-      this.RegisterSystemNotification(this.LayerDeleted, SystemNotificationCode.LayerDeleted);
-      this.RegisterSystemNotification(this.LayerRenamed, SystemNotificationCode.LayerRenamed);
-      this.RegisterSystemNotification(this.LayerHiddenChanged, SystemNotificationCode.LayerHiddenStateChanged);
-      this.RegisterSystemNotification(this.LayerFrozenChanged, SystemNotificationCode.LayerFrozenStateChanged);
-      this.RegisterSystemNotification(this.LayerParented, NestedLayers.LayerParented);
-      this.RegisterSystemNotification(this.LayerPropChanged, NestedLayers.LayerPropertyChanged);
-   }
-
    protected virtual void LayerCreated(IntPtr param, IntPtr info)
    {
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
       if (layer != null)
-         this.AddNode(layer, this.tree.Nodes);
+         this.AddNode(layer, this.Tree.Nodes);
    }
 
    protected virtual void LayerDeleted(IntPtr param, IntPtr info)
@@ -153,7 +161,7 @@ public class LayerMode : TreeMode
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
       if (layer != null)
       {
-         AnimatablePropertySorter sorter = tree.NodeSorter as AnimatablePropertySorter;
+         AnimatablePropertySorter sorter = Tree.NodeSorter as AnimatablePropertySorter;
          Boolean sort = sorter != null && sorter.Property == AnimatableProperty.IsHidden;
          this.InvalidateObject(layer, true, sort);
       }
@@ -164,7 +172,7 @@ public class LayerMode : TreeMode
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
       if (layer != null)
       {
-         AnimatablePropertySorter sorter = tree.NodeSorter as AnimatablePropertySorter;
+         AnimatablePropertySorter sorter = Tree.NodeSorter as AnimatablePropertySorter;
          Boolean sort = sorter != null && sorter.Property == AnimatableProperty.IsFrozen;
          this.InvalidateObject(layer, true, sort);
       }
@@ -190,7 +198,7 @@ public class LayerMode : TreeMode
          {
             tn.Remove();
 
-            TreeNodeCollection newParentCol = this.tree.Nodes;
+            TreeNodeCollection newParentCol = this.Tree.Nodes;
             TreeNode newParentTn = this.GetFirstTreeNode(NestedLayers.GetParent(layer));
             if (newParentTn != null)
                newParentCol = newParentTn.Nodes;
@@ -198,7 +206,7 @@ public class LayerMode : TreeMode
             if (newParentCol != null)
             {
                newParentCol.Add(tn);
-               this.tree.AddToSortQueue(newParentCol);
+               this.Tree.AddToSortQueue(newParentCol);
             }
          }
       }

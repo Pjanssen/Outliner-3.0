@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
-namespace Outliner.Controls
+namespace Outliner.Controls.ContextMenu
 {
 public class ColorTagToolStripButton : ToolStripButton
 {

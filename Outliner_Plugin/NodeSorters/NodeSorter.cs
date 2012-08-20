@@ -20,16 +20,11 @@ namespace Outliner.NodeSorters
 
       public int Compare(TreeNode x, TreeNode y)
       {
-         if (this.invert)
-         {
-            int c = this.InternalCompare(x, y);
-            if (c == 0)
-               return 0;
-            else if (c > 0)
-               return -1;
-            else
-               return 1;
-         }
+         ExceptionHelper.ThrowIfArgumentIsNull(x, "x");
+         ExceptionHelper.ThrowIfArgumentIsNull(y, "y");
+
+         if (invert)
+            return this.InternalCompare(y, x);
          else
             return this.InternalCompare(x, y);
       }

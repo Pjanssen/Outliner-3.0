@@ -20,7 +20,8 @@ namespace Outliner.Modes
 {
 public abstract class TreeMode
 {
-   protected TreeView tree { get; private set; }
+   protected Boolean started;
+   public TreeView Tree { get; private set; }
    private ICollection<Tuple<GlobalDelegates.Delegate5, SystemNotificationCode>> systemNotifications;
    private ICollection<Tuple<uint, TreeModeNodeEventCallbacks>> nodeEventCallbacks;
    protected Dictionary<Object, List<TreeNode>> treeNodes { get; private set; }
@@ -29,24 +30,66 @@ public abstract class TreeMode
 
    protected TreeMode(TreeView tree)
    {
-      if (tree == null)
-         throw new ArgumentNullException("tree");
+      ExceptionHelper.ThrowIfArgumentIsNull(tree, "tree");
 
-      this.tree = tree;
+      this.Tree = tree;
       this.treeNodes = new Dictionary<Object, List<TreeNode>>();
       this.Filters = new FilterCollection<IMaxNodeWrapper>();
       this.Filters.Add(new InvisibleNodeFilter());
 
-      this.tree.SelectionChanged += new EventHandler<SelectionChangedEventArgs>(tree_SelectionChanged);
-      this.tree.BeforeNodeTextEdit += new EventHandler<BeforeNodeTextEditEventArgs>(tree_BeforeNodeTextEdit);
-      this.tree.AfterNodeTextEdit += new EventHandler<AfterNodeTextEditEventArgs>(tree_AfterNodeTextEdit);
-
-      this.RegisterSystemNotifications();
-      this.RegisterNodeEventCallbacks();
+      this.started = false;
    }
 
-   public abstract void FillTree();
+   protected abstract void FillTree();
 
+
+   public virtual void Start()
+   {
+      if (started)
+         return;
+
+      this.RegisterSystemNotification(this.PausePreSystemEvent, SystemNotificationCode.SystemPreNew);
+      this.RegisterSystemNotification(this.PausePreSystemEvent, SystemNotificationCode.SystemPreReset);
+      this.RegisterSystemNotification(this.PausePreSystemEvent, SystemNotificationCode.FilePreOpen);
+      this.RegisterSystemNotification(this.PausePreSystemEvent, SystemNotificationCode.FilePreMerge);
+      this.RegisterSystemNotification(this.Stop, SystemNotificationCode.SystemShutdown);
+      this.RegisterSystemNotification(this.SelectionsetChanged, SystemNotificationCode.SelectionsetChanged);
+      this.RegisterSystemNotification(this.ColorTagChanged, ColorTags.TagChanged);
+
+      this.RegisterNodeEventCallbackObject(new DefaultNodeEventCallbacks(this));
+
+      this.Tree.SelectionChanged += tree_SelectionChanged;
+      this.Tree.BeforeNodeTextEdit += tree_BeforeNodeTextEdit;
+      this.Tree.AfterNodeTextEdit += tree_AfterNodeTextEdit;
+      this.Tree.MouseClick += tree_MouseClick;
+
+      this.FillTree();
+
+      this.started = true;
+   }
+
+   public virtual void Stop()
+   {
+      if (!started)
+         return;
+
+      this.UnregisterSystemNotifications();
+      this.UnregisterNodeEventCallbacks();
+
+      this.Tree.SelectionChanged -= tree_SelectionChanged;
+      this.Tree.BeforeNodeTextEdit -= tree_BeforeNodeTextEdit;
+      this.Tree.AfterNodeTextEdit -= tree_AfterNodeTextEdit;
+      this.Tree.MouseClick -= tree_MouseClick;
+
+      this.Clear();
+
+      this.started = false;
+   }
+
+   protected virtual void Stop(IntPtr param, IntPtr info)
+   {
+      this.Stop();
+   }
 
    #region Register SystemNotifications and NodeEventCallbacks
 
@@ -65,14 +108,14 @@ public abstract class TreeMode
    /// <summary>
    /// Unregisters all SystemNotifications registered using <see cref="RegisterSystemNotification"/>.
    /// </summary>
-   public virtual void UnregisterSystemNotifications()
+   protected virtual void UnregisterSystemNotifications()
    {
       if (this.systemNotifications == null)
          return;
 
-      foreach (Tuple<GlobalDelegates.Delegate5, SystemNotificationCode> notif in this.systemNotifications)
-         MaxInterfaces.Global.UnRegisterNotification(notif.Item1, null, notif.Item2);
-
+      this.systemNotifications.ForEach(n => 
+         MaxInterfaces.Global.UnRegisterNotification(n.Item1, n.Item2));
+      
       this.systemNotifications.Clear();
       this.systemNotifications = null;
    }
@@ -97,7 +140,7 @@ public abstract class TreeMode
    /// <summary>
    /// Unregisters all NodeEventCallbacks registered using <see cref="RegisterNodeEventCallbackObject"/>.
    /// </summary>
-   public virtual void UnregisterNodeEventCallbacks()
+   protected virtual void UnregisterNodeEventCallbacks()
    {
       if (this.nodeEventCallbacks == null)
          return;
@@ -115,7 +158,7 @@ public abstract class TreeMode
    protected abstract class TreeModeNodeEventCallbacks : Autodesk.Max.Plugins.INodeEventCallback
    {
       protected TreeMode treeMode { get; private set; }
-      protected TreeView tree { get { return this.treeMode.tree; } }
+      protected TreeView tree { get { return this.treeMode.Tree; } }
       protected Dictionary<Object, List<TreeNode>> treeNodes 
       { 
          get { return this.treeMode.treeNodes; } 
@@ -246,7 +289,7 @@ public abstract class TreeMode
       parentCol.Add(tn);
 
       if (wrapper.Selected)
-         this.tree.SelectNode(tn, true);
+         this.Tree.SelectNode(tn, true);
 
       return tn;
    }
@@ -274,7 +317,7 @@ public abstract class TreeMode
       {
          foreach (TreeNode  tn in tns)
          {
-            this.tree.SelectedNodes.Remove(tn);
+            this.Tree.SelectedNodes.Remove(tn);
             tn.Remove();
          }
          this.UnregisterNode(node);
@@ -287,7 +330,7 @@ public abstract class TreeMode
       if (node == null)
          return;
 
-      this.tree.SelectedNodes.Remove(tn);
+      this.Tree.SelectedNodes.Remove(tn);
       tn.Remove();
 
       List<TreeNode> tns = this.GetTreeNodes(node);
@@ -298,9 +341,9 @@ public abstract class TreeMode
    }
 
 
-   public void ClearTreeNodes()
+   protected void Clear()
    {
-      this.tree.Nodes.Clear();
+      this.Tree.Nodes.Clear();
       this.treeNodes.Clear();
    }
 
@@ -315,7 +358,7 @@ public abstract class TreeMode
          {
             tns.ForEach(tn => tn.Invalidate(recursive));
             if (sort)
-               this.tree.StartTimedSort(tns);
+               this.Tree.StartTimedSort(tns);
          }
       }
    }
@@ -333,12 +376,12 @@ public abstract class TreeMode
             tns.ForEach(tn => tn.Invalidate());
 
             if (sort)
-               this.tree.AddToSortQueue(tns);
+               this.Tree.AddToSortQueue(tns);
          }
       }
 
       if (sort)
-         this.tree.StartTimedSort(true);
+         this.Tree.StartTimedSort(true);
    }
 
    public virtual void UpdateFilter(Object obj)
@@ -363,28 +406,27 @@ public abstract class TreeMode
 
    #region System notifications
 
-   /// <summary>
-   /// Registers the default SystemNotifications.
-   /// </summary>
-   private void RegisterSystemNotifications()
+   protected virtual void PausePreSystemEvent(IntPtr param, IntPtr info)
    {
-      this.RegisterSystemNotification(this.SystemPreNew, SystemNotificationCode.SystemPreNew);
-      this.RegisterSystemNotification(this.SystemPostNew, SystemNotificationCode.SystemPostNew);
-      this.RegisterSystemNotification(this.SystemPreReset, SystemNotificationCode.SystemPreReset);
-      this.RegisterSystemNotification(this.SystemPostReset, SystemNotificationCode.SystemPostReset);
-      this.RegisterSystemNotification(this.FilePreOpen, SystemNotificationCode.FilePreOpen);
-      this.RegisterSystemNotification(this.FilePostOpen, SystemNotificationCode.FilePostOpen);
-      this.RegisterSystemNotification(this.FilePostMerge, SystemNotificationCode.FilePostMerge);
-      this.RegisterSystemNotification(this.SelectionsetChanged, SystemNotificationCode.SelectionsetChanged);
-      this.RegisterSystemNotification(this.ColorTagChanged, ColorTags.TagChanged);
+      this.Stop();
+      this.RegisterSystemNotification(this.ResumePostSystemEvent, SystemNotificationCode.SystemPostNew);
+      this.RegisterSystemNotification(this.ResumePostSystemEvent, SystemNotificationCode.SystemPostReset);
+      this.RegisterSystemNotification(this.ResumePostSystemEvent, SystemNotificationCode.FilePostOpen);
+      this.RegisterSystemNotification(this.ResumePostSystemEvent, SystemNotificationCode.FilePostMerge);
    }
 
-   public virtual void SelectionsetChanged(IntPtr param, IntPtr info)
+   protected virtual void ResumePostSystemEvent(IntPtr param, IntPtr info)
+   {
+      this.UnregisterSystemNotifications();
+      this.Start();
+   }
+
+   protected virtual void SelectionsetChanged(IntPtr param, IntPtr info)
    {
       if (this.selectedInOutliner)
          return;
 
-      this.tree.SelectAllNodes(false);
+      this.Tree.SelectAllNodes(false);
 
       Int32 selNodeCount = MaxInterfaces.COREInterface.SelNodeCount;
       if (selNodeCount > 0)
@@ -393,75 +435,25 @@ public abstract class TreeMode
          {
             List<TreeNode> tns = this.GetTreeNodes(MaxInterfaces.COREInterface.GetSelNode(i));
             if (tns != null)
-               tns.ForEach(tn => this.tree.SelectNode(tn, true));
+               tns.ForEach(tn => this.Tree.SelectNode(tn, true));
          }
       }
    }
 
-   public virtual void SystemPreNew(IntPtr param, IntPtr info)
-   {
-      this.UnregisterNodeEventCallbacks();
-      this.ClearTreeNodes();
-   }
 
-   public virtual void SystemPostNew(IntPtr param, IntPtr info)
-   {
-      this.RegisterNodeEventCallbacks();
-      this.FillTree();
-   }
-
-   public virtual void SystemPreReset(IntPtr param, IntPtr info)
-   {
-      this.UnregisterNodeEventCallbacks();
-      this.ClearTreeNodes();
-   }
-
-   public virtual void SystemPostReset(IntPtr param, IntPtr info)
-   {
-      this.RegisterNodeEventCallbacks();
-      this.FillTree();
-   }
-
-   public virtual void FilePreOpen(IntPtr param, IntPtr info)
-   {
-      this.UnregisterNodeEventCallbacks();
-      this.ClearTreeNodes();
-   }
-
-   public virtual void FilePostOpen(IntPtr param, IntPtr info)
-   {
-      this.RegisterNodeEventCallbacks();
-      this.FillTree();
-   }
-
-   public virtual void FilePostMerge(IntPtr param, IntPtr info)
-   {
-      //TODO: Handle premerge
-      this.ClearTreeNodes();
-      this.FillTree();
-   }
-
-   public virtual void ColorTagChanged(IntPtr param, IntPtr info)
+   protected virtual void ColorTagChanged(IntPtr param, IntPtr info)
    {
       IAnimatable node = MaxUtils.HelperMethods.GetCallParam(info) as IAnimatable;
       if (this.Filters.Contains(typeof(ColorTagsFilter)))
          this.UpdateFilter(node);
       
-      this.InvalidateObject(node, false, this.tree.NodeSorter is ColorTagsSorter);
+      this.InvalidateObject(node, false, this.Tree.NodeSorter is ColorTagsSorter);
    }
 
    #endregion
 
 
    #region NodeEventCallbacks
-
-   /// <summary>
-   /// Registers the default NodeEventCallbacks.
-   /// </summary>
-   private void RegisterNodeEventCallbacks()
-   {
-      this.RegisterNodeEventCallbackObject(new DefaultNodeEventCallbacks(this));
-   }
 
    protected class DefaultNodeEventCallbacks : TreeModeNodeEventCallbacks
    {
@@ -534,7 +526,7 @@ public abstract class TreeMode
 
       if (!node.CanEditName)
       {
-         WinForms::MessageBox.Show(tree, 
+         WinForms::MessageBox.Show(Tree, 
                                    OutlinerResources.Warning_CannotEditName, 
                                    OutlinerResources.Warning_CannotEditNameTitle, 
                                    WinForms::MessageBoxButtons.OK, 
@@ -564,6 +556,19 @@ public abstract class TreeMode
       //      handled by nodenamechanged callback.
 
       MaxInterfaces.Global.EnableAccelerators();
+   }
+
+
+   void tree_MouseClick(object sender, WinForms.MouseEventArgs e)
+   {
+      if ((e.Button & WinForms.MouseButtons.Right) != WinForms.MouseButtons.Right)
+         return;
+
+      OutlinerSplitContainer container = this.Tree.Parent.Parent as OutlinerSplitContainer;
+      WinForms::ToolStripDropDown strip = Outliner.Controls.ContextMenu.StandardContextMenu.Create(container, this);
+      Point location = e.Location;
+      location.Offset(0, -(strip.Height + 10));
+      strip.Show(this.Tree, location);
    }
 
    #endregion

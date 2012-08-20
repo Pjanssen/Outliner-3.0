@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
-namespace Outliner.Controls
+namespace Outliner.Controls.ContextMenu
 {
    public class OutlinerColorTable : ProfessionalColorTable
    {
@@ -94,5 +94,76 @@ namespace Outliner.Controls
       {
          get { return Color.FromArgb(55, 55, 55); }
       }
+
+      public override Color MenuItemPressedGradientBegin
+      {
+         get { return Color.FromArgb(136, 174, 225); }
+      }
+      public override Color MenuItemPressedGradientMiddle
+      {
+         get { return Color.FromArgb(106, 136, 181); }
+      }
+      public override Color MenuItemPressedGradientEnd
+      {
+         get { return Color.FromArgb(79, 103, 140); }
+      }
+
+      public override Color MenuItemBorder
+      {
+         get { return Color.FromArgb(43, 43, 43); }
+      }
+
+      public override Color ImageMarginGradientBegin
+      {
+         get { return ToolStripDropDownBackground; }
+      }
+      public override Color ImageMarginGradientMiddle
+      {
+         get { return ToolStripDropDownBackground; }
+      }
+      public override Color ImageMarginGradientEnd
+      {
+         get { return ToolStripDropDownBackground; }
+      }
+      
+      public override Color MenuItemSelected
+      {
+         get { return Color.FromArgb(141, 141, 141); }
+      }
+
+      public override Color MenuItemSelectedGradientBegin
+      {
+         get
+         {
+            return Color.Red;
+         }
+      }
+      public override Color MenuItemSelectedGradientEnd
+      {
+         get
+         {
+            return Color.FromArgb(108, 108, 108);
+         }
+      }
+
+      public override Color MenuStripGradientBegin
+      {
+         get
+         {
+            return Color.Red;
+         }
+      }
+
+      public virtual Color TextColor 
+      {
+         get { return Color.FromArgb(230, 230, 230); }
+      }
+
+      public virtual Color ArrowColor
+      {
+         get { return TextColor; }
+      }
    }
+
+   
 }

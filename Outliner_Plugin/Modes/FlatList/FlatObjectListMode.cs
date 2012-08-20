@@ -12,22 +12,19 @@ namespace Outliner.Modes.FlatList
 {
 public class FlatObjectListMode : TreeMode
 {
-   public FlatObjectListMode(TreeView tree) : base(tree) 
-   {
-      this.RegisterNodeEventCallbacks();
-   }
+   public FlatObjectListMode(TreeView tree) : base(tree) { }
 
-   public override void FillTree()
+   protected override void FillTree()
    {
-      this.tree.BeginUpdate();
+      this.Tree.BeginUpdate();
 
       IINode rootNode = MaxInterfaces.COREInterface.RootNode;
       for (int i = 0; i < rootNode.NumberOfChildren; i++)
-         this.AddNode(rootNode.GetChildNode(i), this.tree.Nodes);
+         this.AddNode(rootNode.GetChildNode(i), this.Tree.Nodes);
 
-      this.tree.Sort();
+      this.Tree.Sort();
 
-      this.tree.EndUpdate();
+      this.Tree.EndUpdate();
    }
 
    public override TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol)
@@ -40,10 +37,12 @@ public class FlatObjectListMode : TreeMode
    }
 
 
-   private void RegisterNodeEventCallbacks()
+   public override void Start()
    {
       this.RegisterNodeEventCallbackObject(new FlatListNodeEventCallbacks(this));
+      base.Start();
    }
+
 
    protected class FlatListNodeEventCallbacks : TreeModeNodeEventCallbacks
    {

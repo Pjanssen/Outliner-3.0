@@ -32,7 +32,6 @@ public class TreeView : ScrollableControl
       this.AllowDrop = true;
    }
 
-
    protected override void Dispose(bool disposing)
    {
       if (this.brushBackground != null)
@@ -96,11 +95,6 @@ public class TreeView : ScrollableControl
          }
          return cp;
       }
-   }
-
-   protected override void OnResize(EventArgs e)
-   {
-      this.Update(TreeViewUpdateFlags.TreeNodeBounds | TreeViewUpdateFlags.Scrollbars);
    }
 
 
@@ -420,7 +414,7 @@ public class TreeView : ScrollableControl
       if (this.VerticalScroll.Visible)
          maxWidth -= SystemInformation.VerticalScrollBarWidth;
 
-      return new Size(maxWidth, maxHeight);
+      return new Size(0, maxHeight);
    }
 
    #endregion

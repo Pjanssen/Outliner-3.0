@@ -14,9 +14,6 @@ internal static class ExceptionHelper
    /// <param name="name">The name of the argument in the called function.</param>
    internal static void ThrowIfArgumentIsNull(Object argument, String name)
    {
-      if (name == null)
-         throw new ArgumentNullException("name", "ArgumentIsNotNull.name was null.");
-
       if (argument == null)
          throw new ArgumentNullException(name);
    }

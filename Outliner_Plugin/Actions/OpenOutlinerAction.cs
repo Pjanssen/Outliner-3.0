@@ -41,27 +41,46 @@ namespace Outliner.Actions
          }
       }
 
+      private TreeMode treeController1;
+      private TreeMode treeController2;
+
       public override object CreateDockableContent()
       {
-         //return OutlinerGUP.Instance.GetContainer();
-         
          Outliner.Controls.TestControl tc = new Controls.TestControl();
-
+         tc.outlinerSplitContainer1.PanelCollapsedChanged += outlinerSplitContainer1_PanelCollapsedChanged;
+         
          tc.treeView1.TreeNodeLayout = TreeNodeLayout.MayaLayout; //OutlinerGUP.Instance.Layout;
          tc.treeView1.Colors = TreeViewColorScheme.MayaColors; //OutlinerGUP.Instance.ColorScheme;
 
-         tc.treeView1.NodeSorter = new Outliner.NodeSorters.ColorTagsSorter();//.AlphabeticalSorter();
-         TreeMode tm = new
-            HierarchyMode(tc.treeView1);
-            //SelectionSetMode(tc.treeView1);
-            //LayerMode(tc.treeView1);
-            //FlatObjectListMode(tc.treeView1);
-         
-         //tm.Filters.Add(new Filters.ColorTagsFilter(ColorTag.Green | ColorTag.Blue));
-         //tm.Filters.Enabled = true;
-         tm.FillTree();
+         tc.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
+         this.treeController1 = new HierarchyMode(tc.treeView1);
+
+         //this.treeController1.Filters.Add(new Filters.ColorTagsFilter(ColorTag.Green | ColorTag.Blue));
+         //this.treeController1.Filters.Enabled = true;
+         this.treeController1.Start();
+
+         tc.treeView2.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
+         tc.treeView2.TreeNodeLayout = TreeNodeLayout.MayaLayout;
+         tc.treeView2.Colors = TreeViewColorScheme.MayaColors;
+         this.treeController2 = new HierarchyMode(tc.treeView2);
+         this.treeController2.Start();
          
          return tc;
+      }
+
+      void outlinerSplitContainer1_PanelCollapsedChanged(object sender, SplitPanelEventArgs args)
+      {
+         TreeView tree = args.Panel.Controls[0] as TreeView;
+         TreeMode tm;
+         if (args.Panel == (sender as OutlinerSplitContainer).Panel1)
+            tm = this.treeController1;
+         else 
+            tm = this.treeController2;
+
+         if (args.IsCollapsed)
+            tm.Stop();
+         else
+            tm.Start();
       }
 
       public override string WindowTitle
@@ -76,17 +95,6 @@ namespace Outliner.Actions
             return DockStates.Dock.Left | DockStates.Dock.Right 
                    | DockStates.Dock.Floating | DockStates.Dock.Viewport;
          }
-      }
-
-      public override bool DestroyOnClose
-      {
-         get { return true; }
-         set { }
-      }
-
-      public override bool IsMainContent
-      {
-         get { return false; }
       }
    }
 
