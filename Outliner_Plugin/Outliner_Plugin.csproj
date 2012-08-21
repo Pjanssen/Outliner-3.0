@@ -179,7 +179,6 @@
     <Compile Include="Controls\Tree\Layout\ColorTagButton.cs" />
     <Compile Include="ExceptionHelper.cs" />
     <Compile Include="Filters\ColorTagsFilter.cs" />
-    <Compile Include="GlobalHookTrapper.cs" />
     <Compile Include="Modes\Hierarchy\GroupDragDropHandler.cs" />
     <Compile Include="Modes\Layer\IILayerDragDropHandler.cs" />
     <Compile Include="Controls\Tree\DragDropHandler.cs" />
@@ -237,7 +236,6 @@
     <Compile Include="Filters\BoneFilter.cs" />
     <Compile Include="Filters\CustomFilters.cs" />
     <Compile Include="Filters\CustomNodeFilter.cs" />
-    <Compile Include="Filters\FilterResult.cs" />
     <Compile Include="Filters\FrozenFilter.cs" />
     <Compile Include="Filters\GeometryFilter.cs" />
     <Compile Include="Filters\HelperFilter.cs" />
@@ -266,6 +264,9 @@
     <Compile Include="NodeSorters\AlphabeticalSorter.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="OutlinerGUP.cs" />
+    <Compile Include="Plugins\OutlinerPluginAttribute.cs" />
+    <Compile Include="Plugins\OutlinerPlugins.cs" />
+    <Compile Include="Plugins\LocalizedDisplayNameAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene\AllObjectsSelectionSet.cs" />
     <Compile Include="Scene\IILayerWrapper.cs" />
@@ -383,6 +384,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Notes.txt" />
+    <EmbeddedResource Include="Resources\contextmenu\sort_alphabetical_32.png" />
+    <EmbeddedResource Include="Resources\contextmenu\window_32.png" />
+    <EmbeddedResource Include="Resources\contextmenu\window_hor_32.png" />
+    <EmbeddedResource Include="Resources\contextmenu\window_ver_32.png" />
+    <EmbeddedResource Include="Resources\contextmenu\delete.png" />
     <EmbeddedResource Include="Resources\contextmenu\filter_32.png" />
     <EmbeddedResource Include="Resources\contextmenu\hierarchy_mode_32.png" />
     <EmbeddedResource Include="Resources\contextmenu\layer_mode_32.png" />

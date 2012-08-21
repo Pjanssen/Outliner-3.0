@@ -1,20 +1,21 @@
 ﻿using System;
 using Autodesk.Max;
 using Outliner.Scene;
+using Outliner.Plugins;
 
 namespace Outliner.Filters
 {
+   [OutlinerPlugin]
+   [LocalizedDisplayName(typeof(OutlinerResources), "Filter_Frozen")]
+   [FilterCategory(FilterCategories.Properties)]
    public class FrozenFilter : Filter<IMaxNodeWrapper>
    {
-      override public FilterResults ShowNode(IMaxNodeWrapper data)
+      override public Boolean ShowNode(IMaxNodeWrapper data)
       {
          if (data == null)
-            return FilterResults.Show;
+            return false;
 
-         if (data.IsFrozen)
-            return FilterResults.Hide;
-         else
-            return FilterResults.Show;
+         return !data.IsFrozen;
       }
    }
 }

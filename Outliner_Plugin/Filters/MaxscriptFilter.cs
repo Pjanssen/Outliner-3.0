@@ -30,21 +30,17 @@ namespace Outliner.Filters
          }
       }
 
-      public override FilterResults ShowNode(IMaxNodeWrapper data)
+      public override Boolean ShowNode(IMaxNodeWrapper data)
       {
          if (String.IsNullOrEmpty(_script))
-            return FilterResults.Show;
+            return true;
 
-         if (data is IINodeWrapper)
-         {
-            String script = String.Format(CultureInfo.InvariantCulture, _filterFn, ((IINode)data.WrappedNode).Handle);
-            if (MaxInterfaces.Global.ExecuteMAXScriptScript(script, true, null))
-               return FilterResults.Hide;
-            else
-               return FilterResults.Show;
-         }
-         else
-            return FilterResults.Show;
+         IINodeWrapper iinodeWrapper = data as IINodeWrapper;
+         if (data == null)
+            return false;
+
+         String script = String.Format(CultureInfo.InvariantCulture, _filterFn, (iinodeWrapper.IINode.Handle));
+         return MaxInterfaces.Global.ExecuteMAXScriptScript(script, true, null);
       }
    }
 }

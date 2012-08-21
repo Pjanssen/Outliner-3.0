@@ -25,6 +25,7 @@ public abstract class TreeMode
    private ICollection<Tuple<GlobalDelegates.Delegate5, SystemNotificationCode>> systemNotifications;
    private ICollection<Tuple<uint, TreeModeNodeEventCallbacks>> nodeEventCallbacks;
    protected Dictionary<Object, List<TreeNode>> treeNodes { get; private set; }
+   private FilterCollection<IMaxNodeWrapper> _permanentFilters;
    private FilterCollection<IMaxNodeWrapper> _filters;
 
    protected TreeMode(TreeView tree)
@@ -40,7 +41,15 @@ public abstract class TreeMode
       this.Tree = tree;
       this.treeNodes = new Dictionary<Object, List<TreeNode>>();
       this.Filters = new FilterCollection<IMaxNodeWrapper>();
-      this.Filters.Add(new InvisibleNodeFilter());
+      this.Filters.Combinator = Functor.Or;
+      this.Filters.InitialCombinatorValue = false;
+
+      this.PermanentFilters = new FilterCollection<IMaxNodeWrapper>();
+      this.PermanentFilters.Enabled = true;
+      this.PermanentFilters.Combinator = Functor.And;
+      this.PermanentFilters.InitialCombinatorValue = true;
+      this.PermanentFilters.Add(new InvisibleNodeFilter());
+      this.PermanentFilters.Add(new NameFilter());
 
       this.started = false;
    }
@@ -304,7 +313,8 @@ public abstract class TreeMode
 
       IAnimatable node = wrapper.WrappedNode as IAnimatable;
 
-      tn.FilterResult = this.Filters.ShowNode(wrapper);
+      tn.ShowNode = this.PermanentFilters.ShowNode(wrapper) && this.Filters.ShowNode(wrapper);
+
       parentCol.Add(tn);
 
       if (wrapper.Selected)
@@ -413,7 +423,7 @@ public abstract class TreeMode
             foreach (TreeNode tn in tns)
             {
                IMaxNodeWrapper wrapper = HelperMethods.GetMaxNode(tn);
-               tn.FilterResult = this.Filters.ShowNode(wrapper);
+               tn.ShowNode = this.Filters.ShowNode(wrapper);
             }
          }
       }
@@ -602,46 +612,57 @@ public abstract class TreeMode
       get { return _filters; }
       set
       {
-         if (value == null)
-            throw new ArgumentNullException("value");
+         ExceptionHelper.ThrowIfArgumentIsNull(value, "value");
 
          if (_filters != null)
-         {
-            _filters.FiltersEnabled -= this.filtersEnabled;
-            _filters.FiltersCleared -= this.filtersCleared;
-            _filters.FilterAdded -= this.filterAdded;
-            _filters.FilterRemoved -= this.filterRemoved;
-            _filters.FilterChanged -= this.filterChanged;
-         }
+            _filters.GeneralFiltersChanged -= this.filters_GeneralFiltersChanged;
 
          _filters = value;
-         _filters.FiltersEnabled += this.filtersEnabled;
-         _filters.FiltersCleared += this.filtersCleared;
-         _filters.FilterAdded += this.filterAdded;
-         _filters.FilterRemoved += this.filterRemoved;
-         _filters.FilterChanged += this.filterChanged;
+         _filters.GeneralFiltersChanged += this.filters_GeneralFiltersChanged;
+
+         if (this.started)
+            this.EvaluateFilters();
       }
    }
 
-   private void filtersEnabled(object sender, EventArgs e)
+   public FilterCollection<IMaxNodeWrapper> PermanentFilters
    {
-       
-   }
-   private void filtersCleared(object sender, EventArgs e)
-   {
+      get { return this._permanentFilters; }
+      set
+      {
+         ExceptionHelper.ThrowIfArgumentIsNull(value, "value");
 
-   }
-   private void filterAdded(object sender, FilterChangedEventArgs<IMaxNodeWrapper> e)
-   {
-      
-   }
-   private void filterRemoved(object sender, FilterChangedEventArgs<IMaxNodeWrapper> e)
-   {
+         if (this._permanentFilters != null)
+            this._permanentFilters.GeneralFiltersChanged -= this.filters_GeneralFiltersChanged;
 
-   }
-   private void filterChanged(object sender, FilterChangedEventArgs<IMaxNodeWrapper> e)
-   {
+         this._permanentFilters = value;
+         this._permanentFilters.GeneralFiltersChanged += this.filters_GeneralFiltersChanged;
 
+         if (this.started)
+            this.EvaluateFilters();
+      }
+   }
+
+   void filters_GeneralFiltersChanged(object sender, EventArgs e)
+   {
+      if (this.started)
+         this.EvaluateFilters();
+   }
+
+   /// <summary>
+   /// Evaluates the filters and adds/removes treenodes based on it.
+   /// </summary>
+   public void EvaluateFilters()
+   {
+      foreach (KeyValuePair<Object, List<TreeNode>> item in this.treeNodes)
+      {
+         foreach (TreeNode tn in item.Value)
+         {
+            IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+            tn.ShowNode = this.PermanentFilters.ShowNode(node) && this.Filters.ShowNode(node);
+         }
+      }
+      this.Tree.Sort();
    }
 
    #endregion

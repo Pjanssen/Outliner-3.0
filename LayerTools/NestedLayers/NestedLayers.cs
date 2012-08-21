@@ -27,8 +27,8 @@ public static class NestedLayers
    }
 
 
-   private static Dictionary<AnimatableBooleanProperty, Func<Boolean, Boolean, Boolean>> propertyOps =
-         new Dictionary<AnimatableBooleanProperty, Func<Boolean, Boolean, Boolean>>() {
+   private static Dictionary<AnimatableBooleanProperty, BinaryPredicate<Boolean>> propertyOps =
+         new Dictionary<AnimatableBooleanProperty, BinaryPredicate<Boolean>>() {
             {AnimatableBooleanProperty.IsHidden, Functor.Or},
             {AnimatableBooleanProperty.IsFrozen, Functor.Or},
             {AnimatableBooleanProperty.BoxMode, Functor.Or},
@@ -249,9 +249,9 @@ public static class NestedLayers
       {
          Boolean parentValue = (Boolean)propInfo.GetValue(parentLayer, null);
 
-         Func<Boolean, Boolean, Boolean> op = Functor.Or;
-         NestedLayers.propertyOps.TryGetValue(prop, out op);
-         newValue = op(ownValue, parentValue);
+         BinaryPredicate<Boolean> pred = Functor.Or;
+         NestedLayers.propertyOps.TryGetValue(prop, out pred);
+         newValue = pred(ownValue, parentValue);
       }
 
       propInfo.SetValue(layer, newValue, null);

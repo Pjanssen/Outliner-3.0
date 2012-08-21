@@ -48,7 +48,7 @@ public class TreeNodeCollection : ICollection<TreeNode>
       item.parent = this.owner;
       item.TreeView = this.owner.TreeView;
 
-      if (item.FilterResult != Filters.FilterResults.Hide)
+      if (item.ShowNode)
          this.addFiltered(item);
    }
 
@@ -136,7 +136,7 @@ public class TreeNodeCollection : ICollection<TreeNode>
       //Invalidate tree bounds.
       this.boundsChanged(tn);
 
-      if (tn.Parent != null && tn.Parent.FilterResult == Filters.FilterResults.Hide)
+      if (tn.Parent != null && !tn.Parent.ShowNode)
          tn.Parent.parent.Nodes.addFiltered(tn.Parent);
    }
 
@@ -151,7 +151,7 @@ public class TreeNodeCollection : ICollection<TreeNode>
       tn.PreviousNode = null;
       tn.NextNode = null;
 
-      if (tn.Parent != null && tn.Parent.FilterResult == Filters.FilterResults.Hide)
+      if (tn.Parent != null && !tn.Parent.ShowNode && !tn.Parent.HasUnfilteredChildren)
          tn.Parent.parent.Nodes.removeFiltered(tn.Parent);
 
       this.filteredNodes.Remove(tn);
@@ -159,7 +159,7 @@ public class TreeNodeCollection : ICollection<TreeNode>
 
    internal void updateFilter(TreeNode tn)
    {
-      if (tn.FilterResult == Filters.FilterResults.Hide && !tn.HasUnfilteredChildren)
+      if (!tn.ShowNode && !tn.HasUnfilteredChildren)
          this.removeFiltered(tn);
       else if (!this.filteredNodes.Contains(tn))
          this.addFiltered(tn);

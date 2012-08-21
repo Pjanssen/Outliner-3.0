@@ -18,19 +18,16 @@ namespace Outliner.Filters
          get { return true; }
       }
 
-      public override FilterResults ShowNode(IMaxNodeWrapper data)
+      public override Boolean ShowNode(IMaxNodeWrapper data)
       {
-         if (data == null)
-            return FilterResults.Hide;
+         if (data == null || !data.IsValid)
+            return false;
 
-         IINodeWrapper inodeWrapper = data as IINodeWrapper;
-         if (inodeWrapper == null)
-            return FilterResults.Show;
+         IINodeWrapper iinodeWrapper = data as IINodeWrapper;
+         if (iinodeWrapper == null)
+            return true;
 
-         if (!inodeWrapper.IsValid || IINodeHelpers.IsInvisibleNode(inodeWrapper.IINode))
-            return FilterResults.Hide;
-         else
-            return FilterResults.Show;
+         return !IINodeHelpers.IsInvisibleNode(iinodeWrapper.IINode);
       }
    }
 }

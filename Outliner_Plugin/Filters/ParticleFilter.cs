@@ -1,20 +1,22 @@
-﻿using Autodesk.Max;
+﻿using System;
+using Autodesk.Max;
 using Outliner.Scene;
+using Outliner.Plugins;
 
 namespace Outliner.Filters
 {
+   [OutlinerPlugin]
+   [LocalizedDisplayName(typeof(OutlinerResources), "Filter_Particle")]
+   [FilterCategory(FilterCategories.Classes)]
    public class ParticleFilter : Filter<IMaxNodeWrapper>
    {
-      override public FilterResults ShowNode(IMaxNodeWrapper data)
+      override public Boolean ShowNode(IMaxNodeWrapper data)
       {
-         if (!(data is IINodeWrapper))
-            return FilterResults.Show;
+         IINodeWrapper iinodeWrapper = data as IINodeWrapper;
+         if (iinodeWrapper == null)
+            return false;
 
-         IINode node = (IINode)data.WrappedNode;
-         if (node.ObjectRef.IsParticleSystem)
-            return FilterResults.Hide;
-         else
-            return FilterResults.Show;
+         return iinodeWrapper.IINode.ObjectRef.IsParticleSystem;
       }
    }
 }

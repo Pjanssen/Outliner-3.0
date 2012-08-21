@@ -95,7 +95,7 @@ public class TreeNodeIcon : TreeNodeButton
       if (iconKey == null)
          iconKey = IconHelperMethods.IMGKEY_UNKNOWN;
 
-      if (tn.FilterResult == FilterResults.ShowChildren)
+      if (!tn.ShowNode)
          iconKey += "_filtered";
 
       if (!this.icons.TryGetValue(iconKey, out icon))

@@ -102,8 +102,7 @@ public abstract class AnimatablePropertyButton : ImageButton
 
       if (this.isInheritedFromLayer(tn))
       {
-         Boolean isFiltered = !tn.FilterResult.HasFlag(FilterResults.Show);
-         Image img = (isFiltered) ? this.ImageByLayer_Filtered : this.ImageByLayer;
+         Image img = (!tn.ShowNode) ? this.ImageByLayer_Filtered : this.ImageByLayer;
          this.DrawImage(graphics, tn, img);
       }
       else

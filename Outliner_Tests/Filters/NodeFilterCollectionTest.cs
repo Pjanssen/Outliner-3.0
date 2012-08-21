@@ -11,9 +11,9 @@ public class NodeFilterCollectionTest
 {
    public class MockFilter : Filter<Boolean>
    {
-      public override FilterResults ShowNode(bool data)
+      public override Boolean ShowNode(bool data)
       {
-         return data ? FilterResults.Show : FilterResults.Hide;
+         return data ? true : false;
       }
    }
 
@@ -47,26 +47,26 @@ public class NodeFilterCollectionTest
       FilterCollection<Boolean> target = new FilterCollection<Boolean>();
       target.Enabled = true;
 
-      Assert.AreEqual(FilterResults.Show, target.ShowNode(true), "No filters, true value");
-      Assert.AreEqual(FilterResults.Show, target.ShowNode(false), "No filters, false value");
+      Assert.AreEqual(false, target.ShowNode(true), "No filters, true value");
+      Assert.AreEqual(false, target.ShowNode(false), "No filters, false value");
 
       target.Add(new MockFilter());
-      Assert.AreEqual(FilterResults.Show, target.ShowNode(true), "MockFilter, enabled, true");
-      Assert.AreEqual(FilterResults.Hide, target.ShowNode(false), "MockFilter, enabled, false");
+      Assert.AreEqual(false, target.ShowNode(true), "MockFilter, enabled, true");
+      Assert.AreEqual(false, target.ShowNode(false), "MockFilter, enabled, false");
 
       target.Enabled = false;
-      Assert.AreEqual(FilterResults.Show, target.ShowNode(true), "MockFilter, !enabled, true");
-      Assert.AreEqual(FilterResults.Show, target.ShowNode(false), "MockFilter, !enabled, false");
+      Assert.AreEqual(false, target.ShowNode(true), "MockFilter, !enabled, true");
+      Assert.AreEqual(false, target.ShowNode(false), "MockFilter, !enabled, false");
 
       target = new FilterCollection<Boolean>();
       target.Enabled = true;
       target.Add(new MockPermanentFilter());
-      Assert.AreEqual(FilterResults.Show, target.ShowNode(true), "MockPermanentFilter, enabled, true");
-      Assert.AreEqual(FilterResults.Hide, target.ShowNode(false), "MockPermanentFilter, enabled, false");
+      Assert.AreEqual(false, target.ShowNode(true), "MockPermanentFilter, enabled, true");
+      Assert.AreEqual(false, target.ShowNode(false), "MockPermanentFilter, enabled, false");
 
       target.Enabled = false;
-      Assert.AreEqual(FilterResults.Show, target.ShowNode(true), "MockPermanentFilter, !enabled, true");
-      Assert.AreEqual(FilterResults.Hide, target.ShowNode(false), "MockPermanentFilter, !enabled, false");
+      Assert.AreEqual(false, target.ShowNode(true), "MockPermanentFilter, !enabled, true");
+      Assert.AreEqual(false, target.ShowNode(false), "MockPermanentFilter, !enabled, false");
    }
 
    [TestMethod()]

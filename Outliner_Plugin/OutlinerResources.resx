@@ -275,4 +275,73 @@ Use {0} to expand entire hierarchy.</value>
   <data name="Command_ToggleLight" xml:space="preserve">
     <value>Toggle Light</value>
   </data>
+  <data name="Filter_Bones" xml:space="preserve">
+    <value>Bones</value>
+  </data>
+  <data name="Filter_Cameras" xml:space="preserve">
+    <value>Cameras</value>
+  </data>
+  <data name="Filter_ColorTag" xml:space="preserve">
+    <value>Color Tag</value>
+  </data>
+  <data name="Filter_Frozen" xml:space="preserve">
+    <value>Frozen Nodes</value>
+  </data>
+  <data name="Filter_Geometry" xml:space="preserve">
+    <value>Geometry</value>
+  </data>
+  <data name="Filter_Helpers" xml:space="preserve">
+    <value>Helpers</value>
+  </data>
+  <data name="Filter_Hidden" xml:space="preserve">
+    <value>Hidden Nodes</value>
+  </data>
+  <data name="Filter_Lights" xml:space="preserve">
+    <value>Lights</value>
+  </data>
+  <data name="Filter_Nurbs" xml:space="preserve">
+    <value>Nurbs</value>
+  </data>
+  <data name="Filter_Particle" xml:space="preserve">
+    <value>Particle Systems</value>
+  </data>
+  <data name="Filter_Shapes" xml:space="preserve">
+    <value>Shapes</value>
+  </data>
+  <data name="Filter_Spacewarps" xml:space="preserve">
+    <value>Spacewarps</value>
+  </data>
+  <data name="Filter_XRef" xml:space="preserve">
+    <value>XRefs</value>
+  </data>
+  <data name="Sort_Alphabetical" xml:space="preserve">
+    <value>Alphabetical</value>
+  </data>
+  <data name="Sort_ColorTag" xml:space="preserve">
+    <value>Color Tag</value>
+  </data>
+  <data name="Sort_Hidden" xml:space="preserve">
+    <value>Visibility</value>
+  </data>
+  <data name="Sort_INodeHandle" xml:space="preserve">
+    <value>Chronological</value>
+  </data>
+  <data name="Sort_SuperClass" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Sort_Frozen" xml:space="preserve">
+    <value>Frozen State</value>
+  </data>
+  <data name="Mode_FlatList" xml:space="preserve">
+    <value>Flat Object List</value>
+  </data>
+  <data name="Mode_Hierarchy" xml:space="preserve">
+    <value>Hierarchy</value>
+  </data>
+  <data name="Mode_Layer" xml:space="preserve">
+    <value>Layer</value>
+  </data>
+  <data name="Mode_SelSet" xml:space="preserve">
+    <value>Selection-Set</value>
+  </data>
 </root>

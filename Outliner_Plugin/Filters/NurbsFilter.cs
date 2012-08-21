@@ -4,24 +4,22 @@ using System.Linq;
 using System.Text;
 using Outliner.Scene;
 using Autodesk.Max;
+using Outliner.Plugins;
 
 namespace Outliner.Filters
 {
+   [OutlinerPlugin]
+   [LocalizedDisplayName(typeof(OutlinerResources), "Filter_Nurbs")]
+   [FilterCategory(FilterCategories.Classes)]
    public class NurbsFilter : Filter<IMaxNodeWrapper>
    {
-      public override FilterResults ShowNode(IMaxNodeWrapper data)
+      public override Boolean ShowNode(IMaxNodeWrapper data)
       {
-         if (!(data is IINodeWrapper))
-            return FilterResults.Show;
+         IINodeWrapper iinodeWrapper = data as IINodeWrapper;
+         if (iinodeWrapper == null)
+            return false;
 
-         if (data.SuperClassID == Autodesk.Max.SClass_ID.Geomobject)
-         {
-            IINode node = (IINode)data.WrappedNode;
-            if (node.ObjectRef != null && node.ObjectRef.IsShapeObject)
-               return FilterResults.Hide;
-         }
-
-         return FilterResults.Show;
+         return iinodeWrapper.SuperClassID == SClass_ID.Geomobject && iinodeWrapper.IINode.ObjectRef.IsShapeObject;
       }
    }
 }

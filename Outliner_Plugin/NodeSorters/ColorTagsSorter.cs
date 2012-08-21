@@ -6,9 +6,12 @@ using Outliner.Controls.Tree;
 using Outliner.Scene;
 using Outliner.LayerTools;
 using Autodesk.Max;
+using Outliner.Plugins;
 
 namespace Outliner.NodeSorters
 {
+   [OutlinerPlugin]
+   [LocalizedDisplayName(typeof(OutlinerResources), "Sort_ColorTag")]
    public class ColorTagsSorter : NodeSorter
    {
       public ColorTagsSorter() : this(false) { }

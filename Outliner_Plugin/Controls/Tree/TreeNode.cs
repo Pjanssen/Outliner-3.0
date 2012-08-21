@@ -20,7 +20,7 @@ public class TreeNode
    private Color foreColor;
    private FontStyle fontStyle;
    private String imageKey;
-   private FilterResults filterResult;
+   private Boolean showNode;
 
    public TreeNodeCollection Nodes { get; private set; }
    public DragDropHandler DragDropHandler { get; set; }
@@ -32,18 +32,18 @@ public class TreeNode
       this.TreeView = tree;
    }
    public TreeNode(String text) 
-      : this (text, Color.Empty, Color.Empty, FontStyle.Regular, String.Empty, FilterResults.Show)
+      : this (text, Color.Empty, Color.Empty, FontStyle.Regular, String.Empty, true)
    { }
    public TreeNode(String text, Color backColor, Color foreColor,
                    FontStyle fontStyle, String imageKey, 
-                   FilterResults filterResult)
+                   Boolean showNode)
    {
       this.text = text;
       this.backColor = backColor;
       this.foreColor = foreColor;
       this.fontStyle = fontStyle;
       this.imageKey = imageKey;
-      this.filterResult = filterResult;
+      this.showNode = showNode;
 
       this.boundsValid = false;
       this.Nodes = new TreeNodeCollection(this);
@@ -342,14 +342,14 @@ public class TreeNode
 
    #region Filter
    
-   public FilterResults FilterResult
+   public Boolean ShowNode
    {
-      get { return this.filterResult; }
+      get { return this.showNode; }
       set
       {
-         if (this.filterResult != value)
+         if (this.showNode != value)
          {
-            this.filterResult = value;
+            this.showNode = value;
             if (this.parent != null)
             {
                this.parent.Nodes.updateFilter(this);
@@ -365,7 +365,7 @@ public class TreeNode
       {
          foreach (TreeNode tn in this.Nodes)
          {
-            if (tn.FilterResult == FilterResults.Show || tn.HasUnfilteredChildren)
+            if (tn.ShowNode || tn.HasUnfilteredChildren)
                return true;
          }
          return false;

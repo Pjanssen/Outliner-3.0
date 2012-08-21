@@ -123,7 +123,6 @@
     <Compile Include="AutoInheritProperties\AutoInheritPropertiesMxs.cs" />
     <Compile Include="ColorTags\ColorTags.cs" />
     <Compile Include="ColorTags\ColorTagsMxs.cs" />
-    <Compile Include="Functor.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="NestedLayers\NestedLayersMxs.cs" />
     <Compile Include="NestedLayers\NestedLayers.cs" />

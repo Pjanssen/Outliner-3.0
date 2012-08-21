@@ -5,9 +5,13 @@ using System.Text;
 using Outliner.Scene;
 using Outliner.LayerTools;
 using Autodesk.Max;
+using Outliner.Plugins;
 
 namespace Outliner.Filters
 {
+   [OutlinerPlugin]
+   [LocalizedDisplayName(typeof(OutlinerResources), "Filter_ColorTag")]
+   [FilterCategory(FilterCategories.Properties)]
    public class ColorTagsFilter : Filter<IMaxNodeWrapper>
    {
       private ColorTag tags;
@@ -28,15 +32,12 @@ namespace Outliner.Filters
          }
       }
 
-      public override FilterResults ShowNode(IMaxNodeWrapper data)
+      public override Boolean ShowNode(IMaxNodeWrapper data)
       {
          if (data == null)
-            return FilterResults.Hide;
+            return false;
 
-         if ((data.ColorTag & this.tags) != 0)
-            return FilterResults.Show;
-         else
-            return FilterResults.Hide;
+         return (data.ColorTag & this.tags) != 0;
       }
    }
 }

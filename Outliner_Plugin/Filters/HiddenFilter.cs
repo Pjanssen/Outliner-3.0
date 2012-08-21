@@ -1,19 +1,21 @@
-﻿using Autodesk.Max;
+﻿using System;
+using Autodesk.Max;
 using Outliner.Scene;
+using Outliner.Plugins;
 
 namespace Outliner.Filters
 {
+   [OutlinerPlugin]
+   [LocalizedDisplayName(typeof(OutlinerResources), "Filter_Hidden")]
+   [FilterCategory(FilterCategories.Properties)]
    public class HiddenFilter : Filter<IMaxNodeWrapper>
    {
-      override public FilterResults ShowNode(IMaxNodeWrapper data)
+      override public Boolean ShowNode(IMaxNodeWrapper data)
       {
          if (data == null)
-            return FilterResults.Hide;
+            return false;
 
-         if (data.IsHidden)
-            return FilterResults.Hide;
-         else
-            return FilterResults.Show;
+         return !data.IsHidden;
       }
    }
 }

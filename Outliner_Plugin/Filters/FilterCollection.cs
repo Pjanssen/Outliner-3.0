@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
+using MaxUtils;
 
 namespace Outliner.Filters
 {
 public class FilterCollection<T> : ICollection<Filter<T>>
 {
    private Boolean enabled;
+   private BinaryPredicate<Boolean> combinator;
    private List<Filter<T>> filters;
 
    public FilterCollection() : this(null) { }
@@ -16,11 +19,13 @@ public class FilterCollection<T> : ICollection<Filter<T>>
       {
          this.enabled = false;
          this.filters = new List<Filter<T>>();
+         this.combinator = Functor.Or;
       }
       else
       {
          this.enabled = collection.Enabled;
          this.filters = collection.filters;
+         this.combinator = collection.Combinator;
       }
    }
 
@@ -35,6 +40,7 @@ public class FilterCollection<T> : ICollection<Filter<T>>
       {
          enabled = value;
          this.OnFiltersEnabled();
+         this.OnGeneralFiltersChanged();
       }
    }
 
@@ -49,9 +55,10 @@ public class FilterCollection<T> : ICollection<Filter<T>>
       if (!this.filters.Contains(item))
          this.filters.Add(item);
 
-      item.FilterChanged += filterChanged;
+      item.FilterChanged += OnFilterChanged;
 
       this.OnFilterAdded(item);
+      this.OnGeneralFiltersChanged();
    }
 
    ///<summary>
@@ -83,6 +90,7 @@ public class FilterCollection<T> : ICollection<Filter<T>>
       filtersToRemove.Clear();
       
       this.OnFiltersCleared();
+      this.OnGeneralFiltersChanged();
    }
 
    public bool Contains(Filter<T> item)
@@ -115,11 +123,12 @@ public class FilterCollection<T> : ICollection<Filter<T>>
       if (item == null)
          return false;
 
-      item.FilterChanged -= filterChanged;
+      item.FilterChanged -= OnFilterChanged;
 
       if (this.filters.Remove(item))
       {
          this.OnFilterRemoved(item);
+         this.OnGeneralFiltersChanged();
          return true;
       }
       else
@@ -175,31 +184,48 @@ public class FilterCollection<T> : ICollection<Filter<T>>
    #endregion
 
 
+   public BinaryPredicate<Boolean> Combinator 
+   {
+      get { return this.combinator; }
+      set
+      {
+         this.combinator = value;
+         this.OnGeneralFiltersChanged();
+      }
+   }
+
+   public Boolean InitialCombinatorValue { get; set; }
+
+
    /// <summary>
    /// Tests whether the supplied node and its children should be shown.
    /// </summary>
-   public virtual FilterResults ShowNode(T node)
+   public virtual Boolean ShowNode(T node)
    {
-      FilterResults filterResult = FilterResults.Show;
+      if (!this.Enabled || this.filters.Count == 0)
+         return true;
 
-      // Loop through filters.
+      BinaryPredicate<Boolean> combinator = this.Combinator;
+      Boolean show = InitialCombinatorValue;
       foreach (Filter<T> filter in this.filters)
       {
-         if (this.Enabled || filter.AlwaysEnabled)
-         {
-            if (filter.ShowNode(node) == FilterResults.Hide)
-            {
-               filterResult = FilterResults.Hide;
-               break;
-            }
-         }
+         show = combinator(show, filter.ShowNode(node));
       }
-
-      return filterResult;
+      return show;
    }
 
 
    #region Events.
+
+   /// <summary>
+   /// A general event raised when the filter collection changes.
+   /// </summary>
+   public event EventHandler GeneralFiltersChanged;
+   protected virtual void OnGeneralFiltersChanged()
+   {
+      if (this.GeneralFiltersChanged != null)
+         this.GeneralFiltersChanged(this, new EventArgs());
+   }
 
    /// <summary>
    /// Raised when the filter collection's Enabled property has been changed.
@@ -245,10 +271,13 @@ public class FilterCollection<T> : ICollection<Filter<T>>
    /// Raised when the properties of a filter in the collection has been changed.
    /// </summary>
    public event EventHandler<FilterChangedEventArgs<T>> FilterChanged;
-   protected void filterChanged(object sender, EventArgs e)
+   //Forwards the event from any Filter<T>, so you can subscribe to the collection
+   //instead of each individual filter.
+   protected void OnFilterChanged(object sender, EventArgs e)
    {
       if (this.FilterChanged != null)
          this.FilterChanged(this, new FilterChangedEventArgs<T>(sender as Filter<T>));
+      this.OnGeneralFiltersChanged();
    }
 
    #endregion

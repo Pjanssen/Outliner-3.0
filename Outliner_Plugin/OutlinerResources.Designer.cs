@@ -331,6 +331,213 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bones.
+        /// </summary>
+        internal static string Filter_Bones {
+            get {
+                return ResourceManager.GetString("Filter_Bones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cameras.
+        /// </summary>
+        internal static string Filter_Cameras {
+            get {
+                return ResourceManager.GetString("Filter_Cameras", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color Tag.
+        /// </summary>
+        internal static string Filter_ColorTag {
+            get {
+                return ResourceManager.GetString("Filter_ColorTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Frozen Nodes.
+        /// </summary>
+        internal static string Filter_Frozen {
+            get {
+                return ResourceManager.GetString("Filter_Frozen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geometry.
+        /// </summary>
+        internal static string Filter_Geometry {
+            get {
+                return ResourceManager.GetString("Filter_Geometry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Helpers.
+        /// </summary>
+        internal static string Filter_Helpers {
+            get {
+                return ResourceManager.GetString("Filter_Helpers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hidden Nodes.
+        /// </summary>
+        internal static string Filter_Hidden {
+            get {
+                return ResourceManager.GetString("Filter_Hidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lights.
+        /// </summary>
+        internal static string Filter_Lights {
+            get {
+                return ResourceManager.GetString("Filter_Lights", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nurbs.
+        /// </summary>
+        internal static string Filter_Nurbs {
+            get {
+                return ResourceManager.GetString("Filter_Nurbs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Particle Systems.
+        /// </summary>
+        internal static string Filter_Particle {
+            get {
+                return ResourceManager.GetString("Filter_Particle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shapes.
+        /// </summary>
+        internal static string Filter_Shapes {
+            get {
+                return ResourceManager.GetString("Filter_Shapes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spacewarps.
+        /// </summary>
+        internal static string Filter_Spacewarps {
+            get {
+                return ResourceManager.GetString("Filter_Spacewarps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to XRefs.
+        /// </summary>
+        internal static string Filter_XRef {
+            get {
+                return ResourceManager.GetString("Filter_XRef", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Flat Object List.
+        /// </summary>
+        internal static string Mode_FlatList {
+            get {
+                return ResourceManager.GetString("Mode_FlatList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hierarchy.
+        /// </summary>
+        internal static string Mode_Hierarchy {
+            get {
+                return ResourceManager.GetString("Mode_Hierarchy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Layer.
+        /// </summary>
+        internal static string Mode_Layer {
+            get {
+                return ResourceManager.GetString("Mode_Layer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selection-Set.
+        /// </summary>
+        internal static string Mode_SelSet {
+            get {
+                return ResourceManager.GetString("Mode_SelSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alphabetical.
+        /// </summary>
+        internal static string Sort_Alphabetical {
+            get {
+                return ResourceManager.GetString("Sort_Alphabetical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color Tag.
+        /// </summary>
+        internal static string Sort_ColorTag {
+            get {
+                return ResourceManager.GetString("Sort_ColorTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Frozen State.
+        /// </summary>
+        internal static string Sort_Frozen {
+            get {
+                return ResourceManager.GetString("Sort_Frozen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visibility.
+        /// </summary>
+        internal static string Sort_Hidden {
+            get {
+                return ResourceManager.GetString("Sort_Hidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chronological.
+        /// </summary>
+        internal static string Sort_INodeHandle {
+            get {
+                return ResourceManager.GetString("Sort_INodeHandle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        internal static string Sort_SuperClass {
+            get {
+                return ResourceManager.GetString("Sort_SuperClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add selected nodes to layer.
         /// </summary>
         internal static string Tooltip_Add_Layer {

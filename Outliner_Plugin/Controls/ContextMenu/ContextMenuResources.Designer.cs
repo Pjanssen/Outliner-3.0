@@ -60,6 +60,13 @@ namespace Outliner.Controls.ContextMenu {
             }
         }
         
+        internal static System.Drawing.Bitmap delete {
+            get {
+                object obj = ResourceManager.GetObject("delete", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap filter_32 {
             get {
                 object obj = ResourceManager.GetObject("filter_32", resourceCulture);
@@ -126,6 +133,13 @@ namespace Outliner.Controls.ContextMenu {
         internal static System.Drawing.Bitmap selection_set_mode_dark {
             get {
                 object obj = ResourceManager.GetObject("selection_set_mode_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap sort_alphabetical_32 {
+            get {
+                object obj = ResourceManager.GetObject("sort_alphabetical_32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -209,6 +223,20 @@ namespace Outliner.Controls.ContextMenu {
             }
         }
         
+        internal static System.Drawing.Bitmap window_32 {
+            get {
+                object obj = ResourceManager.GetObject("window_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap window_hor_32 {
+            get {
+                object obj = ResourceManager.GetObject("window_hor_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap window_split_hor {
             get {
                 object obj = ResourceManager.GetObject("window_split_hor", resourceCulture);
@@ -219,6 +247,13 @@ namespace Outliner.Controls.ContextMenu {
         internal static System.Drawing.Bitmap window_split_ver {
             get {
                 object obj = ResourceManager.GetObject("window_split_ver", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap window_ver_32 {
+            get {
+                object obj = ResourceManager.GetObject("window_ver_32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

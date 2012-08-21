@@ -130,7 +130,7 @@ public class TreeView : ScrollableControl
       if (tn == null)
          return 0;
 
-      if (tn.FilterResult == Filters.FilterResults.Show)
+      if (tn.ShowNode)
          return 255;
       else
          return IconHelperMethods.FILTERED_OPACITY;
@@ -765,9 +765,18 @@ public class TreeView : ScrollableControl
 
    #region Sort
 
+   private IComparer<TreeNode> nodeSorter;
    [Browsable(false)]
    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-   public IComparer<TreeNode> NodeSorter { get; set; }
+   public IComparer<TreeNode> NodeSorter 
+   {
+      get { return this.nodeSorter; }
+      set
+      {
+         this.nodeSorter = value;
+         this.Sort();
+      }
+   }
    
    private List<TreeNodeCollection> _sortQueue;
    private Timer _sortTimer;

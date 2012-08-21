@@ -6,10 +6,11 @@ using MaxUtils;
 using Outliner.Controls.Tree;
 using Outliner.Scene;
 using System.Drawing;
+using Outliner.Plugins;
 
 namespace Outliner.NodeSorters
 {
-public class AnimatablePropertySorter : NodeSorter
+public abstract class AnimatablePropertySorter : NodeSorter
 {
    public AnimatableProperty Property { get; private set; }
 
@@ -49,5 +50,19 @@ public class AnimatablePropertySorter : NodeSorter
             return 0;
       }
    }
+}
+
+[OutlinerPlugin]
+[LocalizedDisplayName(typeof(OutlinerResources), "Sort_Hidden")]
+public class HiddenSorter : AnimatablePropertySorter
+{
+   public HiddenSorter() : base(AnimatableProperty.IsHidden, false) { }
+}
+
+[OutlinerPlugin]
+[LocalizedDisplayName(typeof(OutlinerResources), "Sort_Frozen")]
+public class FrozenSorter : AnimatablePropertySorter
+{
+   public FrozenSorter() : base(AnimatableProperty.IsFrozen, false) { }
 }
 }

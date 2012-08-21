@@ -11,9 +11,12 @@ using Outliner.Controls;
 using MaxUtils;
 using Outliner.LayerTools;
 using Outliner.NodeSorters;
+using Outliner.Plugins;
 
 namespace Outliner.Modes.Layer
 {
+[OutlinerPlugin]
+[LocalizedDisplayName(typeof(OutlinerResources), "Mode_Layer")]
 public class LayerMode : TreeMode
 {
    public Boolean LayersOnly { get; set; }

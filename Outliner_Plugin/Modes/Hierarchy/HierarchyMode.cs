@@ -8,9 +8,12 @@ using Outliner.Scene;
 using Outliner.Filters;
 using Outliner.Controls.Tree;
 using MaxUtils;
+using Outliner.Plugins;
 
 namespace Outliner.Modes.Hierarchy
 {
+[OutlinerPlugin]
+[LocalizedDisplayName(typeof(OutlinerResources), "Mode_Hierarchy")]
 public class HierarchyMode : TreeMode
 {
    public HierarchyMode(TreeView tree) : base(tree)

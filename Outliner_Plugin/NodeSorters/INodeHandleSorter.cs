@@ -5,9 +5,12 @@ using System.Text;
 using Outliner.Controls.Tree;
 using Outliner.Scene;
 using Autodesk.Max;
+using Outliner.Plugins;
 
 namespace Outliner.NodeSorters
 {
+   [OutlinerPlugin]
+   [LocalizedDisplayName(typeof(OutlinerResources), "Sort_INodeHandle")]
    public class INodeHandleSorter : NodeSorter
    {
       public INodeHandleSorter() : base() { }

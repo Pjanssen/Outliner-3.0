@@ -80,17 +80,17 @@ public class NameFilterTest
 
       MockWrapper w = new MockWrapper("Test_sphere");
       target.SearchString = "Test_sphere";
-      Assert.AreEqual(FilterResults.Show, target.ShowNode(w));
+      Assert.AreEqual(true, target.ShowNode(w));
       target.SearchString = "test_sphere";
-      Assert.AreEqual(FilterResults.Hide, target.ShowNode(w));
+      Assert.AreEqual(false, target.ShowNode(w));
 
       target.CaseSensitive = false;
       Assert.IsFalse(target.CaseSensitive);
 
       target.SearchString = "Test_sphere";
-      Assert.AreEqual(FilterResults.Show, target.ShowNode(w));
+      Assert.AreEqual(true, target.ShowNode(w));
       target.SearchString = "test_sphere";
-      Assert.AreEqual(FilterResults.Show, target.ShowNode(w));
+      Assert.AreEqual(true, target.ShowNode(w));
    }
          
    /// <summary>
@@ -101,25 +101,25 @@ public class NameFilterTest
    {
       NameFilter target = new NameFilter();
       MockWrapper w = new MockWrapper("test_sphere");
-      Assert.AreEqual(FilterResults.Show, target.ShowNode(w));
+      Assert.AreEqual(true, target.ShowNode(w));
 
       target.SearchString = "t";
-      Assert.AreEqual(FilterResults.Show, target.ShowNode(w));
+      Assert.AreEqual(true, target.ShowNode(w));
 
       target.SearchString = "*t";
-      Assert.AreEqual(FilterResults.Show, target.ShowNode(w));
+      Assert.AreEqual(true, target.ShowNode(w));
 
       target.SearchString = "*sphere";
-      Assert.AreEqual(FilterResults.Show, target.ShowNode(w));
+      Assert.AreEqual(true, target.ShowNode(w));
 
       target.SearchString = "a";
-      Assert.AreEqual(FilterResults.Hide, target.ShowNode(w));
+      Assert.AreEqual(false, target.ShowNode(w));
 
       target.SearchString = "*a";
-      Assert.AreEqual(FilterResults.Hide, target.ShowNode(w));
+      Assert.AreEqual(false, target.ShowNode(w));
 
       target.SearchString = "test_sphere_a";
-      Assert.AreEqual(FilterResults.Hide, target.ShowNode(w));
+      Assert.AreEqual(false, target.ShowNode(w));
    }
 
    [TestMethod()]
@@ -131,12 +131,12 @@ public class NameFilterTest
 
       f.SearchString = "test";
       f.UseWildcard = false;
-      Assert.AreEqual(FilterResults.Show, f.ShowNode(w1));
-      Assert.AreEqual(FilterResults.Hide, f.ShowNode(w2));
+      Assert.AreEqual(true, f.ShowNode(w1));
+      Assert.AreEqual(false, f.ShowNode(w2));
 
       f.UseWildcard = true;
-      Assert.AreEqual(FilterResults.Show, f.ShowNode(w1));
-      Assert.AreEqual(FilterResults.Show, f.ShowNode(w2));
+      Assert.AreEqual(true, f.ShowNode(w1));
+      Assert.AreEqual(true, f.ShowNode(w2));
    }
 }
 }

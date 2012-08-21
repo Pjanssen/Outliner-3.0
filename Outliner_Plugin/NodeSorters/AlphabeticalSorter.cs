@@ -5,9 +5,12 @@ using System.Text;
 using Outliner.Controls.Tree;
 using Autodesk.Max;
 using Outliner.Scene;
+using Outliner.Plugins;
 
 namespace Outliner.NodeSorters
 {
+   [OutlinerPlugin]
+   [LocalizedDisplayName(typeof(OutlinerResources), "Sort_Alphabetical")]
    public class AlphabeticalSorter : NodeSorter
    {
       public AlphabeticalSorter() : base() { }

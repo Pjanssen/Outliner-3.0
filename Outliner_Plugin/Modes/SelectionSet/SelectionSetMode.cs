@@ -9,9 +9,12 @@ using Outliner.Filters;
 using MaxUtils;
 using System.Runtime.InteropServices;
 using Outliner.LayerTools;
+using Outliner.Plugins;
 
 namespace Outliner.Modes.SelectionSet
 {
+[OutlinerPlugin]
+[LocalizedDisplayName(typeof(OutlinerResources), "Mode_SelSet")]
 public class SelectionSetMode : TreeMode
 {
    private AllObjectsSelectionSet allObjectsSelSet;

@@ -1,25 +1,22 @@
-﻿using Autodesk.Max;
+﻿using System;
+using Autodesk.Max;
 using Outliner.Scene;
+using Outliner.Plugins;
 
 namespace Outliner.Filters
 {
+   [OutlinerPlugin]
+   [LocalizedDisplayName(typeof(OutlinerResources), "Filter_Helpers")]
+   [FilterCategory(FilterCategories.Classes)]
    public class HelperFilter : Filter<IMaxNodeWrapper>
    {
-      override public FilterResults ShowNode(IMaxNodeWrapper data)
+      override public Boolean ShowNode(IMaxNodeWrapper data)
       {
-         if (data == null)
-            return FilterResults.Hide;
+         IINodeWrapper iinodeWrapper = data as IINodeWrapper;
+         if (iinodeWrapper == null)
+            return false;
 
-         if (data.SuperClassID == SClass_ID.Helper)
-            return FilterResults.Hide;
-         else if (data is IINodeWrapper && data.WrappedNode != null)
-         {
-            IINode node = (IINode)data.WrappedNode;
-            if (node != null && node.IsTarget)
-               return FilterResults.Hide;
-         }
-
-         return FilterResults.Show;
+         return iinodeWrapper.SuperClassID == SClass_ID.Helper || iinodeWrapper.IINode.IsTarget;
       }
    }
 }

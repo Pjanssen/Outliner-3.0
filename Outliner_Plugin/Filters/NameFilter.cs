@@ -13,6 +13,11 @@ public class NameFilter : Filter<IMaxNodeWrapper>
       this._useWildcard = false;
    }
 
+   public override bool AlwaysEnabled
+   {
+      get { return true; }
+   }
+
    private const String SEARCH_BEGINS_WITH = "^";
    private const String SEARCH_WILDCARD = ".";
    private RegexOptions _regExpOptions;
@@ -79,18 +84,15 @@ public class NameFilter : Filter<IMaxNodeWrapper>
       }
    }
 
-   override public FilterResults ShowNode(IMaxNodeWrapper data) 
+   override public Boolean ShowNode(IMaxNodeWrapper data) 
    {
       if (data == null)
-         return FilterResults.Hide;
+         return false;
 
       if (String.IsNullOrEmpty(_searchString))
-         return FilterResults.Show;
+         return true;
 
-      if (Regex.IsMatch(data.Name, _searchString, _regExpOptions))
-         return FilterResults.Show;
-      else
-         return FilterResults.Hide;
+      return Regex.IsMatch(data.Name, _searchString, _regExpOptions);
    }
 }
 }

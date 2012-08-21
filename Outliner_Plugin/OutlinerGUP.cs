@@ -13,172 +13,155 @@ using Autodesk.Max.MaxSDK.Util;
 using Outliner.Modes.Hierarchy;
 using Outliner.Modes;
 using Outliner.Modes.SelectionSet;
+using Outliner.Filters;
+using System.Reflection;
+using Outliner.NodeSorters;
+using Outliner.Plugins;
 
 namespace Outliner
 {
-   public class OutlinerGUP
+public class OutlinerGUP
+{
+   public static OutlinerGUP Instance { get; private set; }
+   public TreeViewColorScheme ColorScheme { get; private set; }
+   public TreeNodeLayout Layout { get; private set; }
+
+   private List<IINodeWrapper> openedGroupHeads;
+   private uint closeGroupHeadsCbKey = 0;
+
+   public OutlinerGUP()
    {
-      public static OutlinerGUP Instance { get; private set; }
-      public TreeViewColorScheme ColorScheme { get; private set; }
-      public TreeNodeLayout Layout { get; private set; }
+      this.openedGroupHeads = new List<IINodeWrapper>();
+      this.Layout = this.loadLayout();
+      this.ColorScheme = this.loadColors();
+   }
 
-      private List<IINodeWrapper> openedGroupHeads;
-      private uint closeGroupHeadsCbKey = 0;
+   internal static void Start()
+   {
+      OutlinerGUP.Instance = new OutlinerGUP();
+   }
 
-      public OutlinerGUP()
+   internal void Stop() 
+   {
+      this.UnRegisterCloseGroupHeadsCb();
+   }
+
+
+
+   private TreeNodeLayout loadLayout()
+   {
+      IIPathConfigMgr pathMgr = MaxInterfaces.Global.IPathConfigMgr.PathConfigMgr;
+      IGlobal.IGlobalMaxSDK.IGlobalUtil.IGlobalPath path = MaxInterfaces.Global.MaxSDK.Util.Path;
+      IPath scriptDir = path.Create(pathMgr.GetDir(MaxDirectory.UserScripts));
+      IPath layoutFile = path.Create(scriptDir).Append(path.Create("outliner_layout.xml"));
+      if (layoutFile.Exists)
+         return TreeNodeLayout.FromXml(layoutFile.String);
+      else
+         return TreeNodeLayout.DefaultLayout;
+      //   this.Layout.ToXml(layoutFile.String);
+   }
+
+   private TreeViewColorScheme loadColors()
+   {
+      IIPathConfigMgr pathMgr = MaxInterfaces.Global.IPathConfigMgr.PathConfigMgr;
+      IGlobal.IGlobalMaxSDK.IGlobalUtil.IGlobalPath path = MaxInterfaces.Global.MaxSDK.Util.Path;
+      IPath scriptDir = path.Create(pathMgr.GetDir(MaxDirectory.UserScripts));
+      IPath colorFile = path.Create(scriptDir).Append(path.Create("outliner_colors.xml"));
+      if (colorFile.Exists)
+         return TreeViewColorScheme.FromXml(colorFile.String);
+      else
       {
-         this.openedGroupHeads = new List<IINodeWrapper>();
-         this.Layout = this.loadLayout();
-         this.ColorScheme = this.loadColors();
+         return TreeViewColorScheme.MaxColors;
+         //tc.treeView1.Colors.ToXml(colorFile.String);
+      }
+   }
+
+
+   /// <summary>
+   /// Opens any closed group heads in the provided list of nodewrappers.
+   /// When the selection changes, the opened heads are closed automatically as required.
+   /// </summary>
+   public void OpenSelectedGroupHeads(IEnumerable<IMaxNodeWrapper> nodes)
+   {
+      if (nodes == null)
+         throw new ArgumentNullException("nodes");
+
+      foreach (IMaxNodeWrapper node in nodes)
+      {
+         IINodeWrapper inode = node as IINodeWrapper;
+         if (inode == null)
+            continue;
+
+         if (inode.IINode.IsGroupMember && !inode.IINode.IsOpenGroupMember)
+         {
+            IINodeWrapper parent = inode.Parent as IINodeWrapper;
+            while (parent != null && (parent.IINode.IsGroupMember || parent.IINode.IsGroupHead))
+            {
+               if (parent.IINode.IsGroupHead && !parent.IINode.IsOpenGroupHead)
+               {
+                  HelperMethods.OpenCloseGroup(parent, true);
+                  this.openedGroupHeads.Add(parent);
+               }
+               parent = parent.Parent as IINodeWrapper;
+            }
+            inode.IINode.SetGroupMemberOpen(true);
+         }
       }
 
-      internal static void Start()
+      if (this.closeGroupHeadsCbKey == 0)
       {
-         OutlinerGUP.Instance = new OutlinerGUP();
+         CloseGroupHeadsNodeEventCb cb = new CloseGroupHeadsNodeEventCb(this);
+         IISceneEventManager sceneEventMgr = MaxInterfaces.Global.ISceneEventManager;
+         this.closeGroupHeadsCbKey = sceneEventMgr.RegisterCallback(cb, false, 50, true);
+      }
+   }
+
+   /// <summary>
+   /// Closes any group heads that were opened using OpenGroupHeads() and are no longer a parent of a selected node.
+   /// </summary>
+   public void CloseUnselectedGroupHeads()
+   {
+      for (int i = this.openedGroupHeads.Count - 1; i >= 0; i--)
+      {
+         IINodeWrapper groupHead = this.openedGroupHeads[i];
+         if (!HelperMethods.IsParentOfSelected(groupHead))
+         {
+            HelperMethods.OpenCloseGroup(groupHead, false);
+            this.openedGroupHeads.RemoveAt(i);
+         }
       }
 
-      internal void Stop() 
+      if (this.openedGroupHeads.Count == 0)
       {
          this.UnRegisterCloseGroupHeadsCb();
       }
+   }
 
+   private void UnRegisterCloseGroupHeadsCb()
+   {
+      if (this.closeGroupHeadsCbKey == 0)
+         return;
 
+      IISceneEventManager sceneEventMgr = MaxInterfaces.Global.ISceneEventManager;
+      sceneEventMgr.UnRegisterCallback(this.closeGroupHeadsCbKey);
+      this.closeGroupHeadsCbKey = 0;
+   }
 
-      private TreeNodeLayout loadLayout()
+   protected class CloseGroupHeadsNodeEventCb : INodeEventCallback
+   {
+      private OutlinerGUP outliner;
+      public CloseGroupHeadsNodeEventCb(OutlinerGUP outliner)
       {
-         IIPathConfigMgr pathMgr = MaxInterfaces.Global.IPathConfigMgr.PathConfigMgr;
-         IGlobal.IGlobalMaxSDK.IGlobalUtil.IGlobalPath path = MaxInterfaces.Global.MaxSDK.Util.Path;
-         IPath scriptDir = path.Create(pathMgr.GetDir(MaxDirectory.UserScripts));
-         IPath layoutFile = path.Create(scriptDir).Append(path.Create("outliner_layout.xml"));
-         if (layoutFile.Exists)
-            return TreeNodeLayout.FromXml(layoutFile.String);
-         else
-            return TreeNodeLayout.DefaultLayout;
-         //   this.Layout.ToXml(layoutFile.String);
+         this.outliner = outliner;
       }
 
-      private TreeViewColorScheme loadColors()
+      public override void SelectionChanged(ITab<UIntPtr> nodes)
       {
-         IIPathConfigMgr pathMgr = MaxInterfaces.Global.IPathConfigMgr.PathConfigMgr;
-         IGlobal.IGlobalMaxSDK.IGlobalUtil.IGlobalPath path = MaxInterfaces.Global.MaxSDK.Util.Path;
-         IPath scriptDir = path.Create(pathMgr.GetDir(MaxDirectory.UserScripts));
-         IPath colorFile = path.Create(scriptDir).Append(path.Create("outliner_colors.xml"));
-         if (colorFile.Exists)
-            return TreeViewColorScheme.FromXml(colorFile.String);
-         else
-         {
-            return TreeViewColorScheme.MaxColors;
-            //tc.treeView1.Colors.ToXml(colorFile.String);
-         }
-      }
-
-      public OutlinerSplitContainer GetContainer()
-      {
-         OutlinerSplitContainer container = new OutlinerSplitContainer();
-         TreeView tree1 = new TreeView();
-         tree1.TreeNodeLayout = this.Layout;
-         tree1.Colors = this.ColorScheme;
-         tree1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
-         TreeMode mode1 = new HierarchyMode(tree1);
-         TreeView tree2 = new TreeView();
-         tree2.TreeNodeLayout = this.Layout;
-         tree2.Colors = this.ColorScheme;
-         tree2.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
-         TreeMode mode2 = new SelectionSetMode(tree2);
-
-         mode1.Start();
-         mode2.Start();
-
-         container.Panel1.Controls.Add(tree1);
-         container.Panel2.Controls.Add(tree2);
-         
-         return container;
-      }
-
-      /// <summary>
-      /// Opens any closed group heads in the provided list of nodewrappers.
-      /// When the selection changes, the opened heads are closed automatically as required.
-      /// </summary>
-      public void OpenSelectedGroupHeads(IEnumerable<IMaxNodeWrapper> nodes)
-      {
-         if (nodes == null)
-            throw new ArgumentNullException("nodes");
-
-         foreach (IMaxNodeWrapper node in nodes)
-         {
-            IINodeWrapper inode = node as IINodeWrapper;
-            if (inode == null)
-               continue;
-
-            if (inode.IINode.IsGroupMember && !inode.IINode.IsOpenGroupMember)
-            {
-               IINodeWrapper parent = inode.Parent as IINodeWrapper;
-               while (parent != null && (parent.IINode.IsGroupMember || parent.IINode.IsGroupHead))
-               {
-                  if (parent.IINode.IsGroupHead && !parent.IINode.IsOpenGroupHead)
-                  {
-                     HelperMethods.OpenCloseGroup(parent, true);
-                     this.openedGroupHeads.Add(parent);
-                  }
-                  parent = parent.Parent as IINodeWrapper;
-               }
-               inode.IINode.SetGroupMemberOpen(true);
-            }
-         }
-
-         if (this.closeGroupHeadsCbKey == 0)
-         {
-            CloseGroupHeadsNodeEventCb cb = new CloseGroupHeadsNodeEventCb(this);
-            IISceneEventManager sceneEventMgr = MaxInterfaces.Global.ISceneEventManager;
-            this.closeGroupHeadsCbKey = sceneEventMgr.RegisterCallback(cb, false, 50, true);
-         }
-      }
-
-      /// <summary>
-      /// Closes any group heads that were opened using OpenGroupHeads() and are no longer a parent of a selected node.
-      /// </summary>
-      public void CloseUnselectedGroupHeads()
-      {
-         for (int i = this.openedGroupHeads.Count - 1; i >= 0; i--)
-         {
-            IINodeWrapper groupHead = this.openedGroupHeads[i];
-            if (!HelperMethods.IsParentOfSelected(groupHead))
-            {
-               HelperMethods.OpenCloseGroup(groupHead, false);
-               this.openedGroupHeads.RemoveAt(i);
-            }
-         }
-
-         if (this.openedGroupHeads.Count == 0)
-         {
-            this.UnRegisterCloseGroupHeadsCb();
-         }
-      }
-
-      private void UnRegisterCloseGroupHeadsCb()
-      {
-         if (this.closeGroupHeadsCbKey == 0)
-            return;
-
-         IISceneEventManager sceneEventMgr = MaxInterfaces.Global.ISceneEventManager;
-         sceneEventMgr.UnRegisterCallback(this.closeGroupHeadsCbKey);
-         this.closeGroupHeadsCbKey = 0;
-      }
-
-      protected class CloseGroupHeadsNodeEventCb : INodeEventCallback
-      {
-         private OutlinerGUP outliner;
-         public CloseGroupHeadsNodeEventCb(OutlinerGUP outliner)
-         {
-            this.outliner = outliner;
-         }
-
-         public override void SelectionChanged(ITab<UIntPtr> nodes)
-         {
-            outliner.CloseUnselectedGroupHeads();
-            IInterface core = MaxInterfaces.COREInterface;
-            core.RedrawViews(core.Time, RedrawFlags.Normal, null);
-         }
+         outliner.CloseUnselectedGroupHeads();
+         IInterface core = MaxInterfaces.COREInterface;
+         core.RedrawViews(core.Time, RedrawFlags.Normal, null);
       }
    }
+
+}
 }

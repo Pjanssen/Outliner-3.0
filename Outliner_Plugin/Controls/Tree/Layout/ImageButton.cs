@@ -111,8 +111,7 @@ public abstract class ImageButton : TreeNodeButton
       if (graphics == null || tn == null)
          return;
 
-      Boolean isFiltered = !tn.FilterResult.HasFlag(FilterResults.Show);
-
+      Boolean isFiltered = !tn.ShowNode;
       Image img = null;
       if (this.IsEnabled(tn) != this.InvertBehavior)
          img = (isFiltered) ? this.ImageEnabled_Filtered : this.ImageEnabled;
