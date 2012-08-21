@@ -139,11 +139,18 @@ public static class ColorTags
          return Color.Empty;
 
       ColorTag tag = ColorTags.GetTag(node);
+      return ColorTags.GetColor(node, tag);
+   }
 
+   /// <summary>
+   /// Gets the tag (or wire-) color of the supplied node.
+   /// </summary>
+   public static Color GetColor(IAnimatable node, ColorTag tag)
+   {
       if (tag == ColorTag.None)
          return Color.Empty;
       else if (tag == ColorTag.WireColor)
-         return ColorTags.getWireColor(node);
+         return ColorTags.GetWireColor(node);
       else
          return ColorTags.GetTagColor(tag);
    }
@@ -170,6 +177,9 @@ public static class ColorTags
       IILayer layer = node as IILayer;
       if (layer != null)
       {
+         if (tag == ColorTag.WireColor)
+            AutoInheritProperties.SetAutoInherit(layer, NodeLayerProperty.Color, true);
+
          IILayerProperties layerProperties = MaxInterfaces.IIFPLayerManager.GetLayer(layer.Name);
          if (layerProperties != null)
          {
@@ -220,14 +230,40 @@ public static class ColorTags
    }
 
 
-   private static Color getWireColor(IAnimatable node)
+   private static Color GetWireColor(IAnimatable node)
    {
       Color color = Color.Empty;
 
-      if (node is IINode)
-         color = ((IINode)node).WireColor;
+      IINode iinode = node as IINode;
+      if (iinode != null)
+      {
+         //IILayer layer = iinode.GetReference((int)ReferenceNumbers.NodeLayerRef) as IILayer;
+         //if (layer != null)
+         //{
+         //   ColorTag layerTag = ColorTags.GetTag(layer);
+         //   if ((layerTag & ColorTag.WireColor) == ColorTag.WireColor)
+         //      color = ColorTags.GetWireColor(layer);
+         //   else
+         //      color = iinode.WireColor;
+         //}
+         //else
+            color = iinode.WireColor;
+      }
       else if (node is IILayer)
-         color = ((IILayer)node).WireColor;
+      {
+         IILayer layer = (IILayer)node;
+         IILayer parent = NestedLayers.GetParent(layer);
+         if (parent != null)
+         {
+            ColorTag layerTag = ColorTags.GetTag(parent);
+            if (layerTag != ColorTag.None)
+               color = ColorTags.GetWireColor(parent);
+            else
+               color = layer.WireColor;
+         }
+         else
+            color = layer.WireColor;
+      }
 
       return ColorHelpers.FromMaxColor(color);
    }

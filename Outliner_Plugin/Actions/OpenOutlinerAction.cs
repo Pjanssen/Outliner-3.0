@@ -65,8 +65,8 @@ namespace Outliner.Actions
          tc.treeView2.Colors = TreeViewColorScheme.MayaColors;
          this.treeController2 = new HierarchyMode(tc.treeView2);
 
-         //if (!tc.outlinerSplitContainer1.Panel2Collapsed)
-         //   this.treeController2.Start();
+         if (!tc.outlinerSplitContainer1.Panel2Collapsed)
+            this.treeController2.Start();
          
          return tc;
       }

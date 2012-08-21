@@ -528,7 +528,7 @@ public abstract class TreeMode
    {
       this.UnregisterSystemNotification(proc_SelectionsetChanged, SystemNotificationCode.SelectionsetChanged);
 
-      IEnumerable<IMaxNodeWrapper> selNodes = HelperMethods.GetMaxNodes(e.Nodes).ToList();
+      IEnumerable<IMaxNodeWrapper> selNodes = HelperMethods.GetMaxNodes(e.Nodes);
       OutlinerGUP.Instance.OpenSelectedGroupHeads(selNodes);
       SelectCommand cmd = new SelectCommand(selNodes);
       cmd.Execute(true);

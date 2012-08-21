@@ -18,8 +18,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayerTools", "LayerTools\La
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaxUtils", "MaxUtils\MaxUtils.csproj", "{0CA16252-FD2C-4078-819F-C9ABD2735765}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotifTest", "NotifTest\NotifTest.csproj", "{1DA2F8C2-A006-4AC7-BAC4-9D6E6711A0E0}"
-EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Outliner_Plugin.vsmdi
@@ -109,18 +107,6 @@ Global
 		{0CA16252-FD2C-4078-819F-C9ABD2735765}.Release|x64.Build.0 = Release|x64
 		{0CA16252-FD2C-4078-819F-C9ABD2735765}.Release|x86.ActiveCfg = Release|x86
 		{0CA16252-FD2C-4078-819F-C9ABD2735765}.Release|x86.Build.0 = Release|x86
-		{1DA2F8C2-A006-4AC7-BAC4-9D6E6711A0E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1DA2F8C2-A006-4AC7-BAC4-9D6E6711A0E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1DA2F8C2-A006-4AC7-BAC4-9D6E6711A0E0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{1DA2F8C2-A006-4AC7-BAC4-9D6E6711A0E0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{1DA2F8C2-A006-4AC7-BAC4-9D6E6711A0E0}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{1DA2F8C2-A006-4AC7-BAC4-9D6E6711A0E0}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{1DA2F8C2-A006-4AC7-BAC4-9D6E6711A0E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1DA2F8C2-A006-4AC7-BAC4-9D6E6711A0E0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1DA2F8C2-A006-4AC7-BAC4-9D6E6711A0E0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{1DA2F8C2-A006-4AC7-BAC4-9D6E6711A0E0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{1DA2F8C2-A006-4AC7-BAC4-9D6E6711A0E0}.Release|x64.ActiveCfg = Release|Any CPU
-		{1DA2F8C2-A006-4AC7-BAC4-9D6E6711A0E0}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

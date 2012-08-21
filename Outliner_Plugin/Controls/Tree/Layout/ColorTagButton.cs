@@ -68,7 +68,6 @@ public class ColorTagButton : TreeNodeButton
 
       Int32 opacity = this.Layout.TreeView.GetNodeOpacity(tn);
       ColorTag tag = node.ColorTag;
-      Color tagColor = ColorTags.GetTagColor(node.ColorTag);
       Boolean hasTag = tag != ColorTag.None;
       
       Rectangle rBounds = this.GetBounds(tn);
@@ -86,7 +85,7 @@ public class ColorTagButton : TreeNodeButton
 
       if (hasTag)
       {
-         Color color = Color.FromArgb(opacity, ColorTags.GetTagColor(node.ColorTag));
+         Color color = Color.FromArgb(opacity, ColorTags.GetColor(node.WrappedNode as IAnimatable, tag));
          Color gradColor = Color.FromArgb(opacity, Math.Min(color.R + 40, 255)
                                                  , Math.Min(color.G + 40, 255)
                                                  , Math.Min(color.B + 40, 255));
