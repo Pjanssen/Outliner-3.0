@@ -18,21 +18,7 @@ sealed public class LocalizedDisplayNameAttribute : DisplayNameAttribute
    private Type resManProvider;
    public override String DisplayName
    {
-      get { return LookupResource(this.resManProvider, this.resKey); }
-   }
-
-   internal static String LookupResource(Type resourceManagerProvider, string resourceKey)
-   {
-      PropertyInfo property = resourceManagerProvider.GetProperty(resourceKey, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
-      if (property != null)
-      {
-         object val = property.GetValue(null, null);
-         String name = val as String;
-         if (name != null)
-            return name;
-      }
-         
-      return resourceKey;
+      get { return ResourceHelpers.LookupString(this.resManProvider, this.resKey); }
    }
 
    public LocalizedDisplayNameAttribute(Type resManProvider, String resKey) : base()

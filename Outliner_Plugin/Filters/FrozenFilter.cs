@@ -5,8 +5,9 @@ using Outliner.Plugins;
 
 namespace Outliner.Filters
 {
-   [OutlinerPlugin]
+   [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "Filter_Frozen")]
+   [LocalizedDisplayImage(typeof(OutlinerResources), "button_freeze")]
    [FilterCategory(FilterCategories.Properties)]
    public class FrozenFilter : Filter<IMaxNodeWrapper>
    {

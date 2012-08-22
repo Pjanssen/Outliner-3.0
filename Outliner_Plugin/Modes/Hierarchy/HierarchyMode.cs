@@ -12,13 +12,13 @@ using Outliner.Plugins;
 
 namespace Outliner.Modes.Hierarchy
 {
-[OutlinerPlugin]
+[OutlinerPlugin(OutlinerPluginType.TreeMode)]
 [LocalizedDisplayName(typeof(OutlinerResources), "Mode_Hierarchy")]
 public class HierarchyMode : TreeMode
 {
    public HierarchyMode(TreeView tree) : base(tree)
    {
-      ExceptionHelper.ThrowIfArgumentIsNull(tree, "tree");
+      ExceptionHelpers.ThrowIfArgumentIsNull(tree, "tree");
 
       tree.DragDropHandler = new TreeViewDragDropHandler();
    }

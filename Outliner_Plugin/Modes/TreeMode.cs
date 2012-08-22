@@ -30,7 +30,7 @@ public abstract class TreeMode
 
    protected TreeMode(TreeView tree)
    {
-      ExceptionHelper.ThrowIfArgumentIsNull(tree, "tree");
+      ExceptionHelpers.ThrowIfArgumentIsNull(tree, "tree");
 
       proc_PausePreSystemEvent = new GlobalDelegates.Delegate5(this.PausePreSystemEvent);
       proc_ResumePostSystemEvent = new GlobalDelegates.Delegate5(this.ResumePostSystemEvent);
@@ -612,7 +612,7 @@ public abstract class TreeMode
       get { return _filters; }
       set
       {
-         ExceptionHelper.ThrowIfArgumentIsNull(value, "value");
+         ExceptionHelpers.ThrowIfArgumentIsNull(value, "value");
 
          if (_filters != null)
             _filters.GeneralFiltersChanged -= this.filters_GeneralFiltersChanged;
@@ -630,7 +630,7 @@ public abstract class TreeMode
       get { return this._permanentFilters; }
       set
       {
-         ExceptionHelper.ThrowIfArgumentIsNull(value, "value");
+         ExceptionHelpers.ThrowIfArgumentIsNull(value, "value");
 
          if (this._permanentFilters != null)
             this._permanentFilters.GeneralFiltersChanged -= this.filters_GeneralFiltersChanged;

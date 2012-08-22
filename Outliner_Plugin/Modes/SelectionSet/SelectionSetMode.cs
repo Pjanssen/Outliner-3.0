@@ -13,7 +13,7 @@ using Outliner.Plugins;
 
 namespace Outliner.Modes.SelectionSet
 {
-[OutlinerPlugin]
+[OutlinerPlugin(OutlinerPluginType.TreeMode)]
 [LocalizedDisplayName(typeof(OutlinerResources), "Mode_SelSet")]
 public class SelectionSetMode : TreeMode
 {

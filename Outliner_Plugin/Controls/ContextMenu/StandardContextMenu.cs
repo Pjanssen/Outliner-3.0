@@ -49,7 +49,8 @@ internal static class StandardContextMenu
       filter_btn.Checked = treeMode.Filters.Enabled;
       filter_btn.ButtonClick += new EventHandler(filter_btn_ButtonClick);
       filter_btn.DropDownItems.Add("Invert");
-      filter_btn.DropDownItems.Add("Clear", ContextMenuResources.delete);
+      ToolStripItem clearBtn = filter_btn.DropDownItems.Add("Clear", ContextMenuResources.delete);
+      clearBtn.Enabled = treeMode.Filters.Count > 0;
       filter_btn.DropDownItems.Add(new ToolStripSeparator());
       int numFilters = AddFilters(filter_btn.DropDownItems, FilterCategories.Classes);
       if (numFilters > 0)
@@ -112,6 +113,7 @@ internal static class StandardContextMenu
    private static ToolStripItem AddDropDownItem(ToolStripItemCollection itemCollection, String text, Image img, EventHandler clickHandler, Object tag)
    {
       ToolStripItem item = itemCollection.Add(text, img, clickHandler);
+      item.ImageScaling = ToolStripItemImageScaling.None;
       item.Tag = tag;
       return item;
    }
@@ -176,7 +178,7 @@ internal static class StandardContextMenu
       IEnumerable<OutlinerPluginData> filterTypes = OutlinerPlugins.GetFilterPlugins(categories);
       foreach (OutlinerPluginData filter in filterTypes)
       {
-         ToolStripItem item = AddDropDownItem(itemCollection, filter.DisplayName, null, filter_ItemClick, filter.Type);
+         ToolStripItem item = AddDropDownItem(itemCollection, filter.DisplayName, filter.DisplayImageSmall, filter_ItemClick, filter.Type);
          //item.Checked = treeMode.Filters.Contains(filterType);
       }
       return filterTypes.Count();

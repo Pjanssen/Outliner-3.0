@@ -16,8 +16,9 @@ namespace Outliner.Filters
       }
    }
 
-   [OutlinerPlugin]
+   [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "Filter_Shapes")]
+   [LocalizedDisplayImage(typeof(Outliner.Controls.TreeIcons_Max), "shape")]
    [FilterCategory(FilterCategories.Classes)]
    public class ShapeFilter : SuperClassFilter
    {
@@ -27,8 +28,9 @@ namespace Outliner.Filters
       }
    }
 
-   [OutlinerPlugin]
+   [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "Filter_Cameras")]
+   [LocalizedDisplayImage(typeof(Outliner.Controls.TreeIcons_Max), "camera")]
    [FilterCategory(FilterCategories.Classes)]
    public class CameraFilter : SuperClassFilter
    {
@@ -38,8 +40,9 @@ namespace Outliner.Filters
       }
    }
 
-   [OutlinerPlugin]
+   [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "Filter_Lights")]
+   [LocalizedDisplayImage(typeof(Outliner.Controls.TreeIcons_Max), "light")]
    [FilterCategory(FilterCategories.Classes)]
    public class LightFilter : SuperClassFilter
    {
@@ -49,8 +52,9 @@ namespace Outliner.Filters
       }
    }
 
-   [OutlinerPlugin]
+   [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "Filter_Spacewarps")]
+   [LocalizedDisplayImage(typeof(Outliner.Controls.TreeIcons_Max), "spacewarp")]
    [FilterCategory(FilterCategories.Classes)]
    public class SpacewarpFilter : SuperClassFilter
    {

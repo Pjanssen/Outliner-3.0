@@ -30,9 +30,9 @@ namespace Outliner.Commands
                                , String linkDescription
                                , String unlinkDescription)
       {
-         ExceptionHelper.ThrowIfArgumentIsNull(nodes, "nodes");
-         ExceptionHelper.ThrowIfArgumentIsNull(linkDescription, "linkDescription");
-         ExceptionHelper.ThrowIfArgumentIsNull(unlinkDescription, "unlinkDescription");
+         ExceptionHelpers.ThrowIfArgumentIsNull(nodes, "nodes");
+         ExceptionHelpers.ThrowIfArgumentIsNull(linkDescription, "linkDescription");
+         ExceptionHelpers.ThrowIfArgumentIsNull(unlinkDescription, "unlinkDescription");
          
          this.nodes = nodes;
          this.newParent = newParent;

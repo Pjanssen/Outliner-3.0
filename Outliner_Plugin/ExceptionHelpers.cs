@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Outliner
 {
-internal static class ExceptionHelper
+internal static class ExceptionHelpers
 {
    /// <summary>
    /// Tests if an object is null, and throws an ArgumentNullException if it is.

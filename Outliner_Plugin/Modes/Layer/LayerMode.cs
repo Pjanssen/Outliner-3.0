@@ -15,7 +15,7 @@ using Outliner.Plugins;
 
 namespace Outliner.Modes.Layer
 {
-[OutlinerPlugin]
+[OutlinerPlugin(OutlinerPluginType.TreeMode)]
 [LocalizedDisplayName(typeof(OutlinerResources), "Mode_Layer")]
 public class LayerMode : TreeMode
 {

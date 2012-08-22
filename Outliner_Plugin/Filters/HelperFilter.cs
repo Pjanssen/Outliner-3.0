@@ -5,8 +5,9 @@ using Outliner.Plugins;
 
 namespace Outliner.Filters
 {
-   [OutlinerPlugin]
+   [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "Filter_Helpers")]
+   [LocalizedDisplayImage(typeof(Outliner.Controls.TreeIcons_Max), "helper")]
    [FilterCategory(FilterCategories.Classes)]
    public class HelperFilter : Filter<IMaxNodeWrapper>
    {

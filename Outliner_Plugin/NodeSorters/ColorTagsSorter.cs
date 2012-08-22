@@ -10,7 +10,7 @@ using Outliner.Plugins;
 
 namespace Outliner.NodeSorters
 {
-   [OutlinerPlugin]
+   [OutlinerPlugin(OutlinerPluginType.Sorter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "Sort_ColorTag")]
    public class ColorTagsSorter : NodeSorter
    {

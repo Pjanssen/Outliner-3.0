@@ -7,10 +7,10 @@ using Outliner.Plugins;
 
 namespace Outliner.Filters
 {
-   [OutlinerPlugin]
+   [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "Filter_Geometry")]
+   [LocalizedDisplayImage(typeof(Outliner.Controls.TreeIcons_Max), "geometry")]
    [FilterCategory(FilterCategories.Classes)]
-   //[FilterImage(OutlinerResources.delete_small)]
    public class GeometryFilter : Filter<IMaxNodeWrapper>
    {
       override public Boolean ShowNode(IMaxNodeWrapper data)

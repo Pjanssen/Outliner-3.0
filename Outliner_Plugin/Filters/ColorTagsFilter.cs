@@ -9,8 +9,9 @@ using Outliner.Plugins;
 
 namespace Outliner.Filters
 {
-   [OutlinerPlugin]
+   [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "Filter_ColorTag")]
+   [LocalizedDisplayImage(typeof(OutlinerResources), "color_small")]
    [FilterCategory(FilterCategories.Properties)]
    public class ColorTagsFilter : Filter<IMaxNodeWrapper>
    {

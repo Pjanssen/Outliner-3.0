@@ -5,8 +5,9 @@ using Outliner.Plugins;
 
 namespace Outliner.Filters
 {
-   [OutlinerPlugin]
+   [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "Filter_Hidden")]
+   [LocalizedDisplayImage(typeof(OutlinerResources), "button_hide")]
    [FilterCategory(FilterCategories.Properties)]
    public class HiddenFilter : Filter<IMaxNodeWrapper>
    {

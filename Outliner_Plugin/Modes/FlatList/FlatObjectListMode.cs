@@ -11,7 +11,7 @@ using Outliner.Plugins;
 
 namespace Outliner.Modes.FlatList
 {
-[OutlinerPlugin]
+[OutlinerPlugin(OutlinerPluginType.TreeMode)]
 [LocalizedDisplayName(typeof(OutlinerResources), "Mode_FlatList")]
 public class FlatObjectListMode : TreeMode
 {

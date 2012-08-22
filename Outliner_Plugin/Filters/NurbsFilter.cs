@@ -8,8 +8,9 @@ using Outliner.Plugins;
 
 namespace Outliner.Filters
 {
-   [OutlinerPlugin]
+   [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "Filter_Nurbs")]
+   [LocalizedDisplayImage(typeof(Outliner.Controls.TreeIcons_Max), "nurbs")]
    [FilterCategory(FilterCategories.Classes)]
    public class NurbsFilter : Filter<IMaxNodeWrapper>
    {

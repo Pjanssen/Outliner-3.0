@@ -177,7 +177,7 @@
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Tree\Layout\ColorTagButton.cs" />
-    <Compile Include="ExceptionHelper.cs" />
+    <Compile Include="ExceptionHelpers.cs" />
     <Compile Include="Filters\ColorTagsFilter.cs" />
     <Compile Include="Modes\Hierarchy\GroupDragDropHandler.cs" />
     <Compile Include="Modes\Layer\IILayerDragDropHandler.cs" />
@@ -264,9 +264,12 @@
     <Compile Include="NodeSorters\AlphabeticalSorter.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="OutlinerGUP.cs" />
+    <Compile Include="Plugins\LocalizedDisplayImageAttribute.cs" />
     <Compile Include="Plugins\OutlinerPluginAttribute.cs" />
+    <Compile Include="Plugins\OutlinerPluginData.cs" />
     <Compile Include="Plugins\OutlinerPlugins.cs" />
     <Compile Include="Plugins\LocalizedDisplayNameAttribute.cs" />
+    <Compile Include="Plugins\ResourceHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene\AllObjectsSelectionSet.cs" />
     <Compile Include="Scene\IILayerWrapper.cs" />

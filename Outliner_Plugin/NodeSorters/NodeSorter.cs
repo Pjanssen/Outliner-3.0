@@ -20,8 +20,8 @@ namespace Outliner.NodeSorters
 
       public int Compare(TreeNode x, TreeNode y)
       {
-         ExceptionHelper.ThrowIfArgumentIsNull(x, "x");
-         ExceptionHelper.ThrowIfArgumentIsNull(y, "y");
+         ExceptionHelpers.ThrowIfArgumentIsNull(x, "x");
+         ExceptionHelpers.ThrowIfArgumentIsNull(y, "y");
 
          if (invert)
             return this.InternalCompare(y, x);
