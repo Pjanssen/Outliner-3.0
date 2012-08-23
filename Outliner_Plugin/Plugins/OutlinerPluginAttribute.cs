@@ -20,8 +20,8 @@ namespace Outliner.Plugins
 
    public enum OutlinerPluginType
    {
-      TreeMode = 0x01,
-      Filter   = 0x02,
-      Sorter   = 0x04
+      TreeMode   = 0x01,
+      Filter     = 0x02,
+      NodeSorter = 0x04
    }
 }

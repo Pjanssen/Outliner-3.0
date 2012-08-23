@@ -43,7 +43,7 @@ namespace Outliner.Filters
    /// Indicates whether the filter should be visible in the UI.
    /// </summary>
    [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-   sealed class FilterCategoryAttribute : Attribute
+   sealed public class FilterCategoryAttribute : Attribute
    {
       readonly FilterCategories category;
 

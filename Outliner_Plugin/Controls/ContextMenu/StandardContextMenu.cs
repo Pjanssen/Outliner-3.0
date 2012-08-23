@@ -33,7 +33,7 @@ internal static class StandardContextMenu
       mode_btn.TextImageRelation = TextImageRelation.ImageAboveText;
       mode_btn.ImageScaling = ToolStripItemImageScaling.None;
       mode_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
-      IEnumerable<OutlinerPluginData> modeTypes = OutlinerPlugins.GetTreeModePlugins();
+      IEnumerable<OutlinerPluginData> modeTypes = OutlinerPlugins.GetPluginsByType(OutlinerPluginType.TreeMode);
       foreach (OutlinerPluginData mode in modeTypes)
       {
          AddDropDownItem(mode_btn.DropDownItems, mode.DisplayName, null, mode_btn_click, mode.Type);
@@ -69,7 +69,7 @@ internal static class StandardContextMenu
       sort_btn.ImageScaling = ToolStripItemImageScaling.None;
       sort_btn.TextImageRelation = TextImageRelation.ImageAboveText;
       sort_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
-      IEnumerable<OutlinerPluginData> sorterTypes = OutlinerPlugins.GetSorterPlugins();
+      IEnumerable<OutlinerPluginData> sorterTypes = OutlinerPlugins.GetPluginsByType(OutlinerPluginType.NodeSorter);
       foreach (OutlinerPluginData sorter in sorterTypes)
       {
          AddDropDownItem(sort_btn.DropDownItems, sorter.DisplayName, null, sort_itemClick, sorter.Type);

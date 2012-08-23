@@ -52,14 +52,14 @@ public abstract class AnimatablePropertySorter : NodeSorter
    }
 }
 
-[OutlinerPlugin(OutlinerPluginType.Sorter)]
+[OutlinerPlugin(OutlinerPluginType.NodeSorter)]
 [LocalizedDisplayName(typeof(OutlinerResources), "Sort_Hidden")]
 public class HiddenSorter : AnimatablePropertySorter
 {
    public HiddenSorter() : base(AnimatableProperty.IsHidden, false) { }
 }
 
-[OutlinerPlugin(OutlinerPluginType.Sorter)]
+[OutlinerPlugin(OutlinerPluginType.NodeSorter)]
 [LocalizedDisplayName(typeof(OutlinerResources), "Sort_Frozen")]
 public class FrozenSorter : AnimatablePropertySorter
 {

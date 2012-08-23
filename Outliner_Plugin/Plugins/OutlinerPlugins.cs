@@ -9,13 +9,17 @@ using Outliner.NodeSorters;
 using Outliner.Modes;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
+using Autodesk.Max;
+using MaxUtils;
 
 namespace Outliner.Plugins
 {
 public static class OutlinerPlugins
 {
-   internal const OutlinerPluginType PluginTypeAll = (OutlinerPluginType)0xFF;
-   internal const OutlinerPluginType PluginTypeNone = (OutlinerPluginType)0x00;
+   private const OutlinerPluginType PluginTypeAll = (OutlinerPluginType)0xFF;
+   private const OutlinerPluginType PluginTypeNone = (OutlinerPluginType)0x00;
+   private static IEnumerable<OutlinerPluginData> plugins;
 
    private static T GetAttribute<T>(Type sourceType) where T : Attribute
    {
@@ -27,15 +31,55 @@ public static class OutlinerPlugins
    }
 
    /// <summary>
-   /// Returns a list of all plugins in the supplied assemblies.
+   /// The directory from which all plugins are loaded.
    /// </summary>
-   /// <param name="assembly">The assemblies to look for plugins in.</param>
+   public static String PluginDirectory
+   {
+      get
+      {
+         IIPathConfigMgr pathMgr = MaxInterfaces.Global.IPathConfigMgr.PathConfigMgr;
+         return Path.Combine(pathMgr.GetDir(MaxDirectory.ManagedAssemblies), "OutlinerPlugins");
+      }
+      
+   }
+
+   /// <summary>
+   /// The collection of assemblies from which plugins have been loaded.
+   /// </summary>
+   public static IEnumerable<Assembly> PluginAssemblies
+   {
+      get
+      {
+         List<Assembly> assemblies = new List<Assembly>();
+            
+         //Add own assembly.
+         assemblies.Add(Assembly.GetAssembly(typeof(OutlinerPlugins)));
+
+         //Add plugin assemblies.
+         if (Directory.Exists(OutlinerPlugins.PluginDirectory))
+         {
+            String[] pluginFiles = Directory.GetFiles( OutlinerPlugins.PluginDirectory
+                                                      , "*.dll"
+                                                      , SearchOption.AllDirectories);
+            foreach (String pluginFile in pluginFiles)
+            {
+               assemblies.Add(Assembly.LoadFile(pluginFile));
+            }
+         }
+
+         return assemblies;
+      }
+   }
+   
+   /// <summary>
+   /// (Re)loads all plugins from the <see cref="PluginDirectory"/>.
+   /// </summary>
    /// <returns></returns>
-   public static IEnumerable<OutlinerPluginData> GetPlugins(IEnumerable<Assembly> assemblies)
+   public static IEnumerable<OutlinerPluginData> LoadPlugins()
    {
       List<OutlinerPluginData> plugins = new List<OutlinerPluginData>();
 
-      foreach (Assembly assembly in assemblies)
+      foreach (Assembly assembly in OutlinerPlugins.PluginAssemblies)
       {
          IEnumerable<Type> pluginClasses = assembly.GetTypes().Where(t => !t.IsAbstract && t.IsPublic);
 
@@ -48,7 +92,7 @@ public static class OutlinerPlugins
                pluginType = pluginAttr.PluginType;
             }
 
-            if (pluginType == PluginTypeNone)
+            if ((pluginType & PluginTypeAll) == 0)
                continue;
 
             String name = pluginClass.Name;
@@ -75,50 +119,35 @@ public static class OutlinerPlugins
    }
 
    /// <summary>
-   /// Returns a list of all plugins with a certain type in the supplied assemblies.
+   /// A collection of all loaded plugin metadata.
    /// </summary>
-   /// <param name="assembly">The assemblies to look for plugins in.</param>
-   /// <param name="baseType">The plugin type to look for.</param>
-   /// <returns></returns>
-   public static IEnumerable<OutlinerPluginData> GetPlugins(IEnumerable<Assembly> assemblies, OutlinerPluginType pluginType)
+   public static IEnumerable<OutlinerPluginData> Plugins
    {
-      return GetPlugins(assemblies).Where(p => (p.PluginType & pluginType) == pluginType);
+      get
+      {
+         if (plugins == null)
+            plugins = LoadPlugins();
+
+         return plugins;
+      }
    }
 
    /// <summary>
-   /// Returns a list of available plugins in the Outliner assembly.
+   /// Gets a collection of plugin metadata for plugins of the given type.
    /// </summary>
-   /// <param name="baseType">The plugin type to look for.</param>
-   public static IEnumerable<OutlinerPluginData> GetOwnPlugins(OutlinerPluginType pluginType)
+   /// <param name="type">The type of plugins to select.</param>
+   public static IEnumerable<OutlinerPluginData> GetPluginsByType(OutlinerPluginType type)
    {
-      Assembly assembly = Assembly.GetAssembly(typeof(OutlinerPlugins));
-      return GetPlugins(new List<Assembly>(1) { assembly }, pluginType);
+      return Plugins.Where(p => (p.PluginType & type) == type);
    }
 
-
-   public static IEnumerable<OutlinerPluginData> GetAllPlugins()
-   {
-      return GetOwnPlugins(PluginTypeAll);
-   }
-
-   public static IEnumerable<OutlinerPluginData> GetTreeModePlugins()
-   {
-      return GetOwnPlugins(OutlinerPluginType.TreeMode);
-   }
-
-   public static IEnumerable<OutlinerPluginData> GetSorterPlugins()
-   {
-      return GetOwnPlugins(OutlinerPluginType.Sorter);
-   }
-
-   public static IEnumerable<OutlinerPluginData> GetFilterPlugins()
-   {
-      return GetOwnPlugins(OutlinerPluginType.Filter);
-   }
-
+   /// <summary>
+   /// Gets a collection of Filter plugins metadata for filters of the given category.
+   /// </summary>
+   /// <param name="category">The category of filter to look for.</param>
    public static IEnumerable<OutlinerPluginData> GetFilterPlugins(FilterCategories category)
    {
-      IEnumerable<OutlinerPluginData> pluginTypes = OutlinerPlugins.GetFilterPlugins();
+      IEnumerable<OutlinerPluginData> pluginTypes = GetPluginsByType(OutlinerPluginType.Filter);
       
       List<OutlinerPluginData> filters = new List<OutlinerPluginData>();
       foreach (OutlinerPluginData plugin in pluginTypes)
