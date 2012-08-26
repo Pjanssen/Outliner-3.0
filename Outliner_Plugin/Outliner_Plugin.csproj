@@ -98,6 +98,9 @@
     <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AssemblyLoader">
+      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\AssemblyLoader.dll</HintPath>
+    </Reference>
     <Reference Include="Autodesk.Max">
       <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\Autodesk.Max.dll</HintPath>
       <Private>True</Private>
@@ -125,9 +128,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\OpenOutlinerAction.cs" />
     <Compile Include="Actions\OpenOutliner_SelSetMode.cs" />
     <Compile Include="Actions\OpenOutliner_LayerMode.cs" />
-    <Compile Include="Actions\OpenOutlinerAction.cs" />
     <Compile Include="Actions\TestAction.cs" />
     <Compile Include="AssemblyFunctions.cs" />
     <Compile Include="Commands\ChangeGroupCommand.cs" />
@@ -173,12 +176,9 @@
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ExceptionHelpers.cs" />
-    <Compile Include="Modes\Hierarchy\GroupDragDropHandler.cs" />
     <Compile Include="Modes\Layer\IILayerDragDropHandler.cs" />
     <Compile Include="Controls\Tree\DragDropHandler.cs" />
-    <Compile Include="Modes\Hierarchy\IINodeDragDropHandler.cs" />
     <Compile Include="Modes\Layer\IINodeDragDropHandler.cs" />
-    <Compile Include="Modes\Hierarchy\TreeViewDragDropHandler.cs" />
     <Compile Include="Controls\Tree\Layout\EmptySpace.cs" />
     <Compile Include="Controls\Tree\Layout\ImageButton.cs" />
     <Compile Include="Controls\Tree\Layout\TreeNodeButton.cs" />
@@ -239,7 +239,6 @@
     <Compile Include="Scene\SelectionSetWrapper.cs" />
     <Compile Include="Modes\FlatList\FlatObjectListMode.cs" />
     <Compile Include="HelperMethods.cs" />
-    <Compile Include="Modes\Hierarchy\HierarchyMode.cs" />
     <Compile Include="Modes\Layer\LayerMode.cs" />
     <Compile Include="Modes\SelectionSet\SelectionSetDragDropHandler.cs" />
     <Compile Include="Modes\SelectionSet\SelectionSetMode.cs" />

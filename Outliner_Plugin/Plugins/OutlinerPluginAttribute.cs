@@ -25,6 +25,7 @@ namespace Outliner.Plugins
       Filter         = 0x02,
       NodeSorter     = 0x04,
       TreeNodeButton = 0x08,
-      Utility        = 0x10
+      Utility        = 0x10,
+      Action         = 0x20
    }
 }

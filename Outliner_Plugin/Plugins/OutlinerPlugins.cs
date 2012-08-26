@@ -63,14 +63,16 @@ public static class OutlinerPlugins
          //Add own assembly.
          assemblies.Add(Assembly.GetAssembly(typeof(OutlinerPlugins)));
 
+         AssemblyLoader.Loader loader = new AssemblyLoader.Loader();
          //Add plugin assemblies.
          if (Directory.Exists(OutlinerPlugins.PluginDirectory))
          {
-            String[] pluginFiles = Directory.GetFiles( OutlinerPlugins.PluginDirectory
+            String[] pluginFiles = Directory.GetFiles(OutlinerPlugins.PluginDirectory
                                                       , "*.dll"
                                                       , SearchOption.AllDirectories);
             foreach (String pluginFile in pluginFiles)
             {
+
                assemblies.Add(Assembly.LoadFile(pluginFile));
             }
          }

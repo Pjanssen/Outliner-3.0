@@ -232,4 +232,7 @@ Use {0} to expand entire hierarchy.</value>
   <data name="Command_UnlinkLayer" xml:space="preserve">
     <value>Unlink Layer</value>
   </data>
+  <data name="Outliner_WindowTitle" xml:space="preserve">
+    <value>Outliner</value>
+  </data>
 </root>

@@ -12,7 +12,7 @@ namespace Outliner.Controls.Tree
 {
 public class TreeView : ScrollableControl
 {
-   internal TreeNode Root { get; private set; }
+   public TreeNode Root { get; private set; }
 
    public TreeView()
    {
@@ -517,7 +517,7 @@ public class TreeView : ScrollableControl
    /// Use DragDropEffects.Scroll instead of DragDropEffects.None, 
    /// otherwise the OnDragDrop event won't be raised.
    /// </summary>
-   internal const DragDropEffects NoneDragDropEffects = DragDropEffects.Scroll;
+   public const DragDropEffects NoneDragDropEffects = DragDropEffects.Scroll;
 
    private Point dragStartPos;
    private Boolean isDragging;

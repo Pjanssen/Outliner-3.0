@@ -2,82 +2,69 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Autodesk.Max.Plugins;
 using UiViewModels.Actions;
-using Autodesk.Max;
-using Outliner.Modes;
 using Outliner.Controls;
-using Autodesk.Max.MaxSDK.Util;
-using Outliner.Controls.Tree.Layout;
 using Outliner.Controls.Tree;
-using MaxUtils;
-using Outliner.NodeSorters;
-using Outliner.Modes.SelectionSet;
-using Outliner.Modes.Hierarchy;
-using Outliner.Modes.Layer;
-using Outliner.LayerTools;
-using Outliner.Modes.FlatList;
+using Outliner.Modes;
 
 namespace Outliner.Actions
 {
-   public class OpenOutlinerAction : CuiDockableContentAdapter
+   public abstract class OpenOutlinerAction : CuiDockableContentAdapter
    {
-      public override string ActionText
-      {
-         get { return OutlinerResources.Action_ToggleOutliner; }
-      }
+      private const String OutlinerCategory = "Outliner Plugin";
 
       public override string Category
       {
-         get { return "Outliner Plugin"; }
+         get { return OutlinerCategory; }
       }
 
       public override Type ContentType
       {
+         get { return typeof(Outliner.Controls.TestControl); }
+      }
+
+      public override string WindowTitle
+      {
+         get { return OutlinerResources.Outliner_WindowTitle; }
+      }
+
+      public override DockStates.Dock DockingModes
+      {
          get
          {
-            return typeof(Outliner.Controls.TestControl); 
-            //return typeof(Control);
+            return DockStates.Dock.Left 
+                   | DockStates.Dock.Right
+                   | DockStates.Dock.Floating 
+                   | DockStates.Dock.Viewport;
          }
       }
 
-      private TreeMode treeController1;
-      private TreeMode treeController2;
+      protected TreeMode treeController1;
+      protected TreeMode treeController2;
 
       public override object CreateDockableContent()
       {
          Outliner.Controls.TestControl tc = new Controls.TestControl();
-         tc.outlinerSplitContainer1.PanelCollapsedChanged += outlinerSplitContainer1_PanelCollapsedChanged;
+         tc.outlinerSplitContainer1.PanelCollapsedChanged += panelCollapsedChanged;
 
-         tc.treeView1.TreeNodeLayout = new TreeNodeLayout(OutlinerGUP.Instance.Layout);
-         tc.treeView1.Colors = TreeViewColorScheme.MayaColors; //OutlinerGUP.Instance.ColorScheme;
+         this.treeController1 = CreateTreeController1(tc);
+         this.treeController2 = CreateTreeController2(tc);
 
-         tc.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
-         this.treeController1 = new HierarchyMode(tc.treeView1);
-
-         //this.treeController1.Filters.Add(new Filters.ColorTagsFilter(ColorTag.Green | ColorTag.Blue));
-         //this.treeController1.Filters.Enabled = true;
          if (!tc.outlinerSplitContainer1.Panel1Collapsed)
             this.treeController1.Start();
-
-         tc.treeView2.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
-         tc.treeView2.TreeNodeLayout = new TreeNodeLayout(OutlinerGUP.Instance.Layout);
-         tc.treeView2.Colors = TreeViewColorScheme.MayaColors;
-         this.treeController2 = new HierarchyMode(tc.treeView2);
-
          if (!tc.outlinerSplitContainer1.Panel2Collapsed)
             this.treeController2.Start();
-         
+
          return tc;
       }
 
-      void outlinerSplitContainer1_PanelCollapsedChanged(object sender, SplitPanelEventArgs args)
+      void panelCollapsedChanged(object sender, SplitPanelEventArgs args)
       {
          TreeView tree = args.Panel.Controls[0] as TreeView;
          TreeMode tm;
          if (args.Panel == (sender as OutlinerSplitContainer).Panel1)
             tm = this.treeController1;
-         else 
+         else
             tm = this.treeController2;
 
          if (args.IsCollapsed)
@@ -86,19 +73,7 @@ namespace Outliner.Actions
             tm.Start();
       }
 
-      public override string WindowTitle
-      {
-         get { return "Outliner"; }
-      }
-
-      public override DockStates.Dock DockingModes
-      {
-         get
-         {
-            return DockStates.Dock.Left | DockStates.Dock.Right 
-                   | DockStates.Dock.Floating | DockStates.Dock.Viewport;
-         }
-      }
+      protected abstract TreeMode CreateTreeController1(Outliner.Controls.TestControl mainControl);
+      protected abstract TreeMode CreateTreeController2(Outliner.Controls.TestControl mainControl);
    }
-
 }

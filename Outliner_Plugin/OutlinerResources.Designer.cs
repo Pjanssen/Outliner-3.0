@@ -304,6 +304,15 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Outliner.
+        /// </summary>
+        internal static string Outliner_WindowTitle {
+            get {
+                return ResourceManager.GetString("Outliner_WindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alphabetical.
         /// </summary>
         internal static string Sort_Alphabetical {

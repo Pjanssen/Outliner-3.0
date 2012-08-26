@@ -145,8 +145,6 @@ internal static class StandardContextMenu
    private static Image GetModeImage(TreeMode mode)
    {
       Type modeType = mode.GetType();
-      if (modeType.Equals(typeof(Outliner.Modes.Hierarchy.HierarchyMode)))
-         return ContextMenuResources.hierarchy_mode_32;
       if (modeType.Equals(typeof(Outliner.Modes.Layer.LayerMode)))
          return ContextMenuResources.layer_mode_32;
 

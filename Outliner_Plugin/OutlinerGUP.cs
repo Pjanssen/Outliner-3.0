@@ -10,7 +10,6 @@ using MaxUtils;
 using Outliner.Controls.Tree;
 using Outliner.Controls.Tree.Layout;
 using Autodesk.Max.MaxSDK.Util;
-using Outliner.Modes.Hierarchy;
 using Outliner.Modes;
 using Outliner.Modes.SelectionSet;
 using Outliner.Filters;
@@ -36,6 +35,7 @@ public class OutlinerGUP
       this.TreeModes = new List<TreeMode>();
 
       OutlinerPlugins.LoadPlugins();
+
       this.Layout = this.loadLayout();
       //TreeNodeLayout.MayaLayout.ToXml("C:/Users/Pier/Desktop/test.xml", OutlinerPlugins.GetTreeNodeButtonTypes());
       this.ColorScheme = this.loadColors();
