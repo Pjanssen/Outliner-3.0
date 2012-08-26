@@ -27,11 +27,14 @@ public static class AutoInheritProperties
    private static uint cbKey;
    private static INodeEventCallback cbObject;
 
+   private static GlobalDelegates.Delegate5 ProcLayerChanged;
+
    internal static void Start()
    {
       AutoInheritProperties.classID = MaxInterfaces.Global.Class_ID.Create(CID_A, CID_B);
 
-      MaxInterfaces.Global.RegisterNotification(layerChanged, null, SystemNotificationCode.NodeLayerChanged);
+      ProcLayerChanged = new GlobalDelegates.Delegate5(layerChanged);
+      MaxInterfaces.Global.RegisterNotification(ProcLayerChanged, null, SystemNotificationCode.NodeLayerChanged);
       
       IISceneEventManager sceneEventMgr = MaxInterfaces.Global.ISceneEventManager;
       cbObject = new LayerCallbacks();
@@ -40,7 +43,7 @@ public static class AutoInheritProperties
 
    internal static void Stop()
    {
-      MaxInterfaces.Global.UnRegisterNotification(layerChanged, null, SystemNotificationCode.NodeLayerChanged);
+      MaxInterfaces.Global.UnRegisterNotification(ProcLayerChanged, null, SystemNotificationCode.NodeLayerChanged);
 
       IISceneEventManager sceneEventMgr = MaxInterfaces.Global.ISceneEventManager;
       sceneEventMgr.UnRegisterCallback(cbKey);

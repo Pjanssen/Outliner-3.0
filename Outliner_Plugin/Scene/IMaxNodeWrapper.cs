@@ -135,12 +135,6 @@ namespace Outliner.Scene
          } 
       }
 
-      public virtual ColorTag ColorTag
-      {
-         get { return ColorTags.GetTag(this.WrappedNode as IAnimatable); }
-         set { ColorTags.SetTag(this.WrappedNode as IAnimatable, value); }
-      }
-
       /// <summary>
       /// Tests if the wrapped node is still a valid scene node and hasn't been deleted.
       /// </summary>

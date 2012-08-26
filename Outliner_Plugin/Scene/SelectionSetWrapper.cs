@@ -291,22 +291,6 @@ namespace Outliner.Scene
          }
       }
 
-      public override ColorTag ColorTag
-      {
-         get
-         {
-            IEnumerable<IINode> childIINodes = this.ChildIINodes;
-            if (childIINodes.Count() == 0)
-               return LayerTools.ColorTag.None;
-            else
-               return childIINodes.Aggregate(LayerTools.ColorTag.All, (tag, n) =>
-                                                tag &= LayerTools.ColorTags.GetTag(n));
-         }
-         set
-         {
-            this.setSelSetProperty(n => ColorTags.SetTag(n, value));
-         }
-      }
 
       public const String ImgKeySelectionSet = "selectionset";
       public override string ImageKey

@@ -11,10 +11,12 @@ using System.ComponentModel;
 
 namespace Outliner.Controls.Tree.Layout
 {
+[Serializable]
 public class AddButton : ImageButton
 {
    public AddButton() 
       : base(NodeButtonImages.GetButtonImages(NodeButtonImages.Images.Add)) { }
+
 
    [XmlAttribute("visible_types")]
    [DefaultValue(MaxNodeTypes.SelectionSet | MaxNodeTypes.Layer)]
@@ -23,6 +25,7 @@ public class AddButton : ImageButton
       get { return base.VisibleTypes & (MaxNodeTypes.SelectionSet | MaxNodeTypes.Layer); }
       set { base.VisibleTypes = value; }
    }
+
 
    public override bool IsEnabled(TreeNode tn)
    {
@@ -78,6 +81,23 @@ public class AddButton : ImageButton
          return OutlinerResources.Tooltip_Add_SelSet;
       else
          return null;
+   }
+
+
+   public override TreeNodeLayoutItem Copy()
+   {
+      AddButton newItem = new AddButton();
+
+      newItem.PaddingLeft = this.PaddingLeft;
+      newItem.PaddingRight = this.PaddingRight;
+      newItem.VisibleTypes = this.VisibleTypes;
+      newItem.InvertBehavior = this.InvertBehavior;
+      newItem.imageDisabled = this.imageDisabled;
+      newItem.imageDisabled_Filtered = this.imageDisabled_Filtered;
+      newItem.imageEnabled = this.imageEnabled;
+      newItem.imageEnabled_Filtered = this.imageEnabled_Filtered;
+
+      return newItem;
    }
 }
 }

@@ -125,7 +125,7 @@ public class TreeView : ScrollableControl
       }
    }
 
-   internal Int32 GetNodeOpacity(TreeNode tn)
+   public Int32 GetNodeOpacity(TreeNode tn)
    {
       if (tn == null)
          return 0;
@@ -136,7 +136,7 @@ public class TreeView : ScrollableControl
          return IconHelperMethods.FILTERED_OPACITY;
    }
 
-   internal Color GetLineColor(TreeNode tn)
+   public Color GetLineColor(TreeNode tn)
    {
       if (this.TreeNodeLayout.FullRowSelect)
          return GetNodeForeColor(tn, true);
@@ -162,7 +162,7 @@ public class TreeView : ScrollableControl
    /// Gets the foreground color for a treenode.
    /// </summary>
    /// <param name="highlight">True if the foreground color is part of a highlight area (e.g. selection, drop-target)</param>
-   internal Color GetNodeForeColor(TreeNode tn, Boolean highlight)
+   public Color GetNodeForeColor(TreeNode tn, Boolean highlight)
    {
       if (tn == null || this.Colors == null)
          return Color.Empty;
@@ -197,7 +197,7 @@ public class TreeView : ScrollableControl
    /// Gets the background color for a treenode.
    /// </summary>
    /// <param name="highlight">True if the background color is part of a highlight area (e.g. selection, drop-target)</param>
-   internal Color GetNodeBackColor(TreeNode tn, Boolean highlight)
+   public Color GetNodeBackColor(TreeNode tn, Boolean highlight)
    {
       if (tn == null || this.Colors == null)
          return Color.Empty;

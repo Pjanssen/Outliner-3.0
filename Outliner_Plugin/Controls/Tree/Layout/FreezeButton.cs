@@ -34,5 +34,22 @@ public class FreezeButton : AnimatablePropertyButton
    {
       get { return OutlinerResources.Tooltip_Freeze; }
    }
+
+
+   public override TreeNodeLayoutItem Copy()
+   {
+      FreezeButton newItem = new FreezeButton();
+
+      newItem.PaddingLeft = this.PaddingLeft;
+      newItem.PaddingRight = this.PaddingRight;
+      newItem.VisibleTypes = this.VisibleTypes;
+      newItem.InvertBehavior = this.InvertBehavior;
+      newItem.imageDisabled = this.imageDisabled;
+      newItem.imageDisabled_Filtered = this.imageDisabled_Filtered;
+      newItem.imageEnabled = this.imageEnabled;
+      newItem.imageEnabled_Filtered = this.imageEnabled_Filtered;
+
+      return newItem;
+   }
 }
 }

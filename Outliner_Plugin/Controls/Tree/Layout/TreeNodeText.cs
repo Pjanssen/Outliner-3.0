@@ -8,9 +8,18 @@ using Outliner.Filters;
 
 namespace Outliner.Controls.Tree.Layout
 {
-public class TreeNodeText : TreeNodeButton //TreeNodeLayoutItem
+public class TreeNodeText : TreeNodeButton
 {
    public override bool CenterVertically { get { return false; } }
+
+   public override TreeNodeLayoutItem Copy()
+   {
+      TreeNodeText newItem = new TreeNodeText();
+      newItem.PaddingLeft = this.PaddingLeft;
+      newItem.PaddingRight = this.PaddingRight;
+      newItem.VisibleTypes = this.VisibleTypes;
+      return newItem;
+   }
 
    private Size GetTextSize(TreeNode tn)
    {

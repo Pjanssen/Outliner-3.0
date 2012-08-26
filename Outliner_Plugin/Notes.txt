@@ -34,3 +34,36 @@ Particle     -
 Shape        -
 Spacewarp    -
 Xref         -
+
+
+TreeModes
+---------
+* Hierarchy*
+* Flat object list
+* Layers*
+* Materials
+* Selection Sets
+
+Filters
+-------
+* Object classes (Geometry, bones, helpers, etc)*
+* Hidden, Frozen*
+* ColorTags
+* Maxscript filter
+* CAT Muscles
+
+NodeSorters
+-----------
+* Alphabetical*
+* ColorTag
+* Hidden, Frozen*
+* Chronological
+* Type*
+
+TreeNodeButtons
+---------------
+* Add, Remove*
+* Hide, Freeze*
+* Maya indent
+* BoxMode, Renderable, WireColor (Animatable Property)
+* ColorTag

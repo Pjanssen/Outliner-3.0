@@ -62,13 +62,15 @@ public abstract class TreeMode
       if (started)
          return;
 
+      OutlinerGUP.Instance.RegisterTreeMode(this);
+
       this.RegisterSystemNotification(proc_PausePreSystemEvent, SystemNotificationCode.SystemPreNew);
       this.RegisterSystemNotification(proc_PausePreSystemEvent, SystemNotificationCode.SystemPreReset);
       this.RegisterSystemNotification(proc_PausePreSystemEvent, SystemNotificationCode.FilePreOpen);
       this.RegisterSystemNotification(proc_PausePreSystemEvent, SystemNotificationCode.FilePreMerge);
       this.RegisterSystemNotification(proc_Stop, SystemNotificationCode.SystemShutdown);
       this.RegisterSystemNotification(proc_SelectionsetChanged, SystemNotificationCode.SelectionsetChanged);
-      this.RegisterSystemNotification(proc_ColorTagChanged, ColorTags.TagChanged);
+      //this.RegisterSystemNotification(proc_ColorTagChanged, ColorTags.TagChanged);
 
       this.RegisterNodeEventCallbackObject(new DefaultNodeEventCallbacks(this));
 
@@ -86,6 +88,8 @@ public abstract class TreeMode
    {
       if (!started)
          return;
+
+      OutlinerGUP.Instance.UnRegisterTreeMode(this);
 
       this.UnregisterSystemNotifications();
       this.UnregisterNodeEventCallbacks();
@@ -475,10 +479,10 @@ public abstract class TreeMode
    protected virtual void ColorTagChanged(IntPtr param, IntPtr info)
    {
       IAnimatable node = MaxUtils.HelperMethods.GetCallParam(info) as IAnimatable;
-      if (this.Filters.Contains(typeof(ColorTagsFilter)))
-         this.UpdateFilter(node);
+      //if (this.Filters.Contains(typeof(ColorTagsFilter)))
+      //   this.UpdateFilter(node);
       
-      this.InvalidateObject(node, false, this.Tree.NodeSorter is ColorTagsSorter);
+      //this.InvalidateObject(node, false, this.Tree.NodeSorter is ColorTagsSorter);
    }
 
    #endregion

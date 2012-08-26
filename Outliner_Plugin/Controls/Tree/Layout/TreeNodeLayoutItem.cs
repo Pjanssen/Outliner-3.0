@@ -30,6 +30,11 @@ namespace Outliner.Controls.Tree.Layout
          this.VisibleTypes = MaxNodeTypes.All;
       }
 
+      /// <summary>
+      /// Creates a deep copy of this <see cref="TreeNodeLayoutItem"/>.
+      /// </summary>
+      public abstract TreeNodeLayoutItem Copy();
+
       [XmlIgnore]
       public TreeNodeLayout Layout { get; internal set; }
 

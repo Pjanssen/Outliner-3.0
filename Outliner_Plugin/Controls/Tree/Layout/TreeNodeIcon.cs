@@ -71,6 +71,21 @@ public class TreeNodeIcon : TreeNodeButton
       this.invert = invert;
    }
 
+
+   public override TreeNodeLayoutItem Copy()
+   {
+      TreeNodeIcon newItem = new TreeNodeIcon();
+
+      newItem.PaddingLeft = this.PaddingLeft;
+      newItem.PaddingRight = this.PaddingRight;
+      newItem.VisibleTypes = this.VisibleTypes;
+      newItem.invert = this.invert;
+      newItem.IconSet = this.IconSet;
+
+      return newItem;
+   }
+
+
    public override int GetWidth(TreeNode tn)
    {
       return this.iconSize.Width;

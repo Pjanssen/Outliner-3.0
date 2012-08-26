@@ -23,9 +23,26 @@ namespace Outliner.Controls.Tree.Layout
          get { return OutlinerResources.Tooltip_Renderable; }
       }
 
+      //TODO: test if this override is necessary.
       protected override Image ImageEnabled
       {
          get { return OutlinerResources.button_render; }
+      }
+
+      public override TreeNodeLayoutItem Copy()
+      {
+         RenderableButton newItem = new RenderableButton();
+
+         newItem.PaddingLeft = this.PaddingLeft;
+         newItem.PaddingRight = this.PaddingRight;
+         newItem.VisibleTypes = this.VisibleTypes;
+         newItem.InvertBehavior = this.InvertBehavior;
+         newItem.imageDisabled = this.imageDisabled;
+         newItem.imageDisabled_Filtered = this.imageDisabled_Filtered;
+         newItem.imageEnabled = this.imageEnabled;
+         newItem.imageEnabled_Filtered = this.imageEnabled_Filtered;
+
+         return newItem;
       }
    }
 }

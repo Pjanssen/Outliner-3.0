@@ -30,6 +30,20 @@ public class WireColorButton : AnimatablePropertyButton
       this.ButtonHeight = 8;
    }
 
+   public override TreeNodeLayoutItem Copy()
+   {
+      WireColorButton newItem = new WireColorButton();
+
+      newItem.PaddingLeft = this.PaddingLeft;
+      newItem.PaddingRight = this.PaddingRight;
+      newItem.VisibleTypes = this.VisibleTypes;
+      newItem.InvertBehavior = this.InvertBehavior;
+      newItem.ButtonHeight = this.ButtonHeight;
+      newItem.ButtonWidth = this.ButtonWidth;
+
+      return newItem;
+   }
+
    public override int GetWidth(TreeNode tn)
    {
       return this.ButtonWidth;

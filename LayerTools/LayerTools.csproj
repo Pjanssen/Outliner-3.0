@@ -121,8 +121,6 @@
     <Compile Include="AssemblyFunctions.cs" />
     <Compile Include="AutoInheritProperties\AutoInheritProperties.cs" />
     <Compile Include="AutoInheritProperties\AutoInheritPropertiesMxs.cs" />
-    <Compile Include="ColorTags\ColorTags.cs" />
-    <Compile Include="ColorTags\ColorTagsMxs.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="NestedLayers\NestedLayersMxs.cs" />
     <Compile Include="NestedLayers\NestedLayers.cs" />
@@ -140,9 +138,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AutoInheritProperties\AutoInheritPropertiesMxs.ms" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ColorTags\ColorTagsMxs.ms" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

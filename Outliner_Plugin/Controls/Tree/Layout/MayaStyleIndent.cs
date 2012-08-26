@@ -22,6 +22,18 @@ public class MayaStyleIndent : TreeNodeLayoutItem
       this.Indent = 12;
    }
 
+   public override TreeNodeLayoutItem Copy()
+   {
+      MayaStyleIndent newItem = new MayaStyleIndent();
+      
+      newItem.PaddingLeft = this.PaddingLeft;
+      newItem.PaddingRight = this.PaddingRight;
+      newItem.VisibleTypes = this.VisibleTypes;
+      newItem.Indent = this.Indent;
+
+      return newItem;
+   }
+
    public override int GetWidth(TreeNode tn)
    {
       Int32 tnLevel = (tn == null) ? 1 : tn.Level + 1;

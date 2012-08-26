@@ -12,6 +12,7 @@ namespace Outliner.Plugins
    sealed public class OutlinerPluginAttribute : Attribute
    {
       public OutlinerPluginType PluginType { get; private set; }
+
       public OutlinerPluginAttribute(OutlinerPluginType pluginType) 
       {
          this.PluginType = pluginType;
@@ -20,8 +21,10 @@ namespace Outliner.Plugins
 
    public enum OutlinerPluginType
    {
-      TreeMode   = 0x01,
-      Filter     = 0x02,
-      NodeSorter = 0x04
+      TreeMode       = 0x01,
+      Filter         = 0x02,
+      NodeSorter     = 0x04,
+      TreeNodeButton = 0x08,
+      Utility        = 0x10
    }
 }

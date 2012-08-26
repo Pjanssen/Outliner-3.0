@@ -10,21 +10,25 @@ namespace Outliner.LayerTools
 {
    public static class AssemblyFunctions
    {
+      private static GlobalDelegates.Delegate5 ProcPostStart;
+
       public static void AssemblyMain()
       {
-         IGlobal global = MaxInterfaces.Global;
+         ProcPostStart = new GlobalDelegates.Delegate5(PostStart);
 
-         global.RegisterNotification(postStart, null, SystemNotificationCode.SystemStartup);
+         IGlobal global = MaxUtils.MaxInterfaces.Global;
+         global.RegisterNotification(ProcPostStart, null, SystemNotificationCode.SystemStartup);
       }
 
-      private static void postStart(IntPtr param, IntPtr info)
+      private static void PostStart(IntPtr param, IntPtr info)
       {
+         IGlobal global = MaxUtils.MaxInterfaces.Global;
+         global.UnRegisterNotification(ProcPostStart, null, SystemNotificationCode.SystemStartup);
+
          NestedLayers.Start();
          NestedLayersMxs.Start();
          AutoInheritProperties.Start();
          AutoInheritPropertiesMxs.Start();
-         ColorTags.Start();
-         ColorTagsMxs.Start();
       }
 
       public static void AssemblyShutdown()

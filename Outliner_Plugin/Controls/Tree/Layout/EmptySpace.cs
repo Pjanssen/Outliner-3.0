@@ -5,13 +5,15 @@ using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using System.ComponentModel;
+using Outliner.Scene;
 
 namespace Outliner.Controls.Tree.Layout
 {
 public class EmptySpace : TreeNodeLayoutItem
 {
    [XmlAttribute("padding_left")]
-   [System.ComponentModel.DefaultValue(2)]
+   [DefaultValue(2)]
    public override int PaddingLeft
    {
       get { return 2; }
@@ -19,13 +21,27 @@ public class EmptySpace : TreeNodeLayoutItem
    }
 
    [XmlAttribute("padding_right")]
-   [System.ComponentModel.DefaultValue(2)]
+   [DefaultValue(2)]
    public override int PaddingRight
    {
       get { return 2; }
       set { }
    }
 
+   [XmlAttribute("visible_types")]
+   [DefaultValue(MaxNodeTypes.All)]
+   public override Scene.MaxNodeTypes VisibleTypes
+   {
+      get { return MaxNodeTypes.All; }
+      set { }
+   }
+
+   public EmptySpace() { }
+
+   public override TreeNodeLayoutItem Copy()
+   {
+      return new EmptySpace();
+   }
 
    public override bool IsVisible(TreeNode tn)
    {

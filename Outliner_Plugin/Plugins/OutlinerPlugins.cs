@@ -29,6 +29,14 @@ public static class OutlinerPlugins
       else
          return null;
    }
+   private static T GetAttribute<T>(MethodInfo sourceMethod) where T : Attribute
+   {
+      object[] attributes = sourceMethod.GetCustomAttributes(typeof(T), false);
+      if (attributes != null && attributes.Count() > 0)
+         return attributes[0] as T;
+      else
+         return null;
+   }
 
    /// <summary>
    /// The directory from which all plugins are loaded.
@@ -81,7 +89,7 @@ public static class OutlinerPlugins
 
       foreach (Assembly assembly in OutlinerPlugins.PluginAssemblies)
       {
-         IEnumerable<Type> pluginClasses = assembly.GetTypes().Where(t => !t.IsAbstract && t.IsPublic);
+         IEnumerable<Type> pluginClasses = assembly.GetTypes().Where(t => t.IsPublic && (!t.IsAbstract || t.IsSealed));
 
          foreach (Type pluginClass in pluginClasses)
          {
@@ -94,6 +102,8 @@ public static class OutlinerPlugins
 
             if ((pluginType & PluginTypeAll) == 0)
                continue;
+
+            StartPlugin(pluginClass);
 
             String name = pluginClass.Name;
             DisplayNameAttribute dispAtrr = GetAttribute<DisplayNameAttribute>(pluginClass);
@@ -116,6 +126,17 @@ public static class OutlinerPlugins
       plugins.Sort((pX, pY) => pX.DisplayName.CompareTo(pY.DisplayName));
 
       return plugins;
+   }
+
+   private static void StartPlugin(Type pluginClass)
+   {
+      MethodInfo[] methods = pluginClass.GetMethods(BindingFlags.Static | BindingFlags.Public);
+      foreach (MethodInfo method in methods)
+      {
+         OutlinerPluginStartAttribute initializer = GetAttribute<OutlinerPluginStartAttribute>(method);
+         if (initializer != null)
+            method.Invoke(null, null);
+      }
    }
 
    /// <summary>
@@ -145,7 +166,7 @@ public static class OutlinerPlugins
    /// Gets a collection of Filter plugins metadata for filters of the given category.
    /// </summary>
    /// <param name="category">The category of filter to look for.</param>
-   public static IEnumerable<OutlinerPluginData> GetFilterPlugins(FilterCategories category)
+   internal static IEnumerable<OutlinerPluginData> GetFilterPlugins(FilterCategories category)
    {
       IEnumerable<OutlinerPluginData> pluginTypes = GetPluginsByType(OutlinerPluginType.Filter);
       
@@ -158,6 +179,11 @@ public static class OutlinerPlugins
       }
 
       return filters;
+   }
+
+   internal static Type[] GetTreeNodeButtonTypes()
+   {
+      return GetPluginsByType(OutlinerPluginType.TreeNodeButton).Select(p => p.Type).ToArray();
    }
 }
 }

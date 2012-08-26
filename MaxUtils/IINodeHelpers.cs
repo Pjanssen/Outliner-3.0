@@ -26,16 +26,14 @@ public static class IINodeHelpers
    /// </summary>
    public static Boolean IsBone(IINode node)
    {
-      if (node != null && node.ObjectRef != null && node.ObjectRef.SuperClassID == SClass_ID.Geomobject)
-      {
-         IClass_ID classID = node.ObjectRef.ClassID;
-         return ClassIDHelpers.Equals(classID, BuiltInClassIDA.BONE_OBJ_CLASSID, BuiltInClassIDB.BONE_OBJ_CLASSID)
-               || ClassIDHelpers.Equals(classID, ClassIDHelpers.SkelObjClassIDA)
-               || ClassIDHelpers.Equals(classID, ClassIDHelpers.BipedClassIDA)
-               || ClassIDHelpers.Equals(classID, ClassIDHelpers.CatBoneClassIDA, ClassIDHelpers.CatBoneClassIDB)
-               || ClassIDHelpers.Equals(classID, ClassIDHelpers.CatHubClassIDA, ClassIDHelpers.CatHubClassIDB);
-      }
-      return false;
+      if (!ClassIDHelpers.IsSuperClass(node, SClass_ID.Geomobject))
+         return false;
+
+      return ClassIDHelpers.IsClass(node, BuiltInClassIDA.BONE_OBJ_CLASSID, BuiltInClassIDB.BONE_OBJ_CLASSID)
+             || ClassIDHelpers.IsClass(node, ClassIDHelpers.SkelObjClassIDA, 0)
+             || ClassIDHelpers.IsClass(node, ClassIDHelpers.BipedClassIDA, 0)
+             || ClassIDHelpers.IsClass(node, ClassIDHelpers.CatBoneClassIDA, ClassIDHelpers.CatBoneClassIDB)
+             || ClassIDHelpers.IsClass(node, ClassIDHelpers.CatHubClassIDA, ClassIDHelpers.CatHubClassIDB);
    }
 
    /// <summary>
@@ -62,16 +60,12 @@ public static class IINodeHelpers
    /// <returns></returns>
    public static Boolean IsXref(IINode node)
    {
-      if (node == null || node.ObjectRef == null)
+      if (!ClassIDHelpers.IsSuperClass(node, SClass_ID.System))
          return false;
 
-      IObject objRef = node.ObjectRef;
-      if (objRef.SuperClassID != SClass_ID.System)
-         return false;
-
-      IClass_ID cID = objRef.ClassID;
-      return ClassIDHelpers.Equals(cID, BuiltInClassIDA.XREFOBJ_CLASS_ID)
-            || ClassIDHelpers.Equals(cID, BuiltInClassIDA.XREFMATERIAL_CLASS_ID, BuiltInClassIDB.XREFMATERIAL_CLASS_ID);
+      return ClassIDHelpers.IsClass(node, BuiltInClassIDA.XREFOBJ_CLASS_ID) ||
+             ClassIDHelpers.IsClass(node, BuiltInClassIDA.XREFMATERIAL_CLASS_ID
+                                        , BuiltInClassIDB.XREFMATERIAL_CLASS_ID);
    }
 
 

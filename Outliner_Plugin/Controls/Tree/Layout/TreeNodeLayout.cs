@@ -11,6 +11,7 @@ using System.ComponentModel;
 namespace Outliner.Controls.Tree.Layout
 {
 [XmlRoot("TreeNodeLayout")]
+[Serializable]
 public class TreeNodeLayout
 {
    private TreeNodeLayoutItemCollection layoutItems;
@@ -83,6 +84,18 @@ public class TreeNodeLayout
       this.itemHeight = 18;
       this.fullRowSelect = false;
    }
+
+   /// <summary>
+   /// Creates a new <see cref="TreeNodeLayout"/>, as a copy of the passed <see cref="TreeNodeLayout"/>.
+   /// </summary>
+   /// <param name="layout">The <see cref="TreeNodeLayout"/> to copy.</param>
+   public TreeNodeLayout(TreeNodeLayout layout)
+   {
+      this.LayoutItems = new TreeNodeLayoutItemCollection(layout.layoutItems);
+      this.itemHeight = layout.itemHeight;
+      this.fullRowSelect = layout.fullRowSelect;
+   }
+
 
    public Int32 GetTreeNodeWidth(TreeNode tn)
    {
@@ -205,15 +218,34 @@ public class TreeNodeLayout
    /// </summary>
    public static TreeNodeLayout FromXml(String file)
    {
+      return TreeNodeLayout.FromXml(file, new Type[0]);
+   }
+
+   /// <summary>
+   /// Opens and parses an Xml file with a TreeNodeLayout.
+   /// </summary>
+   public static TreeNodeLayout FromXml(String file, Type[] extraTypes)
+   {
       using (FileStream stream = new FileStream(file, FileMode.Open))
       {
-         return TreeNodeLayout.FromXml(stream);
+         return TreeNodeLayout.FromXml(stream, extraTypes);
       }
    }
 
+   /// <summary>
+   /// Opens and parses an Xml file with a TreeNodeLayout.
+   /// </summary>
    public static TreeNodeLayout FromXml(Stream stream)
    {
-      XmlSerializer xs = new XmlSerializer(typeof(TreeNodeLayout));
+      return TreeNodeLayout.FromXml(stream, new Type[0]);
+   }
+
+   /// <summary>
+   /// Opens and parses an Xml file with a TreeNodeLayout.
+   /// </summary>
+   public static TreeNodeLayout FromXml(Stream stream, Type[] extraTypes)
+   {
+      XmlSerializer xs = new XmlSerializer(typeof(TreeNodeLayout), extraTypes);
       return (TreeNodeLayout)xs.Deserialize(stream);
    }
 
@@ -222,18 +254,38 @@ public class TreeNodeLayout
    /// </summary>
    public void ToXml(String file)
    {
+      this.ToXml(file, new Type[0]);
+   }
+
+   /// <summary>
+   /// Writes the TreeNodeLayout to an Xml file.
+   /// </summary>
+   public void ToXml(String file, Type[] extraTypes)
+   {
       using (FileStream st = new FileStream(file, FileMode.Create))
       //using (StreamWriter stWr = new StreamWriter(st, Encoding.Unicode))
       {
-         this.ToXml(st);
+         this.ToXml(st, extraTypes);
       }
    }
 
+   /// <summary>
+   /// Writes the TreeNodeLayout to an Xml file.
+   /// </summary>
    public void ToXml(Stream stream)
    {
-      XmlSerializer xs = new XmlSerializer(typeof(TreeNodeLayout));
+      this.ToXml(stream, new Type[0]);
+   }
+
+   /// <summary>
+   /// Writes the TreeNodeLayout to an Xml file.
+   /// </summary>
+   public void ToXml(Stream stream, Type[] extraTypes)
+   {
+      XmlSerializer xs = new XmlSerializer(typeof(TreeNodeLayout), extraTypes);
       xs.Serialize(stream, this);
    }
+
 
 
    public static TreeNodeLayout SimpleLayout
@@ -286,7 +338,6 @@ public class TreeNodeLayout
          layout.LayoutItems.Add(new EmptySpace());
          layout.LayoutItems.Add(new HideButton());
          layout.LayoutItems.Add(new FreezeButton() { PaddingRight = 2 });
-         layout.LayoutItems.Add(new ColorTagButton() { PaddingRight = 2 });
          return layout;
       }
    }

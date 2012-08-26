@@ -23,6 +23,7 @@ namespace Outliner
 public class OutlinerGUP
 {
    public static OutlinerGUP Instance { get; private set; }
+   public List<TreeMode> TreeModes { get; private set; }
    public TreeViewColorScheme ColorScheme { get; private set; }
    public TreeNodeLayout Layout { get; private set; }
 
@@ -32,7 +33,11 @@ public class OutlinerGUP
    public OutlinerGUP()
    {
       this.openedGroupHeads = new List<IINodeWrapper>();
+      this.TreeModes = new List<TreeMode>();
+
+      OutlinerPlugins.LoadPlugins();
       this.Layout = this.loadLayout();
+      //TreeNodeLayout.MayaLayout.ToXml("C:/Users/Pier/Desktop/test.xml", OutlinerPlugins.GetTreeNodeButtonTypes());
       this.ColorScheme = this.loadColors();
    }
 
@@ -47,6 +52,18 @@ public class OutlinerGUP
    }
 
 
+   internal void RegisterTreeMode(TreeMode treeMode)
+   {
+      if (!this.TreeModes.Contains(treeMode))
+         this.TreeModes.Add(treeMode);
+   }
+
+   internal void UnRegisterTreeMode(TreeMode treeMode)
+   {
+      this.TreeModes.Remove(treeMode);
+   }
+
+
 
    private TreeNodeLayout loadLayout()
    {
@@ -55,7 +72,17 @@ public class OutlinerGUP
       IPath scriptDir = path.Create(pathMgr.GetDir(MaxDirectory.UserScripts));
       IPath layoutFile = path.Create(scriptDir).Append(path.Create("outliner_layout.xml"));
       if (layoutFile.Exists)
-         return TreeNodeLayout.FromXml(layoutFile.String);
+      {
+         try
+         {
+            return TreeNodeLayout.FromXml(layoutFile.String, OutlinerPlugins.GetTreeNodeButtonTypes());
+         }
+         catch (InvalidOperationException e)
+         {
+            System.Windows.Forms.MessageBox.Show(e.Message);
+            return TreeNodeLayout.DefaultLayout;
+         }
+      }
       else
          return TreeNodeLayout.DefaultLayout;
       //   this.Layout.ToXml(layoutFile.String);

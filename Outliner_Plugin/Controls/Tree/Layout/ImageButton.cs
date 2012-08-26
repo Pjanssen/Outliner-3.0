@@ -55,9 +55,9 @@ public abstract class ImageButton : TreeNodeButton
       imageDisabled_Filtered = images.DisabledFiltered;
    }
 
-   private Image imageEnabled;
+   protected Image imageEnabled;
    protected virtual Image ImageEnabled { get { return imageEnabled; } }
-   private Image imageDisabled;
+   protected Image imageDisabled;
    protected virtual Image ImageDisabled
    {
       get
@@ -69,7 +69,7 @@ public abstract class ImageButton : TreeNodeButton
          return this.imageDisabled;
       }
    }
-   private Image imageEnabled_Filtered;
+   protected Image imageEnabled_Filtered;
    protected virtual Image ImageEnabled_Filtered
    {
       get
@@ -81,7 +81,7 @@ public abstract class ImageButton : TreeNodeButton
          return this.imageEnabled_Filtered;
       }
    }
-   private Image imageDisabled_Filtered;
+   protected Image imageDisabled_Filtered;
    protected virtual Image ImageDisabled_Filtered
    {
       get

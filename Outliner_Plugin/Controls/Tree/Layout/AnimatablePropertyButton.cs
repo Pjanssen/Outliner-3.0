@@ -34,9 +34,9 @@ public abstract class AnimatablePropertyButton : ImageButton
    protected abstract String ToolTipEnabled { get; }
    protected virtual String ToolTipDisabled { get { return this.ToolTipEnabled; } }
 
-   private Image imageByLayer;
+   protected Image imageByLayer;
    protected virtual Image ImageByLayer { get { return imageByLayer; } }
-   private Image imageByLayer_Filtered;
+   protected Image imageByLayer_Filtered;
    protected virtual Image ImageByLayer_Filtered
    {
       get

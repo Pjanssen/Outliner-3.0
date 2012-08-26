@@ -64,5 +64,22 @@ public class RemoveButton : ImageButton
 
       return OutlinerResources.Tooltip_Remove_SelSet;
    }
+
+
+   public override TreeNodeLayoutItem Copy()
+   {
+      RemoveButton newItem = new RemoveButton();
+
+      newItem.PaddingLeft = this.PaddingLeft;
+      newItem.PaddingRight = this.PaddingRight;
+      newItem.VisibleTypes = this.VisibleTypes;
+      newItem.InvertBehavior = this.InvertBehavior;
+      newItem.imageDisabled = this.imageDisabled;
+      newItem.imageDisabled_Filtered = this.imageDisabled_Filtered;
+      newItem.imageEnabled = this.imageEnabled;
+      newItem.imageEnabled_Filtered = this.imageEnabled_Filtered;
+
+      return newItem;
+   }
 }
 }

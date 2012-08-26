@@ -48,8 +48,8 @@ namespace Outliner.Actions
       {
          Outliner.Controls.TestControl tc = new Controls.TestControl();
          tc.outlinerSplitContainer1.PanelCollapsedChanged += outlinerSplitContainer1_PanelCollapsedChanged;
-         
-         tc.treeView1.TreeNodeLayout = TreeNodeLayout.MayaLayout; //OutlinerGUP.Instance.Layout;
+
+         tc.treeView1.TreeNodeLayout = new TreeNodeLayout(OutlinerGUP.Instance.Layout);
          tc.treeView1.Colors = TreeViewColorScheme.MayaColors; //OutlinerGUP.Instance.ColorScheme;
 
          tc.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
@@ -61,7 +61,7 @@ namespace Outliner.Actions
             this.treeController1.Start();
 
          tc.treeView2.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
-         tc.treeView2.TreeNodeLayout = TreeNodeLayout.MayaLayout;
+         tc.treeView2.TreeNodeLayout = new TreeNodeLayout(OutlinerGUP.Instance.Layout);
          tc.treeView2.Colors = TreeViewColorScheme.MayaColors;
          this.treeController2 = new HierarchyMode(tc.treeView2);
 

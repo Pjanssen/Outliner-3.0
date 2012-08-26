@@ -17,7 +17,6 @@ using MaxUtils;
 
 namespace Outliner
 {
-
 public static class HelperMethods
 {
    /// <summary>
@@ -182,6 +181,7 @@ public static class HelperMethods
       double b = Math.Pow(pt1.Y - pt2.Y, 2);
       return Math.Sqrt(a + b);
    }
+
 }
 
 }

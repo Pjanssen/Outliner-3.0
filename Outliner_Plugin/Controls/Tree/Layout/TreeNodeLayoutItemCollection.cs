@@ -25,6 +25,16 @@ public class TreeNodeLayoutItemCollection : ICollection<TreeNodeLayoutItem>
       this.items = new List<TreeNodeLayoutItem>();
    }
 
+   public TreeNodeLayoutItemCollection(TreeNodeLayoutItemCollection collection)
+   {
+      this.items = new List<TreeNodeLayoutItem>();
+
+      foreach (TreeNodeLayoutItem item in collection)
+      {
+         this.Add(item.Copy());
+      }
+   }
+
    public void Add(TreeNodeLayoutItem item)
    {
       if (item == null)

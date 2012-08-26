@@ -29,6 +29,18 @@ public class ExpandButton : TreeNodeButton
       this.UseVisualStyles = true;
    }
 
+   public override TreeNodeLayoutItem Copy()
+   {
+      ExpandButton newItem = new ExpandButton();
+
+      newItem.PaddingLeft = this.PaddingLeft;
+      newItem.PaddingRight = this.PaddingRight;
+      newItem.UseVisualStyles = this.UseVisualStyles;
+      newItem.VisibleTypes = this.VisibleTypes;
+
+      return newItem;
+   }
+
    protected override bool Clickable(TreeNode tn)
    {
       return tn.Nodes.Count > 0;
