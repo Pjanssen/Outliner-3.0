@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F04022F4-F21E-42F2-865D-0BED07C690E4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Outliner.TreeNodeButtons</RootNamespace>
+    <AssemblyName>TreeNodeButtons</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autodesk.Max">
+      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\Autodesk.Max.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="LayerTools">
+      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\LayerTools.dll</HintPath>
+    </Reference>
+    <Reference Include="MaxUtils">
+      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\MaxUtils.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Outliner_Plugin">
+      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\Outliner_Plugin.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddButton.cs" />
+    <Compile Include="AnimatablePropertyButton.cs" />
+    <Compile Include="BoxModeButton.cs" />
+    <Compile Include="FreezeButton.cs" />
+    <Compile Include="HideButton.cs" />
+    <Compile Include="IconSet.cs" />
+    <Compile Include="IconsMax.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IconsMax.resx</DependentUpon>
+    </Compile>
+    <Compile Include="IconsMaya.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IconsMaya.resx</DependentUpon>
+    </Compile>
+    <Compile Include="MayaStyleIndent.cs" />
+    <Compile Include="NodeButtonImages.cs" />
+    <Compile Include="NodeIcon.cs" />
+    <Compile Include="RemoveButton.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="WireColorButton.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="IconsMax.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>IconsMax.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IconsMaya.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>IconsMaya.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="RenderableButton.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\NodeButtons\button_add.png" />
+    <EmbeddedResource Include="Resources\NodeButtons\button_boxmode.png" />
+    <EmbeddedResource Include="Resources\NodeButtons\button_freeze.png" />
+    <EmbeddedResource Include="Resources\NodeButtons\button_hide.png" />
+    <EmbeddedResource Include="Resources\NodeButtons\button_layer.png" />
+    <EmbeddedResource Include="Resources\NodeButtons\button_remove.png" />
+    <EmbeddedResource Include="Resources\NodeButtons\button_render.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Icons_Max\bone.png" />
+    <EmbeddedResource Include="Resources\Icons_Max\camera.png" />
+    <EmbeddedResource Include="Resources\Icons_Max\container.png" />
+    <EmbeddedResource Include="Resources\Icons_Max\container_closed.png" />
+    <EmbeddedResource Include="Resources\Icons_Max\geometry.png" />
+    <EmbeddedResource Include="Resources\Icons_Max\group.png" />
+    <EmbeddedResource Include="Resources\Icons_Max\helper.png" />
+    <EmbeddedResource Include="Resources\Icons_Max\layer.png" />
+    <EmbeddedResource Include="Resources\Icons_Max\layer_active.png" />
+    <EmbeddedResource Include="Resources\Icons_Max\light.png" />
+    <EmbeddedResource Include="Resources\Icons_Max\material.png" />
+    <EmbeddedResource Include="Resources\Icons_Max\material_unassigned.png" />
+    <EmbeddedResource Include="Resources\Icons_Max\material_xref.png" />
+    <EmbeddedResource Include="Resources\Icons_Max\nurbs.png" />
+    <EmbeddedResource Include="Resources\Icons_Max\particle.png" />
+    <EmbeddedResource Include="Resources\Icons_Max\selectionset.png" />
+    <EmbeddedResource Include="Resources\Icons_Max\shape.png" />
+    <EmbeddedResource Include="Resources\Icons_Max\spacewarp.png" />
+    <EmbeddedResource Include="Resources\Icons_Max\unknown.png" />
+    <EmbeddedResource Include="Resources\Icons_Max\xref.png" />
+    <EmbeddedResource Include="Resources\Icons_Max\xref_group.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Icons_Maya\bone.png" />
+    <EmbeddedResource Include="Resources\Icons_Maya\camera.png" />
+    <EmbeddedResource Include="Resources\Icons_Maya\geometry.PNG" />
+    <EmbeddedResource Include="Resources\Icons_Maya\group.png" />
+    <EmbeddedResource Include="Resources\Icons_Maya\helper.png" />
+    <EmbeddedResource Include="Resources\Icons_Maya\layer.png" />
+    <EmbeddedResource Include="Resources\Icons_Maya\layer_active.png" />
+    <EmbeddedResource Include="Resources\Icons_Maya\light.png" />
+    <EmbeddedResource Include="Resources\Icons_Maya\nurbs.png" />
+    <EmbeddedResource Include="Resources\Icons_Maya\particle.png" />
+    <EmbeddedResource Include="Resources\Icons_Maya\shape.png" />
+    <EmbeddedResource Include="Resources\Icons_Maya\spacewarp.png" />
+    <EmbeddedResource Include="Resources\Icons_Maya\unknown.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetPath)" "C:\Program Files\Autodesk\3ds Max 2013\bin\assemblies\OutlinerPlugins\$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
