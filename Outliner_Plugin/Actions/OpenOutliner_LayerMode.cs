@@ -15,7 +15,6 @@ using Outliner.NodeSorters;
 using Outliner.Modes.SelectionSet;
 using Outliner.Modes.Layer;
 using Outliner.LayerTools;
-using Outliner.Modes.FlatList;
 
 namespace Outliner.Actions
 {

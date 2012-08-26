@@ -44,6 +44,8 @@ namespace Outliner.Actions
 
       public override object CreateDockableContent()
       {
+         AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
+
          Outliner.Controls.TestControl tc = new Controls.TestControl();
          tc.outlinerSplitContainer1.PanelCollapsedChanged += panelCollapsedChanged;
 
@@ -57,6 +59,8 @@ namespace Outliner.Actions
 
          return tc;
       }
+
+      protected abstract System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args);
 
       void panelCollapsedChanged(object sender, SplitPanelEventArgs args)
       {

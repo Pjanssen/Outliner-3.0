@@ -237,7 +237,6 @@
     <Compile Include="Scene\IMaxNodeWrapper.cs" />
     <Compile Include="Scene\MaxNodeTypes.cs" />
     <Compile Include="Scene\SelectionSetWrapper.cs" />
-    <Compile Include="Modes\FlatList\FlatObjectListMode.cs" />
     <Compile Include="HelperMethods.cs" />
     <Compile Include="Modes\Layer\LayerMode.cs" />
     <Compile Include="Modes\SelectionSet\SelectionSetDragDropHandler.cs" />
