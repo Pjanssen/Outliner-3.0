@@ -197,7 +197,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Filters\InvisibleNodeFilter.cs" />
-    <Compile Include="Filters\NurbsFilter.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Modes\SelectionSet\IINodeDragDropHandler.cs" />
     <Compile Include="NodeSorters\AnimatablePropertySorter.cs" />
@@ -210,19 +209,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OutlinerResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Filters\BoneFilter.cs" />
-    <Compile Include="Filters\FrozenFilter.cs" />
-    <Compile Include="Filters\GeometryFilter.cs" />
-    <Compile Include="Filters\HelperFilter.cs" />
-    <Compile Include="Filters\HiddenFilter.cs" />
     <Compile Include="Filters\MaxscriptFilter.cs" />
     <Compile Include="Filters\NameFilter.cs" />
     <Compile Include="Filters\Filter.cs" />
     <Compile Include="Filters\FilterCollection.cs" />
-    <Compile Include="Filters\ParticleFilter.cs" />
-    <Compile Include="Filters\SuperClassFilter.cs" />
-    <Compile Include="Filters\UnassignedMaterialFilter.cs" />
-    <Compile Include="Filters\XRefFilter.cs" />
     <Compile Include="Controls\TestControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
