@@ -176,9 +176,7 @@
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ExceptionHelpers.cs" />
-    <Compile Include="Modes\Layer\IILayerDragDropHandler.cs" />
     <Compile Include="Controls\Tree\DragDropHandler.cs" />
-    <Compile Include="Modes\Layer\IINodeDragDropHandler.cs" />
     <Compile Include="Controls\Tree\Layout\EmptySpace.cs" />
     <Compile Include="Controls\Tree\Layout\ImageButton.cs" />
     <Compile Include="Controls\Tree\Layout\TreeNodeButton.cs" />
@@ -238,7 +236,6 @@
     <Compile Include="Scene\MaxNodeTypes.cs" />
     <Compile Include="Scene\SelectionSetWrapper.cs" />
     <Compile Include="HelperMethods.cs" />
-    <Compile Include="Modes\Layer\LayerMode.cs" />
     <Compile Include="Modes\SelectionSet\SelectionSetDragDropHandler.cs" />
     <Compile Include="Modes\SelectionSet\SelectionSetMode.cs" />
     <Compile Include="Modes\SelectionSet\TreeViewDragDropHandler.cs" />

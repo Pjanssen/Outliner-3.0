@@ -13,7 +13,6 @@ using Outliner.Controls.Tree;
 using MaxUtils;
 using Outliner.NodeSorters;
 using Outliner.Modes.SelectionSet;
-using Outliner.Modes.Layer;
 using Outliner.LayerTools;
 
 namespace Outliner.Actions

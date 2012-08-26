@@ -57,6 +57,8 @@ namespace Outliner.Actions
          if (!tc.outlinerSplitContainer1.Panel2Collapsed)
             this.treeController2.Start();
 
+         AppDomain.CurrentDomain.AssemblyResolve -= new ResolveEventHandler(CurrentDomain_AssemblyResolve);
+
          return tc;
       }
 
