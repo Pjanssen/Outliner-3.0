@@ -7,6 +7,9 @@ using Outliner.Controls;
 using Outliner.Controls.Tree.Layout;
 using Outliner.Controls.Tree;
 using Outliner.Modes.Hierarchy;
+using System.Reflection;
+using System.IO;
+using Outliner.Plugins;
 
 namespace Outliner.Actions
 {
@@ -33,6 +36,12 @@ namespace Outliner.Actions
 
          mainControl.treeView2.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
          return new HierarchyMode(mainControl.treeView2);
+      }
+
+      protected override System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+      {
+         return Assembly.LoadFile(Path.Combine( OutlinerPlugins.PluginDirectory
+                                              , "HierarchyMode.dll"));
       }
    }
 }

@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="OpenHierarchy" xml:space="preserve">
-    <value>Toggle Outliner Hierarchy Mode</value>
+  <data name="Mode_DisplayName" xml:space="preserve">
+    <value>Flat Object List</value>
   </data>
 </root>

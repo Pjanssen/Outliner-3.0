@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Outliner.Actions {
+namespace Outliner.Modes.FlatObjectList {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Outliner.Actions {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Outliner.Actions.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Outliner.Modes.FlatObjectList.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,11 @@ namespace Outliner.Actions {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toggle Outliner Hierarchy Mode.
+        ///   Looks up a localized string similar to Flat Object List.
         /// </summary>
-        internal static string OpenHierarchy {
+        internal static string Mode_DisplayName {
             get {
-                return ResourceManager.GetString("OpenHierarchy", resourceCulture);
+                return ResourceManager.GetString("Mode_DisplayName", resourceCulture);
             }
         }
     }
