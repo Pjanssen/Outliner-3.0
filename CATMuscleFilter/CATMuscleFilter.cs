@@ -7,7 +7,7 @@ using Outliner.Filters;
 using Outliner.Plugins;
 using Autodesk.Max;
 
-namespace CATMuscleFilter
+namespace Outliner.Filters.CATMuscleFilter
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "CATDisplayName")]
