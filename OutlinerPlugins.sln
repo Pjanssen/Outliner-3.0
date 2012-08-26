@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeNodeButtons", "TreeNode
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Filters", "Filters\Filters.csproj", "{AB77D813-2790-42BC-BEA7-840E4286798F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HierarchyMode", "HierarchyMode\HierarchyMode.csproj", "{B4B93693-A90B-4BBB-A00E-927F44C875B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlinerActions", "OutlinerActions\OutlinerActions.csproj", "{84417006-B201-40C0-888C-975C940A832A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +41,14 @@ Global
 		{AB77D813-2790-42BC-BEA7-840E4286798F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB77D813-2790-42BC-BEA7-840E4286798F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB77D813-2790-42BC-BEA7-840E4286798F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4B93693-A90B-4BBB-A00E-927F44C875B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4B93693-A90B-4BBB-A00E-927F44C875B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4B93693-A90B-4BBB-A00E-927F44C875B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4B93693-A90B-4BBB-A00E-927F44C875B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84417006-B201-40C0-888C-975C940A832A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84417006-B201-40C0-888C-975C940A832A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84417006-B201-40C0-888C-975C940A832A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84417006-B201-40C0-888C-975C940A832A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
