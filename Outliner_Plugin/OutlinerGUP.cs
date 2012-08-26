@@ -11,7 +11,6 @@ using Outliner.Controls.Tree;
 using Outliner.Controls.Tree.Layout;
 using Autodesk.Max.MaxSDK.Util;
 using Outliner.Modes;
-using Outliner.Modes.SelectionSet;
 using Outliner.Filters;
 using System.Reflection;
 using Outliner.NodeSorters;

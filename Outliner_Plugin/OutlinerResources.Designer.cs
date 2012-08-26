@@ -133,15 +133,6 @@ namespace Outliner {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modify Selection-set.
-        /// </summary>
-        internal static string Command_ModifySelSet {
-            get {
-                return ResourceManager.GetString("Command_ModifySelSet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Rename.
         /// </summary>
         internal static string Command_Rename {
@@ -264,42 +255,6 @@ namespace Outliner {
         internal static string Context_Unhide {
             get {
                 return ResourceManager.GetString("Context_Unhide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Flat Object List.
-        /// </summary>
-        internal static string Mode_FlatList {
-            get {
-                return ResourceManager.GetString("Mode_FlatList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hierarchy.
-        /// </summary>
-        internal static string Mode_Hierarchy {
-            get {
-                return ResourceManager.GetString("Mode_Hierarchy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Layer.
-        /// </summary>
-        internal static string Mode_Layer {
-            get {
-                return ResourceManager.GetString("Mode_Layer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Selection-Set.
-        /// </summary>
-        internal static string Mode_SelSet {
-            get {
-                return ResourceManager.GetString("Mode_SelSet", resourceCulture);
             }
         }
         

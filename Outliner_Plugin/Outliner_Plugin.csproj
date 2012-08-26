@@ -129,14 +129,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actions\OpenOutlinerAction.cs" />
-    <Compile Include="Actions\OpenOutliner_SelSetMode.cs" />
-    <Compile Include="Actions\OpenOutliner_LayerMode.cs" />
     <Compile Include="Actions\TestAction.cs" />
     <Compile Include="AssemblyFunctions.cs" />
     <Compile Include="Commands\ChangeGroupCommand.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\MoveMaxNodeCommand.cs" />
-    <Compile Include="Commands\ModifySelectionSetCommand.cs" />
     <Compile Include="Commands\RenameCommand.cs" />
     <Compile Include="Commands\SelectCommand.cs" />
     <Compile Include="Commands\SetNodePropertyCommand.cs" />
@@ -196,7 +193,6 @@
     </Compile>
     <Compile Include="Filters\InvisibleNodeFilter.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Modes\SelectionSet\IINodeDragDropHandler.cs" />
     <Compile Include="NodeSorters\AnimatablePropertySorter.cs" />
     <Compile Include="NodeSorters\INodeHandleSorter.cs" />
     <Compile Include="NodeSorters\NodeSorter.cs" />
@@ -236,9 +232,6 @@
     <Compile Include="Scene\MaxNodeTypes.cs" />
     <Compile Include="Scene\SelectionSetWrapper.cs" />
     <Compile Include="HelperMethods.cs" />
-    <Compile Include="Modes\SelectionSet\SelectionSetDragDropHandler.cs" />
-    <Compile Include="Modes\SelectionSet\SelectionSetMode.cs" />
-    <Compile Include="Modes\SelectionSet\TreeViewDragDropHandler.cs" />
     <Compile Include="Modes\TreeMode.cs" />
   </ItemGroup>
   <ItemGroup>

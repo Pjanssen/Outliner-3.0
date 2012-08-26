@@ -172,9 +172,6 @@ Use {0} to expand entire hierarchy.</value>
   <data name="AllObjectsSelSet" xml:space="preserve">
     <value>- All objects -</value>
   </data>
-  <data name="Command_ModifySelSet" xml:space="preserve">
-    <value>Modify Selection-set</value>
-  </data>
   <data name="Context_Hide" xml:space="preserve">
     <value>Hide selection</value>
   </data>
@@ -213,18 +210,6 @@ Use {0} to expand entire hierarchy.</value>
   </data>
   <data name="Sort_Frozen" xml:space="preserve">
     <value>Frozen State</value>
-  </data>
-  <data name="Mode_FlatList" xml:space="preserve">
-    <value>Flat Object List</value>
-  </data>
-  <data name="Mode_Hierarchy" xml:space="preserve">
-    <value>Hierarchy</value>
-  </data>
-  <data name="Mode_Layer" xml:space="preserve">
-    <value>Layer</value>
-  </data>
-  <data name="Mode_SelSet" xml:space="preserve">
-    <value>Selection-Set</value>
   </data>
   <data name="Command_AddToLayer" xml:space="preserve">
     <value>Add To Layer</value>

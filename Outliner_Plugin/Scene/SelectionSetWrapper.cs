@@ -26,7 +26,7 @@ namespace Outliner.Scene
       }
 
       private String name;
-      internal void UpdateName(String newName)
+      public void UpdateName(String newName)
       {
          this.name = newName;
       }
