@@ -78,62 +78,6 @@ namespace Outliner {
             }
         }
         
-        internal static System.Drawing.Bitmap button_add {
-            get {
-                object obj = ResourceManager.GetObject("button_add", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap button_boxmode {
-            get {
-                object obj = ResourceManager.GetObject("button_boxmode", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap button_freeze {
-            get {
-                object obj = ResourceManager.GetObject("button_freeze", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap button_hide {
-            get {
-                object obj = ResourceManager.GetObject("button_hide", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap button_layer {
-            get {
-                object obj = ResourceManager.GetObject("button_layer", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap button_remove {
-            get {
-                object obj = ResourceManager.GetObject("button_remove", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap button_render {
-            get {
-                object obj = ResourceManager.GetObject("button_render", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap color_small {
-            get {
-                object obj = ResourceManager.GetObject("color_small", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         /// <summary>
         ///   Looks up a localized string similar to Add To Layer.
         /// </summary>
@@ -320,13 +264,6 @@ namespace Outliner {
         internal static string Context_Unhide {
             get {
                 return ResourceManager.GetString("Context_Unhide", resourceCulture);
-            }
-        }
-        
-        internal static System.Drawing.Bitmap delete_small {
-            get {
-                object obj = ResourceManager.GetObject("delete_small", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -538,56 +475,11 @@ namespace Outliner {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add selected nodes to layer.
-        /// </summary>
-        internal static string Tooltip_Add_Layer {
-            get {
-                return ResourceManager.GetString("Tooltip_Add_Layer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add selected nodes to selection-set.
-        /// </summary>
-        internal static string Tooltip_Add_SelSet {
-            get {
-                return ResourceManager.GetString("Tooltip_Add_SelSet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toggle boxmode.
-        /// </summary>
-        internal static string Tooltip_BoxMode {
-            get {
-                return ResourceManager.GetString("Tooltip_BoxMode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to (overridden by parent/layer).
-        /// </summary>
-        internal static string Tooltip_ByLayer {
-            get {
-                return ResourceManager.GetString("Tooltip_ByLayer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Collapse node.
         /// </summary>
         internal static string Tooltip_Collapse {
             get {
                 return ResourceManager.GetString("Tooltip_Collapse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Color Tag: .
-        /// </summary>
-        internal static string Tooltip_ColorTag {
-            get {
-                return ResourceManager.GetString("Tooltip_ColorTag", resourceCulture);
             }
         }
         
@@ -602,101 +494,11 @@ namespace Outliner {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Freeze.
-        /// </summary>
-        internal static string Tooltip_Freeze {
-            get {
-                return ResourceManager.GetString("Tooltip_Freeze", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hide.
-        /// </summary>
-        internal static string Tooltip_Hide {
-            get {
-                return ResourceManager.GetString("Tooltip_Hide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to (inherited from layer).
         /// </summary>
         internal static string Tooltip_Inherited {
             get {
                 return ResourceManager.GetString("Tooltip_Inherited", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Remove selected nodes from selection-set.
-        /// </summary>
-        internal static string Tooltip_Remove_SelSet {
-            get {
-                return ResourceManager.GetString("Tooltip_Remove_SelSet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toggle renderable.
-        /// </summary>
-        internal static string Tooltip_Renderable {
-            get {
-                return ResourceManager.GetString("Tooltip_Renderable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Set camera for active viewport.
-        /// </summary>
-        internal static string Tooltip_SetCamera {
-            get {
-                return ResourceManager.GetString("Tooltip_SetCamera", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Set current layer.
-        /// </summary>
-        internal static string Tooltip_SetCurrentLayer {
-            get {
-                return ResourceManager.GetString("Tooltip_SetCurrentLayer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toggle light on/off.
-        /// </summary>
-        internal static string Tooltip_ToggleLight {
-            get {
-                return ResourceManager.GetString("Tooltip_ToggleLight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unfreeze.
-        /// </summary>
-        internal static string Tooltip_Unfreeze {
-            get {
-                return ResourceManager.GetString("Tooltip_Unfreeze", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unhide.
-        /// </summary>
-        internal static string Tooltip_Unhide {
-            get {
-                return ResourceManager.GetString("Tooltip_Unhide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Change wirecolor.
-        /// </summary>
-        internal static string Tooltip_WireColor {
-            get {
-                return ResourceManager.GetString("Tooltip_WireColor", resourceCulture);
             }
         }
         

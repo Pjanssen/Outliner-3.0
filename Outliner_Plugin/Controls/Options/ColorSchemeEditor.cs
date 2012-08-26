@@ -21,7 +21,7 @@ public partial class ColorSchemeEditor : WinForms::UserControl
       InitializeComponent();
 
       TreeNodeLayout colorTreeLayout = new TreeNodeLayout();
-      colorTreeLayout.LayoutItems.Add(new WireColorButton());
+      //colorTreeLayout.LayoutItems.Add(new WireColorButton());
       colorTreeLayout.LayoutItems.Add(new TreeNodeText());
 
       Type colorSchemeType = typeof(TreeViewColorScheme);

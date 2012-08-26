@@ -11,6 +11,28 @@ using Outliner.Scene;
 
 namespace Outliner.Controls.Tree.Layout
 {
+public struct ButtonImages
+{
+   private Image regular;
+   private Image disabled;
+   private Image regularFiltered;
+   private Image disabledFiltered;
+
+   public Image Regular { get { return this.regular; } }
+   public Image Disabled { get { return this.disabled; } }
+   public Image RegularFiltered { get { return this.regularFiltered; } }
+   public Image DisabledFiltered { get { return this.disabledFiltered; } }
+
+   public ButtonImages(Image regular, Image disabled,
+                       Image regularFiltered, Image disabledFiltered)
+   {
+      this.regular = regular;
+      this.disabled = disabled;
+      this.regularFiltered = regularFiltered;
+      this.disabledFiltered = disabledFiltered;
+   }
+}
+
 public abstract class ImageButton : TreeNodeButton
 {
    [XmlAttribute("invert_behavior")]
@@ -42,7 +64,7 @@ public abstract class ImageButton : TreeNodeButton
          throw new ArgumentNullException("image");
 
       Bitmap img = image.Clone() as Bitmap;
-      BitmapProcessing.Opacity(img, IconHelperMethods.FILTERED_OPACITY);
+      BitmapProcessing.Opacity(img, TreeNode.FilteredNodeOpacity);
       return img;
    }
 

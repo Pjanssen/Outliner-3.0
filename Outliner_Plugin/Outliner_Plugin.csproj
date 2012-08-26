@@ -179,29 +179,14 @@
     <Compile Include="Modes\Hierarchy\IINodeDragDropHandler.cs" />
     <Compile Include="Modes\Layer\IINodeDragDropHandler.cs" />
     <Compile Include="Modes\Hierarchy\TreeViewDragDropHandler.cs" />
-    <Compile Include="Controls\Tree\Layout\AddButton.cs" />
-    <Compile Include="Controls\Tree\Layout\AnimatablePropertyButton.cs" />
-    <Compile Include="Controls\Tree\Layout\BoxModeButton.cs" />
-    <Compile Include="Controls\Tree\Layout\RemoveButton.cs" />
     <Compile Include="Controls\Tree\Layout\EmptySpace.cs" />
-    <Compile Include="Controls\Tree\Layout\FreezeButton.cs" />
-    <Compile Include="Controls\Tree\Layout\HideButton.cs" />
     <Compile Include="Controls\Tree\Layout\ImageButton.cs" />
-    <Compile Include="Controls\Tree\Layout\RenderableButton.cs" />
     <Compile Include="Controls\Tree\Layout\TreeNodeButton.cs" />
-    <Compile Include="Controls\Tree\Layout\TreeNodeIcon.cs" />
     <Compile Include="Controls\Tree\Layout\TreeNodeLayoutItemCollection.cs" />
-    <Compile Include="Controls\Tree\Layout\WireColorButton.cs" />
     <Compile Include="Controls\Tree\Layout\ExpandButton.cs" />
-    <Compile Include="Controls\Tree\Layout\MayaStyleIndent.cs" />
     <Compile Include="Controls\Tree\Layout\TreeNodeIndent.cs" />
     <Compile Include="Controls\Tree\MaxTreeNode.cs" />
     <Compile Include="Controls\Tree\SelectionChangedEventArgs.cs" />
-    <Compile Include="Controls\TreeIcons_Maya.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TreeIcons_Maya.resx</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Tree\TreeNode.cs" />
     <Compile Include="Controls\Tree\TreeNodeCollection.cs" />
     <Compile Include="Controls\Tree\Layout\TreeNodeLayout.cs" />
@@ -215,7 +200,6 @@
     <Compile Include="Filters\NurbsFilter.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Modes\SelectionSet\IINodeDragDropHandler.cs" />
-    <Compile Include="NodeButtonImages.cs" />
     <Compile Include="NodeSorters\AnimatablePropertySorter.cs" />
     <Compile Include="NodeSorters\INodeHandleSorter.cs" />
     <Compile Include="NodeSorters\NodeSorter.cs" />
@@ -239,17 +223,11 @@
     <Compile Include="Filters\SuperClassFilter.cs" />
     <Compile Include="Filters\UnassignedMaterialFilter.cs" />
     <Compile Include="Filters\XRefFilter.cs" />
-    <Compile Include="Controls\IconSet.cs" />
     <Compile Include="Controls\TestControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\TestControl.Designer.cs">
       <DependentUpon>TestControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TreeIcons_Max.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TreeIcons_Max.resx</DependentUpon>
     </Compile>
     <Compile Include="Controls\Tree\TreeViewColorScheme.cs" />
     <Compile Include="NodeSorters\AlphabeticalSorter.cs" />
@@ -289,93 +267,12 @@
     <EmbeddedResource Include="Controls\TestControl.resx">
       <DependentUpon>TestControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\TreeIcons_Max.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>TreeIcons_Max.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controls\TreeIcons_Maya.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>TreeIcons_Maya.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="OutlinerResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>OutlinerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\max_icons\bone.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\max_icons\camera.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\max_icons\container.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\max_icons\container_closed.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\max_icons\geometry.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\max_icons\group.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\max_icons\helper.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\max_icons\layer.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\max_icons\layer_active.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\max_icons\light.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\max_icons\material.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\max_icons\material_unassigned.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\max_icons\material_xref.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\max_icons\nurbs.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\max_icons\particle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\max_icons\selectionset.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\max_icons\shape.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\max_icons\spacewarp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\max_icons\unknown.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\max_icons\xref.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\max_icons\xref_group.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\node_buttons\button_add.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\node_buttons\button_boxmode.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\node_buttons\button_freeze.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\node_buttons\button_hide.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Notes.txt" />
@@ -397,22 +294,6 @@
     <EmbeddedResource Include="Resources\contextmenu\window.png" />
     <EmbeddedResource Include="Resources\contextmenu\window_split_hor.png" />
     <EmbeddedResource Include="Resources\contextmenu\window_split_ver.png" />
-    <EmbeddedResource Include="Resources\node_buttons\button_remove.png" />
-    <EmbeddedResource Include="Resources\node_buttons\button_layer.png" />
-    <EmbeddedResource Include="Resources\maya_icons\layer.png" />
-    <EmbeddedResource Include="Resources\maya_icons\layer_active.png" />
-    <EmbeddedResource Include="Resources\maya_icons\unknown.png" />
-    <EmbeddedResource Include="Resources\maya_icons\nurbs.png" />
-    <EmbeddedResource Include="Resources\maya_icons\shape.png" />
-    <EmbeddedResource Include="Resources\maya_icons\particle.png" />
-    <EmbeddedResource Include="Resources\maya_icons\spacewarp.png" />
-    <EmbeddedResource Include="Resources\maya_icons\bone.png" />
-    <EmbeddedResource Include="Resources\maya_icons\camera.png" />
-    <EmbeddedResource Include="Resources\maya_icons\group.png" />
-    <EmbeddedResource Include="Resources\maya_icons\helper.png" />
-    <EmbeddedResource Include="Resources\maya_icons\geometry.PNG" />
-    <EmbeddedResource Include="Resources\maya_icons\light.png" />
-    <EmbeddedResource Include="Resources\node_buttons\button_render.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LayerTools\LayerTools.csproj">

@@ -145,7 +145,7 @@ namespace Outliner.Scene
 
       public virtual String ImageKey
       {
-         get { return Outliner.Controls.IconHelperMethods.IMGKEY_UNKNOWN; }
+         get { return "unknown"; }
       }
 
       public static IMaxNodeWrapper Create(Object node)

@@ -9,7 +9,7 @@ namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "Filter_Geometry")]
-   [LocalizedDisplayImage(typeof(Outliner.Controls.TreeIcons_Max), "geometry")]
+   //[LocalizedDisplayImage(typeof(Outliner.Controls.TreeIcons_Max), "geometry")]
    [FilterCategory(FilterCategories.Classes)]
    public class GeometryFilter : Filter<IMaxNodeWrapper>
    {

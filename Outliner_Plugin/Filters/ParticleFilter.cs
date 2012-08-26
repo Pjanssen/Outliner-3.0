@@ -7,7 +7,7 @@ namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "Filter_Particle")]
-   [LocalizedDisplayImage(typeof(Outliner.Controls.TreeIcons_Max), "particle")]
+   //[LocalizedDisplayImage(typeof(Outliner.Controls.TreeIcons_Max), "particle")]
    [FilterCategory(FilterCategories.Classes)]
    public class ParticleFilter : Filter<IMaxNodeWrapper>
    {

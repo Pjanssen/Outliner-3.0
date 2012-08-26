@@ -80,7 +80,7 @@ public class OutlinerGUP
          catch (InvalidOperationException e)
          {
             System.Windows.Forms.MessageBox.Show(e.Message);
-            return TreeNodeLayout.DefaultLayout;
+            return TreeNodeLayout.SimpleLayout;
          }
       }
       else

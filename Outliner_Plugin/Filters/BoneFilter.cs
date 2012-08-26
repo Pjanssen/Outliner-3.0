@@ -9,7 +9,7 @@ namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "Filter_Bones")]
-   [LocalizedDisplayImage(typeof(Outliner.Controls.TreeIcons_Max), "bone")]
+   //[LocalizedDisplayImage(typeof(Outliner.Controls.TreeIcons_Max), "bone")]
    [FilterCategory(FilterCategories.Classes)]
    public class BoneFilter : Filter<IMaxNodeWrapper>
    {

@@ -10,19 +10,10 @@ using Outliner.Scene;
 
 namespace Outliner.Controls.Tree.Layout
 {
-   [XmlInclude(typeof(AddButton))]
-   [XmlInclude(typeof(BoxModeButton))]
    [XmlInclude(typeof(ExpandButton))]
    [XmlInclude(typeof(EmptySpace))]
-   [XmlInclude(typeof(FreezeButton))]
-   [XmlInclude(typeof(HideButton))]
-   [XmlInclude(typeof(MayaStyleIndent))]
-   [XmlInclude(typeof(RemoveButton))]
-   [XmlInclude(typeof(RenderableButton))]
-   [XmlInclude(typeof(TreeNodeIcon))]
    [XmlInclude(typeof(TreeNodeIndent))]
    [XmlInclude(typeof(TreeNodeText))]
-   [XmlInclude(typeof(WireColorButton))]
    public abstract class TreeNodeLayoutItem
    {
       protected TreeNodeLayoutItem()

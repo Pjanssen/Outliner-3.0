@@ -133,7 +133,7 @@ public class TreeView : ScrollableControl
       if (tn.ShowNode)
          return 255;
       else
-         return IconHelperMethods.FILTERED_OPACITY;
+         return TreeNode.FilteredNodeOpacity;
    }
 
    public Color GetLineColor(TreeNode tn)

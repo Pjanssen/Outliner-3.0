@@ -9,6 +9,8 @@ namespace Outliner.Controls.Tree
 {
 public class TreeNode
 {
+   public const Int32 FilteredNodeOpacity = 50;
+
    internal TreeNode parent;
    private TreeView treeview;
    private TreeNodeStates state;

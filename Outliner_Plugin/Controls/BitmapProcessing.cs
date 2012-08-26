@@ -8,7 +8,7 @@ using System.Security.Permissions;
 
 namespace Outliner.Controls
 {
-   internal static class BitmapProcessing
+   public static class BitmapProcessing
    {
       /// <summary>
       /// Inverts the pixel data of the bitmap.

@@ -22,9 +22,23 @@ public class TreeNodeIndent : ExpandButton
       base.fillBackground = true;
    }
 
+   public override TreeNodeLayoutItem Copy()
+   {
+      TreeNodeIndent newItem = new TreeNodeIndent();
+
+      newItem.PaddingLeft = this.PaddingLeft;
+      newItem.PaddingRight = this.PaddingRight;
+      newItem.UseVisualStyles = this.UseVisualStyles;
+      newItem.VisibleTypes = this.VisibleTypes;
+      newItem.Indent = this.Indent;
+
+      return newItem;
+   }
+
    public override int GetWidth(TreeNode tn)
    {
       Int32 tnLevel = (tn == null) ? 0 : tn.Level;
+      MaxUtils.HelperMethods.WriteToListener(tn.Level.ToString());
       return GUTTERWIDTH + this.Indent * tnLevel;
    }
 

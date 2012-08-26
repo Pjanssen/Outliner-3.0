@@ -132,50 +132,11 @@
   <data name="Command_SetBoxMode" xml:space="preserve">
     <value>Change BoxMode</value>
   </data>
-  <data name="Command_AddToLayer" xml:space="preserve">
-    <value>Add To Layer</value>
-  </data>
   <data name="Command_Rename" xml:space="preserve">
     <value>Rename</value>
   </data>
   <data name="Command_SetRenderable" xml:space="preserve">
     <value>Change Renderable</value>
-  </data>
-  <data name="Tooltip_Add_Layer" xml:space="preserve">
-    <value>Add selected nodes to layer</value>
-  </data>
-  <data name="Tooltip_Add_SelSet" xml:space="preserve">
-    <value>Add selected nodes to selection-set</value>
-  </data>
-  <data name="Tooltip_BoxMode" xml:space="preserve">
-    <value>Toggle boxmode</value>
-  </data>
-  <data name="Tooltip_Freeze" xml:space="preserve">
-    <value>Freeze</value>
-  </data>
-  <data name="Tooltip_Hide" xml:space="preserve">
-    <value>Hide</value>
-  </data>
-  <data name="Tooltip_Renderable" xml:space="preserve">
-    <value>Toggle renderable</value>
-  </data>
-  <data name="Tooltip_Unfreeze" xml:space="preserve">
-    <value>Unfreeze</value>
-  </data>
-  <data name="Tooltip_Unhide" xml:space="preserve">
-    <value>Unhide</value>
-  </data>
-  <data name="Tooltip_WireColor" xml:space="preserve">
-    <value>Change wirecolor</value>
-  </data>
-  <data name="Tooltip_SetCamera" xml:space="preserve">
-    <value>Set camera for active viewport</value>
-  </data>
-  <data name="Tooltip_ToggleLight" xml:space="preserve">
-    <value>Toggle light on/off</value>
-  </data>
-  <data name="Tooltip_SetCurrentLayer" xml:space="preserve">
-    <value>Set current layer</value>
   </data>
   <data name="Tooltip_Inherited" xml:space="preserve">
     <value>(inherited from layer)</value>
@@ -198,31 +159,6 @@
   <data name="Command_LinkLayer" xml:space="preserve">
     <value>Link Layer</value>
   </data>
-  <data name="Command_UnlinkLayer" xml:space="preserve">
-    <value>Unlink Layer</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="button_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>resources\node_buttons\button_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="button_boxmode" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>resources\node_buttons\button_boxmode.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="button_freeze" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>resources\node_buttons\button_freeze.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="button_hide" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>resources\node_buttons\button_hide.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="button_layer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>resources\node_buttons\button_layer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="button_render" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>resources\node_buttons\button_render.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Tooltip_ByLayer" xml:space="preserve">
-    <value>(overridden by parent/layer)</value>
-  </data>
   <data name="Command_SetProperty" xml:space="preserve">
     <value>Change node property</value>
   </data>
@@ -236,14 +172,8 @@ Use {0} to expand entire hierarchy.</value>
   <data name="AllObjectsSelSet" xml:space="preserve">
     <value>- All objects -</value>
   </data>
-  <data name="button_remove" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>resources\node_buttons\button_remove.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Command_ModifySelSet" xml:space="preserve">
     <value>Modify Selection-set</value>
-  </data>
-  <data name="Tooltip_Remove_SelSet" xml:space="preserve">
-    <value>Remove selected nodes from selection-set</value>
   </data>
   <data name="Context_Hide" xml:space="preserve">
     <value>Hide selection</value>
@@ -260,17 +190,8 @@ Use {0} to expand entire hierarchy.</value>
   <data name="Command_Ungroup" xml:space="preserve">
     <value>Ungroup nodes</value>
   </data>
-  <data name="delete_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>resources\delete_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="color_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>resources\color_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Command_SetColorTag" xml:space="preserve">
     <value>Set color tag</value>
-  </data>
-  <data name="Tooltip_ColorTag" xml:space="preserve">
-    <value>Color Tag: </value>
   </data>
   <data name="Command_ToggleLight" xml:space="preserve">
     <value>Toggle Light</value>
@@ -343,5 +264,11 @@ Use {0} to expand entire hierarchy.</value>
   </data>
   <data name="Mode_SelSet" xml:space="preserve">
     <value>Selection-Set</value>
+  </data>
+  <data name="Command_AddToLayer" xml:space="preserve">
+    <value>Add To Layer</value>
+  </data>
+  <data name="Command_UnlinkLayer" xml:space="preserve">
+    <value>Unlink Layer</value>
   </data>
 </root>
