@@ -13,6 +13,7 @@ namespace Outliner.Modes.FlatObjectList
 {
 [OutlinerPlugin(OutlinerPluginType.TreeMode)]
 [LocalizedDisplayName(typeof(Resources), "Mode_DisplayName")]
+[LocalizedDisplayImage(typeof(Resources), "flatobjectlist_mode_16_dark", "flatobjectlist_mode_32_dark")]
 public class FlatObjectListMode : TreeMode
 {
    public FlatObjectListMode(TreeView tree) : base(tree) { }

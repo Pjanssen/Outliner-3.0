@@ -87,6 +87,20 @@ namespace Outliner.Modes.Hierarchy {
             }
         }
         
+        internal static System.Drawing.Bitmap hierarchy_mode_16 {
+            get {
+                object obj = ResourceManager.GetObject("hierarchy_mode_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap hierarchy_mode_32 {
+            get {
+                object obj = ResourceManager.GetObject("hierarchy_mode_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Hierarchy.
         /// </summary>

@@ -60,6 +60,27 @@ namespace Outliner.Modes.FlatObjectList {
             }
         }
         
+        internal static System.Drawing.Bitmap flatobjectlist_mode_16_dark {
+            get {
+                object obj = ResourceManager.GetObject("flatobjectlist_mode_16_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap flatobjectlist_mode_16_light {
+            get {
+                object obj = ResourceManager.GetObject("flatobjectlist_mode_16_light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap flatobjectlist_mode_32_dark {
+            get {
+                object obj = ResourceManager.GetObject("flatobjectlist_mode_32_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Flat Object List.
         /// </summary>

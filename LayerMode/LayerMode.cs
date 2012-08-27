@@ -17,6 +17,7 @@ namespace Outliner.Modes.Layer
 {
 [OutlinerPlugin(OutlinerPluginType.TreeMode)]
 [LocalizedDisplayName(typeof(Resources), "Mode_DisplayName")]
+[LocalizedDisplayImage(typeof(Resources), "layer_mode_16", "layer_mode_32")]
 public class LayerMode : TreeMode
 {
    public Boolean LayersOnly { get; set; }

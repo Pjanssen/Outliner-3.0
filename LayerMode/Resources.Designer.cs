@@ -78,6 +78,20 @@ namespace Outliner.Modes.Layer {
             }
         }
         
+        internal static System.Drawing.Bitmap layer_mode_16 {
+            get {
+                object obj = ResourceManager.GetObject("layer_mode_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap layer_mode_32 {
+            get {
+                object obj = ResourceManager.GetObject("layer_mode_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Layers.
         /// </summary>

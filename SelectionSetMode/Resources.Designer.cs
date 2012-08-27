@@ -61,20 +61,32 @@ namespace Outliner.Modes.SelectionSet {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modify Selection-set.
-        /// </summary>
-        internal static string Command_ModifySelSet {
-            get {
-                return ResourceManager.GetString("Command_ModifySelSet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Selection Sets.
         /// </summary>
         internal static string Mode_DisplayName {
             get {
                 return ResourceManager.GetString("Mode_DisplayName", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap selectionset_mode_16_dark {
+            get {
+                object obj = ResourceManager.GetObject("selectionset_mode_16_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap selectionset_mode_16_light {
+            get {
+                object obj = ResourceManager.GetObject("selectionset_mode_16_light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap selectionset_mode_32_dark {
+            get {
+                object obj = ResourceManager.GetObject("selectionset_mode_32_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

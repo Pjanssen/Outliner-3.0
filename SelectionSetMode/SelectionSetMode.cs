@@ -15,6 +15,7 @@ namespace Outliner.Modes.SelectionSet
 {
 [OutlinerPlugin(OutlinerPluginType.TreeMode)]
 [LocalizedDisplayName(typeof(Resources), "Mode_DisplayName")]
+[LocalizedDisplayImage(typeof(Resources), "selectionset_mode_16_dark", "selectionset_mode_32_dark")]
 public class SelectionSetMode : TreeMode
 {
    private AllObjectsSelectionSet allObjectsSelSet;
