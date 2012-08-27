@@ -194,10 +194,9 @@
     </Compile>
     <Compile Include="Filters\InvisibleNodeFilter.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="NodeSorters\AlphabeticalSorter.cs" />
     <Compile Include="NodeSorters\AnimatablePropertySorter.cs" />
-    <Compile Include="NodeSorters\INodeHandleSorter.cs" />
     <Compile Include="NodeSorters\NodeSorter.cs" />
-    <Compile Include="NodeSorters\SuperClassSorter.cs" />
     <Compile Include="Controls\Tree\NodeTextEditEventArgs.cs" />
     <Compile Include="OutlinerResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -215,7 +214,6 @@
       <DependentUpon>TestControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Tree\TreeViewColorScheme.cs" />
-    <Compile Include="NodeSorters\AlphabeticalSorter.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="OutlinerGUP.cs" />
     <Compile Include="Plugins\LocalizedDisplayImageAttribute.cs" />
@@ -255,7 +253,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Notes.txt" />
-    <EmbeddedResource Include="Resources\contextmenu\sort_alphabetical_32.png" />
+    <EmbeddedResource Include="Resources\sort_alphabetical_24_dark.png" />
+    <EmbeddedResource Include="Resources\contextmenu\window_hor_24.png" />
+    <EmbeddedResource Include="Resources\contextmenu\window_ver_24.png" />
+    <EmbeddedResource Include="Resources\contextmenu\window_24.png" />
+    <EmbeddedResource Include="Resources\contextmenu\filter_24.png" />
+    <EmbeddedResource Include="Resources\sort_alphabetical_16_dark.png" />
+    <EmbeddedResource Include="Resources\sort_alphabetical_32_dark.png" />
     <EmbeddedResource Include="Resources\contextmenu\window_32.png" />
     <EmbeddedResource Include="Resources\contextmenu\window_hor_32.png" />
     <EmbeddedResource Include="Resources\contextmenu\window_ver_32.png" />

@@ -28,9 +28,9 @@ internal static class StandardContextMenu
       strip.Padding = new Padding(3, 2, 1, 1);
 
 
-      ToolStripDropDownButton mode_btn = new ToolStripDropDownButton();
-      mode_btn.Text = "Mode";
+      ToolStripDropDownButton mode_btn = new ToolStripDropDownButton("Mode");
       mode_btn.TextImageRelation = TextImageRelation.ImageAboveText;
+      mode_btn.TextAlign = ContentAlignment.BottomCenter;
       mode_btn.ImageScaling = ToolStripItemImageScaling.None;
       mode_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
       IEnumerable<OutlinerPluginData> modeTypes = OutlinerPlugins.GetPluginsByType(OutlinerPluginType.TreeMode);
@@ -44,9 +44,9 @@ internal static class StandardContextMenu
       strip.Items.Add(mode_btn);
 
 
-      ToolStripCheckedSplitButton filter_btn = new ToolStripCheckedSplitButton(ContextMenuResources.filter_32);
-      filter_btn.Text = "Filters";
+      ToolStripCheckedSplitButton filter_btn = new ToolStripCheckedSplitButton("Filters", ContextMenuResources.filter_24);
       filter_btn.TextImageRelation = TextImageRelation.ImageAboveText;
+      filter_btn.TextAlign = ContentAlignment.BottomCenter;
       filter_btn.ImageScaling = ToolStripItemImageScaling.None;
       filter_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
       filter_btn.Checked = treeMode.Filters.Enabled;
@@ -64,34 +64,38 @@ internal static class StandardContextMenu
          filter_btn.DropDownItems.Add(new ToolStripSeparator());
 
       numFilters = AddFilters(filter_btn.DropDownItems, FilterCategories.Custom);
-      
+
       strip.Items.Add(filter_btn);
 
 
-      ToolStripDropDownButton sort_btn = new ToolStripDropDownButton("Sorting", ContextMenuResources.sort_alphabetical_32);
+      ToolStripDropDownButton sort_btn = new ToolStripDropDownButton("Sorting");
       sort_btn.ImageScaling = ToolStripItemImageScaling.None;
       sort_btn.TextImageRelation = TextImageRelation.ImageAboveText;
+      sort_btn.TextAlign = ContentAlignment.BottomCenter;
       sort_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
+      Type currentSorterType = (treeMode.Tree.NodeSorter != null) ? treeMode.Tree.NodeSorter.GetType() : null;
       IEnumerable<OutlinerPluginData> sorterTypes = OutlinerPlugins.GetPluginsByType(OutlinerPluginType.NodeSorter);
       foreach (OutlinerPluginData sorter in sorterTypes)
       {
-         AddDropDownItem(sort_btn.DropDownItems, sorter.DisplayName, null, sort_itemClick, sorter.Type);
+         AddDropDownItem(sort_btn.DropDownItems, sorter.DisplayName, sorter.DisplayImageSmall, sort_itemClick, sorter.Type);
+         if (sorter.Type.Equals(currentSorterType))
+            sort_btn.Image = sorter.DisplayImageLarge;
       }
       strip.Items.Add(sort_btn);
 
       strip.Items.Add(new ToolStripSeparator());
 
 
-      ToolStripDropDownButton window_btn = new ToolStripDropDownButton();
+      ToolStripDropDownButton window_btn = new ToolStripDropDownButton("Layout");
       window_btn.ImageScaling = ToolStripItemImageScaling.None;
       if (container.Panel1Collapsed || container.Panel2Collapsed)
-         window_btn.Image = ContextMenuResources.window_32;
+         window_btn.Image = ContextMenuResources.window_24;
       else if (container.Orientation == Orientation.Horizontal)
-         window_btn.Image = ContextMenuResources.window_hor_32;
+         window_btn.Image = ContextMenuResources.window_hor_24;
       else
-         window_btn.Image = ContextMenuResources.window_ver_32;
-      window_btn.Text = "Layout";
+         window_btn.Image = ContextMenuResources.window_ver_24;
       window_btn.TextImageRelation = TextImageRelation.ImageAboveText;
+      window_btn.TextAlign = ContentAlignment.BottomCenter;
       window_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
       window_btn.DropDownItems.Add(ContextMenuResources.Str_WindowSingle, ContextMenuResources.window, window_click);
       window_btn.DropDownItems.Add(ContextMenuResources.Str_WindowSplitHor, ContextMenuResources.window_split_hor, split_hor_btn_Click);

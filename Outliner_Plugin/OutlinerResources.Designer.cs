@@ -285,48 +285,24 @@ namespace Outliner {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Color Tag.
-        /// </summary>
-        internal static string Sort_ColorTag {
+        internal static System.Drawing.Bitmap sort_alphabetical_16_dark {
             get {
-                return ResourceManager.GetString("Sort_ColorTag", resourceCulture);
+                object obj = ResourceManager.GetObject("sort_alphabetical_16_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Frozen State.
-        /// </summary>
-        internal static string Sort_Frozen {
+        internal static System.Drawing.Bitmap sort_alphabetical_24_dark {
             get {
-                return ResourceManager.GetString("Sort_Frozen", resourceCulture);
+                object obj = ResourceManager.GetObject("sort_alphabetical_24_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Visibility.
-        /// </summary>
-        internal static string Sort_Hidden {
+        internal static System.Drawing.Bitmap sort_alphabetical_32_dark {
             get {
-                return ResourceManager.GetString("Sort_Hidden", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Chronological.
-        /// </summary>
-        internal static string Sort_INodeHandle {
-            get {
-                return ResourceManager.GetString("Sort_INodeHandle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Type.
-        /// </summary>
-        internal static string Sort_SuperClass {
-            get {
-                return ResourceManager.GetString("Sort_SuperClass", resourceCulture);
+                object obj = ResourceManager.GetObject("sort_alphabetical_32_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

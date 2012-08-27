@@ -166,7 +166,16 @@
   <data name="window_ver_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\resources\contextmenu\window_ver_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="sort_alphabetical_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\resources\contextmenu\sort_alphabetical_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="filter_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\resources\contextmenu\filter_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="window_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\resources\contextmenu\window_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="window_hor_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\resources\contextmenu\window_hor_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="window_ver_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\resources\contextmenu\window_ver_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

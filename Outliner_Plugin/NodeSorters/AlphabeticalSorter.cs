@@ -11,6 +11,7 @@ namespace Outliner.NodeSorters
 {
    [OutlinerPlugin(OutlinerPluginType.NodeSorter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "Sort_Alphabetical")]
+   [LocalizedDisplayImage(typeof(OutlinerResources), "sort_alphabetical_16_dark", "sort_alphabetical_24_dark")]
    public class AlphabeticalSorter : NodeSorter
    {
       public AlphabeticalSorter() : base() { }

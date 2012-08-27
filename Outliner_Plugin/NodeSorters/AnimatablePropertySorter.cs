@@ -37,7 +37,7 @@ public abstract class AnimatablePropertySorter : NodeSorter
       Object propValueX = nodeX.GetProperty(this.Property);
       Object propValueY = nodeY.GetProperty(this.Property);
 
-      if (propValueX == propValueY)
+      if (propValueX.Equals(propValueY))
          return NativeMethods.StrCmpLogicalW(nodeX.Name, nodeY.Name);
       else
       {
@@ -50,19 +50,5 @@ public abstract class AnimatablePropertySorter : NodeSorter
             return 0;
       }
    }
-}
-
-[OutlinerPlugin(OutlinerPluginType.NodeSorter)]
-[LocalizedDisplayName(typeof(OutlinerResources), "Sort_Hidden")]
-public class HiddenSorter : AnimatablePropertySorter
-{
-   public HiddenSorter() : base(AnimatableProperty.IsHidden, false) { }
-}
-
-[OutlinerPlugin(OutlinerPluginType.NodeSorter)]
-[LocalizedDisplayName(typeof(OutlinerResources), "Sort_Frozen")]
-public class FrozenSorter : AnimatablePropertySorter
-{
-   public FrozenSorter() : base(AnimatableProperty.IsFrozen, false) { }
 }
 }
