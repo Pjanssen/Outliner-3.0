@@ -94,6 +94,13 @@ namespace Outliner.Modes.Hierarchy {
             }
         }
         
+        internal static System.Drawing.Bitmap hierarchy_mode_24 {
+            get {
+                object obj = ResourceManager.GetObject("hierarchy_mode_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap hierarchy_mode_32 {
             get {
                 object obj = ResourceManager.GetObject("hierarchy_mode_32", resourceCulture);

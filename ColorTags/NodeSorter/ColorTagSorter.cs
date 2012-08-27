@@ -13,6 +13,7 @@ namespace Outliner.ColorTags
 {
    [OutlinerPlugin(OutlinerPluginType.NodeSorter)]
    [LocalizedDisplayName(typeof(Resources), "Sort_ColorTag")]
+   [LocalizedDisplayImage(typeof(Resources), "color_16", "color_24")]
    public class ColorTagsSorter : NodeSorter
    {
       public ColorTagsSorter() : this(false) { }

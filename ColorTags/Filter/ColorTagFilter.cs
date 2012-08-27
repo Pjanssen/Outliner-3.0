@@ -11,7 +11,7 @@ namespace Outliner.ColorTags
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "Filter_DisplayName")]
-   [LocalizedDisplayImage(typeof(Resources), "color_small")]
+   [LocalizedDisplayImage(typeof(Resources), "color_16")]
    [FilterCategory(FilterCategories.Properties)]
    public class ColorTagsFilter : Filter<IMaxNodeWrapper>
    {

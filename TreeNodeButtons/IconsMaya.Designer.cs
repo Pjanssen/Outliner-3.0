@@ -130,6 +130,13 @@ namespace Outliner.TreeNodeButtons {
             }
         }
         
+        internal static System.Drawing.Bitmap selectionset {
+            get {
+                object obj = ResourceManager.GetObject("selectionset", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap shape {
             get {
                 object obj = ResourceManager.GetObject("shape", resourceCulture);

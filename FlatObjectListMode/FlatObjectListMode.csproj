@@ -75,6 +75,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\flatobjectlist_mode_32_dark.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\flatobjectlist_mode_24_dark.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "C:\Program Files\Autodesk\3ds Max 2013\bin\assemblies\OutlinerPlugins\$(TargetFileName)"</PostBuildEvent>

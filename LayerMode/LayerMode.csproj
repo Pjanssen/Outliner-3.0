@@ -77,6 +77,9 @@
     <EmbeddedResource Include="Resources\layer_mode_16.png" />
     <EmbeddedResource Include="Resources\layer_mode_32.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\layer_mode_24.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "C:\Program Files\Autodesk\3ds Max 2013\bin\assemblies\OutlinerPlugins\$(TargetFileName)"</PostBuildEvent>

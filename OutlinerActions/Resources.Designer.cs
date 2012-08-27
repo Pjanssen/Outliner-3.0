@@ -68,5 +68,23 @@ namespace Outliner.Actions {
                 return ResourceManager.GetString("OpenHierarchy", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle Outliner Layer Mode.
+        /// </summary>
+        internal static string OpenLayer {
+            get {
+                return ResourceManager.GetString("OpenLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle Outliner Selection-Set Mode.
+        /// </summary>
+        internal static string OpenSelectionSet {
+            get {
+                return ResourceManager.GetString("OpenSelectionSet", resourceCulture);
+            }
+        }
     }
 }

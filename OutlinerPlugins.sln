@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayerMode", "LayerMode\Laye
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelectionSetMode", "SelectionSetMode\SelectionSetMode.csproj", "{6A6D2FEC-2E74-4ECE-8A07-4526F552C462}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NodeSorters", "NodeSorters\NodeSorters.csproj", "{7EC567BF-77F4-4422-A0F6-545F0E3C1B63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{6A6D2FEC-2E74-4ECE-8A07-4526F552C462}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A6D2FEC-2E74-4ECE-8A07-4526F552C462}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A6D2FEC-2E74-4ECE-8A07-4526F552C462}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EC567BF-77F4-4422-A0F6-545F0E3C1B63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EC567BF-77F4-4422-A0F6-545F0E3C1B63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EC567BF-77F4-4422-A0F6-545F0E3C1B63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EC567BF-77F4-4422-A0F6-545F0E3C1B63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -83,6 +83,13 @@ namespace Outliner.Modes.SelectionSet {
             }
         }
         
+        internal static System.Drawing.Bitmap selectionset_mode_24_dark {
+            get {
+                object obj = ResourceManager.GetObject("selectionset_mode_24_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap selectionset_mode_32_dark {
             get {
                 object obj = ResourceManager.GetObject("selectionset_mode_32_dark", resourceCulture);

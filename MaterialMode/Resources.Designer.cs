@@ -67,6 +67,13 @@ namespace Outliner.MaterialMode {
             }
         }
         
+        internal static System.Drawing.Bitmap material_mode_24 {
+            get {
+                object obj = ResourceManager.GetObject("material_mode_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap material_mode_32 {
             get {
                 object obj = ResourceManager.GetObject("material_mode_32", resourceCulture);

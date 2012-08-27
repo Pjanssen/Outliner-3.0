@@ -91,6 +91,13 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\delete_small.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\color_16.png" />
+    <EmbeddedResource Include="Resources\color_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\color_24.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "C:\Program Files\Autodesk\3ds Max 2013\bin\assemblies\OutlinerPlugins\$(TargetFileName)"</PostBuildEvent>

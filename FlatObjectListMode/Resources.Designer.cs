@@ -74,6 +74,13 @@ namespace Outliner.Modes.FlatObjectList {
             }
         }
         
+        internal static System.Drawing.Bitmap flatobjectlist_mode_24_dark {
+            get {
+                object obj = ResourceManager.GetObject("flatobjectlist_mode_24_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap flatobjectlist_mode_32_dark {
             get {
                 object obj = ResourceManager.GetObject("flatobjectlist_mode_32_dark", resourceCulture);

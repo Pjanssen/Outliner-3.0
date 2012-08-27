@@ -120,4 +120,10 @@
   <data name="OpenHierarchy" xml:space="preserve">
     <value>Toggle Outliner Hierarchy Mode</value>
   </data>
+  <data name="OpenLayer" xml:space="preserve">
+    <value>Toggle Outliner Layer Mode</value>
+  </data>
+  <data name="OpenSelectionSet" xml:space="preserve">
+    <value>Toggle Outliner Selection-Set Mode</value>
+  </data>
 </root>

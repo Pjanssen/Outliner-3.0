@@ -149,6 +149,9 @@
     <EmbeddedResource Include="Resources\Icons_Maya\spacewarp.png" />
     <EmbeddedResource Include="Resources\Icons_Maya\unknown.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Icons_Maya\selectionset.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "C:\Program Files\Autodesk\3ds Max 2013\bin\assemblies\OutlinerPlugins\$(TargetFileName)"</PostBuildEvent>

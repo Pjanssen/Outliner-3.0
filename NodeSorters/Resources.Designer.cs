@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Outliner.ColorTags {
+namespace Outliner.NodeSorters {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Outliner.ColorTags {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Outliner.ColorTags.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Outliner.NodeSorters.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -60,74 +60,102 @@ namespace Outliner.ColorTags {
             }
         }
         
-        internal static System.Drawing.Bitmap color_16 {
+        internal static System.Drawing.Bitmap frozen_16 {
             get {
-                object obj = ResourceManager.GetObject("color_16", resourceCulture);
+                object obj = ResourceManager.GetObject("frozen_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap color_24 {
+        internal static System.Drawing.Bitmap frozen_24 {
             get {
-                object obj = ResourceManager.GetObject("color_24", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap color_32 {
-            get {
-                object obj = ResourceManager.GetObject("color_32", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap color_small {
-            get {
-                object obj = ResourceManager.GetObject("color_small", resourceCulture);
+                object obj = ResourceManager.GetObject("frozen_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set color tag.
+        ///   Looks up a localized string similar to Frozen State.
         /// </summary>
-        internal static string Command_Description {
+        internal static string Frozen_DisplayName {
             get {
-                return ResourceManager.GetString("Command_Description", resourceCulture);
+                return ResourceManager.GetString("Frozen_DisplayName", resourceCulture);
             }
         }
         
-        internal static System.Drawing.Bitmap delete_small {
+        internal static System.Drawing.Bitmap hidden_16 {
             get {
-                object obj = ResourceManager.GetObject("delete_small", resourceCulture);
+                object obj = ResourceManager.GetObject("hidden_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap hidden_24 {
+            get {
+                object obj = ResourceManager.GetObject("hidden_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Color Tags.
+        ///   Looks up a localized string similar to Visibility.
         /// </summary>
-        internal static string Filter_DisplayName {
+        internal static string Hidden_DisplayName {
             get {
-                return ResourceManager.GetString("Filter_DisplayName", resourceCulture);
+                return ResourceManager.GetString("Hidden_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Color Tag: {0}.
+        ///   Looks up a localized string similar to Chronological.
         /// </summary>
-        internal static string NodeButton_Tooltip {
+        internal static string IINodeHandle_DisplayName {
             get {
-                return ResourceManager.GetString("NodeButton_Tooltip", resourceCulture);
+                return ResourceManager.GetString("IINodeHandle_DisplayName", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap sort_chronological_16 {
+            get {
+                object obj = ResourceManager.GetObject("sort_chronological_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap sort_chronological_24 {
+            get {
+                object obj = ResourceManager.GetObject("sort_chronological_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap sort_chronological_32 {
+            get {
+                object obj = ResourceManager.GetObject("sort_chronological_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap sort_type_16 {
+            get {
+                object obj = ResourceManager.GetObject("sort_type_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap sort_type_24 {
+            get {
+                object obj = ResourceManager.GetObject("sort_type_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Color Tag.
+        ///   Looks up a localized string similar to Type.
         /// </summary>
-        internal static string Sort_ColorTag {
+        internal static string SuperClass_DisplayName {
             get {
-                return ResourceManager.GetString("Sort_ColorTag", resourceCulture);
+                return ResourceManager.GetString("SuperClass_DisplayName", resourceCulture);
             }
         }
     }
