@@ -13,7 +13,7 @@ namespace Outliner.Modes.FlatObjectList
 {
 [OutlinerPlugin(OutlinerPluginType.TreeMode)]
 [LocalizedDisplayName(typeof(Resources), "Mode_DisplayName")]
-[LocalizedDisplayImage(typeof(Resources), "flatobjectlist_mode_16_dark", "flatobjectlist_mode_32_dark")]
+[LocalizedDisplayImage(typeof(Resources), "flatobjectlist_mode_16_dark", "flatobjectlist_mode_24_dark")]
 public class FlatObjectListMode : TreeMode
 {
    public FlatObjectListMode(TreeView tree) : base(tree) { }
@@ -33,9 +33,15 @@ public class FlatObjectListMode : TreeMode
 
    public override TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol)
    {
+      return this.AddNode(wrapper, parentCol, true);
+   }
+
+   public TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol, Boolean recursive)
+   {
       TreeNode tn = base.AddNode(wrapper, parentCol);
 
-      wrapper.ChildNodes.ForEach(node => this.AddNode(node, parentCol));
+      if (recursive)
+         wrapper.ChildNodes.ForEach(node => this.AddNode(node, parentCol));
 
       return tn;
    }
@@ -50,13 +56,17 @@ public class FlatObjectListMode : TreeMode
 
    protected class FlatListNodeEventCallbacks : TreeModeNodeEventCallbacks
    {
-      public FlatListNodeEventCallbacks(TreeMode treeMode) : base(treeMode) { }
+      private FlatObjectListMode flatListMode;
+      public FlatListNodeEventCallbacks(FlatObjectListMode treeMode) : base(treeMode)
+      {
+         flatListMode = treeMode;
+      }
 
       public override void Added(ITab<UIntPtr> nodes)
       {
          foreach (IINode node in nodes.NodeKeysToINodeList())
          {
-            this.treeMode.AddNode(node, this.tree.Nodes);
+            this.flatListMode.AddNode(IMaxNodeWrapper.Create(node), this.tree.Nodes, false);
          }
          this.tree.StartTimedSort(false);
       }

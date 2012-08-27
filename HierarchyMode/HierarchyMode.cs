@@ -14,7 +14,7 @@ namespace Outliner.Modes.Hierarchy
 {
 [OutlinerPlugin(OutlinerPluginType.TreeMode)]
 [LocalizedDisplayName(typeof(Resources), "Mode_DisplayName")]
-[LocalizedDisplayImage(typeof(Resources), "hierarchy_mode_16", "hierarchy_mode_32")]
+[LocalizedDisplayImage(typeof(Resources), "hierarchy_mode_16", "hierarchy_mode_24")]
 public class HierarchyMode : TreeMode
 {
    public HierarchyMode(TreeView tree)
@@ -41,6 +41,11 @@ public class HierarchyMode : TreeMode
 
    public override TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol)
    {
+      return this.AddNode(wrapper, parentCol, true);
+   }
+
+   public TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol, Boolean recursive)
+   {
       if (wrapper == null)
          throw new ArgumentNullException("wrapper");
       if (parentCol == null)
@@ -57,9 +62,12 @@ public class HierarchyMode : TreeMode
             tn.DragDropHandler = new IINodeDragDropHandler(wrapper);
       }
 
-      foreach (Object child in wrapper.ChildNodes)
+      if (recursive)
       {
-         this.AddNode(child, tn.Nodes);
+         foreach (Object child in wrapper.ChildNodes)
+         {
+            this.AddNode(child, tn.Nodes);
+         }
       }
 
       return tn;
@@ -75,25 +83,24 @@ public class HierarchyMode : TreeMode
 
    protected class HierarchyNodeEventCallbacks : TreeModeNodeEventCallbacks
    {
-      public HierarchyNodeEventCallbacks(TreeMode treeMode) : base(treeMode) { }
+      private HierarchyMode hierarchyMode;
+      public HierarchyNodeEventCallbacks(HierarchyMode treeMode) : base(treeMode) 
+      {
+         this.hierarchyMode = treeMode;
+      }
 
       public override void Added(ITab<UIntPtr> nodes)
       {
          foreach (IINode node in nodes.NodeKeysToINodeList())
          {
             TreeNodeCollection parentCol = null;
-            if (node.ParentNode != null && !node.ParentNode.IsRootNode)
-            {
-               TreeNode parentTn = this.treeMode.GetFirstTreeNode(node);
-               if (parentTn != null)
-                  parentCol = parentTn.Nodes;
-            }
-            else
-               parentCol = this.tree.Nodes;
+            TreeNode parentTn = this.treeMode.GetFirstTreeNode(node.ParentNode);
+            if (parentTn != null)
+               parentCol = parentTn.Nodes;
 
             if (parentCol != null)
             {
-               this.treeMode.AddNode(node, parentCol);
+               this.hierarchyMode.AddNode(IMaxNodeWrapper.Create(node), parentCol, false);
                this.tree.AddToSortQueue(parentCol);
             }
          }
