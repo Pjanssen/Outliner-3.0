@@ -74,69 +74,6 @@ namespace Outliner.Controls.ContextMenu {
             }
         }
         
-        internal static System.Drawing.Bitmap flat_object_list_mode {
-            get {
-                object obj = ResourceManager.GetObject("flat_object_list_mode", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap flat_object_list_mode_dark {
-            get {
-                object obj = ResourceManager.GetObject("flat_object_list_mode_dark", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap hierarchy_mode {
-            get {
-                object obj = ResourceManager.GetObject("hierarchy_mode", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap hierarchy_mode_32 {
-            get {
-                object obj = ResourceManager.GetObject("hierarchy_mode_32", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap layer_mode {
-            get {
-                object obj = ResourceManager.GetObject("layer_mode", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap layer_mode_32 {
-            get {
-                object obj = ResourceManager.GetObject("layer_mode_32", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap material_mode {
-            get {
-                object obj = ResourceManager.GetObject("material_mode", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap selection_set_mode {
-            get {
-                object obj = ResourceManager.GetObject("selection_set_mode", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap selection_set_mode_dark {
-            get {
-                object obj = ResourceManager.GetObject("selection_set_mode_dark", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap sort_alphabetical_32 {
             get {
                 object obj = ResourceManager.GetObject("sort_alphabetical_32", resourceCulture);

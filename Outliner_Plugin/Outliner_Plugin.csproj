@@ -133,6 +133,7 @@
     <Compile Include="AssemblyFunctions.cs" />
     <Compile Include="Commands\ChangeGroupCommand.cs" />
     <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\ModifySelectionSetCommand.cs" />
     <Compile Include="Commands\MoveMaxNodeCommand.cs" />
     <Compile Include="Commands\RenameCommand.cs" />
     <Compile Include="Commands\SelectCommand.cs" />
@@ -260,15 +261,6 @@
     <EmbeddedResource Include="Resources\contextmenu\window_ver_32.png" />
     <EmbeddedResource Include="Resources\contextmenu\delete.png" />
     <EmbeddedResource Include="Resources\contextmenu\filter_32.png" />
-    <EmbeddedResource Include="Resources\contextmenu\hierarchy_mode_32.png" />
-    <EmbeddedResource Include="Resources\contextmenu\layer_mode_32.png" />
-    <EmbeddedResource Include="Resources\contextmenu\flat_object_list_mode_dark.png" />
-    <EmbeddedResource Include="Resources\contextmenu\selection_set_mode_dark.png" />
-    <EmbeddedResource Include="Resources\contextmenu\flat_object_list_mode.png" />
-    <EmbeddedResource Include="Resources\contextmenu\hierarchy_mode.png" />
-    <EmbeddedResource Include="Resources\contextmenu\layer_mode.png" />
-    <EmbeddedResource Include="Resources\contextmenu\material_mode.png" />
-    <EmbeddedResource Include="Resources\contextmenu\selection_set_mode.png" />
     <EmbeddedResource Include="Resources\contextmenu\window.png" />
     <EmbeddedResource Include="Resources\contextmenu\window_split_hor.png" />
     <EmbeddedResource Include="Resources\contextmenu\window_split_ver.png" />

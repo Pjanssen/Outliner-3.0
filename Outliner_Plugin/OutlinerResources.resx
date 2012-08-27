@@ -220,4 +220,7 @@ Use {0} to expand entire hierarchy.</value>
   <data name="Outliner_WindowTitle" xml:space="preserve">
     <value>Outliner</value>
   </data>
+  <data name="Command_ModifySelSet" xml:space="preserve">
+    <value>Modify Selection Set</value>
+  </data>
 </root>

@@ -133,6 +133,15 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modify Selection Set.
+        /// </summary>
+        internal static string Command_ModifySelSet {
+            get {
+                return ResourceManager.GetString("Command_ModifySelSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rename.
         /// </summary>
         internal static string Command_Rename {

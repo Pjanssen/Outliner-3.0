@@ -28,15 +28,18 @@ internal static class StandardContextMenu
       strip.Padding = new Padding(3, 2, 1, 1);
 
 
-      ToolStripDropDownButton mode_btn = new ToolStripDropDownButton(GetModeImage(treeMode));
+      ToolStripDropDownButton mode_btn = new ToolStripDropDownButton();
       mode_btn.Text = "Mode";
       mode_btn.TextImageRelation = TextImageRelation.ImageAboveText;
       mode_btn.ImageScaling = ToolStripItemImageScaling.None;
       mode_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
       IEnumerable<OutlinerPluginData> modeTypes = OutlinerPlugins.GetPluginsByType(OutlinerPluginType.TreeMode);
+      Type currentModeType = treeMode.GetType();
       foreach (OutlinerPluginData mode in modeTypes)
       {
-         AddDropDownItem(mode_btn.DropDownItems, mode.DisplayName, null, mode_btn_click, mode.Type);
+         AddDropDownItem(mode_btn.DropDownItems, mode.DisplayName, mode.DisplayImageSmall, mode_btn_click, mode.Type);
+         if (currentModeType.Equals(mode.Type))
+            mode_btn.Image = mode.DisplayImageLarge;
       }
       strip.Items.Add(mode_btn);
 
@@ -96,14 +99,14 @@ internal static class StandardContextMenu
       strip.Items.Add(window_btn);
 
 
-      ToolStripTextBox textFilter = new ToolStripTextBox();
-      NameFilter nameFilter = treeMode.PermanentFilters.Get(typeof(NameFilter)) as NameFilter;
-      if (nameFilter != null)
-         textFilter.Text = nameFilter.SearchString;
-      textFilter.GotFocus += new EventHandler(textFilter_GotFocus);
-      textFilter.LostFocus += new EventHandler(textFilter_LostFocus);
-      textFilter.TextChanged += new EventHandler(textFilter_TextChanged);
-      strip.Items.Add(textFilter);
+      //ToolStripTextBox textFilter = new ToolStripTextBox();
+      //NameFilter nameFilter = treeMode.PermanentFilters.Get(typeof(NameFilter)) as NameFilter;
+      //if (nameFilter != null)
+      //   textFilter.Text = nameFilter.SearchString;
+      //textFilter.GotFocus += new EventHandler(textFilter_GotFocus);
+      //textFilter.LostFocus += new EventHandler(textFilter_LostFocus);
+      //textFilter.TextChanged += new EventHandler(textFilter_TextChanged);
+      //strip.Items.Add(textFilter);
 
       return strip;
    }
@@ -141,15 +144,6 @@ internal static class StandardContextMenu
 
 
    #region Mode
-   
-   private static Image GetModeImage(TreeMode mode)
-   {
-      Type modeType = mode.GetType();
-      //if (modeType.Equals(typeof(Outliner.Modes.Layer.LayerMode)))
-      //   return ContextMenuResources.layer_mode_32;
-
-      return ContextMenuResources.hierarchy_mode_32;
-   }
 
    private static void mode_btn_click(object sender, EventArgs e)
    {
