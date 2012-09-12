@@ -6,9 +6,13 @@ using Autodesk.Max;
 using Outliner.Scene;
 using System.Globalization;
 using MaxUtils;
+using Outliner.Plugins;
+using ManagedServices;
 
 namespace Outliner.Filters
 {
+   [OutlinerPlugin(OutlinerPluginType.Filter)]
+   [FilterCategory(FilterCategories.Hidden)]
    public class MaxscriptFilter : Filter<IMaxNodeWrapper>
    {
       public MaxscriptFilter()
@@ -39,8 +43,9 @@ namespace Outliner.Filters
          if (data == null)
             return false;
 
-         String script = String.Format(CultureInfo.InvariantCulture, _filterFn, (iinodeWrapper.IINode.Handle));
-         return MaxInterfaces.Global.ExecuteMAXScriptScript(script, true, null);
+         UIntPtr handle = MaxInterfaces.Global.Animatable.GetHandleByAnim(iinodeWrapper.IINode);
+         String script = String.Format(CultureInfo.InvariantCulture, _filterFn, handle);
+         return MaxscriptSDK.ExecuteBooleanMaxscriptQuery(script);
       }
    }
 }
