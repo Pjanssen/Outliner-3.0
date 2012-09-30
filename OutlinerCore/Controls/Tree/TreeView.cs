@@ -413,6 +413,13 @@ public class TreeView : ScrollableControl
       return new Size(0, maxHeight);
    }
 
+   protected override void OnResize(EventArgs e)
+   {
+      this.Root.InvalidateBounds(false, true);
+
+      base.OnResize(e);
+   }
+
    #endregion
 
 

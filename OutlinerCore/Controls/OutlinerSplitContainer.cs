@@ -40,6 +40,9 @@ public class OutlinerSplitContainer : SplitContainer
 
    protected void OnPanelCollapsedChanged(SplitPanelEventArgs e)
    {
+      this.Panel1.Invalidate(true);
+      this.Panel2.Invalidate(true);
+
       if (this.PanelCollapsedChanged != null)
          this.PanelCollapsedChanged(this, e);
    }
