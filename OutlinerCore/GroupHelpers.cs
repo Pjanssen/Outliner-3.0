@@ -54,7 +54,8 @@ internal static class GroupHelpers
          GroupHelpers.closeDelegate = null;
       }
 
-      GroupHelpers.openedGroupHeads.Clear();
+      if (GroupHelpers.openedGroupHeads != null)
+         GroupHelpers.openedGroupHeads.Clear();
    }
 
    /// <summary>

@@ -26,13 +26,13 @@ public class OutlinerGUP
    public OutlinerState State { get; private set; }
    public IEnumerable<OutlinerPreset> Presets { get; private set; }
 
-   private Dictionary<TreeView, TreeMode> treeModes;
+   public Dictionary<TreeView, TreeMode> TreeModes { get; private set; }
    private Dictionary<TreeView, OutlinerPreset> currentPresets;
    public TreeViewColorScheme ColorScheme { get; private set; }
 
    public OutlinerGUP()
    {
-      this.treeModes = new Dictionary<TreeView, TreeMode>();
+      this.TreeModes = new Dictionary<TreeView, TreeMode>();
       this.currentPresets = new Dictionary<TreeView, OutlinerPreset>();
 
       OutlinerPlugins.LoadPlugins();
@@ -47,35 +47,35 @@ public class OutlinerGUP
 
    internal void Stop() 
    {
-      foreach (TreeMode treeMode in this.treeModes.Values)
+      foreach (TreeMode treeMode in this.TreeModes.Values)
       {
          treeMode.Stop();
       }
-      this.treeModes.Clear();
+      this.TreeModes.Clear();
    }
 
 
    public TreeMode GetActiveTreeMode(TreeView tree)
    {
       TreeMode mode = null;
-      if (this.treeModes != null)
-         this.treeModes.TryGetValue(tree, out mode);
+      if (this.TreeModes != null)
+         this.TreeModes.TryGetValue(tree, out mode);
       return mode;
    }
 
    internal void RegisterTreeMode(TreeView tree, TreeMode treeMode)
    {
-      if (!this.treeModes.ContainsKey(tree))
-         this.treeModes.Add(tree, treeMode);
+      if (!this.TreeModes.ContainsKey(tree))
+         this.TreeModes.Add(tree, treeMode);
    }
 
    internal void UnRegisterTreeMode(TreeMode treeMode)
    {
-      foreach (KeyValuePair<TreeView, TreeMode> item in this.treeModes)
+      foreach (KeyValuePair<TreeView, TreeMode> item in this.TreeModes)
       {
          if (item.Value.Equals(treeMode))
          {
-            this.treeModes.Remove(item.Key);
+            this.TreeModes.Remove(item.Key);
             break;
          }
       }
