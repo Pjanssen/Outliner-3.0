@@ -34,8 +34,8 @@ public class RemoveButton : ImageButton
          return false;
 
       SelectionSetWrapper node = HelperMethods.GetMaxNode(tn) as SelectionSetWrapper;
-      ICollection<TreeNode> selTreeNodes = this.Layout.TreeView.SelectedNodes;
-      if (node == null || selTreeNodes.Count == 0)
+      IEnumerable<TreeNode> selTreeNodes = this.Layout.TreeView.SelectedNodes;
+      if (node == null || selTreeNodes.Count() == 0)
          return false;
 
       return node.CanRemoveChildNodes(HelperMethods.GetMaxNodes(selTreeNodes));
@@ -55,7 +55,7 @@ public class RemoveButton : ImageButton
 
       IEnumerable<IMaxNodeWrapper> selNodes = HelperMethods.GetMaxNodes(this.Layout.TreeView.SelectedNodes);
       IEnumerable<IMaxNodeWrapper> newNodes = selSet.WrappedChildNodes.Except(selNodes);
-      ModifySelectionSetCommand cmd = new ModifySelectionSetCommand(selSet, newNodes.ToList());
+      ModifySelectionSetCommand cmd = new ModifySelectionSetCommand(newNodes.ToList(), selSet);
       cmd.Execute(true);
    }
 

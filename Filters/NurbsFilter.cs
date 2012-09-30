@@ -10,7 +10,7 @@ namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "Filter_Nurbs")]
-   //[LocalizedDisplayImage(typeof(Outliner.Controls.TreeIcons_Max), "nurbs")]
+   [LocalizedDisplayImage(typeof(Resources), "nurbs")]
    [FilterCategory(FilterCategories.Classes)]
    public class NurbsFilter : Filter<IMaxNodeWrapper>
    {

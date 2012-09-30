@@ -211,13 +211,13 @@ public class SelectionSetMode : TreeMode
    }
 
    //Invalidate selection sets explicitly when colortag has changed.
-   override protected void ColorTagChanged(IntPtr param, IntPtr info)
-   {
-      base.ColorTagChanged(param, info);
-      IAnimatable node = MaxUtils.HelperMethods.GetCallParam(info) as IAnimatable;
-      List<TreeNode> tns = this.GetTreeNodes(node);
-      tns.ForEach(tn => tn.Parent.Invalidate());
-   }
+   //override protected void ColorTagChanged(IntPtr param, IntPtr info)
+   //{
+   //   base.ColorTagChanged(param, info);
+   //   IAnimatable node = MaxUtils.HelperMethods.GetCallParam(info) as IAnimatable;
+   //   List<TreeNode> tns = this.GetTreeNodes(node);
+   //   tns.ForEach(tn => tn.Parent.Invalidate());
+   //}
 
    #endregion
 }

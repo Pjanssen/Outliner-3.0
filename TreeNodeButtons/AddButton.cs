@@ -22,7 +22,7 @@ public class AddButton : ImageButton
 
 
    [XmlAttribute("visible_types")]
-   [DefaultValue(MaxNodeTypes.SelectionSet | MaxNodeTypes.Layer)]
+   [DefaultValue(MaxNodeTypes.All)]
    public override MaxNodeTypes VisibleTypes
    {
       get { return base.VisibleTypes & (MaxNodeTypes.SelectionSet | MaxNodeTypes.Layer); }
@@ -36,8 +36,8 @@ public class AddButton : ImageButton
          return false;
 
       IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
-      ICollection<TreeNode> selTreeNodes = this.Layout.TreeView.SelectedNodes;
-      if (node == null || selTreeNodes.Count == 0)
+      IEnumerable<TreeNode> selTreeNodes = this.Layout.TreeView.SelectedNodes;
+      if (node == null || selTreeNodes.Count() == 0)
          return false;
 
       return node.CanAddChildNodes(HelperMethods.GetMaxNodes(selTreeNodes));
@@ -61,7 +61,7 @@ public class AddButton : ImageButton
       {
          SelectionSetWrapper selSet = (SelectionSetWrapper)node;
          IEnumerable<IMaxNodeWrapper> newNodes = selSet.WrappedChildNodes.Union(nodes);
-         cmd = new ModifySelectionSetCommand(selSet, newNodes.ToList());
+         cmd = new ModifySelectionSetCommand(newNodes.ToList(), selSet);
       }
       else
       {

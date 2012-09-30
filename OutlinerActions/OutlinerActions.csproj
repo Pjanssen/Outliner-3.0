@@ -42,12 +42,8 @@
       <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\MaxCustomControls.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="MaxUtils">
-      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\MaxUtils.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Outliner_Plugin">
-      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\Outliner_Plugin.dll</HintPath>
+    <Reference Include="OutlinerCore">
+      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\OutlinerCore.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -85,7 +81,6 @@
     <ProjectReference Include="..\LayerMode\LayerMode.csproj">
       <Project>{3C0E5187-7E46-4753-AFEC-0C2EC08928F2}</Project>
       <Name>LayerMode</Name>
-      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SelectionSetMode\SelectionSetMode.csproj">
       <Project>{6A6D2FEC-2E74-4ECE-8A07-4526F552C462}</Project>

@@ -7,6 +7,7 @@ using Outliner.Commands;
 using System.Drawing;
 using Outliner.Plugins;
 using Outliner.Controls.Tree.Layout;
+using System.Xml.Serialization;
 
 namespace Outliner.TreeNodeButtons
 {

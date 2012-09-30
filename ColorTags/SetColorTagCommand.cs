@@ -27,7 +27,7 @@ public class SetColorTagCommand : Command
       get { return Resources.Command_Description; }
    }
 
-   public override void Do()
+   protected override void Do()
    {
       this.oldTags = new Dictionary<IMaxNodeWrapper, ColorTag>();
       foreach (IMaxNodeWrapper node in this.nodes)
@@ -39,7 +39,7 @@ public class SetColorTagCommand : Command
       }
    }
 
-   public override void Undo()
+   protected override void Undo()
    {
       if (this.oldTags == null)
          return;

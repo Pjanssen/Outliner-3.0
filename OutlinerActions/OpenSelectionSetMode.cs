@@ -13,7 +13,7 @@ using Outliner.Modes.SelectionSet;
 
 namespace Outliner.Actions
 {
-   public class OpenSelectionSetModeAction : OpenOutlinerAction
+   public class OpenSelectionSetModeAction : OpenOutlinerBaseAction
    {
       public override string ActionText
       {
@@ -27,7 +27,7 @@ namespace Outliner.Actions
 
       protected override TreeMode CreateTreeController1(TestControl mainControl)
       {
-         mainControl.treeView1.TreeNodeLayout = new TreeNodeLayout(OutlinerGUP.Instance.Layout);
+         //mainControl.treeView1.TreeNodeLayout = new TreeNodeLayout(OutlinerGUP.Instance.Layout);
          mainControl.treeView1.Colors = TreeViewColorScheme.MayaColors; //OutlinerGUP.Instance.ColorScheme;
 
          mainControl.treeView1.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
@@ -36,7 +36,7 @@ namespace Outliner.Actions
 
       protected override TreeMode CreateTreeController2(TestControl mainControl)
       {
-         mainControl.treeView2.TreeNodeLayout = new TreeNodeLayout(OutlinerGUP.Instance.Layout);
+         //mainControl.treeView2.TreeNodeLayout = new TreeNodeLayout(OutlinerGUP.Instance.Layout);
          mainControl.treeView2.Colors = TreeViewColorScheme.MayaColors;
 
          mainControl.treeView2.NodeSorter = new Outliner.NodeSorters.AlphabeticalSorter();
@@ -45,7 +45,7 @@ namespace Outliner.Actions
 
       protected override System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
       {
-         return Assembly.LoadFile(Path.Combine( OutlinerPlugins.PluginDirectory
+         return Assembly.LoadFile(Path.Combine( OutlinerPaths.Plugins
                                               , "SelectionSetMode.dll"));
       }
    }

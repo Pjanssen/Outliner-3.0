@@ -96,5 +96,14 @@ namespace Outliner.Modes.FlatObjectList {
                 return ResourceManager.GetString("Mode_DisplayName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Object list.
+        /// </summary>
+        internal static string Preset_DisplayName {
+            get {
+                return ResourceManager.GetString("Preset_DisplayName", resourceCulture);
+            }
+        }
     }
 }

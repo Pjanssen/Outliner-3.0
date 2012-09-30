@@ -136,4 +136,7 @@
   <data name="Mode_DisplayName" xml:space="preserve">
     <value>Layers</value>
   </data>
+  <data name="Preset_DisplayName" xml:space="preserve">
+    <value>Layers</value>
+  </data>
 </root>

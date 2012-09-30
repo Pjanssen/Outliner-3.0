@@ -44,7 +44,7 @@ namespace Outliner.ColorTags
             return;
 
          IAnimatable node = MaxUtils.HelperMethods.GetCallParam(info) as IAnimatable;
-         foreach (TreeMode treeMode in outliner.TreeModes)
+         foreach (TreeMode treeMode in outliner.TreeModes.Values)
          {
             if (treeMode.Filters.Contains(typeof(ColorTagsFilter)))
                treeMode.UpdateFilter(node);

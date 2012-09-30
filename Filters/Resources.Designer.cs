@@ -60,6 +60,20 @@ namespace Outliner.Filters {
             }
         }
         
+        internal static System.Drawing.Bitmap bone {
+            get {
+                object obj = ResourceManager.GetObject("bone", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap camera {
+            get {
+                object obj = ResourceManager.GetObject("camera", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Bones.
         /// </summary>
@@ -115,6 +129,15 @@ namespace Outliner.Filters {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Layers.
+        /// </summary>
+        internal static string Filter_Layers {
+            get {
+                return ResourceManager.GetString("Filter_Layers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lights.
         /// </summary>
         internal static string Filter_Lights {
@@ -165,6 +188,69 @@ namespace Outliner.Filters {
         internal static string Filter_Xref {
             get {
                 return ResourceManager.GetString("Filter_Xref", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap freeze {
+            get {
+                object obj = ResourceManager.GetObject("freeze", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap geometry {
+            get {
+                object obj = ResourceManager.GetObject("geometry", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap helper {
+            get {
+                object obj = ResourceManager.GetObject("helper", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap hide {
+            get {
+                object obj = ResourceManager.GetObject("hide", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap light {
+            get {
+                object obj = ResourceManager.GetObject("light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap nurbs {
+            get {
+                object obj = ResourceManager.GetObject("nurbs", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap particle {
+            get {
+                object obj = ResourceManager.GetObject("particle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap shape {
+            get {
+                object obj = ResourceManager.GetObject("shape", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap spacewarp {
+            get {
+                object obj = ResourceManager.GetObject("spacewarp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

@@ -115,6 +115,15 @@ namespace Outliner.NodeSorters {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Polycount.
+        /// </summary>
+        internal static string Polycount_DisplayName {
+            get {
+                return ResourceManager.GetString("Polycount_DisplayName", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap sort_chronological_16 {
             get {
                 object obj = ResourceManager.GetObject("sort_chronological_16", resourceCulture);
@@ -132,6 +141,20 @@ namespace Outliner.NodeSorters {
         internal static System.Drawing.Bitmap sort_chronological_32 {
             get {
                 object obj = ResourceManager.GetObject("sort_chronological_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap sort_polycount_16 {
+            get {
+                object obj = ResourceManager.GetObject("sort_polycount_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap sort_polycount_24 {
+            get {
+                object obj = ResourceManager.GetObject("sort_polycount_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

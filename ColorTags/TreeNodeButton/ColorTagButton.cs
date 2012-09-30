@@ -166,7 +166,7 @@ public class ColorTagButton : TreeNodeButton
       {
          ColorTag tag = btn.ColorTag;
 
-         ICollection<TreeNode> selNodes = this.Layout.TreeView.SelectedNodes;
+         IEnumerable<TreeNode> selNodes = this.Layout.TreeView.SelectedNodes;
          IEnumerable<IMaxNodeWrapper> nodes;
          if (selNodes.Contains(this.clickedTn))
             nodes = HelperMethods.GetMaxNodes(selNodes);

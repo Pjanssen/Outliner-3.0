@@ -47,7 +47,7 @@ public class SelectionSetDragDropHandler : DragDropHandler
       IEnumerable<IMaxNodeWrapper> nodes = HelperMethods.GetMaxNodes(draggedNodes);
       SelectionSetWrapper selSet = (SelectionSetWrapper)this.Data;
       IEnumerable<IMaxNodeWrapper> newNodes = selSet.WrappedChildNodes.Union(nodes);
-      ModifySelectionSetCommand cmd = new ModifySelectionSetCommand(selSet, newNodes.ToList());
+      ModifySelectionSetCommand cmd = new ModifySelectionSetCommand(newNodes.ToList(), selSet);
       cmd.Execute(true);
    }
 }

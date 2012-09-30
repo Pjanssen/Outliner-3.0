@@ -118,7 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Mode_DisplayName" xml:space="preserve">
-    <value>Selection Sets</value>
+    <value>Selection-Sets</value>
+  </data>
+  <data name="Preset_DisplayName" xml:space="preserve">
+    <value>Selection-Sets</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="selectionset_mode_16_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">

@@ -7,7 +7,7 @@ namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "Filter_Helpers")]
-   //   [LocalizedDisplayImage(typeof(Outliner.Controls.TreeIcons_Max), "helper")]
+   [LocalizedDisplayImage(typeof(Resources), "helper")]
    [FilterCategory(FilterCategories.Classes)]
    public class HelperFilter : Filter<IMaxNodeWrapper>
    {
