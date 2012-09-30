@@ -17,8 +17,7 @@ namespace Outliner.Modes.Hierarchy
 [LocalizedDisplayImage(typeof(Resources), "hierarchy_mode_16", "hierarchy_mode_24")]
 public class HierarchyMode : TreeMode
 {
-   public HierarchyMode(TreeView tree)
-      : base(tree)
+   public HierarchyMode(TreeView tree) : base(tree)
    {
       ExceptionHelpers.ThrowIfArgumentIsNull(tree, "tree");
 
@@ -46,21 +45,10 @@ public class HierarchyMode : TreeMode
 
    public TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol, Boolean recursive)
    {
-      if (wrapper == null)
-         throw new ArgumentNullException("wrapper");
-      if (parentCol == null)
-         throw new ArgumentNullException("parentCol");
+      ExceptionHelpers.ThrowIfArgumentIsNull(wrapper, "wrapper");
+      ExceptionHelpers.ThrowIfArgumentIsNull(parentCol, "parentCol");
 
       TreeNode tn = base.AddNode(wrapper, parentCol);
-
-      IINodeWrapper iinodeWrapper = wrapper as IINodeWrapper;
-      if (iinodeWrapper != null)
-      {
-         if (iinodeWrapper.IINode.IsGroupMember || iinodeWrapper.IINode.IsGroupHead)
-            tn.DragDropHandler = new GroupDragDropHandler(wrapper);
-         else
-            tn.DragDropHandler = new IINodeDragDropHandler(wrapper);
-      }
 
       if (recursive)
       {
@@ -71,6 +59,21 @@ public class HierarchyMode : TreeMode
       }
 
       return tn;
+   }
+
+
+   public override DragDropHandler CreateDragDropHandler(IMaxNodeWrapper node)
+   {
+      IINodeWrapper iinodeWrapper = node as IINodeWrapper;
+      if (iinodeWrapper != null)
+      {
+         if (iinodeWrapper.IINode.IsGroupMember || iinodeWrapper.IINode.IsGroupHead)
+            return new GroupDragDropHandler(node);
+         else
+            return new IINodeDragDropHandler(node);
+      }
+
+      return base.CreateDragDropHandler(node);
    }
 
 

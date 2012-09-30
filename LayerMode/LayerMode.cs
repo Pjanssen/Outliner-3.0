@@ -65,15 +65,19 @@ public class LayerMode : TreeMode
             if (!this.LayersOnly || node is IILayer)
                this.AddNode(node, tn.Nodes);
          }
-
-         tn.DragDropHandler = new IILayerDragDropHandler(layerWrapper);
-      }
-      else if (wrapper is IINodeWrapper)
-      {
-         tn.DragDropHandler = new IINodeDragDropHandler(wrapper);
       }
 
       return tn;
+   }
+
+   public override DragDropHandler CreateDragDropHandler(IMaxNodeWrapper node)
+   {
+      if (node is IILayerWrapper)
+         return new IILayerDragDropHandler((IILayerWrapper)node);
+      else if (node is IINodeWrapper)
+         return new IINodeDragDropHandler(node);
+      else
+         return base.CreateDragDropHandler(node);
    }
 
 

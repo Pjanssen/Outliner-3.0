@@ -5,6 +5,7 @@ using System.Text;
 using Autodesk.Max;
 using Outliner.Scene;
 using Outliner.Commands;
+using MaxUtils;
 
 namespace Outliner.ColorTags
 {

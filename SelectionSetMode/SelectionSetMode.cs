@@ -20,14 +20,13 @@ public class SelectionSetMode : TreeMode
 {
    private AllObjectsSelectionSet allObjectsSelSet;
 
-   public SelectionSetMode(TreeView tree)
-      : base(tree)
+   public SelectionSetMode(TreeView tree) : base(tree)
    {
-      proc_NamedSelSetCreated = new GlobalDelegates.Delegate5(this.NamedSelSetCreated);
-      proc_NamedSelSetDeleted = new GlobalDelegates.Delegate5(this.NamedSelSetDeleted);
-      proc_NamedSelSetPreModify = new GlobalDelegates.Delegate5(this.NamedSelSetPreModify);
+      proc_NamedSelSetCreated    = new GlobalDelegates.Delegate5(this.NamedSelSetCreated);
+      proc_NamedSelSetDeleted    = new GlobalDelegates.Delegate5(this.NamedSelSetDeleted);
+      proc_NamedSelSetPreModify  = new GlobalDelegates.Delegate5(this.NamedSelSetPreModify);
       proc_NamedSelSetPostModify = new GlobalDelegates.Delegate5(this.NamedSelSetPostModify);
-      proc_NamedSelSetRenamed = new GlobalDelegates.Delegate5(this.NamedSelSetRenamed);
+      proc_NamedSelSetRenamed    = new GlobalDelegates.Delegate5(this.NamedSelSetRenamed);
 
       this.allObjectsSelSet = new AllObjectsSelectionSet();
       this.Tree.DragDropHandler = new TreeViewDragDropHandler();
@@ -53,7 +52,6 @@ public class SelectionSetMode : TreeMode
    public override TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol)
    {
       TreeNode tn = base.AddNode(wrapper, parentCol);
-      tn.DragDropHandler = this.createDragDropHandler(wrapper);
 
       if (wrapper is SelectionSetWrapper)
       {
@@ -64,14 +62,14 @@ public class SelectionSetMode : TreeMode
       return tn;
    }
 
-   private DragDropHandler createDragDropHandler(IMaxNodeWrapper wrapper)
+   override public DragDropHandler CreateDragDropHandler(IMaxNodeWrapper wrapper)
    {
       if (wrapper is SelectionSetWrapper)
          return new SelectionSetDragDropHandler((SelectionSetWrapper)wrapper);
       else if (wrapper is IINodeWrapper)
          return new IINodeDragDropHandler(wrapper);
 
-      return null;
+      return base.CreateDragDropHandler(wrapper);
    }
 
 
