@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlinerCore", "OutlinerCore\OutlinerCore.csproj", "{AA8562B6-988F-4AFE-94EB-BF2FD64BE93E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Outliner_Tests", "Outliner_Tests\Outliner_Tests.csproj", "{D60C045D-0975-4647-8637-8DFAA67F9EAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Outliner.Tests", "Outliner_Tests\Outliner.Tests.csproj", "{D60C045D-0975-4647-8637-8DFAA67F9EAF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{87EA806E-0B5B-4F26-8633-A72262A17D09}"
 	ProjectSection(SolutionItems) = preProject

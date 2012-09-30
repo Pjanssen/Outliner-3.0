@@ -7,7 +7,7 @@ using Outliner.Scene;
 using Outliner.Commands;
 using Autodesk.Max;
 
-namespace Outliner_Tests.Commands
+namespace Outliner.Tests.Commands
 {
 [TestClass]
 public class ToggleLightCommandTest : MaxIntegrationTest

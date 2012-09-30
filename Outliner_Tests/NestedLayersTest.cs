@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Autodesk.Max;
 using Outliner.LayerTools;
 
-namespace Outliner_Tests
+namespace Outliner.Tests
 {
 [TestClass]
 public class NestedLayersTest : MaxIntegrationTest

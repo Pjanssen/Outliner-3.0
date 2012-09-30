@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Outliner.Scene;
 using Outliner.Commands;
 
-namespace Outliner_Tests.Commands
+namespace Outliner.Tests.Commands
 {
 [TestClass]
 public class FreezeCommandTest : MaxIntegrationTest

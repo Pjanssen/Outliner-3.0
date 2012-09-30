@@ -37,3 +37,6 @@ using System.Resources;
 [assembly: AssemblyFileVersion("3.0.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("en")]
 [assembly: System.CLSCompliant(false)]
+
+// Make internal classes visible for integration testing
+[assembly: InternalsVisibleTo("Outliner.Tests")]

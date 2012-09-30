@@ -9,7 +9,7 @@ using Outliner;
 using System.Diagnostics;
 using MaxUtils;
 
-namespace Outliner_Tests
+namespace Outliner.Tests
 {
 internal static class MaxRemoting
 {

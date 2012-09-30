@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Outliner.Scene;
 using System;
 
-namespace Outliner_Unit_Tests.Filters
+namespace Outliner.Tests.Filters
 {
 /// <summary>
 ///This is a test class for NameFilterTest and is intended

@@ -5,7 +5,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Outliner.Controls.Tree;
 
-namespace Outliner_Tests.Controls.Tree
+namespace Outliner.Tests.Controls.Tree
 {
    [TestClass]
    public class TreeNodeCollectionTest

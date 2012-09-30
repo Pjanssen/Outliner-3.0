@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Outliner.Controls.Tree;
 using System.Drawing;
 
-namespace Outliner_Tests.Controls.Tree
+namespace Outliner.Tests.Controls.Tree
 {
 [TestClass]
 public class TreeViewTest

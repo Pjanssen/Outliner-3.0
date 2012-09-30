@@ -4,7 +4,7 @@ using Outliner.Scene;
 using System;
 using System.Collections.Generic;
 
-namespace Outliner_Unit_Tests.Filters
+namespace Outliner.Tests.Filters
 {
 [TestClass()]
 public class NodeFilterCollectionTest

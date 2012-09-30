@@ -8,10 +8,10 @@ using Autodesk.Max;
 using System.Runtime.InteropServices;
 using Outliner;
 
-namespace Outliner_Tests
+namespace Outliner.Tests
 {
 [TestClass]
-public class OutlinerGUPTest : MaxIntegrationTest
+public class GroupHelpersTest : MaxIntegrationTest
 {
    private IINode GroupNodes(IEnumerable<IMaxNodeWrapper> nodes)
    {
@@ -53,10 +53,10 @@ public class OutlinerGUPTest : MaxIntegrationTest
       Assert.IsNotNull(gup);
 
       Assert.IsFalse(node.IsOpenGroupMember);
-      gup.OpenSelectedGroupHeads(new List<IMaxNodeWrapper>(1) { nodeWrapper });
+      GroupHelpers.OpenSelectedGroupHeads(new List<IMaxNodeWrapper>(1) { nodeWrapper });
       Assert.IsTrue(node.IsOpenGroupMember);
 
-      gup.CloseUnselectedGroupHeads();
+      GroupHelpers.CloseUnselectedGroupHeads();
       Assert.IsFalse(node.IsOpenGroupMember);
    }
 }

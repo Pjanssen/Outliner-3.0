@@ -9,7 +9,7 @@ using System.Drawing;
 using System.IO;
 using Outliner.Controls;
 
-namespace Outliner_Tests.Controls.Tree
+namespace Outliner.Tests.Controls.Tree
 {
    [TestClass]
    public class TreeViewColorsTest
