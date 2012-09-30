@@ -158,9 +158,9 @@
       <Project>{D89AAF44-43BA-48F2-BEEC-852FC3AB4655}</Project>
       <Name>LayerTools</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Outliner_Plugin\Outliner_Plugin.csproj">
+    <ProjectReference Include="..\OutlinerCore\OutlinerCore.csproj">
       <Project>{AA8562B6-988F-4AFE-94EB-BF2FD64BE93E}</Project>
-      <Name>Outliner_Plugin</Name>
+      <Name>OutlinerCore</Name>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>

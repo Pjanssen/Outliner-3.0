@@ -23,12 +23,12 @@ public class MoveMaxNodeCommandTest : MaxIntegrationTest
       List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(1) { nodeA };
       MoveMaxNodeCommand cmd = new MoveMaxNodeCommand(nodes, nodeB, "", "");
 
-      cmd.Do();
+      cmd.Redo();
       Assert.AreNotEqual(nodeAParent, nodeA.Parent);
       Assert.AreEqual(nodeB, nodeA.Parent);
       Assert.AreEqual(nodeBParent, nodeB.Parent);
 
-      cmd.Undo();
+      cmd.Restore(true);
       Assert.AreEqual(nodeAParent, nodeA.Parent);
       Assert.AreEqual(nodeBParent, nodeB.Parent);
    }
@@ -49,7 +49,7 @@ public class MoveMaxNodeCommandTest : MaxIntegrationTest
       List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(1) { nodeB };
       MoveMaxNodeCommand cmd = new MoveMaxNodeCommand(nodes, null, "", "");
 
-      cmd.Do();
+      cmd.Redo();
       Assert.AreNotEqual(nodeA, nodeB.Parent);
       Assert.AreEqual(root, nodeA.Parent);
       Assert.AreEqual(root, nodeB.Parent);

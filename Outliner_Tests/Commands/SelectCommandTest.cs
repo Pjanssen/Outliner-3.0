@@ -25,12 +25,12 @@ public class SelectCommandTest : MaxIntegrationTest
       List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(2) { nodeA, nodeB };
       SelectCommand cmd = new SelectCommand(nodes);
 
-      cmd.Do();
+      cmd.Redo();
       Assert.AreEqual(true, nodeA.Selected);
       Assert.AreEqual(true, nodeB.Selected);
       Assert.AreEqual(false, nodeC.Selected);
 
-      cmd.Undo();
+      cmd.Restore(true);
       Assert.AreEqual(false, nodeA.Selected);
       Assert.AreEqual(false, nodeB.Selected);
       Assert.AreEqual(false, nodeC.Selected);
@@ -50,7 +50,7 @@ public class SelectCommandTest : MaxIntegrationTest
       List<IMaxNodeWrapper> nodes1 = new List<IMaxNodeWrapper>(2) { nodeA, nodeB };
       SelectCommand cmd = new SelectCommand(nodes1);
 
-      cmd.Do();
+      cmd.Redo();
       Assert.AreEqual(true, nodeA.Selected);
       Assert.AreEqual(true, nodeB.Selected);
       Assert.AreEqual(false, nodeC.Selected);
@@ -58,12 +58,12 @@ public class SelectCommandTest : MaxIntegrationTest
       List<IMaxNodeWrapper> nodes2 = new List<IMaxNodeWrapper>(1) { nodeC };
       SelectCommand cmd2 = new SelectCommand(nodes2);
       
-      cmd2.Do();
+      cmd2.Redo();
       Assert.AreEqual(false, nodeA.Selected);
       Assert.AreEqual(false, nodeB.Selected);
       Assert.AreEqual(true, nodeC.Selected);
 
-      cmd2.Undo();
+      cmd2.Restore(true);
       Assert.AreEqual(true, nodeA.Selected);
       Assert.AreEqual(true, nodeB.Selected);
       Assert.AreEqual(false, nodeC.Selected);
@@ -83,19 +83,19 @@ public class SelectCommandTest : MaxIntegrationTest
       List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(2) { nodeA, nodeB };
       SelectCommand cmd = new SelectCommand(nodes);
 
-      cmd.Do();
+      cmd.Redo();
       Assert.AreEqual(true, nodeA.Selected);
       Assert.AreEqual(true, nodeB.Selected);
       Assert.AreEqual(false, nodeC.Selected);
 
       SelectCommand clearCmd = new SelectCommand(new List<IMaxNodeWrapper>());
 
-      clearCmd.Do();
+      clearCmd.Redo();
       Assert.AreEqual(false, nodeA.Selected);
       Assert.AreEqual(false, nodeB.Selected);
       Assert.AreEqual(false, nodeC.Selected);
 
-      clearCmd.Undo();
+      clearCmd.Restore(true);
       Assert.AreEqual(true, nodeA.Selected);
       Assert.AreEqual(true, nodeB.Selected);
       Assert.AreEqual(false, nodeC.Selected);

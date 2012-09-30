@@ -24,11 +24,11 @@ public class HideCommandTest : MaxIntegrationTest
       List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(2) { node, layer };
       HideCommand cmd = new HideCommand(nodes, !nodeHidden);
 
-      cmd.Do();
+      cmd.Redo();
       Assert.AreEqual(!nodeHidden, node.IsHidden);
       Assert.AreEqual(!layerHidden, layer.IsHidden);
 
-      cmd.Undo();
+      cmd.Restore(true);
       Assert.AreEqual(nodeHidden, node.IsHidden);
       Assert.AreEqual(layerHidden, layer.IsHidden);
    }

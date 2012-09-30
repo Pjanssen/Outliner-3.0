@@ -69,6 +69,11 @@ public static class HelperMethods
       MaxInterfaces.Global.TheListener.EditStream.Wflush();
    }
 
+   public static void WriteToListener(Object obj)
+   {
+      HelperMethods.WriteToListener(obj.ToString());
+   }
+
 
    public static IntPtr MtlEditorHwnd
    {

@@ -32,10 +32,10 @@ public class ToggleLightCommandTest : MaxIntegrationTest
       List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(1) { light };
       ToggleLightCommand cmd = new ToggleLightCommand(nodes, !useLight);
 
-      cmd.Do();
+      cmd.Redo();
       Assert.AreEqual(!useLight, ((ILightObject)light.IINode.ObjectRef).UseLight);
 
-      cmd.Undo();
+      cmd.Restore(true);
       Assert.AreEqual(useLight, ((ILightObject)light.IINode.ObjectRef).UseLight);
    }
 
@@ -50,7 +50,7 @@ public class ToggleLightCommandTest : MaxIntegrationTest
 
       try
       {
-         cmd.Do();
+         cmd.Redo();
       }
       catch (Exception) 
       {
@@ -59,7 +59,7 @@ public class ToggleLightCommandTest : MaxIntegrationTest
 
       try
       {
-         cmd.Undo();
+         cmd.Restore(true);
       }
       catch (Exception)
       {

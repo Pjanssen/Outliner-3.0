@@ -24,11 +24,11 @@ public class FreezeCommandTest : MaxIntegrationTest
       List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(2) { node, layer };
       FreezeCommand cmd = new FreezeCommand(nodes, !nodeFrozen);
       
-      cmd.Do();
+      cmd.Redo();
       Assert.AreEqual(!nodeFrozen, node.IsFrozen);
       Assert.AreEqual(!layerFrozen, layer.IsFrozen);
 
-      cmd.Undo();
+      cmd.Restore(true);
       Assert.AreEqual(nodeFrozen, node.IsFrozen);
       Assert.AreEqual(layerFrozen, layer.IsFrozen);
    }

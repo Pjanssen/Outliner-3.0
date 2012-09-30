@@ -23,10 +23,10 @@ public class RenameCommandTest : MaxIntegrationTest
       String newName = "Test";
       RenameCommand cmd = new RenameCommand(new List<IMaxNodeWrapper>(1) { node }, newName);
 
-      cmd.Do();
+      cmd.Redo();
       Assert.AreEqual(newName, node.Name);
 
-      cmd.Undo();
+      cmd.Restore(true);
       Assert.AreEqual(oldName, node.Name);
    }
 }

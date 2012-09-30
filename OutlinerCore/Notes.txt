@@ -1,0 +1,76 @@
+﻿GENERAL
+-------
+* Unhide/unfreeze layer when unhiding/unfreezing node
+* Superclass sorter does not really work with exceptions (target, bones, etc). -> use imagekey instead?
+* SetViewCameraCommand: properly store previous state.
+* ToggleLightTest use IInterface.CreateLightObject ?
+* Filters: should enabling e.g. bonefilter show only bones, or hide only bones?
+* Save filter presets.
+
+TREEVIEW
+--------
+* TreeNode selection implementation is a bit shoddy. MouseDown+MouseUp both fire selectionchangedevent
+
+NODE BUTTONS
+------------
+* Add filter code to click handlers.
+* Decide whether clicking a node button should apply to the entire selection 
+  with or without holding Control.
+* Larger Add button?
+
+
+
+ICON CLICK ACTIONS:
+Layer        - Set as current
+Material     - 
+SelectionSet - 
+Bone         -
+Camera       - Set active viewport
+Geometry     -
+Group        - Open/Close?
+Helper       - 
+Light        - Toggle on/off
+Particle     -
+Shape        -
+Spacewarp    -
+Xref         -
+
+
+Productivity tools
+* Advanced rename should work with any Outliner selection (object, material, layer, etc)
+* Delete empty layers
+* Color Tags
+* Maxscript Filter
+* CAT Muscles filter
+
+TreeModes
+---------
+* Hierarchy*
+* Flat object list
+* Layers*
+* Materials
+* Selection Sets
+
+Filters
+-------
+* Object classes (Geometry, bones, helpers, etc)*
+* Hidden, Frozen*
+* ColorTags
+* Maxscript filter
+* CAT Muscles
+
+NodeSorters
+-----------
+* Alphabetical*
+* ColorTag
+* Hidden, Frozen*
+* Chronological
+* Type*
+
+TreeNodeButtons
+---------------
+* Add, Remove*
+* Hide, Freeze*
+* Maya indent
+* BoxMode, Renderable, WireColor (Animatable Property)
+* ColorTag
