@@ -101,8 +101,7 @@ public class IINodeWrapper : IMaxNodeWrapper
 
    public override void AddChildNode(IMaxNodeWrapper node)
    {
-      if (node == null)
-         throw new ArgumentNullException("node");
+      ExceptionHelpers.ThrowIfArgumentIsNull(node, "node");
 
       if (!this.CanAddChildNode(node))
          return;

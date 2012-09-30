@@ -63,8 +63,7 @@ internal static class GroupHelpers
    /// </summary>
    public static void OpenSelectedGroupHeads(IEnumerable<IMaxNodeWrapper> nodes)
    {
-      if (nodes == null)
-         throw new ArgumentNullException("nodes");
+      ExceptionHelpers.ThrowIfArgumentIsNull(nodes, "nodes");
 
       if (GroupHelpers.openedGroupHeads == null)
          GroupHelpers.openedGroupHeads = new List<IINodeWrapper>();

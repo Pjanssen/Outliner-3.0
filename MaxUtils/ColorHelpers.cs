@@ -27,8 +27,7 @@ public static class ColorHelpers
    /// <returns></returns>
    public static Color FromMaxColor(IColor color)
    {
-      if (color == null)
-         throw new ArgumentNullException("color");
+      ExceptionHelpers.ThrowIfArgumentIsNull(color, "color");
 
       return FromMaxColor(Color.FromArgb((int)color.ToRGB));
    }
@@ -54,8 +53,7 @@ public static class ColorHelpers
    /// <returns></returns>
    public static Color FromHtml(String htmlColor)
    {
-      if (htmlColor == null)
-         throw new ArgumentNullException("htmlColor");
+      ExceptionHelpers.ThrowIfArgumentIsNull(htmlColor, "htmlColor");
 
       if (htmlColor.Length == 9 && htmlColor[0] == '#')
          return Color.FromArgb(Convert.ToInt32(htmlColor.Substring(1, 2), 16),

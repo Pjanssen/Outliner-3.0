@@ -64,8 +64,7 @@ public static class HelperMethods
 
    public static IINodeTab ToIINodeTab(IEnumerable<Object> nodes)
    {
-      if (nodes == null)
-         throw new ArgumentNullException("nodes");
+      ExceptionHelpers.ThrowIfArgumentIsNull(nodes, "nodes");
 
       IINodeTab tab = MaxInterfaces.Global.INodeTabNS.Create();
       Int32 nodeCount = nodes.Count();
@@ -84,8 +83,7 @@ public static class HelperMethods
 
    public static IINodeTab ToIINodeTab(IEnumerable<IMaxNodeWrapper> nodes)
    {
-      if (nodes == null)
-         throw new ArgumentNullException("nodes");
+      ExceptionHelpers.ThrowIfArgumentIsNull(nodes, "nodes");
 
       return HelperMethods.ToIINodeTab(nodes.Select(n => n.WrappedNode));
    }
@@ -96,8 +94,7 @@ public static class HelperMethods
    /// </summary>
    public static Boolean IsParentOfSelected(IMaxNodeWrapper node)
    {
-      if (node == null)
-         throw new ArgumentNullException("node");
+      ExceptionHelpers.ThrowIfArgumentIsNull(node, "node");
 
       if (node.Selected)
          return true;
@@ -117,10 +114,8 @@ public static class HelperMethods
    /// </summary>
    public static IEnumerable<T> ForEach<T>(this IEnumerable<T> items, Action<T> action)
    {
-      if (items == null)
-         throw new ArgumentNullException("items");
-      if (action == null)
-         throw new ArgumentNullException("action");
+      ExceptionHelpers.ThrowIfArgumentIsNull(items, "items");
+      ExceptionHelpers.ThrowIfArgumentIsNull(action, "action");
 
       foreach (T item in items)
          action(item);

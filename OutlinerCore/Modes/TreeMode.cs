@@ -295,17 +295,14 @@ public abstract class TreeMode
 
    public virtual TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol)
    {
-      if (wrapper == null)
-         throw new ArgumentNullException("wrapper");
-      if (parentCol == null)
-         throw new ArgumentNullException("parentCol");
+      ExceptionHelpers.ThrowIfArgumentIsNull(wrapper, "wrapper");
+      ExceptionHelpers.ThrowIfArgumentIsNull(parentCol, "parentCol");
 
       TreeNode tn = new MaxTreeNode(wrapper);
       this.RegisterNode(wrapper, tn);
 
-      IAnimatable node = wrapper.WrappedNode as IAnimatable;
-
       tn.ShowNode = this.PermanentFilters.ShowNode(wrapper) && this.Filters.ShowNode(wrapper);
+      tn.DragDropHandler = this.CreateDragDropHandler(wrapper);
 
       parentCol.Add(tn);
 
@@ -317,12 +314,16 @@ public abstract class TreeMode
 
    public virtual TreeNode AddNode(Object node, TreeNodeCollection parentCol)
    {
-      if (node == null)
-         throw new ArgumentNullException("node");
-      if (parentCol == null)
-         throw new ArgumentNullException("parentCol");
+      ExceptionHelpers.ThrowIfArgumentIsNull(node, "node");
+      ExceptionHelpers.ThrowIfArgumentIsNull(parentCol, "parentCol");
 
       return this.AddNode(IMaxNodeWrapper.Create(node), parentCol);
+   }
+
+
+   public virtual DragDropHandler CreateDragDropHandler(IMaxNodeWrapper node)
+   {
+      return null;
    }
 
 

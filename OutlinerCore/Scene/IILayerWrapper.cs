@@ -16,8 +16,7 @@ namespace Outliner.Scene
 
       public IILayerWrapper(IILayer layer)
       {
-         if (layer == null)
-            throw new ArgumentNullException("layer");
+         ExceptionHelpers.ThrowIfArgumentIsNull(layer, "layer");
 
          this.layer = layer;
          this.layerProperties = MaxInterfaces.IIFPLayerManager.GetLayer(layer.Name);
@@ -25,8 +24,7 @@ namespace Outliner.Scene
 
       public IILayerWrapper(IILayerProperties layerProperties)
       {
-         if (layerProperties == null)
-            throw new ArgumentNullException("layerProperties");
+         ExceptionHelpers.ThrowIfArgumentIsNull(layerProperties, "layerProperties");
 
          this.layerProperties = layerProperties;
 

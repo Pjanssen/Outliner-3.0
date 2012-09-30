@@ -150,8 +150,7 @@ namespace Outliner.Scene
 
       public static IMaxNodeWrapper Create(Object node)
       {
-         if (node == null)
-            throw new ArgumentNullException("node");
+         ExceptionHelpers.ThrowIfArgumentIsNull(node, "node");
 
          if (node is IMaxNodeWrapper)
             return (IMaxNodeWrapper)node;

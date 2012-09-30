@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using Outliner.Scene;
+using MaxUtils;
 
 namespace Outliner.Filters
 {
@@ -34,8 +35,7 @@ public class NameFilter : Filter<IMaxNodeWrapper>
       }
       set
       {
-         if (value == null)
-            throw new ArgumentNullException("value");
+         ExceptionHelpers.ThrowIfArgumentIsNull(value, "value");
 
          _origSearchString = value;
          if (value == String.Empty)

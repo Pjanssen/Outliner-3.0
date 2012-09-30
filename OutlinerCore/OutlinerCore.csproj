@@ -198,7 +198,6 @@
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContractHelpers.cs" />
-    <Compile Include="ExceptionHelpers.cs" />
     <Compile Include="Controls\Tree\DragDropHandler.cs" />
     <Compile Include="Controls\Tree\Layout\EmptySpace.cs" />
     <Compile Include="Controls\Tree\Layout\ImageButton.cs" />
@@ -221,6 +220,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GroupHelpers.cs" />
     <Compile Include="Modes\NullTreeMode.cs" />
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="NodeSorters\AlphabeticalSorter.cs" />
     <Compile Include="NodeSorters\AnimatablePropertySorter.cs" />
     <Compile Include="NodeSorters\NodeSorter.cs" />
@@ -243,7 +243,6 @@
       <DependentUpon>TestControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Tree\TreeViewColorScheme.cs" />
-    <Compile Include="NativeMethods.cs" />
     <Compile Include="OutlinerGUP.cs" />
     <Compile Include="OutlinerState.cs" />
     <Compile Include="Plugins\LocalizedDisplayImageAttribute.cs" />
