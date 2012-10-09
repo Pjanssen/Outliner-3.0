@@ -28,6 +28,7 @@ namespace Outliner.Controls.Tree.Layout
       public abstract TreeNodeLayoutItem Copy();
 
       [XmlIgnore]
+      [Browsable(false)]
       public TreeNodeLayout Layout { get; internal set; }
 
       /// <summary>
@@ -67,6 +68,7 @@ namespace Outliner.Controls.Tree.Layout
       /// If true, the GetBounds method will return an item bounds rectangle
       /// which is centered relative to the tree.ItemHeight.
       /// </summary>
+      [Browsable(false)]
       public virtual Boolean CenterVertically { get { return true; } }
 
       /// <summary>

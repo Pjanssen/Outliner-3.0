@@ -26,14 +26,14 @@ public class OutlinerGroupBox : GroupBox
    {
       Size tSize = TextRenderer.MeasureText(this.Text, this.Font);
 
-      Rectangle borderRect = e.ClipRectangle;
+      Rectangle borderRect = this.ClientRectangle;
       borderRect.Y += tSize.Height / 2;
       borderRect.Height -= tSize.Height / 2;
       ControlPaint.DrawBorder(e.Graphics, borderRect, this.borderColor, ButtonBorderStyle.Solid);
 
-      Rectangle textRect = e.ClipRectangle;
+      Rectangle textRect = this.ClientRectangle;
       textRect.X += 6;
-      textRect.Width = tSize.Width;
+      textRect.Width = (Int32)(tSize.Width * 1.05f);
       textRect.Height = tSize.Height;
       e.Graphics.FillRectangle(new SolidBrush(this.BackColor), textRect);
       e.Graphics.DrawString(this.Text, this.Font, new SolidBrush(this.ForeColor), textRect);

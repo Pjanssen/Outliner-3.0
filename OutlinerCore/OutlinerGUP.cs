@@ -23,12 +23,14 @@ namespace Outliner
 public class OutlinerGUP
 {
    public static OutlinerGUP Instance { get; private set; }
+
+   public Boolean SettingsLoaded { get; private set; }
    public OutlinerState State { get; private set; }
    public IEnumerable<OutlinerPreset> Presets { get; private set; }
+   public TreeViewColorScheme ColorScheme { get; private set; }
 
    public Dictionary<TreeView, TreeMode> TreeModes { get; private set; }
    private Dictionary<TreeView, OutlinerPreset> currentPresets;
-   public TreeViewColorScheme ColorScheme { get; private set; }
 
    public OutlinerGUP()
    {
@@ -37,7 +39,37 @@ public class OutlinerGUP
 
       OutlinerPlugins.LoadPlugins();
 
-      this.ReloadSettings();
+      this.SettingsLoaded = true;
+
+      try
+      {
+         this.ColorScheme = this.loadColors(OutlinerPaths.ColorFile);
+      }
+      catch
+      {
+         this.ColorScheme = TreeViewColorScheme.MayaColors;
+         this.SettingsLoaded = false;
+      }
+
+      try
+      {
+         this.Presets = this.loadPresets(OutlinerPaths.PresetsDir);
+      }
+      catch
+      {
+         this.Presets = new List<OutlinerPreset>();
+         this.SettingsLoaded = false;
+      }
+
+      try
+      {
+         this.State = this.loadState(OutlinerPaths.StateFile);
+      }
+      catch
+      {
+         this.State = defaultState();
+         this.SettingsLoaded = false;
+      }
    }
 
    internal static void Start()
@@ -113,7 +145,6 @@ public class OutlinerGUP
       tree.TreeNodeLayout = preset.TreeNodeLayout;
       tree.NodeSorter = preset.NodeSorter;
       TreeMode newMode = preset.CreateTreeMode(tree);
-      newMode.Filters = preset.Filters;
 
       this.RegisterTreeMode(tree, newMode);
 
@@ -124,24 +155,23 @@ public class OutlinerGUP
 
    public void ReloadSettings()
    {
-      this.State = XmlSerializationHelpers.FromXml<OutlinerState>("C:/Users/Pier/Desktop/test.xml");
-      this.Presets     = this.loadPresets();
-      this.ColorScheme = this.loadColors();
+      this.Presets     = this.loadPresets(OutlinerPaths.PresetsDir);
+      this.ColorScheme = this.loadColors(OutlinerPaths.ColorFile);
+      this.State       = this.loadState(OutlinerPaths.StateFile);
    }
 
 
-   private IEnumerable<OutlinerPreset> loadPresets()
+   private IEnumerable<OutlinerPreset> loadPresets(String presetsDir)
    {
-      String presetsDir = OutlinerPaths.Presets;
-
       List<OutlinerPreset> presets = new List<OutlinerPreset>();
 
       if (Directory.Exists(presetsDir))
       {
          String[] presetFiles = Directory.GetFiles(presetsDir, "*.xml");
+         Type[] extraTypes = OutlinerPlugins.GetSerializableTypes();
          foreach (String preset in presetFiles)
          {
-            presets.Add(XmlSerializationHelpers.FromXml<OutlinerPreset>(preset));
+            presets.Add(XmlSerializationHelpers<OutlinerPreset>.FromXml(preset, extraTypes));
          }
       }
 
@@ -154,31 +184,47 @@ public class OutlinerGUP
 
       presets.Sort((p, q) => p.Name.CompareTo(q.Name));
 
-      XmlSerializationHelpers.ToXml<OutlinerPreset>("C:/Users/Pier/Desktop/sertest.xml", presets.Find(p => p.Name == "Layers"));
-
       return presets;
    }
 
-
-   private TreeViewColorScheme loadColors()
+   private TreeViewColorScheme loadColors(String colorFile)
    {
-      IIPathConfigMgr pathMgr = MaxInterfaces.Global.IPathConfigMgr.PathConfigMgr;
-      IGlobal.IGlobalMaxSDK.IGlobalUtil.IGlobalPath path = MaxInterfaces.Global.MaxSDK.Util.Path;
-      IPath scriptDir = path.Create(pathMgr.GetDir(MaxDirectory.UserScripts));
-      IPath colorFile = path.Create(scriptDir).Append(path.Create("outliner_colors.xml"));
-      if (colorFile.Exists)
-         return TreeViewColorScheme.FromXml(colorFile.String);
+      if (File.Exists(colorFile))
+         return XmlSerializationHelpers<TreeViewColorScheme>.FromXml(colorFile);
+      else
+         return TreeViewColorScheme.MayaColors;
+   }
+
+   private OutlinerState loadState(String stateFile)
+   {
+      if (File.Exists(stateFile))
+         return XmlSerializationHelpers<OutlinerState>.FromXml(stateFile, OutlinerPlugins.GetSerializableTypes());
       else
       {
-         return TreeViewColorScheme.MayaColors;
-         //tc.treeView1.Colors.ToXml(colorFile.String);
+         return defaultState();
       }
+   }
+
+   private OutlinerState defaultState()
+   {
+      OutlinerState state = new OutlinerState();
+      if (this.Presets != null && this.Presets.Count() > 0)
+      {
+         state.Tree1Preset = this.Presets.First();
+         state.Tree2Preset = this.Presets.First();
+      }
+      return state;
    }
 
 
    public void StoreSettings()
    {
-      //XmlSerializationHelpers.ToXml<OutlinerState>("C:/Users/Pier/Desktop/test.xml", this.State);
+      if (!Directory.Exists(OutlinerPaths.ConfigDir))
+         Directory.CreateDirectory(OutlinerPaths.ConfigDir);
+
+      XmlSerializationHelpers<OutlinerState>.ToXml( OutlinerPaths.StateFile
+                                                  , OutlinerPlugins.GetSerializableTypes()
+                                                  , this.State);
    }
 
 }

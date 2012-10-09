@@ -48,7 +48,6 @@ internal static class StandardContextMenu
       }
       preset_btn.DropDownItems.Add(new ToolStripSeparator());
       AddDropDownItem(preset_btn.DropDownItems, ContextMenuResources.Str_EditPresets, null, EditPresets_Click, null);
-      AddDropDownItem(preset_btn.DropDownItems, ContextMenuResources.Str_SavePreset, null, null, null);
 
       strip.Items.Add(preset_btn);
 

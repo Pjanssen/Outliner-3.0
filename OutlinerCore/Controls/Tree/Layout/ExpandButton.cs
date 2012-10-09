@@ -67,21 +67,6 @@ public class ExpandButton : TreeNodeButton
       return pos.Y + (this.Layout.ItemHeight / 2) - 1;
    }
 
-   [XmlAttribute("padding_left")]
-   public override int PaddingLeft
-   {
-      get
-      {
-         if (this.Layout.LayoutItems.First() == this)
-            return base.PaddingLeft - this.Layout.PaddingLeft;
-         else
-            return base.PaddingLeft;
-      }
-      set
-      {
-         base.PaddingLeft = value;
-      }
-   }
 
    public override int GetWidth(TreeNode tn)
    {

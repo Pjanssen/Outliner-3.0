@@ -8,6 +8,7 @@ using Outliner.Controls;
 using Outliner.Controls.Tree;
 using System.Windows.Forms.Integration;
 using Outliner.Presets;
+using WinForms = System.Windows.Forms;
 
 namespace Outliner.Actions
 {
@@ -49,6 +50,8 @@ public class OpenOutliner : CuiDockableContentAdapter
    protected OutlinerSplitContainer splitContainer;
    protected TreeView tree1;
    protected TreeView tree2;
+   protected List<Scene.IMaxNodeWrapper> expandedNodes1;
+   protected List<Scene.IMaxNodeWrapper> expandedNodes2;
 
    public override object CreateDockableContent()
    {
@@ -62,15 +65,34 @@ public class OpenOutliner : CuiDockableContentAdapter
       this.tree2 = mainControl.treeView2;
 
       OutlinerGUP outlinerInstance = OutlinerGUP.Instance;
+
+      if (!outlinerInstance.SettingsLoaded)
+      {
+         try
+         {
+            outlinerInstance.ReloadSettings();
+         }
+         catch (Exception e)
+         {
+            WinForms::MessageBox.Show( String.Format( "There was an error while loading settings:\n{0}"
+                                                    , e.Message)
+                                     , "Error loading settings"
+                                     , WinForms.MessageBoxButtons.OK
+                                     , WinForms.MessageBoxIcon.Error);
+
+            return host;
+         }
+      }
+
       OutlinerState outlinerState = outlinerInstance.State;
 
       this.tree1.Colors = OutlinerGUP.Instance.ColorScheme;
       this.tree2.Colors = OutlinerGUP.Instance.ColorScheme;
 
-      this.splitContainer.Orientation = outlinerState.SplitterOrientation;
+      this.splitContainer.Orientation      = outlinerState.SplitterOrientation;
       this.splitContainer.SplitterDistance = outlinerState.SplitterDistance;
-      this.splitContainer.Panel1Collapsed = outlinerState.Panel1Collapsed;
-      this.splitContainer.Panel2Collapsed = outlinerState.Panel2Collapsed;
+      this.splitContainer.Panel1Collapsed  = outlinerState.Panel1Collapsed;
+      this.splitContainer.Panel2Collapsed  = outlinerState.Panel2Collapsed;
 
       outlinerInstance.SwitchPreset(tree1, outlinerState.Tree1Preset, false);
       outlinerInstance.SwitchPreset(tree2, outlinerState.Tree2Preset, false);
@@ -103,6 +125,9 @@ public class OpenOutliner : CuiDockableContentAdapter
 
       this.StartStopTree(outliner, this.tree1, !this.splitContainer.Panel1Collapsed);
       this.StartStopTree(outliner, this.tree2, !this.splitContainer.Panel2Collapsed);
+
+      this.RestoreExpandedNodes(outliner.GetActiveTreeMode(tree1), this.expandedNodes1);
+      this.RestoreExpandedNodes(outliner.GetActiveTreeMode(tree2), this.expandedNodes2);
    }
 
    private void host_Unloaded(object sender, System.Windows.RoutedEventArgs e)
@@ -111,6 +136,9 @@ public class OpenOutliner : CuiDockableContentAdapter
          return;
 
       OutlinerGUP outliner = OutlinerGUP.Instance;
+
+      this.expandedNodes1 = this.GetExpandedNodes(this.tree1.Root);
+      this.expandedNodes2 = this.GetExpandedNodes(this.tree2.Root);
 
       this.StartStopTree(outliner, this.tree1, false);
       this.StartStopTree(outliner, this.tree2, false);
@@ -129,6 +157,43 @@ public class OpenOutliner : CuiDockableContentAdapter
          outlinerInstance.SwitchPreset(tree, outlinerInstance.State.Tree2Preset, true);
    }
 
+   private List<Outliner.Scene.IMaxNodeWrapper> GetExpandedNodes(TreeNode tn)
+   {
+      List<Outliner.Scene.IMaxNodeWrapper> nodes = new List<Scene.IMaxNodeWrapper>();
+
+      if (tn.IsExpanded)
+      {
+         Scene.IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+         if (node != null)
+            nodes.Add(node);
+      }
+
+      foreach (TreeNode childTn in tn.Nodes)
+      {
+         nodes.AddRange(this.GetExpandedNodes(childTn));
+      }
+
+      return nodes;
+   }
+
+   private void RestoreExpandedNodes(TreeMode mode, List<Scene.IMaxNodeWrapper> nodes)
+   {
+      if (mode == null || nodes == null)
+         return;
+
+      mode.Tree.BeginUpdate();
+
+      foreach (Scene.IMaxNodeWrapper node in nodes)
+      {
+         List<TreeNode> tns = mode.GetTreeNodes(node);
+         if (tns != null)
+         {
+            tns.ForEach(tn => tn.IsExpanded = true);
+         }
+      }
+
+      mode.Tree.EndUpdate();
+   }
 
    private void UpdateState()
    {

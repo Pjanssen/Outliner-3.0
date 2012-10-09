@@ -18,31 +18,53 @@ public static class OutlinerPaths
       return pathMgr.GetDir(dir);
    }
 
-   private static String plugins;
-   public static String Plugins
+   private static String pluginsDir;
+   public static String PluginsDir
    {
       get
       {
-         if (plugins == null)
+         if (pluginsDir == null)
          {
-            plugins = Path.Combine( GetMaxDirectory(MaxDirectory.ManagedAssemblies)
-                                  , "OutlinerPlugins");
+            pluginsDir = Path.Combine( GetMaxDirectory(MaxDirectory.ManagedAssemblies)
+                                     , "OutlinerPlugins");
          }
-         return plugins;
+         return pluginsDir;
       }
    }
 
-   private static String presets;
-   public static String Presets
+   private static String configDir;
+   public static String ConfigDir
    {
       get
       {
-         if (presets == null)
-         {
-            presets = Path.Combine( GetMaxDirectory(MaxDirectory.ManagedAssemblies)
-                                  , "OutlinerPresets");
-         }
-         return presets;
+         if (configDir == null)
+            configDir = Path.Combine(GetMaxDirectory(MaxDirectory.Plugcfg), "Outliner");
+
+         return configDir;
+      }
+   }
+
+   public static String PresetsDir
+   {
+      get
+      {
+         return Path.Combine(OutlinerPaths.ConfigDir, "Presets");
+      }
+   }
+
+   public static String StateFile
+   {
+      get
+      {
+         return Path.Combine(OutlinerPaths.ConfigDir, "saved_state.xml");
+      }
+   }
+
+   public static String ColorFile
+   {
+      get
+      {
+         return Path.Combine(OutlinerPaths.ConfigDir, "colors.xml");
       }
    }
 }

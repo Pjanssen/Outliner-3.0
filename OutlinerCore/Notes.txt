@@ -4,8 +4,10 @@
 * Superclass sorter does not really work with exceptions (target, bones, etc). -> use imagekey instead?
 * SetViewCameraCommand: properly store previous state.
 * ToggleLightTest use IInterface.CreateLightObject ?
-* Filters: should enabling e.g. bonefilter show only bones, or hide only bones?
-* Save filter presets.
+* Invert filter option
+* Exception handling
+* Updating / Installing
+* recognizing incoming layers from xref -> layers from xref will be separated to another tree view
 
 TREEVIEW
 --------
@@ -14,8 +16,6 @@ TREEVIEW
 NODE BUTTONS
 ------------
 * Add filter code to click handlers.
-* Decide whether clicking a node button should apply to the entire selection 
-  with or without holding Control.
 * Larger Add button?
 
 
@@ -37,7 +37,7 @@ Xref         -
 
 
 Productivity tools
-* Advanced rename should work with any Outliner selection (object, material, layer, etc)
+* Advanced rename - should work with any Outliner selection (object, material, layer, etc)
 * Delete empty layers
 * Color Tags
 * Maxscript Filter
@@ -74,3 +74,12 @@ TreeNodeButtons
 * Maya indent
 * BoxMode, Renderable, WireColor (Animatable Property)
 * ColorTag
+
+
+Options
+-------
+* Update settings
+* Drag-Drop mousebutton
+* Text Double-Click action
+* search bar options
+* expand all

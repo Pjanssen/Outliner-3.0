@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Outliner.Controls.Tree.Layout
 {
-public class TreeNodeLayoutItemCollection : ICollection<TreeNodeLayoutItem>
+public class TreeNodeLayoutItemCollection : IList<TreeNodeLayoutItem>
 {
    private List<TreeNodeLayoutItem> items;
    private TreeNodeLayout layout;
@@ -85,6 +85,33 @@ public class TreeNodeLayoutItemCollection : ICollection<TreeNodeLayoutItem>
    System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
    {
       return this.items.GetEnumerator();
+   }
+
+   public int IndexOf(TreeNodeLayoutItem item)
+   {
+      return this.items.IndexOf(item);
+   }
+
+   public void Insert(int index, TreeNodeLayoutItem item)
+   {
+      this.items.Insert(index, item);
+   }
+
+   public void RemoveAt(int index)
+   {
+      this.items.RemoveAt(index);
+   }
+
+   public TreeNodeLayoutItem this[int index]
+   {
+      get
+      {
+         return this.items[index];
+      }
+      set
+      {
+         this.items[index] = value;
+      }
    }
 }
 }

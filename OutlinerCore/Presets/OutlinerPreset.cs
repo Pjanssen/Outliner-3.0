@@ -15,6 +15,7 @@ using System.IO;
 using System.Xml.Serialization;
 using Outliner.Plugins;
 using System.ComponentModel;
+using System.Reflection;
 
 namespace Outliner.Presets
 {
@@ -37,7 +38,27 @@ public class OutlinerPreset
 
    [XmlElement("image_resource_type")]
    [DefaultValue("")]
-   public virtual String ImageResourceType { get; set; }
+   public virtual String ImageResourceTypeName { get; set; }
+
+   [XmlIgnore]
+   internal virtual Type ImageResourceType
+   {
+      get
+      {
+         if (String.IsNullOrEmpty(this.ImageResourceTypeName))
+            return null;
+
+         Type resourceType = null;
+         foreach (Assembly pluginAssembly in OutlinerPlugins.PluginAssemblies)
+         {
+            resourceType = pluginAssembly.GetType(this.ImageResourceTypeName);
+            if (resourceType != null)
+               break;
+         }
+
+         return resourceType;
+      }
+   }
 
    [XmlElement("image_16")]
    [DefaultValue("")]
@@ -52,9 +73,14 @@ public class OutlinerPreset
    {
       get
       {
-         Image img = this.ImageFromFile(this.Image16Name);
-         if (img == null)
-            img = this.ImageFromResource(this.ImageResourceType, this.Image16Name);
+         Image img = null;
+         if (!String.IsNullOrEmpty(this.Image16Name))
+         {
+            img = this.ImageFromFile(this.Image16Name);
+            if (img == null && this.ImageResourceType != null)
+               img = ResourceHelpers.LookupImage(this.ImageResourceType, this.Image16Name);
+         }
+         
          if (img == null)
             img = OutlinerResources.default_preset_16;
 
@@ -67,9 +93,14 @@ public class OutlinerPreset
    {
       get
       {
-         Image img = this.ImageFromFile(this.Image24Name);
-         if (img == null)
-            img = this.ImageFromResource(this.ImageResourceType, this.Image24Name);
+         Image img = null;
+         if (!String.IsNullOrEmpty(this.Image24Name))
+         {
+            img = this.ImageFromFile(this.Image24Name);
+            if (img == null && this.ImageResourceType != null)
+               img = ResourceHelpers.LookupImage(this.ImageResourceType, this.Image24Name);
+         }
+
          if (img == null)
             img = OutlinerResources.default_preset_24;
 
@@ -99,7 +130,10 @@ public class OutlinerPreset
       if (treeModeType == null)
          treeModeType = typeof(NullTreeMode);
 
-      return Activator.CreateInstance(treeModeType, new object[] { tree }) as TreeMode;
+      TreeMode mode = Activator.CreateInstance(treeModeType, new object[] { tree }) as TreeMode;
+      mode.Filters = this.Filters;
+
+      return mode;
    }
 
    private Image ImageFromFile(String path)
@@ -108,7 +142,7 @@ public class OutlinerPreset
       if (!String.IsNullOrEmpty(path))
       {
          if (!Path.IsPathRooted(path))
-            path = Path.Combine(OutlinerPaths.Presets, path);
+            path = Path.Combine(OutlinerPaths.PresetsDir, path);
 
          if (!Path.HasExtension(path))
             path = Path.ChangeExtension(path, "png");
@@ -118,24 +152,6 @@ public class OutlinerPreset
       }
 
       return img;
-   }
-
-   private Image ImageFromResource(string resourceTypeName, string resourceKey)
-   {
-      if (resourceTypeName == null || resourceKey == null)
-         return null;
-
-      Type resourceType = null;
-      foreach (System.Reflection.Assembly pluginAssembly in OutlinerPlugins.PluginAssemblies)
-      {
-         resourceType = pluginAssembly.GetType(resourceTypeName);
-         if (resourceType != null)
-            break;
-      }
-      if (resourceType != null)
-         return ResourceHelpers.LookupImage(resourceType, resourceKey);
-      else
-         return null;
    }
 }
 }

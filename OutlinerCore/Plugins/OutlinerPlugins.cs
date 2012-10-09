@@ -19,6 +19,8 @@ public static class OutlinerPlugins
 {
    internal const OutlinerPluginType PluginTypeAll = (OutlinerPluginType)0xFF;
    internal const OutlinerPluginType PluginTypeNone = (OutlinerPluginType)0x00;
+   private const String PluginExtension = "dll";
+   private const String PluginSearchPattern = "*." + PluginExtension;
 
    private static List<OutlinerPluginData> plugins;
 
@@ -52,12 +54,16 @@ public static class OutlinerPlugins
          //Add own assembly.
          assemblies.Add(Assembly.GetAssembly(typeof(OutlinerPlugins)));
 
-         String pluginDir = OutlinerPaths.Plugins;
+         String pluginDir = OutlinerPaths.PluginsDir;
+
+         AppDomain domain = AppDomain.CurrentDomain;
+         
+
          //Add plugin assemblies.
          if (Directory.Exists(pluginDir))
          {
             String[] pluginFiles = Directory.GetFiles( pluginDir
-                                                     , "*.dll"
+                                                     , OutlinerPlugins.PluginSearchPattern
                                                      , SearchOption.AllDirectories);
             foreach (String pluginFile in pluginFiles)
             {
@@ -69,6 +75,10 @@ public static class OutlinerPlugins
       }
    }
 
+   public static void otherAppDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+   {
+      MaxUtils.HelperMethods.WriteToListener(e.ExceptionObject);
+   }
    
    /// <summary>
    /// (Re)loads all plugins from the <see cref="PluginDirectory"/>.

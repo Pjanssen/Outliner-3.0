@@ -13,12 +13,14 @@ using MaxUtils;
 using Outliner.Controls.Tree.Layout;
 using Outliner.Filters;
 using Outliner.Scene;
+using Outliner.Modes;
 
 namespace Outliner.Controls.Options
 {
 public partial class PresetEditor : Form
 {
    private OutlinerPreset editingPreset;
+   private TreeMode previewMode;
    
    public PresetEditor()
    {
@@ -28,41 +30,24 @@ public partial class PresetEditor : Form
       Color foreColor       = ColorHelpers.FromMaxGuiColor(GuiColors.Text);
       Color windowColor     = ColorHelpers.FromMaxGuiColor(GuiColors.Window);
       Color windowTextColor = ColorHelpers.FromMaxGuiColor(GuiColors.WindowText);
-
+      
       this.BackColor = backColor;
       this.ForeColor = foreColor;
-      presetsTree.Colors = new Tree.TreeViewColorScheme();
-      presetsTree.Colors.Background = new SerializableColor(windowColor);
-      presetsTree.Colors.ForegroundLight = new SerializableColor(windowTextColor);
-      presetsTree.Colors.ParentBackground = new SerializableColor(windowColor);
-      presetsTree.Colors.ParentForeground = new SerializableColor(windowTextColor);
-      presetsTree.Colors.AlternateBackground = false;
+      Tree.TreeViewColorScheme treeColors = new Tree.TreeViewColorScheme();
+      treeColors.Background = new SerializableColor(windowColor);
+      treeColors.ForegroundLight = new SerializableColor(windowTextColor);
+      treeColors.ParentBackground = new SerializableColor(windowColor);
+      treeColors.ParentForeground = new SerializableColor(windowTextColor);
+      treeColors.AlternateBackground = false;
+      this.presetsTree.Colors = treeColors;
+      this.previewTree.Colors = treeColors;
+
       presetsTree.TreeNodeLayout.FullRowSelect = true;
-
-      this.propertiesGroupBox.BackColor = backColor;
-      this.propertiesGroupBox.ForeColor = foreColor;
-      this.filterGroupBox.BackColor = backColor;
-      this.filterGroupBox.ForeColor = foreColor;
-      this.layoutGroupBox.BackColor = backColor;
-      this.layoutGroupBox.ForeColor = foreColor;
-
-      this.nameTextBox.BackColor = windowColor;
-      this.nameTextBox.ForeColor = windowTextColor;
-      this.modeComboBox.BackColor = windowColor;
-      this.modeComboBox.ForeColor = windowTextColor;
-      this.sorterComboBox.BackColor = windowColor;
-      this.sorterComboBox.ForeColor = windowTextColor;
-
-      this.layoutTree.TreeNodeLayout = new TreeNodeLayout();
-      this.layoutTree.TreeNodeLayout.LayoutItems.Add(new TreeNodeText());
-
-      this.propertyGrid1.ViewBackColor = windowColor;
-      this.propertyGrid1.ViewForeColor = windowTextColor;
+      ((ExpandButton)presetsTree.TreeNodeLayout.LayoutItems.First()).UseVisualStyles = false;
 
       this.FillPresetList();
-      this.FillLists();
-
       this.FillPresetProperties();
+      this.UpdatePreviewTree();
    }
 
    private void FillPresetList()
@@ -76,8 +61,7 @@ public partial class PresetEditor : Form
       
       foreach (OutlinerPreset preset in outliner.Presets.Where(p => p.IsDefaultPreset))
       {
-         Tree.TreeNode tn = new Tree.TreeNode(preset.Name);
-         tn.Tag = preset;
+         Tree.TreeNode tn = createPresetTreeNode(preset);
          defaultTn.Nodes.Add(tn);
       }
 
@@ -86,8 +70,7 @@ public partial class PresetEditor : Form
 
       foreach (OutlinerPreset preset in outliner.Presets.Where(p => !p.IsDefaultPreset))
       {
-         Tree.TreeNode tn = new Tree.TreeNode(preset.Name);
-         tn.Tag = preset;
+         Tree.TreeNode tn = createPresetTreeNode(preset);
          customTn.Nodes.Add(tn);
       }
 
@@ -95,74 +78,60 @@ public partial class PresetEditor : Form
       presetsTree.Nodes.Add(customTn);
    }
 
-   private void FillLists()
+   private Tree.TreeNode createPresetTreeNode(OutlinerPreset preset)
    {
-      IEnumerable<OutlinerPluginData> modes = OutlinerPlugins.GetPluginsByType(OutlinerPluginType.TreeMode);
-      foreach (OutlinerPluginData mode in modes)
-      {
-         this.modeComboBox.Items.Add(mode.DisplayName);
-      }
+      Tree.TreeNode tn = new Tree.TreeNode(preset.Name);
+      tn.Tag = preset;
 
-      IEnumerable<OutlinerPluginData> sorters = OutlinerPlugins.GetPluginsByType(OutlinerPluginType.NodeSorter);
-      foreach (OutlinerPluginData sorter in sorters)
-      {
-         this.sorterComboBox.Items.Add(sorter.DisplayName);
-      }
+      Tree.TreeNode filterTn = new Tree.TreeNode("Filters");
+      filterTn.Tag = preset.Filters;
+      tn.Nodes.Add(filterTn);
 
-      IEnumerable<OutlinerPluginData> filters = OutlinerPlugins.GetPluginsByType(OutlinerPluginType.Filter);
-      foreach (OutlinerPluginData filter in filters)
-      {
-         this.filtersComboBox.Items.Add(filter.DisplayName);
-      }
-
-      IEnumerable<OutlinerPluginData> layoutItems = OutlinerPlugins.GetPluginsByType(OutlinerPluginType.TreeNodeButton);
-      foreach (OutlinerPluginData layoutItem in layoutItems)
-      {
-         this.layoutComboBox.Items.Add(layoutItem.DisplayName);
-      }
+      Tree.TreeNode layoutTn = new Tree.TreeNode("Layout");
+      layoutTn.Tag = preset.TreeNodeLayout;
+      tn.Nodes.Add(layoutTn);
+      
+      return tn;
    }
 
 
    private void FillPresetProperties()
    {
-      Boolean enabled = this.editingPreset != null;
+      this.propertiesPanel.Controls.Clear();
 
-      foreach (Control control in this.propertiesPanel.Controls)
+      Tree.TreeNode tn = this.presetsTree.SelectedNodes.FirstOrDefault();
+      Control editor = null;
+
+      if (tn != null && tn.Tag != null)
       {
-         if (control != presetsTree && control != addDeletePanel
-                                    && control != okCancelPanel)
+         Type tagType = tn.Tag.GetType();
+
+         if (tagType.Equals(typeof(OutlinerPreset)) || tagType.IsSubclassOf(typeof(OutlinerPreset)))
+            editor = new PresetPropertiesEditor(this, tn.Tag as OutlinerPreset);
+         else if (tagType == typeof(FilterCollection<IMaxNodeWrapper>))
+            editor = new FilterCollectionEditor(this, tn.Tag as FilterCollection<IMaxNodeWrapper>);
+         else if (tagType == typeof(TreeNodeLayout))
+            editor = new TreeNodeLayoutEditor(this, tn.Tag as TreeNodeLayout);
+
+         if (editor != null)
          {
-            if (control is GroupBox)
-            {
-               foreach (Control groupControl in control.Controls)
-               {
-                  groupControl.Enabled = enabled;
-               }
-            }
-            else
-               control.Enabled = enabled;
+            editor.Dock = DockStyle.Fill;
+            this.propertiesPanel.Controls.Add(editor);
          }
       }
 
-      if (enabled)
+      this.previewGroupBox.Visible = editor != null;
+   }
+
+   private void SetDeleteButtonState()
+   {
+      if (this.editingPreset != null)
       {
-         this.nameTextBox.Text = this.editingPreset.Name;
-
-         //this.filterEnabledCheckBox.Checked = editingPreset.Filters.Enabled;
-         this.filtersTree.Nodes.Clear();
-         foreach (Filter<IMaxNodeWrapper> item in this.editingPreset.Filters)
-         {
-            this.filtersTree.Nodes.Add(new Tree.TreeNode(item.GetType().Name));
-         }
-
-         this.layoutTree.Nodes.Clear();
-         foreach (TreeNodeLayoutItem item in this.editingPreset.TreeNodeLayout.LayoutItems)
-         {
-            Tree.TreeNode tn = new Tree.TreeNode(item.GetType().Name);
-            tn.Tag = item;
-            this.layoutTree.Nodes.Add(tn);
-         }
+         this.deleteBtn.Enabled = true;
+         this.deleteBtn.Text = this.editingPreset.IsDefaultPreset ? "Reset" : "Delete";
       }
+      else
+         this.deleteBtn.Enabled = false;
    }
 
    private void presetsList_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
@@ -187,17 +156,57 @@ public partial class PresetEditor : Form
 
    private void presetsTree_SelectionChanged(object sender, Tree.SelectionChangedEventArgs e)
    {
-      if (e.Nodes.Count() > 0)
-         this.editingPreset = e.Nodes.First().Tag as OutlinerPreset;
+      Tree.TreeNode tn = e.Nodes.FirstOrDefault();
+      if (tn != null && tn.Tag != null)
+      {
+         this.editingPreset = tn.Tag as OutlinerPreset;
+         if (this.editingPreset == null)
+         {
+            this.editingPreset = tn.Parent.Tag as OutlinerPreset;
+         }
+      }
       else
          this.editingPreset = null;
 
       this.FillPresetProperties();
+      this.SetDeleteButtonState();
+      this.UpdatePreviewTree();
    }
 
-   private void layoutTree_SelectionChanged(object sender, Tree.SelectionChangedEventArgs e)
+   internal void UpdatePreviewTree()
    {
-      this.propertyGrid1.SelectedObject = e.Nodes.First().Tag;
+      if (this.previewMode != null)
+      {
+         this.previewMode.Stop();
+      }
+
+      this.previewTree.Nodes.Clear();
+
+      if (this.editingPreset != null)
+      {
+         this.previewTree.TreeNodeLayout = this.editingPreset.TreeNodeLayout;
+         this.previewTree.NodeSorter = this.editingPreset.NodeSorter;
+         this.previewMode = this.editingPreset.CreateTreeMode(this.previewTree);
+         this.previewMode.Start();
+
+         if (this.previewTree.Nodes.Count == 0)
+         {
+            Tree.TreeNode tn = new Tree.TreeNode("No nodes to show");
+            tn.Nodes.Add(new Tree.TreeNode("Open a scene for a proper preview"));
+            this.previewTree.Nodes.Add(tn);
+         }
+
+         if (this.previewTree.SelectedNodes.Count() == 0)
+         {
+            Tree.TreeNode tn = this.previewTree.Nodes.FirstOrDefault();
+            if (tn != null)
+            {
+               this.previewTree.SelectNode(tn, true);
+            }
+         }
+
+         this.previewTree.Root.ExpandAll();
+      }
    }
 }
 }
