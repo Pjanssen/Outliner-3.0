@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using System.Drawing;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Outliner.LayerTools;
 using Outliner.Plugins;
 

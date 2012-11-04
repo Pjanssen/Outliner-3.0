@@ -6,7 +6,7 @@ using Autodesk.Max;
 using Outliner.Controls.Tree;
 using Outliner.Scene;
 using Outliner.Filters;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Outliner.Plugins;
 
 namespace Outliner.Modes.FlatObjectList

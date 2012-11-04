@@ -9,7 +9,7 @@ namespace Outliner.MaterialMode
 {
    public class UnassignedMaterialFilter : Filter<IMaxNodeWrapper>
    {
-      override public Boolean ShowNode(IMaxNodeWrapper data)
+      override protected Boolean ShowNodeInternal(IMaxNodeWrapper data)
       {
          return false;
          //if (!(n is OutlinerMaterial))

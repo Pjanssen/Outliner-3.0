@@ -35,15 +35,16 @@
       <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\Autodesk.Max.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="LayerTools">
-      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\LayerTools.dll</HintPath>
-    </Reference>
-    <Reference Include="MaxUtils">
-      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\MaxUtils.dll</HintPath>
+    <Reference Include="Outliner.Core">
+      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\Outliner.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="OutlinerCore">
-      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\OutlinerCore.dll</HintPath>
+    <Reference Include="Outliner.LayerTools">
+      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\Outliner.LayerTools.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Outliner.MaxUtils">
+      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\Outliner.MaxUtils.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -58,7 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddButton.cs" />
-    <Compile Include="AnimatablePropertyButton.cs" />
+    <Compile Include="NodePropertyButton.cs" />
     <Compile Include="BoxModeButton.cs" />
     <Compile Include="FreezeButton.cs" />
     <Compile Include="HideButton.cs" />

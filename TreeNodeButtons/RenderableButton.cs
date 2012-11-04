@@ -8,18 +8,19 @@ using System.Drawing;
 using Outliner.Plugins;
 using Outliner.Controls.Tree.Layout;
 using System.Xml.Serialization;
+using Outliner.MaxUtils;
 
 namespace Outliner.TreeNodeButtons
 {
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
-public class RenderableButton : AnimatablePropertyButton
+public class RenderableButton : NodePropertyButton
 {
    public RenderableButton()
       : base(NodeButtonImages.GetButtonImages(NodeButtonImages.Images.Renderable)) { }
 
-   protected override MaxUtils.AnimatableProperty Property
+   protected override NodeProperty Property
    {
-      get { return MaxUtils.AnimatableProperty.Renderable; }
+      get { return NodeProperty.Renderable; }
    }
 
    protected override string ToolTipEnabled

@@ -14,7 +14,7 @@ namespace Outliner.Filters
    [FilterCategory(FilterCategories.Classes)]
    public class NurbsFilter : Filter<IMaxNodeWrapper>
    {
-      public override Boolean ShowNode(IMaxNodeWrapper data)
+      protected override Boolean ShowNodeInternal(IMaxNodeWrapper data)
       {
          IINodeWrapper iinodeWrapper = data as IINodeWrapper;
          if (iinodeWrapper == null)

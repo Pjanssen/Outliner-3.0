@@ -17,13 +17,13 @@ public class LayersPreset : OutlinerPreset
    public LayersPreset()
    {
       this.Name              = Resources.Preset_DisplayName;
-      this.ImageResourceType = typeof(Resources).FullName;
+      this.ImageResourceTypeName = typeof(Resources).FullName;
       this.Image16Name       = "layer_mode_16";
       this.Image24Name       = "layer_mode_24";
 
       this.TreeModeTypeName = typeof(LayerMode).FullName;
       this.NodeSorter = new AlphabeticalSorter(false);
-      this.Filters = new Filters.FilterCollection<Scene.IMaxNodeWrapper>();
+      this.Filters = new Filters.MaxNodeFilterCombinator();
 
       this.TreeNodeLayout = new TreeNodeLayout();
       this.TreeNodeLayout.ItemHeight = 20;

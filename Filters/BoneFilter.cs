@@ -2,7 +2,7 @@
 using Outliner.Scene;
 using Autodesk.Max;
 using Outliner.Modes;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Outliner.Plugins;
 
 namespace Outliner.Filters
@@ -13,7 +13,7 @@ namespace Outliner.Filters
    [FilterCategory(FilterCategories.Classes)]
    public class BoneFilter : Filter<IMaxNodeWrapper>
    {
-      override public Boolean ShowNode(IMaxNodeWrapper data)
+      protected override Boolean ShowNodeInternal(IMaxNodeWrapper data)
       {
          IINodeWrapper iinodeWrapper = data as IINodeWrapper;
          if (iinodeWrapper == null)

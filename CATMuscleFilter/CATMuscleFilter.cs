@@ -19,7 +19,7 @@ namespace Outliner.Filters.CATMuscleFilter
       private const uint handleIDA = 0x141E37A3;
       private const uint handleIDB = 0x2B362406;
 
-      public override bool ShowNode(IMaxNodeWrapper data)
+      protected override bool ShowNodeInternal(IMaxNodeWrapper data)
       {
          if (data == null)
             return false;

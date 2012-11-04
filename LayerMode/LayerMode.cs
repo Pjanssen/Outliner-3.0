@@ -8,7 +8,7 @@ using Outliner.Scene;
 using Outliner.Controls.Tree;
 using Outliner.Filters;
 using Outliner.Controls;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Outliner.LayerTools;
 using Outliner.NodeSorters;
 using Outliner.Plugins;
@@ -181,8 +181,8 @@ public class LayerMode : TreeMode
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
       if (layer != null)
       {
-         AnimatablePropertySorter sorter = Tree.NodeSorter as AnimatablePropertySorter;
-         Boolean sort = sorter != null && sorter.Property == AnimatableProperty.IsHidden;
+         NodePropertySorter sorter = Tree.NodeSorter as NodePropertySorter;
+         Boolean sort = sorter != null && sorter.Property == NodeProperty.IsHidden;
          this.InvalidateObject(layer, true, sort);
       }
    }
@@ -193,8 +193,8 @@ public class LayerMode : TreeMode
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
       if (layer != null)
       {
-         AnimatablePropertySorter sorter = Tree.NodeSorter as AnimatablePropertySorter;
-         Boolean sort = sorter != null && sorter.Property == AnimatableProperty.IsFrozen;
+         NodePropertySorter sorter = Tree.NodeSorter as NodePropertySorter;
+         Boolean sort = sorter != null && sorter.Property == NodeProperty.IsFrozen;
          this.InvalidateObject(layer, true, sort);
       }
    }

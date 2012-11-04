@@ -2,6 +2,7 @@
 using Autodesk.Max;
 using Outliner.Scene;
 using Outliner.Plugins;
+using Outliner.MaxUtils;
 
 namespace Outliner.Filters
 {
@@ -9,14 +10,11 @@ namespace Outliner.Filters
    [LocalizedDisplayName(typeof(Resources), "Filter_Hidden")]
    [LocalizedDisplayImage(typeof(Resources), "hide")]
    [FilterCategory(FilterCategories.Properties)]
-   public class HiddenFilter : Filter<IMaxNodeWrapper>
+   public class HiddenFilter : NodePropertyFilter
    {
-      override public Boolean ShowNode(IMaxNodeWrapper data)
+      public HiddenFilter() : base(BooleanNodeProperty.IsHidden)
       {
-         if (data == null)
-            return false;
-
-         return !data.IsHidden;
+         this.Invert = true;
       }
    }
 }

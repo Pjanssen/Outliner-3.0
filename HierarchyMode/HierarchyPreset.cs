@@ -20,13 +20,13 @@ public class HierarchyPreset : OutlinerPreset
    public HierarchyPreset()
    {
       this.Name = Resources.Preset_DisplayName;
-      this.ImageResourceType = typeof(Resources).FullName;
+      this.ImageResourceTypeName = typeof(Resources).FullName;
       this.Image16Name = "hierarchy_mode_16";
       this.Image24Name = "hierarchy_mode_24";
 
       this.TreeModeTypeName = typeof(HierarchyMode).FullName;
       this.NodeSorter = new AlphabeticalSorter(false);
-      this.Filters = new FilterCollection<Scene.IMaxNodeWrapper>();
+      this.Filters = new MaxNodeFilterCombinator();
 
       this.TreeNodeLayout = new TreeNodeLayout();
       this.TreeNodeLayout.ItemHeight = 20;

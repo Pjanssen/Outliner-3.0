@@ -38,12 +38,12 @@
     <Reference Include="MaxCustomControls">
       <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\MaxCustomControls.dll</HintPath>
     </Reference>
-    <Reference Include="MaxUtils">
-      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\MaxUtils.dll</HintPath>
+    <Reference Include="Outliner.Core">
+      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\Outliner.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="OutlinerCore">
-      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\OutlinerCore.dll</HintPath>
+    <Reference Include="Outliner.MaxUtils">
+      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\Outliner.MaxUtils.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />

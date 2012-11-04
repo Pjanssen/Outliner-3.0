@@ -2,6 +2,7 @@
 using Autodesk.Max;
 using Outliner.Scene;
 using Outliner.Plugins;
+using Outliner.MaxUtils;
 
 namespace Outliner.Filters
 {
@@ -9,14 +10,11 @@ namespace Outliner.Filters
    [LocalizedDisplayName(typeof(Resources), "Filter_Frozen")]
    [LocalizedDisplayImage(typeof(Resources), "freeze")]
    [FilterCategory(FilterCategories.Properties)]
-   public class FrozenFilter : Filter<IMaxNodeWrapper>
+   public class FrozenFilter : NodePropertyFilter
    {
-      override public Boolean ShowNode(IMaxNodeWrapper data)
+      public FrozenFilter() : base(BooleanNodeProperty.IsFrozen) 
       {
-         if (data == null)
-            return false;
-
-         return !data.IsFrozen;
+         this.Invert = true;
       }
    }
 }

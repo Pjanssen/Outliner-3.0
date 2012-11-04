@@ -6,7 +6,7 @@ using Autodesk.Max;
 using Outliner.Scene;
 using Outliner.Controls.Tree;
 using Outliner.Filters;
-using MaxUtils;
+using Outliner.MaxUtils;
 using System.Runtime.InteropServices;
 //using Outliner.LayerTools;
 using Outliner.Plugins;

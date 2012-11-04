@@ -6,7 +6,7 @@ using Outliner.Plugins;
 using Outliner.Controls.Tree;
 using Outliner.Scene;
 using Autodesk.Max;
-using MaxUtils;
+using Outliner.MaxUtils;
 
 namespace Outliner.NodeSorters
 {

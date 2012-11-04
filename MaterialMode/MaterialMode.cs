@@ -15,7 +15,7 @@ namespace Outliner.MaterialMode
    {
       public MaterialMode(TreeView tree) : base(tree) 
       {
-         this.PermanentFilters.Add(new UnassignedMaterialFilter());
+         //this.PermanentFilters.Add(new UnassignedMaterialFilter());
       }
 
       protected override void FillTree()

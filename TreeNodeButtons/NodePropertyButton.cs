@@ -8,7 +8,7 @@ using Outliner.LayerTools;
 using System.Xml.Serialization;
 using System.ComponentModel;
 using Autodesk.Max;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Outliner.Filters;
 using Outliner.Commands;
 using WinForms = System.Windows.Forms;
@@ -18,10 +18,10 @@ using Outliner.Controls.Tree;
 
 namespace Outliner.TreeNodeButtons
 {
-public abstract class AnimatablePropertyButton : ImageButton
+public abstract class NodePropertyButton : ImageButton
 {
-   protected AnimatablePropertyButton() { }
-   protected AnimatablePropertyButton(ButtonImages images)
+   protected NodePropertyButton() { }
+   protected NodePropertyButton(ButtonImages images)
       : base(images)
    {
       ButtonImages layerImages = NodeButtonImages.GetButtonImages(NodeButtonImages.Images.Layer);
@@ -29,7 +29,7 @@ public abstract class AnimatablePropertyButton : ImageButton
       imageByLayer_Filtered = layerImages.RegularFiltered;
    }
 
-   protected abstract AnimatableProperty Property { get; }
+   protected abstract NodeProperty Property { get; }
    protected virtual SetNodePropertyCommand<Boolean> CreateCommand(IEnumerable<IMaxNodeWrapper> nodes, Boolean newValue)
    {
       return new SetNodePropertyCommand<Boolean>(nodes, this.Property, newValue);
@@ -59,27 +59,29 @@ public abstract class AnimatablePropertyButton : ImageButton
       if (node == null)
          return false;
 
+      NodeProperty property = this.Property;
       if (node is IILayerWrapper)
       {
          IILayer layer = ((IILayerWrapper)node).IILayer;
-         if (!AnimatablePropertyHelpers.IsBooleanProperty(this.Property))
+         if (!NodePropertyHelpers.IsBooleanProperty(property))
             return false;
-         return NestedLayers.IsPropertyInherited(layer, AnimatablePropertyHelpers.ToBooleanProperty(this.Property));
+         return NestedLayers.IsPropertyInherited(layer, NodePropertyHelpers.ToBooleanProperty(property));
       }
       else if (node is IINodeWrapper)
       {
          IINodeWrapper inode = (IINodeWrapper)node;
-         switch (this.Property)
-         {
-            case AnimatableProperty.BoxMode: return inode.NodeLayerProperties.DisplayByLayer;
-            case AnimatableProperty.XRayMtl: return inode.NodeLayerProperties.DisplayByLayer;
-            case AnimatableProperty.Renderable: return inode.NodeLayerProperties.RenderByLayer;
-            case AnimatableProperty.IsHidden: return inode.IILayer != null && inode.IILayer.IsHidden;
-            case AnimatableProperty.IsFrozen: return inode.IILayer != null && inode.IILayer.IsFrozen;
-            case AnimatableProperty.WireColor: return inode.NodeLayerProperties.ColorByLayer;
-            case AnimatableProperty.Name: return false;
-            default: return false;
-         }
+         if (property == NodeProperty.IsHidden)
+            return inode.IILayer != null && inode.IILayer.IsHidden;
+         else if (property == NodeProperty.IsFrozen)
+            return inode.IILayer != null && inode.IILayer.IsFrozen;
+         else if (property == NodeProperty.WireColor)
+            return inode.NodeLayerProperties.ColorByLayer;
+         else if (NodePropertyHelpers.IsDisplayProperty(property))
+            return inode.NodeLayerProperties.DisplayByLayer;
+         else if (NodePropertyHelpers.IsRenderProperty(property))
+            return inode.NodeLayerProperties.RenderByLayer;
+         else
+            return false;
       }
       else
          return false;
@@ -91,10 +93,11 @@ public abstract class AnimatablePropertyButton : ImageButton
       if (node == null)
          return false;
 
-      if (!AnimatablePropertyHelpers.IsBooleanProperty(this.Property))
+      if (!NodePropertyHelpers.IsBooleanProperty(this.Property))
          return true;
 
-      return (node.GetProperty(AnimatablePropertyHelpers.ToBooleanProperty(this.Property)) != this.InvertBehavior);
+      return !node.GetProperty(this.Property).Equals(this.InvertBehavior);
+      //return (node.GetProperty(NodePropertyHelpers.ToBooleanProperty(this.Property)) != this.InvertBehavior);
    }
 
 
@@ -103,7 +106,9 @@ public abstract class AnimatablePropertyButton : ImageButton
       if (graphics == null || tn == null)
          return;
 
-      if (this.isInheritedFromLayer(tn))
+      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      if (node != null && node.IsPropertyInherited(this.Property))
+      //if (this.isInheritedFromLayer(tn))
       {
          Image img = (!tn.ShowNode) ? this.ImageByLayer_Filtered : this.ImageByLayer;
          this.DrawImage(graphics, tn, img);
@@ -120,7 +125,8 @@ public abstract class AnimatablePropertyButton : ImageButton
       if (node == null)
          return base.GetTooltipText(tn);
 
-      if (this.isInheritedFromLayer(tn))
+      if (node.IsPropertyInherited(this.Property))
+      //if (this.isInheritedFromLayer(tn))
          return this.Property.ToString() + " " + Resources.Tooltip_ByLayer;
       if (this.IsEnabled(tn))
          return this.ToolTipEnabled;
@@ -130,7 +136,9 @@ public abstract class AnimatablePropertyButton : ImageButton
 
    protected override bool Clickable(TreeNode tn)
    {
-      return !this.isInheritedFromLayer(tn);
+      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      return node != null && !node.IsPropertyInherited(this.Property);
+      //return !this.isInheritedFromLayer(tn);
    }
 
 
@@ -141,7 +149,7 @@ public abstract class AnimatablePropertyButton : ImageButton
       if (this.Layout == null || this.Layout.TreeView == null)
          return;
 
-      if (!AnimatablePropertyHelpers.IsBooleanProperty(this.Property))
+      if (!NodePropertyHelpers.IsBooleanProperty(this.Property))
          return;
 
       IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
@@ -155,14 +163,14 @@ public abstract class AnimatablePropertyButton : ImageButton
       else
          nodes = new List<TreeNode>(1) { tn };
 
-      Boolean nodeValue = node.GetProperty(AnimatablePropertyHelpers.ToBooleanProperty(this.Property));
+      Boolean nodeValue = node.GetProperty(NodePropertyHelpers.ToBooleanProperty(this.Property));
       IEnumerable<IMaxNodeWrapper> maxNodes = HelperMethods.GetMaxNodes(nodes);
       SetNodePropertyCommand<Boolean> cmd = this.CreateCommand(maxNodes, !nodeValue);
       if (cmd != null)
          cmd.Execute(true);
 
-      if (tree.NodeSorter is AnimatablePropertySorter &&
-            ((AnimatablePropertySorter)tree.NodeSorter).Property == this.Property)
+      if (tree.NodeSorter is NodePropertySorter &&
+            ((NodePropertySorter)tree.NodeSorter).Property == this.Property)
       {
          tree.StartTimedSort(nodes);
       }

@@ -9,7 +9,7 @@ using Autodesk.Max;
 using Outliner.Commands;
 using System.Xml.Serialization;
 using System.ComponentModel;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Outliner.NodeSorters;
 using Outliner.Controls.Tree.Layout;
 using Outliner.Controls.Tree;
@@ -18,7 +18,7 @@ using Outliner.Plugins;
 namespace Outliner.TreeNodeButtons
 {
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
-public class WireColorButton : AnimatablePropertyButton
+public class WireColorButton : NodePropertyButton
 {
    [XmlAttribute("button_width")]
    [DefaultValue(12)]
@@ -63,9 +63,9 @@ public class WireColorButton : AnimatablePropertyButton
       get { return true; }
    }
 
-   protected override AnimatableProperty Property
+   protected override NodeProperty Property
    {
-      get { return AnimatableProperty.WireColor; }
+      get { return NodeProperty.WireColor; }
    }
 
    protected override string ToolTipEnabled
@@ -83,17 +83,18 @@ public class WireColorButton : AnimatablePropertyButton
       if (graphics == null || tn == null)
          return;
 
-      if (this.isInheritedFromLayer(tn))
+      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      if (node == null)
+         return;
+
+      if (node.IsPropertyInherited(this.Property))
+      //if (this.isInheritedFromLayer(tn))
       {
          base.Draw(graphics, tn);
          return;
       }
 
       if (this.Layout == null || this.Layout.TreeView == null)
-         return;
-
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
-      if (node == null)
          return;
 
       Color wc = node.WireColor;
@@ -131,8 +132,8 @@ public class WireColorButton : AnimatablePropertyButton
          SetNodePropertyCommand<Color> cmd = new SetNodePropertyCommand<Color>(maxNodes, "WireColor", ColorHelpers.FromMaxColor(wc));
          cmd.Execute(true);
 
-         if (tree.NodeSorter is AnimatablePropertySorter &&
-            ((AnimatablePropertySorter)tree.NodeSorter).Property == this.Property)
+         if (tree.NodeSorter is NodeProperty &&
+            ((NodePropertySorter)tree.NodeSorter).Property == this.Property)
          {
             tree.StartTimedSort(nodes);
          }

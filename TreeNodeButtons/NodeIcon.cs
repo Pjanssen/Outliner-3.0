@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 using System.ComponentModel;
 using Outliner.Scene;
 using Outliner.Commands;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Outliner.Controls.Tree.Layout;
 using Outliner.Plugins;
 using Outliner.Controls.Tree;

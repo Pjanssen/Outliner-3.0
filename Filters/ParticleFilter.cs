@@ -11,7 +11,7 @@ namespace Outliner.Filters
    [FilterCategory(FilterCategories.Classes)]
    public class ParticleFilter : Filter<IMaxNodeWrapper>
    {
-      override public Boolean ShowNode(IMaxNodeWrapper data)
+      override protected Boolean ShowNodeInternal(IMaxNodeWrapper data)
       {
          IINodeWrapper iinodeWrapper = data as IINodeWrapper;
          if (iinodeWrapper == null)

@@ -5,21 +5,21 @@ using System.Text;
 using Outliner.Scene;
 using Outliner.Commands;
 using Outliner.NodeSorters;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Outliner.Controls.Tree.Layout;
 using Outliner.Plugins;
 
 namespace Outliner.TreeNodeButtons
 {
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
-public class HideButton : AnimatablePropertyButton
+public class HideButton : NodePropertyButton
 {
    public HideButton()
       : base(NodeButtonImages.GetButtonImages(NodeButtonImages.Images.Hide)) { }
 
-   protected override AnimatableProperty Property
+   protected override NodeProperty Property
    {
-      get { return AnimatableProperty.IsHidden; }
+      get { return NodeProperty.IsHidden; }
    }
 
    protected override SetNodePropertyCommand<Boolean> CreateCommand(IEnumerable<IMaxNodeWrapper> nodes, bool newValue)

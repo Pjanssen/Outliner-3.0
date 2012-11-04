@@ -5,21 +5,21 @@ using System.Text;
 using Outliner.Scene;
 using Outliner.Commands;
 using Outliner.NodeSorters;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Outliner.Plugins;
 using Outliner.Controls.Tree.Layout;
 
 namespace Outliner.TreeNodeButtons
 {
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
-public class FreezeButton : AnimatablePropertyButton
+public class FreezeButton : NodePropertyButton
 {
    public FreezeButton()
       : base(NodeButtonImages.GetButtonImages(NodeButtonImages.Images.Freeze)) { }
 
-   protected override AnimatableProperty Property
+   protected override NodeProperty Property
    {
-      get { return AnimatableProperty.IsFrozen; }
+      get { return NodeProperty.IsFrozen; }
    }
 
    protected override SetNodePropertyCommand<Boolean> CreateCommand(IEnumerable<IMaxNodeWrapper> nodes, bool newValue)

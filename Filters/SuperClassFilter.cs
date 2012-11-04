@@ -7,7 +7,7 @@ namespace Outliner.Filters
 {
    public abstract class SuperClassFilter : Filter<IMaxNodeWrapper>
    {
-      protected Boolean ShowNode(IMaxNodeWrapper data, SClass_ID superClass)
+      protected Boolean ShowNodeInternal(IMaxNodeWrapper data, SClass_ID superClass)
       {
          if (data == null)
             return false;
@@ -22,9 +22,9 @@ namespace Outliner.Filters
    [FilterCategory(FilterCategories.Classes)]
    public class ShapeFilter : SuperClassFilter
    {
-      override public Boolean ShowNode(IMaxNodeWrapper data)
+      override protected Boolean ShowNodeInternal(IMaxNodeWrapper data)
       {
-         return base.ShowNode(data, SClass_ID.Shape);
+         return base.ShowNodeInternal(data, SClass_ID.Shape);
       }
    }
 
@@ -34,9 +34,9 @@ namespace Outliner.Filters
    [FilterCategory(FilterCategories.Classes)]
    public class CameraFilter : SuperClassFilter
    {
-      override public Boolean ShowNode(IMaxNodeWrapper data)
+      override protected Boolean ShowNodeInternal(IMaxNodeWrapper data)
       {
-         return base.ShowNode(data, SClass_ID.Camera);
+         return base.ShowNodeInternal(data, SClass_ID.Camera);
       }
    }
 
@@ -46,9 +46,9 @@ namespace Outliner.Filters
    [FilterCategory(FilterCategories.Classes)]
    public class LightFilter : SuperClassFilter
    {
-      override public Boolean ShowNode(IMaxNodeWrapper data)
+      override protected Boolean ShowNodeInternal(IMaxNodeWrapper data)
       {
-         return base.ShowNode(data, SClass_ID.Light);
+         return base.ShowNodeInternal(data, SClass_ID.Light);
       }
    }
 
@@ -58,9 +58,9 @@ namespace Outliner.Filters
    [FilterCategory(FilterCategories.Classes)]
    public class SpacewarpFilter : SuperClassFilter
    {
-      override public Boolean ShowNode(IMaxNodeWrapper data)
+      override protected Boolean ShowNodeInternal(IMaxNodeWrapper data)
       {
-         return base.ShowNode(data, SClass_ID.WsmObject);
+         return base.ShowNodeInternal(data, SClass_ID.WsmObject);
       }
    }
 }

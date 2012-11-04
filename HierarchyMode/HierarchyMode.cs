@@ -7,7 +7,7 @@ using Autodesk.Max;
 using Outliner.Scene;
 using Outliner.Filters;
 using Outliner.Controls.Tree;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Outliner.Plugins;
 
 namespace Outliner.Modes.Hierarchy

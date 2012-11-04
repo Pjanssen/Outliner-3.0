@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Outliner.Plugins;
 using Autodesk.Max;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Outliner.Modes;
 
 namespace Outliner.ColorTags
@@ -46,7 +46,7 @@ namespace Outliner.ColorTags
          IAnimatable node = MaxUtils.HelperMethods.GetCallParam(info) as IAnimatable;
          foreach (TreeMode treeMode in outliner.TreeModes.Values)
          {
-            if (treeMode.Filters.Contains(typeof(ColorTagsFilter)))
+            if (treeMode.Filters.Get(typeof(ColorTagsFilter)) != null)
                treeMode.UpdateFilter(node);
 
             treeMode.InvalidateObject(node, false, treeMode.Tree.NodeSorter is ColorTagsSorter);

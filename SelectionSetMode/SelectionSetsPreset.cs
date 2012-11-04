@@ -18,13 +18,13 @@ public class SelectionSetsPreset : OutlinerPreset
    public SelectionSetsPreset()
    {
       this.Name              = Resources.Preset_DisplayName;
-      this.ImageResourceType = typeof(Resources).FullName;
+      this.ImageResourceTypeName = typeof(Resources).FullName;
       this.Image16Name       = "selectionset_mode_16_dark";
       this.Image24Name       = "selectionset_mode_24_dark";
 
       this.TreeModeTypeName    = typeof(SelectionSetMode).FullName;
       this.NodeSorter          = new AlphabeticalSorter(false);
-      this.Filters             = new Filters.FilterCollection<Scene.IMaxNodeWrapper>();
+      this.Filters             = new Filters.MaxNodeFilterCombinator();
 
       this.TreeNodeLayout = new TreeNodeLayout();
       this.TreeNodeLayout.ItemHeight = 20;

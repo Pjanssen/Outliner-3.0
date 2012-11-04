@@ -7,18 +7,19 @@ using Outliner.Scene;
 using Outliner.Commands;
 using Outliner.Controls.Tree.Layout;
 using Outliner.Plugins;
+using Outliner.MaxUtils;
 
 namespace Outliner.TreeNodeButtons
 {
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
-public class BoxModeButton : AnimatablePropertyButton
+public class BoxModeButton : NodePropertyButton
 {
    public BoxModeButton()
       : base(NodeButtonImages.GetButtonImages(NodeButtonImages.Images.BoxMode)) { }
 
-   protected override MaxUtils.AnimatableProperty Property
+   protected override NodeProperty Property
    {
-      get { return MaxUtils.AnimatableProperty.BoxMode; }
+      get { return NodeProperty.BoxMode; }
    }
 
    protected override string ToolTipEnabled

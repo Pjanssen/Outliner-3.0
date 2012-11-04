@@ -33,7 +33,7 @@ namespace Outliner.ColorTags
          }
       }
 
-      public override Boolean ShowNode(IMaxNodeWrapper data)
+      protected override Boolean ShowNodeInternal(IMaxNodeWrapper data)
       {
          if (data == null)
             return false;

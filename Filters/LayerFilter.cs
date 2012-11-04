@@ -13,9 +13,9 @@ namespace Outliner.Filters
    [FilterCategory(FilterCategories.Other)]
    public class LayerFilter : Filter<IMaxNodeWrapper>
    {
-      public override bool ShowNode(IMaxNodeWrapper data)
+      protected override bool ShowNodeInternal(IMaxNodeWrapper data)
       {
-         return data is IILayerWrapper;
+         return !(data is IINodeWrapper);
       }
    }
 }

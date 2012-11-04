@@ -17,13 +17,13 @@ public class ObjectListPreset : OutlinerPreset
    public ObjectListPreset()
    {
       this.Name = Resources.Preset_DisplayName;
-      this.ImageResourceType = typeof(Resources).FullName;
+      this.ImageResourceTypeName = typeof(Resources).FullName;
       this.Image16Name = "flatobjectlist_mode_16_dark";
       this.Image24Name = "flatobjectlist_mode_24_dark";
 
       this.TreeModeTypeName = typeof(FlatObjectListMode).FullName;
       this.NodeSorter = new AlphabeticalSorter(false);
-      this.Filters = new Filters.FilterCollection<Scene.IMaxNodeWrapper>();
+      this.Filters = new Filters.MaxNodeFilterCombinator();
 
       this.TreeNodeLayout = new TreeNodeLayout();
       this.TreeNodeLayout.ItemHeight = 20;
