@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace MaxUtils
+namespace Outliner.MaxUtils
 {
 internal static class NativeMethods
 {

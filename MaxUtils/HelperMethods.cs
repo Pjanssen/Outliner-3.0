@@ -6,7 +6,7 @@ using Autodesk.Max;
 using System.IO;
 using System.Reflection;
 
-namespace MaxUtils
+namespace Outliner.MaxUtils
 {
 public static class HelperMethods
 {

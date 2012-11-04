@@ -5,7 +5,7 @@ using System.Text;
 using Autodesk.Max;
 using System.Drawing;
 using Outliner.Controls;
-using MaxUtils;
+using Outliner.MaxUtils;
 
 namespace Outliner.Scene
 {
@@ -170,23 +170,6 @@ public class IINodeWrapper : IMaxNodeWrapper
       return (types & MaxNodeTypes.Object) == MaxNodeTypes.Object;
    }
 
-   public override bool IsHidden
-   {
-      get { return this.iinode.IsObjectHidden; }
-      set { this.iinode.Hide(value); }
-   }
-
-   public override bool IsFrozen
-   {
-      get { return this.iinode.IsObjectFrozen; }
-      set { this.iinode.IsFrozen = value; }
-   }
-
-   public override bool BoxMode
-   {
-      get { return this.iinode.BoxMode_ != 0; }
-      set { this.iinode.BoxMode(value); }
-   }
 
    public override Color WireColor
    {
@@ -194,10 +177,125 @@ public class IINodeWrapper : IMaxNodeWrapper
       set { this.iinode.WireColor = value; }
    }
 
-   public override bool Renderable
+
+   private Boolean IntToBool(int i)
    {
-      get { return this.iinode.Renderable != 0; }
-      set { this.iinode.SetRenderable(value); }
+      return i != 0;
+   }
+
+   private int BoolToInt(bool b)
+   {
+      return b ? 1 : 0;
+   }
+
+
+   public override bool GetProperty(BooleanNodeProperty property)
+   {
+      switch (property)
+      {
+         case BooleanNodeProperty.IsHidden: return this.iinode.IsObjectHidden;
+         case BooleanNodeProperty.IsFrozen: return this.iinode.IsObjectFrozen;
+         case BooleanNodeProperty.SeeThrough: return IntToBool(this.iinode.XRayMtl_);
+         case BooleanNodeProperty.BoxMode: return IntToBool(this.iinode.BoxMode_);
+         case BooleanNodeProperty.BackfaceCull: return IntToBool(this.iinode.BackCull_);
+         case BooleanNodeProperty.AllEdges: return IntToBool(this.iinode.AllEdges_);
+         case BooleanNodeProperty.VertexTicks: return IntToBool(this.iinode.VertTicks);
+         case BooleanNodeProperty.Trajectory: return IntToBool(this.iinode.TrajectoryON);
+         case BooleanNodeProperty.IgnoreExtents: return IntToBool(this.iinode.IgnoreExtents_);
+         case BooleanNodeProperty.FrozenInGray: return IntToBool(this.iinode.ShowFrozenWithMtl);
+         case BooleanNodeProperty.Renderable: return IntToBool(this.iinode.Renderable);
+         case BooleanNodeProperty.InheritVisibility: return this.iinode.InheritVisibility;
+         case BooleanNodeProperty.PrimaryVisibility: return IntToBool(this.iinode.PrimaryVisibility);
+         case BooleanNodeProperty.SecondaryVisibility: return IntToBool(this.iinode.SecondaryVisibility);
+         case BooleanNodeProperty.ReceiveShadows: return IntToBool(this.iinode.RcvShadows);
+         case BooleanNodeProperty.CastShadows: return IntToBool(this.iinode.CastShadows);
+         case BooleanNodeProperty.ApplyAtmospherics: return IntToBool(this.iinode.ApplyAtmospherics);
+         case BooleanNodeProperty.RenderOccluded: return this.iinode.RenderOccluded;
+         default: return base.GetProperty(property);
+      }
+   }
+
+   public override void SetProperty(BooleanNodeProperty property, bool value)
+   {
+      switch (property)
+      {
+         case BooleanNodeProperty.IsHidden:
+            this.iinode.Hide(value);
+            break;
+         case BooleanNodeProperty.IsFrozen:
+            this.iinode.IsFrozen = value;
+            break;
+         case BooleanNodeProperty.SeeThrough:
+            this.iinode.XRayMtl(value);
+            break;
+         case BooleanNodeProperty.BoxMode:
+            this.iinode.BoxMode(value);
+            break;
+         case BooleanNodeProperty.BackfaceCull:
+            this.iinode.BackCull(value);
+            break;
+         case BooleanNodeProperty.AllEdges:
+            this.iinode.AllEdges(value);
+            break;
+         case BooleanNodeProperty.VertexTicks:
+            this.iinode.VertTicks = BoolToInt(value);
+            break;
+         case BooleanNodeProperty.Trajectory:
+            this.iinode.SetTrajectoryON(value);
+            break;
+         case BooleanNodeProperty.IgnoreExtents:
+            this.iinode.IgnoreExtents(value);
+            break;
+         case BooleanNodeProperty.FrozenInGray:
+            this.iinode.SetShowFrozenWithMtl(value);
+            break;
+         case BooleanNodeProperty.Renderable:
+            this.iinode.SetRenderable(value);
+            break;
+         case BooleanNodeProperty.InheritVisibility:
+            this.iinode.InheritVisibility = value;
+            break;
+         case BooleanNodeProperty.PrimaryVisibility:
+            this.iinode.SetPrimaryVisibility(value);
+            break;
+         case BooleanNodeProperty.SecondaryVisibility:
+            this.iinode.SetSecondaryVisibility(value);
+            break;
+         case BooleanNodeProperty.ReceiveShadows:
+            this.iinode.SetRcvShadows(value);
+            break;
+         case BooleanNodeProperty.CastShadows:
+            this.iinode.SetCastShadows(value);
+            break;
+         case BooleanNodeProperty.ApplyAtmospherics:
+            this.iinode.SetApplyAtmospherics(value);
+            break;
+         case BooleanNodeProperty.RenderOccluded:
+            this.iinode.RenderOccluded = value;
+            break;
+         default:
+            base.SetProperty(property, value);
+            break;
+      }
+   }
+
+   public override bool IsPropertyInherited(NodeProperty property)
+   {
+      IILayer layer = this.IILayer;
+      IINodeLayerProperties layerProperties = this.NodeLayerProperties;
+
+      if (property == NodeProperty.IsHidden)
+         return layer != null && layer.IsHidden;
+      else if (property == NodeProperty.IsFrozen)
+         return layer != null && layer.IsFrozen;
+      else if (property == NodeProperty.WireColor)
+         return this.NodeLayerProperties.ColorByLayer;
+      else if (NodePropertyHelpers.IsDisplayProperty(property))
+         return layerProperties.DisplayByLayer;
+      else if (NodePropertyHelpers.IsRenderProperty(property))
+         return layerProperties.RenderByLayer;
+      else
+         return false;
    }
 
    public bool IsInstance

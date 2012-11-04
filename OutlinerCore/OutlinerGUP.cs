@@ -7,7 +7,7 @@ using System.Text;
 using Autodesk.Max;
 using Autodesk.Max.MaxSDK.Util;
 using Autodesk.Max.Plugins;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Outliner.Controls;
 using Outliner.Controls.Tree;
 using Outliner.Controls.Tree.Layout;

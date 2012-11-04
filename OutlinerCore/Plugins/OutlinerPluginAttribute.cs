@@ -27,6 +27,6 @@ namespace Outliner.Plugins
       TreeNodeButton = 0x08,
       Utility        = 0x10,
       DefaultPreset  = 0x20,
-      Action         = 0x40
+      ActionProvider = 0x40
    }
 }

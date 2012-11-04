@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Outliner.LayerTools;
 
 namespace Outliner.Scene
@@ -206,7 +206,12 @@ namespace Outliner.Scene
       }
 
 
-      private Boolean getSelSetProperty(Func<IINode, Boolean> fn)
+      private Boolean IntToBool(int i)
+      {
+         return i != 0;
+      }
+
+      private Boolean GetSelSetProperty(Func<IINode, Boolean> fn)
       {
          IEnumerable<IINode> childIINodes = this.ChildIINodes;
          if (childIINodes.Count() == 0)
@@ -214,70 +219,67 @@ namespace Outliner.Scene
          else
             return this.ChildIINodes.All(fn);
       }
-      private void setSelSetProperty(Action<IINode> fn)
+      private void SetSelSetProperty(Action<IINode> fn)
       {
          this.ChildIINodes.ForEach(fn);
       }
 
-      public override bool IsHidden
+      public override bool GetProperty(BooleanNodeProperty property)
       {
-         get
+         switch (property)
          {
-            return this.getSelSetProperty(n => n.IsObjectHidden);
-         }
-         set
-         {
-            this.setSelSetProperty(n => n.Hide(value));
+            case BooleanNodeProperty.IsHidden: 
+               return GetSelSetProperty(n => n.IsObjectHidden);
+            case BooleanNodeProperty.IsFrozen: 
+               return GetSelSetProperty(n => n.IsObjectFrozen);
+            case BooleanNodeProperty.SeeThrough: 
+               return GetSelSetProperty(n => IntToBool(n.XRayMtl_));
+            case BooleanNodeProperty.BoxMode: 
+               return GetSelSetProperty(n => IntToBool(n.BoxMode_));
+            case BooleanNodeProperty.BackfaceCull: 
+               return GetSelSetProperty(n => IntToBool(n.BackCull_));
+            case BooleanNodeProperty.AllEdges:
+               return GetSelSetProperty(n => IntToBool(n.AllEdges_));
+            case BooleanNodeProperty.VertexTicks:
+               return GetSelSetProperty(n => IntToBool(n.VertTicks));
+            case BooleanNodeProperty.Trajectory:
+               return GetSelSetProperty(n => IntToBool(n.TrajectoryON));
+            case BooleanNodeProperty.IgnoreExtents:
+               return GetSelSetProperty(n => IntToBool(n.IgnoreExtents_));
+            case BooleanNodeProperty.FrozenInGray: 
+               return GetSelSetProperty(n => IntToBool(n.ShowFrozenWithMtl));
+            case BooleanNodeProperty.Renderable: 
+               return GetSelSetProperty(n => IntToBool(n.Renderable));
+            case BooleanNodeProperty.InheritVisibility: 
+               return GetSelSetProperty(n => n.InheritVisibility);
+            case BooleanNodeProperty.PrimaryVisibility: 
+               return GetSelSetProperty(n => IntToBool(n.PrimaryVisibility));
+            case BooleanNodeProperty.SecondaryVisibility: 
+               return GetSelSetProperty(n => IntToBool(n.SecondaryVisibility));
+            case BooleanNodeProperty.ReceiveShadows: 
+               return GetSelSetProperty(n => IntToBool(n.RcvShadows));
+            case BooleanNodeProperty.CastShadows: 
+               return GetSelSetProperty(n => IntToBool(n.CastShadows));
+            case BooleanNodeProperty.ApplyAtmospherics: 
+               return GetSelSetProperty(n => IntToBool(n.ApplyAtmospherics));
+            case BooleanNodeProperty.RenderOccluded: 
+               return GetSelSetProperty(n => n.RenderOccluded);
+            default: 
+               return base.GetProperty(property);
          }
       }
 
-      public override bool IsFrozen
+      public override void SetProperty(NodeProperty property, object value)
       {
-         get
-         {
-            return this.getSelSetProperty(n => n.IsObjectFrozen);
-         }
-         set
-         {
-            this.setSelSetProperty(n => n.IsFrozen = value);
-         }
+         throw new NotImplementedException();
       }
 
-      public override bool Renderable
+
+      public override bool IsPropertyInherited(NodeProperty property)
       {
-         get
-         {
-            return getSelSetProperty(n => n.Renderable != 0);
-         }
-         set
-         {
-            this.setSelSetProperty(n => n.SetRenderable(value));
-         }
+         return this.WrappedChildNodes.All(n => n.IsPropertyInherited(property));
       }
 
-      public override bool BoxMode
-      {
-         get
-         {
-            return this.getSelSetProperty(n => n.BoxMode_ != 0);
-         }
-         set
-         {
-            this.setSelSetProperty(n => n.BoxMode(value));
-         }
-      }
-
-      public override bool XRayMtl
-      {
-         get
-         {
-            return this.getSelSetProperty(n => n.XRayMtl_ != 0);
-         }
-         set
-         {
-            this.setSelSetProperty(n => n.XRayMtl(value));
-         }
-      }
 
       public override System.Drawing.Color WireColor
       {
@@ -287,7 +289,7 @@ namespace Outliner.Scene
          }
          set 
          {
-            this.setSelSetProperty(n => n.WireColor = value);
+            this.SetSelSetProperty(n => n.WireColor = value);
          }
       }
 

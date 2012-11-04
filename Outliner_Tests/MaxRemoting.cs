@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Autodesk.Max.Remoting;
 using Outliner;
 using System.Diagnostics;
-using MaxUtils;
+using Outliner.MaxUtils;
 
 namespace Outliner.Tests
 {

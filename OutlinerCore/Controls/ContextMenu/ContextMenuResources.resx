@@ -241,4 +241,79 @@
   <data name="Str_SavePreset" xml:space="preserve">
     <value>Save Preset</value>
   </data>
+  <data name="Str_ClearFilter" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Str_InvertFilter" xml:space="preserve">
+    <value>Invert</value>
+  </data>
+  <data name="Str_BackfaceCull" xml:space="preserve">
+    <value>Backface cull</value>
+  </data>
+  <data name="Str_Boxmode" xml:space="preserve">
+    <value>Box mode</value>
+  </data>
+  <data name="Str_ByLayer" xml:space="preserve">
+    <value>By Layer</value>
+  </data>
+  <data name="Str_DisplaySettings" xml:space="preserve">
+    <value>Display Settings</value>
+  </data>
+  <data name="Str_FrozenInGray" xml:space="preserve">
+    <value>Frozen in gray</value>
+  </data>
+  <data name="Str_ObjectProperties" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="Str_RenderSettings" xml:space="preserve">
+    <value>Render Settings</value>
+  </data>
+  <data name="Str_SeeThrough" xml:space="preserve">
+    <value>See-through</value>
+  </data>
+  <data name="Str_ShowBoundingBox" xml:space="preserve">
+    <value>Bounding box</value>
+  </data>
+  <data name="Str_ShowInViewport" xml:space="preserve">
+    <value>Show in viewport</value>
+  </data>
+  <data name="Str_ShowShaded" xml:space="preserve">
+    <value>Shaded</value>
+  </data>
+  <data name="Str_ShowWireframe" xml:space="preserve">
+    <value>Wireframe</value>
+  </data>
+  <data name="Str_Trajectory" xml:space="preserve">
+    <value>Show trajectory</value>
+  </data>
+  <data name="Str_ApplyAtmospherics" xml:space="preserve">
+    <value>Apply atmospherics</value>
+  </data>
+  <data name="Str_CastShadows" xml:space="preserve">
+    <value>Cast shadows</value>
+  </data>
+  <data name="Str_InheritVisibility" xml:space="preserve">
+    <value>Inherit visibility</value>
+  </data>
+  <data name="Str_PrimaryVisibility" xml:space="preserve">
+    <value>Visible to camera</value>
+  </data>
+  <data name="Str_ReceiveShadows" xml:space="preserve">
+    <value>Receive shadows</value>
+  </data>
+  <data name="Str_Renderable" xml:space="preserve">
+    <value>Renderable</value>
+  </data>
+  <data name="Str_RenderOccluded" xml:space="preserve">
+    <value>Render occluded</value>
+  </data>
+  <data name="Str_SecondaryVisibility" xml:space="preserve">
+    <value>Visible to reflection/refraction</value>
+  </data>
+  <data name="Str_ActionNotFound" xml:space="preserve">
+    <value>Action "{0}" not found!</value>
+  </data>
+  <data name="Str_ContextMenuWarningTitle" xml:space="preserve">
+    <value>Context menu warning</value>
+  </data>
 </root>

@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Outliner.Scene;
 using Outliner.Commands;
+using Outliner.MaxUtils;
 
 namespace Outliner.Tests.Commands
 {
@@ -19,18 +20,18 @@ public class FreezeCommandTest : MaxIntegrationTest
       IILayerWrapper layer = IMaxNodeWrapper.Create(MaxRemoting.CreateLayer()) as IILayerWrapper;
       Assert.IsNotNull(layer);
 
-      Boolean nodeFrozen = node.IsFrozen;
-      Boolean layerFrozen = layer.IsFrozen;
+      Boolean nodeFrozen = node.GetProperty(BooleanNodeProperty.IsFrozen);
+      Boolean layerFrozen = layer.GetProperty(BooleanNodeProperty.IsFrozen);
       List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(2) { node, layer };
       FreezeCommand cmd = new FreezeCommand(nodes, !nodeFrozen);
       
       cmd.Redo();
-      Assert.AreEqual(!nodeFrozen, node.IsFrozen);
-      Assert.AreEqual(!layerFrozen, layer.IsFrozen);
+      Assert.AreEqual(!nodeFrozen, node.GetProperty(BooleanNodeProperty.IsFrozen));
+      Assert.AreEqual(!layerFrozen, layer.GetProperty(BooleanNodeProperty.IsFrozen));
 
       cmd.Restore(true);
-      Assert.AreEqual(nodeFrozen, node.IsFrozen);
-      Assert.AreEqual(layerFrozen, layer.IsFrozen);
+      Assert.AreEqual(nodeFrozen, node.GetProperty(BooleanNodeProperty.IsFrozen));
+      Assert.AreEqual(layerFrozen, layer.GetProperty(BooleanNodeProperty.IsFrozen));
    }
 }
 }

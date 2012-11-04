@@ -11,7 +11,7 @@ public class NodeFilterCollectionTest
 {
    public class MockFilter : Filter<Boolean>
    {
-      public override Boolean ShowNode(bool data)
+      protected override Boolean ShowNodeInternal(bool data)
       {
          return data ? true : false;
       }
@@ -19,10 +19,6 @@ public class NodeFilterCollectionTest
 
    public class MockPermanentFilter : MockFilter
    {
-      public override bool AlwaysEnabled
-      {
-         get { return true; }
-      }
    }
 
    public List<Boolean> GetChildNodesFalse(Boolean b)

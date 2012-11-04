@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using Outliner.Controls;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Outliner.LayerTools;
 
 namespace Outliner.Scene
@@ -213,33 +213,6 @@ namespace Outliner.Scene
       }
 
 
-      public override bool IsHidden 
-      {
-         get { return this.layer.IsHidden; }
-         set 
-         { 
-            NestedLayers.SetProperty(this.layer, AnimatableBooleanProperty.IsHidden, value);
-         }
-      }
-
-      public override bool IsFrozen 
-      {
-         get { return this.layer.IsFrozen; }
-         set 
-         {
-            NestedLayers.SetProperty(this.layer, AnimatableBooleanProperty.IsFrozen, value);
-         }
-      }
-
-      public override bool BoxMode 
-      {
-         get { return this.layer.BoxMode; }
-         set 
-         {
-            NestedLayers.SetProperty(this.layer, AnimatableBooleanProperty.BoxMode, value);
-         }
-      }
-
       public override System.Drawing.Color WireColor 
       {
          get { return ColorHelpers.FromMaxColor(this.layer.WireColor); }
@@ -250,13 +223,23 @@ namespace Outliner.Scene
          }
       }
 
-      public override bool Renderable 
+
+      public override Boolean GetProperty(BooleanNodeProperty property)
       {
-         get { return this.layer.Renderable; }
-         set
-         {
-            NestedLayers.SetProperty(this.layer, AnimatableBooleanProperty.Renderable, value);
-         }
+         return NestedLayers.GetProperty(this.layer, property);
+      }
+
+      public override void SetProperty(BooleanNodeProperty property, bool value)
+      {
+         NestedLayers.SetProperty(this.layer, property, value);
+      }
+
+      public override bool IsPropertyInherited(NodeProperty property)
+      {
+         if (!NodePropertyHelpers.IsBooleanProperty(property))
+            return false;
+         
+         return NestedLayers.IsPropertyInherited(layer, NodePropertyHelpers.ToBooleanProperty(property));
       }
 
       public override bool IsValid 

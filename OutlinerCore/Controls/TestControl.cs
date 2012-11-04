@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Outliner.Controls.Tree;
-using MaxUtils;
+using Outliner.MaxUtils;
 
 namespace Outliner.Controls
 {

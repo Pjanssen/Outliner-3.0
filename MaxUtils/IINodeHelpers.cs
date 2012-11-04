@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 
-namespace MaxUtils
+namespace Outliner.MaxUtils
 {
 public static class IINodeHelpers
 {

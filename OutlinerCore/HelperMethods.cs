@@ -12,7 +12,7 @@ using Outliner.Controls;
 using Outliner.Controls.Tree;
 using Outliner.Scene;
 using Outliner.Commands;
-using MaxUtils;
+using Outliner.MaxUtils;
 
 
 namespace Outliner

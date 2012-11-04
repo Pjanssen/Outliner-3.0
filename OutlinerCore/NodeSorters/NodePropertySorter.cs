@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Outliner.Controls.Tree;
 using Outliner.Scene;
 using System.Drawing;
@@ -10,14 +10,14 @@ using Outliner.Plugins;
 
 namespace Outliner.NodeSorters
 {
-public abstract class AnimatablePropertySorter : NodeSorter
+public abstract class NodePropertySorter : NodeSorter
 {
-   public AnimatableProperty Property { get; set; }
+   public NodeProperty Property { get; set; }
 
-   public AnimatablePropertySorter() : base() { }
-   public AnimatablePropertySorter(Boolean invert) : base(invert) { }
-   public AnimatablePropertySorter(AnimatableProperty property) : this(property, false) { } 
-   public AnimatablePropertySorter(AnimatableProperty property, Boolean invert) : base(invert)
+   public NodePropertySorter() : base() { }
+   public NodePropertySorter(Boolean invert) : base(invert) { }
+   public NodePropertySorter(NodeProperty property) : this(property, false) { }
+   public NodePropertySorter(NodeProperty property, Boolean invert) : base(invert)
    {
       this.Property = property;
    }

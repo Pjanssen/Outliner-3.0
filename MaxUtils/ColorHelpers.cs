@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using Autodesk.Max;
-using MaxUtils;
 
-namespace MaxUtils
+namespace Outliner.MaxUtils
 {
 public static class ColorHelpers
 {

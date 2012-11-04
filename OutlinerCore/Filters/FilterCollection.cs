@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using MaxUtils;
+using Outliner.MaxUtils;
 using System.Xml.Serialization;
 using System.ComponentModel;
 using System.Xml;
@@ -195,8 +195,7 @@ public class FilterCollection<T> : ICollection<Filter<T>>, IXmlSerializable
 
       foreach (Filter<T> filter in this.filters)
       {
-         if (!filter.AlwaysEnabled || clearPermanentFilters)
-            filtersToRemove.Add(filter);
+         filtersToRemove.Add(filter);
       }
 
       foreach (Filter<T> filter in filtersToRemove)

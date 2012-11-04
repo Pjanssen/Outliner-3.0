@@ -273,6 +273,33 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Combinator.
+        /// </summary>
+        internal static string FilterCombinator {
+            get {
+                return ResourceManager.GetString("FilterCombinator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string FilterName {
+            get {
+                return ResourceManager.GetString("FilterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Node Property.
+        /// </summary>
+        internal static string FilterNodeProp {
+            get {
+                return ResourceManager.GetString("FilterNodeProp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Outliner.
         /// </summary>
         internal static string Outliner_WindowTitle {

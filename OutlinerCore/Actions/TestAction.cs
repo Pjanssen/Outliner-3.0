@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Outliner.Controls;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Autodesk.Max;
 using UiViewModels.Actions;
 using System.Runtime.InteropServices;

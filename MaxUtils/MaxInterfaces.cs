@@ -5,7 +5,7 @@ using System.Text;
 using Autodesk.Max;
 using Autodesk.Max.Remoting;
 
-namespace MaxUtils
+namespace Outliner.MaxUtils
 {
 public static class MaxInterfaces
 {

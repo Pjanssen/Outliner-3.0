@@ -11,7 +11,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using Autodesk.Max;
-using MaxUtils;
+using Outliner.MaxUtils;
 
 namespace Outliner.Plugins
 {
@@ -22,24 +22,8 @@ public static class OutlinerPlugins
    private const String PluginExtension = "dll";
    private const String PluginSearchPattern = "*." + PluginExtension;
 
+   private static IEnumerable<Assembly> pluginAssemblies;
    private static List<OutlinerPluginData> plugins;
-
-   private static T GetAttribute<T>(Type sourceType) where T : Attribute
-   {
-      object[] attributes = sourceType.GetCustomAttributes(typeof(T), false);
-      if (attributes != null && attributes.Count() > 0)
-         return attributes[0] as T;
-      else
-         return null;
-   }
-   private static T GetAttribute<T>(MethodInfo sourceMethod) where T : Attribute
-   {
-      object[] attributes = sourceMethod.GetCustomAttributes(typeof(T), false);
-      if (attributes != null && attributes.Count() > 0)
-         return attributes[0] as T;
-      else
-         return null;
-   }
 
 
    /// <summary>
@@ -49,35 +33,35 @@ public static class OutlinerPlugins
    {
       get
       {
-         List<Assembly> assemblies = new List<Assembly>();
-            
-         //Add own assembly.
-         assemblies.Add(Assembly.GetAssembly(typeof(OutlinerPlugins)));
-
-         String pluginDir = OutlinerPaths.PluginsDir;
-
-         AppDomain domain = AppDomain.CurrentDomain;
-         
-
-         //Add plugin assemblies.
-         if (Directory.Exists(pluginDir))
+         if (pluginAssemblies == null)
          {
-            String[] pluginFiles = Directory.GetFiles( pluginDir
-                                                     , OutlinerPlugins.PluginSearchPattern
-                                                     , SearchOption.AllDirectories);
-            foreach (String pluginFile in pluginFiles)
+            List<Assembly> assemblies = new List<Assembly>();
+
+            //Add own assembly.
+            assemblies.Add(Assembly.GetAssembly(typeof(OutlinerPlugins)));
+
+            String pluginDir = OutlinerPaths.PluginsDir;
+
+            AppDomain domain = AppDomain.CurrentDomain;
+
+
+            //Add plugin assemblies.
+            if (Directory.Exists(pluginDir))
             {
-               assemblies.Add(Assembly.LoadFile(pluginFile));
+               String[] pluginFiles = Directory.GetFiles(pluginDir
+                                                        , OutlinerPlugins.PluginSearchPattern
+                                                        , SearchOption.AllDirectories);
+               foreach (String pluginFile in pluginFiles)
+               {
+                  assemblies.Add(Assembly.LoadFile(pluginFile));
+               }
             }
+
+            pluginAssemblies = assemblies;
          }
 
-         return assemblies;
+         return pluginAssemblies;
       }
-   }
-
-   public static void otherAppDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-   {
-      MaxUtils.HelperMethods.WriteToListener(e.ExceptionObject);
    }
    
    /// <summary>
@@ -93,12 +77,12 @@ public static class OutlinerPlugins
 
       foreach (Assembly assembly in OutlinerPlugins.PluginAssemblies)
       {
-         IEnumerable<Type> pluginClasses = assembly.GetTypes().Where(t => t.IsPublic && (!t.IsAbstract || t.IsSealed));
+         IEnumerable<Type> pluginClasses = assembly.GetExportedTypes().Where(t => t.IsPublic && (!t.IsAbstract || t.IsSealed));
 
          foreach (Type pluginClass in pluginClasses)
          {
             OutlinerPluginType pluginType = PluginTypeNone;
-            OutlinerPluginAttribute pluginAttr = GetAttribute<OutlinerPluginAttribute>(pluginClass);
+            OutlinerPluginAttribute pluginAttr = TypeHelpers.GetAttribute<OutlinerPluginAttribute>(pluginClass);
             if (pluginAttr != null)
             {
                pluginType = pluginAttr.PluginType;
@@ -110,13 +94,13 @@ public static class OutlinerPlugins
             StartPlugin(pluginClass);
 
             String name = pluginClass.Name;
-            DisplayNameAttribute dispAtrr = GetAttribute<DisplayNameAttribute>(pluginClass);
+            DisplayNameAttribute dispAtrr = TypeHelpers.GetAttribute<DisplayNameAttribute>(pluginClass);
             if (dispAtrr != null)
                name = dispAtrr.DisplayName;
 
             Image imgSmall = null;
             Image imgLarge = null;
-            LocalizedDisplayImageAttribute imgAttr = GetAttribute<LocalizedDisplayImageAttribute>(pluginClass);
+            LocalizedDisplayImageAttribute imgAttr = TypeHelpers.GetAttribute<LocalizedDisplayImageAttribute>(pluginClass);
             if (imgAttr != null)
             {
                imgSmall = imgAttr.DisplayImageSmall;
@@ -144,8 +128,7 @@ public static class OutlinerPlugins
       MethodInfo[] methods = pluginClass.GetMethods(BindingFlags.Static | BindingFlags.Public);
       foreach (MethodInfo method in methods)
       {
-         OutlinerPluginStartAttribute initializer = GetAttribute<OutlinerPluginStartAttribute>(method);
-         if (initializer != null)
+         if(TypeHelpers.HasAttribute<OutlinerPluginStartAttribute>(method))
             method.Invoke(null, null);
       }
    }
@@ -179,6 +162,12 @@ public static class OutlinerPlugins
    public static IEnumerable<OutlinerPluginData> GetPluginsByType(OutlinerPluginType type)
    {
       return Plugins.Where(p => (p.PluginType & type) != 0);
+   }
+
+
+   public static OutlinerPluginData GetPluginDataByType(Type pluginType)
+   {
+      return Plugins.FirstOrDefault(p => p.Type == pluginType);
    }
 
    /// <summary>
@@ -215,7 +204,7 @@ public static class OutlinerPlugins
       List<OutlinerPluginData> filters = new List<OutlinerPluginData>();
       foreach (OutlinerPluginData plugin in pluginTypes)
       {
-         FilterCategoryAttribute categoryAttr = GetAttribute<FilterCategoryAttribute>(plugin.Type);
+         FilterCategoryAttribute categoryAttr = TypeHelpers.GetAttribute<FilterCategoryAttribute>(plugin.Type);
          if (categoryAttr != null && (categoryAttr.Category & category) == category)
             filters.Add(plugin);
       }

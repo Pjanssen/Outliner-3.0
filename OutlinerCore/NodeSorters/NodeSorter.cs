@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Outliner.Controls.Tree;
-using MaxUtils;
+using Outliner.MaxUtils;
 
 namespace Outliner.NodeSorters
 {

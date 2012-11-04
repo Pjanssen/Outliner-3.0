@@ -30,15 +30,15 @@
       {
          this.components = new System.ComponentModel.Container();
          this.outlinerGroupBox1 = new Outliner.Controls.OutlinerGroupBox();
-         this.outlinerGroupBox2 = new Outliner.Controls.OutlinerGroupBox();
-         this.presetBindingSource = new System.Windows.Forms.BindingSource(this.components);
          this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
          this.sorterComboBox = new System.Windows.Forms.ComboBox();
          this.label6 = new System.Windows.Forms.Label();
          this.label9 = new System.Windows.Forms.Label();
          this.nameTextBox = new System.Windows.Forms.TextBox();
+         this.presetBindingSource = new System.Windows.Forms.BindingSource(this.components);
          this.label10 = new System.Windows.Forms.Label();
          this.modeComboBox = new System.Windows.Forms.ComboBox();
+         this.outlinerGroupBox2 = new Outliner.Controls.OutlinerGroupBox();
          this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
          this.image16FileLbl = new System.Windows.Forms.Label();
          this.image16ResLbl = new System.Windows.Forms.Label();
@@ -55,8 +55,10 @@
          this.resTypeBindingSource = new System.Windows.Forms.BindingSource(this.components);
          this.image16ResComboBox = new System.Windows.Forms.ComboBox();
          this.image24ResComboBox = new System.Windows.Forms.ComboBox();
-         ((System.ComponentModel.ISupportInitialize)(this.presetBindingSource)).BeginInit();
+         this.outlinerGroupBox1.SuspendLayout();
          this.tableLayoutPanel1.SuspendLayout();
+         ((System.ComponentModel.ISupportInitialize)(this.presetBindingSource)).BeginInit();
+         this.outlinerGroupBox2.SuspendLayout();
          this.tableLayoutPanel3.SuspendLayout();
          ((System.ComponentModel.ISupportInitialize)(this.resTypeBindingSource)).BeginInit();
          this.SuspendLayout();
@@ -64,6 +66,7 @@
          // outlinerGroupBox1
          // 
          this.outlinerGroupBox1.BorderColor = System.Drawing.Color.Black;
+         this.outlinerGroupBox1.Controls.Add(this.tableLayoutPanel1);
          this.outlinerGroupBox1.Dock = System.Windows.Forms.DockStyle.Top;
          this.outlinerGroupBox1.Location = new System.Drawing.Point(0, 0);
          this.outlinerGroupBox1.Name = "outlinerGroupBox1";
@@ -72,23 +75,6 @@
          this.outlinerGroupBox1.TabIndex = 2;
          this.outlinerGroupBox1.TabStop = false;
          this.outlinerGroupBox1.Text = "Properties";
-         // 
-         // outlinerGroupBox2
-         // 
-         this.outlinerGroupBox2.BorderColor = System.Drawing.Color.Black;
-         this.outlinerGroupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-         this.outlinerGroupBox2.Location = new System.Drawing.Point(0, 109);
-         this.outlinerGroupBox2.Name = "outlinerGroupBox2";
-         this.outlinerGroupBox2.Padding = new System.Windows.Forms.Padding(5, 3, 5, 5);
-         this.outlinerGroupBox2.Size = new System.Drawing.Size(481, 203);
-         this.outlinerGroupBox2.TabIndex = 3;
-         this.outlinerGroupBox2.TabStop = false;
-         this.outlinerGroupBox2.Text = "Images";
-         // 
-         // presetBindingSource
-         // 
-         this.presetBindingSource.DataSource = typeof(Outliner.Presets.OutlinerPreset);
-         this.presetBindingSource.BindingComplete += new System.Windows.Forms.BindingCompleteEventHandler(this.presetBindingSource_BindingComplete);
          // 
          // tableLayoutPanel1
          // 
@@ -165,6 +151,11 @@
          this.nameTextBox.Size = new System.Drawing.Size(416, 20);
          this.nameTextBox.TabIndex = 1;
          // 
+         // presetBindingSource
+         // 
+         this.presetBindingSource.DataSource = typeof(Outliner.Presets.OutlinerPreset);
+         this.presetBindingSource.BindingComplete += new System.Windows.Forms.BindingCompleteEventHandler(this.presetBindingSource_BindingComplete);
+         // 
          // label10
          // 
          this.label10.AutoSize = true;
@@ -187,6 +178,19 @@
          this.modeComboBox.Name = "modeComboBox";
          this.modeComboBox.Size = new System.Drawing.Size(420, 21);
          this.modeComboBox.TabIndex = 3;
+         // 
+         // outlinerGroupBox2
+         // 
+         this.outlinerGroupBox2.BorderColor = System.Drawing.Color.Black;
+         this.outlinerGroupBox2.Controls.Add(this.tableLayoutPanel3);
+         this.outlinerGroupBox2.Dock = System.Windows.Forms.DockStyle.Top;
+         this.outlinerGroupBox2.Location = new System.Drawing.Point(0, 109);
+         this.outlinerGroupBox2.Name = "outlinerGroupBox2";
+         this.outlinerGroupBox2.Padding = new System.Windows.Forms.Padding(5, 3, 5, 5);
+         this.outlinerGroupBox2.Size = new System.Drawing.Size(481, 203);
+         this.outlinerGroupBox2.TabIndex = 3;
+         this.outlinerGroupBox2.TabStop = false;
+         this.outlinerGroupBox2.Text = "Images";
          // 
          // tableLayoutPanel3
          // 
@@ -389,9 +393,11 @@
          this.Controls.Add(this.outlinerGroupBox1);
          this.Name = "PresetPropertiesEditor";
          this.Size = new System.Drawing.Size(481, 323);
-         ((System.ComponentModel.ISupportInitialize)(this.presetBindingSource)).EndInit();
+         this.outlinerGroupBox1.ResumeLayout(false);
          this.tableLayoutPanel1.ResumeLayout(false);
          this.tableLayoutPanel1.PerformLayout();
+         ((System.ComponentModel.ISupportInitialize)(this.presetBindingSource)).EndInit();
+         this.outlinerGroupBox2.ResumeLayout(false);
          this.tableLayoutPanel3.ResumeLayout(false);
          this.tableLayoutPanel3.PerformLayout();
          ((System.ComponentModel.ISupportInitialize)(this.resTypeBindingSource)).EndInit();

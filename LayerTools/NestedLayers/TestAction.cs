@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UiViewModels.Actions;
 using Autodesk.Max;
-using MaxUtils;
+using Outliner.MaxUtils;
 using System.Runtime.InteropServices;
 
 namespace Outliner.LayerTools

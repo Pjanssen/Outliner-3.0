@@ -6,7 +6,7 @@ using Autodesk.Max;
 using System.IO;
 using System.Reflection;
 using Autodesk.Max.Plugins;
-using MaxUtils;
+using Outliner.MaxUtils;
 
 namespace Outliner.LayerTools
 {
@@ -27,13 +27,13 @@ public static class NestedLayers
    }
 
 
-   private static Dictionary<AnimatableBooleanProperty, BinaryPredicate<Boolean>> propertyOps =
-         new Dictionary<AnimatableBooleanProperty, BinaryPredicate<Boolean>>() {
-            {AnimatableBooleanProperty.IsHidden, Functor.Or},
-            {AnimatableBooleanProperty.IsFrozen, Functor.Or},
-            {AnimatableBooleanProperty.BoxMode, Functor.Or},
-            {AnimatableBooleanProperty.XRayMtl, Functor.Or},
-            {AnimatableBooleanProperty.Renderable, Functor.And}
+   private static Dictionary<BooleanNodeProperty, BinaryPredicate<Boolean>> propertyOps =
+         new Dictionary<BooleanNodeProperty, BinaryPredicate<Boolean>>() {
+            {BooleanNodeProperty.IsHidden, Functor.Or},
+            {BooleanNodeProperty.IsFrozen, Functor.Or},
+            {BooleanNodeProperty.BoxMode, Functor.Or},
+            {BooleanNodeProperty.SeeThrough, Functor.Or},
+            {BooleanNodeProperty.Renderable, Functor.And}
          };
 
 
@@ -68,7 +68,7 @@ public static class NestedLayers
    {
       return NestedLayers.getAppData(anim, (uint)sbid);
    }
-   private static byte[] getAppData(IAnimatable anim, AnimatableBooleanProperty sbid)
+   private static byte[] getAppData(IAnimatable anim, BooleanNodeProperty sbid)
    {
       return NestedLayers.getAppData(anim, PropertySbidOffset + (uint)sbid);
    }
@@ -82,7 +82,7 @@ public static class NestedLayers
    {
       NestedLayers.setAppData(anim, (uint)sbid, data);
    }
-   private static void setAppData(IAnimatable anim, AnimatableBooleanProperty sbid, byte[] data)
+   private static void setAppData(IAnimatable anim, BooleanNodeProperty sbid, byte[] data)
    {
       NestedLayers.setAppData(anim, PropertySbidOffset + (uint)sbid, data);
    }
@@ -96,7 +96,7 @@ public static class NestedLayers
    {
       NestedLayers.removeAppData(anim, (uint)sbid);
    }
-   private static void removeAppData(IAnimatable anim, AnimatableBooleanProperty sbid)
+   private static void removeAppData(IAnimatable anim, BooleanNodeProperty sbid)
    {
       NestedLayers.removeAppData(anim, PropertySbidOffset + (uint)sbid);
    }
@@ -203,64 +203,146 @@ public static class NestedLayers
       }
    }
 
+   private static Boolean GetLayerProperty(IILayer layer, BooleanNodeProperty property)
+   {
+      switch (property)
+      {
+         case BooleanNodeProperty.IsHidden: return layer.IsHidden;
+         case BooleanNodeProperty.IsFrozen: return layer.IsFrozen;
+         case BooleanNodeProperty.SeeThrough: return layer.XRayMtl;
+         case BooleanNodeProperty.BoxMode: return layer.BoxMode;
+         case BooleanNodeProperty.BackfaceCull: return layer.BackCull;
+         case BooleanNodeProperty.AllEdges: return layer.AllEdges;
+         case BooleanNodeProperty.VertexTicks: return layer.VertTicks;
+         case BooleanNodeProperty.Trajectory: return layer.Trajectory_;
+         case BooleanNodeProperty.IgnoreExtents: return layer.IgnoreExtents;
+         case BooleanNodeProperty.FrozenInGray: return layer.ShowFrozenWithMtl;
+         case BooleanNodeProperty.Renderable: return layer.Renderable;
+         case BooleanNodeProperty.InheritVisibility: return layer.InheritVisibility;
+         case BooleanNodeProperty.PrimaryVisibility: return layer.PrimaryVisibility;
+         case BooleanNodeProperty.SecondaryVisibility: return layer.SecondaryVisibility;
+         case BooleanNodeProperty.ReceiveShadows: return layer.RcvShadows;
+         case BooleanNodeProperty.CastShadows: return layer.CastShadows;
+         case BooleanNodeProperty.ApplyAtmospherics: return layer.ApplyAtmospherics;
+         case BooleanNodeProperty.RenderOccluded: return layer.RenderOccluded;
+         default: return false;
+      }
+   }
+
+   private static void SetLayerProperty(IILayer layer, BooleanNodeProperty property, Boolean value)
+   {
+      switch (property)
+      {
+         case BooleanNodeProperty.IsHidden:
+            layer.IsHidden = value;
+            break;
+         case BooleanNodeProperty.IsFrozen:
+            layer.IsFrozen = value;
+            break;
+         case BooleanNodeProperty.SeeThrough:
+            layer.XRayMtl = value;
+            break;
+         case BooleanNodeProperty.BoxMode:
+            layer.BoxMode = value;
+            break;
+         case BooleanNodeProperty.BackfaceCull:
+            layer.BackCull = value;
+            break;
+         case BooleanNodeProperty.AllEdges:
+            layer.AllEdges = value;
+            break;
+         case BooleanNodeProperty.VertexTicks:
+            layer.VertTicks = value;
+            break;
+         case BooleanNodeProperty.Trajectory:
+            layer.Trajectory(value, false);
+            break;
+         case BooleanNodeProperty.IgnoreExtents:
+            layer.IgnoreExtents = value;
+            break;
+         case BooleanNodeProperty.FrozenInGray:
+            layer.ShowFrozenWithMtl = value;
+            break;
+         case BooleanNodeProperty.Renderable:
+            layer.Renderable = value;
+            break;
+         case BooleanNodeProperty.InheritVisibility:
+            layer.InheritVisibility = value;
+            break;
+         case BooleanNodeProperty.PrimaryVisibility:
+            layer.PrimaryVisibility = value;
+            break;
+         case BooleanNodeProperty.SecondaryVisibility:
+            layer.SecondaryVisibility = value;
+            break;
+         case BooleanNodeProperty.ReceiveShadows:
+            layer.RcvShadows = value;
+            break;
+         case BooleanNodeProperty.CastShadows:
+            layer.CastShadows = value;
+            break;
+         case BooleanNodeProperty.ApplyAtmospherics:
+            layer.ApplyAtmospherics = value;
+            break;
+         case BooleanNodeProperty.RenderOccluded:
+            layer.RenderOccluded = value;
+            break;
+         default:
+            break;
+      }
+   }
+
    /// <summary>
    /// Returns the value of a property on the layer.
    /// It will return the layer's own value, regardless of whether it has been overridden by a parent layer.
    /// </summary>
-   public static Boolean GetProperty(IILayer layer, AnimatableBooleanProperty prop)
+   public static Boolean GetProperty(IILayer layer, BooleanNodeProperty property)
    {
-      String propName = Enum.GetName(typeof(AnimatableBooleanProperty), prop);
-      PropertyInfo propInfo = typeof(IILayer).GetProperty(propName);
-      Boolean ownValue = (Boolean)propInfo.GetValue(layer, null);
-
-      byte[] data = NestedLayers.getAppData(layer, prop);
+      byte[] data = NestedLayers.getAppData(layer, property);
       if (data != null)
          return BitConverter.ToBoolean(data, 0);
       else
-         return ownValue;
+         return NestedLayers.GetLayerProperty(layer, property);
    }
 
    /// <summary>
    /// Sets a layer property and propagates it to its children.
    /// </summary>
-   public static void SetProperty(IILayer layer, AnimatableBooleanProperty prop, Boolean value)
+   public static void SetProperty(IILayer layer, BooleanNodeProperty prop, Boolean value)
    {
       NestedLayers.SetProperty(layer, prop, value, false);
    }
 
-   private static void SetProperty(IILayer layer, AnimatableBooleanProperty prop, Boolean value, Boolean setByParent)
+   private static void SetProperty(IILayer layer, BooleanNodeProperty property, Boolean value, Boolean setByParent)
    {
       if (layer == null)
          return;
       
       //Store new value in AppDataChunk.
-      String propName = Enum.GetName(typeof(AnimatableBooleanProperty), prop);
-      PropertyInfo propInfo = typeof(IILayer).GetProperty(propName);
-
       if (!setByParent)
-         NestedLayers.setAppData(layer, prop, BitConverter.GetBytes(value));
+         NestedLayers.setAppData(layer, property, BitConverter.GetBytes(value));
 
       //Set new value based on value and parent value.
-      Boolean ownValue = NestedLayers.GetProperty(layer, prop);
+      Boolean ownValue = NestedLayers.GetProperty(layer, property);
 
       Boolean newValue = ownValue;
       IILayer parentLayer = NestedLayers.GetParent(layer);
       if (parentLayer != null)
       {
-         Boolean parentValue = (Boolean)propInfo.GetValue(parentLayer, null);
+         Boolean parentValue = NestedLayers.GetLayerProperty(parentLayer, property);
 
          BinaryPredicate<Boolean> pred = Functor.Or;
-         NestedLayers.propertyOps.TryGetValue(prop, out pred);
+         NestedLayers.propertyOps.TryGetValue(property, out pred);
          newValue = pred(ownValue, parentValue);
       }
 
-      propInfo.SetValue(layer, newValue, null);
+      NestedLayers.SetLayerProperty(layer, property, newValue);
 
       //Broadcast notification.
       SystemNotificationCode notifCode = NestedLayers.LayerPropertyChanged;
-      if (prop == AnimatableBooleanProperty.IsHidden)
+      if (property == BooleanNodeProperty.IsHidden)
          notifCode = SystemNotificationCode.LayerHiddenStateChanged;
-      else if (prop == AnimatableBooleanProperty.IsFrozen)
+      else if (property == BooleanNodeProperty.IsFrozen)
          notifCode = SystemNotificationCode.LayerFrozenStateChanged;
       MaxInterfaces.Global.BroadcastNotification(notifCode, layer);
 
@@ -268,30 +350,27 @@ public static class NestedLayers
       IEnumerable<IILayer> childLayers = NestedLayers.GetChildren(layer, false);
       foreach (IILayer childLayer in childLayers)
       {
-         NestedLayers.SetProperty(childLayer, prop, value, true);
+         NestedLayers.SetProperty(childLayer, property, value, true);
       }
    }
 
-   public static Boolean IsPropertyInherited(IILayer layer, AnimatableBooleanProperty prop)
+   public static Boolean IsPropertyInherited(IILayer layer, BooleanNodeProperty prop)
    {
       if (layer == null)
          return false;
 
       Boolean ownValue = NestedLayers.GetProperty(layer, prop);
-
-      String propName = Enum.GetName(typeof(AnimatableBooleanProperty), prop);
-      PropertyInfo propInfo = typeof(IILayer).GetProperty(propName);
-      Boolean actualValue = (Boolean)propInfo.GetValue(layer, null);
+      Boolean actualValue = NestedLayers.GetLayerProperty(layer, prop);
 
       return (ownValue != actualValue);
    }
 
    private static void updateProperties(IILayer layer, Boolean recursive)
    {
-      IEnumerable<AnimatableBooleanProperty> layerProps = Enum.GetValues(typeof(AnimatableBooleanProperty))
-                                                  .Cast<AnimatableBooleanProperty>();
+      IEnumerable<BooleanNodeProperty> layerProps = Enum.GetValues(typeof(BooleanNodeProperty))
+                                                  .Cast<BooleanNodeProperty>();
 
-      foreach (AnimatableBooleanProperty prop in layerProps)
+      foreach (BooleanNodeProperty prop in layerProps)
       {
          NestedLayers.SetProperty(layer, prop, NestedLayers.GetProperty(layer, prop));
       }
@@ -316,8 +395,8 @@ public static class NestedLayers
    public static void ClearScene()
    {
       IEnumerable<SubID> subIDs = Enum.GetValues(typeof(SubID)).Cast<SubID>();
-      IEnumerable<AnimatableBooleanProperty> layerProps = Enum.GetValues(typeof(AnimatableBooleanProperty))
-                                                  .Cast<AnimatableBooleanProperty>();
+      IEnumerable<BooleanNodeProperty> layerProps = Enum.GetValues(typeof(BooleanNodeProperty))
+                                                  .Cast<BooleanNodeProperty>();
 
       IILayerManager layerManager = MaxInterfaces.IILayerManager;
 
@@ -328,7 +407,7 @@ public static class NestedLayers
          foreach (SubID subId in subIDs)
             NestedLayers.removeAppData(layer, subId);
 
-         foreach (AnimatableBooleanProperty prop in layerProps)
+         foreach (BooleanNodeProperty prop in layerProps)
             NestedLayers.removeAppData(layer, prop);
       }
    }
@@ -427,15 +506,15 @@ public static class NestedLayers
 
    private static void writeProperties(BinaryWriter writer, IILayer layer)
    {
-      IEnumerable<AnimatableBooleanProperty> layerProps = Enum.GetValues(typeof(AnimatableBooleanProperty))
-                                                  .Cast<AnimatableBooleanProperty>();
+      IEnumerable<BooleanNodeProperty> layerProps = Enum.GetValues(typeof(BooleanNodeProperty))
+                                                  .Cast<BooleanNodeProperty>();
 
       //Write property chunk size in bytes.
       //1 byte for each enum value, 1 byte for each property value
       writer.Write((byte)(layerProps.Count() * 2));
 
       //Write property values.
-      foreach (AnimatableBooleanProperty prop in layerProps)
+      foreach (BooleanNodeProperty prop in layerProps)
       {
          writer.Write((byte)prop);
          writer.Write(NestedLayers.GetProperty(layer, prop));
@@ -448,7 +527,7 @@ public static class NestedLayers
       for (int p = 0; p < numProps; p++)
       {
          Byte propByte = reader.ReadByte();
-         AnimatableBooleanProperty prop = (AnimatableBooleanProperty)Enum.ToObject(typeof(AnimatableBooleanProperty), propByte);
+         BooleanNodeProperty prop = (BooleanNodeProperty)Enum.ToObject(typeof(BooleanNodeProperty), propByte);
          Boolean propValue = reader.ReadBoolean();
          NestedLayers.SetProperty(layer, prop, propValue);
       }

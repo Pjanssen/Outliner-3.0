@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using Outliner.Scene;
-using MaxUtils;
+using Outliner.MaxUtils;
 
 namespace Outliner.Commands
 {
    public class FreezeCommand : SetNodePropertyCommand<Boolean>
    {
       public FreezeCommand(IEnumerable<IMaxNodeWrapper> nodes, Boolean newValue)
-         : base(nodes, AnimatableProperty.IsFrozen, newValue) { }
+         : base(nodes, NodeProperty.IsFrozen, newValue) { }
 
       public override string Description
       {

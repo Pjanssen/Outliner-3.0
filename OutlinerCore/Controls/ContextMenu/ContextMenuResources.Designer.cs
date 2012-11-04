@@ -145,6 +145,15 @@ namespace Outliner.Controls.ContextMenu {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Action &quot;{0}&quot; not found!.
+        /// </summary>
+        internal static string Str_ActionNotFound {
+            get {
+                return ResourceManager.GetString("Str_ActionNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Selection To.
         /// </summary>
         internal static string Str_AddSelectionTo {
@@ -190,11 +199,83 @@ namespace Outliner.Controls.ContextMenu {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apply atmospherics.
+        /// </summary>
+        internal static string Str_ApplyAtmospherics {
+            get {
+                return ResourceManager.GetString("Str_ApplyAtmospherics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backface cull.
+        /// </summary>
+        internal static string Str_BackfaceCull {
+            get {
+                return ResourceManager.GetString("Str_BackfaceCull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Box mode.
+        /// </summary>
+        internal static string Str_Boxmode {
+            get {
+                return ResourceManager.GetString("Str_Boxmode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By Layer.
+        /// </summary>
+        internal static string Str_ByLayer {
+            get {
+                return ResourceManager.GetString("Str_ByLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cast shadows.
+        /// </summary>
+        internal static string Str_CastShadows {
+            get {
+                return ResourceManager.GetString("Str_CastShadows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        internal static string Str_ClearFilter {
+            get {
+                return ResourceManager.GetString("Str_ClearFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Context menu warning.
+        /// </summary>
+        internal static string Str_ContextMenuWarningTitle {
+            get {
+                return ResourceManager.GetString("Str_ContextMenuWarningTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         internal static string Str_Delete {
             get {
                 return ResourceManager.GetString("Str_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display Settings.
+        /// </summary>
+        internal static string Str_DisplaySettings {
+            get {
+                return ResourceManager.GetString("Str_DisplaySettings", resourceCulture);
             }
         }
         
@@ -217,11 +298,38 @@ namespace Outliner.Controls.ContextMenu {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Frozen in gray.
+        /// </summary>
+        internal static string Str_FrozenInGray {
+            get {
+                return ResourceManager.GetString("Str_FrozenInGray", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hide Selection.
         /// </summary>
         internal static string Str_HideSelection {
             get {
                 return ResourceManager.GetString("Str_HideSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inherit visibility.
+        /// </summary>
+        internal static string Str_InheritVisibility {
+            get {
+                return ResourceManager.GetString("Str_InheritVisibility", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invert.
+        /// </summary>
+        internal static string Str_InvertFilter {
+            get {
+                return ResourceManager.GetString("Str_InvertFilter", resourceCulture);
             }
         }
         
@@ -271,6 +379,33 @@ namespace Outliner.Controls.ContextMenu {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Properties.
+        /// </summary>
+        internal static string Str_ObjectProperties {
+            get {
+                return ResourceManager.GetString("Str_ObjectProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visible to camera.
+        /// </summary>
+        internal static string Str_PrimaryVisibility {
+            get {
+                return ResourceManager.GetString("Str_PrimaryVisibility", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Receive shadows.
+        /// </summary>
+        internal static string Str_ReceiveShadows {
+            get {
+                return ResourceManager.GetString("Str_ReceiveShadows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rename.
         /// </summary>
         internal static string Str_Rename {
@@ -280,11 +415,101 @@ namespace Outliner.Controls.ContextMenu {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Renderable.
+        /// </summary>
+        internal static string Str_Renderable {
+            get {
+                return ResourceManager.GetString("Str_Renderable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Render occluded.
+        /// </summary>
+        internal static string Str_RenderOccluded {
+            get {
+                return ResourceManager.GetString("Str_RenderOccluded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Render Settings.
+        /// </summary>
+        internal static string Str_RenderSettings {
+            get {
+                return ResourceManager.GetString("Str_RenderSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save Preset.
         /// </summary>
         internal static string Str_SavePreset {
             get {
                 return ResourceManager.GetString("Str_SavePreset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visible to reflection/refraction.
+        /// </summary>
+        internal static string Str_SecondaryVisibility {
+            get {
+                return ResourceManager.GetString("Str_SecondaryVisibility", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to See-through.
+        /// </summary>
+        internal static string Str_SeeThrough {
+            get {
+                return ResourceManager.GetString("Str_SeeThrough", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bounding box.
+        /// </summary>
+        internal static string Str_ShowBoundingBox {
+            get {
+                return ResourceManager.GetString("Str_ShowBoundingBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show in viewport.
+        /// </summary>
+        internal static string Str_ShowInViewport {
+            get {
+                return ResourceManager.GetString("Str_ShowInViewport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shaded.
+        /// </summary>
+        internal static string Str_ShowShaded {
+            get {
+                return ResourceManager.GetString("Str_ShowShaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wireframe.
+        /// </summary>
+        internal static string Str_ShowWireframe {
+            get {
+                return ResourceManager.GetString("Str_ShowWireframe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show trajectory.
+        /// </summary>
+        internal static string Str_Trajectory {
+            get {
+                return ResourceManager.GetString("Str_Trajectory", resourceCulture);
             }
         }
         

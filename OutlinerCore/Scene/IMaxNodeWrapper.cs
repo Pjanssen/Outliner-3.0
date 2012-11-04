@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using System.Drawing;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Outliner.LayerTools;
 
 namespace Outliner.Scene
@@ -64,76 +64,73 @@ namespace Outliner.Scene
       public abstract Boolean IsNodeType(MaxNodeTypes types);
       public abstract Boolean Selected { get; } //TODO check if set should be added?
 
-      public virtual Boolean IsHidden 
-      {
-         get { return false; }
-         set { }
-      }
-      public virtual Boolean IsFrozen 
-      {
-         get { return false; }
-         set { }
-      }
-      public virtual Boolean BoxMode
-      {
-         get { return false; }
-         set { }
-      }
+
       public virtual Color WireColor
       {
          get { return Color.Empty; }
          set { }
       }
-      public virtual Boolean Renderable
-      {
-         get { return false; }
-         set { }
-      }
-      public virtual Boolean XRayMtl 
-      {
-         get { return false; }
-         set { }
-      }
 
-      public virtual Object GetProperty(AnimatableProperty prop)
+      public virtual Object GetProperty(NodeProperty property)
       {
-         if (AnimatablePropertyHelpers.IsBooleanProperty(prop))
-            return this.GetProperty(AnimatablePropertyHelpers.ToBooleanProperty(prop));
+         if (NodePropertyHelpers.IsBooleanProperty(property))
+            return this.GetProperty(NodePropertyHelpers.ToBooleanProperty(property));
          else
          {
-            switch (prop)
+            switch (property)
             {
-               case AnimatableProperty.WireColor: return this.WireColor;
-               case AnimatableProperty.Name: return this.Name;
+               case NodeProperty.Name: return this.Name;
+               case NodeProperty.WireColor: return this.WireColor;
                default: return null;
             }
          }
       }
 
-      public virtual Boolean GetProperty(AnimatableBooleanProperty prop)
+      public virtual Boolean GetProperty(BooleanNodeProperty property)
       {
-         switch (prop)
-         {
-            case AnimatableBooleanProperty.BoxMode: return this.BoxMode;
-            case AnimatableBooleanProperty.IsFrozen: return this.IsFrozen;
-            case AnimatableBooleanProperty.IsHidden: return this.IsHidden;
-            case AnimatableBooleanProperty.Renderable: return this.Renderable;
-            case AnimatableBooleanProperty.XRayMtl: return this.XRayMtl;
-            default: return false;
-         }  
+         return false;
       }
 
-      public virtual void SetProperty(AnimatableBooleanProperty prop, Boolean newValue)
+      public virtual void SetProperty(NodeProperty property, Object value)
       {
-         switch (prop)
+         if (NodePropertyHelpers.IsBooleanProperty(property))
+            this.SetProperty(NodePropertyHelpers.ToBooleanProperty(property), (Boolean)value);
+         else
          {
-            case AnimatableBooleanProperty.BoxMode: this.BoxMode = newValue; break;
-            case AnimatableBooleanProperty.IsFrozen: this.IsFrozen = newValue; break;
-            case AnimatableBooleanProperty.IsHidden: this.IsHidden = newValue; break;
-            case AnimatableBooleanProperty.Renderable: this.Renderable = newValue; break;
-            case AnimatableBooleanProperty.XRayMtl: this.XRayMtl = newValue; break;
-         } 
+            switch (property)
+            {
+               case NodeProperty.Name: 
+                  this.Name = (String)value; 
+                  break;
+               case NodeProperty.WireColor: 
+                  this.WireColor = (Color)value; 
+                  break;
+               default:
+                  break;
+            }
+         }
       }
+
+      public virtual void SetProperty(BooleanNodeProperty property, Boolean value) { }
+
+      /// <summary>
+      /// Returns true if the supplied property is inherited from another object, 
+      /// e.g. a layer.
+      /// </summary>
+      public virtual Boolean IsPropertyInherited(NodeProperty property)
+      {
+         return false;
+      }
+
+      /// <summary>
+      /// Returns true if the supplied property is inherited from another object, 
+      /// e.g. a layer.
+      /// </summary>
+      public virtual Boolean IsPropertyInherited(BooleanNodeProperty property)
+      {
+         return this.IsPropertyInherited(NodePropertyHelpers.ToProperty(property));
+      }
+
 
       /// <summary>
       /// Tests if the wrapped node is still a valid scene node and hasn't been deleted.

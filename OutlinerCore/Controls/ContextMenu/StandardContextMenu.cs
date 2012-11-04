@@ -12,6 +12,7 @@ using Outliner.Plugins;
 using OutlinerTree = Outliner.Controls.Tree;
 using Outliner.Presets;
 using Outliner.Controls.Options;
+using Outliner.MaxUtils;
 
 namespace Outliner.Controls.ContextMenu
 {
@@ -77,9 +78,18 @@ internal static class StandardContextMenu
       filter_btn.Checked = treeMode.Filters.Enabled;
       filter_btn.ButtonClick += new EventHandler(filter_btn_ButtonClick);
       filter_btn.DropDown.Closing += new ToolStripDropDownClosingEventHandler(DropDown_Closing);
-      filter_btn.DropDownItems.Add("Invert");
-      ToolStripItem clearBtn = filter_btn.DropDownItems.Add("Clear", ContextMenuResources.delete);
-      clearBtn.Enabled = treeMode.Filters.Count > 0;
+      
+      ToolStripMenuItem invertBtn = filter_btn.DropDownItems.Add(ContextMenuResources.Str_InvertFilter) as ToolStripMenuItem;
+      invertBtn.Checked = treeMode.Filters.Invert;
+      invertBtn.Tag = treeMode.Filters;
+      invertBtn.Click += new EventHandler(invertBtn_Click);
+
+      ToolStripItem clearBtn = filter_btn.DropDownItems.Add(ContextMenuResources.Str_ClearFilter, ContextMenuResources.delete);
+      clearBtn.Name = "Clear";
+      clearBtn.Enabled = treeMode.Filters.Filters.Count > 0;
+      clearBtn.Tag = treeMode.Filters;
+      clearBtn.Click += new EventHandler(clearBtn_Click);
+
       filter_btn.DropDownItems.Add(new ToolStripSeparator());
       int numFilters = AddFilters(filter_btn.DropDownItems, FilterCategories.Classes, treeMode);
       if (numFilters > 0)
@@ -152,6 +162,8 @@ internal static class StandardContextMenu
 
    
 
+   
+
    private static ToolStripMenuItem AddDropDownItem(ToolStripItemCollection itemCollection, String text, Image img, EventHandler clickHandler, Object tag)
    {
       ToolStripMenuItem item = new ToolStripMenuItem(text, img, clickHandler);
@@ -185,6 +197,7 @@ internal static class StandardContextMenu
       Tuple<OutlinerSplitContainer, OutlinerTree::TreeView, TreeMode> data = GetStripTag(toolstripItem);
       return data.Item3;
    }
+
 
    #region Presets
    
@@ -220,6 +233,27 @@ internal static class StandardContextMenu
       treeMode.Filters.Enabled = !treeMode.Filters.Enabled;
    }
 
+   static void invertBtn_Click(object sender, EventArgs e)
+   {
+      ToolStripMenuItem item = sender as ToolStripMenuItem;
+      Filter<IMaxNodeWrapper> filter = item.Tag as Filter<IMaxNodeWrapper>;
+      item.Checked = !item.Checked;
+      filter.Invert = item.Checked;
+   }
+
+   static void clearBtn_Click(object sender, EventArgs e)
+   {
+      ToolStripMenuItem item = sender as ToolStripMenuItem;
+      FilterCombinator<IMaxNodeWrapper> filter = item.Tag as FilterCombinator<IMaxNodeWrapper>;
+      if (filter != null)
+      {
+         filter.Filters.Clear();
+         filter.Invert = false;
+         filter.Enabled = false;
+      }
+   }
+
+
    static void DropDown_Closing(object sender, ToolStripDropDownClosingEventArgs e)
    {
       if ((e.CloseReason & ToolStripDropDownCloseReason.ItemClicked) == ToolStripDropDownCloseReason.ItemClicked)
@@ -246,21 +280,21 @@ internal static class StandardContextMenu
       if (filter == null)
       {
          filter = (Filter<Outliner.Scene.IMaxNodeWrapper>)Activator.CreateInstance(filterType, false);
-         treeMode.Filters.Add(filter);
+         treeMode.Filters.Filters.Add(filter);
       }
       else
       {
-         treeMode.Filters.Remove(filter);
+         treeMode.Filters.Filters.Remove(filter);
       }
 
-      treeMode.Filters.Enabled = (treeMode.Filters.Count > 0);
+      treeMode.Filters.Enabled = (treeMode.Filters.Filters.Count > 0);
       CheckFilterItem(item, treeMode);
    }
 
    private static void CheckFilterItem(ToolStripMenuItem item, TreeMode treeMode)
    {
       Type filterType = item.Tag as Type;
-      item.Checked = treeMode.Filters.Contains(filterType);
+      item.Checked = treeMode.Filters.Get(filterType) != null;
    }
 
    #endregion
@@ -318,7 +352,7 @@ internal static class StandardContextMenu
       if (!outlinerState.Panel2Collapsed)
          outlinerInstance.SwitchPreset(f.treeView2, outlinerState.Tree2Preset, true);
 
-      f.Show(new WindowWrapper(MaxUtils.MaxInterfaces.COREInterface.MAXHWnd));
+      f.Show(new WindowWrapper(MaxInterfaces.COREInterface.MAXHWnd));
    }
 
    #endregion
@@ -337,24 +371,25 @@ internal static class StandardContextMenu
    
    static void textFilter_TextChanged(object sender, EventArgs e)
    {
-      TreeMode mode = GetTreeMode(sender);
-      ToolStripTextBox textBox = sender as ToolStripTextBox;
-      Type filterType = typeof(NameFilter);
-      NameFilter filter = mode.PermanentFilters.Get(filterType) as NameFilter;
-      if (filter != null)
-         filter.SearchString = textBox.Text;
+      throw new NotImplementedException();
+      //TreeMode mode = GetTreeMode(sender);
+      //ToolStripTextBox textBox = sender as ToolStripTextBox;
+      //Type filterType = typeof(NameFilter);
+      //NameFilter filter = mode.PermanentFilters.Get(filterType) as NameFilter;
+      //if (filter != null)
+      //   filter.SearchString = textBox.Text;
    }
 
    static void textFilter_LostFocus(object sender, EventArgs e)
    {
-      MaxUtils.MaxInterfaces.Global.EnableAccelerators();
+      MaxInterfaces.Global.EnableAccelerators();
    }
 
    static void textFilter_GotFocus(object sender, EventArgs e)
    {
       TreeMode treeMode = GetTreeMode(sender);
       treeMode.Tree.Invalidate(); //Avoid tree going blank when docked.
-      MaxUtils.MaxInterfaces.Global.DisableAccelerators();
+      MaxInterfaces.Global.DisableAccelerators();
    }
 
    #endregion
@@ -362,7 +397,7 @@ internal static class StandardContextMenu
    private static void EditPresets_Click(object sender, EventArgs e)
    {
       PresetEditor editor = new PresetEditor();
-      editor.ShowDialog(new WindowWrapper(MaxUtils.MaxInterfaces.COREInterface.MAXHWnd));
+      editor.ShowDialog(new WindowWrapper(MaxInterfaces.COREInterface.MAXHWnd));
    }
 }
 }

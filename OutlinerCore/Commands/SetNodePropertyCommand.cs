@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Outliner.Scene;
 using System.Reflection;
 
@@ -11,12 +11,19 @@ namespace Outliner.Commands
 public class SetNodePropertyCommand<T> : Command
 {
    private IEnumerable<IMaxNodeWrapper> nodes;
+   private NodeProperty property;
    private PropertyInfo propInfo;
    private T newValue;
    private Dictionary<IMaxNodeWrapper, T> prevValues;
 
-   public SetNodePropertyCommand(IEnumerable<IMaxNodeWrapper> nodes, AnimatableProperty property, T newValue)
-      : this(nodes, Enum.GetName(typeof(AnimatableProperty), property), newValue) { }
+   public SetNodePropertyCommand(IEnumerable<IMaxNodeWrapper> nodes, NodeProperty property, T newValue)
+   {
+      ExceptionHelpers.ThrowIfArgumentIsNull(nodes, "nodes");
+
+      this.nodes = nodes;
+      this.property = property;
+      this.newValue = newValue;
+   }
 
    public SetNodePropertyCommand(IEnumerable<IMaxNodeWrapper> nodes, String propertyName, T newValue)
    {
@@ -25,6 +32,7 @@ public class SetNodePropertyCommand<T> : Command
 
       this.nodes = nodes;
       this.propInfo = typeof(IMaxNodeWrapper).GetProperty(propertyName);
+      this.property = NodeProperty.None;
       this.newValue = newValue;
    }
 
@@ -34,9 +42,7 @@ public class SetNodePropertyCommand<T> : Command
    }
 
    protected override void Do()
-   {
-      ExceptionHelpers.ThrowIfNull(this.nodes, "inputNodes cannot be null. Execute must be called first.");
-      
+   {      
       this.prevValues = new Dictionary<IMaxNodeWrapper, T>(this.nodes.Count());
 
       foreach (IMaxNodeWrapper node in this.nodes)
@@ -56,12 +62,19 @@ public class SetNodePropertyCommand<T> : Command
 
    protected virtual T GetValue(IMaxNodeWrapper node)
    {
-      return (T)propInfo.GetValue(node, null);
+      if (this.propInfo == null)
+         return (T)node.GetProperty(this.property);
+      else 
+         return (T)this.propInfo.GetValue(node, null);
    }
 
    protected virtual void SetValue(IMaxNodeWrapper node, T value)
    {
-      this.propInfo.SetValue(node, value, null);
+      if (this.propInfo == null)
+         node.SetProperty(this.property, value);
+      else
+         this.propInfo.SetValue(node, value, null);
+      
    }
 }
 }

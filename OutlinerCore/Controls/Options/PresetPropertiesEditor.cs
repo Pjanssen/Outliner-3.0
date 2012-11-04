@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Outliner.Presets;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Autodesk.Max;
 using Outliner.Plugins;
 using System.Reflection;

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.Drawing;
-using MaxUtils;
+using Outliner.MaxUtils;
 
-namespace Outliner.Plugins
+namespace Outliner
 {
 public static class ResourceHelpers
 {

@@ -5,7 +5,7 @@ using System.Text;
 using Autodesk.Max;
 using Autodesk.Max.Plugins;
 using System.Runtime.InteropServices;
-using MaxUtils;
+using Outliner.MaxUtils;
 
 namespace Outliner.LayerTools
 {

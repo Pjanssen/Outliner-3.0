@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max.Plugins;
 using Autodesk.Max;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Outliner.Scene;
 
 namespace Outliner.Commands

@@ -3,22 +3,163 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Xml.Serialization;
+using Outliner.Plugins;
+using System.Reflection;
+using System.IO;
 using System.Windows.Forms;
+using System.ComponentModel;
+using Outliner.Scene;
 
 namespace Outliner.Controls.ContextMenu
 {
-   public class MenuItemData
+[XmlInclude(typeof(ActionMenuItemData))]
+[XmlInclude(typeof(IncludeContextMenuData))]
+[XmlInclude(typeof(MxsMenuItemData))]
+[XmlInclude(typeof(NodePropertyMenuItem))]
+[XmlInclude(typeof(SeparatorMenuItemData))]
+public abstract class MenuItemData
+{
+   public MenuItemData() : this(String.Empty, String.Empty, null) { }
+   public MenuItemData(String text, String image, Type resType)
    {
-      public String Text;
-      public String TextResource;
-      public Image Image;
-
-      //public MenuItem ToMenuItem()
-      //{
-      //   MenuItem item = new MenuItem();
-      //   if (this.Text != null)
-      //      item.Text = this.Text;
-      //}
+      this.TextRes = text;
+      this.ImageRes = image;
+      if (resType != null)
+         this.ResourceTypeName = resType.Name;
+      this.VisibleTypes = MaxNodeTypes.All;
+      this.SubItems = new List<MenuItemData>();
    }
 
+   [XmlAttribute("text")]
+   public String TextRes { get; set; }
+
+   [XmlAttribute("image")]
+   [DefaultValue("")]
+   public String ImageRes { get; set; }
+
+   [XmlAttribute("resource_type")]
+   [DefaultValue("")]
+   public String ResourceTypeName { get; set; }
+
+   [XmlAttribute("visible_types")]
+   [DefaultValue(MaxNodeTypes.All)]
+   public MaxNodeTypes VisibleTypes { get; set; }
+
+   private Type resourceType;
+   private Type ResourceType
+   {
+      get
+      {
+         if (this.resourceType == null && !String.IsNullOrEmpty(this.ResourceTypeName))
+         {
+            foreach (Assembly pluginAssembly in OutlinerPlugins.PluginAssemblies)
+            {
+               this.resourceType = pluginAssembly.GetType(this.ResourceTypeName);
+               if (this.resourceType != null)
+                  break;
+            }
+
+         }
+         return this.resourceType;
+      }
+   }
+
+   [XmlIgnore]
+   public String Text
+   {
+      get
+      {
+         if (this.ResourceType != null && this.TextRes != null)
+            return ResourceHelpers.LookupString(this.ResourceType, this.TextRes);
+         else
+            return this.TextRes;
+      }
+   }
+
+   [XmlIgnore]
+   public Image Image
+   {
+      get
+      {
+         if (String.IsNullOrEmpty(this.ImageRes))
+            return null;
+
+         if (this.ResourceType != null)
+            return ResourceHelpers.LookupImage(this.ResourceType, this.ImageRes);
+         else
+         {
+            String path = this.ImageRes;
+            if (!Path.IsPathRooted(path))
+               path = Path.Combine(OutlinerPaths.ContextMenuDir, path);
+               
+            return Image.FromFile(path);
+         }
+      }
+   }
+
+
+   [XmlArray("SubItems")]
+   [XmlArrayItem("MenuItem")]
+   public virtual List<MenuItemData> SubItems { get; set; }
+
+   /// <summary>
+   /// Magical method which tells the XmlSerializer when to serialize the SubItems list.
+   /// </summary>
+   public bool ShouldSerializeSubItems()
+   {
+      return this.SubItems != null && this.SubItems.Count > 0;
+   }
+
+   /// <summary>
+   /// Returns true if the MenuItem should be Enabled.
+   /// </summary>
+   protected virtual Boolean Enabled( Outliner.Controls.Tree.TreeNode clickedTn
+                                    , IEnumerable<IMaxNodeWrapper> context)
+   {
+      return true;
+   }
+
+   /// <summary>
+   /// Returns true if the MenuItem should be in a Checked state.
+   /// </summary>
+   protected virtual Boolean Checked( Outliner.Controls.Tree.TreeNode clickedTn
+                                    , IEnumerable<IMaxNodeWrapper> context)
+   {
+      return false;
+   }
+
+   /// <summary>
+   /// Executes code when the MenuItem is clicked.
+   /// </summary>
+   public abstract void OnClick( Outliner.Controls.Tree.TreeNode clickedTn
+                               , IEnumerable<IMaxNodeWrapper> context);
+
+   public virtual ToolStripItem ToToolStripMenuItem( Outliner.Controls.Tree.TreeNode clickedTn
+                                                   , IEnumerable<IMaxNodeWrapper> context)
+   {
+      ToolStripMenuItem item = new ToolStripMenuItem();
+      item.Text = this.Text;
+      item.Image = this.Image;
+      Boolean visible = context.Any(n => n.IsNodeType(this.VisibleTypes));
+      item.Visible = visible;
+
+      if (visible)
+      {
+         Boolean enabled = this.Enabled(clickedTn, context);
+         item.Enabled = enabled;
+         if (enabled)
+            item.Checked = this.Checked(clickedTn, context);
+
+         foreach (MenuItemData subitem in this.SubItems)
+         {
+            item.DropDownItems.Add(subitem.ToToolStripMenuItem(clickedTn, context));
+         }
+
+         item.Click += new EventHandler((sender, eventArgs) => this.OnClick(clickedTn, context));
+      }
+
+      return item;
+   }
+}
 }

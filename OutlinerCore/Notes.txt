@@ -4,10 +4,9 @@
 * Superclass sorter does not really work with exceptions (target, bones, etc). -> use imagekey instead?
 * SetViewCameraCommand: properly store previous state.
 * ToggleLightTest use IInterface.CreateLightObject ?
-* Invert filter option
 * Exception handling
 * Updating / Installing
-* recognizing incoming layers from xref -> layers from xref will be separated to another tree view
+* Make ContextMenuData, MenuItemData generic class? context type.
 
 TREEVIEW
 --------
@@ -45,35 +44,39 @@ Productivity tools
 
 TreeModes
 ---------
-* Hierarchy*
+* Hierarchy
 * Flat object list
-* Layers*
-* Materials
-* Selection Sets
+* Layers
+* Materials*
+* Selection Sets*
 
 Filters
 -------
-* Object classes (Geometry, bones, helpers, etc)*
-* Hidden, Frozen*
-* ColorTags
-* Maxscript filter
-* CAT Muscles
+* Object classes (Geometry, bones, helpers, etc)
+* Hidden, Frozen
+* ColorTags*
+* Maxscript filter*
+* CAT Muscles*
 
 NodeSorters
 -----------
-* Alphabetical*
-* ColorTag
-* Hidden, Frozen*
-* Chronological
+* Alphabetical
+* Hidden, Frozen
 * Type*
+* ColorTag*
+* Chronological*
+
 
 TreeNodeButtons
 ---------------
-* Add, Remove*
-* Hide, Freeze*
-* Maya indent
-* BoxMode, Renderable, WireColor (Animatable Property)
-* ColorTag
+* Add, Remove
+* Hide, Freeze
+* Maya indent*
+* BoxMode, Renderable, WireColor (Animatable Property)*
+* ColorTag*
+
+
+
 
 
 Options

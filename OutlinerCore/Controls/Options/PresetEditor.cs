@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using Outliner.Presets;
 using Outliner.Plugins;
 using Autodesk.Max;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Outliner.Controls.Tree.Layout;
 using Outliner.Filters;
 using Outliner.Scene;
@@ -108,8 +108,8 @@ public partial class PresetEditor : Form
 
          if (tagType.Equals(typeof(OutlinerPreset)) || tagType.IsSubclassOf(typeof(OutlinerPreset)))
             editor = new PresetPropertiesEditor(this, tn.Tag as OutlinerPreset);
-         else if (tagType == typeof(FilterCollection<IMaxNodeWrapper>))
-            editor = new FilterCollectionEditor(this, tn.Tag as FilterCollection<IMaxNodeWrapper>);
+         else if (tagType == typeof(FilterCombinator<IMaxNodeWrapper>))
+            editor = new FilterCollectionEditor(this, this.editingPreset);
          else if (tagType == typeof(TreeNodeLayout))
             editor = new TreeNodeLayoutEditor(this, tn.Tag as TreeNodeLayout);
 

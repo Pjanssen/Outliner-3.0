@@ -11,11 +11,12 @@ using Outliner.Filters;
 // Import System.Windows.Forms with alias to avoid ambiguity 
 // between System.Windows.TreeNode and Outliner.Controls.TreeNode.
 using WinForms = System.Windows.Forms;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Outliner.NodeSorters;
 using Outliner.LayerTools;
 using System.Drawing;
 using Outliner.Controls.ContextMenu;
+using System.IO;
 
 namespace Outliner.Modes
 {
@@ -26,8 +27,8 @@ public abstract class TreeMode
    private ICollection<Tuple<GlobalDelegates.Delegate5, SystemNotificationCode>> systemNotifications;
    private ICollection<Tuple<uint, TreeModeNodeEventCallbacks>> nodeEventCallbacks;
    protected Dictionary<Object, List<TreeNode>> treeNodes { get; private set; }
-   private FilterCollection<IMaxNodeWrapper> _permanentFilters;
-   private FilterCollection<IMaxNodeWrapper> _filters;
+   private Filter<IMaxNodeWrapper> permanentFilter;
+   private MaxNodeFilterCombinator filters;
 
    protected TreeMode(TreeView tree)
    {
@@ -39,16 +40,12 @@ public abstract class TreeMode
 
       this.Tree = tree;
       this.treeNodes = new Dictionary<Object, List<TreeNode>>();
-      this.Filters = new FilterCollection<IMaxNodeWrapper>();
-      this.Filters.Combinator = Functor.Or;
-      this.Filters.InitialCombinatorValue = false;
+      this.Filters = new MaxNodeFilterCombinator() { Predicate = Functor.Or };
 
-      this.PermanentFilters = new FilterCollection<IMaxNodeWrapper>();
-      this.PermanentFilters.Enabled = true;
-      this.PermanentFilters.Combinator = Functor.And;
-      this.PermanentFilters.InitialCombinatorValue = true;
-      this.PermanentFilters.Add(new InvisibleNodeFilter());
-      this.PermanentFilters.Add(new NameFilter());
+      FilterCombinator<IMaxNodeWrapper> permanentFilter = new FilterCombinator<IMaxNodeWrapper>(Functor.And);
+      permanentFilter.Filters.Add(new InvisibleNodeFilter());
+      permanentFilter.Filters.Add(new NameFilter());
+      this.PermanentFilter = permanentFilter;
 
       this.started = false;
    }
@@ -301,7 +298,7 @@ public abstract class TreeMode
       TreeNode tn = new MaxTreeNode(wrapper);
       this.RegisterNode(wrapper, tn);
 
-      tn.ShowNode = this.PermanentFilters.ShowNode(wrapper) && this.Filters.ShowNode(wrapper);
+      tn.ShowNode = this.PermanentFilter.ShowNode(wrapper) && this.Filters.ShowNode(wrapper);
       tn.DragDropHandler = this.CreateDragDropHandler(wrapper);
 
       parentCol.Add(tn);
@@ -489,27 +486,23 @@ public abstract class TreeMode
 
       public override void WireColorChanged(ITab<UIntPtr> nodes)
       {
-         AnimatablePropertySorter sorter = this.tree.NodeSorter as AnimatablePropertySorter;
-         Boolean sort = sorter != null && sorter.Property == AnimatableProperty.WireColor;
+         NodePropertySorter sorter = this.tree.NodeSorter as NodePropertySorter;
+         Boolean sort = sorter != null && sorter.Property == NodeProperty.WireColor;
          this.treeMode.InvalidateTreeNodes(nodes, false, sort);
       }
 
 
       public override void DisplayPropertiesChanged(ITab<UIntPtr> nodes)
       {
-         AnimatablePropertySorter sorter = this.tree.NodeSorter as AnimatablePropertySorter;
-         Boolean sort = sorter != null && (sorter.Property == AnimatableProperty.BoxMode)
-                                       && (sorter.Property == AnimatableProperty.IsFrozen)
-                                       && (sorter.Property == AnimatableProperty.IsHidden)
-                                       && (sorter.Property == AnimatableProperty.Name)
-                                       && (sorter.Property == AnimatableProperty.XRayMtl);
+         NodePropertySorter sorter = this.tree.NodeSorter as NodePropertySorter;
+         Boolean sort = sorter != null && NodePropertyHelpers.IsDisplayProperty(sorter.Property);
          this.treeMode.InvalidateTreeNodes(nodes, false, sort);
       }
 
       public override void RenderPropertiesChanged(ITab<UIntPtr> nodes)
       {
-         AnimatablePropertySorter sorter = this.tree.NodeSorter as AnimatablePropertySorter;
-         Boolean sort = (sorter != null && sorter.Property == AnimatableProperty.Renderable);
+         NodePropertySorter sorter = this.tree.NodeSorter as NodePropertySorter;
+         Boolean sort = sorter != null && NodePropertyHelpers.IsRenderProperty(sorter.Property);
          this.treeMode.InvalidateTreeNodes(nodes, false, false);
       }
    }
@@ -575,24 +568,14 @@ public abstract class TreeMode
 
 
 
-   protected virtual WinForms::ContextMenuStrip CreateContextMenu(TreeNode clickedNode)
+   protected virtual WinForms::ContextMenuStrip CreateContextMenu(TreeNode clickedTn)
    {
       IEnumerable<IMaxNodeWrapper> selectedNodes = HelperMethods.GetMaxNodes(this.Tree.SelectedNodes);
       
-      WinForms::ContextMenuStrip menu = new WinForms::ContextMenuStrip();
+      String contextMenuFile = Path.Combine(OutlinerPaths.ContextMenuDir, "ContextMenu.xml");
+      ContextMenuData data = XmlSerializationHelpers<ContextMenuData>.FromXml(contextMenuFile);
 
-      if (selectedNodes.Count() > 0)
-      {
-         menu.Items.AddRange(StandardContextMenuItems.RenameDeleteItems(selectedNodes, clickedNode));
-         menu.Items.Add(new WinForms::ToolStripSeparator());
-         menu.Items.AddRange(StandardContextMenuItems.HideFreezeItems(selectedNodes));
-         menu.Items.Add(new WinForms::ToolStripSeparator());
-         menu.Items.AddRange(StandardContextMenuItems.AddSelectionToItems(selectedNodes));
-         menu.Items.Add(new WinForms::ToolStripSeparator());
-         menu.Items.AddRange(StandardContextMenuItems.PropertiesItems());
-      }
-
-      return menu;
+      return data.ToContextMenuStrip(clickedTn, selectedNodes);
    }
 
 
@@ -613,43 +596,43 @@ public abstract class TreeMode
 
    #region Filters
 
-   public FilterCollection<IMaxNodeWrapper> Filters
+   public MaxNodeFilterCombinator Filters
    {
-      get { return _filters; }
+      get { return this.filters; }
       set
       {
          ExceptionHelpers.ThrowIfArgumentIsNull(value, "value");
 
-         if (_filters != null)
-            _filters.GeneralFiltersChanged -= this.filters_GeneralFiltersChanged;
+         if (this.filters != null)
+            this.filters.FilterChanged -= this.filters_FilterChanged;
 
-         _filters = value;
-         _filters.GeneralFiltersChanged += this.filters_GeneralFiltersChanged;
+         this.filters = value;
+         this.filters.FilterChanged += this.filters_FilterChanged;
 
          if (this.started)
             this.EvaluateFilters();
       }
    }
 
-   public FilterCollection<IMaxNodeWrapper> PermanentFilters
+   public Filter<IMaxNodeWrapper> PermanentFilter
    {
-      get { return this._permanentFilters; }
+      get { return this.permanentFilter; }
       set
       {
          ExceptionHelpers.ThrowIfArgumentIsNull(value, "value");
 
-         if (this._permanentFilters != null)
-            this._permanentFilters.GeneralFiltersChanged -= this.filters_GeneralFiltersChanged;
+         if (this.permanentFilter != null)
+            this.permanentFilter.FilterChanged -= this.filters_FilterChanged;
 
-         this._permanentFilters = value;
-         this._permanentFilters.GeneralFiltersChanged += this.filters_GeneralFiltersChanged;
+         this.permanentFilter = value;
+         this.permanentFilter.FilterChanged += this.filters_FilterChanged;
 
          if (this.started)
             this.EvaluateFilters();
       }
    }
 
-   void filters_GeneralFiltersChanged(object sender, EventArgs e)
+   void filters_FilterChanged(object sender, EventArgs e)
    {
       if (this.started)
          this.EvaluateFilters();
@@ -665,7 +648,7 @@ public abstract class TreeMode
          foreach (TreeNode tn in item.Value)
          {
             IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
-            tn.ShowNode = this.PermanentFilters.ShowNode(node) && this.Filters.ShowNode(node);
+            tn.ShowNode = this.PermanentFilter.ShowNode(node) && this.Filters.ShowNode(node);
          }
       }
       this.Tree.Sort();

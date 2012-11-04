@@ -10,7 +10,7 @@ using Outliner.Controls.Tree.Layout;
 using System.Drawing;
 using Outliner.Controls.Tree;
 using Autodesk.Max;
-using MaxUtils;
+using Outliner.MaxUtils;
 using System.IO;
 using System.Xml.Serialization;
 using Outliner.Plugins;
@@ -27,7 +27,7 @@ public class OutlinerPreset
       this.TreeModeTypeName = String.Empty;
       this.NodeSorter = new AlphabeticalSorter();
       this.TreeNodeLayout = TreeNodeLayout.SimpleLayout;
-      this.Filters = new FilterCollection<Scene.IMaxNodeWrapper>();
+      this.Filters = new MaxNodeFilterCombinator() { Enabled = false };
    }
 
    [XmlIgnore]
@@ -118,7 +118,7 @@ public class OutlinerPreset
    public virtual TreeNodeLayout TreeNodeLayout { get; set; }
 
    [XmlElement("filters")]
-   public virtual FilterCollection<IMaxNodeWrapper> Filters { get; set; }
+   public virtual MaxNodeFilterCombinator Filters { get; set; }
 
    public TreeMode CreateTreeMode(TreeView tree)
    {

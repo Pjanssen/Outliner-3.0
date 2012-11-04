@@ -5,7 +5,7 @@ using System.Text;
 using Autodesk.Max;
 using Outliner.Scene;
 using System.Globalization;
-using MaxUtils;
+using Outliner.MaxUtils;
 using Outliner.Plugins;
 using ManagedServices;
 
@@ -34,7 +34,7 @@ namespace Outliner.Filters
          }
       }
 
-      public override Boolean ShowNode(IMaxNodeWrapper data)
+      protected override Boolean ShowNodeInternal(IMaxNodeWrapper data)
       {
          if (String.IsNullOrEmpty(_script))
             return true;

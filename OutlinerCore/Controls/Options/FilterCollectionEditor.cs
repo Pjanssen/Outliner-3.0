@@ -9,14 +9,17 @@ using System.Windows.Forms;
 using Outliner.Filters;
 using Outliner.Scene;
 using Outliner.Plugins;
-using MaxUtils;
+using Outliner.MaxUtils;
+using Autodesk.Max;
+using Outliner.Controls.Tree.Layout;
+using Outliner.Presets;
 
 namespace Outliner.Controls.Options
 {
 public partial class FilterCollectionEditor : UserControl
 {
    private PresetEditor owningEditor;
-   private FilterCollection<IMaxNodeWrapper> filterCollection;
+   private OutlinerPreset preset;
 
    public FilterCollectionEditor()
    {
@@ -24,18 +27,39 @@ public partial class FilterCollectionEditor : UserControl
    }
 
    public FilterCollectionEditor( PresetEditor owningEditor
-                                , FilterCollection<IMaxNodeWrapper> collection) : this()
+                                , OutlinerPreset preset)
+      : this()
    {
       this.owningEditor = owningEditor;
-      this.filterCollection = collection;
+      this.preset = preset;
 
-      this.enabledCheckBox.Checked = this.filterCollection.Enabled;
-      this.combinatorOR.Checked = this.filterCollection.Combinator == Functor.Or;
-      this.combinatorAND.Checked = this.filterCollection.Combinator == Functor.And;
+      Color windowColor = ColorHelpers.FromMaxGuiColor(GuiColors.Window);
+      Color windowTextColor = ColorHelpers.FromMaxGuiColor(GuiColors.WindowText);
+
+      this.SetControlColor(this.filtersComboBox, windowColor, windowTextColor);
+      this.SetControlColor(this.filtersTree, windowColor, windowTextColor);
+
+      this.filterPropertyGrid.ViewBackColor = windowColor;
+      this.filterPropertyGrid.ViewForeColor = windowTextColor;
+      this.filterPropertyGrid.LineColor = Color.Gray;
+
+      this.filtersTree.TreeNodeLayout = new TreeNodeLayout();
+      this.filtersTree.TreeNodeLayout.LayoutItems.Add(new TreeNodeIndent() { UseVisualStyles = false });
+      this.filtersTree.TreeNodeLayout.LayoutItems.Add(new TreeNodeText());
+      this.filtersTree.TreeNodeLayout.LayoutItems.Add(new EmptySpace());
+      this.filtersTree.TreeNodeLayout.FullRowSelect = true;
+
+      this.enabledCheckBox.Checked = this.preset.Filters.Enabled;
 
       this.FillFilterComboBox();
       this.FillTree();
       this.SetEnabledStates();
+   }
+
+   private void SetControlColor(Control c, Color backColor, Color foreColor)
+   {
+      c.BackColor = backColor;
+      c.ForeColor = foreColor;
    }
 
    private void FillFilterComboBox()
@@ -43,26 +67,53 @@ public partial class FilterCollectionEditor : UserControl
       IEnumerable<OutlinerPluginData> filters = OutlinerPlugins.GetPluginsByType(OutlinerPluginType.Filter);
       foreach (OutlinerPluginData filter in filters)
       {
-         this.filtersComboBox.Items.Add(filter.DisplayName);
+         this.filtersComboBox.Items.Add(filter);
       }
+      this.filtersComboBox.DisplayMember = "DisplayName";
+      this.filtersComboBox.SelectedIndex = 0;
    }
 
    private void FillTree()
    {
-      //this.filterEnabledCheckBox.Checked = editingPreset.Filters.Enabled;
       this.filtersTree.Nodes.Clear();
-      foreach (Filter<IMaxNodeWrapper> item in this.filterCollection)
+      this.AddFilterToTree(this.preset.Filters, this.filtersTree.Nodes);
+      this.filtersTree.Root.ExpandAll();
+   }
+
+   private void AddFilterToTree(Filter<IMaxNodeWrapper> filter, Tree.TreeNodeCollection parentCollection)
+   {
+      FilterCombinator<IMaxNodeWrapper> combinator = filter as FilterCombinator<IMaxNodeWrapper>;
+      String nodeName = String.Empty;
+      if (combinator != null)
       {
-         this.filtersTree.Nodes.Add(new Tree.TreeNode(item.GetType().Name));
+         nodeName = Functor.PredicateToString<Boolean>(combinator.Predicate);
       }
+      else
+      {
+         OutlinerPluginData filterPluginData = OutlinerPlugins.GetPluginDataByType(filter.GetType());
+         if (filterPluginData != null)
+            nodeName = filterPluginData.DisplayName;
+         else
+            nodeName = filter.GetType().Name;
+      }
+
+      Tree.TreeNode tn = new Tree.TreeNode(nodeName);
+      tn.Tag = filter;
+
+      if (combinator != null)
+      {
+         foreach (Filter<IMaxNodeWrapper> child in combinator.Filters)
+         {
+            this.AddFilterToTree(child, tn.Nodes);
+         }
+      }
+
+      parentCollection.Add(tn);
    }
 
    private void SetEnabledStates()
    {
-      Boolean enabled = this.filterCollection.Enabled;
-      this.combinatorLabel.Enabled    = enabled;
-      this.combinatorOR.Enabled       = enabled;
-      this.combinatorAND.Enabled      = enabled;
+      Boolean enabled = this.preset.Filters.Enabled;
       this.filtersComboBox.Enabled    = enabled;
       this.filtersTree.Enabled        = enabled;
       this.addFilterButton.Enabled    = enabled;
@@ -72,9 +123,49 @@ public partial class FilterCollectionEditor : UserControl
 
    private void enabledCheckBox_CheckedChanged(object sender, EventArgs e)
    {
-      this.filterCollection.Enabled = this.enabledCheckBox.Checked;
+      this.preset.Filters.Enabled = this.enabledCheckBox.Checked;
       this.SetEnabledStates();
       this.owningEditor.UpdatePreviewTree();
+   }
+
+   private void addFilterButton_Click(object sender, EventArgs e)
+   {
+      OutlinerPluginData selPlugin = this.filtersComboBox.SelectedItem as OutlinerPluginData;
+      if (selPlugin != null)
+      {
+         //this.filterCollection.Add(Activator.CreateInstance(selPlugin.Type, null) as Filter<IMaxNodeWrapper>);
+         this.FillTree();
+         this.owningEditor.UpdatePreviewTree();
+      }
+   }
+
+   private void deleteFilterButton_Click(object sender, EventArgs e)
+   {
+      foreach (Tree.TreeNode tn in this.filtersTree.SelectedNodes)
+      {
+         Filter<IMaxNodeWrapper> filter = tn.Tag as Filter<IMaxNodeWrapper>;
+         //if (filter != null)
+         //   this.filterCollection.Remove(filter);
+      }
+      this.FillTree();
+      this.owningEditor.UpdatePreviewTree();
+   }
+
+   private void combinatorOR_CheckedChanged(object sender, EventArgs e)
+   {
+      //this.filterCollection.Predicate = Functor.Or;
+      this.owningEditor.UpdatePreviewTree();
+   }
+
+   private void combinatorAND_CheckedChanged(object sender, EventArgs e)
+   {
+      //this.filterCollection.Predicate = Functor.And;
+      this.owningEditor.UpdatePreviewTree();
+   }
+
+   private void filtersTree_SelectionChanged(object sender, Tree.SelectionChangedEventArgs e)
+   {
+      this.filterPropertyGrid.SelectedObjects = e.Nodes.Select(tn => tn.Tag).ToArray();
    }
 }
 }

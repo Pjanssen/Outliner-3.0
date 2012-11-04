@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using System.Runtime.InteropServices;
-using MaxUtils;
+using Outliner.MaxUtils;
 
 namespace Outliner.LayerTools
 {
@@ -16,13 +16,13 @@ namespace Outliner.LayerTools
       {
          ProcPostStart = new GlobalDelegates.Delegate5(PostStart);
 
-         IGlobal global = MaxUtils.MaxInterfaces.Global;
+         IGlobal global = MaxInterfaces.Global;
          global.RegisterNotification(ProcPostStart, null, SystemNotificationCode.SystemStartup);
       }
 
       private static void PostStart(IntPtr param, IntPtr info)
       {
-         IGlobal global = MaxUtils.MaxInterfaces.Global;
+         IGlobal global = MaxInterfaces.Global;
          global.UnRegisterNotification(ProcPostStart, null, SystemNotificationCode.SystemStartup);
 
          NestedLayers.Start();

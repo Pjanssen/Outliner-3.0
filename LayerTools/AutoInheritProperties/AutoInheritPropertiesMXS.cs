@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using MaxUtils;
+using Outliner.MaxUtils;
 
 namespace Outliner.LayerTools
 {

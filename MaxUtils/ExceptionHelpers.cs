@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MaxUtils
+namespace Outliner.MaxUtils
 {
 public static class ExceptionHelpers
 {

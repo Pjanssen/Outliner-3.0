@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using Outliner.Scene;
-using MaxUtils;
+using Outliner.MaxUtils;
+using Outliner.Plugins;
 
 namespace Outliner.Filters
 {
+[OutlinerPlugin(OutlinerPluginType.Filter)]
+[LocalizedDisplayName(typeof(OutlinerResources), "FilterName")]
+[FilterCategory(FilterCategories.Hidden)]
 public class NameFilter : Filter<IMaxNodeWrapper>
 {
    public NameFilter() 
@@ -12,11 +16,6 @@ public class NameFilter : Filter<IMaxNodeWrapper>
       this.SearchString = String.Empty;
       this.CaseSensitive = false;
       this._useWildcard = false;
-   }
-
-   public override bool AlwaysEnabled
-   {
-      get { return true; }
    }
 
    private const String SEARCH_BEGINS_WITH = "^";
@@ -84,7 +83,7 @@ public class NameFilter : Filter<IMaxNodeWrapper>
       }
    }
 
-   override public Boolean ShowNode(IMaxNodeWrapper data) 
+   protected override Boolean ShowNodeInternal(IMaxNodeWrapper data) 
    {
       if (data == null)
          return false;

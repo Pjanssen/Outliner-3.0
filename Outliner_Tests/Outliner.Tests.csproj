@@ -137,6 +137,8 @@
     <Compile Include="Commands\RenameCommandTest.cs" />
     <Compile Include="Commands\SelectCommandTest.cs" />
     <Compile Include="Commands\ToggleLightCommandTest.cs" />
+    <Compile Include="Filters\FilterCombinatorTest.cs" />
+    <Compile Include="Filters\FilterTest.cs" />
     <Compile Include="Filters\NameFilterTest.cs" />
     <Compile Include="Filters\NodeFilterCollectionTest.cs" />
     <Compile Include="Controls\Tree\TreeNodeCollectionTest.cs" />

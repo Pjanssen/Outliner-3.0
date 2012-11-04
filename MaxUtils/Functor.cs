@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 
-namespace MaxUtils
+namespace Outliner.MaxUtils
 {
    public delegate Boolean BinaryPredicate<T>(T a, T b);
 

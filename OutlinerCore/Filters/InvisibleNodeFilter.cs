@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Outliner.Scene;
-using MaxUtils;
+using Outliner.MaxUtils;
+using Outliner.Plugins;
 
 namespace Outliner.Filters
 {
@@ -11,14 +12,11 @@ namespace Outliner.Filters
    /// Filters out all nodes that should not show up in the Outliner.
    /// For example, particle helpers, the 3dxConnection camera, etc.
    /// </summary>
+   [OutlinerPlugin(OutlinerPluginType.Filter)]
+   [FilterCategory(FilterCategories.Hidden)]
    public class InvisibleNodeFilter : Filter<IMaxNodeWrapper>
    {
-      public override bool AlwaysEnabled
-      {
-         get { return true; }
-      }
-
-      public override Boolean ShowNode(IMaxNodeWrapper data)
+      protected override Boolean ShowNodeInternal(IMaxNodeWrapper data)
       {
          if (data == null || !data.IsValid)
             return false;

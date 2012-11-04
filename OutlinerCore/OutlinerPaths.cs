@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using MaxUtils;
+using Outliner.MaxUtils;
 using System.IO;
 
 namespace Outliner
@@ -49,6 +49,14 @@ public static class OutlinerPaths
       get
       {
          return Path.Combine(OutlinerPaths.ConfigDir, "Presets");
+      }
+   }
+
+   public static String ContextMenuDir
+   {
+      get
+      {
+         return Path.Combine(OutlinerPaths.ConfigDir, "ContextMenus");
       }
    }
 

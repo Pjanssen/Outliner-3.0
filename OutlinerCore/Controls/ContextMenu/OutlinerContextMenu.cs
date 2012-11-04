@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
-using MaxUtils;
+using Outliner.MaxUtils;
 
 namespace Outliner.Controls.ContextMenu
 {
