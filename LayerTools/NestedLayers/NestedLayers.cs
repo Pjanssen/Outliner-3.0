@@ -332,7 +332,8 @@ public static class NestedLayers
          Boolean parentValue = NestedLayers.GetLayerProperty(parentLayer, property);
 
          BinaryPredicate<Boolean> pred = Functor.Or;
-         NestedLayers.propertyOps.TryGetValue(property, out pred);
+         if (!NestedLayers.propertyOps.TryGetValue(property, out pred))
+            pred = Functor.Or;
          newValue = pred(ownValue, parentValue);
       }
 
@@ -368,7 +369,8 @@ public static class NestedLayers
    private static void updateProperties(IILayer layer, Boolean recursive)
    {
       IEnumerable<BooleanNodeProperty> layerProps = Enum.GetValues(typeof(BooleanNodeProperty))
-                                                  .Cast<BooleanNodeProperty>();
+                                                        .Cast<BooleanNodeProperty>()
+                                                        .Where(p => p != BooleanNodeProperty.None);
 
       foreach (BooleanNodeProperty prop in layerProps)
       {
