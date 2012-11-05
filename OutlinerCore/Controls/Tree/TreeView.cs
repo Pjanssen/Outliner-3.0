@@ -480,14 +480,18 @@ public class TreeView : ScrollableControl
       TreeNode tn = this.GetNodeAt(e.Location);
 
       //Start dragging.
-      if (tn != null && !this.isDragging 
+      if (tn != null && !this.isDragging
           && e.Button == MouseButtons.Left
           && HelperMethods.Distance(e.Location, this.dragStartPos) > 5
           && this.selectedNodes.Count > 0)
       {
-         DataObject data = new DataObject(typeof(IEnumerable<TreeNode>).FullName,
-                                          this.selectedNodes);
-         this.DoDragDrop(data, TreeView.AllowedDragDropEffects);
+         this.isDragging = true;
+         if (tn.DragDropHandler != null && tn.DragDropHandler.AllowDrag)
+         {
+            DataObject data = new DataObject( typeof(IEnumerable<TreeNode>).FullName
+                                            , this.selectedNodes);
+            this.DoDragDrop(data, TreeView.AllowedDragDropEffects);
+         }
       }
       else
          this.TreeNodeLayout.HandleMouseMove(e, tn);
