@@ -27,8 +27,11 @@ public abstract class TreeMode
    private ICollection<Tuple<GlobalDelegates.Delegate5, SystemNotificationCode>> systemNotifications;
    private ICollection<Tuple<uint, TreeModeNodeEventCallbacks>> nodeEventCallbacks;
    protected Dictionary<Object, List<TreeNode>> treeNodes { get; private set; }
-   private MaxNodeFilterCombinator permanentFilter;
-   private MaxNodeFilterCombinator filters;
+   
+   protected FilterCombinator<IMaxNodeWrapper> filters;
+   private const Int32 InvisibleNodesFilterIndex = 0;
+   private const Int32 PermanentFiltersIndex = 1;
+   private const Int32 OtherFiltersIndex = 2;
 
    protected TreeMode(TreeView tree)
    {
@@ -40,12 +43,12 @@ public abstract class TreeMode
 
       this.Tree = tree;
       this.treeNodes = new Dictionary<Object, List<TreeNode>>();
-      this.Filters = new MaxNodeFilterCombinator() { Predicate = Functor.Or };
 
-      MaxNodeFilterCombinator permanentFilter = new MaxNodeFilterCombinator() { Predicate = Functor.And };
-      permanentFilter.Filters.Add(new InvisibleNodeFilter());
-      //permanentFilter.Filters.Add(new NameFilter());
-      this.PermanentFilter = permanentFilter;
+      this.filters = new FilterCombinator<IMaxNodeWrapper>(Functor.And);
+      this.filters.Filters.Add(new InvisibleNodeFilter());
+      this.filters.Filters.Add(new MaxNodeFilterCombinator() { Enabled = false });
+      this.filters.Filters.Add(new MaxNodeFilterCombinator() { Enabled = false });
+      this.filters.FilterChanged += filters_FilterChanged;
 
       this.started = false;
    }
@@ -298,7 +301,7 @@ public abstract class TreeMode
       TreeNode tn = new MaxTreeNode(wrapper);
       this.RegisterNode(wrapper, tn);
 
-      tn.ShowNode = this.PermanentFilter.ShowNode(wrapper) && this.Filters.ShowNode(wrapper);
+      tn.ShowNode = this.filters.ShowNode(wrapper);
       tn.DragDropHandler = this.CreateDragDropHandler(wrapper);
 
       parentCol.Add(tn);
@@ -350,8 +353,6 @@ public abstract class TreeMode
       if (node == null)
          return;
 
-      this.Tree.SelectNode(tn, false);
-      //this.Tree.selectedNodes.Remove(tn);
       tn.Remove();
 
       List<TreeNode> tns = this.GetTreeNodes(node);
@@ -415,7 +416,7 @@ public abstract class TreeMode
             foreach (TreeNode tn in tns)
             {
                IMaxNodeWrapper wrapper = HelperMethods.GetMaxNode(tn);
-               tn.ShowNode = this.Filters.ShowNode(wrapper);
+               tn.ShowNode = this.filters.ShowNode(wrapper);
             }
          }
       }
@@ -598,16 +599,12 @@ public abstract class TreeMode
 
    public MaxNodeFilterCombinator Filters
    {
-      get { return this.filters; }
+      get { return this.filters.Filters[OtherFiltersIndex] as MaxNodeFilterCombinator; }
       set
       {
          ExceptionHelpers.ThrowIfArgumentIsNull(value, "value");
 
-         if (this.filters != null)
-            this.filters.FilterChanged -= this.filters_FilterChanged;
-
-         this.filters = value;
-         this.filters.FilterChanged += this.filters_FilterChanged;
+         this.filters.Filters[OtherFiltersIndex] = value;
 
          if (this.started)
             this.EvaluateFilters();
@@ -616,16 +613,12 @@ public abstract class TreeMode
 
    public MaxNodeFilterCombinator PermanentFilter
    {
-      get { return this.permanentFilter; }
+      get { return this.filters.Filters[PermanentFiltersIndex] as MaxNodeFilterCombinator; }
       set
       {
          ExceptionHelpers.ThrowIfArgumentIsNull(value, "value");
 
-         if (this.permanentFilter != null)
-            this.permanentFilter.FilterChanged -= this.filters_FilterChanged;
-
-         this.permanentFilter = value;
-         this.permanentFilter.FilterChanged += this.filters_FilterChanged;
+         this.filters.Filters[PermanentFiltersIndex] = value;
 
          if (this.started)
             this.EvaluateFilters();
@@ -648,7 +641,7 @@ public abstract class TreeMode
          foreach (TreeNode tn in item.Value)
          {
             IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
-            tn.ShowNode = this.PermanentFilter.ShowNode(node) && this.Filters.ShowNode(node);
+            tn.ShowNode = this.filters.ShowNode(node);
          }
       }
       this.Tree.Sort();

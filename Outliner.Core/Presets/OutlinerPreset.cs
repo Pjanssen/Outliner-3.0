@@ -131,7 +131,7 @@ public class OutlinerPreset
          treeModeType = typeof(NullTreeMode);
 
       TreeMode mode = Activator.CreateInstance(treeModeType, new object[] { tree }) as TreeMode;
-      mode.Filters = this.Filters;
+      mode.PermanentFilter = this.Filters;
 
       return mode;
    }

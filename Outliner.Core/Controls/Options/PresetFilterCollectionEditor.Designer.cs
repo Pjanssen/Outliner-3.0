@@ -44,7 +44,7 @@
          this.outlinerGroupBox1.Size = new System.Drawing.Size(355, 362);
          this.outlinerGroupBox1.TabIndex = 3;
          this.outlinerGroupBox1.TabStop = false;
-         this.outlinerGroupBox1.Text = "Filters";
+         this.outlinerGroupBox1.Text = "Permanent Filters";
          // 
          // filterEditor
          // 

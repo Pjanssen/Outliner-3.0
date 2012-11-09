@@ -211,12 +211,6 @@
     <Compile Include="Controls\Options\PresetFilterCollectionEditor.Designer.cs">
       <DependentUpon>PresetFilterCollectionEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Options\test.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\Options\test.Designer.cs">
-      <DependentUpon>test.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Options\TreeNodeLayoutEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -336,9 +330,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Options\PresetFilterCollectionEditor.resx">
       <DependentUpon>PresetFilterCollectionEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Options\test.resx">
-      <DependentUpon>test.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Options\TreeNodeLayoutEditor.resx">
       <DependentUpon>TreeNodeLayoutEditor.cs</DependentUpon>
