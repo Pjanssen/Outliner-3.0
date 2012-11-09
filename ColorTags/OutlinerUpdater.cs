@@ -6,6 +6,8 @@ using Outliner.Plugins;
 using Autodesk.Max;
 using Outliner.MaxUtils;
 using Outliner.Modes;
+using Outliner.Scene;
+using Outliner.Filters;
 
 namespace Outliner.ColorTags
 {
@@ -46,11 +48,26 @@ namespace Outliner.ColorTags
          IAnimatable node = MaxUtils.HelperMethods.GetCallParam(info) as IAnimatable;
          foreach (TreeMode treeMode in outliner.TreeModes.Values)
          {
-            if (treeMode.Filters.Get(typeof(ColorTagsFilter)) != null)
-               treeMode.UpdateFilter(node);
-
             treeMode.InvalidateObject(node, false, treeMode.Tree.NodeSorter is ColorTagsSorter);
+
+            if (ContainsColorTagsFilter(treeMode.Filters.Filters))
+               treeMode.UpdateFilter(node);
          }
+      }
+
+      private static Boolean ContainsColorTagsFilter(FilterCollection<IMaxNodeWrapper> collection)
+      {
+         foreach (Filter<IMaxNodeWrapper> filter in collection)
+         {
+            if (filter is ColorTagsFilter)
+               return true;
+
+            FilterCombinator<IMaxNodeWrapper> combinator = filter as FilterCombinator<IMaxNodeWrapper>;
+            if (combinator != null && ContainsColorTagsFilter(combinator.Filters))
+               return true;
+         }
+
+         return false;
       }
    }
 }

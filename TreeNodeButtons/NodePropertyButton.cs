@@ -158,7 +158,7 @@ public abstract class NodePropertyButton : ImageButton
 
       TreeView tree = this.Layout.TreeView;
       IEnumerable<TreeNode> nodes = null;
-      if (tree.IsSelectedNode(tn) && !HelperMethods.ControlPressed)
+      if (tn.IsSelected && !HelperMethods.ControlPressed)
          nodes = tree.SelectedNodes;
       else
          nodes = new List<TreeNode>(1) { tn };
