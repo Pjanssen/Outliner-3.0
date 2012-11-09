@@ -339,6 +339,24 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There was an error while loading settings:\n{0}.
+        /// </summary>
+        internal static string Str_LoadSettingsError {
+            get {
+                return ResourceManager.GetString("Str_LoadSettingsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading settings.
+        /// </summary>
+        internal static string Str_LoadSettingsErrorTitle {
+            get {
+                return ResourceManager.GetString("Str_LoadSettingsErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Collapse node.
         /// </summary>
         internal static string Tooltip_Collapse {

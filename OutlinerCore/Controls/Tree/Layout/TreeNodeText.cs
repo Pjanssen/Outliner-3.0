@@ -34,7 +34,7 @@ public class TreeNodeText : TreeNodeButton
 
    public override int GetWidth(TreeNode tn)
    {
-      int textWidth = this.GetTextSize(tn).Width + 1;
+      int textWidth = this.GetTextSize(tn).Width + (int)Math.Ceiling(tn.Text.Length * 0.1);
       int maxWidth = this.getMaxWidth(tn);
 
       return Math.Min(maxWidth, textWidth);
@@ -135,7 +135,7 @@ public class TreeNodeText : TreeNodeButton
 
       this.clickHandledAtMouseDown = false;
       TreeView tree          = this.Layout.TreeView;
-      Boolean isSelected     = tree.IsSelectedNode(tn);
+      Boolean isSelected     = tn.IsSelected;
       if (!HelperMethods.ControlPressed && !HelperMethods.ShiftPressed)
       {
          if (!isSelected)
@@ -157,7 +157,7 @@ public class TreeNodeText : TreeNodeButton
          return;
 
       TreeView tree          = this.Layout.TreeView;
-      Boolean isSelected     = tree.IsSelectedNode(tn);
+      Boolean isSelected     = tn.IsSelected;
 
       if ((e.Button & MouseButtons.Right) != MouseButtons.Right)
       {

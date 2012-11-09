@@ -27,7 +27,7 @@ public abstract class TreeMode
    private ICollection<Tuple<GlobalDelegates.Delegate5, SystemNotificationCode>> systemNotifications;
    private ICollection<Tuple<uint, TreeModeNodeEventCallbacks>> nodeEventCallbacks;
    protected Dictionary<Object, List<TreeNode>> treeNodes { get; private set; }
-   private Filter<IMaxNodeWrapper> permanentFilter;
+   private MaxNodeFilterCombinator permanentFilter;
    private MaxNodeFilterCombinator filters;
 
    protected TreeMode(TreeView tree)
@@ -42,9 +42,9 @@ public abstract class TreeMode
       this.treeNodes = new Dictionary<Object, List<TreeNode>>();
       this.Filters = new MaxNodeFilterCombinator() { Predicate = Functor.Or };
 
-      FilterCombinator<IMaxNodeWrapper> permanentFilter = new FilterCombinator<IMaxNodeWrapper>(Functor.And);
+      MaxNodeFilterCombinator permanentFilter = new MaxNodeFilterCombinator() { Predicate = Functor.And };
       permanentFilter.Filters.Add(new InvisibleNodeFilter());
-      permanentFilter.Filters.Add(new NameFilter());
+      //permanentFilter.Filters.Add(new NameFilter());
       this.PermanentFilter = permanentFilter;
 
       this.started = false;
@@ -614,7 +614,7 @@ public abstract class TreeMode
       }
    }
 
-   public Filter<IMaxNodeWrapper> PermanentFilter
+   public MaxNodeFilterCombinator PermanentFilter
    {
       get { return this.permanentFilter; }
       set

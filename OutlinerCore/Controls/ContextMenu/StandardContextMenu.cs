@@ -91,15 +91,16 @@ internal static class StandardContextMenu
       clearBtn.Click += new EventHandler(clearBtn_Click);
 
       filter_btn.DropDownItems.Add(new ToolStripSeparator());
-      int numFilters = AddFilters(filter_btn.DropDownItems, FilterCategories.Classes, treeMode);
-      if (numFilters > 0)
+      if (AddFilters(filter_btn.DropDownItems, FilterCategories.Classes, treeMode) > 0)
          filter_btn.DropDownItems.Add(new ToolStripSeparator());
 
-      numFilters = AddFilters(filter_btn.DropDownItems, FilterCategories.Properties, treeMode);
-      if (numFilters > 0)
+      if (AddFilters(filter_btn.DropDownItems, FilterCategories.Properties, treeMode) > 0)
          filter_btn.DropDownItems.Add(new ToolStripSeparator());
 
-      numFilters = AddFilters(filter_btn.DropDownItems, FilterCategories.Custom, treeMode);
+      if (AddFilters(filter_btn.DropDownItems, FilterCategories.Custom, treeMode) > 0)
+         filter_btn.DropDownItems.Add(new ToolStripSeparator());
+
+      filter_btn.DropDownItems.Add("Advanced Filter...", null, advancedFilterClick);
 
       strip.Items.Add(filter_btn);
 
@@ -208,6 +209,12 @@ internal static class StandardContextMenu
       OutlinerGUP.Instance.SwitchPreset(tree, preset, true);
    }
 
+   private static void EditPresets_Click(object sender, EventArgs e)
+   {
+      PresetEditor editor = new PresetEditor();
+      editor.ShowDialog(MaxInterfaces.MaxHwnd);
+   }
+
    #endregion
 
 
@@ -276,7 +283,7 @@ internal static class StandardContextMenu
       ToolStripMenuItem item = sender as ToolStripMenuItem;
       Type filterType = item.Tag as Type;
       TreeMode treeMode = GetTreeMode(sender);
-      Filter<Outliner.Scene.IMaxNodeWrapper> filter = treeMode.Filters.Get(filterType);
+      Filter<Outliner.Scene.IMaxNodeWrapper> filter = treeMode.Filters.Filters.Get(filterType);
       if (filter == null)
       {
          filter = (Filter<Outliner.Scene.IMaxNodeWrapper>)Activator.CreateInstance(filterType, false);
@@ -294,7 +301,14 @@ internal static class StandardContextMenu
    private static void CheckFilterItem(ToolStripMenuItem item, TreeMode treeMode)
    {
       Type filterType = item.Tag as Type;
-      item.Checked = treeMode.Filters.Get(filterType) != null;
+      item.Checked = treeMode.Filters.Filters.Get(filterType) != null;
+   }
+
+   private static void advancedFilterClick(Object sender, EventArgs e)
+   {
+      TreeMode treeMode = GetTreeMode(sender);
+      AdvancedFilterEditor editor = new AdvancedFilterEditor(treeMode.Filters);
+      editor.Show(MaxInterfaces.MaxHwnd);
    }
 
    #endregion
@@ -357,15 +371,6 @@ internal static class StandardContextMenu
 
    #endregion
 
-   public class WindowWrapper : System.Windows.Forms.IWin32Window
-   {
-      public WindowWrapper(IntPtr handle)
-      {
-         this.Handle = handle;
-      }
-
-      public IntPtr Handle { get; private set; }
-   }
 
    #region Text Filter
    
@@ -394,10 +399,6 @@ internal static class StandardContextMenu
 
    #endregion
 
-   private static void EditPresets_Click(object sender, EventArgs e)
-   {
-      PresetEditor editor = new PresetEditor();
-      editor.ShowDialog(new WindowWrapper(MaxInterfaces.COREInterface.MAXHWnd));
-   }
+
 }
 }

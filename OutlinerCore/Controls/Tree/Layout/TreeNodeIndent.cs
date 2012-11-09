@@ -19,7 +19,6 @@ public class TreeNodeIndent : ExpandButton
    public TreeNodeIndent()
    {
       this.Indent = 15;
-      base.fillBackground = true;
    }
 
    public override TreeNodeLayoutItem Copy()

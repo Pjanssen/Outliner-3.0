@@ -355,7 +355,9 @@ public class TreeNode
             if (this.parent != null)
             {
                this.parent.Nodes.updateFilter(this);
-               this.Invalidate();
+               this.TreeView.Update( TreeViewUpdateFlags.TreeNodeBounds 
+                                   | TreeViewUpdateFlags.Redraw 
+                                   | TreeViewUpdateFlags.Scrollbars);
             }
          }
       }
@@ -456,19 +458,25 @@ public class TreeNode
          this.state = value;
          TreeView tree = this.TreeView;
          if (tree != null)
-            tree.Update(TreeViewUpdateFlags.Redraw);
-         
-         if (value.HasFlag(TreeNodeStates.Selected) || value.HasFlag(TreeNodeStates.ParentOfSelected))
+            tree.BeginUpdate(TreeViewUpdateFlags.Redraw);
+
+         TreeNode parent = this.Parent;
+         if (parent != null)
          {
-            if (this.parent != null)
-               this.parent.State |= TreeNodeStates.ParentOfSelected;
-         }
-         else if (value.HasFlag(TreeNodeStates.None))
-         {
-            if (this.parent != null)
-               this.parent.State = TreeNodeStates.None;
+            if (this.HasStateFlag(TreeNodeStates.Selected) || this.HasStateFlag(TreeNodeStates.ParentOfSelected))
+            {
+               if (!parent.HasStateFlag(TreeNodeStates.ParentOfSelected))
+                  parent.SetStateFlag(TreeNodeStates.ParentOfSelected);
+            }
+            else if (parent.HasStateFlag(TreeNodeStates.ParentOfSelected))
+            {
+               if (!parent.IsParentOfSelectedNode)
+                  parent.RemoveStateFlag(TreeNodeStates.ParentOfSelected);
+            }
          }
 
+         if (tree != null)
+            tree.EndUpdate();
       }
    }
 
@@ -494,6 +502,80 @@ public class TreeNode
    public void RemoveStateFlag(TreeNodeStates stateFlag) 
    {
       this.State &= ~stateFlag;
+   }
+
+   /// <summary>
+   /// Indicates if the TreeNode is selected.
+   /// </summary>
+   public Boolean IsSelected
+   {
+      get { return this.HasStateFlag(TreeNodeStates.Selected); }
+   }
+
+   /// <summary>
+   /// Indicates if the TreeNode is a direct parent of a selected TreeNode.
+   /// </summary>
+   public Boolean IsDirectParentOfSelectedNode
+   {
+      get
+      {
+         TreeView tree = this.TreeView;
+         if (tree == null)
+            return false;
+
+         foreach (TreeNode tn in tree.SelectedNodes)
+         {
+            if (tn.Parent == this)
+               return true;
+         }
+         return false;
+      }
+   }
+
+   /// <summary>
+   /// Indicates if the TreeNode is a direct, or indirect parent of a selected TreeNode.
+   /// </summary>
+   public Boolean IsParentOfSelectedNode
+   {
+      get
+      {
+         TreeView tree = this.TreeView;
+         if (tree == null)
+            return false;
+
+         foreach (TreeNode tn in tree.SelectedNodes)
+         {
+            TreeNode parent = tn.Parent;
+            while (parent != null)
+            {
+               if (parent == this)
+                  return true;
+               parent = parent.Parent;
+            }
+         }
+
+         return false;
+      }
+   }
+
+   /// <summary>
+   /// Indicates if the TreeNode is a direct, or indirect child of a selected TreeNode.
+   /// </summary>
+   public Boolean IsChildOfSelectedNode
+   {
+      get
+      {
+         TreeNode parentNode = this.Parent;
+         while (parentNode != null)
+         {
+            if (parentNode.IsSelected)
+               return true;
+
+            parentNode = parentNode.Parent;
+         }
+
+         return false;
+      }
    }
 
    #endregion

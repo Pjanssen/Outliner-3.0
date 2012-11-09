@@ -99,10 +99,17 @@ public class TreeNodeCollection : ICollection<TreeNode>
 
       this.removeFiltered(item);
 
+      TreeView tree = item.TreeView;
+      tree.SelectNode(item, false);
+
       item.TreeView = null;
       item.parent = null;
 
-      return this.unfilteredNodes.Remove(item);
+      Boolean result = this.unfilteredNodes.Remove(item);
+
+      tree.Update(TreeViewUpdateFlags.TreeNodeBounds | TreeViewUpdateFlags.Redraw);
+
+      return result;
    }
 
    public IEnumerator<TreeNode> GetEnumerator()

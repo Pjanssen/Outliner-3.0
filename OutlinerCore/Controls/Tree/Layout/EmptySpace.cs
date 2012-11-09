@@ -92,7 +92,7 @@ public class EmptySpace : TreeNodeLayoutItem
          return;
 
       TreeView tree = this.Layout.TreeView;
-      Boolean isSelected = tree.IsSelectedNode(tn);
+      Boolean isSelected = tn.IsSelected;
       if (!HelperMethods.ControlPressed && !HelperMethods.ShiftPressed)
       {
          if (!isSelected && this.Layout.FullRowSelect)
@@ -110,7 +110,7 @@ public class EmptySpace : TreeNodeLayoutItem
          return;
 
       TreeView tree = this.Layout.TreeView;
-      Boolean isSelected = tree.IsSelectedNode(tn);
+      Boolean isSelected = tn.IsSelected;
 
       if ((e.Button & MouseButtons.Right) != MouseButtons.Right)
       {

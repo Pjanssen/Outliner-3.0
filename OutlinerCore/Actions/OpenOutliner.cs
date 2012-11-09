@@ -74,9 +74,9 @@ public class OpenOutliner : CuiDockableContentAdapter
          }
          catch (Exception e)
          {
-            WinForms::MessageBox.Show( String.Format( "There was an error while loading settings:\n{0}"
+            WinForms::MessageBox.Show( String.Format( OutlinerResources.Str_LoadSettingsError
                                                     , e.Message)
-                                     , "Error loading settings"
+                                     , OutlinerResources.Str_LoadSettingsErrorTitle
                                      , WinForms.MessageBoxButtons.OK
                                      , WinForms.MessageBoxIcon.Error);
 

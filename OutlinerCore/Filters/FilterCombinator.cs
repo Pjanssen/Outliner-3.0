@@ -10,17 +10,18 @@ using Outliner.Controls.Options;
 
 namespace Outliner.Filters
 {
-public class FilterCombinator<T> : Filter<T> //, IXmlSerializable
+public class FilterCombinator<T> : Filter<T>
 {
+   private FilterCollection<T> filters;
    private BinaryPredicate<Boolean> predicate;
 
    public FilterCombinator() 
       : this(Functor.Or) { }
 
    public FilterCombinator(BinaryPredicate<Boolean> predicate)
-      : this(predicate, new List<Filter<T>>()) { }
+      : this(predicate, new FilterCollection<T>()) { }
 
-   public FilterCombinator(BinaryPredicate<Boolean> predicate, List<Filter<T>> filters)
+   public FilterCombinator(BinaryPredicate<Boolean> predicate, FilterCollection<T> filters) //List<Filter<T>> filters)
    {
       this.predicate = predicate;
       this.Filters = filters;
@@ -39,14 +40,44 @@ public class FilterCombinator<T> : Filter<T> //, IXmlSerializable
    }
 
    [XmlAttribute("predicate")]
+   [Browsable(false)]
    public String PredicateString 
    { 
       get { return Functor.PredicateToString<Boolean>(this.Predicate); }
       set { this.Predicate = Functor.PredicateFromString(value); }
    }
 
+   [XmlArray("Filters")]
    [Browsable(false)]
-   public List<Filter<T>> Filters { get; set; }
+   public FilterCollection<T> Filters
+   {
+      get { return this.filters; }
+      set
+      {
+         if (this.filters != null)
+         {
+            this.filters.FilterAdded -= filterAdded;
+            this.filters.FilterRemoved -= filterRemoved;
+         }
+
+         this.filters = value;
+         this.filters.Owner = this;
+         this.filters.FilterAdded += filterAdded;
+         this.filters.FilterRemoved += filterRemoved;
+      }
+   }
+
+   private void filterAdded (object sender, FilterChangedEventArgs<T> e)
+   {
+      e.Filter.FilterChanged += this.childFilterChanged;
+      this.OnFilterChanged();
+   }
+
+   private void filterRemoved(object sender, FilterChangedEventArgs<T> e)
+   {
+      e.Filter.FilterChanged -= this.childFilterChanged;
+      this.OnFilterChanged();
+   }
 
    protected override bool ShowNodeInternal(T data)
    {
@@ -66,111 +97,9 @@ public class FilterCombinator<T> : Filter<T> //, IXmlSerializable
       return result;
    }
 
-   /// <summary>
-   /// Retrieves the first found filter in the collection of the supplied type.
-   /// </summary>
-   public Filter<T> Get(Type filterType)
+   void childFilterChanged(object sender, EventArgs e)
    {
-      return this.Filters.Find(f => f.GetType().Equals(filterType));
+      this.OnFilterChanged();
    }
-
-   #region ICollection members
-
-   //public void Add(Filter<T> item)
-   //{
-   //   this.Filters.Add(item);
-   //}
-
-   //public void Clear()
-   //{
-   //   this.Filters.Clear();
-   //}
-
-   //public bool Contains(Filter<T> item)
-   //{
-   //   return this.Filters.Contains(item);
-   //}
-
-   //public Boolean Contains(Type filterType)
-   //{
-   //   return this.Get(filterType) != null;
-   //}
-
-   //public void CopyTo(Filter<T>[] array, int arrayIndex)
-   //{
-   //   this.Filters.CopyTo(array, arrayIndex);
-   //}
-
-   //[Browsable(false)]
-   //public int Count
-   //{
-   //   get { return this.Filters.Count; }
-   //}
-
-   //[Browsable(false)]
-   //public bool IsReadOnly
-   //{
-   //   get { return false; }
-   //}
-
-   //public bool Remove(Filter<T> item)
-   //{
-   //   return this.Filters.Remove(item);
-   //}
-
-   //public IEnumerator<Filter<T>> GetEnumerator()
-   //{
-   //   return this.Filters.GetEnumerator();
-   //}
-
-   //System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-   //{
-   //   return this.Filters.GetEnumerator();
-   //}
-
-   #endregion
-
-
-   //#region IXmlSerializable members
-
-   //public System.Xml.Schema.XmlSchema GetSchema()
-   //{
-   //   return null;
-   //}
-
-   //public void ReadXml(System.Xml.XmlReader reader)
-   //{
-   //   //this.Enabled = reader.GetAttribute("enabled") == (true.ToString());
-   //   this.Predicate = Functor.PredicateFromString(reader.GetAttribute("combinator"));
-   //   Int32 minDepth = reader.Depth + 1;
-   //   while (reader.Read() && reader.Depth >= minDepth)
-   //   {
-   //      if (reader.NodeType == System.Xml.XmlNodeType.Element)
-   //      {
-   //         XmlSerializer serializer = new XmlSerializer(typeof(Filter<T>), Outliner.Plugins.OutlinerPlugins.GetSerializableTypes());
-   //         Filter<T> filter = serializer.Deserialize(reader) as Filter<T>;
-   //         this.Filters.Add(filter);
-   //      }
-   //   }
-   //}
-
-   //public void WriteXml(System.Xml.XmlWriter writer)
-   //{
-   //   //writer.WriteAttributeString("enabled", "", this.Enabled.ToString());
-   //   writer.WriteAttributeString("predicate", "", Functor.PredicateToString<Boolean>(this.Predicate));
-   //   foreach (Filter<T> filter in this.Filters)
-   //   {
-   //      IXmlSerializable serializable = filter as IXmlSerializable;
-   //      if (serializable != null)
-   //         serializable.WriteXml(writer);
-   //      else
-   //      {
-   //         XmlSerializer serializer = new XmlSerializer(typeof(Filter<T>), Outliner.Plugins.OutlinerPlugins.GetSerializableTypes());
-   //         serializer.Serialize(writer, filter);
-   //      }
-   //   }
-   //}
-
-   //#endregion
 }
 }

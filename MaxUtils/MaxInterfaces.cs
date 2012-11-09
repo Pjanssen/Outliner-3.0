@@ -106,5 +106,17 @@ public static class MaxInterfaces
          return intervalForever;
       }
    }
+
+   private static System.Windows.Forms.IWin32Window maxHwnd;
+   public static System.Windows.Forms.IWin32Window MaxHwnd
+   {
+      get
+      {
+         if (maxHwnd == null)
+            maxHwnd = new WindowWrapper(MaxInterfaces.COREInterface.MAXHWnd);
+
+         return maxHwnd;
+      }
+   }
 }
 }

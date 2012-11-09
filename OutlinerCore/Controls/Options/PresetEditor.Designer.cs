@@ -32,11 +32,11 @@
          this.addDeletePanel = new System.Windows.Forms.TableLayoutPanel();
          this.deleteBtn = new System.Windows.Forms.Button();
          this.addBtn = new System.Windows.Forms.Button();
+         this.presetsTree = new Outliner.Controls.Tree.TreeView();
          this.okCancelPanel = new System.Windows.Forms.TableLayoutPanel();
          this.cancelBtn = new System.Windows.Forms.Button();
          this.okBtn = new System.Windows.Forms.Button();
          this.propertiesPanel = new System.Windows.Forms.Panel();
-         this.presetsTree = new Outliner.Controls.Tree.TreeView();
          this.previewGroupBox = new Outliner.Controls.OutlinerGroupBox();
          this.previewTree = new Outliner.Controls.Tree.TreeView();
          this.tableLayout.SuspendLayout();
@@ -107,6 +107,21 @@
          this.addBtn.Text = "Add";
          this.addBtn.UseVisualStyleBackColor = true;
          // 
+         // presetsTree
+         // 
+         this.presetsTree.AllowDrop = true;
+         this.presetsTree.AutoScroll = true;
+         this.presetsTree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.presetsTree.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.presetsTree.Location = new System.Drawing.Point(10, 10);
+         this.presetsTree.Name = "presetsTree";
+         this.tableLayout.SetRowSpan(this.presetsTree, 2);
+         this.presetsTree.Size = new System.Drawing.Size(194, 490);
+         this.presetsTree.TabIndex = 12;
+         this.presetsTree.Text = "treeView1";
+         this.presetsTree.SelectionChanged += new System.EventHandler<Outliner.Controls.Tree.SelectionChangedEventArgs>(this.presetsTree_SelectionChanged);
+         this.presetsTree.BeforeNodeTextEdit += new System.EventHandler<Outliner.Controls.Tree.BeforeNodeTextEditEventArgs>(this.presetsTree_BeforeNodeTextEdit);
+         // 
          // okCancelPanel
          // 
          this.okCancelPanel.ColumnCount = 2;
@@ -156,21 +171,6 @@
          this.propertiesPanel.Size = new System.Drawing.Size(427, 319);
          this.propertiesPanel.TabIndex = 19;
          // 
-         // presetsTree
-         // 
-         this.presetsTree.AllowDrop = true;
-         this.presetsTree.AutoScroll = true;
-         this.presetsTree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.presetsTree.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.presetsTree.Location = new System.Drawing.Point(10, 10);
-         this.presetsTree.Name = "presetsTree";
-         this.tableLayout.SetRowSpan(this.presetsTree, 2);
-         this.presetsTree.Size = new System.Drawing.Size(194, 490);
-         this.presetsTree.TabIndex = 12;
-         this.presetsTree.Text = "treeView1";
-         this.presetsTree.SelectionChanged += new System.EventHandler<Outliner.Controls.Tree.SelectionChangedEventArgs>(this.presetsTree_SelectionChanged);
-         this.presetsTree.BeforeNodeTextEdit += new System.EventHandler<Outliner.Controls.Tree.BeforeNodeTextEditEventArgs>(this.presetsTree_BeforeNodeTextEdit);
-         // 
          // previewGroupBox
          // 
          this.previewGroupBox.BorderColor = System.Drawing.Color.Black;
@@ -178,7 +178,7 @@
          this.previewGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
          this.previewGroupBox.Location = new System.Drawing.Point(210, 335);
          this.previewGroupBox.Name = "previewGroupBox";
-         this.previewGroupBox.Padding = new System.Windows.Forms.Padding(5);
+         this.previewGroupBox.Padding = new System.Windows.Forms.Padding(8);
          this.previewGroupBox.Size = new System.Drawing.Size(427, 165);
          this.previewGroupBox.TabIndex = 20;
          this.previewGroupBox.TabStop = false;
@@ -190,10 +190,9 @@
          this.previewTree.AutoScroll = true;
          this.previewTree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.previewTree.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.previewTree.Enabled = false;
-         this.previewTree.Location = new System.Drawing.Point(5, 18);
+         this.previewTree.Location = new System.Drawing.Point(8, 21);
          this.previewTree.Name = "previewTree";
-         this.previewTree.Size = new System.Drawing.Size(417, 142);
+         this.previewTree.Size = new System.Drawing.Size(411, 136);
          this.previewTree.TabIndex = 2;
          this.previewTree.Text = "treeView1";
          // 

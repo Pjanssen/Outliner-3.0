@@ -108,9 +108,9 @@ public partial class PresetEditor : Form
 
          if (tagType.Equals(typeof(OutlinerPreset)) || tagType.IsSubclassOf(typeof(OutlinerPreset)))
             editor = new PresetPropertiesEditor(this, tn.Tag as OutlinerPreset);
-         else if (tagType == typeof(FilterCombinator<IMaxNodeWrapper>))
-            editor = new FilterCollectionEditor(this, this.editingPreset);
-         else if (tagType == typeof(TreeNodeLayout))
+         else if (tagType.Equals(typeof(FilterCombinator<IMaxNodeWrapper>)) || tagType.IsSubclassOf(typeof(FilterCombinator<IMaxNodeWrapper>)))
+            editor = new PresetFilterCollectionEditor(this, this.editingPreset.Filters);
+         else if (tagType.Equals(typeof(TreeNodeLayout)))
             editor = new TreeNodeLayoutEditor(this, tn.Tag as TreeNodeLayout);
 
          if (editor != null)

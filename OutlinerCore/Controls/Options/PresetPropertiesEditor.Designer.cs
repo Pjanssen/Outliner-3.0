@@ -392,7 +392,7 @@
          this.Controls.Add(this.outlinerGroupBox2);
          this.Controls.Add(this.outlinerGroupBox1);
          this.Name = "PresetPropertiesEditor";
-         this.Size = new System.Drawing.Size(481, 323);
+         this.Size = new System.Drawing.Size(481, 320);
          this.outlinerGroupBox1.ResumeLayout(false);
          this.tableLayoutPanel1.ResumeLayout(false);
          this.tableLayoutPanel1.PerformLayout();

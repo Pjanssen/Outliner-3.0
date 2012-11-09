@@ -629,7 +629,7 @@ public class TreeView : ScrollableControl
    protected HashSet<TreeNode> selectedNodes { get; private set; }
    public IEnumerable<TreeNode> SelectedNodes
    {
-      get { return this.selectedNodes.ToList(); }
+      get { return this.selectedNodes; }
    }
 
    public TreeNode LastSelectedNode { get; private set; }
@@ -648,25 +648,20 @@ public class TreeView : ScrollableControl
 
       if (select)
       {
-         tn.State = TreeNodeStates.Selected;
-
-         if (!this.IsSelectedNode(tn))
+         if (!tn.IsSelected)
+         {
             this.selectedNodes.Add(tn);
 
-         //TODO:  this.HighlightParentNodes(tn);
+            tn.SetStateFlag(TreeNodeStates.Selected);
 
-         this.LastSelectedNode = tn;
+            this.LastSelectedNode = tn;
+         }
       }
       else
       {
          selectedNodes.Remove(tn);
 
-         if (IsParentOfSelectedNode(tn, true))
-            tn.State = TreeNodeStates.ParentOfSelected;
-         else
-            tn.State = TreeNodeStates.None;
-
-         //TODO: this.RemoveParentHighlights(tn);
+         tn.RemoveStateFlag(TreeNodeStates.Selected);
       }
    }
 
@@ -718,58 +713,6 @@ public class TreeView : ScrollableControl
          }
       }
       SelectNode(lastNode, true);
-   }
-
-   public Boolean IsSelectedNode(TreeNode tn)
-   {
-      if (tn == null)
-         return false;
-
-      return selectedNodes.Contains(tn);
-   }
-
-   public Boolean IsParentOfSelectedNode(TreeNode tn, Boolean includeChildren)
-   {
-      if (tn == null || this.IsSelectedNode(tn))
-         return false;
-
-      foreach (TreeNode sn in selectedNodes)
-      {
-         if (!includeChildren)
-         {
-            if (sn.Parent == tn)
-               return true;
-         }
-         else
-         {
-            TreeNode pn = sn.Parent;
-            while (pn != null)
-            {
-               if (pn == tn)
-                  return true;
-               pn = pn.Parent;
-            }
-         }
-      }
-
-      return false;
-   }
-
-   public Boolean IsChildOfSelectedNode(TreeNode tn)
-   {
-      if (tn == null)
-         return false;
-
-      TreeNode parentNode = tn.Parent;
-      while (parentNode != null)
-      {
-         if (IsSelectedNode(parentNode))
-            return true;
-
-         parentNode = parentNode.Parent;
-      }
-
-      return false;
    }
 
    #endregion

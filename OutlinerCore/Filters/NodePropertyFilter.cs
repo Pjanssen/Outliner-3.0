@@ -12,18 +12,28 @@ namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "FilterNodeProp")]
-   [FilterCategory(FilterCategories.Properties)]
+   [FilterCategory(FilterCategories.Hidden)]
    public class NodePropertyFilter : Filter<IMaxNodeWrapper>
    {
+      private BooleanNodeProperty property;
+
       public NodePropertyFilter() : this(BooleanNodeProperty.None) { }
       public NodePropertyFilter(BooleanNodeProperty property)
       {
-         this.Property = property;
+         this.property = property;
       }
 
       [XmlAttribute("property")]
       [DefaultValue(BooleanNodeProperty.None)]
-      public BooleanNodeProperty Property { get; set; }
+      public BooleanNodeProperty Property 
+      {
+         get { return this.property; }
+         set
+         {
+            this.property = value;
+            this.OnFilterChanged();
+         }
+      }
 
       protected override bool ShowNodeInternal(IMaxNodeWrapper data)
       {
