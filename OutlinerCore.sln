@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlinerCore", "OutlinerCore\OutlinerCore.csproj", "{AA8562B6-988F-4AFE-94EB-BF2FD64BE93E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Outliner.Core", "Outliner.Core\Outliner.Core.csproj", "{AA8562B6-988F-4AFE-94EB-BF2FD64BE93E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Outliner.Tests", "Outliner_Tests\Outliner.Tests.csproj", "{D60C045D-0975-4647-8637-8DFAA67F9EAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Outliner.Tests", "Outliner.Tests\Outliner.Tests.csproj", "{D60C045D-0975-4647-8637-8DFAA67F9EAF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{87EA806E-0B5B-4F26-8633-A72262A17D09}"
 	ProjectSection(SolutionItems) = preProject
@@ -14,9 +14,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestForm", "TestForm\TestForm.csproj", "{113DB308-1548-4880-9011-980EE7D91FB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayerTools", "LayerTools\LayerTools.csproj", "{D89AAF44-43BA-48F2-BEEC-852FC3AB4655}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Outliner.LayerTools", "Outliner.LayerTools\Outliner.LayerTools.csproj", "{D89AAF44-43BA-48F2-BEEC-852FC3AB4655}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaxUtils", "MaxUtils\MaxUtils.csproj", "{0CA16252-FD2C-4078-819F-C9ABD2735765}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Outliner.MaxUtils", "Outliner.MaxUtils\Outliner.MaxUtils.csproj", "{0CA16252-FD2C-4078-819F-C9ABD2735765}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution

@@ -3,17 +3,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>
-    </ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D60C045D-0975-4647-8637-8DFAA67F9EAF}</ProjectGuid>
+    <ProjectGuid>{D89AAF44-43BA-48F2-BEEC-852FC3AB4655}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Outliner.Tests</RootNamespace>
-    <AssemblyName>Outliner.Tests</AssemblyName>
+    <RootNamespace>Outliner.LayerTools</RootNamespace>
+    <AssemblyName>Outliner.LayerTools</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\..\cs_rules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -38,7 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
-    <CodeAnalysisLogFile>bin\Debug\Outliner_Tests.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisLogFile>bin\Debug\LayerTools.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
     <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
@@ -54,7 +53,7 @@
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x64</PlatformTarget>
-    <CodeAnalysisLogFile>bin\Release\Outliner_Tests.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisLogFile>bin\Release\LayerTools.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
     <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
@@ -70,7 +69,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
-    <CodeAnalysisLogFile>bin\Debug\Outliner_Tests.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisLogFile>bin\Debug\LayerTools.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
     <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
@@ -86,7 +85,7 @@
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
-    <CodeAnalysisLogFile>bin\Release\Outliner_Tests.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisLogFile>bin\Release\LayerTools.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
     <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
@@ -99,73 +98,51 @@
   <ItemGroup>
     <Reference Include="Autodesk.Max">
       <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\Autodesk.Max.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Autodesk.Max.Remoting">
       <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\Autodesk.Max.Remoting.dll</HintPath>
-    </Reference>
-    <Reference Include="MaxCustomControls">
-      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\MaxCustomControls.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
     <Reference Include="UiViewModels">
       <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\UiViewModels.dll</HintPath>
-      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
-      <Visible>False</Visible>
-    </CodeAnalysisDependentAssemblyPaths>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Commands\FreezeCommandTest.cs" />
-    <Compile Include="Commands\HideCommandTest.cs" />
-    <Compile Include="Commands\RenameCommandTest.cs" />
-    <Compile Include="Commands\SelectCommandTest.cs" />
-    <Compile Include="Commands\ToggleLightCommandTest.cs" />
-    <Compile Include="Filters\FilterCombinatorTest.cs" />
-    <Compile Include="Filters\FilterTest.cs" />
-    <Compile Include="Filters\NameFilterTest.cs" />
-    <Compile Include="Controls\Tree\TreeNodeCollectionTest.cs" />
-    <Compile Include="Controls\Tree\TreeNodeTest.cs" />
-    <Compile Include="Controls\Tree\TreeViewColorsTest.cs" />
-    <Compile Include="Controls\Tree\TreeViewTest.cs" />
-    <Compile Include="Commands\MoveMaxNodeCommandTest.cs" />
-    <Compile Include="MaxRemoting.cs" />
-    <Compile Include="NestedLayersTest.cs" />
-    <Compile Include="GroupHelpersTest.cs" />
+    <Compile Include="AssemblyFunctions.cs" />
+    <Compile Include="AutoInheritProperties\AutoInheritProperties.cs" />
+    <Compile Include="AutoInheritProperties\AutoInheritPropertiesMxs.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="NestedLayers\NestedLayersMxs.cs" />
+    <Compile Include="NestedLayers\NestedLayers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="NestedLayers\TestAction.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MaxUtils\MaxUtils.csproj">
+    <ProjectReference Include="..\Outliner.MaxUtils\Outliner.MaxUtils.csproj">
       <Project>{0CA16252-FD2C-4078-819F-C9ABD2735765}</Project>
-      <Name>MaxUtils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LayerTools\LayerTools.csproj">
-      <Project>{D89AAF44-43BA-48F2-BEEC-852FC3AB4655}</Project>
-      <Name>LayerTools</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OutlinerCore\OutlinerCore.csproj">
-      <Project>{AA8562B6-988F-4AFE-94EB-BF2FD64BE93E}</Project>
-      <Name>OutlinerCore</Name>
-      <Private>True</Private>
+      <Name>Outliner.MaxUtils</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <EmbeddedResource Include="NestedLayers\NestedLayersMxs.ms" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AutoInheritProperties\AutoInheritPropertiesMxs.ms" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetPath)" "C:\Program Files\Autodesk\3ds Max 2013\bin\assemblies\$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

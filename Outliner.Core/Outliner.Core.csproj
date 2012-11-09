@@ -395,13 +395,13 @@
     <EmbeddedResource Include="Resources\contextmenu\window_split_ver.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LayerTools\LayerTools.csproj">
+    <ProjectReference Include="..\Outliner.LayerTools\Outliner.LayerTools.csproj">
       <Project>{D89AAF44-43BA-48F2-BEEC-852FC3AB4655}</Project>
-      <Name>LayerTools</Name>
+      <Name>Outliner.LayerTools</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MaxUtils\MaxUtils.csproj">
+    <ProjectReference Include="..\Outliner.MaxUtils\Outliner.MaxUtils.csproj">
       <Project>{0CA16252-FD2C-4078-819F-C9ABD2735765}</Project>
-      <Name>MaxUtils</Name>
+      <Name>Outliner.MaxUtils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
