@@ -61,10 +61,10 @@
          this.tableLayout.Padding = new System.Windows.Forms.Padding(7);
          this.tableLayout.RowCount = 4;
          this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-         this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 171F));
+         this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
          this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
          this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-         this.tableLayout.Size = new System.Drawing.Size(647, 582);
+         this.tableLayout.Size = new System.Drawing.Size(595, 580);
          this.tableLayout.TabIndex = 9;
          // 
          // addDeletePanel
@@ -75,7 +75,7 @@
          this.addDeletePanel.Controls.Add(this.deleteBtn, 1, 0);
          this.addDeletePanel.Controls.Add(this.addBtn, 0, 0);
          this.addDeletePanel.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.addDeletePanel.Location = new System.Drawing.Point(7, 503);
+         this.addDeletePanel.Location = new System.Drawing.Point(7, 501);
          this.addDeletePanel.Margin = new System.Windows.Forms.Padding(0);
          this.addDeletePanel.Name = "addDeletePanel";
          this.addDeletePanel.RowCount = 1;
@@ -94,6 +94,7 @@
          this.deleteBtn.TabIndex = 1;
          this.deleteBtn.Text = "Delete";
          this.deleteBtn.UseVisualStyleBackColor = true;
+         this.deleteBtn.Click += new System.EventHandler(this.deleteBtn_Click);
          // 
          // addBtn
          // 
@@ -106,6 +107,7 @@
          this.addBtn.TabIndex = 0;
          this.addBtn.Text = "Add";
          this.addBtn.UseVisualStyleBackColor = true;
+         this.addBtn.Click += new System.EventHandler(this.addBtn_Click);
          // 
          // presetsTree
          // 
@@ -116,7 +118,7 @@
          this.presetsTree.Location = new System.Drawing.Point(10, 10);
          this.presetsTree.Name = "presetsTree";
          this.tableLayout.SetRowSpan(this.presetsTree, 2);
-         this.presetsTree.Size = new System.Drawing.Size(194, 490);
+         this.presetsTree.Size = new System.Drawing.Size(194, 488);
          this.presetsTree.TabIndex = 12;
          this.presetsTree.Text = "treeView1";
          this.presetsTree.SelectionChanged += new System.EventHandler<Outliner.Controls.Tree.SelectionChangedEventArgs>(this.presetsTree_SelectionChanged);
@@ -130,12 +132,12 @@
          this.okCancelPanel.Controls.Add(this.cancelBtn, 0, 0);
          this.okCancelPanel.Controls.Add(this.okBtn, 0, 0);
          this.okCancelPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.okCancelPanel.Location = new System.Drawing.Point(207, 539);
+         this.okCancelPanel.Location = new System.Drawing.Point(207, 537);
          this.okCancelPanel.Margin = new System.Windows.Forms.Padding(0);
          this.okCancelPanel.Name = "okCancelPanel";
          this.okCancelPanel.RowCount = 1;
          this.okCancelPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-         this.okCancelPanel.Size = new System.Drawing.Size(433, 36);
+         this.okCancelPanel.Size = new System.Drawing.Size(381, 36);
          this.okCancelPanel.TabIndex = 18;
          // 
          // cancelBtn
@@ -143,7 +145,7 @@
          this.cancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
          this.cancelBtn.Dock = System.Windows.Forms.DockStyle.Right;
          this.cancelBtn.FlatStyle = System.Windows.Forms.FlatStyle.System;
-         this.cancelBtn.Location = new System.Drawing.Point(336, 3);
+         this.cancelBtn.Location = new System.Drawing.Point(284, 3);
          this.cancelBtn.Name = "cancelBtn";
          this.cancelBtn.Size = new System.Drawing.Size(94, 30);
          this.cancelBtn.TabIndex = 19;
@@ -156,7 +158,7 @@
          this.okBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
          this.okBtn.Dock = System.Windows.Forms.DockStyle.Right;
          this.okBtn.FlatStyle = System.Windows.Forms.FlatStyle.System;
-         this.okBtn.Location = new System.Drawing.Point(236, 3);
+         this.okBtn.Location = new System.Drawing.Point(184, 3);
          this.okBtn.Name = "okBtn";
          this.okBtn.Size = new System.Drawing.Size(94, 30);
          this.okBtn.TabIndex = 18;
@@ -168,7 +170,7 @@
          this.propertiesPanel.Dock = System.Windows.Forms.DockStyle.Fill;
          this.propertiesPanel.Location = new System.Drawing.Point(210, 10);
          this.propertiesPanel.Name = "propertiesPanel";
-         this.propertiesPanel.Size = new System.Drawing.Size(427, 319);
+         this.propertiesPanel.Size = new System.Drawing.Size(375, 338);
          this.propertiesPanel.TabIndex = 19;
          // 
          // previewGroupBox
@@ -176,10 +178,10 @@
          this.previewGroupBox.BorderColor = System.Drawing.Color.Black;
          this.previewGroupBox.Controls.Add(this.previewTree);
          this.previewGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.previewGroupBox.Location = new System.Drawing.Point(210, 335);
+         this.previewGroupBox.Location = new System.Drawing.Point(210, 354);
          this.previewGroupBox.Name = "previewGroupBox";
          this.previewGroupBox.Padding = new System.Windows.Forms.Padding(8);
-         this.previewGroupBox.Size = new System.Drawing.Size(427, 165);
+         this.previewGroupBox.Size = new System.Drawing.Size(375, 144);
          this.previewGroupBox.TabIndex = 20;
          this.previewGroupBox.TabStop = false;
          this.previewGroupBox.Text = "Preview";
@@ -192,7 +194,7 @@
          this.previewTree.Dock = System.Windows.Forms.DockStyle.Fill;
          this.previewTree.Location = new System.Drawing.Point(8, 21);
          this.previewTree.Name = "previewTree";
-         this.previewTree.Size = new System.Drawing.Size(411, 136);
+         this.previewTree.Size = new System.Drawing.Size(359, 115);
          this.previewTree.TabIndex = 2;
          this.previewTree.Text = "treeView1";
          // 
@@ -200,13 +202,14 @@
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.ClientSize = new System.Drawing.Size(647, 582);
+         this.ClientSize = new System.Drawing.Size(595, 580);
          this.Controls.Add(this.tableLayout);
          this.MaximizeBox = false;
          this.MinimizeBox = false;
          this.MinimumSize = new System.Drawing.Size(500, 300);
          this.Name = "PresetEditor";
          this.ShowIcon = false;
+         this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
          this.Text = "Preset Editor";
          this.tableLayout.ResumeLayout(false);
          this.addDeletePanel.ResumeLayout(false);

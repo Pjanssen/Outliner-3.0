@@ -117,10 +117,16 @@ public static class HelperMethods
       ExceptionHelpers.ThrowIfArgumentIsNull(items, "items");
       ExceptionHelpers.ThrowIfArgumentIsNull(action, "action");
 
-      foreach (T item in items)
-         action(item);
+      //foreach (T item in items)
+      //   action(item);
 
-      return items;
+      //return items;
+      
+      foreach (T item in items)
+      {
+         action(item);
+         yield return item;
+      }
    }
 
 

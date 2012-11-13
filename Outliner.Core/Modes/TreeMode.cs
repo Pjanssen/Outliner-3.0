@@ -574,10 +574,12 @@ public abstract class TreeMode
       IEnumerable<IMaxNodeWrapper> selectedNodes = HelperMethods.GetMaxNodes(this.Tree.SelectedNodes);
       
       String contextMenuFile = Path.Combine(OutlinerPaths.ContextMenuDir, "ContextMenu.xml");
-      ContextMenuData data = XmlSerializationHelpers<ContextMenuData>.FromXml(contextMenuFile);
+      ContextMenuModel data = XmlSerializationHelpers<ContextMenuModel>.FromXml(contextMenuFile);
 
       return data.ToContextMenuStrip(clickedTn, selectedNodes);
    }
+
+   public virtual ContextMenuModel ContextMenu { get; set; }
 
 
    void tree_MouseClick(object sender, WinForms.MouseEventArgs e)
@@ -588,7 +590,16 @@ public abstract class TreeMode
       TreeNode clickedNode = this.Tree.GetNodeAt(e.Location);
       OutlinerSplitContainer container = this.Tree.Parent.Parent as OutlinerSplitContainer;
 
-      WinForms::ToolStripDropDown strip = StandardContextMenu.Create(this.CreateContextMenu(clickedNode), container, this.Tree, this);
+      WinForms::ContextMenuStrip contextMenu;
+      if (this.ContextMenu != null)
+      {
+         IEnumerable<IMaxNodeWrapper> selectedNodes = HelperMethods.GetMaxNodes(this.Tree.SelectedNodes);
+         contextMenu = this.ContextMenu.ToContextMenuStrip(clickedNode, selectedNodes);
+      }
+      else
+         contextMenu = new WinForms.ContextMenuStrip();
+
+      WinForms::ToolStripDropDown strip = StandardContextMenu.Create(contextMenu, container, this.Tree, this); //this.CreateContextMenu(clickedNode), container, this.Tree, this);
       strip.Show(this.Tree, e.Location);
    }
 

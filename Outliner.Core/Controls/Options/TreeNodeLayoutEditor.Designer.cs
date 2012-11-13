@@ -221,8 +221,8 @@
          this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
          this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
          this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-         this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
-         this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
+         this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+         this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
          this.tableLayoutPanel3.Size = new System.Drawing.Size(457, 264);
          this.tableLayoutPanel3.TabIndex = 2;
          // 
@@ -295,7 +295,7 @@
          this.layoutTree.Location = new System.Drawing.Point(3, 35);
          this.layoutTree.Name = "layoutTree";
          this.tableLayoutPanel3.SetRowSpan(this.layoutTree, 3);
-         this.layoutTree.Size = new System.Drawing.Size(391, 158);
+         this.layoutTree.Size = new System.Drawing.Size(391, 142);
          this.layoutTree.TabIndex = 5;
          this.layoutTree.Text = "treeView2";
          this.layoutTree.SelectionChanged += new System.EventHandler<Outliner.Controls.Tree.SelectionChangedEventArgs>(this.layoutTree_SelectionChanged);
@@ -305,12 +305,13 @@
          this.itemProperties.CommandsVisibleIfAvailable = false;
          this.itemProperties.Dock = System.Windows.Forms.DockStyle.Fill;
          this.itemProperties.HelpVisible = false;
-         this.itemProperties.Location = new System.Drawing.Point(3, 199);
+         this.itemProperties.Location = new System.Drawing.Point(3, 183);
          this.itemProperties.Name = "itemProperties";
          this.itemProperties.PropertySort = System.Windows.Forms.PropertySort.NoSort;
-         this.itemProperties.Size = new System.Drawing.Size(391, 62);
+         this.itemProperties.Size = new System.Drawing.Size(391, 78);
          this.itemProperties.TabIndex = 6;
          this.itemProperties.ToolbarVisible = false;
+         this.itemProperties.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.itemProperties_PropertyValueChanged);
          // 
          // TreeNodeLayoutEditor
          // 

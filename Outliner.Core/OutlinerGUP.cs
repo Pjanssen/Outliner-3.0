@@ -26,7 +26,6 @@ public class OutlinerGUP
 
    public Boolean SettingsLoaded { get; private set; }
    public OutlinerState State { get; private set; }
-   public IEnumerable<OutlinerPreset> Presets { get; private set; }
    public TreeViewColorScheme ColorScheme { get; private set; }
 
    public Dictionary<TreeView, TreeMode> TreeModes { get; private set; }
@@ -53,11 +52,10 @@ public class OutlinerGUP
 
       try
       {
-         this.Presets = this.loadPresets(OutlinerPaths.PresetsDir);
+         OutlinerPresets.LoadPresets();
       }
       catch
       {
-         this.Presets = new List<OutlinerPreset>();
          this.SettingsLoaded = false;
       }
 
@@ -155,7 +153,7 @@ public class OutlinerGUP
 
    public void ReloadSettings()
    {
-      this.Presets     = this.loadPresets(OutlinerPaths.PresetsDir);
+      OutlinerPresets.LoadPresets();
       this.ColorScheme = this.loadColors(OutlinerPaths.ColorFile);
       this.State       = this.loadState(OutlinerPaths.StateFile);
    }
@@ -208,10 +206,11 @@ public class OutlinerGUP
    private OutlinerState defaultState()
    {
       OutlinerState state = new OutlinerState();
-      if (this.Presets != null && this.Presets.Count() > 0)
+      IEnumerable<OutlinerPreset> presets = OutlinerPresets.Presets;
+      if (presets.Count() > 0)
       {
-         state.Tree1Preset = this.Presets.First();
-         state.Tree2Preset = this.Presets.First();
+         state.Tree1Preset = presets.First();
+         state.Tree2Preset = presets.First();
       }
       return state;
    }

@@ -11,6 +11,7 @@
 TREEVIEW
 --------
 * TreeNode selection implementation is a bit shoddy. MouseDown+MouseUp both fire selectionchangedevent
+* TreeNode.NextNode/NextVisible node bug when switching to layer mode.
 
 NODE BUTTONS
 ------------

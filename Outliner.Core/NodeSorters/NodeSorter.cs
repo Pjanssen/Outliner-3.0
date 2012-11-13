@@ -16,8 +16,16 @@ namespace Outliner.NodeSorters
       }
 
       private Boolean invert;
-      public Boolean Ascending { get { return !this.invert; } }
-      public Boolean Descending { get { return this.invert; } }
+      public Boolean Ascending 
+      { 
+         get { return !this.invert; }
+         set { this.invert = !value; }
+      }
+      public Boolean Descending 
+      { 
+         get { return this.invert; }
+         set { this.invert = value; }
+      }
 
       public int Compare(TreeNode x, TreeNode y)
       {

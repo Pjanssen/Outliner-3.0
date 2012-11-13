@@ -211,7 +211,7 @@ internal static class StandardContextMenu
 
    private static void EditPresets_Click(object sender, EventArgs e)
    {
-      PresetEditor editor = new PresetEditor();
+      PresetEditor editor = new PresetEditor(GetTreeView(sender));
       editor.ShowDialog(MaxInterfaces.MaxHwnd);
    }
 

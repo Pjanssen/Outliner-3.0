@@ -18,7 +18,6 @@ namespace Outliner.Controls.Options
 {
 public partial class FilterCollectionEditor : UserControl
 {
-   private PresetEditor owningEditor;
    private FilterCombinator<IMaxNodeWrapper> rootFilter;
    private Dictionary<Filter<IMaxNodeWrapper>, Tree.TreeNode> treeNodes;
 
@@ -86,13 +85,7 @@ public partial class FilterCollectionEditor : UserControl
       }
    }
 
-   [Browsable(false)]
-   [DefaultValue(null)]
-   public PresetEditor OwningEditor
-   {
-      get { return this.owningEditor; }
-      set { this.owningEditor = value; }
-   }
+   public Action UpdateAction { get; set; }
 
    private void FillTree()
    {
@@ -157,8 +150,8 @@ public partial class FilterCollectionEditor : UserControl
    private void enabledCheckBox_CheckedChanged(object sender, EventArgs e)
    {
       this.rootFilter.Enabled = this.enabledCheckBox.Checked;
-      if (this.OwningEditor != null)
-         this.OwningEditor.UpdatePreviewTree();
+      if (this.UpdateAction != null)
+         this.UpdateAction();
    }
 
    private void addFilterButton_Click(object sender, EventArgs e)
@@ -209,8 +202,8 @@ public partial class FilterCollectionEditor : UserControl
 
    private void filterChanged(object sender, EventArgs args)
    {
-      if (this.OwningEditor != null)
-         this.OwningEditor.UpdatePreviewTree();
+      if (this.UpdateAction != null)
+         this.UpdateAction();
 
       Filter<IMaxNodeWrapper> filter = sender as Filter<IMaxNodeWrapper>;
       Tree.TreeNode tn;
@@ -227,8 +220,8 @@ public partial class FilterCollectionEditor : UserControl
          if (this.treeNodes.TryGetValue(collection.Owner, out parentTn))
          {
             this.AddFilterToTree(args.Filter, parentTn.Nodes);
-            if (this.OwningEditor != null)
-               this.OwningEditor.UpdatePreviewTree();
+            if (this.UpdateAction != null)
+               this.UpdateAction();
          }
       }
    }
@@ -240,8 +233,8 @@ public partial class FilterCollectionEditor : UserControl
       {
          tn.Remove();
          this.treeNodes.Remove(args.Filter);
-         if (this.OwningEditor != null)
-            this.OwningEditor.UpdatePreviewTree();
+         if (this.UpdateAction != null)
+            this.UpdateAction();
       }
    }
 }

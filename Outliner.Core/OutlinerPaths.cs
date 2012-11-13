@@ -26,7 +26,7 @@ public static class OutlinerPaths
          if (pluginsDir == null)
          {
             pluginsDir = Path.Combine( GetMaxDirectory(MaxDirectory.ManagedAssemblies)
-                                     , "OutlinerPlugins");
+                                     , "OutlinerPlugins/");
          }
          return pluginsDir;
       }
@@ -38,7 +38,7 @@ public static class OutlinerPaths
       get
       {
          if (configDir == null)
-            configDir = Path.Combine(GetMaxDirectory(MaxDirectory.Plugcfg), "Outliner");
+            configDir = Path.Combine(GetMaxDirectory(MaxDirectory.Plugcfg), "Outliner/");
 
          return configDir;
       }
@@ -48,7 +48,7 @@ public static class OutlinerPaths
    {
       get
       {
-         return Path.Combine(OutlinerPaths.ConfigDir, "Presets");
+         return Path.Combine(OutlinerPaths.ConfigDir, "Presets/");
       }
    }
 
@@ -56,7 +56,7 @@ public static class OutlinerPaths
    {
       get
       {
-         return Path.Combine(OutlinerPaths.ConfigDir, "ContextMenus");
+         return Path.Combine(OutlinerPaths.ConfigDir, "ContextMenus/");
       }
    }
 

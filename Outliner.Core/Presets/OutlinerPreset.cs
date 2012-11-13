@@ -25,6 +25,7 @@ public class OutlinerPreset
    {
       this.Name = String.Empty;
       this.TreeModeTypeName = String.Empty;
+      this.ContextMenuFile = String.Empty;
       this.NodeSorter = new AlphabeticalSorter();
       this.TreeNodeLayout = TreeNodeLayout.SimpleLayout;
       this.Filters = new MaxNodeFilterCombinator() { Enabled = false };
@@ -111,6 +112,24 @@ public class OutlinerPreset
    [XmlElement("treemode")]
    public virtual String TreeModeTypeName { get; set; }
 
+   [XmlIgnore]
+   public Type TreeModeType
+   {
+      get
+      {
+         return OutlinerPlugins.GetPluginType( OutlinerPluginType.TreeMode
+                                             , this.TreeModeTypeName);
+      }
+      set
+      {
+         if (value != null)
+            this.TreeModeTypeName = value.FullName;
+      }
+   }
+
+   [XmlElement("contextmenu")]
+   public virtual String ContextMenuFile { get; set; }
+
    [XmlElement("nodesorter")]
    public virtual NodeSorter NodeSorter { get; set; }
 
@@ -132,6 +151,10 @@ public class OutlinerPreset
 
       TreeMode mode = Activator.CreateInstance(treeModeType, new object[] { tree }) as TreeMode;
       mode.PermanentFilter = this.Filters;
+
+      String contextMenuFile = Path.Combine(OutlinerPaths.ContextMenuDir, this.ContextMenuFile);
+      if (File.Exists(contextMenuFile))
+         mode.ContextMenu = XmlSerializationHelpers<Outliner.Controls.ContextMenu.ContextMenuModel>.FromXml(contextMenuFile);
 
       return mode;
    }

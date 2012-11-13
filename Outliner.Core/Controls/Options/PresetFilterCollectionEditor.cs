@@ -18,12 +18,12 @@ namespace Outliner.Controls.Options
          InitializeComponent();
       }
 
-      public PresetFilterCollectionEditor( PresetEditor owningEditor
-                                         , FilterCombinator<IMaxNodeWrapper> rootFilter)
+      public PresetFilterCollectionEditor( FilterCombinator<IMaxNodeWrapper> rootFilter
+                                         , Action updateAction)
          : this()
       {
-         this.filterEditor.OwningEditor = owningEditor;
          this.filterEditor.RootFilter = rootFilter;
+         this.filterEditor.UpdateAction = updateAction;
       }
    }
 }

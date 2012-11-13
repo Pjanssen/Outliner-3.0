@@ -21,8 +21,10 @@ public partial class PresetEditor : Form
 {
    private OutlinerPreset editingPreset;
    private TreeMode previewMode;
+   private Outliner.Controls.Tree.TreeNode customPresetsTn;
+   private Dictionary<OutlinerPreset, Tree.TreeNode> treeNodes;
    
-   public PresetEditor()
+   public PresetEditor(Tree.TreeView tree)
    {
       InitializeComponent();
 
@@ -42,6 +44,8 @@ public partial class PresetEditor : Form
       this.presetsTree.Colors = treeColors;
       this.previewTree.Colors = treeColors;
 
+      this.previewTree = tree;
+
       presetsTree.TreeNodeLayout.FullRowSelect = true;
       ((ExpandButton)presetsTree.TreeNodeLayout.LayoutItems.First()).UseVisualStyles = false;
 
@@ -52,30 +56,30 @@ public partial class PresetEditor : Form
 
    private void FillPresetList()
    {
-      OutlinerGUP outliner = OutlinerGUP.Instance;
-      if (outliner == null)
-         return;
-
+      this.presetsTree.Nodes.Clear();
+      this.treeNodes = new Dictionary<OutlinerPreset, Tree.TreeNode>();
       Outliner.Controls.Tree.TreeNode defaultTn = new Outliner.Controls.Tree.TreeNode("Default Presets");
       defaultTn.IsExpanded = true;
       
-      foreach (OutlinerPreset preset in outliner.Presets.Where(p => p.IsDefaultPreset))
+      foreach (OutlinerPreset preset in OutlinerPresets.Presets.Where(p => p.IsDefaultPreset))
       {
          Tree.TreeNode tn = createPresetTreeNode(preset);
          defaultTn.Nodes.Add(tn);
+         this.treeNodes.Add(preset, tn);
       }
 
-      Outliner.Controls.Tree.TreeNode customTn = new Outliner.Controls.Tree.TreeNode("Custom Presets");
-      customTn.IsExpanded = true;
+      this.customPresetsTn = new Outliner.Controls.Tree.TreeNode("Custom Presets");
+      this.customPresetsTn.IsExpanded = true;
 
-      foreach (OutlinerPreset preset in outliner.Presets.Where(p => !p.IsDefaultPreset))
+      foreach (OutlinerPreset preset in OutlinerPresets.Presets.Where(p => !p.IsDefaultPreset))
       {
          Tree.TreeNode tn = createPresetTreeNode(preset);
-         customTn.Nodes.Add(tn);
+         this.customPresetsTn.Nodes.Add(tn);
+         this.treeNodes.Add(preset, tn);
       }
 
       presetsTree.Nodes.Add(defaultTn);
-      presetsTree.Nodes.Add(customTn);
+      presetsTree.Nodes.Add(this.customPresetsTn);
    }
 
    private Tree.TreeNode createPresetTreeNode(OutlinerPreset preset)
@@ -107,11 +111,11 @@ public partial class PresetEditor : Form
          Type tagType = tn.Tag.GetType();
 
          if (tagType.Equals(typeof(OutlinerPreset)) || tagType.IsSubclassOf(typeof(OutlinerPreset)))
-            editor = new PresetPropertiesEditor(this, tn.Tag as OutlinerPreset);
+            editor = new PresetPropertiesEditor(tn.Tag as OutlinerPreset, this.UpdatePreviewTree);
          else if (tagType.Equals(typeof(FilterCombinator<IMaxNodeWrapper>)) || tagType.IsSubclassOf(typeof(FilterCombinator<IMaxNodeWrapper>)))
-            editor = new PresetFilterCollectionEditor(this, this.editingPreset.Filters);
+            editor = new PresetFilterCollectionEditor(this.editingPreset.Filters, this.UpdatePreviewTree);
          else if (tagType.Equals(typeof(TreeNodeLayout)))
-            editor = new TreeNodeLayoutEditor(this, tn.Tag as TreeNodeLayout);
+            editor = new TreeNodeLayoutEditor(tn.Tag as TreeNodeLayout, this.UpdatePreviewTree);
 
          if (editor != null)
          {
@@ -156,6 +160,7 @@ public partial class PresetEditor : Form
 
    private void presetsTree_SelectionChanged(object sender, Tree.SelectionChangedEventArgs e)
    {
+      this.editingPreset = null;
       Tree.TreeNode tn = e.Nodes.FirstOrDefault();
       if (tn != null && tn.Tag != null)
       {
@@ -173,7 +178,7 @@ public partial class PresetEditor : Form
       this.UpdatePreviewTree();
    }
 
-   internal void UpdatePreviewTree()
+   private void UpdatePreviewTree()
    {
       if (this.previewMode != null)
       {
@@ -192,7 +197,7 @@ public partial class PresetEditor : Form
          if (this.previewTree.Nodes.Count == 0)
          {
             Tree.TreeNode tn = new Tree.TreeNode("No nodes to show");
-            tn.Nodes.Add(new Tree.TreeNode("Open a scene for a proper preview"));
+            //tn.Nodes.Add(new Tree.TreeNode("Open a scene for a proper preview"));
             this.previewTree.Nodes.Add(tn);
          }
 
@@ -206,6 +211,28 @@ public partial class PresetEditor : Form
          }
 
          this.previewTree.Root.ExpandAll();
+      }
+   }
+
+   private void addBtn_Click(object sender, EventArgs e)
+   {
+      OutlinerPreset newPreset = new OutlinerPreset();
+      newPreset.Name = "NewPreset";
+      this.customPresetsTn.Nodes.Add(createPresetTreeNode(newPreset));
+   }
+
+   private void deleteBtn_Click(object sender, EventArgs e)
+   {
+      String action = this.editingPreset.IsDefaultPreset ? "Revert" : "Delete";
+      String text = String.Format( "Are you sure you want to {0} the preset \"{1}\"?\nThis action cannot be undone."
+                                 , action.ToLower()
+                                 , this.editingPreset.Name);
+      DialogResult result = MessageBox.Show(text, String.Format("{0} preset", action), MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+      if (result == DialogResult.Yes)
+      {
+         OutlinerPresets.DeletePreset(this.editingPreset);
+         this.FillPresetList();
+         this.presetsTree.OnSelectionChanged();
       }
    }
 }

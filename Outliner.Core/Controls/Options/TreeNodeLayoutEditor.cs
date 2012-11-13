@@ -15,18 +15,18 @@ namespace Outliner.Controls.Options
 {
 public partial class TreeNodeLayoutEditor : UserControl
 {
-   private PresetEditor owningEditor;
    private TreeNodeLayout layout;
+   private Action updateAction;
 
    public TreeNodeLayoutEditor()
    {
       InitializeComponent();
    }
 
-   public TreeNodeLayoutEditor(PresetEditor owningEditor, TreeNodeLayout layout) : this()
+   public TreeNodeLayoutEditor(TreeNodeLayout layout, Action updateAction) : this()
    {
-      this.owningEditor = owningEditor;
       this.layout = layout;
+      this.updateAction = updateAction;
 
       Color windowColor = ColorHelpers.FromMaxGuiColor(GuiColors.Window);
       Color windowTextColor = ColorHelpers.FromMaxGuiColor(GuiColors.WindowText);
@@ -98,7 +98,8 @@ public partial class TreeNodeLayoutEditor : UserControl
 
    private void itemProperties_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
    {
-      this.owningEditor.UpdatePreviewTree();
+      if (this.updateAction != null)
+         this.updateAction();
    }
 
    private void addButton_Click(object sender, EventArgs e)
@@ -111,7 +112,8 @@ public partial class TreeNodeLayoutEditor : UserControl
          {
             this.layout.LayoutItems.Add(newItem);
             this.FillItemsTree();
-            this.owningEditor.UpdatePreviewTree();
+            if (this.updateAction != null)
+               this.updateAction();
          }
       }
    }
@@ -132,7 +134,9 @@ public partial class TreeNodeLayoutEditor : UserControl
       {
          this.layout.LayoutItems.Remove(item);
          this.FillItemsTree();
-         this.owningEditor.UpdatePreviewTree();
+         this.itemProperties.SelectedObject = null;
+         if (this.updateAction != null)
+            this.updateAction();
       }
    }
 
@@ -148,7 +152,8 @@ public partial class TreeNodeLayoutEditor : UserControl
             this.layout.LayoutItems.Insert(index - 1, item);
             this.FillItemsTree();
             this.layoutTree.SelectNode(this.layoutTree.Nodes.Where(tn => tn.Tag == item).First(), true);
-            this.owningEditor.UpdatePreviewTree();
+            if (this.updateAction != null)
+               this.updateAction();
          }
       }
    }
@@ -165,7 +170,8 @@ public partial class TreeNodeLayoutEditor : UserControl
             this.layout.LayoutItems.Insert(index + 1, item);
             this.FillItemsTree();
             this.layoutTree.SelectNode(this.layoutTree.Nodes.Where(tn => tn.Tag == item).First(), true);
-            this.owningEditor.UpdatePreviewTree();
+            if (this.updateAction != null)
+               this.updateAction();
          }
       }
    }
@@ -173,7 +179,10 @@ public partial class TreeNodeLayoutEditor : UserControl
    private void layoutBindingSource_BindingComplete(object sender, BindingCompleteEventArgs e)
    {
       if (e.BindingCompleteContext == BindingCompleteContext.DataSourceUpdate)
-         this.owningEditor.UpdatePreviewTree();
+      {
+         if (this.updateAction != null)
+            this.updateAction();
+      }
    }
 }
 }
