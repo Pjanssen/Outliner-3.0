@@ -8,17 +8,20 @@ using Outliner.Scene;
 
 namespace Outliner.Controls.ContextMenu
 {
+   /// <summary>
+   /// An Xml-serializable model for a ContextMenu.
+   /// </summary>
    [XmlRoot("ContextMenu")]
-   public class ContextMenuData
+   public class ContextMenuModel
    {
-      public ContextMenuData()
+      public ContextMenuModel()
       {
-         this.Items = new List<MenuItemData>();
+         this.Items = new List<MenuItemModel>();
       }
 
       [XmlArray("Items")]
       [XmlArrayItem("MenuItem")]
-      public List<MenuItemData> Items { get; set; }
+      public List<MenuItemModel> Items { get; set; }
 
 
       public ContextMenuStrip ToContextMenuStrip( Outliner.Controls.Tree.TreeNode clickedTn
@@ -26,7 +29,7 @@ namespace Outliner.Controls.ContextMenu
       {
          ContextMenuStrip strip = new ContextMenuStrip();
 
-         foreach (MenuItemData item in this.Items)
+         foreach (MenuItemModel item in this.Items)
          {
             strip.Items.Add(item.ToToolStripMenuItem(clickedTn, context));
          }

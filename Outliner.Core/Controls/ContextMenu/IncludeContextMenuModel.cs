@@ -9,9 +9,9 @@ using Outliner.Scene;
 
 namespace Outliner.Controls.ContextMenu
 {
-   public class IncludeContextMenuData : MenuItemData
+   public class IncludeContextMenuModel : MenuItemModel
    {
-      public IncludeContextMenuData() : base() 
+      public IncludeContextMenuModel() : base() 
       {
          this.File = String.Empty;
       }
@@ -25,7 +25,7 @@ namespace Outliner.Controls.ContextMenu
          //IncludeContextMenuData does not execute anything.
       }
 
-      public override List<MenuItemData> SubItems
+      public override List<MenuItemModel> SubItems
       {
          get
          {
@@ -37,12 +37,12 @@ namespace Outliner.Controls.ContextMenu
             {
                try
                {
-                  ContextMenuData contextMenu = XmlSerializationHelpers<ContextMenuData>.FromXml(file);
+                  ContextMenuModel contextMenu = XmlSerializationHelpers<ContextMenuModel>.FromXml(file);
                   return contextMenu.Items;
                }
                catch (InvalidOperationException e) { }
             }
-            return new List<MenuItemData>();
+            return new List<MenuItemModel>();
          }
          set { }
       }

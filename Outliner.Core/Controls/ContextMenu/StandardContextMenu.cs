@@ -36,13 +36,13 @@ internal static class StandardContextMenu
       OutlinerPreset currentPreset = OutlinerGUP.Instance.GetActivePreset(tree);
       preset_btn.Image = currentPreset.Image24;
       preset_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
-      foreach (OutlinerPreset preset in OutlinerGUP.Instance.Presets.Where(p => p.IsDefaultPreset))
+      foreach (OutlinerPreset preset in OutlinerPresets.Presets.Where(p => p.IsDefaultPreset))
       {
          ToolStripMenuItem item = AddDropDownItem(preset_btn.DropDownItems, preset.Name, preset.Image16, preset_btn_click, preset);
          item.Checked = preset == currentPreset;
       }
       preset_btn.DropDownItems.Add(new ToolStripSeparator());
-      foreach (OutlinerPreset preset in OutlinerGUP.Instance.Presets.Where(p => !p.IsDefaultPreset))
+      foreach (OutlinerPreset preset in OutlinerPresets.Presets.Where(p => !p.IsDefaultPreset))
       {
          ToolStripMenuItem item = AddDropDownItem(preset_btn.DropDownItems, preset.Name, preset.Image16, preset_btn_click, preset);
          item.Checked = preset == currentPreset;

@@ -10,14 +10,14 @@ using Outliner.Scene;
 
 namespace Outliner.Controls.ContextMenu
 {
-public class NodePropertyMenuItem : MenuItemData
+public class NodePropertyMenuItemModel : MenuItemModel
 {
-   public NodePropertyMenuItem() : base() 
+   public NodePropertyMenuItemModel() : base() 
    {
       this.Property = BooleanNodeProperty.None;
    }
 
-   public NodePropertyMenuItem( String text, String image, Type resType
+   public NodePropertyMenuItemModel( String text, String image, Type resType
                               , BooleanNodeProperty property) : base(text, image, resType)
    {
       this.Property = property;

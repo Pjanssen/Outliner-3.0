@@ -7,9 +7,9 @@ using Outliner.Scene;
 
 namespace Outliner.Controls.ContextMenu
 {
-   public class SeparatorMenuItemData : MenuItemData
+   public class SeparatorMenuItemModel : MenuItemModel
    {
-      public SeparatorMenuItemData() : base(String.Empty, String.Empty, null) { }
+      public SeparatorMenuItemModel() : base(String.Empty, String.Empty, null) { }
 
       public override void OnClick( Outliner.Controls.Tree.TreeNode clickedTn
                                   , IEnumerable<IMaxNodeWrapper> context)

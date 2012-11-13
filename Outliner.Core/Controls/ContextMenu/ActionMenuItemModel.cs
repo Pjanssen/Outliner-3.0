@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace Outliner.Controls.ContextMenu
 {
-public class ActionMenuItemData : MenuItemData
+public class ActionMenuItemModel : MenuItemModel
 {
-   public ActionMenuItemData() : this(String.Empty, String.Empty, null) { }
+   public ActionMenuItemModel() : this(String.Empty, String.Empty, null) { }
 
-   public ActionMenuItemData(String text, String image, Type resType) 
+   public ActionMenuItemModel(String text, String image, Type resType) 
       : base(text, image, resType)
    {
       this.EnabledPredicate = "";

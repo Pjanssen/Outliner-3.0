@@ -13,22 +13,25 @@ using Outliner.Scene;
 
 namespace Outliner.Controls.ContextMenu
 {
-[XmlInclude(typeof(ActionMenuItemData))]
-[XmlInclude(typeof(IncludeContextMenuData))]
-[XmlInclude(typeof(MxsMenuItemData))]
-[XmlInclude(typeof(NodePropertyMenuItem))]
-[XmlInclude(typeof(SeparatorMenuItemData))]
-public abstract class MenuItemData
+/// <summary>
+/// An Xml-serializable model for a ToolStripMenuItem.
+/// </summary>
+[XmlInclude(typeof(ActionMenuItemModel))]
+[XmlInclude(typeof(IncludeContextMenuModel))]
+[XmlInclude(typeof(MxsMenuItemModel))]
+[XmlInclude(typeof(NodePropertyMenuItemModel))]
+[XmlInclude(typeof(SeparatorMenuItemModel))]
+public abstract class MenuItemModel
 {
-   public MenuItemData() : this(String.Empty, String.Empty, null) { }
-   public MenuItemData(String text, String image, Type resType)
+   public MenuItemModel() : this(String.Empty, String.Empty, null) { }
+   public MenuItemModel(String text, String image, Type resType)
    {
       this.TextRes = text;
       this.ImageRes = image;
       if (resType != null)
          this.ResourceTypeName = resType.Name;
       this.VisibleTypes = MaxNodeTypes.All;
-      this.SubItems = new List<MenuItemData>();
+      this.SubItems = new List<MenuItemModel>();
    }
 
    [XmlAttribute("text")]
@@ -101,10 +104,10 @@ public abstract class MenuItemData
 
    [XmlArray("SubItems")]
    [XmlArrayItem("MenuItem")]
-   public virtual List<MenuItemData> SubItems { get; set; }
+   public virtual List<MenuItemModel> SubItems { get; set; }
 
    /// <summary>
-   /// Magical method which tells the XmlSerializer when to serialize the SubItems list.
+   /// Magical method which tells the XmlSerializer when to serialize the SubItems list.z
    /// </summary>
    public bool ShouldSerializeSubItems()
    {
@@ -151,7 +154,7 @@ public abstract class MenuItemData
          if (enabled)
             item.Checked = this.Checked(clickedTn, context);
 
-         foreach (MenuItemData subitem in this.SubItems)
+         foreach (MenuItemModel subitem in this.SubItems)
          {
             item.DropDownItems.Add(subitem.ToToolStripMenuItem(clickedTn, context));
          }

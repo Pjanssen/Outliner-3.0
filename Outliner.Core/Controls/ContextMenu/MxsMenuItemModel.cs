@@ -9,11 +9,11 @@ using Outliner.Scene;
 
 namespace Outliner.Controls.ContextMenu
 {
-public class MxsMenuItemData : MenuItemData
+public class MxsMenuItemModel : MenuItemModel
 {
-   public MxsMenuItemData() : this(String.Empty, String.Empty, null, String.Empty) { }
+   public MxsMenuItemModel() : this(String.Empty, String.Empty, null, String.Empty) { }
 
-   public MxsMenuItemData(String text, String image, Type resType, String script) 
+   public MxsMenuItemModel(String text, String image, Type resType, String script) 
       : base(text, image, resType)
    {
       this.OnClickScript = script;
