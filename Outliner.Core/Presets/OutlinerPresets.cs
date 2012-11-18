@@ -45,10 +45,9 @@ public static class OutlinerPresets
       if (Directory.Exists(presetsDir))
       {
          String[] presetFiles = Directory.GetFiles(presetsDir, "*.xml");
-         Type[] extraTypes = OutlinerPlugins.GetSerializableTypes();
          foreach (String presetFile in presetFiles)
          {
-            OutlinerPreset preset = XmlSerializationHelpers<OutlinerPreset>.FromXml(presetFile, extraTypes);
+            OutlinerPreset preset = XmlSerializationHelpers.Deserialize<OutlinerPreset>(presetFile);
             presets.Add(preset, presetFile);
          }
       }
@@ -87,7 +86,7 @@ public static class OutlinerPresets
       }
       preset.Name = name;
 
-      XmlSerializationHelpers<OutlinerPreset>.ToXml(file, OutlinerPlugins.GetSerializableTypes(), preset);
+      XmlSerializationHelpers.Serialize<OutlinerPreset>(file, preset);
       OutlinerPresets.presets.Add(preset, file);
       
       return preset;

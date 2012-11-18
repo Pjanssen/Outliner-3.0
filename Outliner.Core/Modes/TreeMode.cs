@@ -574,7 +574,7 @@ public abstract class TreeMode
       IEnumerable<IMaxNodeWrapper> selectedNodes = HelperMethods.GetMaxNodes(this.Tree.SelectedNodes);
       
       String contextMenuFile = Path.Combine(OutlinerPaths.ContextMenuDir, "ContextMenu.xml");
-      ContextMenuModel data = XmlSerializationHelpers<ContextMenuModel>.FromXml(contextMenuFile);
+      ContextMenuModel data = XmlSerializationHelpers.Deserialize<ContextMenuModel>(contextMenuFile);
 
       return data.ToContextMenuStrip(clickedTn, selectedNodes);
    }

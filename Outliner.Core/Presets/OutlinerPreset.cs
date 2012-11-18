@@ -27,7 +27,6 @@ public class OutlinerPreset
       this.TreeModeTypeName = String.Empty;
       this.ContextMenuFile = String.Empty;
       this.NodeSorter = new AlphabeticalSorter();
-      this.TreeNodeLayout = TreeNodeLayout.SimpleLayout;
       this.Filters = new MaxNodeFilterCombinator() { Enabled = false };
    }
 
@@ -133,11 +132,44 @@ public class OutlinerPreset
    [XmlElement("nodesorter")]
    public virtual NodeSorter NodeSorter { get; set; }
 
+   private String layoutFile;
    [XmlElement("treenodelayout")]
-   public virtual TreeNodeLayout TreeNodeLayout { get; set; }
+   public virtual String LayoutFile 
+   {
+      get { return this.layoutFile; }
+      set
+      {
+         this.layoutFile = value;
+
+         String path = value;
+         if (!Path.IsPathRooted(value))
+            path = Path.Combine(OutlinerPaths.LayoutDir, value);
+         if (path != null)
+            this.TreeNodeLayout = XmlSerializationHelpers.Deserialize<TreeNodeLayout>(path);
+            //this.TreeNodeLayout = XmlSerializationHelpers<TreeNodeLayout>.FromXml(path, OutlinerPlugins.GetSerializableTypes());
+         }
+   }
+
+   private TreeNodeLayout layout;
+   [XmlIgnore]
+   public virtual TreeNodeLayout TreeNodeLayout 
+   {
+      get 
+      {
+         if (this.layout == null)
+            return TreeNodeLayout.SimpleLayout;
+         else
+            return this.layout; 
+      }
+      protected set
+      {
+         this.layout = value;
+      }
+   }
 
    [XmlElement("filters")]
    public virtual MaxNodeFilterCombinator Filters { get; set; }
+
 
    public TreeMode CreateTreeMode(TreeView tree)
    {
@@ -154,7 +186,7 @@ public class OutlinerPreset
 
       String contextMenuFile = Path.Combine(OutlinerPaths.ContextMenuDir, this.ContextMenuFile);
       if (File.Exists(contextMenuFile))
-         mode.ContextMenu = XmlSerializationHelpers<Outliner.Controls.ContextMenu.ContextMenuModel>.FromXml(contextMenuFile);
+         mode.ContextMenu = XmlSerializationHelpers.Deserialize<Outliner.Controls.ContextMenu.ContextMenuModel>(contextMenuFile);
 
       return mode;
    }

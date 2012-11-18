@@ -9,46 +9,89 @@ using System.Xml.Serialization;
 namespace Outliner
 {
 /// <summary>
-/// A collection of xml serialization helper methods, to avoid some boilerplate code.
+/// A collection of xml serialization helper methods. XmlSerializers are cached
+/// to improve performance.
 /// </summary>
-public static class XmlSerializationHelpers<T> where T : class
+public static class XmlSerializationHelpers
 {
-   public static T FromXml(String filePath)
+   private static Dictionary<Type, XmlSerializer> pluginSerializers;
+
+   private static XmlSerializer CreateSerializer(Type t)
    {
-      return FromXml(filePath, new Type[0]);
+      XmlSerializer serializer = new XmlSerializer(t, OutlinerPlugins.GetSerializableTypes());
+      if (pluginSerializers == null)
+         pluginSerializers = new Dictionary<Type, XmlSerializer>();
+
+      if (!pluginSerializers.ContainsKey(t))
+         pluginSerializers.Add(t, serializer);
+
+      return serializer;
    }
 
-   public static T FromXml(String filePath, Type[] extraTypes)
+   private static XmlSerializer GetSerializerForType(Type t)
+   {
+      XmlSerializer serializer;
+      if (pluginSerializers == null || !pluginSerializers.TryGetValue(t, out serializer))
+         serializer = CreateSerializer(t);
+      return serializer;
+   }
+
+   /// <summary>
+   /// Clears all cached XmlSerializers.
+   /// </summary>
+   public static void ClearSerializerCache()
+   {
+      pluginSerializers = null;
+   }
+
+   /// <summary>
+   /// Deserializes an XML-file containing plugin types.
+   /// </summary>
+   /// <typeparam name="T">The type of object to deserialize.</typeparam>
+   /// <param name="filePath">The file to deserialize.</param>
+   public static T Deserialize<T>(String filePath) where T : class
    {
       using (FileStream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
       {
-         return FromXml(stream, extraTypes);
+         return Deserialize<T>(stream);
       }
    }
 
-   public static T FromXml(Stream stream, Type[] extraTypes)
+   /// <summary>
+   /// Deserializes an XML-stream containing plugin types.
+   /// </summary>
+   /// <typeparam name="T">The type of object to deserialize.</typeparam>
+   /// <param name="stream">The stream to deserialize.</param>
+   public static T Deserialize<T>(Stream stream) where T : class
    {
-      XmlSerializer serializer = new XmlSerializer(typeof(T), extraTypes);
+      XmlSerializer serializer = GetSerializerForType(typeof(T));
       return serializer.Deserialize(stream) as T;
    }
 
 
-   public static void ToXml(String filePath, T data)
-   {
-      ToXml(filePath, new Type[0], data);
-   }
-
-   public static void ToXml(String filePath, Type[] extraTypes, T data)
+   /// <summary>
+   /// Serializes an object with plugin types to an XML-file.
+   /// </summary>
+   /// <typeparam name="T">The type of object to serialize.</typeparam>
+   /// <param name="filePath">The path of the XML-file to serialize.</param>
+   /// <param name="data">The object to serialize.</param>
+   public static void Serialize<T>(String filePath, T data)
    {
       using (FileStream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
       {
-         ToXml(stream, extraTypes, data);
+         Serialize<T>(stream, data);
       }
    }
 
-   public static void ToXml(Stream stream, Type[] extraTypes, T data)
+   /// <summary>
+   /// Serializes an object with plugin types to an XML-stream.
+   /// </summary>
+   /// <typeparam name="T">The type of object to serialize.</typeparam>
+   /// <param name="filePath">The XML-stream to serialize.</param>
+   /// <param name="data">The object to serialize.</param>
+   public static void Serialize<T>(Stream stream, T data)
    {
-      XmlSerializer serializer = new XmlSerializer(typeof(T), extraTypes);
+      XmlSerializer serializer = GetSerializerForType(typeof(T));
       serializer.Serialize(stream, data);
    }
 }

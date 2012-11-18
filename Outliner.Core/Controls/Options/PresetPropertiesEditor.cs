@@ -89,7 +89,7 @@ public partial class PresetPropertiesEditor : UserControl
       this.resTypeBindingSource.DataSource = preset;
       this.nodeSorterBindingSource.DataSource = preset.NodeSorter;
 
-       base.OnLoad(e);
+      base.OnLoad(e);
    }
 
 

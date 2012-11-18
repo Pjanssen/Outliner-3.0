@@ -10,11 +10,13 @@ using Outliner.Controls.Tree.Layout;
 using Outliner.MaxUtils;
 using Autodesk.Max;
 using Outliner.Plugins;
+using Outliner.Presets;
 
 namespace Outliner.Controls.Options
 {
 public partial class TreeNodeLayoutEditor : UserControl
 {
+   private OutlinerPreset preset;
    private TreeNodeLayout layout;
    private Action updateAction;
 
@@ -23,9 +25,10 @@ public partial class TreeNodeLayoutEditor : UserControl
       InitializeComponent();
    }
 
-   public TreeNodeLayoutEditor(TreeNodeLayout layout, Action updateAction) : this()
+   public TreeNodeLayoutEditor(OutlinerPreset preset, Action updateAction) : this()
    {
-      this.layout = layout;
+      this.preset = preset;
+      this.layout = preset.TreeNodeLayout;
       this.updateAction = updateAction;
 
       Color windowColor = ColorHelpers.FromMaxGuiColor(GuiColors.Window);
@@ -44,6 +47,8 @@ public partial class TreeNodeLayoutEditor : UserControl
       this.layoutTree.TreeNodeLayout.LayoutItems.Add(new EmptySpace());
       this.layoutTree.TreeNodeLayout.FullRowSelect = true;
 
+      this.SetControlColor(this.layoutFileComboBox, windowColor, windowTextColor);
+      this.SetControlColor(this.newLayoutFileBtn, windowColor, windowTextColor);
       this.SetControlColor(this.itemHeightSpinner, windowColor, windowTextColor);
       this.SetControlColor(this.paddingLeftSpinner, windowColor, windowTextColor);
       this.SetControlColor(this.paddingRightSpinner, windowColor, windowTextColor);
@@ -53,10 +58,12 @@ public partial class TreeNodeLayoutEditor : UserControl
       this.paddingLeftSpinner.Value = this.layout.PaddingLeft;
       this.paddingRightSpinner.Value = this.layout.PaddingRight;
 
-      this.layoutBindingSource.DataSource = this.layout;
-
       this.FillItemComboBox();
       this.FillItemsTree();
+      this.FillFileComboBox();
+
+      this.layoutBindingSource.DataSource = this.layout;
+      this.presetBindingSource.DataSource = this.preset;
    }
 
    private void SetControlColor(Control c, Color backColor, Color foreColor)
@@ -85,6 +92,16 @@ public partial class TreeNodeLayoutEditor : UserControl
          tn.Tag = item;
          this.layoutTree.Nodes.Add(tn);
       }
+   }
+
+   private void FillFileComboBox()
+   {
+      System.IO.DirectoryInfo dirInfo = new System.IO.DirectoryInfo(OutlinerPaths.LayoutDir);
+      List<System.IO.FileInfo> files = dirInfo.GetFiles("*.xml").ToList();
+      layoutFileComboBox.DataSource = files;
+      layoutFileComboBox.ValueMember = "Name";
+      layoutFileComboBox.DisplayMember = "Name";
+      
    }
 
    private void layoutTree_SelectionChanged(object sender, Tree.SelectionChangedEventArgs e)
@@ -182,6 +199,50 @@ public partial class TreeNodeLayoutEditor : UserControl
       {
          if (this.updateAction != null)
             this.updateAction();
+      }
+   }
+
+   private void newLayoutFileBtn_Click(object sender, EventArgs e)
+   {
+      saveFileDialog.InitialDirectory = OutlinerPaths.LayoutDir;
+      if (saveFileDialog.ShowDialog() == DialogResult.OK)
+      {
+         String file = saveFileDialog.FileName;
+         Uri layoutDirUri = new Uri(OutlinerPaths.LayoutDir);
+         Uri fileUri = layoutDirUri.MakeRelativeUri(new Uri(saveFileDialog.FileName));
+
+         TreeNodeLayout newLayout = null;
+         if (MessageBox.Show("Copy current layout to new file?", "Use current layout?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            newLayout = new TreeNodeLayout(this.layout);
+         else
+            newLayout = new TreeNodeLayout();
+
+         XmlSerializationHelpers.Serialize<TreeNodeLayout>(file, newLayout);
+
+         this.presetBindingSource.SuspendBinding();
+         this.layoutBindingSource.SuspendBinding();
+
+         this.preset.LayoutFile = Uri.UnescapeDataString(fileUri.ToString());
+         this.layout = this.preset.TreeNodeLayout;
+         this.FillItemsTree();
+         this.FillFileComboBox();
+
+         this.layoutBindingSource.DataSource = this.layout;
+         this.presetBindingSource.ResumeBinding();
+         this.layoutBindingSource.ResumeBinding();
+      }
+   }
+
+   private void presetBindingSource_BindingComplete(object sender, BindingCompleteEventArgs e)
+   {
+      if (e.BindingCompleteContext == BindingCompleteContext.DataSourceUpdate)
+      {
+         if (this.updateAction != null)
+            this.updateAction();
+
+         this.layout = this.preset.TreeNodeLayout;
+         this.layoutBindingSource.DataSource = this.layout;
+         this.FillItemsTree();
       }
    }
 }

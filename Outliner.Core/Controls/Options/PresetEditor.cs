@@ -19,7 +19,15 @@ namespace Outliner.Controls.Options
 {
 public partial class PresetEditor : Form
 {
+   private enum EditorType
+   {
+      ContextMenu,
+      Filters,
+      Layout
+   }
+
    private OutlinerPreset editingPreset;
+   private Tree.TreeView previewTree;
    private TreeMode previewMode;
    private Outliner.Controls.Tree.TreeNode customPresetsTn;
    private Dictionary<OutlinerPreset, Tree.TreeNode> treeNodes;
@@ -42,7 +50,6 @@ public partial class PresetEditor : Form
       treeColors.ParentForeground = new SerializableColor(windowTextColor);
       treeColors.AlternateBackground = false;
       this.presetsTree.Colors = treeColors;
-      this.previewTree.Colors = treeColors;
 
       this.previewTree = tree;
 
@@ -88,11 +95,13 @@ public partial class PresetEditor : Form
       tn.Tag = preset;
 
       Tree.TreeNode filterTn = new Tree.TreeNode("Filters");
-      filterTn.Tag = preset.Filters;
+      //filterTn.Tag = preset.Filters;
+      filterTn.Tag = EditorType.Filters;
       tn.Nodes.Add(filterTn);
 
       Tree.TreeNode layoutTn = new Tree.TreeNode("Layout");
-      layoutTn.Tag = preset.TreeNodeLayout;
+      //layoutTn.Tag = preset.TreeNodeLayout;
+      layoutTn.Tag = EditorType.Layout;
       tn.Nodes.Add(layoutTn);
       
       return tn;
@@ -105,6 +114,7 @@ public partial class PresetEditor : Form
 
       Tree.TreeNode tn = this.presetsTree.SelectedNodes.FirstOrDefault();
       Control editor = null;
+      this.SuspendLayout();
 
       if (tn != null && tn.Tag != null)
       {
@@ -112,19 +122,22 @@ public partial class PresetEditor : Form
 
          if (tagType.Equals(typeof(OutlinerPreset)) || tagType.IsSubclassOf(typeof(OutlinerPreset)))
             editor = new PresetPropertiesEditor(tn.Tag as OutlinerPreset, this.UpdatePreviewTree);
-         else if (tagType.Equals(typeof(FilterCombinator<IMaxNodeWrapper>)) || tagType.IsSubclassOf(typeof(FilterCombinator<IMaxNodeWrapper>)))
-            editor = new PresetFilterCollectionEditor(this.editingPreset.Filters, this.UpdatePreviewTree);
-         else if (tagType.Equals(typeof(TreeNodeLayout)))
-            editor = new TreeNodeLayoutEditor(tn.Tag as TreeNodeLayout, this.UpdatePreviewTree);
+         else if (tagType.Equals(typeof(EditorType)))
+         {
+            EditorType editorType = (EditorType)tn.Tag;
+            if (editorType == EditorType.Layout)
+               editor = new TreeNodeLayoutEditor(this.editingPreset, this.UpdatePreviewTree);
+            else if (editorType == EditorType.Filters)
+               editor = new PresetFilterCollectionEditor(this.editingPreset.Filters, this.UpdatePreviewTree);
+         }
 
          if (editor != null)
          {
             editor.Dock = DockStyle.Fill;
             this.propertiesPanel.Controls.Add(editor);
          }
+         this.ResumeLayout();
       }
-
-      this.previewGroupBox.Visible = editor != null;
    }
 
    private void SetDeleteButtonState()
@@ -138,15 +151,6 @@ public partial class PresetEditor : Form
          this.deleteBtn.Enabled = false;
    }
 
-   private void presetsList_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
-   {
-      if (e.Item != null)
-      {
-         this.editingPreset = e.Item.Tag as OutlinerPreset;
-      }
-
-      this.FillPresetProperties();
-   }
 
    private void cancelBtn_Click(object sender, EventArgs e)
    {

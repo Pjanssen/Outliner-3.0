@@ -144,7 +144,7 @@ public abstract class MenuItemModel
       ToolStripMenuItem item = new ToolStripMenuItem();
       item.Text = this.Text;
       item.Image = this.Image;
-      Boolean visible = context.Any(n => n.IsNodeType(this.VisibleTypes));
+      Boolean visible = context.Any(n => n != null && n.IsNodeType(this.VisibleTypes));
       item.Visible = visible;
 
       if (visible)

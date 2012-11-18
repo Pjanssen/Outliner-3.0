@@ -52,6 +52,14 @@ public static class OutlinerPaths
       }
    }
 
+   public static String LayoutDir
+   {
+      get
+      {
+         return Path.Combine(OutlinerPaths.ConfigDir, "Layouts/");
+      }
+   }
+
    public static String ContextMenuDir
    {
       get

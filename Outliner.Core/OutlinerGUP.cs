@@ -153,42 +153,17 @@ public class OutlinerGUP
 
    public void ReloadSettings()
    {
+      XmlSerializationHelpers.ClearSerializerCache();
       OutlinerPresets.LoadPresets();
       this.ColorScheme = this.loadColors(OutlinerPaths.ColorFile);
       this.State       = this.loadState(OutlinerPaths.StateFile);
    }
 
 
-   private IEnumerable<OutlinerPreset> loadPresets(String presetsDir)
-   {
-      List<OutlinerPreset> presets = new List<OutlinerPreset>();
-
-      if (Directory.Exists(presetsDir))
-      {
-         String[] presetFiles = Directory.GetFiles(presetsDir, "*.xml");
-         Type[] extraTypes = OutlinerPlugins.GetSerializableTypes();
-         foreach (String preset in presetFiles)
-         {
-            presets.Add(XmlSerializationHelpers<OutlinerPreset>.FromXml(preset, extraTypes));
-         }
-      }
-
-      IEnumerable<OutlinerPreset> defaultPresets = OutlinerPlugins.GetPluginsByType(OutlinerPluginType.DefaultPreset)
-                                                                  .Select(p => Activator.CreateInstance(p.Type) as OutlinerPreset);
-      presets.AddRange(defaultPresets.Where(t => !presets.Any(p => p.Name.Equals(t.Name))));
-      
-      presets.Where(p => defaultPresets.Any(t => t.Name.Equals(p.Name)))
-             .ForEach(p => p.IsDefaultPreset = true);
-
-      presets.Sort((p, q) => p.Name.CompareTo(q.Name));
-
-      return presets;
-   }
-
    private TreeViewColorScheme loadColors(String colorFile)
    {
       if (File.Exists(colorFile))
-         return XmlSerializationHelpers<TreeViewColorScheme>.FromXml(colorFile);
+         return XmlSerializationHelpers.Deserialize<TreeViewColorScheme>(colorFile);
       else
          return TreeViewColorScheme.MayaColors;
    }
@@ -196,7 +171,7 @@ public class OutlinerGUP
    private OutlinerState loadState(String stateFile)
    {
       if (File.Exists(stateFile))
-         return XmlSerializationHelpers<OutlinerState>.FromXml(stateFile, OutlinerPlugins.GetSerializableTypes());
+         return XmlSerializationHelpers.Deserialize<OutlinerState>(stateFile);
       else
       {
          return defaultState();
@@ -221,9 +196,8 @@ public class OutlinerGUP
       if (!Directory.Exists(OutlinerPaths.ConfigDir))
          Directory.CreateDirectory(OutlinerPaths.ConfigDir);
 
-      XmlSerializationHelpers<OutlinerState>.ToXml( OutlinerPaths.StateFile
-                                                  , OutlinerPlugins.GetSerializableTypes()
-                                                  , this.State);
+      XmlSerializationHelpers.Serialize<OutlinerState>( OutlinerPaths.StateFile
+                                                            , this.State);
    }
 
 }

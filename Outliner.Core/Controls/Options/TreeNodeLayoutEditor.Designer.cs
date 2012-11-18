@@ -29,17 +29,17 @@
       private void InitializeComponent()
       {
          this.components = new System.ComponentModel.Container();
-         this.layoutBindingSource = new System.Windows.Forms.BindingSource(this.components);
-         this.outlinerGroupBox1 = new Outliner.Controls.OutlinerGroupBox();
-         this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+         this.outlinerGroupBox2 = new Outliner.Controls.OutlinerGroupBox();
+         this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
          this.paddingRightSpinner = new System.Windows.Forms.NumericUpDown();
+         this.layoutBindingSource = new System.Windows.Forms.BindingSource(this.components);
          this.label3 = new System.Windows.Forms.Label();
          this.label2 = new System.Windows.Forms.Label();
          this.paddingLeftSpinner = new System.Windows.Forms.NumericUpDown();
          this.itemHeightSpinner = new System.Windows.Forms.NumericUpDown();
          this.label1 = new System.Windows.Forms.Label();
          this.fullRowSelectCheckBox = new System.Windows.Forms.CheckBox();
-         this.outlinerGroupBox2 = new Outliner.Controls.OutlinerGroupBox();
+         this.outlinerGroupBox3 = new Outliner.Controls.OutlinerGroupBox();
          this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
          this.layoutComboBox = new System.Windows.Forms.ComboBox();
          this.addButton = new System.Windows.Forms.Button();
@@ -48,56 +48,60 @@
          this.downButton = new System.Windows.Forms.Button();
          this.layoutTree = new Outliner.Controls.Tree.TreeView();
          this.itemProperties = new System.Windows.Forms.PropertyGrid();
-         ((System.ComponentModel.ISupportInitialize)(this.layoutBindingSource)).BeginInit();
-         this.outlinerGroupBox1.SuspendLayout();
-         this.tableLayoutPanel1.SuspendLayout();
+         this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+         this.newLayoutFileBtn = new System.Windows.Forms.Button();
+         this.layoutFileComboBox = new System.Windows.Forms.ComboBox();
+         this.presetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+         this.outlinerGroupBox1 = new Outliner.Controls.OutlinerGroupBox();
+         this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+         this.outlinerGroupBox2.SuspendLayout();
+         this.tableLayoutPanel2.SuspendLayout();
          ((System.ComponentModel.ISupportInitialize)(this.paddingRightSpinner)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutBindingSource)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.paddingLeftSpinner)).BeginInit();
          ((System.ComponentModel.ISupportInitialize)(this.itemHeightSpinner)).BeginInit();
-         this.outlinerGroupBox2.SuspendLayout();
+         this.outlinerGroupBox3.SuspendLayout();
          this.tableLayoutPanel3.SuspendLayout();
+         this.tableLayoutPanel1.SuspendLayout();
+         ((System.ComponentModel.ISupportInitialize)(this.presetBindingSource)).BeginInit();
+         this.outlinerGroupBox1.SuspendLayout();
          this.SuspendLayout();
          // 
-         // layoutBindingSource
+         // outlinerGroupBox2
          // 
-         this.layoutBindingSource.DataSource = typeof(Outliner.Controls.Tree.Layout.TreeNodeLayout);
-         this.layoutBindingSource.BindingComplete += new System.Windows.Forms.BindingCompleteEventHandler(this.layoutBindingSource_BindingComplete);
+         this.outlinerGroupBox2.BorderColor = System.Drawing.Color.Black;
+         this.outlinerGroupBox2.Controls.Add(this.tableLayoutPanel2);
+         this.outlinerGroupBox2.Dock = System.Windows.Forms.DockStyle.Top;
+         this.outlinerGroupBox2.Location = new System.Drawing.Point(0, 53);
+         this.outlinerGroupBox2.Name = "outlinerGroupBox2";
+         this.outlinerGroupBox2.Padding = new System.Windows.Forms.Padding(8, 5, 5, 5);
+         this.outlinerGroupBox2.Size = new System.Drawing.Size(467, 77);
+         this.outlinerGroupBox2.TabIndex = 3;
+         this.outlinerGroupBox2.TabStop = false;
+         this.outlinerGroupBox2.Text = "Layout Properties";
          // 
-         // outlinerGroupBox1
+         // tableLayoutPanel2
          // 
-         this.outlinerGroupBox1.BorderColor = System.Drawing.Color.Black;
-         this.outlinerGroupBox1.Controls.Add(this.tableLayoutPanel1);
-         this.outlinerGroupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-         this.outlinerGroupBox1.Location = new System.Drawing.Point(0, 0);
-         this.outlinerGroupBox1.Name = "outlinerGroupBox1";
-         this.outlinerGroupBox1.Padding = new System.Windows.Forms.Padding(8, 5, 5, 5);
-         this.outlinerGroupBox1.Size = new System.Drawing.Size(467, 77);
-         this.outlinerGroupBox1.TabIndex = 3;
-         this.outlinerGroupBox1.TabStop = false;
-         this.outlinerGroupBox1.Text = "Layout Properties";
-         // 
-         // tableLayoutPanel1
-         // 
-         this.tableLayoutPanel1.ColumnCount = 4;
-         this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-         this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-         this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-         this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-         this.tableLayoutPanel1.Controls.Add(this.paddingRightSpinner, 2, 1);
-         this.tableLayoutPanel1.Controls.Add(this.label3, 3, 1);
-         this.tableLayoutPanel1.Controls.Add(this.label2, 1, 1);
-         this.tableLayoutPanel1.Controls.Add(this.paddingLeftSpinner, 0, 1);
-         this.tableLayoutPanel1.Controls.Add(this.itemHeightSpinner, 2, 0);
-         this.tableLayoutPanel1.Controls.Add(this.label1, 3, 0);
-         this.tableLayoutPanel1.Controls.Add(this.fullRowSelectCheckBox, 0, 0);
-         this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.tableLayoutPanel1.Location = new System.Drawing.Point(8, 18);
-         this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-         this.tableLayoutPanel1.RowCount = 2;
-         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-         this.tableLayoutPanel1.Size = new System.Drawing.Size(454, 54);
-         this.tableLayoutPanel1.TabIndex = 3;
+         this.tableLayoutPanel2.ColumnCount = 4;
+         this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+         this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+         this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+         this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+         this.tableLayoutPanel2.Controls.Add(this.paddingRightSpinner, 2, 1);
+         this.tableLayoutPanel2.Controls.Add(this.label3, 3, 1);
+         this.tableLayoutPanel2.Controls.Add(this.label2, 1, 1);
+         this.tableLayoutPanel2.Controls.Add(this.paddingLeftSpinner, 0, 1);
+         this.tableLayoutPanel2.Controls.Add(this.itemHeightSpinner, 2, 0);
+         this.tableLayoutPanel2.Controls.Add(this.label1, 3, 0);
+         this.tableLayoutPanel2.Controls.Add(this.fullRowSelectCheckBox, 0, 0);
+         this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.tableLayoutPanel2.Location = new System.Drawing.Point(8, 18);
+         this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+         this.tableLayoutPanel2.RowCount = 2;
+         this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+         this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+         this.tableLayoutPanel2.Size = new System.Drawing.Size(454, 54);
+         this.tableLayoutPanel2.TabIndex = 3;
          // 
          // paddingRightSpinner
          // 
@@ -112,6 +116,11 @@
          this.paddingRightSpinner.Name = "paddingRightSpinner";
          this.paddingRightSpinner.Size = new System.Drawing.Size(44, 20);
          this.paddingRightSpinner.TabIndex = 6;
+         // 
+         // layoutBindingSource
+         // 
+         this.layoutBindingSource.DataSource = typeof(Outliner.Controls.Tree.Layout.TreeNodeLayout);
+         this.layoutBindingSource.BindingComplete += new System.Windows.Forms.BindingCompleteEventHandler(this.layoutBindingSource_BindingComplete);
          // 
          // label3
          // 
@@ -179,7 +188,7 @@
          // fullRowSelectCheckBox
          // 
          this.fullRowSelectCheckBox.AutoSize = true;
-         this.tableLayoutPanel1.SetColumnSpan(this.fullRowSelectCheckBox, 2);
+         this.tableLayoutPanel2.SetColumnSpan(this.fullRowSelectCheckBox, 2);
          this.fullRowSelectCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.layoutBindingSource, "FullRowSelect", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
          this.fullRowSelectCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
          this.fullRowSelectCheckBox.Location = new System.Drawing.Point(3, 3);
@@ -189,18 +198,18 @@
          this.fullRowSelectCheckBox.Text = "Full-row Select";
          this.fullRowSelectCheckBox.UseVisualStyleBackColor = true;
          // 
-         // outlinerGroupBox2
+         // outlinerGroupBox3
          // 
-         this.outlinerGroupBox2.BorderColor = System.Drawing.Color.Black;
-         this.outlinerGroupBox2.Controls.Add(this.tableLayoutPanel3);
-         this.outlinerGroupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.outlinerGroupBox2.Location = new System.Drawing.Point(0, 77);
-         this.outlinerGroupBox2.Name = "outlinerGroupBox2";
-         this.outlinerGroupBox2.Padding = new System.Windows.Forms.Padding(5);
-         this.outlinerGroupBox2.Size = new System.Drawing.Size(467, 287);
-         this.outlinerGroupBox2.TabIndex = 4;
-         this.outlinerGroupBox2.TabStop = false;
-         this.outlinerGroupBox2.Text = "Layout Items";
+         this.outlinerGroupBox3.BorderColor = System.Drawing.Color.Black;
+         this.outlinerGroupBox3.Controls.Add(this.tableLayoutPanel3);
+         this.outlinerGroupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.outlinerGroupBox3.Location = new System.Drawing.Point(0, 130);
+         this.outlinerGroupBox3.Name = "outlinerGroupBox3";
+         this.outlinerGroupBox3.Padding = new System.Windows.Forms.Padding(5);
+         this.outlinerGroupBox3.Size = new System.Drawing.Size(467, 331);
+         this.outlinerGroupBox3.TabIndex = 4;
+         this.outlinerGroupBox3.TabStop = false;
+         this.outlinerGroupBox3.Text = "Layout Items";
          // 
          // tableLayoutPanel3
          // 
@@ -218,12 +227,12 @@
          this.tableLayoutPanel3.Location = new System.Drawing.Point(5, 18);
          this.tableLayoutPanel3.Name = "tableLayoutPanel3";
          this.tableLayoutPanel3.RowCount = 5;
-         this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-         this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-         this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+         this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+         this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+         this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
          this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
          this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-         this.tableLayoutPanel3.Size = new System.Drawing.Size(457, 264);
+         this.tableLayoutPanel3.Size = new System.Drawing.Size(457, 308);
          this.tableLayoutPanel3.TabIndex = 2;
          // 
          // layoutComboBox
@@ -244,7 +253,7 @@
          this.addButton.Location = new System.Drawing.Point(400, 2);
          this.addButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 3);
          this.addButton.Name = "addButton";
-         this.addButton.Size = new System.Drawing.Size(54, 27);
+         this.addButton.Size = new System.Drawing.Size(54, 23);
          this.addButton.TabIndex = 1;
          this.addButton.Text = "Add";
          this.addButton.UseVisualStyleBackColor = true;
@@ -254,9 +263,9 @@
          // 
          this.deleteButton.Dock = System.Windows.Forms.DockStyle.Top;
          this.deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-         this.deleteButton.Location = new System.Drawing.Point(400, 99);
+         this.deleteButton.Location = new System.Drawing.Point(400, 87);
          this.deleteButton.Name = "deleteButton";
-         this.deleteButton.Size = new System.Drawing.Size(54, 27);
+         this.deleteButton.Size = new System.Drawing.Size(54, 23);
          this.deleteButton.TabIndex = 2;
          this.deleteButton.Text = "Delete";
          this.deleteButton.UseVisualStyleBackColor = true;
@@ -266,9 +275,9 @@
          // 
          this.upButton.Dock = System.Windows.Forms.DockStyle.Top;
          this.upButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-         this.upButton.Location = new System.Drawing.Point(400, 35);
+         this.upButton.Location = new System.Drawing.Point(400, 31);
          this.upButton.Name = "upButton";
-         this.upButton.Size = new System.Drawing.Size(54, 24);
+         this.upButton.Size = new System.Drawing.Size(54, 22);
          this.upButton.TabIndex = 3;
          this.upButton.Text = "Up";
          this.upButton.UseVisualStyleBackColor = true;
@@ -278,9 +287,9 @@
          // 
          this.downButton.Dock = System.Windows.Forms.DockStyle.Top;
          this.downButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-         this.downButton.Location = new System.Drawing.Point(400, 65);
+         this.downButton.Location = new System.Drawing.Point(400, 59);
          this.downButton.Name = "downButton";
-         this.downButton.Size = new System.Drawing.Size(54, 27);
+         this.downButton.Size = new System.Drawing.Size(54, 22);
          this.downButton.TabIndex = 4;
          this.downButton.Text = "Down";
          this.downButton.UseVisualStyleBackColor = true;
@@ -292,10 +301,10 @@
          this.layoutTree.AutoScroll = true;
          this.layoutTree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.layoutTree.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.layoutTree.Location = new System.Drawing.Point(3, 35);
+         this.layoutTree.Location = new System.Drawing.Point(3, 31);
          this.layoutTree.Name = "layoutTree";
          this.tableLayoutPanel3.SetRowSpan(this.layoutTree, 3);
-         this.layoutTree.Size = new System.Drawing.Size(391, 142);
+         this.layoutTree.Size = new System.Drawing.Size(391, 162);
          this.layoutTree.TabIndex = 5;
          this.layoutTree.Text = "treeView2";
          this.layoutTree.SelectionChanged += new System.EventHandler<Outliner.Controls.Tree.SelectionChangedEventArgs>(this.layoutTree_SelectionChanged);
@@ -305,31 +314,96 @@
          this.itemProperties.CommandsVisibleIfAvailable = false;
          this.itemProperties.Dock = System.Windows.Forms.DockStyle.Fill;
          this.itemProperties.HelpVisible = false;
-         this.itemProperties.Location = new System.Drawing.Point(3, 183);
+         this.itemProperties.Location = new System.Drawing.Point(3, 199);
          this.itemProperties.Name = "itemProperties";
          this.itemProperties.PropertySort = System.Windows.Forms.PropertySort.NoSort;
-         this.itemProperties.Size = new System.Drawing.Size(391, 78);
+         this.itemProperties.Size = new System.Drawing.Size(391, 106);
          this.itemProperties.TabIndex = 6;
          this.itemProperties.ToolbarVisible = false;
          this.itemProperties.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.itemProperties_PropertyValueChanged);
+         // 
+         // tableLayoutPanel1
+         // 
+         this.tableLayoutPanel1.ColumnCount = 2;
+         this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+         this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+         this.tableLayoutPanel1.Controls.Add(this.newLayoutFileBtn, 1, 0);
+         this.tableLayoutPanel1.Controls.Add(this.layoutFileComboBox, 0, 0);
+         this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.tableLayoutPanel1.Location = new System.Drawing.Point(8, 18);
+         this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+         this.tableLayoutPanel1.RowCount = 1;
+         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 308F));
+         this.tableLayoutPanel1.Size = new System.Drawing.Size(454, 30);
+         this.tableLayoutPanel1.TabIndex = 4;
+         // 
+         // newLayoutFileBtn
+         // 
+         this.newLayoutFileBtn.FlatStyle = System.Windows.Forms.FlatStyle.System;
+         this.newLayoutFileBtn.Location = new System.Drawing.Point(397, 2);
+         this.newLayoutFileBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 3);
+         this.newLayoutFileBtn.Name = "newLayoutFileBtn";
+         this.newLayoutFileBtn.Size = new System.Drawing.Size(54, 23);
+         this.newLayoutFileBtn.TabIndex = 0;
+         this.newLayoutFileBtn.Text = "New";
+         this.newLayoutFileBtn.UseVisualStyleBackColor = true;
+         this.newLayoutFileBtn.Click += new System.EventHandler(this.newLayoutFileBtn_Click);
+         // 
+         // layoutFileComboBox
+         // 
+         this.layoutFileComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.presetBindingSource, "LayoutFile", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+         this.layoutFileComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.layoutFileComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+         this.layoutFileComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
+         this.layoutFileComboBox.FormattingEnabled = true;
+         this.layoutFileComboBox.Location = new System.Drawing.Point(3, 3);
+         this.layoutFileComboBox.Name = "layoutFileComboBox";
+         this.layoutFileComboBox.Size = new System.Drawing.Size(388, 21);
+         this.layoutFileComboBox.TabIndex = 1;
+         // 
+         // presetBindingSource
+         // 
+         this.presetBindingSource.DataSource = typeof(Outliner.Presets.OutlinerPreset);
+         this.presetBindingSource.BindingComplete += new System.Windows.Forms.BindingCompleteEventHandler(this.presetBindingSource_BindingComplete);
+         // 
+         // outlinerGroupBox1
+         // 
+         this.outlinerGroupBox1.BorderColor = System.Drawing.Color.Black;
+         this.outlinerGroupBox1.Controls.Add(this.tableLayoutPanel1);
+         this.outlinerGroupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+         this.outlinerGroupBox1.Location = new System.Drawing.Point(0, 0);
+         this.outlinerGroupBox1.Name = "outlinerGroupBox1";
+         this.outlinerGroupBox1.Padding = new System.Windows.Forms.Padding(8, 5, 5, 5);
+         this.outlinerGroupBox1.Size = new System.Drawing.Size(467, 53);
+         this.outlinerGroupBox1.TabIndex = 7;
+         this.outlinerGroupBox1.TabStop = false;
+         this.outlinerGroupBox1.Text = "Layout File";
+         // 
+         // saveFileDialog
+         // 
+         this.saveFileDialog.Filter = "XML files|*.xml|All files|*.*";
          // 
          // TreeNodeLayoutEditor
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+         this.Controls.Add(this.outlinerGroupBox3);
          this.Controls.Add(this.outlinerGroupBox2);
          this.Controls.Add(this.outlinerGroupBox1);
          this.Name = "TreeNodeLayoutEditor";
-         this.Size = new System.Drawing.Size(467, 364);
-         ((System.ComponentModel.ISupportInitialize)(this.layoutBindingSource)).EndInit();
-         this.outlinerGroupBox1.ResumeLayout(false);
-         this.tableLayoutPanel1.ResumeLayout(false);
-         this.tableLayoutPanel1.PerformLayout();
+         this.Size = new System.Drawing.Size(467, 461);
+         this.outlinerGroupBox2.ResumeLayout(false);
+         this.tableLayoutPanel2.ResumeLayout(false);
+         this.tableLayoutPanel2.PerformLayout();
          ((System.ComponentModel.ISupportInitialize)(this.paddingRightSpinner)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.layoutBindingSource)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.paddingLeftSpinner)).EndInit();
          ((System.ComponentModel.ISupportInitialize)(this.itemHeightSpinner)).EndInit();
-         this.outlinerGroupBox2.ResumeLayout(false);
+         this.outlinerGroupBox3.ResumeLayout(false);
          this.tableLayoutPanel3.ResumeLayout(false);
+         this.tableLayoutPanel1.ResumeLayout(false);
+         ((System.ComponentModel.ISupportInitialize)(this.presetBindingSource)).EndInit();
+         this.outlinerGroupBox1.ResumeLayout(false);
          this.ResumeLayout(false);
 
       }
@@ -337,8 +411,8 @@
       #endregion
 
       private System.Windows.Forms.BindingSource layoutBindingSource;
-      private OutlinerGroupBox outlinerGroupBox1;
-      private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+      private OutlinerGroupBox outlinerGroupBox2;
+      private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
       private System.Windows.Forms.NumericUpDown paddingRightSpinner;
       private System.Windows.Forms.Label label3;
       private System.Windows.Forms.Label label2;
@@ -346,7 +420,7 @@
       private System.Windows.Forms.NumericUpDown itemHeightSpinner;
       private System.Windows.Forms.Label label1;
       private System.Windows.Forms.CheckBox fullRowSelectCheckBox;
-      private OutlinerGroupBox outlinerGroupBox2;
+      private OutlinerGroupBox outlinerGroupBox3;
       private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
       private System.Windows.Forms.ComboBox layoutComboBox;
       private System.Windows.Forms.Button addButton;
@@ -355,5 +429,11 @@
       private System.Windows.Forms.Button downButton;
       private Tree.TreeView layoutTree;
       private System.Windows.Forms.PropertyGrid itemProperties;
+      private OutlinerGroupBox outlinerGroupBox1;
+      private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+      private System.Windows.Forms.Button newLayoutFileBtn;
+      private System.Windows.Forms.ComboBox layoutFileComboBox;
+      private System.Windows.Forms.BindingSource presetBindingSource;
+      private System.Windows.Forms.SaveFileDialog saveFileDialog;
    }
 }
