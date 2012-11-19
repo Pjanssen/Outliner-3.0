@@ -103,6 +103,10 @@ public partial class PresetEditor : Form
       //layoutTn.Tag = preset.TreeNodeLayout;
       layoutTn.Tag = EditorType.Layout;
       tn.Nodes.Add(layoutTn);
+
+      Tree.TreeNode contextMenuTn = new Tree.TreeNode("Context-Menu");
+      contextMenuTn.Tag = EditorType.ContextMenu;
+      tn.Nodes.Add(contextMenuTn);
       
       return tn;
    }

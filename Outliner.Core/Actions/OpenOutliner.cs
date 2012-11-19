@@ -86,8 +86,10 @@ public class OpenOutliner : CuiDockableContentAdapter
 
       OutlinerState outlinerState = outlinerInstance.State;
 
-      this.tree1.Colors = OutlinerGUP.Instance.ColorScheme;
-      this.tree2.Colors = OutlinerGUP.Instance.ColorScheme;
+      this.tree1.Colors = outlinerInstance.ColorScheme;
+      this.tree2.Colors = outlinerInstance.ColorScheme;
+      mainControl.nameFilterTextBox.BackColor = outlinerInstance.ColorScheme.Background.Color;
+      mainControl.nameFilterTextBox.ForeColor = outlinerInstance.ColorScheme.ForegroundLight.Color;
 
       this.splitContainer.Orientation      = outlinerState.SplitterOrientation;
       this.splitContainer.SplitterDistance = outlinerState.SplitterDistance;
@@ -97,6 +99,8 @@ public class OpenOutliner : CuiDockableContentAdapter
       outlinerInstance.SwitchPreset(tree1, outlinerState.Tree1Preset, false);
       outlinerInstance.SwitchPreset(tree2, outlinerState.Tree2Preset, false);
 
+      mainControl.NameFilterBindingSource.DataSource = outlinerInstance.CommonNameFilter;
+      
       this.splitContainer.PanelCollapsedChanged += panelCollapsedChanged;
 
       host.Child = mainControl;

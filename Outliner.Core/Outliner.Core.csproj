@@ -408,6 +408,7 @@
   <ItemGroup>
     <None Include="Outliner.Core.pfx" />
     <None Include="Properties\DataSources\Outliner.Controls.Tree.Layout.TreeNodeLayout.datasource" />
+    <None Include="Properties\DataSources\Outliner.Filters.NameFilter.datasource" />
     <None Include="Properties\DataSources\Outliner.NodeSorters.NodeSorter.datasource" />
     <None Include="Properties\DataSources\Outliner.Presets.OutlinerPreset.datasource" />
   </ItemGroup>

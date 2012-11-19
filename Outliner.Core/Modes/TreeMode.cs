@@ -28,7 +28,7 @@ public abstract class TreeMode
    private ICollection<Tuple<uint, TreeModeNodeEventCallbacks>> nodeEventCallbacks;
    protected Dictionary<Object, List<TreeNode>> treeNodes { get; private set; }
    
-   protected FilterCombinator<IMaxNodeWrapper> filters;
+   internal FilterCombinator<IMaxNodeWrapper> filters;
    private const Int32 InvisibleNodesFilterIndex = 0;
    private const Int32 PermanentFiltersIndex = 1;
    private const Int32 OtherFiltersIndex = 2;
@@ -647,6 +647,7 @@ public abstract class TreeMode
    /// </summary>
    public void EvaluateFilters()
    {
+      this.Tree.BeginUpdate();
       foreach (KeyValuePair<Object, List<TreeNode>> item in this.treeNodes)
       {
          foreach (TreeNode tn in item.Value)
@@ -656,6 +657,7 @@ public abstract class TreeMode
          }
       }
       this.Tree.Sort();
+      this.Tree.EndUpdate();
    }
 
    #endregion

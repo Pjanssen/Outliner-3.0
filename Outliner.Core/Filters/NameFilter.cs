@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using Outliner.Scene;
 using Outliner.MaxUtils;
 using Outliner.Plugins;
+using System.Xml.Serialization;
 
 namespace Outliner.Filters
 {
@@ -11,40 +12,41 @@ namespace Outliner.Filters
 [FilterCategory(FilterCategories.Hidden)]
 public class NameFilter : Filter<IMaxNodeWrapper>
 {
-   public NameFilter() 
-   {
-      this.SearchString = String.Empty;
-      this.CaseSensitive = false;
-      this._useWildcard = false;
-   }
-
    private const String SEARCH_BEGINS_WITH = "^";
    private const String SEARCH_WILDCARD = ".";
-   private RegexOptions _regExpOptions;
-   private String _searchString;
-   private String _origSearchString;
-   private Boolean _useWildcard;
+   private RegexOptions regExpOptions;
+   private String searchString;
+   private String origSearchString;
+   private Boolean useWildcard;
 
+   public NameFilter() 
+   {
+      this.searchString = String.Empty;
+      this.origSearchString = String.Empty;
+      this.regExpOptions = RegexOptions.IgnoreCase;
+      this.useWildcard = false;
+   }
 
+   [XmlAttribute("searchstring")]
    public String SearchString 
    {
       get 
       {
-         return _origSearchString;
+         return origSearchString;
       }
       set
       {
          ExceptionHelpers.ThrowIfArgumentIsNull(value, "value");
 
-         _origSearchString = value;
+         origSearchString = value;
          if (value == String.Empty)
-               _searchString = value;
+            searchString = value;
          else
          {
-               if (this.UseWildcard || value.Substring(0, 1) == "*")
-                  _searchString = SEARCH_WILDCARD + Regex.Escape(value.Substring(1, value.Length - 1));
-               else
-                  _searchString = SEARCH_BEGINS_WITH + Regex.Escape(value);
+            if (this.UseWildcard || value.Substring(0, 1) == "*")
+               searchString = SEARCH_WILDCARD + Regex.Escape(value.Substring(1, value.Length - 1));
+            else
+               searchString = SEARCH_BEGINS_WITH + Regex.Escape(value);
          }
 
          this.OnFilterChanged();
@@ -55,15 +57,16 @@ public class NameFilter : Filter<IMaxNodeWrapper>
    /// Gets or sets whether the search should be case sensitive.
    /// If true, a searchstring "S" matches "Sphere", but not "sphere"
    /// </summary>
+   [XmlAttribute("casesensitive")]
    public Boolean CaseSensitive 
    {
-      get { return _regExpOptions == RegexOptions.None; }
+      get { return regExpOptions == RegexOptions.None; }
       set
       {
          if (value)
-               _regExpOptions = RegexOptions.None;
+            regExpOptions = RegexOptions.None;
          else
-               _regExpOptions = RegexOptions.IgnoreCase;
+            regExpOptions = RegexOptions.IgnoreCase;
 
          this.OnFilterChanged();
       }
@@ -73,14 +76,23 @@ public class NameFilter : Filter<IMaxNodeWrapper>
    /// Gets or sets whether a wildcard should be prepended to the search string by default.
    /// If true, a searchstring "e" matches "sphere".
    /// </summary>
+   [XmlAttribute("usewildcard")]
    public Boolean UseWildcard 
    {
-      get { return _useWildcard; }
+      get { return useWildcard; }
       set
       {
-         _useWildcard = value;
-         this.SearchString = _origSearchString;
+         useWildcard = value;
+         this.SearchString = origSearchString;
+         this.OnFilterChanged();
       }
+   }
+
+   [XmlIgnore]
+   public override bool Enabled
+   {
+      get { return !String.IsNullOrEmpty(searchString); }
+      set { }
    }
 
    protected override Boolean ShowNodeInternal(IMaxNodeWrapper data) 
@@ -88,10 +100,10 @@ public class NameFilter : Filter<IMaxNodeWrapper>
       if (data == null)
          return false;
 
-      if (String.IsNullOrEmpty(_searchString))
+      if (String.IsNullOrEmpty(searchString))
          return true;
 
-      return Regex.IsMatch(data.Name, _searchString, _regExpOptions);
+      return Regex.IsMatch(data.Name, searchString, regExpOptions);
    }
 }
 }

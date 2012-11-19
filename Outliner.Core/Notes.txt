@@ -7,6 +7,7 @@
 * Exception handling
 * Updating / Installing
 * Make ContextMenuData, MenuItemData generic class? context type.
+* Crash (infinite loop?) when removing name filter Sphere...
 
 TREEVIEW
 --------

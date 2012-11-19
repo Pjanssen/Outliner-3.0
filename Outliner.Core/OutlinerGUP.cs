@@ -31,10 +31,14 @@ public class OutlinerGUP
    public Dictionary<TreeView, TreeMode> TreeModes { get; private set; }
    private Dictionary<TreeView, OutlinerPreset> currentPresets;
 
+   public NameFilter CommonNameFilter { get; private set; }
+
    public OutlinerGUP()
    {
       this.TreeModes = new Dictionary<TreeView, TreeMode>();
       this.currentPresets = new Dictionary<TreeView, OutlinerPreset>();
+
+      this.CommonNameFilter = new NameFilter();
 
       OutlinerPlugins.LoadPlugins();
 
@@ -145,6 +149,8 @@ public class OutlinerGUP
       TreeMode newMode = preset.CreateTreeMode(tree);
 
       this.RegisterTreeMode(tree, newMode);
+
+      newMode.filters.Filters.Add(this.CommonNameFilter);
 
       if (start)
          newMode.Start();
