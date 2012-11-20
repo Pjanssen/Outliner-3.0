@@ -14,7 +14,7 @@ using Outliner.Presets;
 
 namespace Outliner.Controls.Options
 {
-public partial class TreeNodeLayoutEditor : UserControl
+public partial class TreeNodeLayoutEditor : OutlinerUserControl
 {
    private OutlinerPreset preset;
    private TreeNodeLayout layout;
@@ -30,29 +30,12 @@ public partial class TreeNodeLayoutEditor : UserControl
       this.preset = preset;
       this.layout = preset.TreeNodeLayout;
       this.updateAction = updateAction;
-
-      Color windowColor = ColorHelpers.FromMaxGuiColor(GuiColors.Window);
-      Color windowTextColor = ColorHelpers.FromMaxGuiColor(GuiColors.WindowText);
-
-      this.SetControlColor(this.layoutTree, windowColor, windowTextColor);
-      this.SetControlColor(this.itemProperties, windowColor, windowTextColor);
-      this.SetControlColor(this.layoutComboBox, windowColor, windowTextColor);
-
-      this.itemProperties.ViewBackColor = windowColor;
-      this.itemProperties.ViewForeColor = windowTextColor;
-      this.itemProperties.LineColor = Color.Gray;
       
       this.layoutTree.TreeNodeLayout = new TreeNodeLayout();
       this.layoutTree.TreeNodeLayout.LayoutItems.Add(new TreeNodeText());
       this.layoutTree.TreeNodeLayout.LayoutItems.Add(new EmptySpace());
       this.layoutTree.TreeNodeLayout.FullRowSelect = true;
 
-      this.SetControlColor(this.layoutFileComboBox, windowColor, windowTextColor);
-      this.SetControlColor(this.newLayoutFileBtn, windowColor, windowTextColor);
-      this.SetControlColor(this.itemHeightSpinner, windowColor, windowTextColor);
-      this.SetControlColor(this.paddingLeftSpinner, windowColor, windowTextColor);
-      this.SetControlColor(this.paddingRightSpinner, windowColor, windowTextColor);
-      
       this.fullRowSelectCheckBox.Checked = this.layout.FullRowSelect;
       this.itemHeightSpinner.Value = this.layout.ItemHeight;
       this.paddingLeftSpinner.Value = this.layout.PaddingLeft;
@@ -66,15 +49,9 @@ public partial class TreeNodeLayoutEditor : UserControl
       this.presetBindingSource.DataSource = this.preset;
    }
 
-   private void SetControlColor(Control c, Color backColor, Color foreColor)
-   {
-      c.BackColor = backColor;
-      c.ForeColor = foreColor;
-   }
-
    private void FillItemComboBox()
    {
-      IEnumerable<OutlinerPluginData> layoutItems = OutlinerPlugins.GetPluginsByType(OutlinerPluginType.TreeNodeButton);
+      IEnumerable<OutlinerPluginData> layoutItems = OutlinerPlugins.GetPlugins(OutlinerPluginType.TreeNodeButton);
       foreach (OutlinerPluginData layoutItem in layoutItems)
       {
          this.layoutComboBox.Items.Add(layoutItem);

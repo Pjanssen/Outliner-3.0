@@ -41,13 +41,13 @@ public partial class PresetTreePropertiesEditor : UserControl
       this.SetControlColor(this.sorterComboBox, windowColor, windowTextColor);
 
       //Mode combobox data source.
-      IEnumerable<OutlinerPluginData> modes = OutlinerPlugins.GetPluginsByType(OutlinerPluginType.TreeMode);
+      IEnumerable<OutlinerPluginData> modes = OutlinerPlugins.GetPlugins(OutlinerPluginType.TreeMode);
       this.modeComboBox.DataSource = modes.ToList();
       this.modeComboBox.ValueMember = "Type";
       this.modeComboBox.DisplayMember = "DisplayName";
 
 
-      IEnumerable<OutlinerPluginData> sorters = OutlinerPlugins.GetPluginsByType(OutlinerPluginType.NodeSorter);
+      IEnumerable<OutlinerPluginData> sorters = OutlinerPlugins.GetPlugins(OutlinerPluginType.NodeSorter);
       this.sorterComboBox.DataSource = sorters.ToList();
       this.sorterComboBox.ValueMember = "Type";
       this.sorterComboBox.DisplayMember = "DisplayName";

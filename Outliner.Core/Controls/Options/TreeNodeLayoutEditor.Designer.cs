@@ -48,11 +48,11 @@
          this.downButton = new System.Windows.Forms.Button();
          this.layoutTree = new Outliner.Controls.Tree.TreeView();
          this.itemProperties = new System.Windows.Forms.PropertyGrid();
+         this.outlinerGroupBox1 = new Outliner.Controls.OutlinerGroupBox();
          this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
          this.newLayoutFileBtn = new System.Windows.Forms.Button();
          this.layoutFileComboBox = new System.Windows.Forms.ComboBox();
          this.presetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-         this.outlinerGroupBox1 = new Outliner.Controls.OutlinerGroupBox();
          this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
          this.outlinerGroupBox2.SuspendLayout();
          this.tableLayoutPanel2.SuspendLayout();
@@ -62,9 +62,9 @@
          ((System.ComponentModel.ISupportInitialize)(this.itemHeightSpinner)).BeginInit();
          this.outlinerGroupBox3.SuspendLayout();
          this.tableLayoutPanel3.SuspendLayout();
+         this.outlinerGroupBox1.SuspendLayout();
          this.tableLayoutPanel1.SuspendLayout();
          ((System.ComponentModel.ISupportInitialize)(this.presetBindingSource)).BeginInit();
-         this.outlinerGroupBox1.SuspendLayout();
          this.SuspendLayout();
          // 
          // outlinerGroupBox2
@@ -322,6 +322,19 @@
          this.itemProperties.ToolbarVisible = false;
          this.itemProperties.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.itemProperties_PropertyValueChanged);
          // 
+         // outlinerGroupBox1
+         // 
+         this.outlinerGroupBox1.BorderColor = System.Drawing.Color.Black;
+         this.outlinerGroupBox1.Controls.Add(this.tableLayoutPanel1);
+         this.outlinerGroupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+         this.outlinerGroupBox1.Location = new System.Drawing.Point(0, 0);
+         this.outlinerGroupBox1.Name = "outlinerGroupBox1";
+         this.outlinerGroupBox1.Padding = new System.Windows.Forms.Padding(8, 5, 5, 5);
+         this.outlinerGroupBox1.Size = new System.Drawing.Size(467, 53);
+         this.outlinerGroupBox1.TabIndex = 7;
+         this.outlinerGroupBox1.TabStop = false;
+         this.outlinerGroupBox1.Text = "Layout File";
+         // 
          // tableLayoutPanel1
          // 
          this.tableLayoutPanel1.ColumnCount = 2;
@@ -366,19 +379,6 @@
          this.presetBindingSource.DataSource = typeof(Outliner.Presets.OutlinerPreset);
          this.presetBindingSource.BindingComplete += new System.Windows.Forms.BindingCompleteEventHandler(this.presetBindingSource_BindingComplete);
          // 
-         // outlinerGroupBox1
-         // 
-         this.outlinerGroupBox1.BorderColor = System.Drawing.Color.Black;
-         this.outlinerGroupBox1.Controls.Add(this.tableLayoutPanel1);
-         this.outlinerGroupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-         this.outlinerGroupBox1.Location = new System.Drawing.Point(0, 0);
-         this.outlinerGroupBox1.Name = "outlinerGroupBox1";
-         this.outlinerGroupBox1.Padding = new System.Windows.Forms.Padding(8, 5, 5, 5);
-         this.outlinerGroupBox1.Size = new System.Drawing.Size(467, 53);
-         this.outlinerGroupBox1.TabIndex = 7;
-         this.outlinerGroupBox1.TabStop = false;
-         this.outlinerGroupBox1.Text = "Layout File";
-         // 
          // saveFileDialog
          // 
          this.saveFileDialog.Filter = "XML files|*.xml|All files|*.*";
@@ -401,9 +401,9 @@
          ((System.ComponentModel.ISupportInitialize)(this.itemHeightSpinner)).EndInit();
          this.outlinerGroupBox3.ResumeLayout(false);
          this.tableLayoutPanel3.ResumeLayout(false);
+         this.outlinerGroupBox1.ResumeLayout(false);
          this.tableLayoutPanel1.ResumeLayout(false);
          ((System.ComponentModel.ISupportInitialize)(this.presetBindingSource)).EndInit();
-         this.outlinerGroupBox1.ResumeLayout(false);
          this.ResumeLayout(false);
 
       }

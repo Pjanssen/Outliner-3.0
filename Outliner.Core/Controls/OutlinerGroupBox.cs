@@ -33,7 +33,7 @@ public class OutlinerGroupBox : GroupBox
 
       Rectangle textRect = this.ClientRectangle;
       textRect.X += 6;
-      textRect.Width = (Int32)(tSize.Width * 1.05f);
+      textRect.Width = (Int32)(tSize.Width + (this.Text.Length * 0.4f));
       textRect.Height = tSize.Height;
       e.Graphics.FillRectangle(new SolidBrush(this.BackColor), textRect);
       e.Graphics.DrawString(this.Text, this.Font, new SolidBrush(this.ForeColor), textRect);

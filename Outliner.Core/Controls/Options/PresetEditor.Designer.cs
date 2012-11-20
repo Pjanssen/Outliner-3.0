@@ -32,11 +32,11 @@
          this.addDeletePanel = new System.Windows.Forms.TableLayoutPanel();
          this.deleteBtn = new System.Windows.Forms.Button();
          this.addBtn = new System.Windows.Forms.Button();
+         this.presetsTree = new Outliner.Controls.Tree.TreeView();
          this.okCancelPanel = new System.Windows.Forms.TableLayoutPanel();
          this.cancelBtn = new System.Windows.Forms.Button();
          this.okBtn = new System.Windows.Forms.Button();
          this.propertiesPanel = new System.Windows.Forms.Panel();
-         this.presetsTree = new Outliner.Controls.Tree.TreeView();
          this.tableLayout.SuspendLayout();
          this.addDeletePanel.SuspendLayout();
          this.okCancelPanel.SuspendLayout();
@@ -60,7 +60,7 @@
          this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
          this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
          this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-         this.tableLayout.Size = new System.Drawing.Size(595, 469);
+         this.tableLayout.Size = new System.Drawing.Size(645, 492);
          this.tableLayout.TabIndex = 9;
          // 
          // addDeletePanel
@@ -71,7 +71,7 @@
          this.addDeletePanel.Controls.Add(this.deleteBtn, 1, 0);
          this.addDeletePanel.Controls.Add(this.addBtn, 0, 0);
          this.addDeletePanel.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.addDeletePanel.Location = new System.Drawing.Point(7, 390);
+         this.addDeletePanel.Location = new System.Drawing.Point(7, 413);
          this.addDeletePanel.Margin = new System.Windows.Forms.Padding(0);
          this.addDeletePanel.Name = "addDeletePanel";
          this.addDeletePanel.RowCount = 1;
@@ -105,6 +105,20 @@
          this.addBtn.UseVisualStyleBackColor = true;
          this.addBtn.Click += new System.EventHandler(this.addBtn_Click);
          // 
+         // presetsTree
+         // 
+         this.presetsTree.AllowDrop = true;
+         this.presetsTree.AutoScroll = true;
+         this.presetsTree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.presetsTree.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.presetsTree.Location = new System.Drawing.Point(10, 10);
+         this.presetsTree.Name = "presetsTree";
+         this.presetsTree.Size = new System.Drawing.Size(194, 400);
+         this.presetsTree.TabIndex = 12;
+         this.presetsTree.Text = "treeView1";
+         this.presetsTree.SelectionChanged += new System.EventHandler<Outliner.Controls.Tree.SelectionChangedEventArgs>(this.presetsTree_SelectionChanged);
+         this.presetsTree.BeforeNodeTextEdit += new System.EventHandler<Outliner.Controls.Tree.BeforeNodeTextEditEventArgs>(this.presetsTree_BeforeNodeTextEdit);
+         // 
          // okCancelPanel
          // 
          this.okCancelPanel.ColumnCount = 2;
@@ -113,12 +127,12 @@
          this.okCancelPanel.Controls.Add(this.cancelBtn, 0, 0);
          this.okCancelPanel.Controls.Add(this.okBtn, 0, 0);
          this.okCancelPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.okCancelPanel.Location = new System.Drawing.Point(207, 426);
+         this.okCancelPanel.Location = new System.Drawing.Point(207, 449);
          this.okCancelPanel.Margin = new System.Windows.Forms.Padding(0);
          this.okCancelPanel.Name = "okCancelPanel";
          this.okCancelPanel.RowCount = 1;
          this.okCancelPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-         this.okCancelPanel.Size = new System.Drawing.Size(381, 36);
+         this.okCancelPanel.Size = new System.Drawing.Size(431, 36);
          this.okCancelPanel.TabIndex = 18;
          // 
          // cancelBtn
@@ -126,7 +140,7 @@
          this.cancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
          this.cancelBtn.Dock = System.Windows.Forms.DockStyle.Right;
          this.cancelBtn.FlatStyle = System.Windows.Forms.FlatStyle.System;
-         this.cancelBtn.Location = new System.Drawing.Point(284, 3);
+         this.cancelBtn.Location = new System.Drawing.Point(334, 3);
          this.cancelBtn.Name = "cancelBtn";
          this.cancelBtn.Size = new System.Drawing.Size(94, 30);
          this.cancelBtn.TabIndex = 19;
@@ -139,7 +153,7 @@
          this.okBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
          this.okBtn.Dock = System.Windows.Forms.DockStyle.Right;
          this.okBtn.FlatStyle = System.Windows.Forms.FlatStyle.System;
-         this.okBtn.Location = new System.Drawing.Point(184, 3);
+         this.okBtn.Location = new System.Drawing.Point(234, 3);
          this.okBtn.Name = "okBtn";
          this.okBtn.Size = new System.Drawing.Size(94, 30);
          this.okBtn.TabIndex = 18;
@@ -151,34 +165,22 @@
          this.propertiesPanel.Dock = System.Windows.Forms.DockStyle.Fill;
          this.propertiesPanel.Location = new System.Drawing.Point(210, 10);
          this.propertiesPanel.Name = "propertiesPanel";
-         this.propertiesPanel.Size = new System.Drawing.Size(375, 377);
+         this.propertiesPanel.Size = new System.Drawing.Size(425, 400);
          this.propertiesPanel.TabIndex = 19;
-         // 
-         // presetsTree
-         // 
-         this.presetsTree.AllowDrop = true;
-         this.presetsTree.AutoScroll = true;
-         this.presetsTree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.presetsTree.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.presetsTree.Location = new System.Drawing.Point(10, 10);
-         this.presetsTree.Name = "presetsTree";
-         this.presetsTree.Size = new System.Drawing.Size(194, 377);
-         this.presetsTree.TabIndex = 12;
-         this.presetsTree.Text = "treeView1";
-         this.presetsTree.SelectionChanged += new System.EventHandler<Outliner.Controls.Tree.SelectionChangedEventArgs>(this.presetsTree_SelectionChanged);
-         this.presetsTree.BeforeNodeTextEdit += new System.EventHandler<Outliner.Controls.Tree.BeforeNodeTextEditEventArgs>(this.presetsTree_BeforeNodeTextEdit);
          // 
          // PresetEditor
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.ClientSize = new System.Drawing.Size(595, 469);
+         this.ClientSize = new System.Drawing.Size(645, 492);
          this.Controls.Add(this.tableLayout);
          this.MaximizeBox = false;
          this.MinimizeBox = false;
          this.MinimumSize = new System.Drawing.Size(500, 300);
          this.Name = "PresetEditor";
          this.ShowIcon = false;
+         this.ShowInTaskbar = false;
+         this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
          this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
          this.Text = "Preset Editor";
          this.tableLayout.ResumeLayout(false);

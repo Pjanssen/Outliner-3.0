@@ -169,6 +169,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ContextMenuResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ContextMenu\ImageResourceConverter.cs" />
     <Compile Include="Controls\ContextMenu\IncludeContextMenuModel.cs" />
     <Compile Include="Controls\ContextMenu\MenuItemModel.cs" />
     <Compile Include="Controls\ContextMenu\MxsMenuItemModel.cs" />
@@ -178,6 +179,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ContextMenu\OutlinerToolStripRenderer.cs" />
+    <Compile Include="Controls\ContextMenu\MenuItemResourceConverter.cs" />
+    <Compile Include="Controls\ContextMenu\StringResourceConverter.cs" />
+    <Compile Include="Controls\ContextMenu\ResourceTypeConverter.cs" />
     <Compile Include="Controls\ContextMenu\SeparatorMenuItemModel.cs" />
     <Compile Include="Controls\ContextMenu\StandardContextMenu.cs" />
     <Compile Include="Controls\ContextMenu\ToolStripCheckedSplitButton.cs">
@@ -194,6 +198,15 @@
     </Compile>
     <Compile Include="Controls\Options\ColorSchemeEditor.Designer.cs">
       <DependentUpon>ColorSchemeEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Options\ContextMenuModelEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Options\ContextMenuModelEditor.Designer.cs">
+      <DependentUpon>ContextMenuModelEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Options\OutlinerUserControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\Options\PresetTreePropertiesEditor.cs">
       <SubType>UserControl</SubType>
@@ -281,6 +294,7 @@
     <Compile Include="Controls\Tree\NodeTextEditEventArgs.cs" />
     <Compile Include="OutlinerPaths.cs" />
     <Compile Include="OutlinerSettings.cs" />
+    <Compile Include="Plugins\OutlinerActionConverter.cs" />
     <Compile Include="Plugins\OutlinerActions.cs" />
     <Compile Include="Presets\OutlinerPreset.cs" />
     <Compile Include="OutlinerResources.Designer.cs">
@@ -331,6 +345,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Options\ColorSchemeEditor.resx">
       <DependentUpon>ColorSchemeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Options\ContextMenuModelEditor.resx">
+      <DependentUpon>ContextMenuModelEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Options\PresetTreePropertiesEditor.resx">
       <DependentUpon>PresetTreePropertiesEditor.cs</DependentUpon>

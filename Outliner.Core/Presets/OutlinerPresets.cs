@@ -52,7 +52,7 @@ public static class OutlinerPresets
          }
       }
 
-      IEnumerable<OutlinerPluginData> plugins = OutlinerPlugins.GetPluginsByType(OutlinerPluginType.DefaultPreset);
+      IEnumerable<OutlinerPluginData> plugins = OutlinerPlugins.GetPlugins(OutlinerPluginType.DefaultPreset);
       foreach (OutlinerPluginData plugin in plugins)
       {
          OutlinerPreset preset = CreatePreset(plugin.Type);

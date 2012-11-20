@@ -21,7 +21,7 @@ namespace Outliner.Plugins
          actions = new Dictionary<String, OutlinerAction>();
          predicates = new Dictionary<String, OutlinerPredicate>();
 
-         IEnumerable<OutlinerPluginData> plugins = OutlinerPlugins.GetPluginsByType(OutlinerPluginType.ActionProvider);
+         IEnumerable<OutlinerPluginData> plugins = OutlinerPlugins.GetPlugins(OutlinerPluginType.ActionProvider);
          foreach (OutlinerPluginData plugin in plugins)
          {
             MethodInfo[] methods = plugin.Type.GetMethods(BindingFlags.Static | BindingFlags.Public);
@@ -32,6 +32,50 @@ namespace Outliner.Plugins
                else if (TypeHelpers.HasAttribute<OutlinerPredicateAttribute>(method))
                   predicates.Add(method.Name, Delegate.CreateDelegate(typeof(OutlinerPredicate), method) as OutlinerPredicate);
             }
+         }
+      }
+
+      public static IEnumerable<OutlinerAction> Actions
+      {
+         get
+         {
+            if (actions == null)
+               BuildActionsSet();
+
+            return actions.Values;
+         }
+      }
+
+      public static IEnumerable<String> ActionNames
+      {
+         get
+         {
+            if (actions == null)
+               BuildActionsSet();
+
+            return actions.Keys;
+         }
+      }
+
+      public static IEnumerable<OutlinerPredicate> Predicates
+      {
+         get
+         {
+            if (predicates == null)
+               BuildActionsSet();
+
+            return predicates.Values;
+         }
+      }
+
+      public static IEnumerable<String> PredicateNames
+      {
+         get
+         {
+            if (actions == null)
+               BuildActionsSet();
+
+            return predicates.Keys;
          }
       }
 

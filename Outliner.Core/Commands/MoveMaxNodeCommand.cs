@@ -54,8 +54,6 @@ namespace Outliner.Commands
 
       protected override void Do()
       {
-         ExceptionHelpers.ThrowIfNull(this.nodes, "inputNodes cannot be null. Execute must be called first.");
-
          this.oldParents = new Dictionary<IMaxNodeWrapper, IMaxNodeWrapper>(this.nodes.Count());
          foreach (IMaxNodeWrapper node in this.nodes)
             this.oldParents.Add(node, node.Parent);

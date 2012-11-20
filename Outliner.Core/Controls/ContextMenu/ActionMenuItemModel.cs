@@ -23,14 +23,21 @@ public class ActionMenuItemModel : MenuItemModel
    }
 
    [XmlAttribute("enabled")]
-   [DefaultValue("")]
+   [DefaultValue("None")]
+   [DisplayName("Enabled Predicate")]
+   [TypeConverter(typeof(OutlinerPredicateConverter))]
    public String EnabledPredicate { get; set; }
 
    [XmlAttribute("checked")]
-   [DefaultValue("")]
+   [DefaultValue("None")]
+   [DisplayName("Checked Predicate")]
+   [TypeConverter(typeof(OutlinerPredicateConverter))]
    public String CheckedPredicate { get; set; }
 
    [XmlAttribute("onclick")]
+   [DefaultValue("None")]
+   [DisplayName("OnClick Action")]
+   [TypeConverter(typeof(OutlinerActionConverter))]
    public String OnClickAction { get; set; }
 
    public override void OnClick( Outliner.Controls.Tree.TreeNode clickedTn

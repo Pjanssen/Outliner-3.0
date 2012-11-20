@@ -16,7 +16,7 @@ using Outliner.NodeSorters;
 
 namespace Outliner.Controls.Options
 {
-public partial class PresetPropertiesEditor : UserControl
+public partial class PresetPropertiesEditor : OutlinerUserControl
 {
    private OutlinerPreset preset;
    private Action updateAction;
@@ -38,28 +38,15 @@ public partial class PresetPropertiesEditor : UserControl
       this.imgResRadioButton.Checked = !String.IsNullOrEmpty(preset.ImageResourceTypeName);
       this.SetEnabledStates();
 
-      Color windowColor = ColorHelpers.FromMaxGuiColor(GuiColors.Window);
-      Color windowTextColor = ColorHelpers.FromMaxGuiColor(GuiColors.WindowText);
-
-      this.SetControlColor(this.nameTextBox, windowColor, windowTextColor);
-      this.SetControlColor(this.modeComboBox, windowColor, windowTextColor);
-      this.SetControlColor(this.sorterComboBox, windowColor, windowTextColor);
-      this.SetControlColor(this.contextMenuTextBox, windowColor, windowTextColor);
-      this.SetControlColor(this.image16FileTextBox, windowColor, windowTextColor);
-      this.SetControlColor(this.image24FileTextBox, windowColor, windowTextColor);
-      this.SetControlColor(this.image16ResComboBox, windowColor, windowTextColor);
-      this.SetControlColor(this.image24ResComboBox, windowColor, windowTextColor);
-      this.SetControlColor(this.imageResTypeComboBox, windowColor, windowTextColor);
-
       //Mode combobox data source.
-      IEnumerable<OutlinerPluginData> modes = OutlinerPlugins.GetPluginsByType(OutlinerPluginType.TreeMode);
+      IEnumerable<OutlinerPluginData> modes = OutlinerPlugins.GetPlugins(OutlinerPluginType.TreeMode);
       this.modeComboBox.DataSource = modes.ToList();
       this.modeComboBox.ValueMember = "Type";
       this.modeComboBox.DisplayMember = "DisplayName";
 
 
       //Sorter combobox data source.
-      IEnumerable<OutlinerPluginData> sorters = OutlinerPlugins.GetPluginsByType(OutlinerPluginType.NodeSorter);
+      IEnumerable<OutlinerPluginData> sorters = OutlinerPlugins.GetPlugins(OutlinerPluginType.NodeSorter);
       this.sorterComboBox.DataSource = sorters.ToList();
       this.sorterComboBox.ValueMember = "Type";
       this.sorterComboBox.DisplayMember = "DisplayName";

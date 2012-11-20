@@ -35,14 +35,19 @@ public abstract class MenuItemModel
    }
 
    [XmlAttribute("text")]
+   [DisplayName("Text")]
+   [TypeConverter(typeof(StringResourceConverter))]
    public String TextRes { get; set; }
 
    [XmlAttribute("image")]
    [DefaultValue("")]
+   [DisplayName("Image")]
+   [TypeConverter(typeof(ImageResourceConverter))]
    public String ImageRes { get; set; }
 
    [XmlAttribute("resource_type")]
    [DefaultValue("")]
+   [Browsable(false)]
    public String ResourceTypeName { get; set; }
 
    [XmlAttribute("visible_types")]
@@ -50,7 +55,9 @@ public abstract class MenuItemModel
    public MaxNodeTypes VisibleTypes { get; set; }
 
    private Type resourceType;
-   private Type ResourceType
+   [Browsable(true)]
+   [TypeConverter(typeof(ResourceTypeConverter))]
+   public Type ResourceType
    {
       get
       {
@@ -62,13 +69,18 @@ public abstract class MenuItemModel
                if (this.resourceType != null)
                   break;
             }
-
          }
          return this.resourceType;
+      }
+      set
+      {
+         this.resourceType = value;
+         this.ResourceTypeName = value.Name;
       }
    }
 
    [XmlIgnore]
+   [Browsable(false)]
    public String Text
    {
       get
@@ -81,6 +93,7 @@ public abstract class MenuItemModel
    }
 
    [XmlIgnore]
+   [Browsable(false)]
    public Image Image
    {
       get
@@ -104,6 +117,7 @@ public abstract class MenuItemModel
 
    [XmlArray("SubItems")]
    [XmlArrayItem("MenuItem")]
+   [Browsable(false)]
    public virtual List<MenuItemModel> SubItems { get; set; }
 
    /// <summary>

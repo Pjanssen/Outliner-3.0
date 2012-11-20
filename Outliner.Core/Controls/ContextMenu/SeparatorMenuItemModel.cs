@@ -21,7 +21,7 @@ namespace Outliner.Controls.ContextMenu
                                                        , IEnumerable<IMaxNodeWrapper> context)
       {
          ToolStripSeparator separator = new ToolStripSeparator();
-         separator.Visible = context.Any(n => n.IsNodeType(this.VisibleTypes));
+         separator.Visible = context.Any(n => n != null && n.IsNodeType(this.VisibleTypes));
 
          return separator;
       }

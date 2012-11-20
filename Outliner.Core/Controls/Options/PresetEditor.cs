@@ -133,6 +133,8 @@ public partial class PresetEditor : Form
                editor = new TreeNodeLayoutEditor(this.editingPreset, this.UpdatePreviewTree);
             else if (editorType == EditorType.Filters)
                editor = new PresetFilterCollectionEditor(this.editingPreset.Filters, this.UpdatePreviewTree);
+            else if (editorType == EditorType.ContextMenu)
+               editor = new ContextMenuModelEditor(this.editingPreset, this.UpdatePreviewTree);
          }
 
          if (editor != null)

@@ -108,7 +108,7 @@ internal static class StandardContextMenu
       ToolStripDropDownButton sort_btn = new ToolStripDropDownButton("Sorting");
       sort_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
       Type currentSorterType = (treeMode.Tree.NodeSorter != null) ? treeMode.Tree.NodeSorter.GetType() : null;
-      IEnumerable<OutlinerPluginData> sorterTypes = OutlinerPlugins.GetPluginsByType(OutlinerPluginType.NodeSorter);
+      IEnumerable<OutlinerPluginData> sorterTypes = OutlinerPlugins.GetPlugins(OutlinerPluginType.NodeSorter);
       foreach (OutlinerPluginData sorter in sorterTypes)
       {
          ToolStripMenuItem item = AddDropDownItem(sort_btn.DropDownItems, sorter.DisplayName, sorter.DisplayImageSmall, sort_itemClick, sorter.Type);

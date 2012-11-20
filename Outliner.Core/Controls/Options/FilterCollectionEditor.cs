@@ -16,7 +16,7 @@ using Outliner.Presets;
 
 namespace Outliner.Controls.Options
 {
-public partial class FilterCollectionEditor : UserControl
+public partial class FilterCollectionEditor : OutlinerUserControl
 {
    private FilterCombinator<IMaxNodeWrapper> rootFilter;
    private Dictionary<Filter<IMaxNodeWrapper>, Tree.TreeNode> treeNodes;
@@ -27,39 +27,16 @@ public partial class FilterCollectionEditor : UserControl
 
       this.treeNodes = new Dictionary<Filter<IMaxNodeWrapper>, Tree.TreeNode>();
 
-      System.Diagnostics.Process process = System.Diagnostics.Process.GetCurrentProcess();
-      bool isInDesignMode = process.ProcessName == "devenv";
-      process.Dispose();
-
-      if (!isInDesignMode)
-      {
-         Color windowColor = ColorHelpers.FromMaxGuiColor(GuiColors.Window);
-         Color windowTextColor = ColorHelpers.FromMaxGuiColor(GuiColors.WindowText);
-
-         this.SetControlColor(this.filtersComboBox, windowColor, windowTextColor);
-         this.SetControlColor(this.filtersTree, windowColor, windowTextColor);
-
-         this.filterPropertyGrid.ViewBackColor = windowColor;
-         this.filterPropertyGrid.ViewForeColor = windowTextColor;
-         this.filterPropertyGrid.LineColor = Color.Gray;
-
-         this.filtersTree.TreeNodeLayout = new TreeNodeLayout();
-         this.filtersTree.TreeNodeLayout.LayoutItems.Add(new TreeNodeIndent() { UseVisualStyles = false });
-         this.filtersTree.TreeNodeLayout.LayoutItems.Add(new TreeNodeText());
-         this.filtersTree.TreeNodeLayout.LayoutItems.Add(new EmptySpace());
-         this.filtersTree.TreeNodeLayout.FullRowSelect = true;
-      }
-   }
-
-   private void SetControlColor(Control c, Color backColor, Color foreColor)
-   {
-      c.BackColor = backColor;
-      c.ForeColor = foreColor;
+      this.filtersTree.TreeNodeLayout = new TreeNodeLayout();
+      this.filtersTree.TreeNodeLayout.LayoutItems.Add(new TreeNodeIndent() { UseVisualStyles = false });
+      this.filtersTree.TreeNodeLayout.LayoutItems.Add(new TreeNodeText());
+      this.filtersTree.TreeNodeLayout.LayoutItems.Add(new EmptySpace());
+      this.filtersTree.TreeNodeLayout.FullRowSelect = true;
    }
 
    private void FillFilterComboBox()
    {
-      IEnumerable<OutlinerPluginData> filters = OutlinerPlugins.GetPluginsByType(OutlinerPluginType.Filter);
+      IEnumerable<OutlinerPluginData> filters = OutlinerPlugins.GetPlugins(OutlinerPluginType.Filter);
       foreach (OutlinerPluginData filter in filters)
       {
          this.filtersComboBox.Items.Add(filter);
@@ -138,7 +115,7 @@ public partial class FilterCollectionEditor : UserControl
       }
       else
       {
-         OutlinerPluginData filterPluginData = OutlinerPlugins.GetPluginDataByType(filter.GetType());
+         OutlinerPluginData filterPluginData = OutlinerPlugins.GetPlugin(filter.GetType());
          if (filterPluginData != null)
             return filterPluginData.DisplayName;
          else

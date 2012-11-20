@@ -143,9 +143,9 @@ public static class OutlinerPlugins
    public static Type[] GetSerializableTypes()
    {
       return OutlinerPlugins.GetPlugins( OutlinerPluginType.Filter
-                                             | OutlinerPluginType.NodeSorter
-                                             | OutlinerPluginType.TreeNodeButton
-                                             | OutlinerPluginType.DefaultPreset)
+                                       | OutlinerPluginType.NodeSorter
+                                       | OutlinerPluginType.TreeNodeButton
+                                       | OutlinerPluginType.DefaultPreset)
                             .Select(p => p.Type)
                             .ToArray();
    }
