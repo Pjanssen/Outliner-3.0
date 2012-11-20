@@ -22,7 +22,7 @@ public static class OutlinerPlugins
    private const String PluginExtension = "dll";
    private const String PluginSearchPattern = "*." + PluginExtension;
 
-   private static IEnumerable<Assembly> pluginAssemblies;
+   private static List<Assembly> pluginAssemblies;
    private static List<OutlinerPluginData> plugins;
 
 
@@ -35,29 +35,23 @@ public static class OutlinerPlugins
       {
          if (pluginAssemblies == null)
          {
-            List<Assembly> assemblies = new List<Assembly>();
+            pluginAssemblies = new List<Assembly>();
 
             //Add own assembly.
-            assemblies.Add(Assembly.GetAssembly(typeof(OutlinerPlugins)));
-
-            String pluginDir = OutlinerPaths.PluginsDir;
-
-            AppDomain domain = AppDomain.CurrentDomain;
-
+            pluginAssemblies.Add(Assembly.GetAssembly(typeof(OutlinerPlugins)));
 
             //Add plugin assemblies.
+            String pluginDir = OutlinerPaths.PluginsDir;
             if (Directory.Exists(pluginDir))
             {
-               String[] pluginFiles = Directory.GetFiles(pluginDir
+               String[] pluginFiles = Directory.GetFiles( pluginDir
                                                         , OutlinerPlugins.PluginSearchPattern
                                                         , SearchOption.AllDirectories);
                foreach (String pluginFile in pluginFiles)
                {
-                  assemblies.Add(Assembly.LoadFile(pluginFile));
+                  pluginAssemblies.Add(Assembly.LoadFile(pluginFile));
                }
             }
-
-            pluginAssemblies = assemblies;
          }
 
          return pluginAssemblies;
@@ -65,53 +59,21 @@ public static class OutlinerPlugins
    }
    
    /// <summary>
-   /// (Re)loads all plugins from the <see cref="PluginDirectory"/>.
+   /// (Re)loads all plugins from the PluginDirectory.
    /// </summary>
-   /// <returns></returns>
    public static List<OutlinerPluginData> LoadPlugins()
    {
       AppDomain.CurrentDomain.AssemblyResolve -= new ResolveEventHandler(CurrentDomain_AssemblyResolve);
       AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
 
-      List<OutlinerPluginData> plugins = new List<OutlinerPluginData>();
-
-      foreach (Assembly assembly in OutlinerPlugins.PluginAssemblies)
-      {
-         IEnumerable<Type> pluginClasses = assembly.GetExportedTypes().Where(t => t.IsPublic && (!t.IsAbstract || t.IsSealed));
-
-         foreach (Type pluginClass in pluginClasses)
-         {
-            OutlinerPluginType pluginType = PluginTypeNone;
-            OutlinerPluginAttribute pluginAttr = TypeHelpers.GetAttribute<OutlinerPluginAttribute>(pluginClass);
-            if (pluginAttr != null)
-            {
-               pluginType = pluginAttr.PluginType;
-            }
-
-            if ((pluginType & PluginTypeAll) == 0)
-               continue;
-
-            StartPlugin(pluginClass);
-
-            String name = pluginClass.Name;
-            DisplayNameAttribute dispAtrr = TypeHelpers.GetAttribute<DisplayNameAttribute>(pluginClass);
-            if (dispAtrr != null)
-               name = dispAtrr.DisplayName;
-
-            Image imgSmall = null;
-            Image imgLarge = null;
-            LocalizedDisplayImageAttribute imgAttr = TypeHelpers.GetAttribute<LocalizedDisplayImageAttribute>(pluginClass);
-            if (imgAttr != null)
-            {
-               imgSmall = imgAttr.DisplayImageSmall;
-               imgLarge = imgAttr.DisplayImageLarge;
-            }
-
-            plugins.Add(new OutlinerPluginData(pluginType, pluginClass, name, imgSmall, imgLarge));
-         }
-      }
+      plugins = PluginAssemblies.SelectMany(a => a.GetExportedTypes())
+                                .Where(t => t.IsPublic && (!t.IsAbstract || t.IsSealed))
+                                .Where(t => TypeHelpers.HasAttribute<OutlinerPluginAttribute>(t))
+                                .Select(t => new OutlinerPluginData(t))
+                                .ToList();
 
       plugins.Sort((pX, pY) => pX.DisplayName.CompareTo(pY.DisplayName));
+      plugins.ForEach(p => StartPlugin(p.Type));
 
       return plugins;
    }
@@ -148,24 +110,19 @@ public static class OutlinerPlugins
    }
 
 
-   public static void RegisterPlugin(OutlinerPluginData pluginData)
-   {
-      if (!OutlinerPlugins.Plugins.Any(p => p.Type.Equals(pluginData.Type)))
-         OutlinerPlugins.plugins.Add(pluginData);
-   }
-
-
    /// <summary>
    /// Gets a collection of plugin metadata for plugins of the given type.
    /// </summary>
    /// <param name="type">The type of plugins to select.</param>
-   public static IEnumerable<OutlinerPluginData> GetPluginsByType(OutlinerPluginType type)
+   public static IEnumerable<OutlinerPluginData> GetPlugins(OutlinerPluginType type)
    {
       return Plugins.Where(p => (p.PluginType & type) != 0);
    }
 
-
-   public static OutlinerPluginData GetPluginDataByType(Type pluginType)
+   /// <summary>
+   /// Gets the plugin metadata for the plugin with the given type.
+   /// </summary>
+   public static OutlinerPluginData GetPlugin(Type pluginType)
    {
       return Plugins.FirstOrDefault(p => p.Type == pluginType);
    }
@@ -175,7 +132,7 @@ public static class OutlinerPlugins
    /// </summary>
    public static Type GetPluginType(OutlinerPluginType pluginType, String typeName)
    {
-      IEnumerable<OutlinerPluginData> plugins = OutlinerPlugins.GetPluginsByType(pluginType);
+      IEnumerable<OutlinerPluginData> plugins = OutlinerPlugins.GetPlugins(pluginType);
       OutlinerPluginData plugin = plugins.FirstOrDefault(p => p.Type.Name == typeName || p.Type.FullName == typeName);
       return (plugin != null) ? plugin.Type : null;
    }
@@ -185,7 +142,7 @@ public static class OutlinerPlugins
    /// </summary>
    public static Type[] GetSerializableTypes()
    {
-      return OutlinerPlugins.GetPluginsByType( OutlinerPluginType.Filter
+      return OutlinerPlugins.GetPlugins( OutlinerPluginType.Filter
                                              | OutlinerPluginType.NodeSorter
                                              | OutlinerPluginType.TreeNodeButton
                                              | OutlinerPluginType.DefaultPreset)
@@ -199,7 +156,7 @@ public static class OutlinerPlugins
    /// <param name="category">The category of filter to look for.</param>
    internal static IEnumerable<OutlinerPluginData> GetFilterPlugins(FilterCategories category)
    {
-      IEnumerable<OutlinerPluginData> pluginTypes = GetPluginsByType(OutlinerPluginType.Filter);
+      IEnumerable<OutlinerPluginData> pluginTypes = GetPlugins(OutlinerPluginType.Filter);
       
       List<OutlinerPluginData> filters = new List<OutlinerPluginData>();
       foreach (OutlinerPluginData plugin in pluginTypes)
