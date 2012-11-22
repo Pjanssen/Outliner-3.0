@@ -18,20 +18,6 @@ public static class OutlinerPaths
       return pathMgr.GetDir(dir);
    }
 
-   private static String pluginsDir;
-   public static String PluginsDir
-   {
-      get
-      {
-         if (pluginsDir == null)
-         {
-            pluginsDir = Path.Combine( GetMaxDirectory(MaxDirectory.ManagedAssemblies)
-                                     , "OutlinerPlugins/");
-         }
-         return pluginsDir;
-      }
-   }
-
    private static String configDir;
    public static String ConfigDir
    {
@@ -44,44 +30,35 @@ public static class OutlinerPaths
       }
    }
 
+   public static String PluginsDir
+   {
+      get { return Path.Combine(OutlinerPaths.ConfigDir, "Plugins/"); }
+   }
+
+
    public static String PresetsDir
    {
-      get
-      {
-         return Path.Combine(OutlinerPaths.ConfigDir, "Presets/");
-      }
+      get { return Path.Combine(OutlinerPaths.ConfigDir, "Presets/"); }
    }
 
    public static String LayoutDir
    {
-      get
-      {
-         return Path.Combine(OutlinerPaths.ConfigDir, "Layouts/");
-      }
+      get { return Path.Combine(OutlinerPaths.ConfigDir, "Layouts/"); }
    }
 
    public static String ContextMenuDir
    {
-      get
-      {
-         return Path.Combine(OutlinerPaths.ConfigDir, "ContextMenus/");
-      }
+      get { return Path.Combine(OutlinerPaths.ConfigDir, "ContextMenus/"); }
    }
 
    public static String StateFile
    {
-      get
-      {
-         return Path.Combine(OutlinerPaths.ConfigDir, "saved_state.xml");
-      }
+      get { return Path.Combine(OutlinerPaths.ConfigDir, "saved_state.xml"); }
    }
 
    public static String ColorFile
    {
-      get
-      {
-         return Path.Combine(OutlinerPaths.ConfigDir, "colors.xml");
-      }
+      get { return Path.Combine(OutlinerPaths.ConfigDir, "colors.xml"); }
    }
 }
 }
