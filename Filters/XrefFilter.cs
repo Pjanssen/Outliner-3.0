@@ -10,7 +10,7 @@ namespace Outliner.Filters
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "Filter_Xref")]
    //[LocalizedDisplayImage(typeof(Outliner.Controls.TreeIcons_Max), "xref")]
-   [FilterCategory(FilterCategories.Classes)]
+   [FilterCategory(FilterCategory.Classes)]
    public class XRefFilter : Filter<IMaxNodeWrapper>
    {
       override protected Boolean ShowNodeInternal(IMaxNodeWrapper data)

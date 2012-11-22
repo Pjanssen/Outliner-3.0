@@ -10,7 +10,7 @@ namespace Outliner.Filters
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "Filter_Layers")]
    //[LocalizedDisplayImage(typeof(Outliner.Controls.TreeIcons_Max), "bone")]
-   [FilterCategory(FilterCategories.Other)]
+   [FilterCategory(FilterCategory.Other)]
    public class LayerFilter : Filter<IMaxNodeWrapper>
    {
       protected override bool ShowNodeInternal(IMaxNodeWrapper data)

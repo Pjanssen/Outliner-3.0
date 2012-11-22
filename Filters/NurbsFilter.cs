@@ -11,7 +11,7 @@ namespace Outliner.Filters
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "Filter_Nurbs")]
    [LocalizedDisplayImage(typeof(Resources), "nurbs")]
-   [FilterCategory(FilterCategories.Classes)]
+   [FilterCategory(FilterCategory.Classes)]
    public class NurbsFilter : Filter<IMaxNodeWrapper>
    {
       protected override Boolean ShowNodeInternal(IMaxNodeWrapper data)

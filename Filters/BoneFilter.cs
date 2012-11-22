@@ -10,7 +10,7 @@ namespace Outliner.Filters
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "Filter_Bones")]
    [LocalizedDisplayImage(typeof(Resources), "bone")]
-   [FilterCategory(FilterCategories.Classes)]
+   [FilterCategory(FilterCategory.Classes)]
    public class BoneFilter : Filter<IMaxNodeWrapper>
    {
       protected override Boolean ShowNodeInternal(IMaxNodeWrapper data)

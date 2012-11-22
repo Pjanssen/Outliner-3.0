@@ -8,7 +8,7 @@ namespace Outliner.Filters
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "Filter_Helpers")]
    [LocalizedDisplayImage(typeof(Resources), "helper")]
-   [FilterCategory(FilterCategories.Classes)]
+   [FilterCategory(FilterCategory.Classes)]
    public class HelperFilter : Filter<IMaxNodeWrapper>
    {
       override protected Boolean ShowNodeInternal(IMaxNodeWrapper data)

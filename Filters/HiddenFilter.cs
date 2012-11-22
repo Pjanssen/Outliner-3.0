@@ -9,7 +9,7 @@ namespace Outliner.Filters
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "Filter_Hidden")]
    [LocalizedDisplayImage(typeof(Resources), "hide")]
-   [FilterCategory(FilterCategories.Properties)]
+   [FilterCategory(FilterCategory.Properties)]
    public class HiddenFilter : NodePropertyFilter
    {
       public HiddenFilter() : base(BooleanNodeProperty.IsHidden)

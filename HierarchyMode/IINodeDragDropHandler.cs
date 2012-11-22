@@ -44,8 +44,10 @@ public class IINodeDragDropHandler : DragDropHandler
       if (draggedNodes == null)
          return;
 
-      MoveMaxNodeCommand cmd = new MoveMaxNodeCommand(HelperMethods.GetMaxNodes(draggedNodes), this.Data,
-         Resources.Command_Link, Resources.Command_Unlink);
+      MoveMaxNodeCommand cmd = new MoveMaxNodeCommand( HelperMethods.GetMaxNodes(draggedNodes)
+                                                     , this.Data
+                                                     , Resources.Command_Link
+                                                     , Resources.Command_Unlink);
       cmd.Execute(true);
    }
 }

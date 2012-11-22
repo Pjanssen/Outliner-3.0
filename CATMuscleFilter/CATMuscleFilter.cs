@@ -11,7 +11,7 @@ namespace Outliner.Filters.CATMuscleFilter
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "CATDisplayName")]
-   [FilterCategory(FilterCategories.Custom)]
+   [FilterCategory(FilterCategory.Custom)]
    public class CATMuscleFilter : Filter<IMaxNodeWrapper>
    {
       private const uint strandIDA = 0x7CF3882;
@@ -26,16 +26,6 @@ namespace Outliner.Filters.CATMuscleFilter
 
          return MaxUtils.ClassIDHelpers.IsClass(data.WrappedNode, strandIDA, strandIDB) ||
                 MaxUtils.ClassIDHelpers.IsClass(data.WrappedNode, handleIDA, handleIDB);
-         //IINodeWrapper iinodeWrapper = data as IINodeWrapper;
-         //if (iinodeWrapper == null)
-         //   return false;
-
-         //IObject objRef = iinodeWrapper.IINode.ObjectRef;
-         //if (objRef == null || objRef.SuperClassID != SClass_ID.Helper)
-         //   return false;
-
-         //return MaxUtils.ClassIDHelpers.Equals(objRef.ClassID, strandIDA, strandIDB) ||
-         //       MaxUtils.ClassIDHelpers.Equals(objRef.ClassID, handleIDA, handleIDB);
       }
    }
 }
