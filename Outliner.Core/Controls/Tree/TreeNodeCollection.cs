@@ -140,8 +140,7 @@ public class TreeNodeCollection : ICollection<TreeNode>
       //Add item to collection.
       this.filteredNodes.Add(tn);
 
-      //Invalidate tree bounds.
-      this.boundsChanged(tn);
+      tn.InvalidateBounds(true, true); //TODO: gives a problem when "loosening" filters.
 
       if (tn.Parent != null && !tn.Parent.ShowNode)
          tn.Parent.parent.Nodes.addFiltered(tn.Parent);

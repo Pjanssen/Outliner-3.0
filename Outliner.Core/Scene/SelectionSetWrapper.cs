@@ -299,5 +299,10 @@ namespace Outliner.Scene
       {
          get { return ImgKeySelectionSet; }
       }
+
+      public override string ToString()
+      {
+         return String.Format("IISelectionSetWrapper ({0})", this.Name);
+      }
    }
 }

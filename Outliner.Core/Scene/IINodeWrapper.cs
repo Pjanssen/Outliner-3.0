@@ -380,5 +380,10 @@ public class IINodeWrapper : IMaxNodeWrapper
          return base.ImageKey;
       }
    }
+
+   public override string ToString()
+   {
+      return String.Format("IINodeWrapper ({0})", this.Name);
+   }
 }
 }

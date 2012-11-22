@@ -279,8 +279,10 @@
     <Compile Include="Controls\Tree\TreeView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Filters\FilterCategoryAttribute.cs" />
     <Compile Include="Filters\FilterChangedEventArgs.cs" />
     <Compile Include="Filters\FilterCombinator.cs" />
+    <Compile Include="Filters\FilterImageAttribute.cs" />
     <Compile Include="Filters\InvisibleNodeFilter.cs" />
     <Compile Include="Filters\MaxNodeFilterCombinator.cs" />
     <Compile Include="Filters\NodePropertyFilter.cs" />
@@ -423,6 +425,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Diagrams\ContextMenuModel.cd" />
+    <None Include="Diagrams\Filters.cd" />
     <None Include="Outliner.Core.pfx" />
     <None Include="Properties\DataSources\Outliner.Controls.Tree.Layout.TreeNodeLayout.datasource" />
     <None Include="Properties\DataSources\Outliner.Filters.NameFilter.datasource" />

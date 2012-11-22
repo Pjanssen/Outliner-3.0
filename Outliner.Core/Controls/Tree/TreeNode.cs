@@ -284,7 +284,7 @@ public class TreeNode
    /// Gets or sets the expanded state of the node.
    /// </summary>
    public Boolean IsExpanded 
-   { 
+   {
       get 
       {
          return (this.parent == null) ? true : this.isExpanded;

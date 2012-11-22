@@ -112,16 +112,24 @@ public static class HelperMethods
    /// <summary>
    /// Iterates over all elements in the collection with the supplied function.
    /// </summary>
-   public static IEnumerable<T> ForEach<T>(this IEnumerable<T> items, Action<T> action)
+   public static void ForEach<T>(this IEnumerable<T> items, Action<T> action)
    {
       ExceptionHelpers.ThrowIfArgumentIsNull(items, "items");
       ExceptionHelpers.ThrowIfArgumentIsNull(action, "action");
 
-      //foreach (T item in items)
-      //   action(item);
+      foreach (T item in items)
+         action(item);
+   }
 
-      //return items;
-      
+   /// <summary>
+   /// Applies a function to all elements in the collection and returns the collection.
+   /// NOTE: Only works when calling ToList() or similar after the operation!
+   /// </summary>
+   public static IEnumerable<T> Map<T>(this IEnumerable<T> items, Action<T> action)
+   {
+      ExceptionHelpers.ThrowIfArgumentIsNull(items, "items");
+      ExceptionHelpers.ThrowIfArgumentIsNull(action, "action");
+
       foreach (T item in items)
       {
          action(item);

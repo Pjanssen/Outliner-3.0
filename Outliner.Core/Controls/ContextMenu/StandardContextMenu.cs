@@ -91,13 +91,13 @@ internal static class StandardContextMenu
       clearBtn.Click += new EventHandler(clearBtn_Click);
 
       filter_btn.DropDownItems.Add(new ToolStripSeparator());
-      if (AddFilters(filter_btn.DropDownItems, FilterCategories.Classes, treeMode) > 0)
+      if (AddFilters(filter_btn.DropDownItems, FilterCategory.Classes, treeMode) > 0)
          filter_btn.DropDownItems.Add(new ToolStripSeparator());
 
-      if (AddFilters(filter_btn.DropDownItems, FilterCategories.Properties, treeMode) > 0)
+      if (AddFilters(filter_btn.DropDownItems, FilterCategory.Properties, treeMode) > 0)
          filter_btn.DropDownItems.Add(new ToolStripSeparator());
 
-      if (AddFilters(filter_btn.DropDownItems, FilterCategories.Custom, treeMode) > 0)
+      if (AddFilters(filter_btn.DropDownItems, FilterCategory.Custom, treeMode) > 0)
          filter_btn.DropDownItems.Add(new ToolStripSeparator());
 
       filter_btn.DropDownItems.Add("Advanced Filter...", null, advancedFilterClick);
@@ -267,7 +267,7 @@ internal static class StandardContextMenu
          e.Cancel = true;
    }
 
-   private static int AddFilters(ToolStripItemCollection itemCollection, FilterCategories categories, TreeMode treeMode)
+   private static int AddFilters(ToolStripItemCollection itemCollection, FilterCategory categories, TreeMode treeMode)
    {
       IEnumerable<OutlinerPluginData> filterTypes = OutlinerPlugins.GetFilterPlugins(categories);
       foreach (OutlinerPluginData filter in filterTypes)

@@ -267,5 +267,10 @@ namespace Outliner.Scene
                return ImgKeyLayer;
          }
       }
+
+      public override string ToString()
+      {
+         return String.Format("IILayerWrapper ({0})", this.Name);
+      }
    }
 }

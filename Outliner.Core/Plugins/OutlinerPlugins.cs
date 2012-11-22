@@ -154,7 +154,7 @@ public static class OutlinerPlugins
    /// Gets a collection of Filter plugins metadata for filters of the given category.
    /// </summary>
    /// <param name="category">The category of filter to look for.</param>
-   internal static IEnumerable<OutlinerPluginData> GetFilterPlugins(FilterCategories category)
+   internal static IEnumerable<OutlinerPluginData> GetFilterPlugins(FilterCategory category)
    {
       IEnumerable<OutlinerPluginData> pluginTypes = GetPlugins(OutlinerPluginType.Filter);
       

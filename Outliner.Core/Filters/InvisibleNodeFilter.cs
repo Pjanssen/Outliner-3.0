@@ -13,7 +13,7 @@ namespace Outliner.Filters
    /// For example, particle helpers, the 3dxConnection camera, etc.
    /// </summary>
    [OutlinerPlugin(OutlinerPluginType.Filter)]
-   [FilterCategory(FilterCategories.Hidden)]
+   [FilterCategory(FilterCategory.Hidden)]
    public class InvisibleNodeFilter : Filter<IMaxNodeWrapper>
    {
       protected override Boolean ShowNodeInternal(IMaxNodeWrapper data)

@@ -121,7 +121,7 @@ public abstract class MenuItemModel
    public virtual List<MenuItemModel> SubItems { get; set; }
 
    /// <summary>
-   /// Magical method which tells the XmlSerializer when to serialize the SubItems list.z
+   /// Magical method which tells the XmlSerializer when to serialize the SubItems list.
    /// </summary>
    public bool ShouldSerializeSubItems()
    {
@@ -152,6 +152,12 @@ public abstract class MenuItemModel
    public abstract void OnClick( Outliner.Controls.Tree.TreeNode clickedTn
                                , IEnumerable<IMaxNodeWrapper> context);
 
+
+   /// <summary>
+   /// Creates a new ToolStripMenuItem from this model.
+   /// </summary>
+   /// <param name="clickedTn">The TreeNode that was clicked when opening the menu.</param>
+   /// <param name="context">The context on which the menu item will operate (e.g. selected nodes).</param>
    public virtual ToolStripItem ToToolStripMenuItem( Outliner.Controls.Tree.TreeNode clickedTn
                                                    , IEnumerable<IMaxNodeWrapper> context)
    {

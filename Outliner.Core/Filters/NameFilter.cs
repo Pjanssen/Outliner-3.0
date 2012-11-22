@@ -4,12 +4,13 @@ using Outliner.Scene;
 using Outliner.MaxUtils;
 using Outliner.Plugins;
 using System.Xml.Serialization;
+using System.ComponentModel;
 
 namespace Outliner.Filters
 {
 [OutlinerPlugin(OutlinerPluginType.Filter)]
 [LocalizedDisplayName(typeof(OutlinerResources), "FilterName")]
-[FilterCategory(FilterCategories.Hidden)]
+[FilterCategory(FilterCategory.Hidden)]
 public class NameFilter : Filter<IMaxNodeWrapper>
 {
    private const String SEARCH_BEGINS_WITH = "^";
@@ -89,6 +90,7 @@ public class NameFilter : Filter<IMaxNodeWrapper>
    }
 
    [XmlIgnore]
+   [Browsable(false)]
    public override bool Enabled
    {
       get { return !String.IsNullOrEmpty(searchString); }

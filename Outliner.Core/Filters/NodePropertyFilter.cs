@@ -12,7 +12,7 @@ namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "FilterNodeProp")]
-   [FilterCategory(FilterCategories.Hidden)]
+   [FilterCategory(FilterCategory.Hidden)]
    public class NodePropertyFilter : Filter<IMaxNodeWrapper>
    {
       private BooleanNodeProperty property;

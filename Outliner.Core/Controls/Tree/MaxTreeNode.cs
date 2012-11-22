@@ -42,5 +42,10 @@ namespace Outliner.Controls.Tree
             base.FontStyle = value;
          }
       }
+
+      public override string ToString()
+      {
+         return String.Format("MaxTreeNode ({0})", this.Text);
+      }
    }
 }

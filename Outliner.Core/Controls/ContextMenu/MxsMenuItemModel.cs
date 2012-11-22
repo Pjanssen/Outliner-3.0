@@ -11,7 +11,8 @@ namespace Outliner.Controls.ContextMenu
 {
 public class MxsMenuItemModel : MenuItemModel
 {
-   public MxsMenuItemModel() : this(String.Empty, String.Empty, null, String.Empty) { }
+   public MxsMenuItemModel() 
+      : this(String.Empty, String.Empty, null, String.Empty) { }
 
    public MxsMenuItemModel(String text, String image, Type resType, String script) 
       : base(text, image, resType)
