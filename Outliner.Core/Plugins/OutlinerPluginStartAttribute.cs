@@ -13,7 +13,6 @@ namespace Outliner.Plugins
       public OutlinerPluginStartAttribute() { }
    }
 
-   //TODO: implement in OutlinerPLugins
    /// <summary>Defines a method that is called when the Plugin is stopped.</summary>
    /// <remarks>The method should be public, static.</remarks>
    [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]

@@ -73,7 +73,8 @@ public static class OutlinerPlugins
                                 .ToList();
 
       plugins.Sort((pX, pY) => pX.DisplayName.CompareTo(pY.DisplayName));
-      plugins.ForEach(p => StartPlugin(p.Type));
+
+      StartPlugins();
 
       return plugins;
    }
@@ -84,13 +85,30 @@ public static class OutlinerPlugins
       return OutlinerPlugins.PluginAssemblies.FirstOrDefault(a => a.FullName == args.Name);
    }
 
+   /// <summary>
+   /// Calls all methods in plugins marked with the OutlinerPluginStart attribute.
+   /// </summary>
+   public static void StartPlugins()
+   {
+      if (plugins != null)
+         plugins.ForEach(p => InvokePluginMethod<OutlinerPluginStartAttribute>(p.Type));
+   }
 
-   private static void StartPlugin(Type pluginClass)
+   /// <summary>
+   /// Calls all methods in plugins marked with the OutlinerPluginStop attribute.
+   /// </summary>
+   public static void StopPlugins()
+   {
+      if (plugins != null)
+         plugins.ForEach(p => InvokePluginMethod<OutlinerPluginStopAttribute>(p.Type));
+   }
+
+   private static void InvokePluginMethod<T>(Type pluginClass) where T : Attribute
    {
       MethodInfo[] methods = pluginClass.GetMethods(BindingFlags.Static | BindingFlags.Public);
       foreach (MethodInfo method in methods)
       {
-         if(TypeHelpers.HasAttribute<OutlinerPluginStartAttribute>(method))
+         if(TypeHelpers.HasAttribute<T>(method))
             method.Invoke(null, null);
       }
    }

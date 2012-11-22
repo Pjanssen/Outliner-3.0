@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using Outliner.MaxUtils;
+using Outliner.Plugins;
 
 namespace Outliner
 {
@@ -32,6 +33,7 @@ public static class AssemblyFunctions
    public static void AssemblyShutdown() 
    {
       GroupHelpers.Stop();
+      OutlinerPlugins.StopPlugins();
 
       OutlinerGUP instance = OutlinerGUP.Instance;
       if (instance != null)
