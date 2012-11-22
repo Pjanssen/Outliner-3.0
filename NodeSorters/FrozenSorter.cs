@@ -9,7 +9,7 @@ namespace Outliner.NodeSorters
 {
    [OutlinerPlugin(OutlinerPluginType.NodeSorter)]
    [LocalizedDisplayName(typeof(Resources), "Frozen_DisplayName")]
-   [LocalizedDisplayImage(typeof(Resources), "frozen_16", "frozen_24")]
+   [LocalizedDisplayImage(typeof(Resources), "frozen_16", "frozen_24")]
    public class FrozenSorter : NodePropertySorter
    {
       public FrozenSorter() : base(NodeProperty.IsFrozen, false) { }
