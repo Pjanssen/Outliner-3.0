@@ -62,16 +62,20 @@ public class SetNodePropertyCommand<T> : Command
 
    protected virtual T GetValue(IMaxNodeWrapper node)
    {
+      ExceptionHelpers.ThrowIfArgumentIsNull(node, "node");
+
       if (this.propInfo == null)
-         return (T)node.GetProperty(this.property);
+         return (T)node.GetNodeProperty(this.property);
       else 
          return (T)this.propInfo.GetValue(node, null);
    }
 
    protected virtual void SetValue(IMaxNodeWrapper node, T value)
    {
+      ExceptionHelpers.ThrowIfArgumentIsNull(node, "node");
+
       if (this.propInfo == null)
-         node.SetProperty(this.property, value);
+         node.SetNodeProperty(this.property, value);
       else
          this.propInfo.SetValue(node, value, null);
       

@@ -46,7 +46,7 @@ public class OutlinerGUP
 
       try
       {
-         this.ColorScheme = this.loadColors(OutlinerPaths.ColorFile);
+         this.ColorScheme = loadColors(OutlinerPaths.ColorFile);
       }
       catch
       {
@@ -65,7 +65,7 @@ public class OutlinerGUP
 
       try
       {
-         this.State = this.loadState(OutlinerPaths.StateFile);
+         this.State = loadState(OutlinerPaths.StateFile);
       }
       catch
       {
@@ -134,6 +134,9 @@ public class OutlinerGUP
    /// <param name="start">If true, the new TreeMode will be started.</param>
    public void SwitchPreset(TreeView tree, OutlinerPreset preset, Boolean start)
    {
+      ExceptionHelpers.ThrowIfArgumentIsNull(tree, "tree");
+      ExceptionHelpers.ThrowIfArgumentIsNull(preset, "preset");
+
       TreeMode oldMode = this.GetActiveTreeMode(tree);
       if (oldMode != null)
       {
@@ -161,12 +164,12 @@ public class OutlinerGUP
    {
       XmlSerializationHelpers.ClearSerializerCache();
       OutlinerPresets.LoadPresets();
-      this.ColorScheme = this.loadColors(OutlinerPaths.ColorFile);
-      this.State       = this.loadState(OutlinerPaths.StateFile);
+      this.ColorScheme = loadColors(OutlinerPaths.ColorFile);
+      this.State       = loadState(OutlinerPaths.StateFile);
    }
 
 
-   private TreeViewColorScheme loadColors(String colorFile)
+   private static TreeViewColorScheme loadColors(String colorFile)
    {
       if (File.Exists(colorFile))
          return XmlSerializationHelpers.Deserialize<TreeViewColorScheme>(colorFile);
@@ -174,7 +177,7 @@ public class OutlinerGUP
          return TreeViewColorScheme.MayaColors;
    }
 
-   private OutlinerState loadState(String stateFile)
+   private static OutlinerState loadState(String stateFile)
    {
       if (File.Exists(stateFile))
          return XmlSerializationHelpers.Deserialize<OutlinerState>(stateFile);
@@ -184,7 +187,7 @@ public class OutlinerGUP
       }
    }
 
-   private OutlinerState defaultState()
+   private static OutlinerState defaultState()
    {
       OutlinerState state = new OutlinerState();
       IEnumerable<OutlinerPreset> presets = OutlinerPresets.Presets;

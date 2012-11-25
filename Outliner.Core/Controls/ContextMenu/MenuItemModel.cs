@@ -131,8 +131,8 @@ public abstract class MenuItemModel
    /// <summary>
    /// Returns true if the MenuItem should be Enabled.
    /// </summary>
-   protected virtual Boolean Enabled( Outliner.Controls.Tree.TreeNode clickedTn
-                                    , IEnumerable<IMaxNodeWrapper> context)
+   protected virtual Boolean Enabled( Outliner.Controls.Tree.TreeView treeView
+                                    , Outliner.Controls.Tree.TreeNode clickedTn)
    {
       return true;
    }
@@ -140,46 +140,56 @@ public abstract class MenuItemModel
    /// <summary>
    /// Returns true if the MenuItem should be in a Checked state.
    /// </summary>
-   protected virtual Boolean Checked( Outliner.Controls.Tree.TreeNode clickedTn
-                                    , IEnumerable<IMaxNodeWrapper> context)
+   protected virtual Boolean Checked( Outliner.Controls.Tree.TreeView treeView
+                                    , Outliner.Controls.Tree.TreeNode clickedTn)
    {
       return false;
+   }
+
+   protected virtual Boolean Visible( Outliner.Controls.Tree.TreeView treeView
+                                    , Outliner.Controls.Tree.TreeNode clickedTn)
+   {
+      ExceptionHelpers.ThrowIfArgumentIsNull(treeView, "treeView");
+
+      IEnumerable<IMaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
+      return context.Any(n => n != null && n.IsNodeType(this.VisibleTypes));
    }
 
    /// <summary>
    /// Executes code when the MenuItem is clicked.
    /// </summary>
-   public abstract void OnClick( Outliner.Controls.Tree.TreeNode clickedTn
-                               , IEnumerable<IMaxNodeWrapper> context);
-
-
+   protected abstract void OnClick( Outliner.Controls.Tree.TreeView treeView
+                                  , Outliner.Controls.Tree.TreeNode clickedTn);
+   
    /// <summary>
    /// Creates a new ToolStripMenuItem from this model.
    /// </summary>
    /// <param name="clickedTn">The TreeNode that was clicked when opening the menu.</param>
    /// <param name="context">The context on which the menu item will operate (e.g. selected nodes).</param>
-   public virtual ToolStripItem ToToolStripMenuItem( Outliner.Controls.Tree.TreeNode clickedTn
-                                                   , IEnumerable<IMaxNodeWrapper> context)
+   public virtual ToolStripItem ToToolStripMenuItem( Outliner.Controls.Tree.TreeView treeView
+                                                   , Outliner.Controls.Tree.TreeNode clickedTn)
    {
+      ExceptionHelpers.ThrowIfArgumentIsNull(treeView, "treeView");
+      
       ToolStripMenuItem item = new ToolStripMenuItem();
       item.Text = this.Text;
       item.Image = this.Image;
-      Boolean visible = context.Any(n => n != null && n.IsNodeType(this.VisibleTypes));
+      Boolean visible = this.Visible(treeView, clickedTn);
       item.Visible = visible;
 
       if (visible)
       {
-         Boolean enabled = this.Enabled(clickedTn, context);
+         Boolean enabled = this.Enabled(treeView, clickedTn);
          item.Enabled = enabled;
          if (enabled)
-            item.Checked = this.Checked(clickedTn, context);
+            item.Checked = this.Checked(treeView, clickedTn);
 
          foreach (MenuItemModel subitem in this.SubItems)
          {
-            item.DropDownItems.Add(subitem.ToToolStripMenuItem(clickedTn, context));
+            item.DropDownItems.Add(subitem.ToToolStripMenuItem(treeView, clickedTn));
          }
 
-         item.Click += new EventHandler((sender, eventArgs) => this.OnClick(clickedTn, context));
+         item.Click += new EventHandler((sender, eventArgs) => this.OnClick(treeView, clickedTn));
       }
 
       return item;

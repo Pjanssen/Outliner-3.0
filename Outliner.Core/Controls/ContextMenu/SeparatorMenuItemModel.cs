@@ -11,17 +11,17 @@ namespace Outliner.Controls.ContextMenu
    {
       public SeparatorMenuItemModel() : base(String.Empty, String.Empty, null) { }
 
-      public override void OnClick( Outliner.Controls.Tree.TreeNode clickedTn
-                                  , IEnumerable<IMaxNodeWrapper> context)
+      protected override void OnClick( Outliner.Controls.Tree.TreeView treeView
+                                     , Outliner.Controls.Tree.TreeNode clickedTn)
       {
          //Separator doesn't execute anything.
       }
 
-      public override ToolStripItem ToToolStripMenuItem( Tree.TreeNode clickedTn
-                                                       , IEnumerable<IMaxNodeWrapper> context)
+      public override ToolStripItem ToToolStripMenuItem( Outliner.Controls.Tree.TreeView treeView
+                                                       , Outliner.Controls.Tree.TreeNode clickedTn)
       {
          ToolStripSeparator separator = new ToolStripSeparator();
-         separator.Visible = context.Any(n => n != null && n.IsNodeType(this.VisibleTypes));
+         separator.Visible = base.Visible(treeView, clickedTn);
 
          return separator;
       }

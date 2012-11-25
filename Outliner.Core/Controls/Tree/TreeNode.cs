@@ -141,13 +141,18 @@ public class TreeNode
       {
          if (value != this.parent)
          {
-            if (this.parent != null)
-               this.parent.Nodes.Remove(this);
-
             if (value != null)
                value.Nodes.Add(this);
+            else if (this.parent != null)
+               this.parent.Nodes.Remove(this);
          }
       }
+   }
+
+   public Boolean IsChildOf(TreeNode parent)
+   {
+      return this.Parent != null && (this.Parent.Equals(parent)
+                                     || this.Parent.IsChildOf(parent));
    }
 
    /// <summary>
@@ -190,16 +195,17 @@ public class TreeNode
    /// <summary>
    /// Gets the index of this node within the collection that contains it.
    /// </summary>
-   public Int32 Index 
-   { 
-      get 
+   public Int32 Index
+   {
+      get
       {
          if (this.parent == null)
             return -1;
          else
             return this.parent.Nodes.IndexOf(this);
-      } 
+      }
    }
+
 
    #region Bounds
    
@@ -327,9 +333,6 @@ public class TreeNode
    {
       get 
       {
-         //if (this.FilterResult == FilterResults.Hide)
-         //   return false;
-
          TreeNode pn = this.Parent;
          while (pn != null)
          {
@@ -355,8 +358,7 @@ public class TreeNode
             if (this.parent != null)
             {
                this.parent.Nodes.updateFilter(this);
-               this.TreeView.Update( TreeViewUpdateFlags.TreeNodeBounds 
-                                   | TreeViewUpdateFlags.Redraw 
+               this.TreeView.Update( TreeViewUpdateFlags.Redraw 
                                    | TreeViewUpdateFlags.Scrollbars);
             }
          }

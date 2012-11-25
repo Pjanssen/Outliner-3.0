@@ -8,7 +8,7 @@ namespace Outliner.Controls
 {
 public class OutlinerSplitContainer : SplitContainer
 {
-   public event SplitPanelEventHandler PanelCollapsedChanged;
+   public event EventHandler<SplitPanelEventArgs> PanelCollapsedChanged;
 
    public void ToSinglePanel(SplitterPanel panelToMaximize)
    {
@@ -47,8 +47,6 @@ public class OutlinerSplitContainer : SplitContainer
          this.PanelCollapsedChanged(this, e);
    }
 }
-
-public delegate void SplitPanelEventHandler(object sender, SplitPanelEventArgs args);
 
 public class SplitPanelEventArgs : EventArgs
 {

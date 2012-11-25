@@ -20,18 +20,18 @@ public class FreezeCommandTest : MaxIntegrationTest
       IILayerWrapper layer = IMaxNodeWrapper.Create(MaxRemoting.CreateLayer()) as IILayerWrapper;
       Assert.IsNotNull(layer);
 
-      Boolean nodeFrozen = node.GetProperty(BooleanNodeProperty.IsFrozen);
-      Boolean layerFrozen = layer.GetProperty(BooleanNodeProperty.IsFrozen);
+      Boolean nodeFrozen = node.GetNodeProperty(BooleanNodeProperty.IsFrozen);
+      Boolean layerFrozen = layer.GetNodeProperty(BooleanNodeProperty.IsFrozen);
       List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(2) { node, layer };
       FreezeCommand cmd = new FreezeCommand(nodes, !nodeFrozen);
       
       cmd.Redo();
-      Assert.AreEqual(!nodeFrozen, node.GetProperty(BooleanNodeProperty.IsFrozen));
-      Assert.AreEqual(!layerFrozen, layer.GetProperty(BooleanNodeProperty.IsFrozen));
+      Assert.AreEqual(!nodeFrozen, node.GetNodeProperty(BooleanNodeProperty.IsFrozen));
+      Assert.AreEqual(!layerFrozen, layer.GetNodeProperty(BooleanNodeProperty.IsFrozen));
 
       cmd.Restore(true);
-      Assert.AreEqual(nodeFrozen, node.GetProperty(BooleanNodeProperty.IsFrozen));
-      Assert.AreEqual(layerFrozen, layer.GetProperty(BooleanNodeProperty.IsFrozen));
+      Assert.AreEqual(nodeFrozen, node.GetNodeProperty(BooleanNodeProperty.IsFrozen));
+      Assert.AreEqual(layerFrozen, layer.GetNodeProperty(BooleanNodeProperty.IsFrozen));
    }
 }
 }

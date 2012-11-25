@@ -24,14 +24,14 @@ namespace Outliner.Controls.ContextMenu
       public List<MenuItemModel> Items { get; set; }
 
 
-      public ContextMenuStrip ToContextMenuStrip( Outliner.Controls.Tree.TreeNode clickedTn
-                                                , IEnumerable<IMaxNodeWrapper> context)
+      public ContextMenuStrip ToContextMenuStrip( Outliner.Controls.Tree.TreeView treeView
+                                                , Outliner.Controls.Tree.TreeNode clickedTn)
       {
          ContextMenuStrip strip = new ContextMenuStrip();
 
          foreach (MenuItemModel item in this.Items)
          {
-            strip.Items.Add(item.ToToolStripMenuItem(clickedTn, context));
+            strip.Items.Add(item.ToToolStripMenuItem(treeView, clickedTn));
          }
 
          return strip;

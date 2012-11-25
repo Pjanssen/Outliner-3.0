@@ -34,8 +34,8 @@ public abstract class NodePropertySorter : NodeSorter
       IMaxNodeWrapper nodeY = HelperMethods.GetMaxNode(y);
       if (nodeY == null || !nodeY.IsValid) return 0;
 
-      Object propValueX = nodeX.GetProperty(this.Property);
-      Object propValueY = nodeY.GetProperty(this.Property);
+      Object propValueX = nodeX.GetNodeProperty(this.Property);
+      Object propValueY = nodeY.GetNodeProperty(this.Property);
 
       if (propValueX.Equals(propValueY))
          return NativeMethods.StrCmpLogicalW(nodeX.Name, nodeY.Name);

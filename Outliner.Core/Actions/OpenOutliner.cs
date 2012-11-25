@@ -50,8 +50,8 @@ public class OpenOutliner : CuiDockableContentAdapter
    protected OutlinerSplitContainer splitContainer;
    protected TreeView tree1;
    protected TreeView tree2;
-   protected List<Scene.IMaxNodeWrapper> expandedNodes1;
-   protected List<Scene.IMaxNodeWrapper> expandedNodes2;
+   protected IEnumerable<Scene.IMaxNodeWrapper> expandedNodes1;
+   protected IEnumerable<Scene.IMaxNodeWrapper> expandedNodes2;
 
    public override object CreateDockableContent()
    {
@@ -61,8 +61,8 @@ public class OpenOutliner : CuiDockableContentAdapter
 
       TestControl mainControl = new TestControl();
       this.splitContainer = mainControl.outlinerSplitContainer1;
-      this.tree1 = mainControl.treeView1;
-      this.tree2 = mainControl.treeView2;
+      this.tree1 = mainControl.TreeView1;
+      this.tree2 = mainControl.TreeView2;
 
       OutlinerGUP outlinerInstance = OutlinerGUP.Instance;
 
@@ -88,8 +88,8 @@ public class OpenOutliner : CuiDockableContentAdapter
 
       this.tree1.Colors = outlinerInstance.ColorScheme;
       this.tree2.Colors = outlinerInstance.ColorScheme;
-      mainControl.nameFilterTextBox.BackColor = outlinerInstance.ColorScheme.Background.Color;
-      mainControl.nameFilterTextBox.ForeColor = outlinerInstance.ColorScheme.ForegroundLight.Color;
+      mainControl.NameFilterTextBox.BackColor = outlinerInstance.ColorScheme.Background.Color;
+      mainControl.NameFilterTextBox.ForeColor = outlinerInstance.ColorScheme.ForegroundLight.Color;
 
       this.splitContainer.Orientation      = outlinerState.SplitterOrientation;
       this.splitContainer.SplitterDistance = outlinerState.SplitterDistance;
@@ -156,12 +156,12 @@ public class OpenOutliner : CuiDockableContentAdapter
       OutlinerGUP outlinerInstance = OutlinerGUP.Instance;
       TreeView tree = args.Panel.Controls[0] as TreeView;
       if (args.Panel == this.splitContainer.Panel1)
-         outlinerInstance.SwitchPreset(tree, outlinerInstance.State.Tree1Preset, true);
+         outlinerInstance.SwitchPreset(tree, outlinerInstance.State.Tree1Preset, !args.IsCollapsed);
       else
-         outlinerInstance.SwitchPreset(tree, outlinerInstance.State.Tree2Preset, true);
+         outlinerInstance.SwitchPreset(tree, outlinerInstance.State.Tree2Preset, !args.IsCollapsed);
    }
 
-   private List<Outliner.Scene.IMaxNodeWrapper> GetExpandedNodes(TreeNode tn)
+   private IEnumerable<Outliner.Scene.IMaxNodeWrapper> GetExpandedNodes(TreeNode tn)
    {
       List<Outliner.Scene.IMaxNodeWrapper> nodes = new List<Scene.IMaxNodeWrapper>();
 
@@ -180,7 +180,7 @@ public class OpenOutliner : CuiDockableContentAdapter
       return nodes;
    }
 
-   private void RestoreExpandedNodes(TreeMode mode, List<Scene.IMaxNodeWrapper> nodes)
+   private void RestoreExpandedNodes(TreeMode mode, IEnumerable<Scene.IMaxNodeWrapper> nodes)
    {
       if (mode == null || nodes == null)
          return;
@@ -189,7 +189,7 @@ public class OpenOutliner : CuiDockableContentAdapter
 
       foreach (Scene.IMaxNodeWrapper node in nodes)
       {
-         List<TreeNode> tns = mode.GetTreeNodes(node);
+         IEnumerable<TreeNode> tns = mode.GetTreeNodes(node);
          if (tns != null)
          {
             tns.ForEach(tn => tn.IsExpanded = true);

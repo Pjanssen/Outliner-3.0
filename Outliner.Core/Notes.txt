@@ -7,7 +7,8 @@
 * Exception handling
 * Updating / Installing
 * Make ContextMenuData, MenuItemData generic class? context type.
-* Crash (infinite loop?) when removing name filter Sphere...
+* Change contextmenu actions to receive treeview and clickedtn?
+* Delete a node with children crashes
 
 TREEVIEW
 --------

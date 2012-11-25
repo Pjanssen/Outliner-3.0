@@ -16,6 +16,8 @@ namespace Outliner.Controls
       [SecurityPermission(SecurityAction.Demand)]
       public static void Invert(Bitmap b)
       {
+         ExceptionHelpers.ThrowIfArgumentIsNull(b, "b");
+
          BitmapData bmData = b.LockBits( new Rectangle(0, 0, b.Width, b.Height)
                                        , ImageLockMode.ReadWrite
                                        , PixelFormat.Format32bppArgb);
@@ -51,6 +53,8 @@ namespace Outliner.Controls
       [SecurityPermission(SecurityAction.Demand)]
       public static void Desaturate(Bitmap b)
       {
+         ExceptionHelpers.ThrowIfArgumentIsNull(b, "b");
+
          BitmapData bmData = b.LockBits( new Rectangle(0, 0, b.Width, b.Height)
                                        , ImageLockMode.ReadWrite
                                        , PixelFormat.Format32bppArgb);
@@ -88,8 +92,10 @@ namespace Outliner.Controls
       /// <param name="b">The bitmap to process.</param>
       /// <param name="opacity">The opacity to set, range between 0 and 255.</param>
       [SecurityPermission(SecurityAction.Demand)]
-      public static void Opacity(Bitmap b, Int32 opacity)
+      public static void AdjustOpacity(Bitmap b, Int32 opacity)
       {
+         ExceptionHelpers.ThrowIfArgumentIsNull(b, "b");
+
          BitmapData bmData = b.LockBits( new Rectangle(0, 0, b.Width, b.Height)
                                        , ImageLockMode.ReadWrite
                                        , PixelFormat.Format32bppArgb);
@@ -120,8 +126,10 @@ namespace Outliner.Controls
       /// Increases the brightness of the pixel data in the bitmap.
       /// </summary>
       [SecurityPermission(SecurityAction.Demand)]
-      public static void Brightness(Bitmap b, Int32 brightness)
+      public static void AdjustBrightness(Bitmap b, Int32 brightness)
       {
+         ExceptionHelpers.ThrowIfArgumentIsNull(b, "b");
+
          BitmapData bmData = b.LockBits( new Rectangle(0, 0, b.Width, b.Height)
                                        , ImageLockMode.ReadWrite
                                        , PixelFormat.Format32bppArgb);

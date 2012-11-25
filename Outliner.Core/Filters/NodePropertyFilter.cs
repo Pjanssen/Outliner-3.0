@@ -37,7 +37,7 @@ namespace Outliner.Filters
 
       protected override bool ShowNodeInternal(IMaxNodeWrapper data)
       {
-         return data.GetProperty(this.Property);
+         return data.GetNodeProperty(this.Property);
       }
    }
 }

@@ -224,17 +224,17 @@ namespace Outliner.Scene
       }
 
 
-      public override Boolean GetProperty(BooleanNodeProperty property)
+      public override Boolean GetNodeProperty(BooleanNodeProperty property)
       {
          return NestedLayers.GetProperty(this.layer, property);
       }
 
-      public override void SetProperty(BooleanNodeProperty property, bool value)
+      public override void SetNodeProperty(BooleanNodeProperty property, bool value)
       {
          NestedLayers.SetProperty(this.layer, property, value);
       }
 
-      public override bool IsPropertyInherited(NodeProperty property)
+      public override bool IsNodePropertyInherited(NodeProperty property)
       {
          if (!NodePropertyHelpers.IsBooleanProperty(property))
             return false;

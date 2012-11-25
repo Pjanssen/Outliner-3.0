@@ -22,8 +22,8 @@ public static class OutlinerPlugins
    private const String PluginExtension = "dll";
    private const String PluginSearchPattern = "*." + PluginExtension;
 
-   private static List<Assembly> pluginAssemblies;
-   private static List<OutlinerPluginData> plugins;
+   private static IEnumerable<Assembly> pluginAssemblies;
+   private static IEnumerable<OutlinerPluginData> plugins;
 
 
    /// <summary>
@@ -35,10 +35,10 @@ public static class OutlinerPlugins
       {
          if (pluginAssemblies == null)
          {
-            pluginAssemblies = new List<Assembly>();
+            List<Assembly> assemblies = new List<Assembly>();
 
             //Add own assembly.
-            pluginAssemblies.Add(Assembly.GetAssembly(typeof(OutlinerPlugins)));
+            assemblies.Add(Assembly.GetAssembly(typeof(OutlinerPlugins)));
 
             //Add plugin assemblies.
             String pluginDir = OutlinerPaths.PluginsDir;
@@ -49,9 +49,11 @@ public static class OutlinerPlugins
                                                         , SearchOption.AllDirectories);
                foreach (String pluginFile in pluginFiles)
                {
-                  pluginAssemblies.Add(Assembly.LoadFile(pluginFile));
+                  assemblies.Add(Assembly.LoadFile(pluginFile));
                }
             }
+
+            pluginAssemblies = assemblies;
          }
 
          return pluginAssemblies;
@@ -61,16 +63,16 @@ public static class OutlinerPlugins
    /// <summary>
    /// (Re)loads all plugins from the PluginDirectory.
    /// </summary>
-   public static List<OutlinerPluginData> LoadPlugins()
+   public static IEnumerable<OutlinerPluginData> LoadPlugins()
    {
       AppDomain.CurrentDomain.AssemblyResolve -= new ResolveEventHandler(CurrentDomain_AssemblyResolve);
       AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
 
-      plugins = PluginAssemblies.SelectMany(a => a.GetExportedTypes())
-                                .Where(t => t.IsPublic && (!t.IsAbstract || t.IsSealed))
-                                .Where(t => TypeHelpers.HasAttribute<OutlinerPluginAttribute>(t))
-                                .Select(t => new OutlinerPluginData(t))
-                                .ToList();
+      List<OutlinerPluginData> plugins = PluginAssemblies.SelectMany(a => a.GetExportedTypes())
+                                                         .Where(t => t.IsPublic && (!t.IsAbstract || t.IsSealed))
+                                                         .Where(t => TypeHelpers.HasAttribute<OutlinerPluginAttribute>(t))
+                                                         .Select(t => new OutlinerPluginData(t))
+                                                         .ToList();
 
       plugins.Sort((pX, pY) => pX.DisplayName.CompareTo(pY.DisplayName));
 
@@ -105,12 +107,9 @@ public static class OutlinerPlugins
 
    private static void InvokePluginMethod<T>(Type pluginClass) where T : Attribute
    {
-      MethodInfo[] methods = pluginClass.GetMethods(BindingFlags.Static | BindingFlags.Public);
-      foreach (MethodInfo method in methods)
-      {
-         if(TypeHelpers.HasAttribute<T>(method))
-            method.Invoke(null, null);
-      }
+      pluginClass.GetMethods(BindingFlags.Static | BindingFlags.Public)
+                 .Where(m => TypeHelpers.HasAttribute<T>(m))
+                 .ForEach(m => m.Invoke(null, null));
    }
 
    /// <summary>

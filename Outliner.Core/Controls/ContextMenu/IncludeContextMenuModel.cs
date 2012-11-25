@@ -19,8 +19,8 @@ namespace Outliner.Controls.ContextMenu
       [XmlAttribute("file")]
       public String File { get; set; }
 
-      public override void OnClick( Outliner.Controls.Tree.TreeNode clickedTn
-                                  , IEnumerable<IMaxNodeWrapper> context)
+      protected override void OnClick( Outliner.Controls.Tree.TreeView treeView
+                                     , Outliner.Controls.Tree.TreeNode clickedTn)
       {
          //IncludeContextMenuData does not execute anything.
       }

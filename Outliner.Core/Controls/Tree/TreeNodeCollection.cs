@@ -40,6 +40,11 @@ public class TreeNodeCollection : ICollection<TreeNode>
       if (this.Contains(item))
          return;
 
+      if (this.dependencyLoopTest(item))
+         throw new InvalidOperationException(String.Format("Parenting '{0}' to '{1}' would create a dependency loop.", 
+                                                           item.ToString(),
+                                                           this.owner.ToString()));
+
       //Remove item from old parent collection.
       item.Remove();
 
@@ -50,6 +55,11 @@ public class TreeNodeCollection : ICollection<TreeNode>
 
       if (item.ShowNode)
          this.addFiltered(item);
+   }
+
+   private Boolean dependencyLoopTest(TreeNode newItem)
+   {
+      return this.owner.IsChildOf(newItem);
    }
 
    public void Clear()
@@ -72,6 +82,11 @@ public class TreeNodeCollection : ICollection<TreeNode>
    public bool Contains(TreeNode item)
    {
       return this.unfilteredNodes.Contains(item);
+   }
+
+   public bool Contains(TreeNode item, Boolean recursive)
+   {
+      return this.Contains(item) || this.Any(tn => tn.Nodes.Contains(item, true));
    }
 
    public void CopyTo(TreeNode[] array, int arrayIndex)
@@ -129,6 +144,9 @@ public class TreeNodeCollection : ICollection<TreeNode>
 
    private void addFiltered(TreeNode tn)
    {
+      if (this.filteredNodes.Contains(tn))
+         return;
+
       //Set next/previous node links.
       if (this.filteredNodes.Count > 0)
       {
@@ -140,10 +158,11 @@ public class TreeNodeCollection : ICollection<TreeNode>
       //Add item to collection.
       this.filteredNodes.Add(tn);
 
-      tn.InvalidateBounds(true, true); //TODO: gives a problem when "loosening" filters.
-
       if (tn.Parent != null && !tn.Parent.ShowNode)
          tn.Parent.parent.Nodes.addFiltered(tn.Parent);
+
+      tn.InvalidateBounds(true, true);
+      tn.TreeView.Update(TreeViewUpdateFlags.Redraw);
    }
 
    private void removeFiltered(TreeNode tn) 

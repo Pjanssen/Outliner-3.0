@@ -224,7 +224,7 @@ namespace Outliner.Scene
          this.ChildIINodes.ForEach(fn);
       }
 
-      public override bool GetProperty(BooleanNodeProperty property)
+      public override bool GetNodeProperty(BooleanNodeProperty property)
       {
          switch (property)
          {
@@ -265,19 +265,19 @@ namespace Outliner.Scene
             case BooleanNodeProperty.RenderOccluded: 
                return GetSelSetProperty(n => n.RenderOccluded);
             default: 
-               return base.GetProperty(property);
+               return base.GetNodeProperty(property);
          }
       }
 
-      public override void SetProperty(NodeProperty property, object value)
+      public override void SetNodeProperty(NodeProperty property, object value)
       {
          throw new NotImplementedException();
       }
 
 
-      public override bool IsPropertyInherited(NodeProperty property)
+      public override bool IsNodePropertyInherited(NodeProperty property)
       {
-         return this.WrappedChildNodes.All(n => n.IsPropertyInherited(property));
+         return this.WrappedChildNodes.All(n => n.IsNodePropertyInherited(property));
       }
 
 

@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 using System.ComponentModel;
 using Outliner.Plugins;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace Outliner.Controls.ContextMenu
 {
@@ -40,40 +41,56 @@ public class ActionMenuItemModel : MenuItemModel
    [TypeConverter(typeof(OutlinerActionConverter))]
    public String OnClickAction { get; set; }
 
-   public override void OnClick( Outliner.Controls.Tree.TreeNode clickedTn
-                               , IEnumerable<IMaxNodeWrapper> context)
-   {
-      OutlinerAction action = OutlinerActions.GetAction(this.OnClickAction);
 
-      if (action != null)
-         action(clickedTn, context);
-      else
-         MessageBox.Show( String.Format(ContextMenuResources.Str_ActionNotFound, this.OnClickAction)
-                        , ContextMenuResources.Str_ContextMenuWarningTitle
-                        , MessageBoxButtons.OK
-                        , MessageBoxIcon.Warning);
-   }
-
-   protected override Boolean Enabled( Outliner.Controls.Tree.TreeNode clickedTn
-                                     , IEnumerable<IMaxNodeWrapper> context)
+   protected override Boolean Enabled( Outliner.Controls.Tree.TreeView treeView
+                                     , Outliner.Controls.Tree.TreeNode clickedTn)
    {
+      ExceptionHelpers.ThrowIfArgumentIsNull(treeView, "treeView");
+
+      IEnumerable<IMaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
       OutlinerPredicate predicate = OutlinerActions.GetPredicate(this.EnabledPredicate);
 
       if (predicate != null)
          return predicate(clickedTn, context);
       else
-         return base.Enabled(clickedTn, context);
+         return base.Enabled(treeView, clickedTn);
    }
 
-   protected override bool Checked( Outliner.Controls.Tree.TreeNode clickedTn
-                                  , IEnumerable<IMaxNodeWrapper> context)
+
+   protected override Boolean Checked( Outliner.Controls.Tree.TreeView treeView
+                                     , Outliner.Controls.Tree.TreeNode clickedTn)
    {
+      ExceptionHelpers.ThrowIfArgumentIsNull(treeView, "treeView");
+
+      IEnumerable<IMaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
       OutlinerPredicate predicate = OutlinerActions.GetPredicate(this.CheckedPredicate);
 
       if (predicate != null)
          return predicate(clickedTn, context);
       else
-         return base.Checked(clickedTn, context);
+         return base.Checked(treeView, clickedTn);
+   }
+
+
+   protected override void OnClick(Outliner.Controls.Tree.TreeView treeView
+                                  , Outliner.Controls.Tree.TreeNode clickedTn)
+   {
+      ExceptionHelpers.ThrowIfArgumentIsNull(treeView, "treeView");
+
+      IEnumerable<IMaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
+      OutlinerAction action = OutlinerActions.GetAction(this.OnClickAction);
+
+      if (action != null)
+         action(clickedTn, context);
+      else
+         MessageBox.Show(String.Format(CultureInfo.CurrentCulture
+                                       , ContextMenuResources.Str_ActionNotFound
+                                       , this.OnClickAction)
+                        , ContextMenuResources.Str_ContextMenuWarningTitle
+                        , MessageBoxButtons.OK
+                        , MessageBoxIcon.Warning
+                        , MessageBoxDefaultButton.Button1
+                        , ControlHelpers.GetMessageBoxOptionsForControl(clickedTn.TreeView));
    }
 }
 }

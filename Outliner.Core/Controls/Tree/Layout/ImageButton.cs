@@ -54,7 +54,7 @@ public abstract class ImageButton : TreeNodeButton
 
       Bitmap img = image.Clone() as Bitmap;
       BitmapProcessing.Desaturate(img);
-      BitmapProcessing.Opacity(img, 90);
+      BitmapProcessing.AdjustOpacity(img, 90);
       return img;
    }
 
@@ -64,7 +64,7 @@ public abstract class ImageButton : TreeNodeButton
          throw new ArgumentNullException("image");
 
       Bitmap img = image.Clone() as Bitmap;
-      BitmapProcessing.Opacity(img, TreeNode.FilteredNodeOpacity);
+      BitmapProcessing.AdjustOpacity(img, TreeNode.FilteredNodeOpacity);
       return img;
    }
 

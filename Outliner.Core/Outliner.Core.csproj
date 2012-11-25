@@ -187,6 +187,7 @@
     <Compile Include="Controls\ContextMenu\ToolStripCheckedSplitButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\ControlHelpers.cs" />
     <Compile Include="Controls\Options\AdvancedFilterEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -425,8 +426,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Diagrams\ContextMenuModel.cd" />
-    <None Include="Diagrams\Filters.cd" />
     <None Include="Outliner.Core.pfx" />
     <None Include="Properties\DataSources\Outliner.Controls.Tree.Layout.TreeNodeLayout.datasource" />
     <None Include="Properties\DataSources\Outliner.Filters.NameFilter.datasource" />

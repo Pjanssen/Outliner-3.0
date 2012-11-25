@@ -58,6 +58,7 @@ namespace Outliner.Controls
          // 
          // nameFilterTextBox
          // 
+         this.nameFilterTextBox.AcceptsReturn = true;
          this.nameFilterTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.nameFilterTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.NameFilterBindingSource, "SearchString", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
          this.nameFilterTextBox.Dock = System.Windows.Forms.DockStyle.Top;
@@ -149,13 +150,13 @@ namespace Outliner.Controls
 
       #endregion
 
-      public TreeView treeView1;
-      public TreeView treeView2;
       private System.Windows.Forms.Panel panel1;
       internal OutlinerSplitContainer outlinerSplitContainer1;
       internal System.Windows.Forms.BindingSource NameFilterBindingSource;
       private System.Windows.Forms.Panel panel2;
-      public System.Windows.Forms.TextBox nameFilterTextBox;
+      private System.Windows.Forms.TextBox nameFilterTextBox;
+      private TreeView treeView1;
+      private TreeView treeView2;
 
 
    }

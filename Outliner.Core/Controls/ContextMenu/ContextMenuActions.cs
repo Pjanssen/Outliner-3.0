@@ -45,7 +45,7 @@ namespace Outliner.Controls.ContextMenu
       {
          ExceptionHelpers.ThrowIfArgumentIsNull(contextNodes, "contextNodes");
 
-         return contextNodes.Any(n => !n.GetProperty(BooleanNodeProperty.IsHidden));
+         return contextNodes.Any(n => !n.GetNodeProperty(BooleanNodeProperty.IsHidden));
       }
 
       [OutlinerAction]
@@ -62,7 +62,7 @@ namespace Outliner.Controls.ContextMenu
       {
          ExceptionHelpers.ThrowIfArgumentIsNull(contextNodes, "contextNodes");
 
-         return contextNodes.Any(n => n.GetProperty(BooleanNodeProperty.IsHidden));
+         return contextNodes.Any(n => n.GetNodeProperty(BooleanNodeProperty.IsHidden));
       }
 
       [OutlinerAction]
@@ -79,7 +79,7 @@ namespace Outliner.Controls.ContextMenu
       {
          ExceptionHelpers.ThrowIfArgumentIsNull(contextNodes, "contextNodes");
 
-         return contextNodes.Any(n => !n.GetProperty(BooleanNodeProperty.IsFrozen));
+         return contextNodes.Any(n => !n.GetNodeProperty(BooleanNodeProperty.IsFrozen));
       }
 
       [OutlinerAction]
@@ -96,7 +96,7 @@ namespace Outliner.Controls.ContextMenu
       {
          ExceptionHelpers.ThrowIfArgumentIsNull(contextNodes, "contextNodes");
 
-         return contextNodes.Any(n => n.GetProperty(BooleanNodeProperty.IsFrozen));
+         return contextNodes.Any(n => n.GetNodeProperty(BooleanNodeProperty.IsFrozen));
       }
 
       #endregion

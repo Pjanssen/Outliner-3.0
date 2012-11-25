@@ -26,7 +26,7 @@ public abstract class TreeMode
    public TreeView Tree { get; private set; }
    private ICollection<Tuple<GlobalDelegates.Delegate5, SystemNotificationCode>> systemNotifications;
    private ICollection<Tuple<uint, TreeModeNodeEventCallbacks>> nodeEventCallbacks;
-   protected Dictionary<Object, List<TreeNode>> treeNodes { get; private set; }
+   protected Dictionary<Object, ICollection<TreeNode>> treeNodes { get; private set; }
    
    internal FilterCombinator<IMaxNodeWrapper> filters;
    private const Int32 InvisibleNodesFilterIndex = 0;
@@ -42,7 +42,7 @@ public abstract class TreeMode
       proc_SelectionsetChanged = new GlobalDelegates.Delegate5(this.SelectionSetChanged);
 
       this.Tree = tree;
-      this.treeNodes = new Dictionary<Object, List<TreeNode>>();
+      this.treeNodes = new Dictionary<Object, ICollection<TreeNode>>();
 
       this.filters = new FilterCombinator<IMaxNodeWrapper>(Functor.And);
       this.filters.Filters.Add(new InvisibleNodeFilter());
@@ -179,7 +179,7 @@ public abstract class TreeMode
    {
       protected TreeMode treeMode { get; private set; }
       protected TreeView tree { get { return this.treeMode.Tree; } }
-      protected Dictionary<Object, List<TreeNode>> treeNodes 
+      protected Dictionary<Object, ICollection<TreeNode>> treeNodes 
       { 
          get { return this.treeMode.treeNodes; } 
       }
@@ -204,8 +204,8 @@ public abstract class TreeMode
 
 
    #region Helper methods
-   
-   public virtual List<TreeNode> GetTreeNodes(IMaxNodeWrapper wrapper)
+
+   public virtual IEnumerable<TreeNode> GetTreeNodes(IMaxNodeWrapper wrapper)
    {
       if (wrapper == null)
          return null;
@@ -213,9 +213,9 @@ public abstract class TreeMode
       return this.GetTreeNodes(wrapper.WrappedNode);
    }
 
-   public virtual List<TreeNode> GetTreeNodes(Object node)
+   public virtual IEnumerable<TreeNode> GetTreeNodes(Object node)
    {
-      List<TreeNode> tns = null;
+      ICollection<TreeNode> tns = null;
       if (node != null)
          this.treeNodes.TryGetValue(node, out tns);
       return tns;
@@ -227,9 +227,9 @@ public abstract class TreeMode
    /// </summary>
    public virtual TreeNode GetFirstTreeNode(Object node)
    {
-      List<TreeNode> tns = this.GetTreeNodes(node);
-      if (tns != null && tns.Count > 0)
-         return tns[0];
+      IEnumerable<TreeNode> tns = this.GetTreeNodes(node);
+      if (tns != null)
+         return tns.FirstOrDefault();
       else
          return null;
    }
@@ -244,7 +244,7 @@ public abstract class TreeMode
 
    public virtual void RegisterNode(Object node, TreeNode tn)
    {
-      List<TreeNode> tns;
+      ICollection<TreeNode> tns;
       if (!this.treeNodes.TryGetValue(node, out tns))
       {
          tns = new List<TreeNode>();
@@ -263,7 +263,7 @@ public abstract class TreeMode
 
    public virtual void UnregisterNode(Object node, TreeNode tn)
    {
-      List<TreeNode> tns;
+      ICollection<TreeNode> tns;
       if (this.treeNodes.TryGetValue(node, out tns))
       {
          tns.Remove(tn);
@@ -334,7 +334,7 @@ public abstract class TreeMode
 
    public virtual void RemoveNode(Object node)
    {
-      List<TreeNode> tns = this.GetTreeNodes(node);
+      IEnumerable<TreeNode> tns = this.GetTreeNodes(node);
       if (tns != null)
       {
          foreach (TreeNode  tn in tns)
@@ -344,21 +344,6 @@ public abstract class TreeMode
             tn.Remove();
          }
          this.UnregisterNode(node);
-      }
-   }
-
-   public virtual void RemoveTreeNode(TreeNode tn)
-   {
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
-      if (node == null)
-         return;
-
-      tn.Remove();
-
-      List<TreeNode> tns = this.GetTreeNodes(node);
-      if (tns != null)
-      {
-         tns.Remove(tn);
       }
    }
 
@@ -375,7 +360,7 @@ public abstract class TreeMode
    {
       if (obj != null)
       {
-         List<TreeNode> tns = this.GetTreeNodes(obj);
+         IEnumerable<TreeNode> tns = this.GetTreeNodes(obj);
          if (tns != null)
          {
             tns.ForEach(tn => tn.Invalidate(recursive));
@@ -385,16 +370,13 @@ public abstract class TreeMode
       }
    }
 
-   public virtual void InvalidateTreeNodes(ITab<UIntPtr> nodes, Boolean invalidateBounds, Boolean sort)
+   public virtual void InvalidateTreeNodes(ITab<UIntPtr> nodes, Boolean sort)
    {
       foreach (IINode node in nodes.NodeKeysToINodeList())
       {
-         List<TreeNode> tns = this.GetTreeNodes(node);
+         IEnumerable<TreeNode> tns = this.GetTreeNodes(node);
          if (tns != null)
          {
-            if (invalidateBounds)
-               tns.ForEach(tn => tn.InvalidateBounds(false, false));
-
             tns.ForEach(tn => tn.Invalidate());
 
             if (sort)
@@ -410,7 +392,7 @@ public abstract class TreeMode
    {
       if (obj != null)
       {
-         List<TreeNode> tns = this.GetTreeNodes(obj);
+         IEnumerable<TreeNode> tns = this.GetTreeNodes(obj);
          if (tns != null)
          {
             foreach (TreeNode tn in tns)
@@ -457,7 +439,7 @@ public abstract class TreeMode
       {
          for (Int32 i = 0; i < selNodeCount; i++)
          {
-            List<TreeNode> tns = this.GetTreeNodes(MaxInterfaces.COREInterface.GetSelNode(i));
+            IEnumerable<TreeNode> tns = this.GetTreeNodes(MaxInterfaces.COREInterface.GetSelNode(i));
             if (tns != null)
                tns.ForEach(tn => this.Tree.SelectNode(tn, true));
          }
@@ -482,14 +464,14 @@ public abstract class TreeMode
       public override void NameChanged(ITab<UIntPtr> nodes)
       {
          Boolean sort = this.tree.NodeSorter is AlphabeticalSorter;
-         this.treeMode.InvalidateTreeNodes(nodes, true, sort);
+         this.treeMode.InvalidateTreeNodes(nodes, sort);
       }
 
       public override void WireColorChanged(ITab<UIntPtr> nodes)
       {
          NodePropertySorter sorter = this.tree.NodeSorter as NodePropertySorter;
          Boolean sort = sorter != null && sorter.Property == NodeProperty.WireColor;
-         this.treeMode.InvalidateTreeNodes(nodes, false, sort);
+         this.treeMode.InvalidateTreeNodes(nodes, sort);
       }
 
 
@@ -497,14 +479,14 @@ public abstract class TreeMode
       {
          NodePropertySorter sorter = this.tree.NodeSorter as NodePropertySorter;
          Boolean sort = sorter != null && NodePropertyHelpers.IsDisplayProperty(sorter.Property);
-         this.treeMode.InvalidateTreeNodes(nodes, false, sort);
+         this.treeMode.InvalidateTreeNodes(nodes, sort);
       }
 
       public override void RenderPropertiesChanged(ITab<UIntPtr> nodes)
       {
          NodePropertySorter sorter = this.tree.NodeSorter as NodePropertySorter;
          Boolean sort = sorter != null && NodePropertyHelpers.IsRenderProperty(sorter.Property);
-         this.treeMode.InvalidateTreeNodes(nodes, false, false);
+         this.treeMode.InvalidateTreeNodes(nodes, false);
       }
    }
 
@@ -571,12 +553,10 @@ public abstract class TreeMode
 
    protected virtual WinForms::ContextMenuStrip CreateContextMenu(TreeNode clickedTn)
    {
-      IEnumerable<IMaxNodeWrapper> selectedNodes = HelperMethods.GetMaxNodes(this.Tree.SelectedNodes);
-      
       String contextMenuFile = Path.Combine(OutlinerPaths.ContextMenuDir, "ContextMenu.xml");
       ContextMenuModel data = XmlSerializationHelpers.Deserialize<ContextMenuModel>(contextMenuFile);
 
-      return data.ToContextMenuStrip(clickedTn, selectedNodes);
+      return data.ToContextMenuStrip(this.Tree, clickedTn);
    }
 
    public virtual ContextMenuModel ContextMenu { get; set; }
@@ -592,10 +572,7 @@ public abstract class TreeMode
 
       WinForms::ContextMenuStrip contextMenu;
       if (this.ContextMenu != null)
-      {
-         IEnumerable<IMaxNodeWrapper> selectedNodes = HelperMethods.GetMaxNodes(this.Tree.SelectedNodes);
-         contextMenu = this.ContextMenu.ToContextMenuStrip(clickedNode, selectedNodes);
-      }
+         contextMenu = this.ContextMenu.ToContextMenuStrip(this.Tree, clickedNode);
       else
          contextMenu = new WinForms.ContextMenuStrip();
 
@@ -648,7 +625,7 @@ public abstract class TreeMode
    public void EvaluateFilters()
    {
       this.Tree.BeginUpdate();
-      foreach (KeyValuePair<Object, List<TreeNode>> item in this.treeNodes)
+      foreach (KeyValuePair<Object, ICollection<TreeNode>> item in this.treeNodes)
       {
          foreach (TreeNode tn in item.Value)
          {

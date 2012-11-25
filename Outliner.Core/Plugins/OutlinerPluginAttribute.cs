@@ -19,6 +19,7 @@ namespace Outliner.Plugins
       }
    }
 
+   [Flags]
    public enum OutlinerPluginType
    {
       TreeMode       = 0x01,

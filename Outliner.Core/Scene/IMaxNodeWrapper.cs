@@ -71,10 +71,10 @@ namespace Outliner.Scene
          set { }
       }
 
-      public virtual Object GetProperty(NodeProperty property)
+      public virtual Object GetNodeProperty(NodeProperty property)
       {
          if (NodePropertyHelpers.IsBooleanProperty(property))
-            return this.GetProperty(NodePropertyHelpers.ToBooleanProperty(property));
+            return this.GetNodeProperty(NodePropertyHelpers.ToBooleanProperty(property));
          else
          {
             switch (property)
@@ -86,15 +86,15 @@ namespace Outliner.Scene
          }
       }
 
-      public virtual Boolean GetProperty(BooleanNodeProperty property)
+      public virtual Boolean GetNodeProperty(BooleanNodeProperty property)
       {
          return false;
       }
 
-      public virtual void SetProperty(NodeProperty property, Object value)
+      public virtual void SetNodeProperty(NodeProperty property, Object value)
       {
          if (NodePropertyHelpers.IsBooleanProperty(property))
-            this.SetProperty(NodePropertyHelpers.ToBooleanProperty(property), (Boolean)value);
+            this.SetNodeProperty(NodePropertyHelpers.ToBooleanProperty(property), (Boolean)value);
          else
          {
             switch (property)
@@ -111,13 +111,13 @@ namespace Outliner.Scene
          }
       }
 
-      public virtual void SetProperty(BooleanNodeProperty property, Boolean value) { }
+      public virtual void SetNodeProperty(BooleanNodeProperty property, Boolean value) { }
 
       /// <summary>
       /// Returns true if the supplied property is inherited from another object, 
       /// e.g. a layer.
       /// </summary>
-      public virtual Boolean IsPropertyInherited(NodeProperty property)
+      public virtual Boolean IsNodePropertyInherited(NodeProperty property)
       {
          return false;
       }
@@ -126,9 +126,9 @@ namespace Outliner.Scene
       /// Returns true if the supplied property is inherited from another object, 
       /// e.g. a layer.
       /// </summary>
-      public virtual Boolean IsPropertyInherited(BooleanNodeProperty property)
+      public virtual Boolean IsNodePropertyInherited(BooleanNodeProperty property)
       {
-         return this.IsPropertyInherited(NodePropertyHelpers.ToProperty(property));
+         return this.IsNodePropertyInherited(NodePropertyHelpers.ToProperty(property));
       }
 
 

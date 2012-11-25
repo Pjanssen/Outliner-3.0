@@ -27,22 +27,34 @@ public class NodePropertyMenuItemModel : MenuItemModel
    [DefaultValue(BooleanNodeProperty.None)]
    public BooleanNodeProperty Property { get; set; }
 
-   protected override Boolean Enabled( Outliner.Controls.Tree.TreeNode clickedTn
-                                     , IEnumerable<IMaxNodeWrapper> context)
+
+   protected override Boolean Enabled( Outliner.Controls.Tree.TreeView treeView
+                                     , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      return !context.All(n => n.IsPropertyInherited(this.Property));
+      ExceptionHelpers.ThrowIfArgumentIsNull(treeView, "treeView");
+
+      IEnumerable<IMaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
+      return !context.All(n => n.IsNodePropertyInherited(this.Property));
    }
 
-   protected override bool Checked( Outliner.Controls.Tree.TreeNode clickedTn
-                                  , IEnumerable<Scene.IMaxNodeWrapper> context)
+
+   protected override Boolean Checked(Outliner.Controls.Tree.TreeView treeView
+                                     , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      return context.Any(n => n.GetProperty(this.Property));
+      ExceptionHelpers.ThrowIfArgumentIsNull(treeView, "treeView");
+
+      IEnumerable<IMaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
+      return context.Any(n => n.GetNodeProperty(this.Property));
    }
 
-   public override void OnClick( Outliner.Controls.Tree.TreeNode clickedTn
-                               , IEnumerable<Scene.IMaxNodeWrapper> context)
+
+   protected override void OnClick(Outliner.Controls.Tree.TreeView treeView
+                                  , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      Boolean newValue = !this.Checked(clickedTn, context);
+      ExceptionHelpers.ThrowIfArgumentIsNull(treeView, "treeView");
+
+      IEnumerable<IMaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
+      Boolean newValue = !this.Checked(treeView, clickedTn);
       NodeProperty prop = NodePropertyHelpers.ToProperty(this.Property);
       SetNodePropertyCommand<Boolean> cmd = new SetNodePropertyCommand<Boolean>(context, prop, newValue);
       cmd.Execute(true);

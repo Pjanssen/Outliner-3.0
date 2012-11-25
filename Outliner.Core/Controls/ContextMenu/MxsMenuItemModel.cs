@@ -34,31 +34,39 @@ public class MxsMenuItemModel : MenuItemModel
    [DefaultValue("")]
    public String CheckedScript { get; set; }
 
-   public override void OnClick( Outliner.Controls.Tree.TreeNode clickedTn
-                               , IEnumerable<IMaxNodeWrapper> context)
+
+   protected override Boolean Enabled(Outliner.Controls.Tree.TreeView treeView
+                                     , Outliner.Controls.Tree.TreeNode clickedTn)
    {
+      ExceptionHelpers.ThrowIfArgumentIsNull(treeView, "treeView");
+
+      if (!String.IsNullOrEmpty(this.EnabledScript))
+         return MaxscriptSDK.ExecuteBooleanMaxscriptQuery(this.EnabledScript);
+      else
+         return base.Enabled(treeView, clickedTn);
+   }
+
+
+   protected override Boolean Checked(Outliner.Controls.Tree.TreeView treeView
+                                     , Outliner.Controls.Tree.TreeNode clickedTn)
+   {
+      ExceptionHelpers.ThrowIfArgumentIsNull(treeView, "treeView");
+
+      if (!String.IsNullOrEmpty(this.CheckedScript))
+         return MaxscriptSDK.ExecuteBooleanMaxscriptQuery(this.CheckedScript);
+      else
+         return base.Checked(treeView, clickedTn);
+   }
+
+   protected override void OnClick( Outliner.Controls.Tree.TreeView treeView
+                                  , Outliner.Controls.Tree.TreeNode clickedTn)
+   {
+      ExceptionHelpers.ThrowIfArgumentIsNull(treeView, "treeView");
+
       if (!String.IsNullOrEmpty(this.OnClickScript))
       {
          MaxscriptSDK.ExecuteMaxscriptCommand(this.OnClickScript);
       }
-   }
-
-   protected override Boolean Enabled( Outliner.Controls.Tree.TreeNode clickedTn
-                                     , IEnumerable<IMaxNodeWrapper> context)
-   {
-      if (!String.IsNullOrEmpty(this.EnabledScript))
-         return MaxscriptSDK.ExecuteBooleanMaxscriptQuery(this.EnabledScript);
-      else
-         return base.Enabled(clickedTn, context);
-   }
-
-   protected override bool Checked( Outliner.Controls.Tree.TreeNode clickedTn
-                                  , IEnumerable<IMaxNodeWrapper> context)
-   {
-      if (!String.IsNullOrEmpty(this.CheckedScript))
-         return MaxscriptSDK.ExecuteBooleanMaxscriptQuery(this.CheckedScript);
-      else
-         return base.Checked(clickedTn, context);
    }
 }
 }

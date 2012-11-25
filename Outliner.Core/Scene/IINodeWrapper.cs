@@ -189,7 +189,7 @@ public class IINodeWrapper : IMaxNodeWrapper
    }
 
 
-   public override bool GetProperty(BooleanNodeProperty property)
+   public override bool GetNodeProperty(BooleanNodeProperty property)
    {
       switch (property)
       {
@@ -211,11 +211,11 @@ public class IINodeWrapper : IMaxNodeWrapper
          case BooleanNodeProperty.CastShadows: return IntToBool(this.iinode.CastShadows);
          case BooleanNodeProperty.ApplyAtmospherics: return IntToBool(this.iinode.ApplyAtmospherics);
          case BooleanNodeProperty.RenderOccluded: return this.iinode.RenderOccluded;
-         default: return base.GetProperty(property);
+         default: return base.GetNodeProperty(property);
       }
    }
 
-   public override void SetProperty(BooleanNodeProperty property, bool value)
+   public override void SetNodeProperty(BooleanNodeProperty property, bool value)
    {
       switch (property)
       {
@@ -274,12 +274,12 @@ public class IINodeWrapper : IMaxNodeWrapper
             this.iinode.RenderOccluded = value;
             break;
          default:
-            base.SetProperty(property, value);
+            base.SetNodeProperty(property, value);
             break;
       }
    }
 
-   public override bool IsPropertyInherited(NodeProperty property)
+   public override bool IsNodePropertyInherited(NodeProperty property)
    {
       IILayer layer = this.IILayer;
       IINodeLayerProperties layerProperties = this.NodeLayerProperties;
