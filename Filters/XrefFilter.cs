@@ -8,9 +8,7 @@ using Outliner.Plugins;
 namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
-   [LocalizedDisplayName(typeof(Resources), "Filter_Xref")]
-   //[LocalizedDisplayImage(typeof(Outliner.Controls.TreeIcons_Max), "xref")]
-   [FilterCategory(FilterCategory.Classes)]
+   [LocalizedDisplayName(typeof(Resources), "Str_Xrefs")]
    public class XRefFilter : Filter<IMaxNodeWrapper>
    {
       override protected Boolean ShowNodeInternal(IMaxNodeWrapper data)

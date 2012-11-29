@@ -6,9 +6,7 @@ using Outliner.Plugins;
 namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
-   [LocalizedDisplayName(typeof(Resources), "Filter_Particles")]
-   [LocalizedDisplayImage(typeof(Resources), "particle")]
-   [FilterCategory(FilterCategory.Classes)]
+   [LocalizedDisplayName(typeof(Resources), "Str_Particles")]
    public class ParticleFilter : Filter<IMaxNodeWrapper>
    {
       override protected Boolean ShowNodeInternal(IMaxNodeWrapper data)

@@ -19,10 +19,10 @@ public class HierarchyPreset : OutlinerPreset
 {
    public HierarchyPreset()
    {
-      this.Name = Resources.Preset_DisplayName;
-      this.ImageResourceTypeName = typeof(Resources).FullName;
-      this.Image16Name = "hierarchy_mode_16";
-      this.Image24Name = "hierarchy_mode_24";
+      this.TextRes = Resources.Preset_DisplayName;
+      this.ResourceTypeName = typeof(Resources).FullName;
+      this.Image16Res = "hierarchy_mode_16";
+      this.Image24Res = "hierarchy_mode_24";
 
       this.TreeModeTypeName = typeof(HierarchyMode).FullName;
       this.NodeSorter = new AlphabeticalSorter(false);

@@ -20,20 +20,24 @@ namespace Outliner.ColorTags
    public static class OutlinerUpdater
    {
       private static GlobalDelegates.Delegate5 ProcColorChanged;
+      private static IGlobal global;
 
       [OutlinerPluginStart]
       public static void Start()
       {
          ProcColorChanged = new GlobalDelegates.Delegate5(ColorChanged);
-         IGlobal global = MaxInterfaces.Global;
+         global = MaxInterfaces.Global;
          global.RegisterNotification(ProcColorChanged, null, ColorTags.TagChanged);
       }
 
       [OutlinerPluginStop]
       public static void Stop()
       {
-         IGlobal global = MaxInterfaces.Global;
-         global.UnRegisterNotification(ProcColorChanged, null, ColorTags.TagChanged);
+         if (global != null && ProcColorChanged != null)
+            global.UnRegisterNotification(ProcColorChanged, null, ColorTags.TagChanged);
+
+         global = null;
+         ProcColorChanged = null;
       }
 
       private static void ColorChanged(IntPtr param, IntPtr info)

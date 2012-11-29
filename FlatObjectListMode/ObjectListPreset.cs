@@ -16,10 +16,10 @@ public class ObjectListPreset : OutlinerPreset
 {
    public ObjectListPreset()
    {
-      this.Name = Resources.Preset_DisplayName;
-      this.ImageResourceTypeName = typeof(Resources).FullName;
-      this.Image16Name = "flatobjectlist_mode_16_dark";
-      this.Image24Name = "flatobjectlist_mode_24_dark";
+      this.TextRes = Resources.Preset_DisplayName;
+      this.ResourceTypeName = typeof(Resources).FullName;
+      this.Image16Res = "flatobjectlist_mode_16_dark";
+      this.Image24Res = "flatobjectlist_mode_24_dark";
 
       this.TreeModeTypeName = typeof(FlatObjectListMode).FullName;
       this.NodeSorter = new AlphabeticalSorter(false);

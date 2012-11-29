@@ -52,14 +52,14 @@ public static class IconHelperMethods
                {
                   BitmapProcessing.Desaturate(b);
                   BitmapProcessing.Invert(b);
-                  BitmapProcessing.Brightness(b, 101);
+                  BitmapProcessing.AdjustBrightness(b, 101);
                }
 
                Bitmap b_hidden = new Bitmap(b);
-               BitmapProcessing.Opacity(b_hidden, 100);
+               BitmapProcessing.AdjustOpacity(b_hidden, 100);
 
                Bitmap b_filtered = new Bitmap(b);
-               BitmapProcessing.Opacity(b_filtered, Outliner.Controls.Tree.TreeNode.FilteredNodeOpacity);
+               BitmapProcessing.AdjustOpacity(b_filtered, Outliner.Controls.Tree.TreeNode.FilteredNodeOpacity);
 
                icons.Add((String)e.Key, b);
                icons.Add((String)e.Key + "_hidden", b_hidden);

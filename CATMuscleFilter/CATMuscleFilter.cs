@@ -10,8 +10,7 @@ using Autodesk.Max;
 namespace Outliner.Filters.CATMuscleFilter
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
-   [LocalizedDisplayName(typeof(Resources), "CATDisplayName")]
-   [FilterCategory(FilterCategory.Custom)]
+   [LocalizedDisplayName(typeof(Resources), "Str_CATMuscleFilter")]
    public class CATMuscleFilter : Filter<IMaxNodeWrapper>
    {
       private const uint strandIDA = 0x7CF3882;

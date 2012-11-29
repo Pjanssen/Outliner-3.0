@@ -7,9 +7,7 @@ using Outliner.MaxUtils;
 namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
-   [LocalizedDisplayName(typeof(Resources), "Filter_Hidden")]
-   [LocalizedDisplayImage(typeof(Resources), "hide")]
-   [FilterCategory(FilterCategory.Properties)]
+   [LocalizedDisplayName(typeof(Resources), "Str_Hidden")]
    public class HiddenFilter : NodePropertyFilter
    {
       public HiddenFilter() : base(BooleanNodeProperty.IsHidden)

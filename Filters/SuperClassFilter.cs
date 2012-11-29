@@ -17,9 +17,7 @@ namespace Outliner.Filters
    }
 
    [OutlinerPlugin(OutlinerPluginType.Filter)]
-   [LocalizedDisplayName(typeof(Resources), "Filter_Shapes")]
-   [LocalizedDisplayImage(typeof(Resources), "shape")]
-   [FilterCategory(FilterCategory.Classes)]
+   [LocalizedDisplayName(typeof(Resources), "Str_Shapes")]
    public class ShapeFilter : SuperClassFilter
    {
       override protected Boolean ShowNodeInternal(IMaxNodeWrapper data)
@@ -29,9 +27,7 @@ namespace Outliner.Filters
    }
 
    [OutlinerPlugin(OutlinerPluginType.Filter)]
-   [LocalizedDisplayName(typeof(Resources), "Filter_Cameras")]
-   [LocalizedDisplayImage(typeof(Resources), "camera")]
-   [FilterCategory(FilterCategory.Classes)]
+   [LocalizedDisplayName(typeof(Resources), "Str_Cameras")]
    public class CameraFilter : SuperClassFilter
    {
       override protected Boolean ShowNodeInternal(IMaxNodeWrapper data)
@@ -41,9 +37,7 @@ namespace Outliner.Filters
    }
 
    [OutlinerPlugin(OutlinerPluginType.Filter)]
-   [LocalizedDisplayName(typeof(Resources), "Filter_Lights")]
-   [LocalizedDisplayImage(typeof(Resources), "light")]
-   [FilterCategory(FilterCategory.Classes)]
+   [LocalizedDisplayName(typeof(Resources), "Str_Lights")]
    public class LightFilter : SuperClassFilter
    {
       override protected Boolean ShowNodeInternal(IMaxNodeWrapper data)
@@ -53,9 +47,7 @@ namespace Outliner.Filters
    }
 
    [OutlinerPlugin(OutlinerPluginType.Filter)]
-   [LocalizedDisplayName(typeof(Resources), "Filter_Spacewarps")]
-   [LocalizedDisplayImage(typeof(Resources), "spacewarp")]
-   [FilterCategory(FilterCategory.Classes)]
+   [LocalizedDisplayName(typeof(Resources), "Str_Spacewarps")]
    public class SpacewarpFilter : SuperClassFilter
    {
       override protected Boolean ShowNodeInternal(IMaxNodeWrapper data)

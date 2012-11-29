@@ -17,10 +17,10 @@ public class SelectionSetsPreset : OutlinerPreset
 {
    public SelectionSetsPreset()
    {
-      this.Name              = Resources.Preset_DisplayName;
-      this.ImageResourceTypeName = typeof(Resources).FullName;
-      this.Image16Name       = "selectionset_mode_16_dark";
-      this.Image24Name       = "selectionset_mode_24_dark";
+      this.TextRes          = Resources.Preset_DisplayName;
+      this.ResourceTypeName = typeof(Resources).FullName;
+      this.Image16Res       = "selectionset_mode_16_dark";
+      this.Image24Res       = "selectionset_mode_24_dark";
 
       this.TreeModeTypeName    = typeof(SelectionSetMode).FullName;
       this.NodeSorter          = new AlphabeticalSorter(false);

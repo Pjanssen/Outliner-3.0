@@ -9,9 +9,7 @@ using Outliner.Plugins;
 namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
-   [LocalizedDisplayName(typeof(Resources), "Filter_Nurbs")]
-   [LocalizedDisplayImage(typeof(Resources), "nurbs")]
-   [FilterCategory(FilterCategory.Classes)]
+   [LocalizedDisplayName(typeof(Resources), "Str_Nurbs")]
    public class NurbsFilter : Filter<IMaxNodeWrapper>
    {
       protected override Boolean ShowNodeInternal(IMaxNodeWrapper data)

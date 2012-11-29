@@ -16,10 +16,10 @@ public class LayersPreset : OutlinerPreset
 {
    public LayersPreset()
    {
-      this.Name              = Resources.Preset_DisplayName;
-      this.ImageResourceTypeName = typeof(Resources).FullName;
-      this.Image16Name       = "layer_mode_16";
-      this.Image24Name       = "layer_mode_24";
+      this.TextRes          = Resources.Preset_DisplayName;
+      this.ResourceTypeName = typeof(Resources).FullName;
+      this.Image16Res       = "layer_mode_16";
+      this.Image24Res       = "layer_mode_24";
 
       this.TreeModeTypeName = typeof(LayerMode).FullName;
       this.NodeSorter = new AlphabeticalSorter(false);

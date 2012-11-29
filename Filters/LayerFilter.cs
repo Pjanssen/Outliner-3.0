@@ -8,9 +8,7 @@ using Outliner.Plugins;
 namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
-   [LocalizedDisplayName(typeof(Resources), "Filter_Layers")]
-   //[LocalizedDisplayImage(typeof(Outliner.Controls.TreeIcons_Max), "bone")]
-   [FilterCategory(FilterCategory.Other)]
+   [LocalizedDisplayName(typeof(Resources), "Str_Layers")]
    public class LayerFilter : Filter<IMaxNodeWrapper>
    {
       protected override bool ShowNodeInternal(IMaxNodeWrapper data)

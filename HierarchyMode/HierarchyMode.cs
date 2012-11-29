@@ -14,7 +14,6 @@ namespace Outliner.Modes.Hierarchy
 {
 [OutlinerPlugin(OutlinerPluginType.TreeMode)]
 [LocalizedDisplayName(typeof(Resources), "Mode_DisplayName")]
-[LocalizedDisplayImage(typeof(Resources), "hierarchy_mode_16", "hierarchy_mode_24")]
 public class HierarchyMode : TreeMode
 {
    public HierarchyMode(TreeView tree) : base(tree)

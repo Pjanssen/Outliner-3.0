@@ -7,9 +7,7 @@ using Outliner.MaxUtils;
 namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
-   [LocalizedDisplayName(typeof(Resources), "Filter_Frozen")]
-   [LocalizedDisplayImage(typeof(Resources), "freeze")]
-   [FilterCategory(FilterCategory.Properties)]
+   [LocalizedDisplayName(typeof(Resources), "Str_Frozen")]
    public class FrozenFilter : NodePropertyFilter
    {
       public FrozenFilter() : base(BooleanNodeProperty.IsFrozen) 

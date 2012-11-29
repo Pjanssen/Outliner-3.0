@@ -15,7 +15,6 @@ namespace Outliner.Modes.SelectionSet
 {
 [OutlinerPlugin(OutlinerPluginType.TreeMode)]
 [LocalizedDisplayName(typeof(Resources), "Mode_DisplayName")]
-[LocalizedDisplayImage(typeof(Resources), "selectionset_mode_16_dark", "selectionset_mode_24_dark")]
 public class SelectionSetMode : TreeMode
 {
    private AllObjectsSelectionSet allObjectsSelSet;
@@ -168,7 +167,8 @@ public class SelectionSetMode : TreeMode
       List<TreeNode> tnNodes = tn.Nodes.ToList();
       foreach (TreeNode childTn in tnNodes)
       {
-         this.RemoveTreeNode(childTn);
+         //TODO: verify that this is correct.
+         this.UnregisterNode(HelperMethods.GetMaxNode(childTn), childTn);
       }
 
       foreach (Object node in wrapper.ChildNodes)

@@ -8,9 +8,7 @@ using Outliner.Plugins;
 namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
-   [LocalizedDisplayName(typeof(Resources), "Filter_Geometry")]
-   [LocalizedDisplayImage(typeof(Resources), "geometry")]
-   [FilterCategory(FilterCategory.Classes)]
+   [LocalizedDisplayName(typeof(Resources), "Str_Geometry")]
    public class GeometryFilter : Filter<IMaxNodeWrapper>
    {
       override protected Boolean ShowNodeInternal(IMaxNodeWrapper data)

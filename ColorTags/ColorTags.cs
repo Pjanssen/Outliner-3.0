@@ -13,16 +13,16 @@ namespace Outliner.ColorTags
 [Flags]
 public enum ColorTag : byte
 {
-   None = 0x00,
-   Red = 0x01,
-   Orange = 0x02,
-   Yellow = 0x04,
-   Green = 0x08,
-   Blue = 0x10,
-   Purple = 0x20,
-   Grey = 0x40,
+   None      = 0x00,
+   Red       = 0x01,
+   Orange    = 0x02,
+   Yellow    = 0x04,
+   Green     = 0x08,
+   Blue      = 0x10,
+   Purple    = 0x20,
+   Grey      = 0x40,
    WireColor = 0x80,
-   All = 0xFF
+   All       = 0xFF
 }
 
 [OutlinerPlugin(OutlinerPluginType.Utility)]

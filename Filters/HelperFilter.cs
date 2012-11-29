@@ -6,9 +6,7 @@ using Outliner.Plugins;
 namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
-   [LocalizedDisplayName(typeof(Resources), "Filter_Helpers")]
-   [LocalizedDisplayImage(typeof(Resources), "helper")]
-   [FilterCategory(FilterCategory.Classes)]
+   [LocalizedDisplayName(typeof(Resources), "Str_Helpers")]
    public class HelperFilter : Filter<IMaxNodeWrapper>
    {
       override protected Boolean ShowNodeInternal(IMaxNodeWrapper data)
