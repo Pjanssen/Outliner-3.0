@@ -107,6 +107,7 @@ public static class OutlinerPlugins
 
    private static void InvokePluginMethod<T>(Type pluginClass) where T : Attribute
    {
+      String pluginClassName = pluginClass.Name;
       pluginClass.GetMethods(BindingFlags.Static | BindingFlags.Public)
                  .Where(m => TypeHelpers.HasAttribute<T>(m))
                  .ForEach(m => m.Invoke(null, null));
@@ -165,25 +166,6 @@ public static class OutlinerPlugins
                                        | OutlinerPluginType.DefaultPreset)
                             .Select(p => p.Type)
                             .ToArray();
-   }
-
-   /// <summary>
-   /// Gets a collection of Filter plugins metadata for filters of the given category.
-   /// </summary>
-   /// <param name="category">The category of filter to look for.</param>
-   internal static IEnumerable<OutlinerPluginData> GetFilterPlugins(FilterCategory category)
-   {
-      IEnumerable<OutlinerPluginData> pluginTypes = GetPlugins(OutlinerPluginType.Filter);
-      
-      List<OutlinerPluginData> filters = new List<OutlinerPluginData>();
-      foreach (OutlinerPluginData plugin in pluginTypes)
-      {
-         FilterCategoryAttribute categoryAttr = TypeHelpers.GetAttribute<FilterCategoryAttribute>(plugin.Type);
-         if (categoryAttr != null && (categoryAttr.Category & category) == category)
-            filters.Add(plugin);
-      }
-
-      return filters;
    }
 }
 }

@@ -12,8 +12,7 @@ namespace Outliner.Filters
    /// FilterCombinator class, allowing serialization.
    /// </summary>
    [OutlinerPlugin(OutlinerPluginType.Filter)]
-   [FilterCategory(FilterCategory.Other)]
-   [LocalizedDisplayName(typeof(OutlinerResources), "FilterCombinator")]
+   [LocalizedDisplayName(typeof(OutlinerResources), "Str_FilterCombinator")]
    public class MaxNodeFilterCombinator : FilterCombinator<IMaxNodeWrapper> 
    {
       public MaxNodeFilterCombinator() : base() { }

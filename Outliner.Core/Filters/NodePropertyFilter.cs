@@ -11,8 +11,7 @@ using Outliner.MaxUtils;
 namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
-   [LocalizedDisplayName(typeof(OutlinerResources), "FilterNodeProp")]
-   [FilterCategory(FilterCategory.Hidden)]
+   [LocalizedDisplayName(typeof(OutlinerResources), "Str_NodePropertyFilter")]
    public class NodePropertyFilter : Filter<IMaxNodeWrapper>
    {
       private BooleanNodeProperty property;

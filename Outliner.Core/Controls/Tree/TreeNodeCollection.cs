@@ -162,7 +162,9 @@ public class TreeNodeCollection : ICollection<TreeNode>
          tn.Parent.parent.Nodes.addFiltered(tn.Parent);
 
       tn.InvalidateBounds(true, true);
-      tn.TreeView.Update(TreeViewUpdateFlags.Redraw);
+
+      if (tn.TreeView != null)
+         tn.TreeView.Update(TreeViewUpdateFlags.Redraw);
    }
 
    private void removeFiltered(TreeNode tn) 

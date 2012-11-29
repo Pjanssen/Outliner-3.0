@@ -6,9 +6,10 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Drawing;
 
-namespace Outliner.Controls.ContextMenu
+namespace Outliner.Controls
 {
-   public class ImageResourceConverter : MenuItemResourceConverter
+   //TODO: remove size restriction, or find a flexible way to keep it.
+   public class ImageResourceConverter : UIItemResourceConverter
    {
       private static readonly Type imageType = typeof(Image);
       private static readonly Size imageSize = new Size(16, 16);

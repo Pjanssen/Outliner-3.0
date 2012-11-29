@@ -21,99 +21,24 @@ namespace Outliner.Controls.ContextMenu
 [XmlInclude(typeof(MxsMenuItemModel))]
 [XmlInclude(typeof(NodePropertyMenuItemModel))]
 [XmlInclude(typeof(SeparatorMenuItemModel))]
-public abstract class MenuItemModel
+public abstract class MenuItemModel : UIItemModel
 {
    public MenuItemModel() : this(String.Empty, String.Empty, null) { }
-   public MenuItemModel(String text, String image, Type resType)
+   public MenuItemModel(String text, String image, Type resType) 
+      : base(text, image, String.Empty, null)
    {
-      this.TextRes = text;
-      this.ImageRes = image;
-      if (resType != null)
-         this.ResourceTypeName = resType.Name;
       this.VisibleTypes = MaxNodeTypes.All;
       this.SubItems = new List<MenuItemModel>();
    }
 
-   [XmlAttribute("text")]
-   [DisplayName("Text")]
-   [TypeConverter(typeof(StringResourceConverter))]
-   public String TextRes { get; set; }
-
-   [XmlAttribute("image")]
-   [DefaultValue("")]
-   [DisplayName("Image")]
-   [TypeConverter(typeof(ImageResourceConverter))]
-   public String ImageRes { get; set; }
-
-   [XmlAttribute("resource_type")]
-   [DefaultValue("")]
-   [Browsable(false)]
-   public String ResourceTypeName { get; set; }
+   protected override string ImageBasePath
+   {
+      get { return OutlinerPaths.ContextMenusDir; }
+   }
 
    [XmlAttribute("visible_types")]
    [DefaultValue(MaxNodeTypes.All)]
    public MaxNodeTypes VisibleTypes { get; set; }
-
-   private Type resourceType;
-   [Browsable(true)]
-   [TypeConverter(typeof(ResourceTypeConverter))]
-   public Type ResourceType
-   {
-      get
-      {
-         if (this.resourceType == null && !String.IsNullOrEmpty(this.ResourceTypeName))
-         {
-            foreach (Assembly pluginAssembly in OutlinerPlugins.PluginAssemblies)
-            {
-               this.resourceType = pluginAssembly.GetType(this.ResourceTypeName);
-               if (this.resourceType != null)
-                  break;
-            }
-         }
-         return this.resourceType;
-      }
-      set
-      {
-         this.resourceType = value;
-         this.ResourceTypeName = value.Name;
-      }
-   }
-
-   [XmlIgnore]
-   [Browsable(false)]
-   public String Text
-   {
-      get
-      {
-         if (this.ResourceType != null && this.TextRes != null)
-            return ResourceHelpers.LookupString(this.ResourceType, this.TextRes);
-         else
-            return this.TextRes;
-      }
-   }
-
-   [XmlIgnore]
-   [Browsable(false)]
-   public Image Image
-   {
-      get
-      {
-         if (String.IsNullOrEmpty(this.ImageRes))
-            return null;
-
-         if (this.ResourceType != null)
-            return ResourceHelpers.LookupImage(this.ResourceType, this.ImageRes);
-         else
-         {
-            String path = this.ImageRes;
-            if (!Path.IsPathRooted(path))
-               path = Path.Combine(OutlinerPaths.ContextMenuDir, path);
-               
-            return Image.FromFile(path);
-         }
-      }
-   }
-
 
    [XmlArray("SubItems")]
    [XmlArrayItem("MenuItem")]
@@ -173,7 +98,7 @@ public abstract class MenuItemModel
       
       ToolStripMenuItem item = new ToolStripMenuItem();
       item.Text = this.Text;
-      item.Image = this.Image;
+      item.Image = this.Image16;
       Boolean visible = this.Visible(treeView, clickedTn);
       item.Visible = visible;
 

@@ -107,12 +107,12 @@ public partial class PresetTreePropertiesEditor : UserControl
 
    private String browseXmlFile(String filename)
    {
-      openContextMenuFileDialog.InitialDirectory = OutlinerPaths.ContextMenuDir;
+      openContextMenuFileDialog.InitialDirectory = OutlinerPaths.ContextMenusDir;
       openContextMenuFileDialog.FileName = filename;
       if (openContextMenuFileDialog.ShowDialog() == DialogResult.OK)
       {
          Uri localFile = new Uri(openContextMenuFileDialog.FileName);
-         Uri presetsPath = new Uri(OutlinerPaths.ContextMenuDir);
+         Uri presetsPath = new Uri(OutlinerPaths.ContextMenusDir);
          Uri relativePath = presetsPath.MakeRelativeUri(localFile);
          return Uri.UnescapeDataString(relativePath.ToString());
       }

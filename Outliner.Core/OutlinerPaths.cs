@@ -17,7 +17,7 @@ public static class OutlinerPaths
       IIPathConfigMgr pathMgr = MaxInterfaces.Global.IPathConfigMgr.PathConfigMgr;
       return pathMgr.GetDir(dir);
    }
-
+   
    private static String configDir;
    public static String ConfigDir
    {
@@ -41,14 +41,24 @@ public static class OutlinerPaths
       get { return Path.Combine(OutlinerPaths.ConfigDir, "Presets/"); }
    }
 
-   public static String LayoutDir
+   public static String LayoutsDir
    {
       get { return Path.Combine(OutlinerPaths.ConfigDir, "Layouts/"); }
    }
 
-   public static String ContextMenuDir
+   public static String ContextMenusDir
    {
       get { return Path.Combine(OutlinerPaths.ConfigDir, "ContextMenus/"); }
+   }
+
+   public static String FiltersDir
+   {
+      get { return Path.Combine(OutlinerPaths.ConfigDir, "Filters/"); }
+   }
+
+   public static String SortersDir
+   {
+      get { return Path.Combine(OutlinerPaths.ConfigDir, "Sorters/"); }
    }
 
    public static String StateFile

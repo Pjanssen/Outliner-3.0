@@ -158,7 +158,8 @@ public partial class FilterCollectionEditor : OutlinerUserControl
    {
       this.filtersTree.BeginUpdate();
 
-      foreach (Tree.TreeNode tn in this.filtersTree.SelectedNodes)
+      IEnumerable<Tree.TreeNode> selNodes = this.filtersTree.SelectedNodes.ToList();
+      foreach (Tree.TreeNode tn in selNodes)
       {
          Filter<IMaxNodeWrapper> filter = tn.Tag as Filter<IMaxNodeWrapper>;
          if (filter != null && tn.Parent != null)

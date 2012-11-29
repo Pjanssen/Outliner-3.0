@@ -9,8 +9,7 @@ using System.ComponentModel;
 namespace Outliner.Filters
 {
 [OutlinerPlugin(OutlinerPluginType.Filter)]
-[LocalizedDisplayName(typeof(OutlinerResources), "FilterName")]
-[FilterCategory(FilterCategory.Hidden)]
+[LocalizedDisplayName(typeof(OutlinerResources), "Str_NameFilter")]
 public class NameFilter : Filter<IMaxNodeWrapper>
 {
    private const String SEARCH_BEGINS_WITH = "^";

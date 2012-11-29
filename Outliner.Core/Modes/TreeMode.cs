@@ -553,7 +553,7 @@ public abstract class TreeMode
 
    protected virtual WinForms::ContextMenuStrip CreateContextMenu(TreeNode clickedTn)
    {
-      String contextMenuFile = Path.Combine(OutlinerPaths.ContextMenuDir, "ContextMenu.xml");
+      String contextMenuFile = Path.Combine(OutlinerPaths.ContextMenusDir, "ContextMenu.xml");
       ContextMenuModel data = XmlSerializationHelpers.Deserialize<ContextMenuModel>(contextMenuFile);
 
       return data.ToContextMenuStrip(this.Tree, clickedTn);

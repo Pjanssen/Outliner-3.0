@@ -316,4 +316,7 @@
   <data name="Str_ContextMenuWarningTitle" xml:space="preserve">
     <value>Context menu warning</value>
   </data>
+  <data name="Str_EditFilters" xml:space="preserve">
+    <value>Edit Filters ...</value>
+  </data>
 </root>

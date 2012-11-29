@@ -13,7 +13,7 @@ public static class OutlinerPresets
    {
       public int Compare(OutlinerPreset x, OutlinerPreset y)
       {
-         return x.Name.CompareTo(y.Name);
+         return x.Text.CompareTo(y.Text);
       }
    }
 
@@ -56,7 +56,7 @@ public static class OutlinerPresets
       foreach (OutlinerPluginData plugin in plugins)
       {
          OutlinerPreset preset = CreatePreset(plugin.Type);
-         OutlinerPreset loadedPreset = presets.Keys.FirstOrDefault(p => p.Name.Equals(preset.Name));
+         OutlinerPreset loadedPreset = presets.Keys.FirstOrDefault(p => p.Text.Equals(preset.Text));
          if (loadedPreset == null)
          {
             presets.Add(preset, null);
@@ -84,7 +84,7 @@ public static class OutlinerPresets
          name = nameBase + nameCount.ToString("D3");
          file = Path.Combine(OutlinerPaths.PresetsDir, name + ".xml");
       }
-      preset.Name = name;
+      preset.TextRes = name;
 
       XmlSerializationHelpers.Serialize<OutlinerPreset>(file, preset);
       OutlinerPresets.presets.Add(preset, file);

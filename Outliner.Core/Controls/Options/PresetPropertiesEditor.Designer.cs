@@ -439,7 +439,7 @@
          // 
          // nameTextBox
          // 
-         this.nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.presetBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+         this.nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.presetBindingSource, "TextRes", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
          this.nameTextBox.Dock = System.Windows.Forms.DockStyle.Top;
          this.nameTextBox.Location = new System.Drawing.Point(90, 3);
          this.nameTextBox.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
@@ -459,7 +459,7 @@
          this.Controls.Add(this.outlinerGroupBox2);
          this.Controls.Add(this.outlinerGroupBox1);
          this.Name = "PresetPropertiesEditor";
-         this.Size = new System.Drawing.Size(481, 340);
+         this.Size = new System.Drawing.Size(481, 345);
          this.outlinerGroupBox2.ResumeLayout(false);
          this.tableLayoutPanel3.ResumeLayout(false);
          this.tableLayoutPanel3.PerformLayout();

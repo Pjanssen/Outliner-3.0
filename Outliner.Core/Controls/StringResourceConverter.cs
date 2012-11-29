@@ -5,9 +5,9 @@ using System.Text;
 using System.ComponentModel;
 using System.Reflection;
 
-namespace Outliner.Controls.ContextMenu
+namespace Outliner.Controls
 {
-   public class StringResourceConverter : MenuItemResourceConverter
+   public class StringResourceConverter : UIItemResourceConverter
    {
       override protected Boolean IsValidResource(PropertyInfo property)
       {

@@ -73,7 +73,7 @@ public partial class TreeNodeLayoutEditor : OutlinerUserControl
 
    private void FillFileComboBox()
    {
-      System.IO.DirectoryInfo dirInfo = new System.IO.DirectoryInfo(OutlinerPaths.LayoutDir);
+      System.IO.DirectoryInfo dirInfo = new System.IO.DirectoryInfo(OutlinerPaths.LayoutsDir);
       List<System.IO.FileInfo> files = dirInfo.GetFiles("*.xml").ToList();
       layoutFileComboBox.DataSource = files;
       layoutFileComboBox.ValueMember = "Name";
@@ -181,11 +181,11 @@ public partial class TreeNodeLayoutEditor : OutlinerUserControl
 
    private void newLayoutFileBtn_Click(object sender, EventArgs e)
    {
-      saveFileDialog.InitialDirectory = OutlinerPaths.LayoutDir;
+      saveFileDialog.InitialDirectory = OutlinerPaths.LayoutsDir;
       if (saveFileDialog.ShowDialog() == DialogResult.OK)
       {
          String file = saveFileDialog.FileName;
-         Uri layoutDirUri = new Uri(OutlinerPaths.LayoutDir);
+         Uri layoutDirUri = new Uri(OutlinerPaths.LayoutsDir);
          Uri fileUri = layoutDirUri.MakeRelativeUri(new Uri(saveFileDialog.FileName));
 
          TreeNodeLayout newLayout = null;

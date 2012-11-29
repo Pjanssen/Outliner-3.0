@@ -28,7 +28,7 @@ public partial class ContextMenuModelEditor : OutlinerUserControl
    {
       this.preset = preset;
       this.updateAction = updateAction;
-      String path = System.IO.Path.Combine(OutlinerPaths.ContextMenuDir, preset.ContextMenuFile);
+      String path = System.IO.Path.Combine(OutlinerPaths.ContextMenusDir, preset.ContextMenuFile);
       if (System.IO.File.Exists(path))
          this.contextMenuModel = XmlSerializationHelpers.Deserialize<ContextMenuModel>(path);
    }

@@ -221,13 +221,13 @@ Use {0} to expand entire hierarchy.</value>
   <data name="default_preset_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\default_preset_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FilterCombinator" xml:space="preserve">
+  <data name="Str_FilterCombinator" xml:space="preserve">
     <value>Combinator</value>
   </data>
-  <data name="FilterName" xml:space="preserve">
+  <data name="Str_NameFilter" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="FilterNodeProp" xml:space="preserve">
+  <data name="Str_NodePropertyFilter" xml:space="preserve">
     <value>Node Property</value>
   </data>
   <data name="Str_LoadSettingsError" xml:space="preserve">
@@ -235,5 +235,11 @@ Use {0} to expand entire hierarchy.</value>
   </data>
   <data name="Str_LoadSettingsErrorTitle" xml:space="preserve">
     <value>Error loading settings</value>
+  </data>
+  <data name="Str_InvisibleNodesFilter" xml:space="preserve">
+    <value>Invisible Nodes</value>
+  </data>
+  <data name="Str_MaxscriptFilter" xml:space="preserve">
+    <value>Maxscript Filter</value>
   </data>
 </root>

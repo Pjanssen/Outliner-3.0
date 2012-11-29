@@ -13,6 +13,7 @@ using OutlinerTree = Outliner.Controls.Tree;
 using Outliner.Presets;
 using Outliner.Controls.Options;
 using Outliner.MaxUtils;
+using Outliner.UserFiles;
 
 namespace Outliner.Controls.ContextMenu
 {
@@ -38,13 +39,13 @@ internal static class StandardContextMenu
       preset_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
       foreach (OutlinerPreset preset in OutlinerPresets.Presets.Where(p => p.IsDefaultPreset))
       {
-         ToolStripMenuItem item = AddDropDownItem(preset_btn.DropDownItems, preset.Name, preset.Image16, preset_btn_click, preset);
+         ToolStripMenuItem item = AddDropDownItem(preset_btn.DropDownItems, preset.Text, preset.Image16, preset_btn_click, preset);
          item.Checked = preset == currentPreset;
       }
       preset_btn.DropDownItems.Add(new ToolStripSeparator());
       foreach (OutlinerPreset preset in OutlinerPresets.Presets.Where(p => !p.IsDefaultPreset))
       {
-         ToolStripMenuItem item = AddDropDownItem(preset_btn.DropDownItems, preset.Name, preset.Image16, preset_btn_click, preset);
+         ToolStripMenuItem item = AddDropDownItem(preset_btn.DropDownItems, preset.Text, preset.Image16, preset_btn_click, preset);
          item.Checked = preset == currentPreset;
       }
       preset_btn.DropDownItems.Add(new ToolStripSeparator());
@@ -91,16 +92,19 @@ internal static class StandardContextMenu
       clearBtn.Click += new EventHandler(clearBtn_Click);
 
       filter_btn.DropDownItems.Add(new ToolStripSeparator());
-      if (AddFilters(filter_btn.DropDownItems, FilterCategory.Classes, treeMode) > 0)
+      
+      IEnumerable<UserFiles.FilterConfiguration> filters = UserFiles.UserFiles.GetUserFiles<UserFiles.FilterConfiguration>(OutlinerPaths.FiltersDir);
+      if (AddUserFileItems(filter_btn.DropDownItems, treeMode, filters.Where(f => f.Category == FilterCategory.Classes), filter_ItemClick) > 0)
          filter_btn.DropDownItems.Add(new ToolStripSeparator());
 
-      if (AddFilters(filter_btn.DropDownItems, FilterCategory.Properties, treeMode) > 0)
+      if (AddUserFileItems(filter_btn.DropDownItems, treeMode, filters.Where(f => f.Category == FilterCategory.Properties), filter_ItemClick) > 0)
          filter_btn.DropDownItems.Add(new ToolStripSeparator());
 
-      if (AddFilters(filter_btn.DropDownItems, FilterCategory.Custom, treeMode) > 0)
+      if (AddUserFileItems(filter_btn.DropDownItems, treeMode, filters.Where(f => f.Category == FilterCategory.Custom), filter_ItemClick) > 0)
          filter_btn.DropDownItems.Add(new ToolStripSeparator());
 
-      filter_btn.DropDownItems.Add("Advanced Filter...", null, advancedFilterClick);
+      
+      filter_btn.DropDownItems.Add(ContextMenuResources.Str_EditFilters, null, advancedFilterClick);
 
       strip.Items.Add(filter_btn);
 
@@ -267,32 +271,18 @@ internal static class StandardContextMenu
          e.Cancel = true;
    }
 
-   private static int AddFilters(ToolStripItemCollection itemCollection, FilterCategory categories, TreeMode treeMode)
-   {
-      IEnumerable<OutlinerPluginData> filterTypes = OutlinerPlugins.GetFilterPlugins(categories);
-      foreach (OutlinerPluginData filter in filterTypes)
-      {
-         ToolStripMenuItem item = AddDropDownItem(itemCollection, filter.DisplayName, filter.DisplayImageSmall, filter_ItemClick, filter.Type);
-         CheckFilterItem(item, treeMode);
-      }
-      return filterTypes.Count();
-   }
 
    static void filter_ItemClick(object sender, EventArgs e)
    {
       ToolStripMenuItem item = sender as ToolStripMenuItem;
-      Type filterType = item.Tag as Type;
+      UserFiles.FilterConfiguration config = item.Tag as UserFiles.FilterConfiguration;
       TreeMode treeMode = GetTreeMode(sender);
-      Filter<Outliner.Scene.IMaxNodeWrapper> filter = treeMode.Filters.Filters.Get(filterType);
+
+      Filter<Outliner.Scene.IMaxNodeWrapper> filter = treeMode.Filters.Filters.Get(config.Filter.GetType());
       if (filter == null)
-      {
-         filter = (Filter<Outliner.Scene.IMaxNodeWrapper>)Activator.CreateInstance(filterType, false);
-         treeMode.Filters.Filters.Add(filter);
-      }
+         treeMode.Filters.Filters.Add(config.Filter);
       else
-      {
          treeMode.Filters.Filters.Remove(filter);
-      }
 
       treeMode.Filters.Enabled = (treeMode.Filters.Filters.Count > 0);
       CheckFilterItem(item, treeMode);
@@ -300,7 +290,10 @@ internal static class StandardContextMenu
 
    private static void CheckFilterItem(ToolStripMenuItem item, TreeMode treeMode)
    {
-      Type filterType = item.Tag as Type;
+      Type filterType = null;
+      FilterConfiguration config = item.Tag as FilterConfiguration;
+      if (config != null && config.Filter != null)
+         filterType = config.Filter.GetType();
       item.Checked = treeMode.Filters.Filters.Get(filterType) != null;
    }
 
@@ -400,5 +393,14 @@ internal static class StandardContextMenu
    #endregion
 
 
+   private static Int32 AddUserFileItems(ToolStripItemCollection itemCollection, TreeMode treeMode, IEnumerable<UIItemModel> items, EventHandler clickHandler)
+   {
+      foreach (UIItemModel item in items)
+      {
+         ToolStripMenuItem menuItem = AddDropDownItem(itemCollection, item.Text, item.Image16, clickHandler, item);
+         CheckFilterItem(menuItem, treeMode);
+      }
+      return items.Count();
+   }
 }
 }

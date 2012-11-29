@@ -34,8 +34,8 @@ public partial class PresetPropertiesEditor : OutlinerUserControl
 
    protected override void OnLoad(EventArgs e)
    {
- 	   this.imgFileRadioButton.Checked = String.IsNullOrEmpty(preset.ImageResourceTypeName);
-      this.imgResRadioButton.Checked = !String.IsNullOrEmpty(preset.ImageResourceTypeName);
+ 	   this.imgFileRadioButton.Checked = String.IsNullOrEmpty(preset.ResourceTypeName);
+      this.imgResRadioButton.Checked = !String.IsNullOrEmpty(preset.ResourceTypeName);
       this.SetEnabledStates();
 
       //Mode combobox data source.
@@ -91,8 +91,8 @@ public partial class PresetPropertiesEditor : OutlinerUserControl
       if (this.preset == null)
          return;
 
-      Boolean local = String.IsNullOrEmpty(this.preset.ImageResourceTypeName);
-      Boolean resource = !String.IsNullOrEmpty(this.preset.ImageResourceTypeName);
+      Boolean local = String.IsNullOrEmpty(this.preset.ResourceTypeName);
+      Boolean resource = !String.IsNullOrEmpty(this.preset.ResourceTypeName);
 
       this.image16FileLbl.Enabled = local;
       this.image24FileLbl.Enabled = local;
@@ -115,7 +115,7 @@ public partial class PresetPropertiesEditor : OutlinerUserControl
       this.image24ResComboBox.Items.Clear();
 
       Type imageType = typeof(Image);
-      Type resourceType = this.preset.ImageResourceType;
+      Type resourceType = this.preset.ResourceType;
       if (resourceType == null)
          return;
 
@@ -175,12 +175,12 @@ public partial class PresetPropertiesEditor : OutlinerUserControl
 
    private String browseXmlFile(String filename)
    {
-      openContextMenuFileDialog.InitialDirectory = OutlinerPaths.ContextMenuDir;
+      openContextMenuFileDialog.InitialDirectory = OutlinerPaths.ContextMenusDir;
       openContextMenuFileDialog.FileName = filename;
       if (openContextMenuFileDialog.ShowDialog() == DialogResult.OK)
       {
          Uri localFile = new Uri(openContextMenuFileDialog.FileName);
-         Uri presetsPath = new Uri(OutlinerPaths.ContextMenuDir);
+         Uri presetsPath = new Uri(OutlinerPaths.ContextMenusDir);
          Uri relativePath = presetsPath.MakeRelativeUri(localFile);
          return Uri.UnescapeDataString(relativePath.ToString());
       }
@@ -200,14 +200,14 @@ public partial class PresetPropertiesEditor : OutlinerUserControl
 
    private void imgFileRadioButton_CheckedChanged(object sender, EventArgs e)
    {
-      this.preset.ImageResourceTypeName = String.Empty;
+      this.preset.ResourceTypeName = String.Empty;
       resTypeBindingSource.ResetCurrentItem();
       this.SetEnabledStates();
    }
 
    private void imgResRadioButton_CheckedChanged(object sender, EventArgs e)
    {
-      this.preset.ImageResourceTypeName = typeof(OutlinerResources).FullName;
+      this.preset.ResourceTypeName = typeof(OutlinerResources).FullName;
       resTypeBindingSource.ResetCurrentItem();
       this.FillImageResNameComboBoxes();
       this.SetEnabledStates();
@@ -230,20 +230,20 @@ public partial class PresetPropertiesEditor : OutlinerUserControl
 
    private void image16FileBrowseBtn_Click(object sender, EventArgs e)
    {
-      String browseResult = browseImage(this.preset.Image16Name);
+      String browseResult = browseImage(this.preset.Image16Res);
       if (!String.IsNullOrEmpty(browseResult))
       {
-         this.preset.Image16Name = browseResult;
+         this.preset.Image16Res = browseResult;
          this.presetBindingSource.ResetCurrentItem();
       }
    }
 
    private void image24FileBrowseBtn_Click(object sender, EventArgs e)
    {
-      String browseResult = browseImage(this.preset.Image24Name);
+      String browseResult = browseImage(this.preset.Image16Res);
       if (!String.IsNullOrEmpty(browseResult))
       {
-         this.preset.Image24Name = browseResult;
+         this.preset.Image16Res = browseResult;
          this.presetBindingSource.ResetCurrentItem();
       }
    }

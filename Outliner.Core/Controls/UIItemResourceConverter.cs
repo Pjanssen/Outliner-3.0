@@ -5,9 +5,9 @@ using System.Text;
 using System.ComponentModel;
 using System.Reflection;
 
-namespace Outliner.Controls.ContextMenu
+namespace Outliner.Controls
 {
-   public abstract class MenuItemResourceConverter : TypeConverter
+   public abstract class UIItemResourceConverter : TypeConverter
    {
       public override bool GetStandardValuesExclusive(ITypeDescriptorContext context)
       {
@@ -23,10 +23,10 @@ namespace Outliner.Controls.ContextMenu
       {
          List<String> standardValues = new List<string>();
 
-         MenuItemModel menuItemModel = context.Instance as MenuItemModel;
-         if (menuItemModel != null)
+         UIItemModel itemModel = context.Instance as UIItemModel;
+         if (itemModel != null)
          {
-            Type resourceType = menuItemModel.ResourceType;
+            Type resourceType = itemModel.ResourceType;
             if (resourceType != null)
             {
                standardValues.AddRange(resourceType.GetProperties(BindingFlags.Static | BindingFlags.NonPublic)

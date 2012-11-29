@@ -13,6 +13,12 @@ namespace Outliner.Controls.ContextMenu
    [OutlinerPlugin(OutlinerPluginType.ActionProvider)]
    public static class ContextMenuActions
    {
+      [OutlinerPredicate]
+      public static Boolean SelectionNotEmpty(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+      {
+         return contextNodes != null && contextNodes.Count() > 0;
+      }
+
       [OutlinerAction]
       public static void Rename(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
       {
@@ -26,7 +32,20 @@ namespace Outliner.Controls.ContextMenu
       {
          ExceptionHelpers.ThrowIfArgumentIsNull(contextNodes, "contextNodes");
 
-         return contextNodes.Count() == 1 && contextNodes.First().CanEditName;
+         if (contextTn != null)
+         {
+            IMaxNodeWrapper node = HelperMethods.GetMaxNode(contextTn);
+            if (node != null)
+               return node.CanEditName;
+         }
+
+         return false;
+      }
+
+      [OutlinerAction]
+      public static void Delete(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+      {
+         throw new NotImplementedException();
       }
 
       #region Hide & Freeze

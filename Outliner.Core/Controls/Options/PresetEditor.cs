@@ -91,7 +91,7 @@ public partial class PresetEditor : Form
 
    private Tree.TreeNode createPresetTreeNode(OutlinerPreset preset)
    {
-      Tree.TreeNode tn = new Tree.TreeNode(preset.Name);
+      Tree.TreeNode tn = new Tree.TreeNode(preset.Text);
       tn.Tag = preset;
 
       Tree.TreeNode filterTn = new Tree.TreeNode("Filters");
@@ -227,7 +227,7 @@ public partial class PresetEditor : Form
    private void addBtn_Click(object sender, EventArgs e)
    {
       OutlinerPreset newPreset = new OutlinerPreset();
-      newPreset.Name = "NewPreset";
+      newPreset.TextRes = "NewPreset";
       this.customPresetsTn.Nodes.Add(createPresetTreeNode(newPreset));
    }
 
@@ -236,7 +236,7 @@ public partial class PresetEditor : Form
       String action = this.editingPreset.IsDefaultPreset ? "Revert" : "Delete";
       String text = String.Format( "Are you sure you want to {0} the preset \"{1}\"?\nThis action cannot be undone."
                                  , action.ToLower()
-                                 , this.editingPreset.Name);
+                                 , this.editingPreset.Text);
       DialogResult result = MessageBox.Show(text, String.Format("{0} preset", action), MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
       if (result == DialogResult.Yes)
       {

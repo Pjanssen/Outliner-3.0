@@ -31,7 +31,7 @@ namespace Outliner.Controls.ContextMenu
          {
             String file = this.File;
             if (!Path.IsPathRooted(file))
-               file = Path.Combine(OutlinerPaths.ContextMenuDir, file);
+               file = Path.Combine(OutlinerPaths.ContextMenusDir, file);
 
             if (System.IO.File.Exists(file))
             {

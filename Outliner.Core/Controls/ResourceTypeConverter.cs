@@ -7,7 +7,7 @@ using Outliner.Plugins;
 using System.Reflection;
 using System.Resources;
 
-namespace Outliner.Controls.ContextMenu
+namespace Outliner.Controls
 {
 public class ResourceTypeConverter : TypeListConverter
 {
