@@ -492,7 +492,7 @@ public abstract class TreeMode
       public override void RenderPropertiesChanged(ITab<UIntPtr> nodes)
       {
          Boolean sort = NodeSorterHelpers.RequiresSort(this.NodeSorter, NodePropertyHelpers.RenderProperties);
-         this.TreeMode.InvalidateTreeNodes(nodes, false);
+         this.TreeMode.InvalidateTreeNodes(nodes, sort);
       }
    }
 
