@@ -104,7 +104,7 @@ public class LayerMode : TreeMode
 
       public override void Added(ITab<UIntPtr> nodes)
       {
-         LayerMode layerMode = this.treeMode as LayerMode;
+         LayerMode layerMode = this.TreeMode as LayerMode;
          if (layerMode == null || layerMode.LayersOnly)
             return;
 
@@ -114,21 +114,21 @@ public class LayerMode : TreeMode
             if (layer == null)
                continue;
 
-            TreeNode layerTn = this.treeMode.GetFirstTreeNode(layer);
+            TreeNode layerTn = this.TreeMode.GetFirstTreeNode(layer);
             if (layerTn == null)
                continue;
 
-            this.treeMode.AddNode(node, layerTn.Nodes);
-            this.tree.AddToSortQueue(layerTn.Nodes);
+            this.TreeMode.AddNode(node, layerTn.Nodes);
+            this.Tree.AddToSortQueue(layerTn.Nodes);
          }
-         this.tree.StartTimedSort(true);
+         this.Tree.StartTimedSort(true);
       }
 
       public override void LayerChanged(ITab<UIntPtr> nodes)
       {
          foreach (IINode node in nodes.NodeKeysToINodeList())
          {
-            TreeNode tn = this.treeMode.GetFirstTreeNode(node);
+            TreeNode tn = this.TreeMode.GetFirstTreeNode(node);
             if (tn == null)
                return;
 
@@ -136,14 +136,14 @@ public class LayerMode : TreeMode
             if (layer == null)
                continue;
 
-            TreeNode layerTn = this.treeMode.GetFirstTreeNode(layer);
+            TreeNode layerTn = this.TreeMode.GetFirstTreeNode(layer);
             if (layerTn == null)
                continue;
 
             layerTn.Nodes.Add(tn);
-            this.tree.AddToSortQueue(layerTn.Nodes);
+            this.Tree.AddToSortQueue(layerTn.Nodes);
          }
-         this.tree.StartTimedSort(true);
+         this.Tree.StartTimedSort(true);
       }
    }
 

@@ -162,12 +162,6 @@ public abstract class NodePropertyButton : ImageButton
       SetNodePropertyCommand<Boolean> cmd = this.CreateCommand(maxNodes, !nodeValue);
       if (cmd != null)
          cmd.Execute(true);
-
-      if (tree.NodeSorter is NodePropertySorter &&
-            ((NodePropertySorter)tree.NodeSorter).Property == this.Property)
-      {
-         tree.StartTimedSort(nodes);
-      }
    }
 }
 }

@@ -90,25 +90,25 @@ public class SelectionSetMode : TreeMode
 
    protected class SelectionSetNodeEventCallbacks : TreeModeNodeEventCallbacks
    {
-      protected new SelectionSetMode treeMode;
+      protected new SelectionSetMode TreeMode;
       public SelectionSetNodeEventCallbacks(SelectionSetMode treeMode)
          : base(treeMode)
       {
-         this.treeMode = treeMode;
+         this.TreeMode = treeMode;
       }
 
       public override void Added(ITab<UIntPtr> nodes)
       {
-         TreeNode allObjSelSetTn = this.treeMode.GetFirstTreeNode(this.treeMode.allObjectsSelSet);
+         TreeNode allObjSelSetTn = this.TreeMode.GetFirstTreeNode(this.TreeMode.allObjectsSelSet);
          if (allObjSelSetTn == null)
             return;
 
          foreach (IINode node in IINodeHelpers.NodeKeysToINodeList(nodes))
          {
-            this.treeMode.AddNode(node, allObjSelSetTn.Nodes);
-            this.tree.AddToSortQueue(allObjSelSetTn.Nodes);
+            this.TreeMode.AddNode(node, allObjSelSetTn.Nodes);
+            this.Tree.AddToSortQueue(allObjSelSetTn.Nodes);
          }
-         this.tree.StartTimedSort(true);
+         this.Tree.StartTimedSort(true);
       }
    }
 

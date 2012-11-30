@@ -96,32 +96,32 @@ public class HierarchyMode : TreeMode
          foreach (IINode node in nodes.NodeKeysToINodeList())
          {
             TreeNodeCollection parentCol = null;
-            TreeNode parentTn = this.treeMode.GetFirstTreeNode(node.ParentNode);
+            TreeNode parentTn = this.TreeMode.GetFirstTreeNode(node.ParentNode);
             if (parentTn != null)
                parentCol = parentTn.Nodes;
 
             if (parentCol != null)
             {
                this.hierarchyMode.AddNode(IMaxNodeWrapper.Create(node), parentCol, false);
-               this.tree.AddToSortQueue(parentCol);
+               this.Tree.AddToSortQueue(parentCol);
             }
          }
-         this.tree.StartTimedSort(true);
+         this.Tree.StartTimedSort(true);
       }
 
       public override void LinkChanged(ITab<UIntPtr> nodes)
       {
          foreach (IINode node in nodes.NodeKeysToINodeList())
          {
-            TreeNode tn = this.treeMode.GetFirstTreeNode(node);
+            TreeNode tn = this.TreeMode.GetFirstTreeNode(node);
             if (tn != null)
             {
                TreeNodeCollection newParentCol = null;
                if (node.ParentNode == null || node.ParentNode.IsRootNode)
-                  newParentCol = this.tree.Nodes;
+                  newParentCol = this.Tree.Nodes;
                else
                {
-                  TreeNode newParentTn = this.treeMode.GetFirstTreeNode(node.ParentNode);
+                  TreeNode newParentTn = this.TreeMode.GetFirstTreeNode(node.ParentNode);
                   if (newParentTn != null)
                      newParentCol = newParentTn.Nodes;
                   //TODO add logic for filtered / not yet added node.
@@ -130,18 +130,18 @@ public class HierarchyMode : TreeMode
                if (newParentCol != null)
                {
                   newParentCol.Add(tn);
-                  this.tree.AddToSortQueue(newParentCol);
+                  this.Tree.AddToSortQueue(newParentCol);
                }
             }
          }
-         this.tree.StartTimedSort(true);
+         this.Tree.StartTimedSort(true);
       }
 
       public override void ModelStructured(ITab<UIntPtr> nodes)
       {
          foreach (IINode node in nodes.NodeKeysToINodeList())
          {
-            TreeNode tn = this.treeMode.GetFirstTreeNode(node);
+            TreeNode tn = this.TreeMode.GetFirstTreeNode(node);
             if (tn != null)
                tn.Invalidate();
          }
