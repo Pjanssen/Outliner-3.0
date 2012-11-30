@@ -146,6 +146,7 @@
     <Compile Include="Controls\Tree\TreeViewTest.cs" />
     <Compile Include="Commands\MoveMaxNodeCommandTest.cs" />
     <Compile Include="MaxRemoting.cs" />
+    <Compile Include="MaxUtils\NodePropertyTest.cs" />
     <Compile Include="NestedLayersTest.cs" />
     <Compile Include="GroupHelpersTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

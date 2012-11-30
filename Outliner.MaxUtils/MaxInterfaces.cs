@@ -20,9 +20,10 @@ public static class MaxInterfaces
          #if DEBUG
          if (global == null)
          {
-            IManager manager = (IManager)Activator.GetObject(typeof(RManager),
-                                                             "tcp://localhost:9998/Manager");
-            global = manager.Global;
+            IManager manager = Activator.GetObject( typeof(RManager)
+                                                  , "tcp://localhost:9998/Manager") as IManager;
+            if (manager != null)
+               global = manager.Global;
          }
          #endif
 

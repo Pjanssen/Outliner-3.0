@@ -9,38 +9,40 @@ namespace Outliner.MaxUtils
    // NOTE:
    // When adding new properties: only add at the end to avoid issues with
    // values stored in scenes by NestedLayers!
-   public enum NodeProperty : byte
+   [Flags]
+   public enum NodeProperty : int
    {
-      None = 0,
+      None                = 0x00000,
 
       //Display Properties
-      IsHidden,
-      IsFrozen,
-      SeeThrough,
-      BoxMode,
-      BackfaceCull,
-      AllEdges,
-      VertexTicks,
-      Trajectory,
-      IgnoreExtents,
-      FrozenInGray,
+      IsHidden            = 0x00001,
+      IsFrozen            = 0x00002,
+      SeeThrough          = 0x00004,
+      BoxMode             = 0x00008,
+      BackfaceCull        = 0x00010,
+      AllEdges            = 0x00020,
+      VertexTicks         = 0x00040,
+      Trajectory          = 0x00080,
+      IgnoreExtents       = 0x00100,
+      FrozenInGray        = 0x00200,
 
       //Render Properties
-      Renderable,
-      InheritVisibility,
-      PrimaryVisibility,
-      SecondaryVisibility,
-      ReceiveShadows,
-      CastShadows,
-      ApplyAtmospherics,
-      RenderOccluded,
+      Renderable          = 0x00400,
+      InheritVisibility   = 0x00800,
+      PrimaryVisibility   = 0x01000,
+      SecondaryVisibility = 0x02000,
+      ReceiveShadows      = 0x04000,
+      CastShadows         = 0x08000,
+      ApplyAtmospherics   = 0x10000,
+      RenderOccluded      = 0x20000,
 
       //Other properties
-      Name,
-      WireColor
+      Name                = 0x40000,
+      WireColor           = 0x80000
    }
 
-   public enum BooleanNodeProperty : byte
+   [Flags]
+   public enum BooleanNodeProperty : int
    {
       None = 0,
       //Display Properties
@@ -66,57 +68,4 @@ namespace Outliner.MaxUtils
       RenderOccluded = NodeProperty.RenderOccluded
    }
 
-   public static class NodePropertyHelpers
-   {
-      public static Boolean IsBooleanProperty(NodeProperty property)
-      {
-         return Enum.IsDefined(typeof(BooleanNodeProperty), (byte)property);
-      }
-
-      public static NodeProperty ToProperty(BooleanNodeProperty property)
-      {
-         return (NodeProperty)Enum.ToObject(typeof(NodeProperty), property);
-      }
-
-      public static BooleanNodeProperty ToBooleanProperty(NodeProperty property)
-      {
-         return (BooleanNodeProperty)Enum.ToObject(typeof(BooleanNodeProperty), property);
-      }
-
-      public static Boolean IsDisplayProperty(NodeProperty property)
-      {
-         return ((property & NodeProperty.IsHidden)      == NodeProperty.IsHidden)
-             || ((property & NodeProperty.IsFrozen)      == NodeProperty.IsFrozen)
-             || ((property & NodeProperty.SeeThrough)    == NodeProperty.SeeThrough)
-             || ((property & NodeProperty.BoxMode)       == NodeProperty.BoxMode)
-             || ((property & NodeProperty.BackfaceCull)  == NodeProperty.BackfaceCull)
-             || ((property & NodeProperty.AllEdges)      == NodeProperty.AllEdges)
-             || ((property & NodeProperty.VertexTicks)   == NodeProperty.VertexTicks)
-             || ((property & NodeProperty.Trajectory)    == NodeProperty.Trajectory)
-             || ((property & NodeProperty.IgnoreExtents) == NodeProperty.IgnoreExtents)
-             || ((property & NodeProperty.FrozenInGray)  == NodeProperty.FrozenInGray);
-      }
-
-      public static Boolean IsDisplayProperty(BooleanNodeProperty property)
-      {
-         return IsDisplayProperty(ToProperty(property));
-      }
-
-      public static Boolean IsRenderProperty(NodeProperty property)
-      {
-         return ((property & NodeProperty.Renderable)          == NodeProperty.Renderable)
-             || ((property & NodeProperty.InheritVisibility)   == NodeProperty.InheritVisibility)
-             || ((property & NodeProperty.PrimaryVisibility)   == NodeProperty.PrimaryVisibility)
-             || ((property & NodeProperty.SecondaryVisibility) == NodeProperty.SecondaryVisibility)
-             || ((property & NodeProperty.ReceiveShadows)      == NodeProperty.ReceiveShadows)
-             || ((property & NodeProperty.CastShadows)         == NodeProperty.CastShadows)
-             || ((property & NodeProperty.ApplyAtmospherics)   == NodeProperty.ApplyAtmospherics)
-             || ((property & NodeProperty.RenderOccluded)      == NodeProperty.RenderOccluded);
-      }
-
-      public static Boolean IsRenderProperty(BooleanNodeProperty property)
-      {
-         return IsRenderProperty(ToProperty(property));
-      }
-   }
 }

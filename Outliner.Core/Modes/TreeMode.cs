@@ -27,7 +27,7 @@ public abstract class TreeMode
    private ICollection<Tuple<GlobalDelegates.Delegate5, SystemNotificationCode>> systemNotifications;
    private ICollection<Tuple<uint, TreeModeNodeEventCallbacks>> nodeEventCallbacks;
    protected Dictionary<Object, ICollection<TreeNode>> treeNodes { get; private set; }
-   
+
    internal FilterCombinator<IMaxNodeWrapper> filters;
    private const Int32 InvisibleNodesFilterIndex = 0;
    private const Int32 PermanentFiltersIndex = 1;
@@ -177,26 +177,36 @@ public abstract class TreeMode
 
    protected abstract class TreeModeNodeEventCallbacks : Autodesk.Max.Plugins.INodeEventCallback
    {
-      protected TreeMode treeMode { get; private set; }
-      protected TreeView tree { get { return this.treeMode.Tree; } }
-      protected Dictionary<Object, ICollection<TreeNode>> treeNodes 
+      protected TreeMode TreeMode { get; private set; }
+      protected TreeView Tree { get { return this.TreeMode.Tree; } }
+      protected Dictionary<Object, ICollection<TreeNode>> TreeNodes 
       { 
-         get { return this.treeMode.treeNodes; } 
+         get { return this.TreeMode.treeNodes; } 
+      }
+      protected NodeSorter NodeSorter
+      {
+         get
+         {
+            if (this.Tree != null)
+               return this.Tree.NodeSorter as NodeSorter;
+            else
+               return null;
+         }
       }
 
       protected TreeModeNodeEventCallbacks(TreeMode treeMode)
       {
-         this.treeMode = treeMode;
+         this.TreeMode = treeMode;
       }
 
       public override void CallbackBegin()
       {
-         this.tree.BeginUpdate(TreeViewUpdateFlags.Redraw);
+         this.Tree.BeginUpdate(TreeViewUpdateFlags.Redraw);
       }
 
       public override void CallbackEnd()
       {
-         this.tree.EndUpdate();
+         this.Tree.EndUpdate();
       }
    }
 
@@ -458,35 +468,31 @@ public abstract class TreeMode
       public override void Deleted(ITab<UIntPtr> nodes)
       {
          foreach (IINode node in nodes.NodeKeysToINodeList())
-            this.treeMode.RemoveNode(node);
+            this.TreeMode.RemoveNode(node);
       }
 
       public override void NameChanged(ITab<UIntPtr> nodes)
       {
-         Boolean sort = this.tree.NodeSorter is AlphabeticalSorter;
-         this.treeMode.InvalidateTreeNodes(nodes, sort);
+         Boolean sort = NodeSorterHelpers.RequiresSort(this.NodeSorter, typeof(AlphabeticalSorter));
+         this.TreeMode.InvalidateTreeNodes(nodes, sort);
       }
 
       public override void WireColorChanged(ITab<UIntPtr> nodes)
       {
-         NodePropertySorter sorter = this.tree.NodeSorter as NodePropertySorter;
-         Boolean sort = sorter != null && sorter.Property == NodeProperty.WireColor;
-         this.treeMode.InvalidateTreeNodes(nodes, sort);
+         Boolean sort = NodeSorterHelpers.RequiresSort(this.NodeSorter, NodeProperty.WireColor);
+         this.TreeMode.InvalidateTreeNodes(nodes, sort);
       }
-
 
       public override void DisplayPropertiesChanged(ITab<UIntPtr> nodes)
       {
-         NodePropertySorter sorter = this.tree.NodeSorter as NodePropertySorter;
-         Boolean sort = sorter != null && NodePropertyHelpers.IsDisplayProperty(sorter.Property);
-         this.treeMode.InvalidateTreeNodes(nodes, sort);
+         Boolean sort = NodeSorterHelpers.RequiresSort(this.NodeSorter, NodePropertyHelpers.DisplayProperties);
+         this.TreeMode.InvalidateTreeNodes(nodes, sort);
       }
 
       public override void RenderPropertiesChanged(ITab<UIntPtr> nodes)
       {
-         NodePropertySorter sorter = this.tree.NodeSorter as NodePropertySorter;
-         Boolean sort = sorter != null && NodePropertyHelpers.IsRenderProperty(sorter.Property);
-         this.treeMode.InvalidateTreeNodes(nodes, false);
+         Boolean sort = NodeSorterHelpers.RequiresSort(this.NodeSorter, NodePropertyHelpers.RenderProperties);
+         this.TreeMode.InvalidateTreeNodes(nodes, false);
       }
    }
 

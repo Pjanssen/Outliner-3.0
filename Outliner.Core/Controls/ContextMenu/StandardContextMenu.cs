@@ -111,9 +111,21 @@ internal static class StandardContextMenu
 
       ToolStripDropDownButton sort_btn = new ToolStripDropDownButton("Sorting");
       sort_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
-      Type currentSorterType = (treeMode.Tree.NodeSorter != null) ? treeMode.Tree.NodeSorter.GetType() : null;
-      IEnumerable<UserFiles.SorterConfiguration> sorters = UserFiles.UserFiles.GetUserFiles<UserFiles.SorterConfiguration>(OutlinerPaths.SortersDir);
-      if (AddUserFileItems(sort_btn.DropDownItems, treeMode, sorters.OrderBy(x => x.Text), sort_itemClick) > 0)
+      //Type currentSorterType = (treeMode.Tree.NodeSorter != null) ? treeMode.Tree.NodeSorter.GetType() : null;
+      NodeSorters.NodeSorter currentSorter = treeMode.Tree.NodeSorter as NodeSorters.NodeSorter;
+      IEnumerable<SorterConfiguration> sorters = UserFiles.UserFiles.GetUserFiles<UserFiles.SorterConfiguration>(OutlinerPaths.SortersDir);
+      foreach (SorterConfiguration sorterConfig in sorters.OrderBy(s => s.Text))
+      {
+         ToolStripMenuItem item = AddDropDownItem(sort_btn.DropDownItems, sorterConfig.Text, sorterConfig.Image16, sort_itemClick, sorterConfig);
+         if (sorterConfig.Sorter.Equals(currentSorter))
+         {
+            sort_btn.Image = sorterConfig.Image24;
+            item.Checked = true;
+         }
+      }
+      
+      if (sort_btn.DropDownItems.Count > 0)
+      //if (AddUserFileItems(sort_btn.DropDownItems, treeMode, sorters.OrderBy(x => x.Text), sort_itemClick) > 0)
          sort_btn.DropDownItems.Add(new ToolStripSeparator());
 
       sort_btn.DropDownItems.Add("Edit Node Sorters...");

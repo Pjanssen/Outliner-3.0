@@ -287,6 +287,7 @@
     <Compile Include="Controls\UIItemModel.cs" />
     <Compile Include="Filters\FilterChangedEventArgs.cs" />
     <Compile Include="Filters\FilterCombinator.cs" />
+    <Compile Include="NodeSorters\NodeSorterHelpers.cs" />
     <Compile Include="UserFiles\FilterCategory.cs" />
     <Compile Include="UserFiles\FilterConfiguration.cs" />
     <Compile Include="Filters\FilterImageAttribute.cs" />
