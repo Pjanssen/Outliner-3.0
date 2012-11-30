@@ -23,7 +23,7 @@ public class SelectionSetsPreset : OutlinerPreset
       this.Image24Res       = "selectionset_mode_24_dark";
 
       this.TreeModeTypeName    = typeof(SelectionSetMode).FullName;
-      this.NodeSorter          = new AlphabeticalSorter(false);
+      this.NodeSorter          = new AlphabeticalSorter();
       this.Filters             = new Filters.MaxNodeFilterCombinator();
 
       this.TreeNodeLayout = new TreeNodeLayout();

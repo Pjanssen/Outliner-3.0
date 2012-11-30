@@ -49,7 +49,7 @@ namespace Outliner.ColorTags
          IAnimatable node = MaxUtils.HelperMethods.GetCallParam(info) as IAnimatable;
          foreach (TreeMode treeMode in outliner.TreeModes.Values)
          {
-            treeMode.InvalidateObject(node, false, treeMode.Tree.NodeSorter is ColorTagsSorter);
+            treeMode.InvalidateObject(node, false, treeMode.Tree.NodeSorter is ColorTagSorter);
 
             if (ContainsColorTagsFilter(treeMode.Filters.Filters))
                treeMode.UpdateFilter(node);

@@ -22,7 +22,7 @@ public class LayersPreset : OutlinerPreset
       this.Image24Res       = "layer_mode_24";
 
       this.TreeModeTypeName = typeof(LayerMode).FullName;
-      this.NodeSorter = new AlphabeticalSorter(false);
+      this.NodeSorter = new AlphabeticalSorter();
       this.Filters = new Filters.MaxNodeFilterCombinator();
 
       this.TreeNodeLayout = new TreeNodeLayout();

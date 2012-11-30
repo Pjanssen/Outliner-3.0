@@ -25,7 +25,7 @@ public class HierarchyPreset : OutlinerPreset
       this.Image24Res = "hierarchy_mode_24";
 
       this.TreeModeTypeName = typeof(HierarchyMode).FullName;
-      this.NodeSorter = new AlphabeticalSorter(false);
+      this.NodeSorter = new AlphabeticalSorter();
       this.Filters = new MaxNodeFilterCombinator();
 
       this.TreeNodeLayout = new TreeNodeLayout();

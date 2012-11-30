@@ -12,9 +12,11 @@ namespace Outliner.NodeSorters
 {
 [OutlinerPlugin(OutlinerPluginType.NodeSorter)]
 [LocalizedDisplayName(typeof(Resources), "Polycount_DisplayName")]
-[LocalizedDisplayImage(typeof(Resources), "sort_polycount_16", "sort_polycount_24")]
 public class PolycountSorter : NodeSorter
 {
+   public PolycountSorter() : base() { }
+   public PolycountSorter(SortOrder sortOrder) : base(sortOrder) { }
+
    private const int enable = (int)Autodesk.Max.ObjectWrapper.E173.AllEnable;
    private const int nativeType = (int)Autodesk.Max.ObjectWrapper.E172.TriObject;
 
@@ -45,11 +47,10 @@ public class PolycountSorter : NodeSorter
          int yNumFaces = objWrapperY.NumFaces;
          objWrapperX.Release();
          objWrapperY.Release();
-         if (xNumFaces != yNumFaces)
-            return yNumFaces.CompareTo(xNumFaces);
+         return yNumFaces.CompareTo(xNumFaces);
       }
 
-      return NativeMethods.StrCmpLogicalW(nodeX.Name, nodeY.Name);
+      return 0;
    }
 }
 }

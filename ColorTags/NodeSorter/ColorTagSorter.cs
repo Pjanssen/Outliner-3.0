@@ -13,11 +13,10 @@ namespace Outliner.ColorTags
 {
    [OutlinerPlugin(OutlinerPluginType.NodeSorter)]
    [LocalizedDisplayName(typeof(Resources), "Sort_ColorTag")]
-   [LocalizedDisplayImage(typeof(Resources), "color_16", "color_24")]
-   public class ColorTagsSorter : NodeSorter
+   public class ColorTagSorter : NodeSorter
    {
-      public ColorTagsSorter() : this(false) { }
-      public ColorTagsSorter(Boolean invert) : base(invert) { }
+      public ColorTagSorter() : base() { }
+      public ColorTagSorter(SortOrder sortOrder) : base(sortOrder) { }
 
       protected override int InternalCompare(TreeNode x, TreeNode y)
       {
@@ -34,7 +33,7 @@ namespace Outliner.ColorTags
          ColorTag tagY = ColorTags.GetTag(nodeY.WrappedNode as IAnimatable);
 
          if (tagX == tagY)
-            return 0; //NativeMethods.StrCmpLogicalW(nodeX.Name, nodeY.Name);
+            return 0;
          else if (tagX == ColorTag.None)
             return 1;
          else if (tagY == ColorTag.None)

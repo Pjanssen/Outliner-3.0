@@ -11,11 +11,10 @@ namespace Outliner.NodeSorters
 {
    [OutlinerPlugin(OutlinerPluginType.NodeSorter)]
    [LocalizedDisplayName(typeof(Resources), "SuperClass_DisplayName")]
-   [LocalizedDisplayImage(typeof(Resources), "sort_type_16", "sort_type_24")]
    public class SuperClassSorter : NodeSorter
    {
       public SuperClassSorter() : base() { }
-      public SuperClassSorter(Boolean invert) : base(invert) { }
+      public SuperClassSorter(SortOrder sortOrder) : base(sortOrder) { }
 
       protected override int InternalCompare(TreeNode x, TreeNode y)
       {
@@ -31,10 +30,7 @@ namespace Outliner.NodeSorters
          SClass_ID sClassIDX = nodeX.SuperClassID;
          SClass_ID sClassIDY = nodeY.SuperClassID;
 
-         if (sClassIDX == sClassIDY)
-            return NativeMethods.StrCmpLogicalW(nodeX.Name, nodeY.Name);
-         else
-            return (int)(sClassIDX - sClassIDY);
+         return sClassIDX.CompareTo(sClassIDY);
       }
    }
 }

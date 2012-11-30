@@ -11,11 +11,10 @@ namespace Outliner.NodeSorters
 {
    [OutlinerPlugin(OutlinerPluginType.NodeSorter)]
    [LocalizedDisplayName(typeof(Resources), "IINodeHandle_DisplayName")]
-   [LocalizedDisplayImage(typeof(Resources), "sort_chronological_16", "sort_chronological_24")]
-   public class INodeHandleSorter : NodeSorter
+   public class IINodeHandleSorter : NodeSorter
    {
-      public INodeHandleSorter() : base() { }
-      public INodeHandleSorter(Boolean invert) : base(invert) { }
+      public IINodeHandleSorter() : base() { }
+      public IINodeHandleSorter(SortOrder sortOrder) : base(sortOrder) { }
 
       protected override int InternalCompare(TreeNode x, TreeNode y)
       {
@@ -31,9 +30,7 @@ namespace Outliner.NodeSorters
          Boolean xIsIINodeWrapper = nodeX is IINodeWrapper;
          Boolean yIsIINodeWrapper = nodeY is IINodeWrapper;
 
-         if (!xIsIINodeWrapper && !yIsIINodeWrapper)
-            return NativeMethods.StrCmpLogicalW(nodeX.Name, nodeY.Name);
-         else if (!xIsIINodeWrapper)
+         if (!xIsIINodeWrapper)
             return -1;
          else if (!yIsIINodeWrapper)
             return 1;

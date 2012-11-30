@@ -22,7 +22,7 @@ public class ObjectListPreset : OutlinerPreset
       this.Image24Res = "flatobjectlist_mode_24_dark";
 
       this.TreeModeTypeName = typeof(FlatObjectListMode).FullName;
-      this.NodeSorter = new AlphabeticalSorter(false);
+      this.NodeSorter = new AlphabeticalSorter();
       this.Filters = new Filters.MaxNodeFilterCombinator();
 
       this.TreeNodeLayout = new TreeNodeLayout();
