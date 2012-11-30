@@ -15,7 +15,7 @@ namespace Outliner.UserFiles
          get { return OutlinerPaths.SortersDir; }
       }
 
-      [XmlElement("Sorter")]
+      [XmlElement("sorter")]
       public NodeSorter Sorter { get; set; }
    }
 }

@@ -94,11 +94,11 @@ public partial class PresetTreePropertiesEditor : UserControl
 
    private void sorterComboBox_SelectedValueChanged(object sender, EventArgs e)
    {
-      Boolean ascending = this.preset.NodeSorter.Ascending;
+      NodeSorters.SortOrder sortorder = this.preset.NodeSorter.SortOrder;
       Type selectedType = ((OutlinerPluginData)this.sorterComboBox.SelectedItem).Type;
 
       this.preset.NodeSorter = Activator.CreateInstance(selectedType) as NodeSorter;
-      this.preset.NodeSorter.Ascending = ascending;
+      this.preset.NodeSorter.SortOrder = sortorder;
 
       if (this.updateAction != null)
          this.updateAction();

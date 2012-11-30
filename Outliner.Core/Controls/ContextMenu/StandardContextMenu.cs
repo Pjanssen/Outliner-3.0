@@ -112,16 +112,22 @@ internal static class StandardContextMenu
       ToolStripDropDownButton sort_btn = new ToolStripDropDownButton("Sorting");
       sort_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
       Type currentSorterType = (treeMode.Tree.NodeSorter != null) ? treeMode.Tree.NodeSorter.GetType() : null;
-      IEnumerable<OutlinerPluginData> sorterTypes = OutlinerPlugins.GetPlugins(OutlinerPluginType.NodeSorter);
-      foreach (OutlinerPluginData sorter in sorterTypes)
-      {
-         ToolStripMenuItem item = AddDropDownItem(sort_btn.DropDownItems, sorter.DisplayName, sorter.DisplayImageSmall, sort_itemClick, sorter.Type);
-         if (sorter.Type.Equals(currentSorterType))
-         {
-            sort_btn.Image = sorter.DisplayImageLarge;
-            item.Checked = true;
-         }
-      }
+      IEnumerable<UserFiles.SorterConfiguration> sorters = UserFiles.UserFiles.GetUserFiles<UserFiles.SorterConfiguration>(OutlinerPaths.SortersDir);
+      if (AddUserFileItems(sort_btn.DropDownItems, treeMode, sorters.OrderBy(x => x.Text), sort_itemClick) > 0)
+         sort_btn.DropDownItems.Add(new ToolStripSeparator());
+
+      sort_btn.DropDownItems.Add("Edit Node Sorters...");
+
+      //IEnumerable<OutlinerPluginData> sorterTypes = OutlinerPlugins.GetPlugins(OutlinerPluginType.NodeSorter);
+      //foreach (OutlinerPluginData sorter in sorterTypes)
+      //{
+      //   ToolStripMenuItem item = AddDropDownItem(sort_btn.DropDownItems, sorter.DisplayName, sorter.DisplayImageSmall, sort_itemClick, sorter.Type);
+      //   if (sorter.Type.Equals(currentSorterType))
+      //   {
+      //      sort_btn.Image = sorter.DisplayImageLarge;
+      //      item.Checked = true;
+      //   }
+      //}
       strip.Items.Add(sort_btn);
 
       strip.Items.Add(new ToolStripSeparator());
@@ -175,6 +181,11 @@ internal static class StandardContextMenu
       item.Tag = tag;
       itemCollection.Add(item);
       return item;
+   }
+
+   private static ToolStripMenuItem AddUserFilesItem(ToolStripItemCollection itemCollection, UIItemModel item, EventHandler clickHandler)
+   {
+      return AddDropDownItem(itemCollection, item.Text, item.Image16, clickHandler, item);
    }
 
    private static Tuple<OutlinerSplitContainer, OutlinerTree::TreeView, TreeMode> GetStripTag(object toolstripItem)
@@ -312,7 +323,9 @@ internal static class StandardContextMenu
    {
       TreeMode treeMode = GetTreeMode(sender);
       ToolStripItem item = sender as ToolStripItem;
-      treeMode.Tree.NodeSorter = Activator.CreateInstance((Type)item.Tag) as NodeSorters.NodeSorter;
+      SorterConfiguration sorterConfig = item.Tag as SorterConfiguration;
+      if (sorterConfig != null && sorterConfig.Sorter != null)
+         treeMode.Tree.NodeSorter = sorterConfig.Sorter;
    }
    #endregion
 
@@ -392,12 +405,11 @@ internal static class StandardContextMenu
 
    #endregion
 
-
    private static Int32 AddUserFileItems(ToolStripItemCollection itemCollection, TreeMode treeMode, IEnumerable<UIItemModel> items, EventHandler clickHandler)
    {
       foreach (UIItemModel item in items)
       {
-         ToolStripMenuItem menuItem = AddDropDownItem(itemCollection, item.Text, item.Image16, clickHandler, item);
+         ToolStripMenuItem menuItem = AddUserFilesItem(itemCollection, item, clickHandler);
          CheckFilterItem(menuItem, treeMode);
       }
       return items.Count();

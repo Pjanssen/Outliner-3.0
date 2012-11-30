@@ -4,40 +4,71 @@ using System.Linq;
 using System.Text;
 using Outliner.Controls.Tree;
 using Outliner.MaxUtils;
+using System.Xml.Serialization;
+using System.ComponentModel;
 
 namespace Outliner.NodeSorters
 {
+   public enum SortOrder
+   {
+      Ascending,
+      Descending
+   }
+
    public abstract class NodeSorter : IComparer<TreeNode>
    {
-      protected NodeSorter() : this(false) { }
-      protected NodeSorter(Boolean invert)
+      protected NodeSorter() : this(SortOrder.Ascending) { }
+      protected NodeSorter(SortOrder sortOrder)
       {
-         this.invert = invert;
+         this.SortOrder = sortOrder;
+
+         if (!(this is AlphabeticalSorter))
+            this.SecondarySorter = new AlphabeticalSorter(sortOrder);
       }
 
       private Boolean invert;
-      public Boolean Ascending 
-      { 
-         get { return !this.invert; }
-         set { this.invert = !value; }
+
+      [XmlElement("sortOrder")]
+      [DefaultValue(SortOrder.Ascending)]
+      public SortOrder SortOrder
+      {
+         get 
+         { 
+            return this.invert ? SortOrder.Descending 
+                               : SortOrder.Ascending; 
+         }
+         set 
+         {
+            this.invert = (value == SortOrder.Ascending) ? false : true; 
+         }
       }
-      public Boolean Descending 
-      { 
-         get { return this.invert; }
-         set { this.invert = value; }
-      }
+
+
+      [XmlElement("secondarySorter")]
+      public NodeSorter SecondarySorter { get; set; }
 
       public int Compare(TreeNode x, TreeNode y)
       {
          ExceptionHelpers.ThrowIfArgumentIsNull(x, "x");
          ExceptionHelpers.ThrowIfArgumentIsNull(y, "y");
 
-         if (invert)
-            return this.InternalCompare(y, x);
+         int compareResult = this.invert ? this.InternalCompare(y, x) 
+                                         : this.InternalCompare(x, y);
+         
+         if (compareResult != 0)
+            return compareResult;
+         else if (this.SecondarySorter != null)
+            return this.SecondarySorter.Compare(x, y);
          else
-            return this.InternalCompare(x, y);
+            return 0;
       }
 
       protected abstract int InternalCompare(TreeNode x, TreeNode y);
+
+      public Boolean ContainsSorterType(Type t)
+      {
+         return this.GetType().Equals(t) 
+                || (this.SecondarySorter != null && this.SecondarySorter.ContainsSorterType(t));
+      }
    }
 }

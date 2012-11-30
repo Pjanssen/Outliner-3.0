@@ -10,12 +10,11 @@ using Outliner.Plugins;
 namespace Outliner.NodeSorters
 {
    [OutlinerPlugin(OutlinerPluginType.NodeSorter)]
-   [LocalizedDisplayName(typeof(OutlinerResources), "Sort_Alphabetical")]
-   [LocalizedDisplayImage(typeof(OutlinerResources), "sort_alphabetical_16_dark", "sort_alphabetical_24_dark")]
+   [LocalizedDisplayName(typeof(OutlinerResources), "Str_AlphabeticalSorter")]
    public class AlphabeticalSorter : NodeSorter
    {
       public AlphabeticalSorter() : base() { }
-      public AlphabeticalSorter(Boolean invert) : base(invert) { }
+      public AlphabeticalSorter(SortOrder sortOrder) : base(sortOrder) { }
 
       protected override int InternalCompare(TreeNode x, TreeNode y)
       {

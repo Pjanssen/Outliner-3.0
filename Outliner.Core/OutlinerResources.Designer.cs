@@ -312,6 +312,15 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alphabetical.
+        /// </summary>
+        internal static string Str_AlphabeticalSorter {
+            get {
+                return ResourceManager.GetString("Str_AlphabeticalSorter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Combinator.
         /// </summary>
         internal static string Str_FilterCombinator {

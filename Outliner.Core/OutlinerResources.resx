@@ -242,4 +242,7 @@ Use {0} to expand entire hierarchy.</value>
   <data name="Str_MaxscriptFilter" xml:space="preserve">
     <value>Maxscript Filter</value>
   </data>
+  <data name="Str_AlphabeticalSorter" xml:space="preserve">
+    <value>Alphabetical</value>
+  </data>
 </root>

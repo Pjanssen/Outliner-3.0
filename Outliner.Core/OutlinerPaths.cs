@@ -58,7 +58,7 @@ public static class OutlinerPaths
 
    public static String SortersDir
    {
-      get { return Path.Combine(OutlinerPaths.ConfigDir, "Sorters/"); }
+      get { return Path.Combine(OutlinerPaths.ConfigDir, "NodeSorters/"); }
    }
 
    public static String StateFile

@@ -7,17 +7,29 @@ using Outliner.Controls.Tree;
 using Outliner.Scene;
 using System.Drawing;
 using Outliner.Plugins;
+using System.Xml.Serialization;
+using System.ComponentModel;
 
 namespace Outliner.NodeSorters
 {
-public abstract class NodePropertySorter : NodeSorter
+[OutlinerPlugin(OutlinerPluginType.NodeSorter)]
+public class NodePropertySorter : NodeSorter
 {
+   [XmlElement("property")]
+   [DefaultValue(NodeProperty.None)]
    public NodeProperty Property { get; set; }
 
-   public NodePropertySorter() : base() { }
-   public NodePropertySorter(Boolean invert) : base(invert) { }
-   public NodePropertySorter(NodeProperty property) : this(property, false) { }
-   public NodePropertySorter(NodeProperty property, Boolean invert) : base(invert)
+   public NodePropertySorter() 
+      : this(NodeProperty.None, SortOrder.Ascending) { }
+   
+   public NodePropertySorter(SortOrder sortOrder) 
+      : this(NodeProperty.None, sortOrder) { }
+   
+   public NodePropertySorter(NodeProperty property) 
+      : this(property, SortOrder.Ascending) { }
+   
+   public NodePropertySorter(NodeProperty property, SortOrder sortOrder)
+      : base(sortOrder)
    {
       this.Property = property;
    }
@@ -37,18 +49,13 @@ public abstract class NodePropertySorter : NodeSorter
       Object propValueX = nodeX.GetNodeProperty(this.Property);
       Object propValueY = nodeY.GetNodeProperty(this.Property);
 
-      if (propValueX.Equals(propValueY))
-         return NativeMethods.StrCmpLogicalW(nodeX.Name, nodeY.Name);
+      IComparable iCompX = propValueX as IComparable;
+      if (iCompX != null)
+         return iCompX.CompareTo(propValueY);
+      else if (propValueX is Color && propValueY is Color)
+         return ColorHelpers.Compare((Color)propValueX, (Color)propValueY);
       else
-      {
-         IComparable iCompX = propValueX as IComparable;
-         if (iCompX != null)
-            return iCompX.CompareTo(propValueY);
-         else if (propValueX is Color && propValueY is Color)
-            return ColorHelpers.Compare((Color)propValueX, (Color)propValueY);
-         else
-            return 0;
-      }
+         return 0;
    }
 }
 }
