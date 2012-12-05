@@ -149,6 +149,7 @@
     <Compile Include="MaxUtils\NodePropertyTest.cs" />
     <Compile Include="NestedLayersTest.cs" />
     <Compile Include="GroupHelpersTest.cs" />
+    <Compile Include="NodeSorters\NodeSorterHelpersTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
