@@ -115,14 +115,16 @@ public class TreeNodeCollection : ICollection<TreeNode>
       this.removeFiltered(item);
 
       TreeView tree = item.TreeView;
-      tree.SelectNode(item, false);
+      if (tree != null)
+         tree.SelectNode(item, false);
 
       item.TreeView = null;
       item.parent = null;
 
       Boolean result = this.unfilteredNodes.Remove(item);
 
-      tree.Update(TreeViewUpdateFlags.TreeNodeBounds | TreeViewUpdateFlags.Redraw);
+      if (tree != null)
+         tree.Update(TreeViewUpdateFlags.TreeNodeBounds | TreeViewUpdateFlags.Redraw);
 
       return result;
    }
