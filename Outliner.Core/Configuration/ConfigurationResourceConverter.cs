@@ -5,9 +5,9 @@ using System.Text;
 using System.ComponentModel;
 using System.Reflection;
 
-namespace Outliner.Controls
+namespace Outliner.Configuration
 {
-   public abstract class UIItemResourceConverter : TypeConverter
+   public abstract class ConfigurationResourceConverter : TypeConverter
    {
       public override bool GetStandardValuesExclusive(ITypeDescriptorContext context)
       {
@@ -23,7 +23,7 @@ namespace Outliner.Controls
       {
          List<String> standardValues = new List<string>();
 
-         UIItemModel itemModel = context.Instance as UIItemModel;
+         ConfigurationFile itemModel = context.Instance as ConfigurationFile;
          if (itemModel != null)
          {
             Type resourceType = itemModel.ResourceType;

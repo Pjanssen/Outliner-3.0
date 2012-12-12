@@ -14,7 +14,7 @@ public class DeleteCommand : Command
 
    public DeleteCommand(IEnumerable<IMaxNodeWrapper> nodes)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(nodes, "nodes");
+      Throw.IfArgumentIsNull(nodes, "nodes");
 
       this.nodes = nodes;
    }

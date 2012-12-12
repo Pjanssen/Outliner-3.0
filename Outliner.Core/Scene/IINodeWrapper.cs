@@ -14,6 +14,7 @@ public class IINodeWrapper : IMaxNodeWrapper
    private IINode iinode;
    public IINodeWrapper(IINode node)
    {
+      Throw.IfArgumentIsNull(node, "node");
       this.iinode = node;
    }
 
@@ -77,6 +78,9 @@ public class IINodeWrapper : IMaxNodeWrapper
 
    public override bool CanAddChildNode(IMaxNodeWrapper node)
    {
+      if (node == null)
+         return false;
+
       //SelectionSet
       if (node is SelectionSetWrapper)
          return this.CanAddChildNodes(node.WrappedChildNodes);
@@ -101,7 +105,7 @@ public class IINodeWrapper : IMaxNodeWrapper
 
    public override void AddChildNode(IMaxNodeWrapper node)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(node, "node");
+      Throw.IfArgumentIsNull(node, "node");
 
       if (!this.CanAddChildNode(node))
          return;
@@ -116,6 +120,8 @@ public class IINodeWrapper : IMaxNodeWrapper
 
    public override void RemoveChildNode(IMaxNodeWrapper node)
    {
+      Throw.IfArgumentIsNull(node, "node");
+
       if (node is IINodeWrapper)
          ((IINodeWrapper)node).iinode.Detach(0, true);
    }
@@ -123,7 +129,11 @@ public class IINodeWrapper : IMaxNodeWrapper
    public override String Name
    {
       get { return this.iinode.Name; }
-      set { this.iinode.Name = value; }
+      set 
+      {
+         Throw.IfArgumentIsNull(value, "value");
+         this.iinode.Name = value; 
+      }
    }
 
    public override string DisplayName
@@ -174,7 +184,11 @@ public class IINodeWrapper : IMaxNodeWrapper
    public override Color WireColor
    {
       get { return ColorHelpers.FromMaxColor(this.iinode.WireColor); }
-      set { this.iinode.WireColor = value; }
+      set 
+      {
+         Throw.IfArgumentIsNull(value, "value");
+         this.iinode.WireColor = value; 
+      }
    }
 
 

@@ -16,7 +16,7 @@ namespace Outliner.Controls
       [SecurityPermission(SecurityAction.Demand)]
       public static void Invert(Bitmap b)
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(b, "b");
+         Throw.IfArgumentIsNull(b, "b");
 
          BitmapData bmData = b.LockBits( new Rectangle(0, 0, b.Width, b.Height)
                                        , ImageLockMode.ReadWrite
@@ -53,7 +53,7 @@ namespace Outliner.Controls
       [SecurityPermission(SecurityAction.Demand)]
       public static void Desaturate(Bitmap b)
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(b, "b");
+         Throw.IfArgumentIsNull(b, "b");
 
          BitmapData bmData = b.LockBits( new Rectangle(0, 0, b.Width, b.Height)
                                        , ImageLockMode.ReadWrite
@@ -94,7 +94,7 @@ namespace Outliner.Controls
       [SecurityPermission(SecurityAction.Demand)]
       public static void AdjustOpacity(Bitmap b, Int32 opacity)
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(b, "b");
+         Throw.IfArgumentIsNull(b, "b");
 
          BitmapData bmData = b.LockBits( new Rectangle(0, 0, b.Width, b.Height)
                                        , ImageLockMode.ReadWrite
@@ -128,7 +128,7 @@ namespace Outliner.Controls
       [SecurityPermission(SecurityAction.Demand)]
       public static void AdjustBrightness(Bitmap b, Int32 brightness)
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(b, "b");
+         Throw.IfArgumentIsNull(b, "b");
 
          BitmapData bmData = b.LockBits( new Rectangle(0, 0, b.Width, b.Height)
                                        , ImageLockMode.ReadWrite

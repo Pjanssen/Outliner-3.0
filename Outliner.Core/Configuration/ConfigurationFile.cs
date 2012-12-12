@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.ComponentModel;
+using System.Xml.Serialization;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Xml.Serialization;
 using Outliner.Plugins;
+using System.Reflection;
 
-namespace Outliner.Controls
+namespace Outliner.Configuration
 {
-public abstract class UIItemModel
+public abstract class ConfigurationFile
 {
-   public UIItemModel() : this(String.Empty, String.Empty, String.Empty, null) { }
-   public UIItemModel(String text, String image16, String image24, Type resType)
+   public ConfigurationFile() 
+      : this(String.Empty, String.Empty, String.Empty, null) { }
+
+   public ConfigurationFile(String text, String image16, String image24, Type resType)
    {
       this.TextRes = text;
       this.Image16Res = image16;
@@ -40,14 +42,23 @@ public abstract class UIItemModel
    [TypeConverter(typeof(ImageResourceConverter))]
    public String Image24Res { get; set; }
 
+   private String resourceTypeName;
    [XmlElement("resource_type")]
    [DefaultValue("")]
-   [Browsable(false)]
-   public String ResourceTypeName { get; set; }
+   [Browsable(true)]
+   public String ResourceTypeName 
+   {
+      get { return resourceTypeName; } 
+      set
+      {
+         this.resourceTypeName = value;
+         this.resourceType = null;
+      }
+   }
 
    private Type resourceType;
    [XmlIgnore]
-   [Browsable(true)]
+   [Browsable(false)]
    [TypeConverter(typeof(ResourceTypeConverter))]
    public Type ResourceType
    {
@@ -67,7 +78,7 @@ public abstract class UIItemModel
       set
       {
          this.resourceType = value;
-         this.ResourceTypeName = value.Name;
+         this.resourceTypeName = value.Name;
       }
    }
 

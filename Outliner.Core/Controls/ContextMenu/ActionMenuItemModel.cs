@@ -45,7 +45,7 @@ public class ActionMenuItemModel : MenuItemModel
    protected override Boolean Enabled( Outliner.Controls.Tree.TreeView treeView
                                      , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(treeView, "treeView");
+      Throw.IfArgumentIsNull(treeView, "treeView");
 
       IEnumerable<IMaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
       OutlinerPredicate predicate = OutlinerActions.GetPredicate(this.EnabledPredicate);
@@ -60,7 +60,7 @@ public class ActionMenuItemModel : MenuItemModel
    protected override Boolean Checked( Outliner.Controls.Tree.TreeView treeView
                                      , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(treeView, "treeView");
+      Throw.IfArgumentIsNull(treeView, "treeView");
 
       IEnumerable<IMaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
       OutlinerPredicate predicate = OutlinerActions.GetPredicate(this.CheckedPredicate);
@@ -75,7 +75,7 @@ public class ActionMenuItemModel : MenuItemModel
    protected override void OnClick(Outliner.Controls.Tree.TreeView treeView
                                   , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(treeView, "treeView");
+      Throw.IfArgumentIsNull(treeView, "treeView");
 
       IEnumerable<IMaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
       OutlinerAction action = OutlinerActions.GetAction(this.OnClickAction);
@@ -90,7 +90,7 @@ public class ActionMenuItemModel : MenuItemModel
                         , MessageBoxButtons.OK
                         , MessageBoxIcon.Warning
                         , MessageBoxDefaultButton.Button1
-                        , ControlHelpers.GetMessageBoxOptionsForControl(clickedTn.TreeView));
+                        , ControlHelpers.GetLocalizedMessageBoxOptions());
    }
 }
 }

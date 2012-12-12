@@ -16,7 +16,7 @@ namespace Outliner.Scene
 
       public IILayerWrapper(IILayer layer)
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(layer, "layer");
+         Throw.IfArgumentIsNull(layer, "layer");
 
          this.layer = layer;
          this.layerProperties = MaxInterfaces.IIFPLayerManager.GetLayer(layer.Name);
@@ -24,7 +24,7 @@ namespace Outliner.Scene
 
       public IILayerWrapper(IILayerProperties layerProperties)
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(layerProperties, "layerProperties");
+         Throw.IfArgumentIsNull(layerProperties, "layerProperties");
 
          this.layerProperties = layerProperties;
 
@@ -98,6 +98,9 @@ namespace Outliner.Scene
 
       public override bool CanAddChildNode(IMaxNodeWrapper node)
       {
+         if (node == null)
+            return false;
+
          if (node is IINodeWrapper)
          {
             IINode n = (IINode)node.WrappedNode;
@@ -117,6 +120,8 @@ namespace Outliner.Scene
 
       public override void AddChildNode(IMaxNodeWrapper node)
       {
+         Throw.IfArgumentIsNull(node, "node");
+
          if (!this.CanAddChildNode(node))
             return;
 
@@ -130,6 +135,8 @@ namespace Outliner.Scene
 
       public override void RemoveChildNode(IMaxNodeWrapper node)
       {
+         Throw.IfArgumentIsNull(node, "node");
+
          if (node is IINodeWrapper)
          {
             IILayer defaultLayer = MaxInterfaces.IILayerManager.GetLayer(0);
@@ -172,7 +179,11 @@ namespace Outliner.Scene
       public override string Name 
       {
          get { return layer.Name; }
-         set { layer.SetName(ref value); }
+         set 
+         {
+            Throw.IfArgumentIsNull(value, "value");
+            layer.SetName(ref value); 
+         }
       }
 
       public override string DisplayName 
@@ -217,7 +228,9 @@ namespace Outliner.Scene
       {
          get { return ColorHelpers.FromMaxColor(this.layer.WireColor); }
          set 
-         { 
+         {
+            Throw.IfArgumentIsNull(value, "value");
+
             this.layer.WireColor = value;
             MaxInterfaces.Global.BroadcastNotification(NestedLayers.LayerPropertyChanged, this.IILayer);
          }

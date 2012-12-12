@@ -6,9 +6,9 @@ using Outliner.Controls;
 using Outliner.NodeSorters;
 using System.Xml.Serialization;
 
-namespace Outliner.UserFiles
+namespace Outliner.Configuration
 {
-   public class SorterConfiguration : UIItemModel
+   public class SorterConfiguration : ConfigurationFile
    {
       protected override string ImageBasePath
       {

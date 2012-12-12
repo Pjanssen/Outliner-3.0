@@ -164,6 +164,8 @@
     <Compile Include="Commands\HideCommand.cs" />
     <Compile Include="Commands\SetViewCameraCommand.cs" />
     <Compile Include="Commands\ToggleLightCommand.cs" />
+    <Compile Include="Configuration\ConfigurationFile.cs" />
+    <Compile Include="Configuration\ConfigurationHelpers.cs" />
     <Compile Include="Controls\BitmapProcessing.cs" />
     <Compile Include="Controls\ContextMenu\ActionMenuItemModel.cs" />
     <Compile Include="Controls\ContextMenu\ContextMenuActions.cs" />
@@ -173,7 +175,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ContextMenuResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ImageResourceConverter.cs" />
+    <Compile Include="Configuration\ImageResourceConverter.cs" />
     <Compile Include="Controls\ContextMenu\IncludeContextMenuModel.cs" />
     <Compile Include="Controls\ContextMenu\MenuItemModel.cs" />
     <Compile Include="Controls\ContextMenu\MxsMenuItemModel.cs" />
@@ -183,9 +185,15 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ContextMenu\OutlinerToolStripRenderer.cs" />
-    <Compile Include="Controls\UIItemResourceConverter.cs" />
-    <Compile Include="Controls\StringResourceConverter.cs" />
-    <Compile Include="Controls\ResourceTypeConverter.cs" />
+    <Compile Include="Controls\Options\ConfigurationFilesEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\Options\ConfigurationFilesEditor.Designer.cs">
+      <DependentUpon>ConfigurationFilesEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\ConfigurationResourceConverter.cs" />
+    <Compile Include="Configuration\StringResourceConverter.cs" />
+    <Compile Include="Configuration\ResourceTypeConverter.cs" />
     <Compile Include="Controls\ContextMenu\SeparatorMenuItemModel.cs" />
     <Compile Include="Controls\ContextMenu\StandardContextMenu.cs" />
     <Compile Include="Controls\ContextMenu\ToolStripCheckedSplitButton.cs">
@@ -204,11 +212,23 @@
     <Compile Include="Controls\Options\ColorSchemeEditor.Designer.cs">
       <DependentUpon>ColorSchemeEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Options\ConfigurationFileEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Options\ConfigurationFileEditor.Designer.cs">
+      <DependentUpon>ConfigurationFileEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Options\ContextMenuModelEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\Options\ContextMenuModelEditor.Designer.cs">
       <DependentUpon>ContextMenuModelEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Options\FilterConfigurationEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Options\FilterConfigurationEditor.Designer.cs">
+      <DependentUpon>FilterConfigurationEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Options\OutlinerUserControl.cs">
       <SubType>UserControl</SubType>
@@ -234,6 +254,12 @@
     </Compile>
     <Compile Include="Controls\Options\PresetFilterCollectionEditor.Designer.cs">
       <DependentUpon>PresetFilterCollectionEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Options\SorterConfigurationEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Options\SorterConfigurationEditor.Designer.cs">
+      <DependentUpon>SorterConfigurationEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Options\TreeNodeLayoutEditor.cs">
       <SubType>UserControl</SubType>
@@ -281,15 +307,15 @@
     <Compile Include="Controls\Tree\Layout\TreeNodeLayoutItem.cs" />
     <Compile Include="Controls\Tree\Layout\TreeNodeText.cs" />
     <Compile Include="Controls\Tree\TreeNodeState.cs" />
+    <Compile Include="Controls\Tree\TreeNodeTextSorter.cs" />
     <Compile Include="Controls\Tree\TreeView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\UIItemModel.cs" />
     <Compile Include="Filters\FilterChangedEventArgs.cs" />
     <Compile Include="Filters\FilterCombinator.cs" />
     <Compile Include="NodeSorters\NodeSorterHelpers.cs" />
-    <Compile Include="UserFiles\FilterCategory.cs" />
-    <Compile Include="UserFiles\FilterConfiguration.cs" />
+    <Compile Include="Configuration\FilterCategory.cs" />
+    <Compile Include="Configuration\FilterConfiguration.cs" />
     <Compile Include="Filters\FilterImageAttribute.cs" />
     <Compile Include="Filters\InvisibleNodeFilter.cs" />
     <Compile Include="Filters\MaxNodeFilterCombinator.cs" />
@@ -343,8 +369,7 @@
     <Compile Include="HelperMethods.cs" />
     <Compile Include="Modes\TreeMode.cs" />
     <Compile Include="TypeHelpers.cs" />
-    <Compile Include="UserFiles\SorterConfiguration.cs" />
-    <Compile Include="UserFiles\UserFiles.cs" />
+    <Compile Include="Configuration\SorterConfiguration.cs" />
     <Compile Include="XmlSerializationHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -358,8 +383,14 @@
     <EmbeddedResource Include="Controls\Options\ColorSchemeEditor.resx">
       <DependentUpon>ColorSchemeEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Options\ConfigurationFileEditor.resx">
+      <DependentUpon>ConfigurationFileEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\Options\ContextMenuModelEditor.resx">
       <DependentUpon>ContextMenuModelEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Options\FilterConfigurationEditor.resx">
+      <DependentUpon>FilterConfigurationEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Options\PresetTreePropertiesEditor.resx">
       <DependentUpon>PresetTreePropertiesEditor.cs</DependentUpon>
@@ -370,6 +401,9 @@
     <EmbeddedResource Include="Controls\Options\PresetFilterCollectionEditor.resx">
       <DependentUpon>PresetFilterCollectionEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Options\SorterConfigurationEditor.resx">
+      <DependentUpon>SorterConfigurationEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\Options\TreeNodeLayoutEditor.resx">
       <DependentUpon>TreeNodeLayoutEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -378,6 +412,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Options\PresetPropertiesEditor.resx">
       <DependentUpon>PresetPropertiesEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Options\ConfigurationFilesEditor.resx">
+      <DependentUpon>ConfigurationFilesEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TestControl.resx">
       <DependentUpon>TestControl.cs</DependentUpon>
@@ -436,6 +473,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Outliner.Core.pfx" />
+    <None Include="Properties\DataSources\Outliner.Configuration.ConfigurationFile.datasource" />
     <None Include="Properties\DataSources\Outliner.Controls.Tree.Layout.TreeNodeLayout.datasource" />
     <None Include="Properties\DataSources\Outliner.Filters.NameFilter.datasource" />
     <None Include="Properties\DataSources\Outliner.NodeSorters.NodeSorter.datasource" />

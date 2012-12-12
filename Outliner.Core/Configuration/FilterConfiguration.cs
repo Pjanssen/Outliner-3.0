@@ -7,9 +7,9 @@ using Outliner.Controls;
 using Outliner.Filters;
 using Outliner.Scene;
 
-namespace Outliner.UserFiles
+namespace Outliner.Configuration
 {
-   public class FilterConfiguration : UIItemModel
+   public class FilterConfiguration : ConfigurationFile
    {
       public FilterConfiguration() : base()
       {

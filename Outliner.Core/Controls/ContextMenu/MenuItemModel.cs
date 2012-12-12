@@ -10,6 +10,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.ComponentModel;
 using Outliner.Scene;
+using Outliner.Configuration;
 
 namespace Outliner.Controls.ContextMenu
 {
@@ -21,7 +22,7 @@ namespace Outliner.Controls.ContextMenu
 [XmlInclude(typeof(MxsMenuItemModel))]
 [XmlInclude(typeof(NodePropertyMenuItemModel))]
 [XmlInclude(typeof(SeparatorMenuItemModel))]
-public abstract class MenuItemModel : UIItemModel
+public abstract class MenuItemModel : ConfigurationFile
 {
    public MenuItemModel() : this(String.Empty, String.Empty, null) { }
    public MenuItemModel(String text, String image, Type resType) 
@@ -74,7 +75,7 @@ public abstract class MenuItemModel : UIItemModel
    protected virtual Boolean Visible( Outliner.Controls.Tree.TreeView treeView
                                     , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(treeView, "treeView");
+      Throw.IfArgumentIsNull(treeView, "treeView");
 
       IEnumerable<IMaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
       return context.Any(n => n != null && n.IsNodeType(this.VisibleTypes));
@@ -94,7 +95,7 @@ public abstract class MenuItemModel : UIItemModel
    public virtual ToolStripItem ToToolStripMenuItem( Outliner.Controls.Tree.TreeView treeView
                                                    , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(treeView, "treeView");
+      Throw.IfArgumentIsNull(treeView, "treeView");
       
       ToolStripMenuItem item = new ToolStripMenuItem();
       item.Text = this.Text;

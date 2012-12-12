@@ -13,12 +13,14 @@ using Outliner.MaxUtils;
 using Autodesk.Max;
 using Outliner.Controls.Tree.Layout;
 using Outliner.Presets;
+using Outliner.Configuration;
 
 namespace Outliner.Controls.Options
 {
 public partial class FilterCollectionEditor : OutlinerUserControl
 {
-   private FilterCombinator<IMaxNodeWrapper> rootFilter;
+   private FilterConfiguration filterConfiguration;
+   private Filter<IMaxNodeWrapper> rootFilter;
    private Dictionary<Filter<IMaxNodeWrapper>, Tree.TreeNode> treeNodes;
 
    public FilterCollectionEditor()
@@ -34,6 +36,14 @@ public partial class FilterCollectionEditor : OutlinerUserControl
       this.filtersTree.TreeNodeLayout.FullRowSelect = true;
    }
 
+   public FilterCollectionEditor(FilterConfiguration config) : this()
+   {
+      Throw.IfArgumentIsNull(config, "config");
+
+      this.RootFilter = config.Filter;
+      this.filterConfiguration = config;
+   }
+
    private void FillFilterComboBox()
    {
       IEnumerable<OutlinerPluginData> filters = OutlinerPlugins.GetPlugins(OutlinerPluginType.Filter);
@@ -47,18 +57,14 @@ public partial class FilterCollectionEditor : OutlinerUserControl
 
    [Browsable(false)]
    [DefaultValue(null)]
-   public FilterCombinator<IMaxNodeWrapper> RootFilter
+   public Filter<IMaxNodeWrapper> RootFilter
    {
       get { return this.rootFilter; }
       set
       {
          this.rootFilter = value;
-         if (value != null)
-         {
-            this.enabledCheckBox.Checked = this.rootFilter.Enabled;
-            this.FillFilterComboBox();
-            this.FillTree();
-         }
+         this.FillFilterComboBox();
+         this.FillTree();
       }
    }
 
@@ -68,7 +74,8 @@ public partial class FilterCollectionEditor : OutlinerUserControl
    {
       this.treeNodes.Clear();
       this.filtersTree.Nodes.Clear();
-      this.AddFilterToTree(this.rootFilter, this.filtersTree.Nodes);
+      if (this.rootFilter != null)
+         this.AddFilterToTree(this.rootFilter, this.filtersTree.Nodes);
       this.filtersTree.Root.ExpandAll();
    }
 
@@ -124,13 +131,6 @@ public partial class FilterCollectionEditor : OutlinerUserControl
    }
 
 
-   private void enabledCheckBox_CheckedChanged(object sender, EventArgs e)
-   {
-      this.rootFilter.Enabled = this.enabledCheckBox.Checked;
-      if (this.UpdateAction != null)
-         this.UpdateAction();
-   }
-
    private void addFilterButton_Click(object sender, EventArgs e)
    {
       OutlinerPluginData selPlugin = this.filtersComboBox.SelectedItem as OutlinerPluginData;
@@ -143,14 +143,18 @@ public partial class FilterCollectionEditor : OutlinerUserControl
          selCombinatorTn = selCombinatorTn.Parent;
       }
 
-      if (combinator == null)
-         combinator = this.rootFilter;
-
       if (selPlugin != null)
       {
          Filter<IMaxNodeWrapper> filter = Activator.CreateInstance(selPlugin.Type, null) as Filter<IMaxNodeWrapper>;
          filter.FilterChanged += filterChanged;
-         combinator.Filters.Add(filter);
+         if (combinator != null)
+            combinator.Filters.Add(filter);
+         else if (this.rootFilter == null)
+         {
+            this.RootFilter = filter;
+            if (this.filterConfiguration != null)
+               this.filterConfiguration.Filter = filter;
+         }
       }
    }
 

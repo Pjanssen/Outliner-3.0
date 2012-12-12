@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Outliner.UserFiles
+namespace Outliner.Configuration
 {
    [Flags]
    public enum FilterCategory

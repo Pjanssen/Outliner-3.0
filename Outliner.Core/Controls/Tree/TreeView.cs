@@ -899,6 +899,15 @@ public class TreeView : ScrollableControl
       this.editTextBox = new TextBox();
 
       Rectangle bounds = layoutItem.GetBounds(tn);
+      int itemIndex = layoutItem.Layout.LayoutItems.IndexOf(layoutItem);
+      if (itemIndex < layoutItem.Layout.LayoutItems.Count - 1)
+      {
+         TreeNodeLayoutItem nextItem = layoutItem.Layout.LayoutItems[itemIndex + 1];
+         if (nextItem is EmptySpace)
+         {
+            bounds.Width += nextItem.GetWidth(tn);
+         }
+      }
       this.editTextBox.Location = bounds.Location;
       this.editTextBox.Size = new Size (Math.Max(100, bounds.Width), 18);
       this.editTextBox.Text = e.EditText;
@@ -924,16 +933,21 @@ public class TreeView : ScrollableControl
 
    private void editTextBox_KeyDown(object sender, KeyEventArgs e)
    {
-      if (e.KeyCode.HasFlag(Keys.Enter))
+      //This appears to be more reliable than e.KeyCode.HasFlag(Keys.Enter),
+      //which also returns true for 'o' ?!
+      if (e.KeyValue == 13)
          this.EndNodeTextEdit(false);
-      else if (e.KeyCode.HasFlag(Keys.Escape))
+      else if (e.KeyValue == 27)
          this.EndNodeTextEdit(true);
+
+      e.Handled = true;
    }
 
    public void EndNodeTextEdit(Boolean cancel)
    {
       String oldText = null;
       String newText = null;
+      TreeNode editingTreeNode = this.editingTreeNode;
 
       if (!cancel && this.editTextBox != null
                   && this.editingTreeNode != null
@@ -942,10 +956,8 @@ public class TreeView : ScrollableControl
       {
          oldText = this.editingTreeNode.Text;
          newText = this.editTextBox.Text;
-         this.editingTreeNode.Text = this.editTextBox.Text;
+         editingTreeNode.Text = this.editTextBox.Text;
       }
-
-      this.OnAfterNodeTextEdit(new AfterNodeTextEditEventArgs(this.editingTreeNode, cancel, oldText, newText));
 
       this.editTextBox.KeyDown -= editTextBox_KeyDown;
       this.editTextBox.LostFocus -= editTextBox_LostFocus;
@@ -954,6 +966,8 @@ public class TreeView : ScrollableControl
       this.editTextBox.Dispose();
       this.editTextBox = null;
       this.editingTreeNode = null;
+
+      this.OnAfterNodeTextEdit(new AfterNodeTextEditEventArgs(editingTreeNode, cancel, oldText, newText));
    }
 
    #endregion

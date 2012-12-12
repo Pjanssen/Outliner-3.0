@@ -35,7 +35,7 @@ public abstract class TreeMode
 
    protected TreeMode(TreeView tree)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(tree, "tree");
+      Throw.IfArgumentIsNull(tree, "tree");
 
       proc_PausePreSystemEvent = new GlobalDelegates.Delegate5(this.PausePreSystemEvent);
       proc_ResumePostSystemEvent = new GlobalDelegates.Delegate5(this.ResumePostSystemEvent);
@@ -305,8 +305,8 @@ public abstract class TreeMode
 
    public virtual TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(wrapper, "wrapper");
-      ExceptionHelpers.ThrowIfArgumentIsNull(parentCol, "parentCol");
+      Throw.IfArgumentIsNull(wrapper, "wrapper");
+      Throw.IfArgumentIsNull(parentCol, "parentCol");
 
       TreeNode tn = new MaxTreeNode(wrapper);
       this.RegisterNode(wrapper, tn);
@@ -324,8 +324,8 @@ public abstract class TreeMode
 
    public virtual TreeNode AddNode(Object node, TreeNodeCollection parentCol)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(node, "node");
-      ExceptionHelpers.ThrowIfArgumentIsNull(parentCol, "parentCol");
+      Throw.IfArgumentIsNull(node, "node");
+      Throw.IfArgumentIsNull(parentCol, "parentCol");
 
       return this.AddNode(IMaxNodeWrapper.Create(node), parentCol);
    }
@@ -596,7 +596,7 @@ public abstract class TreeMode
       get { return this.filters.Filters[OtherFiltersIndex] as MaxNodeFilterCombinator; }
       set
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(value, "value");
+         Throw.IfArgumentIsNull(value, "value");
 
          this.filters.Filters[OtherFiltersIndex] = value;
 
@@ -610,7 +610,7 @@ public abstract class TreeMode
       get { return this.filters.Filters[PermanentFiltersIndex] as MaxNodeFilterCombinator; }
       set
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(value, "value");
+         Throw.IfArgumentIsNull(value, "value");
 
          this.filters.Filters[PermanentFiltersIndex] = value;
 

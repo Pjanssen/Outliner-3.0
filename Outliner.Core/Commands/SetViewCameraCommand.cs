@@ -18,8 +18,8 @@ namespace Outliner.Commands
 
       public SetViewCameraCommand(IMaxNodeWrapper cameraNode, IViewExp viewport)
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(cameraNode, "cameraNode");
-         ExceptionHelpers.ThrowIfArgumentIsNull(viewport, "viewport");
+         Throw.IfArgumentIsNull(cameraNode, "cameraNode");
+         Throw.IfArgumentIsNull(viewport, "viewport");
 
          this.cameraNode = cameraNode;
          this.viewport = viewport;

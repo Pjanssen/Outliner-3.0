@@ -31,7 +31,7 @@ public class NodePropertyMenuItemModel : MenuItemModel
    protected override Boolean Enabled( Outliner.Controls.Tree.TreeView treeView
                                      , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(treeView, "treeView");
+      Throw.IfArgumentIsNull(treeView, "treeView");
 
       IEnumerable<IMaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
       return !context.All(n => n.IsNodePropertyInherited(this.Property));
@@ -41,7 +41,7 @@ public class NodePropertyMenuItemModel : MenuItemModel
    protected override Boolean Checked(Outliner.Controls.Tree.TreeView treeView
                                      , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(treeView, "treeView");
+      Throw.IfArgumentIsNull(treeView, "treeView");
 
       IEnumerable<IMaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
       return context.Any(n => n.GetNodeProperty(this.Property));
@@ -51,7 +51,7 @@ public class NodePropertyMenuItemModel : MenuItemModel
    protected override void OnClick(Outliner.Controls.Tree.TreeView treeView
                                   , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(treeView, "treeView");
+      Throw.IfArgumentIsNull(treeView, "treeView");
 
       IEnumerable<IMaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
       Boolean newValue = !this.Checked(treeView, clickedTn);

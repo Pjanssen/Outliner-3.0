@@ -14,7 +14,7 @@ class OutlinerContextMenu : ToolStripDropDown
 
    public OutlinerContextMenu(ContextMenuStrip menu)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(menu, "menu");
+      Throw.IfArgumentIsNull(menu, "menu");
 
       this.menu = menu;
    }

@@ -15,7 +15,7 @@ namespace Outliner.Commands
 
       public SetCurrentLayerCommand(IILayerWrapper newActiveLayer)
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(newActiveLayer, "newActiveLayer");
+         Throw.IfArgumentIsNull(newActiveLayer, "newActiveLayer");
 
          this.newCurrentLayer = newActiveLayer;
       }

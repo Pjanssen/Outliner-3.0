@@ -6,10 +6,10 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Drawing;
 
-namespace Outliner.Controls
+namespace Outliner.Configuration
 {
    //TODO: remove size restriction, or find a flexible way to keep it.
-   public class ImageResourceConverter : UIItemResourceConverter
+   public class ImageResourceConverter : ConfigurationResourceConverter
    {
       private static readonly Type imageType = typeof(Image);
       private static readonly Size imageSize = new Size(16, 16);

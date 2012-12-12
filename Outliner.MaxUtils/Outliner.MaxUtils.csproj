@@ -109,7 +109,7 @@
   <ItemGroup>
     <Compile Include="ClassIDHelpers.cs" />
     <Compile Include="ColorHelpers.cs" />
-    <Compile Include="ExceptionHelpers.cs" />
+    <Compile Include="Throw.cs" />
     <Compile Include="Functor.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="HelperMethods.cs" />

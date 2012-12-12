@@ -5,9 +5,9 @@ using System.Text;
 using System.ComponentModel;
 using System.Reflection;
 
-namespace Outliner.Controls
+namespace Outliner.Configuration
 {
-   public class StringResourceConverter : UIItemResourceConverter
+   public class StringResourceConverter : ConfigurationResourceConverter
    {
       override protected Boolean IsValidResource(PropertyInfo property)
       {

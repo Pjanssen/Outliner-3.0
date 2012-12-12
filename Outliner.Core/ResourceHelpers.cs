@@ -12,8 +12,8 @@ public static class ResourceHelpers
 {
    public static Object LookupResource(Type resourceManagerProvider, String resourceKey)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(resourceManagerProvider, "resourceManagerProvider");
-      ExceptionHelpers.ThrowIfArgumentIsNull(resourceKey, "resourceKey");
+      Throw.IfArgumentIsNull(resourceManagerProvider, "resourceManagerProvider");
+      Throw.IfArgumentIsNull(resourceKey, "resourceKey");
 
       PropertyInfo property = resourceManagerProvider.GetProperty(resourceKey, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
       if (property != null)

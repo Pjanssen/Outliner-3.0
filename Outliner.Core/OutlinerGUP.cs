@@ -134,8 +134,8 @@ public class OutlinerGUP
    /// <param name="start">If true, the new TreeMode will be started.</param>
    public void SwitchPreset(TreeView tree, OutlinerPreset preset, Boolean start)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(tree, "tree");
-      ExceptionHelpers.ThrowIfArgumentIsNull(preset, "preset");
+      Throw.IfArgumentIsNull(tree, "tree");
+      Throw.IfArgumentIsNull(preset, "preset");
 
       TreeMode oldMode = this.GetActiveTreeMode(tree);
       if (oldMode != null)

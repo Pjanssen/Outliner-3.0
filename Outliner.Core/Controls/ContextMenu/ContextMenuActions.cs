@@ -22,7 +22,7 @@ namespace Outliner.Controls.ContextMenu
       [OutlinerAction]
       public static void Rename(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(contextTn, "contextTn");
+         Throw.IfArgumentIsNull(contextTn, "contextTn");
 
          contextTn.TreeView.BeginNodeTextEdit(contextTn);
       }
@@ -30,7 +30,7 @@ namespace Outliner.Controls.ContextMenu
       [OutlinerPredicate]
       public static Boolean RenameEnabled(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(contextNodes, "contextNodes");
+         Throw.IfArgumentIsNull(contextNodes, "contextNodes");
 
          if (contextTn != null)
          {
@@ -53,7 +53,7 @@ namespace Outliner.Controls.ContextMenu
       [OutlinerAction]
       public static void Hide(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(contextNodes, "contextNodes");
+         Throw.IfArgumentIsNull(contextNodes, "contextNodes");
 
          HideCommand cmd = new HideCommand(contextNodes, true);
          cmd.Execute(true);
@@ -62,7 +62,7 @@ namespace Outliner.Controls.ContextMenu
       [OutlinerPredicate]
       public static Boolean HideEnabled(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(contextNodes, "contextNodes");
+         Throw.IfArgumentIsNull(contextNodes, "contextNodes");
 
          return contextNodes.Any(n => !n.GetNodeProperty(BooleanNodeProperty.IsHidden));
       }
@@ -70,7 +70,7 @@ namespace Outliner.Controls.ContextMenu
       [OutlinerAction]
       public static void Unhide(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(contextNodes, "contextNodes");
+         Throw.IfArgumentIsNull(contextNodes, "contextNodes");
 
          HideCommand cmd = new HideCommand(contextNodes, false);
          cmd.Execute(true);
@@ -79,7 +79,7 @@ namespace Outliner.Controls.ContextMenu
       [OutlinerPredicate]
       public static Boolean UnhideEnabled(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(contextNodes, "contextNodes");
+         Throw.IfArgumentIsNull(contextNodes, "contextNodes");
 
          return contextNodes.Any(n => n.GetNodeProperty(BooleanNodeProperty.IsHidden));
       }
@@ -87,7 +87,7 @@ namespace Outliner.Controls.ContextMenu
       [OutlinerAction]
       public static void Freeze(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(contextNodes, "contextNodes");
+         Throw.IfArgumentIsNull(contextNodes, "contextNodes");
 
          FreezeCommand cmd = new FreezeCommand(contextNodes, true);
          cmd.Execute(true);
@@ -96,7 +96,7 @@ namespace Outliner.Controls.ContextMenu
       [OutlinerPredicate]
       public static Boolean FreezeEnabled(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(contextNodes, "contextNodes");
+         Throw.IfArgumentIsNull(contextNodes, "contextNodes");
 
          return contextNodes.Any(n => !n.GetNodeProperty(BooleanNodeProperty.IsFrozen));
       }
@@ -104,7 +104,7 @@ namespace Outliner.Controls.ContextMenu
       [OutlinerAction]
       public static void Unfreeze(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(contextNodes, "contextNodes");
+         Throw.IfArgumentIsNull(contextNodes, "contextNodes");
 
          FreezeCommand cmd = new FreezeCommand(contextNodes, false);
          cmd.Execute(true);
@@ -113,7 +113,7 @@ namespace Outliner.Controls.ContextMenu
       [OutlinerPredicate]
       public static Boolean UnfreezeEnabled(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(contextNodes, "contextNodes");
+         Throw.IfArgumentIsNull(contextNodes, "contextNodes");
 
          return contextNodes.Any(n => n.GetNodeProperty(BooleanNodeProperty.IsFrozen));
       }

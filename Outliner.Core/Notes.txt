@@ -8,6 +8,7 @@
 * Updating / Installing
 * Delete a node with children crashes
 * Fix NestedLayers to adapt to NodeProperty int type!!
+* MAterial sorter
 
 TREEVIEW
 --------

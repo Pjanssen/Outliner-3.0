@@ -281,15 +281,6 @@ namespace Outliner {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Alphabetical.
-        /// </summary>
-        internal static string Sort_Alphabetical {
-            get {
-                return ResourceManager.GetString("Sort_Alphabetical", resourceCulture);
-            }
-        }
-        
         internal static System.Drawing.Bitmap sort_alphabetical_16_dark {
             get {
                 object obj = ResourceManager.GetObject("sort_alphabetical_16_dark", resourceCulture);
@@ -317,6 +308,25 @@ namespace Outliner {
         internal static string Str_AlphabeticalSorter {
             get {
                 return ResourceManager.GetString("Str_AlphabeticalSorter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete {0}?
+        ///This action cannot be undone..
+        /// </summary>
+        internal static string Str_DeleteConfigWarning {
+            get {
+                return ResourceManager.GetString("Str_DeleteConfigWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete configuration?.
+        /// </summary>
+        internal static string Str_DeleteConfigWarningTitle {
+            get {
+                return ResourceManager.GetString("Str_DeleteConfigWarningTitle", resourceCulture);
             }
         }
         

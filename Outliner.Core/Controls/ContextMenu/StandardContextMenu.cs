@@ -13,7 +13,7 @@ using OutlinerTree = Outliner.Controls.Tree;
 using Outliner.Presets;
 using Outliner.Controls.Options;
 using Outliner.MaxUtils;
-using Outliner.UserFiles;
+using Outliner.Configuration;
 
 namespace Outliner.Controls.ContextMenu
 {
@@ -93,7 +93,7 @@ internal static class StandardContextMenu
 
       filter_btn.DropDownItems.Add(new ToolStripSeparator());
       
-      IEnumerable<UserFiles.FilterConfiguration> filters = UserFiles.UserFiles.GetUserFiles<UserFiles.FilterConfiguration>(OutlinerPaths.FiltersDir);
+      IEnumerable<FilterConfiguration> filters = ConfigurationHelpers.GetConfigurations<FilterConfiguration>(OutlinerPaths.FiltersDir);
       if (AddUserFileItems(filter_btn.DropDownItems, treeMode, filters.Where(f => f.Category == FilterCategory.Classes), filter_ItemClick) > 0)
          filter_btn.DropDownItems.Add(new ToolStripSeparator());
 
@@ -104,17 +104,18 @@ internal static class StandardContextMenu
          filter_btn.DropDownItems.Add(new ToolStripSeparator());
 
       
-      filter_btn.DropDownItems.Add(ContextMenuResources.Str_EditFilters, null, advancedFilterClick);
+      filter_btn.DropDownItems.Add(ContextMenuResources.Str_EditFilters, null, editFiltersClick);
 
       strip.Items.Add(filter_btn);
 
 
       ToolStripDropDownButton sort_btn = new ToolStripDropDownButton("Sorting");
       sort_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
-      //Type currentSorterType = (treeMode.Tree.NodeSorter != null) ? treeMode.Tree.NodeSorter.GetType() : null;
       NodeSorters.NodeSorter currentSorter = treeMode.Tree.NodeSorter as NodeSorters.NodeSorter;
-      IEnumerable<SorterConfiguration> sorters = UserFiles.UserFiles.GetUserFiles<UserFiles.SorterConfiguration>(OutlinerPaths.SortersDir);
-      foreach (SorterConfiguration sorterConfig in sorters.OrderBy(s => s.Text))
+      IEnumerable<SorterConfiguration> sorters = ConfigurationHelpers.GetConfigurations<SorterConfiguration>(OutlinerPaths.SortersDir)
+                                                                     .Where(s => s.Sorter != null)
+                                                                     .OrderBy(s => s.Text);
+      foreach (SorterConfiguration sorterConfig in sorters)
       {
          ToolStripMenuItem item = AddDropDownItem(sort_btn.DropDownItems, sorterConfig.Text, sorterConfig.Image16, sort_itemClick, sorterConfig);
          if (sorterConfig.Sorter.Equals(currentSorter))
@@ -128,7 +129,7 @@ internal static class StandardContextMenu
       //if (AddUserFileItems(sort_btn.DropDownItems, treeMode, sorters.OrderBy(x => x.Text), sort_itemClick) > 0)
          sort_btn.DropDownItems.Add(new ToolStripSeparator());
 
-      sort_btn.DropDownItems.Add("Edit Node Sorters...");
+      sort_btn.DropDownItems.Add("Edit Node Sorters...", null, editSortersBtnClick);
 
       //IEnumerable<OutlinerPluginData> sorterTypes = OutlinerPlugins.GetPlugins(OutlinerPluginType.NodeSorter);
       //foreach (OutlinerPluginData sorter in sorterTypes)
@@ -195,7 +196,7 @@ internal static class StandardContextMenu
       return item;
    }
 
-   private static ToolStripMenuItem AddUserFilesItem(ToolStripItemCollection itemCollection, UIItemModel item, EventHandler clickHandler)
+   private static ToolStripMenuItem AddUserFilesItem(ToolStripItemCollection itemCollection, ConfigurationFile item, EventHandler clickHandler)
    {
       return AddDropDownItem(itemCollection, item.Text, item.Image16, clickHandler, item);
    }
@@ -298,7 +299,7 @@ internal static class StandardContextMenu
    static void filter_ItemClick(object sender, EventArgs e)
    {
       ToolStripMenuItem item = sender as ToolStripMenuItem;
-      UserFiles.FilterConfiguration config = item.Tag as UserFiles.FilterConfiguration;
+      FilterConfiguration config = item.Tag as FilterConfiguration;
       TreeMode treeMode = GetTreeMode(sender);
 
       Filter<Outliner.Scene.IMaxNodeWrapper> filter = treeMode.Filters.Filters.Get(config.Filter.GetType());
@@ -320,11 +321,11 @@ internal static class StandardContextMenu
       item.Checked = treeMode.Filters.Filters.Get(filterType) != null;
    }
 
-   private static void advancedFilterClick(Object sender, EventArgs e)
+   private static void editFiltersClick(Object sender, EventArgs e)
    {
       TreeMode treeMode = GetTreeMode(sender);
-      AdvancedFilterEditor editor = new AdvancedFilterEditor(treeMode.Filters);
-      editor.Show(MaxInterfaces.MaxHwnd);
+      ConfigFilesEditor<FilterConfiguration> editor = new ConfigFilesEditor<FilterConfiguration>(OutlinerPaths.FiltersDir, typeof(FilterCollectionEditor), ContextMenuResources.Str_EditFilters);
+      editor.ShowDialog(MaxInterfaces.MaxHwnd);
    }
 
    #endregion
@@ -417,14 +418,22 @@ internal static class StandardContextMenu
 
    #endregion
 
-   private static Int32 AddUserFileItems(ToolStripItemCollection itemCollection, TreeMode treeMode, IEnumerable<UIItemModel> items, EventHandler clickHandler)
+   private static Int32 AddUserFileItems(ToolStripItemCollection itemCollection, TreeMode treeMode, IEnumerable<ConfigurationFile> items, EventHandler clickHandler)
    {
-      foreach (UIItemModel item in items)
+      foreach (ConfigurationFile item in items)
       {
          ToolStripMenuItem menuItem = AddUserFilesItem(itemCollection, item, clickHandler);
          CheckFilterItem(menuItem, treeMode);
       }
       return items.Count();
+   }
+
+   public static void editSortersBtnClick(object sender, EventArgs e)
+   {
+      ConfigFilesEditor<SorterConfiguration> editor = new ConfigFilesEditor<SorterConfiguration>( OutlinerPaths.SortersDir
+                                                                                                , typeof(SorterConfigurationEditor)
+                                                                                                , "Edit Node Sorters");
+      editor.ShowDialog(MaxInterfaces.MaxHwnd);
    }
 }
 }

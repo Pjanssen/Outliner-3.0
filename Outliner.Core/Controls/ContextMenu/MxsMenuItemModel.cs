@@ -38,7 +38,7 @@ public class MxsMenuItemModel : MenuItemModel
    protected override Boolean Enabled(Outliner.Controls.Tree.TreeView treeView
                                      , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(treeView, "treeView");
+      Throw.IfArgumentIsNull(treeView, "treeView");
 
       if (!String.IsNullOrEmpty(this.EnabledScript))
          return MaxscriptSDK.ExecuteBooleanMaxscriptQuery(this.EnabledScript);
@@ -50,7 +50,7 @@ public class MxsMenuItemModel : MenuItemModel
    protected override Boolean Checked(Outliner.Controls.Tree.TreeView treeView
                                      , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(treeView, "treeView");
+      Throw.IfArgumentIsNull(treeView, "treeView");
 
       if (!String.IsNullOrEmpty(this.CheckedScript))
          return MaxscriptSDK.ExecuteBooleanMaxscriptQuery(this.CheckedScript);
@@ -61,7 +61,7 @@ public class MxsMenuItemModel : MenuItemModel
    protected override void OnClick( Outliner.Controls.Tree.TreeView treeView
                                   , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(treeView, "treeView");
+      Throw.IfArgumentIsNull(treeView, "treeView");
 
       if (!String.IsNullOrEmpty(this.OnClickScript))
       {

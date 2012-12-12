@@ -17,8 +17,8 @@ namespace Outliner.Commands
       public ModifySelectionSetCommand( IEnumerable<IMaxNodeWrapper> nodes
                                       , SelectionSetWrapper selSet)
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(nodes, "nodes");
-         ExceptionHelpers.ThrowIfArgumentIsNull(selSet, "selSet");
+         Throw.IfArgumentIsNull(nodes, "nodes");
+         Throw.IfArgumentIsNull(selSet, "selSet");
 
          this.nodes = nodes;
          this.selSet = selSet;

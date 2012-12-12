@@ -17,10 +17,11 @@ using Outliner.Modes;
 using Outliner.NodeSorters;
 using Outliner.Plugins;
 using Outliner.Scene;
+using Outliner.Configuration;
 
 namespace Outliner.Presets
 {
-public class OutlinerPreset : UIItemModel
+public class OutlinerPreset : ConfigurationFile
 {
    public OutlinerPreset() : base()
    {
@@ -103,7 +104,7 @@ public class OutlinerPreset : UIItemModel
 
    public TreeMode CreateTreeMode(TreeView tree)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(tree, "tree");
+      Throw.IfArgumentIsNull(tree, "tree");
 
       Type treeModeType = OutlinerPlugins.GetPluginType( OutlinerPluginType.TreeMode
                                                        , this.TreeModeTypeName);

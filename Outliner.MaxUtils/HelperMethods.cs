@@ -15,8 +15,8 @@ public static class HelperMethods
    /// </summary>
    public static void ForEach<T>(this IEnumerable<T> items, Action<T> action)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(items, "items");
-      ExceptionHelpers.ThrowIfArgumentIsNull(action, "action");
+      Throw.IfArgumentIsNull(items, "items");
+      Throw.IfArgumentIsNull(action, "action");
       
       foreach (T item in items)
          action(item);
@@ -27,7 +27,7 @@ public static class HelperMethods
    /// </summary>
    public static IEnumerable<T> ToIEnumerable<T>(this ITab<T> tab)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(tab, "tab");
+      Throw.IfArgumentIsNull(tab, "tab");
       
       List<T> lst = new List<T>(tab.Count);
       for (int i = 0; i < tab.Count; i++)
@@ -41,8 +41,8 @@ public static class HelperMethods
    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
    public static void RunResourceScript(Assembly assembly, String res)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(assembly, "assembly");
-      ExceptionHelpers.ThrowIfArgumentIsNull(res, "res");
+      Throw.IfArgumentIsNull(assembly, "assembly");
+      Throw.IfArgumentIsNull(res, "res");
       
       String script = String.Empty;
 

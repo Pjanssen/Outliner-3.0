@@ -18,7 +18,7 @@ public class SetNodePropertyCommand<T> : Command
 
    public SetNodePropertyCommand(IEnumerable<IMaxNodeWrapper> nodes, NodeProperty property, T newValue)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(nodes, "nodes");
+      Throw.IfArgumentIsNull(nodes, "nodes");
 
       this.nodes = nodes;
       this.property = property;
@@ -27,8 +27,8 @@ public class SetNodePropertyCommand<T> : Command
 
    public SetNodePropertyCommand(IEnumerable<IMaxNodeWrapper> nodes, String propertyName, T newValue)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(nodes, "nodes");
-      ExceptionHelpers.ThrowIfArgumentIsNull(propertyName, "propertyName");
+      Throw.IfArgumentIsNull(nodes, "nodes");
+      Throw.IfArgumentIsNull(propertyName, "propertyName");
 
       this.nodes = nodes;
       this.propInfo = typeof(IMaxNodeWrapper).GetProperty(propertyName);
@@ -62,7 +62,7 @@ public class SetNodePropertyCommand<T> : Command
 
    protected virtual T GetValue(IMaxNodeWrapper node)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(node, "node");
+      Throw.IfArgumentIsNull(node, "node");
 
       if (this.propInfo == null)
          return (T)node.GetNodeProperty(this.property);
@@ -72,7 +72,7 @@ public class SetNodePropertyCommand<T> : Command
 
    protected virtual void SetValue(IMaxNodeWrapper node, T value)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(node, "node");
+      Throw.IfArgumentIsNull(node, "node");
 
       if (this.propInfo == null)
          node.SetNodeProperty(this.property, value);

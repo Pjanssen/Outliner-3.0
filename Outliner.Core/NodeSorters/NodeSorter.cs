@@ -57,8 +57,8 @@ public abstract class NodeSorter : IComparer<TreeNode>
 
    public int Compare(TreeNode x, TreeNode y)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(x, "x");
-      ExceptionHelpers.ThrowIfArgumentIsNull(y, "y");
+      Throw.IfArgumentIsNull(x, "x");
+      Throw.IfArgumentIsNull(y, "y");
 
       int compareResult = this.invert ? this.InternalCompare(y, x) 
                                       : this.InternalCompare(x, y);

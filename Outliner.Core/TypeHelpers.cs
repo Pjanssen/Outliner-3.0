@@ -10,7 +10,7 @@ namespace Outliner
    {
       public static Boolean HasAttribute<T>(MemberInfo memberInfo) where T : Attribute
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(memberInfo, "memberInfo");
+         Throw.IfArgumentIsNull(memberInfo, "memberInfo");
 
          object[] attributes = memberInfo.GetCustomAttributes(typeof(T), false);
          return attributes != null && attributes.Count() > 0;
@@ -18,7 +18,7 @@ namespace Outliner
 
       public static T GetAttribute<T>(MemberInfo memberInfo) where T : Attribute
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(memberInfo, "memberInfo");
+         Throw.IfArgumentIsNull(memberInfo, "memberInfo");
 
          object[] attributes = memberInfo.GetCustomAttributes(typeof(T), false);
          if (attributes != null && attributes.Count() > 0)

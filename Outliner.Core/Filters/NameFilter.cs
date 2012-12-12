@@ -36,7 +36,7 @@ public class NameFilter : Filter<IMaxNodeWrapper>
       }
       set
       {
-         ExceptionHelpers.ThrowIfArgumentIsNull(value, "value");
+         Throw.IfArgumentIsNull(value, "value");
 
          origSearchString = value;
          if (value == String.Empty)

@@ -12,7 +12,7 @@ public static class OutlinerPaths
 {
    private static String GetMaxDirectory(MaxDirectory dir)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(dir, "dir");
+      Throw.IfArgumentIsNull(dir, "dir");
 
       IIPathConfigMgr pathMgr = MaxInterfaces.Global.IPathConfigMgr.PathConfigMgr;
       return pathMgr.GetDir(dir);
@@ -24,7 +24,7 @@ public static class OutlinerPaths
       get
       {
          if (configDir == null)
-            configDir = Path.Combine(GetMaxDirectory(MaxDirectory.Plugcfg), "Outliner/");
+            configDir = Path.Combine(GetMaxDirectory(MaxDirectory.Plugcfg), "Outliner\\");
 
          return configDir;
       }
@@ -32,33 +32,33 @@ public static class OutlinerPaths
 
    public static String PluginsDir
    {
-      get { return Path.Combine(OutlinerPaths.ConfigDir, "Plugins/"); }
+      get { return Path.Combine(OutlinerPaths.ConfigDir, "Plugins\\"); }
    }
 
 
    public static String PresetsDir
    {
-      get { return Path.Combine(OutlinerPaths.ConfigDir, "Presets/"); }
+      get { return Path.Combine(OutlinerPaths.ConfigDir, "Presets\\"); }
    }
 
    public static String LayoutsDir
    {
-      get { return Path.Combine(OutlinerPaths.ConfigDir, "Layouts/"); }
+      get { return Path.Combine(OutlinerPaths.ConfigDir, "Layouts\\"); }
    }
 
    public static String ContextMenusDir
    {
-      get { return Path.Combine(OutlinerPaths.ConfigDir, "ContextMenus/"); }
+      get { return Path.Combine(OutlinerPaths.ConfigDir, "ContextMenus\\"); }
    }
 
    public static String FiltersDir
    {
-      get { return Path.Combine(OutlinerPaths.ConfigDir, "Filters/"); }
+      get { return Path.Combine(OutlinerPaths.ConfigDir, "Filters\\"); }
    }
 
    public static String SortersDir
    {
-      get { return Path.Combine(OutlinerPaths.ConfigDir, "NodeSorters/"); }
+      get { return Path.Combine(OutlinerPaths.ConfigDir, "NodeSorters\\"); }
    }
 
    public static String StateFile

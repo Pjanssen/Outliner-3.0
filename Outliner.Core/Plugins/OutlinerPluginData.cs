@@ -29,11 +29,11 @@ public class OutlinerPluginData
 
    public OutlinerPluginData(Type type)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(type, "type");
+      Throw.IfArgumentIsNull(type, "type");
       this.Type = type;
 
       OutlinerPluginAttribute pluginAttr = TypeHelpers.GetAttribute<OutlinerPluginAttribute>(type);
-      ExceptionHelpers.ThrowIfNull(pluginAttr, "OutlinerPlugin attribute not found on type.");
+      Throw.IfNull(pluginAttr, "OutlinerPlugin attribute not found on type.");
       this.PluginType = pluginAttr.PluginType;
 
       DisplayNameAttribute dispAtrr = TypeHelpers.GetAttribute<DisplayNameAttribute>(type);
