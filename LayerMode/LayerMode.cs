@@ -180,8 +180,7 @@ public class LayerMode : TreeMode
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
       if (layer != null)
       {
-         NodePropertySorter sorter = Tree.NodeSorter as NodePropertySorter;
-         Boolean sort = sorter != null && sorter.Property == NodeProperty.IsHidden;
+         Boolean sort = NodeSorterHelpers.RequiresSort(this.Tree.NodeSorter as NodeSorter, NodeProperty.IsHidden);
          this.InvalidateObject(layer, true, sort);
       }
    }
@@ -192,8 +191,7 @@ public class LayerMode : TreeMode
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
       if (layer != null)
       {
-         NodePropertySorter sorter = Tree.NodeSorter as NodePropertySorter;
-         Boolean sort = sorter != null && sorter.Property == NodeProperty.IsFrozen;
+         Boolean sort = NodeSorterHelpers.RequiresSort(this.Tree.NodeSorter as NodeSorter, NodeProperty.IsFrozen);
          this.InvalidateObject(layer, true, sort);
       }
    }

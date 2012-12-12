@@ -18,7 +18,7 @@ public class HierarchyMode : TreeMode
 {
    public HierarchyMode(TreeView tree) : base(tree)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(tree, "tree");
+      Throw.IfArgumentIsNull(tree, "tree");
 
       tree.DragDropHandler = new TreeViewDragDropHandler();
    }
@@ -44,8 +44,8 @@ public class HierarchyMode : TreeMode
 
    public TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol, Boolean recursive)
    {
-      ExceptionHelpers.ThrowIfArgumentIsNull(wrapper, "wrapper");
-      ExceptionHelpers.ThrowIfArgumentIsNull(parentCol, "parentCol");
+      Throw.IfArgumentIsNull(wrapper, "wrapper");
+      Throw.IfArgumentIsNull(parentCol, "parentCol");
 
       TreeNode tn = base.AddNode(wrapper, parentCol);
 
