@@ -12,22 +12,6 @@ namespace Outliner.Controls.Tree.Layout
 {
 public class EmptySpace : TreeNodeLayoutItem
 {
-   [XmlAttribute("padding_left")]
-   [DefaultValue(2)]
-   public override int PaddingLeft
-   {
-      get { return 2; }
-      set { }
-   }
-
-   [XmlAttribute("padding_right")]
-   [DefaultValue(2)]
-   public override int PaddingRight
-   {
-      get { return 2; }
-      set { }
-   }
-
    [XmlAttribute("visible_types")]
    [DefaultValue(MaxNodeTypes.All)]
    public override Scene.MaxNodeTypes VisibleTypes
