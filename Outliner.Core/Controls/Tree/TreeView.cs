@@ -888,6 +888,9 @@ public class TreeView : ScrollableControl
       if (tn == null || layoutItem == null)
          return;
 
+      if (this.editingTreeNode != null)
+         this.EndNodeTextEdit(true);
+
       BeforeNodeTextEditEventArgs e = new BeforeNodeTextEditEventArgs(tn);
       this.OnBeforeNodeTextEdit(e);
 
