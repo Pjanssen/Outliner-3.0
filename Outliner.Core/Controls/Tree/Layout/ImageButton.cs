@@ -118,7 +118,7 @@ public abstract class ImageButton : TreeNodeButton
 
 
 
-   public override int GetWidth(TreeNode tn)
+   public override int GetAutoWidth(TreeNode tn)
    {
       return this.ImageEnabled.Width;
    }

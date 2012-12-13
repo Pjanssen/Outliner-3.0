@@ -34,7 +34,7 @@ public class TreeNodeIndent : ExpandButton
       return newItem;
    }
 
-   public override int GetWidth(TreeNode tn)
+   public override int GetAutoWidth(TreeNode tn)
    {
       Int32 tnLevel = (tn == null) ? 0 : tn.Level;
       return GUTTERWIDTH + this.Indent * tnLevel;

@@ -19,6 +19,7 @@ namespace Outliner.Controls.Tree.Layout
       protected TreeNodeLayoutItem()
       {
          this.VisibleTypes = MaxNodeTypes.All;
+         this.Width = AutoWidth;
       }
 
 
@@ -99,9 +100,26 @@ namespace Outliner.Controls.Tree.Layout
       }
 
       /// <summary>
+      /// A value which indicates that the width should be calculated by the layoutitem.
+      /// </summary>
+      public const Int32 AutoWidth = -1;
+
+      [XmlAttribute("width")]
+      [DefaultValue(AutoWidth)]
+      public Int32 Width { get; set; }
+
+      /// <summary>
       /// Returns the width of the item.
       /// </summary>
-      public abstract Int32 GetWidth(TreeNode tn);
+      public Int32 GetWidth(TreeNode tn)
+      {
+         if (this.Width == AutoWidth)
+            return GetAutoWidth(tn);
+         else
+            return this.Width;
+      }
+
+      public abstract Int32 GetAutoWidth(TreeNode tn);
 
       /// <summary>
       /// Returns the height of the item.

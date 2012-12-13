@@ -5,11 +5,18 @@ using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
 using Outliner.Filters;
+using System.Xml.Serialization;
+using System.ComponentModel;
 
 namespace Outliner.Controls.Tree.Layout
 {
 public class TreeNodeText : TreeNodeButton
 {
+   public TreeNodeText()
+   {
+      this.Alignment = StringAlignment.Near;
+   }
+
    public override bool CenterVertically { get { return false; } }
 
    public override TreeNodeLayoutItem Copy()
@@ -21,6 +28,11 @@ public class TreeNodeText : TreeNodeButton
       return newItem;
    }
 
+   protected virtual String GetText(TreeNode tn)
+   {
+      return tn.Text;
+   }
+
    private Size GetTextSize(TreeNode tn)
    {
       if (this.Layout == null || this.Layout.TreeView == null || tn == null)
@@ -28,13 +40,13 @@ public class TreeNodeText : TreeNodeButton
 
       using (Font f = new Font(this.Layout.TreeView.Font, tn.FontStyle))
       {
-         return TextRenderer.MeasureText(tn.Text, f);
+         return TextRenderer.MeasureText(this.GetText(tn), f);
       }
    }
 
-   public override int GetWidth(TreeNode tn)
+   public override int GetAutoWidth(TreeNode tn)
    {
-      int textWidth = this.GetTextSize(tn).Width + (int)Math.Ceiling(tn.Text.Length * 0.1);
+      int textWidth = this.GetTextSize(tn).Width + (int)Math.Ceiling(this.GetText(tn).Length * 0.1);
       int maxWidth = this.getMaxWidth(tn);
 
       return Math.Min(maxWidth, textWidth);
@@ -88,10 +100,14 @@ public class TreeNodeText : TreeNodeButton
       int maxWidth = this.getMaxWidth(tn);
 
       if (textWidth > maxWidth)
-         return tn.Text;
+         return this.GetText(tn);
       else
          return null;
    }
+
+   [XmlAttribute("alignment")]
+   [DefaultValue(StringAlignment.Near)]
+   public StringAlignment Alignment { get; set; }
 
    public override void Draw(Graphics graphics, TreeNode tn)
    {
@@ -117,10 +133,11 @@ public class TreeNodeText : TreeNodeButton
          {
             using (StringFormat format = new StringFormat())
             {
+               format.Alignment = this.Alignment;
                format.LineAlignment = StringAlignment.Center;
                format.FormatFlags = StringFormatFlags.NoWrap;
                format.Trimming = StringTrimming.EllipsisPath;
-               graphics.DrawString(tn.Text, f, fgBrush, gBounds, format);
+               graphics.DrawString(this.GetText(tn), f, fgBrush, gBounds, format);
             }
          }
       }

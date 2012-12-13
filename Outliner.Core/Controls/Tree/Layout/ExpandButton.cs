@@ -65,7 +65,7 @@ public class ExpandButton : TreeNodeButton
    }
 
 
-   public override int GetWidth(TreeNode tn)
+   public override int GetAutoWidth(TreeNode tn)
    {
       return ExpandButton.GUTTERWIDTH;
    }
