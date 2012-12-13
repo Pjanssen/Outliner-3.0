@@ -90,7 +90,7 @@ public class NodeIcon : TreeNodeButton
    }
 
 
-   public override int GetWidth(TreeNode tn)
+   public override int GetAutoWidth(TreeNode tn)
    {
       return this.iconSize.Width;
    }

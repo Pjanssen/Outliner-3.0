@@ -48,7 +48,7 @@ public class WireColorButton : NodePropertyButton
       return newItem;
    }
 
-   public override int GetWidth(TreeNode tn)
+   public override int GetAutoWidth(TreeNode tn)
    {
       return this.ButtonWidth;
    }

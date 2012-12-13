@@ -38,6 +38,7 @@ public class HierarchyPreset : OutlinerPreset
       this.TreeNodeLayout.LayoutItems.Add(new EmptySpace());
       this.TreeNodeLayout.LayoutItems.Add(new HideButton());
       this.TreeNodeLayout.LayoutItems.Add(new FreezeButton());
+      this.TreeNodeLayout.LayoutItems.Add(new Outliner.PolyCount.PolyCountLayoutItem() { Alignment = StringAlignment.Far, Width = 25 });
    }
 }
 }
