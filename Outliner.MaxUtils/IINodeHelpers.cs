@@ -77,5 +77,21 @@ public static class IINodeHelpers
       return handles.ToIEnumerable().Select(MaxInterfaces.Global.NodeEventNamespace.GetNodeByKey);
    }
 
+   private const int enable = (int)Autodesk.Max.ObjectWrapper.E173.AllEnable;
+   private const int nativeType = (int)Autodesk.Max.ObjectWrapper.E172.TriObject;
+
+   /// <summary>
+   /// Returns the polycount of an IINode.
+   /// </summary>
+   public static Int32 GetPolyCount(IINode node)
+   {
+      int time = MaxInterfaces.COREInterface.Time;
+      IObjectWrapper objWrapperX = MaxInterfaces.Global.ObjectWrapper.Create();
+      objWrapperX.Init(time, node.EvalWorldState(time, true), false, enable, nativeType);
+
+      int xNumFaces = objWrapperX.NumFaces;
+      objWrapperX.Release();
+      return xNumFaces;
+   }
 }
 }
