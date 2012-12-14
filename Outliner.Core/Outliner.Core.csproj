@@ -200,23 +200,11 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ControlHelpers.cs" />
-    <Compile Include="Controls\Options\AdvancedFilterEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\Options\AdvancedFilterEditor.Designer.cs">
-      <DependentUpon>AdvancedFilterEditor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Options\ColorSchemeEditor.cs">
+    <Compile Include="Controls\Options\ConfigurationFilePropertiesEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\Options\ColorSchemeEditor.Designer.cs">
-      <DependentUpon>ColorSchemeEditor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Options\ConfigurationFileEditor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\Options\ConfigurationFileEditor.Designer.cs">
-      <DependentUpon>ConfigurationFileEditor.cs</DependentUpon>
+    <Compile Include="Controls\Options\ConfigurationFilePropertiesEditor.Designer.cs">
+      <DependentUpon>ConfigurationFilePropertiesEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Options\ContextMenuModelEditor.cs">
       <SubType>UserControl</SubType>
@@ -377,14 +365,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ContextMenuResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Options\AdvancedFilterEditor.resx">
-      <DependentUpon>AdvancedFilterEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Options\ColorSchemeEditor.resx">
-      <DependentUpon>ColorSchemeEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Options\ConfigurationFileEditor.resx">
-      <DependentUpon>ConfigurationFileEditor.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\Options\ConfigurationFilePropertiesEditor.resx">
+      <DependentUpon>ConfigurationFilePropertiesEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Options\ContextMenuModelEditor.resx">
       <DependentUpon>ContextMenuModelEditor.cs</DependentUpon>

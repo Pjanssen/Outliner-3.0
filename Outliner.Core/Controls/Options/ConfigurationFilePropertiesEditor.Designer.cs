@@ -1,6 +1,6 @@
 ﻿namespace Outliner.Controls.Options
 {
-   partial class ConfigurationFileEditor
+   partial class ConfigurationFilePropertiesEditor
    {
       /// <summary> 
       /// Required designer variable.

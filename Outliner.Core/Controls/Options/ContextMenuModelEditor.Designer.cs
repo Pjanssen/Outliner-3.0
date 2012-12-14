@@ -55,7 +55,7 @@
          this.outlinerGroupBox2.Location = new System.Drawing.Point(0, 53);
          this.outlinerGroupBox2.Name = "outlinerGroupBox2";
          this.outlinerGroupBox2.Padding = new System.Windows.Forms.Padding(5);
-         this.outlinerGroupBox2.Size = new System.Drawing.Size(400, 346);
+         this.outlinerGroupBox2.Size = new System.Drawing.Size(454, 346);
          this.outlinerGroupBox2.TabIndex = 9;
          this.outlinerGroupBox2.TabStop = false;
          this.outlinerGroupBox2.Text = "Context-Menu Items";
@@ -81,7 +81,7 @@
          this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
          this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
          this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-         this.tableLayoutPanel2.Size = new System.Drawing.Size(390, 323);
+         this.tableLayoutPanel2.Size = new System.Drawing.Size(444, 323);
          this.tableLayoutPanel2.TabIndex = 0;
          // 
          // itemsComboBox
@@ -92,7 +92,7 @@
          this.itemsComboBox.FormattingEnabled = true;
          this.itemsComboBox.Location = new System.Drawing.Point(3, 3);
          this.itemsComboBox.Name = "itemsComboBox";
-         this.itemsComboBox.Size = new System.Drawing.Size(324, 21);
+         this.itemsComboBox.Size = new System.Drawing.Size(378, 21);
          this.itemsComboBox.TabIndex = 0;
          // 
          // addBtn
@@ -100,7 +100,7 @@
          this.addBtn.Dock = System.Windows.Forms.DockStyle.Fill;
          this.addBtn.FlatStyle = System.Windows.Forms.FlatStyle.System;
          this.addBtn.Font = new System.Drawing.Font("Tahoma", 8F);
-         this.addBtn.Location = new System.Drawing.Point(333, 2);
+         this.addBtn.Location = new System.Drawing.Point(387, 2);
          this.addBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 3);
          this.addBtn.Name = "addBtn";
          this.addBtn.Size = new System.Drawing.Size(54, 23);
@@ -117,7 +117,7 @@
          this.itemTree.Location = new System.Drawing.Point(3, 31);
          this.itemTree.Name = "itemTree";
          this.tableLayoutPanel2.SetRowSpan(this.itemTree, 3);
-         this.itemTree.Size = new System.Drawing.Size(324, 169);
+         this.itemTree.Size = new System.Drawing.Size(378, 169);
          this.itemTree.TabIndex = 2;
          this.itemTree.Text = "treeView1";
          this.itemTree.SelectionChanged += new System.EventHandler<Outliner.Controls.Tree.SelectionChangedEventArgs>(this.itemTree_SelectionChanged);
@@ -129,7 +129,7 @@
          this.itemPropertyGrid.Location = new System.Drawing.Point(3, 206);
          this.itemPropertyGrid.Name = "itemPropertyGrid";
          this.itemPropertyGrid.PropertySort = System.Windows.Forms.PropertySort.Alphabetical;
-         this.itemPropertyGrid.Size = new System.Drawing.Size(324, 114);
+         this.itemPropertyGrid.Size = new System.Drawing.Size(378, 114);
          this.itemPropertyGrid.TabIndex = 3;
          this.itemPropertyGrid.ToolbarVisible = false;
          // 
@@ -138,7 +138,7 @@
          this.moveUpBtn.Dock = System.Windows.Forms.DockStyle.Fill;
          this.moveUpBtn.FlatStyle = System.Windows.Forms.FlatStyle.System;
          this.moveUpBtn.Font = new System.Drawing.Font("Tahoma", 8F);
-         this.moveUpBtn.Location = new System.Drawing.Point(333, 31);
+         this.moveUpBtn.Location = new System.Drawing.Point(387, 31);
          this.moveUpBtn.Name = "moveUpBtn";
          this.moveUpBtn.Size = new System.Drawing.Size(54, 22);
          this.moveUpBtn.TabIndex = 4;
@@ -150,7 +150,7 @@
          this.moveDownBtn.Dock = System.Windows.Forms.DockStyle.Fill;
          this.moveDownBtn.FlatStyle = System.Windows.Forms.FlatStyle.System;
          this.moveDownBtn.Font = new System.Drawing.Font("Tahoma", 8F);
-         this.moveDownBtn.Location = new System.Drawing.Point(333, 59);
+         this.moveDownBtn.Location = new System.Drawing.Point(387, 59);
          this.moveDownBtn.Name = "moveDownBtn";
          this.moveDownBtn.Size = new System.Drawing.Size(54, 22);
          this.moveDownBtn.TabIndex = 5;
@@ -162,7 +162,7 @@
          this.deleteBtn.Dock = System.Windows.Forms.DockStyle.Top;
          this.deleteBtn.FlatStyle = System.Windows.Forms.FlatStyle.System;
          this.deleteBtn.Font = new System.Drawing.Font("Tahoma", 8F);
-         this.deleteBtn.Location = new System.Drawing.Point(333, 87);
+         this.deleteBtn.Location = new System.Drawing.Point(387, 87);
          this.deleteBtn.Name = "deleteBtn";
          this.deleteBtn.Size = new System.Drawing.Size(54, 22);
          this.deleteBtn.TabIndex = 6;
@@ -177,7 +177,7 @@
          this.outlinerGroupBox1.Location = new System.Drawing.Point(0, 0);
          this.outlinerGroupBox1.Name = "outlinerGroupBox1";
          this.outlinerGroupBox1.Padding = new System.Windows.Forms.Padding(8, 5, 5, 5);
-         this.outlinerGroupBox1.Size = new System.Drawing.Size(400, 53);
+         this.outlinerGroupBox1.Size = new System.Drawing.Size(454, 53);
          this.outlinerGroupBox1.TabIndex = 8;
          this.outlinerGroupBox1.TabStop = false;
          this.outlinerGroupBox1.Text = "Context-Menu File";
@@ -194,14 +194,14 @@
          this.tableLayoutPanel1.Name = "tableLayoutPanel1";
          this.tableLayoutPanel1.RowCount = 1;
          this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 308F));
-         this.tableLayoutPanel1.Size = new System.Drawing.Size(387, 30);
+         this.tableLayoutPanel1.Size = new System.Drawing.Size(441, 30);
          this.tableLayoutPanel1.TabIndex = 4;
          // 
          // newBtn
          // 
          this.newBtn.FlatStyle = System.Windows.Forms.FlatStyle.System;
          this.newBtn.Font = new System.Drawing.Font("Tahoma", 8F);
-         this.newBtn.Location = new System.Drawing.Point(330, 2);
+         this.newBtn.Location = new System.Drawing.Point(384, 2);
          this.newBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 3);
          this.newBtn.Name = "newBtn";
          this.newBtn.Size = new System.Drawing.Size(54, 23);
@@ -217,7 +217,7 @@
          this.contextMenuFileComboBox.FormattingEnabled = true;
          this.contextMenuFileComboBox.Location = new System.Drawing.Point(3, 3);
          this.contextMenuFileComboBox.Name = "contextMenuFileComboBox";
-         this.contextMenuFileComboBox.Size = new System.Drawing.Size(321, 21);
+         this.contextMenuFileComboBox.Size = new System.Drawing.Size(375, 21);
          this.contextMenuFileComboBox.TabIndex = 1;
          // 
          // ContextMenuModelEditor
@@ -227,7 +227,7 @@
          this.Controls.Add(this.outlinerGroupBox2);
          this.Controls.Add(this.outlinerGroupBox1);
          this.Name = "ContextMenuModelEditor";
-         this.Size = new System.Drawing.Size(400, 399);
+         this.Size = new System.Drawing.Size(454, 399);
          this.outlinerGroupBox2.ResumeLayout(false);
          this.tableLayoutPanel2.ResumeLayout(false);
          this.outlinerGroupBox1.ResumeLayout(false);

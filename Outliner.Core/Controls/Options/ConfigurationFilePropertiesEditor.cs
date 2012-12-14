@@ -12,9 +12,9 @@ using System.Reflection;
 
 namespace Outliner.Controls.Options
 {
-public partial class ConfigurationFileEditor : OutlinerUserControl
+public partial class ConfigurationFilePropertiesEditor : OutlinerUserControl
 {
-   public ConfigurationFileEditor()
+   public ConfigurationFilePropertiesEditor()
    {
       InitializeComponent();
    }

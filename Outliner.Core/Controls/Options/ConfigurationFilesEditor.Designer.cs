@@ -37,7 +37,7 @@
          this.addFileBtn = new System.Windows.Forms.Button();
          this.deleteFileBtn = new System.Windows.Forms.Button();
          this.uiPropertiesGroupBox = new Outliner.Controls.OutlinerGroupBox();
-         this.configurationFileEditor = new Outliner.Controls.Options.ConfigurationFileEditor();
+         this.configurationFileEditor = new Outliner.Controls.Options.ConfigurationFilePropertiesEditor();
          this.configPropertiesGroupBox = new Outliner.Controls.OutlinerGroupBox();
          this.editorPanel = new System.Windows.Forms.Panel();
          this.tableLayoutPanel1.SuspendLayout();
@@ -239,7 +239,7 @@
       private System.Windows.Forms.Button addFileBtn;
       private System.Windows.Forms.Button deleteFileBtn;
       private OutlinerGroupBox uiPropertiesGroupBox;
-      private ConfigurationFileEditor configurationFileEditor;
+      private ConfigurationFilePropertiesEditor configurationFileEditor;
       private OutlinerGroupBox configPropertiesGroupBox;
    }
 }

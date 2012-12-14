@@ -88,7 +88,7 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
       }
    }
 
-   private Tree.TreeNode AddFileToTree(String file, T config)
+   protected virtual Tree.TreeNode AddFileToTree(String file, T config)
    {
       Tree.TreeNode tn = new Tree.TreeNode(Path.GetFileName(file));
       tn.Tag = new Tuple<String, T>(file, config);
@@ -96,7 +96,7 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
       return tn;
    }
 
-   private void filesTree_SelectionChanged(object sender, Tree.SelectionChangedEventArgs e)
+   protected virtual void filesTree_SelectionChanged(object sender, Tree.SelectionChangedEventArgs e)
    {
       Tree.TreeNode selNode = e.Nodes.FirstOrDefault();
       if (selNode != null)
@@ -107,7 +107,7 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
       this.UpdateEditorsUI();
    }
 
-   private void filesTree_BeforeNodeTextEdit(object sender, Tree.BeforeNodeTextEditEventArgs e)
+   protected virtual void filesTree_BeforeNodeTextEdit(object sender, Tree.BeforeNodeTextEditEventArgs e)
    {
       Tuple<String, T> tag = e.TreeNode.Tag as Tuple<String, T>;
       if (tag == null)
@@ -116,7 +116,7 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
          e.EditText = Path.GetFileNameWithoutExtension(tag.Item1);
    }
 
-   private void filesTree_AfterNodeTextEdit(object sender, Tree.AfterNodeTextEditEventArgs e)
+   protected virtual void filesTree_AfterNodeTextEdit(object sender, Tree.AfterNodeTextEditEventArgs e)
    {
       if (e.Canceled)
          return;
@@ -154,7 +154,7 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
       }
    }
 
-   private void UpdateEditorsUI()
+   protected virtual void UpdateEditorsUI()
    {
       Boolean show = this.editingFile != null;
       this.uiPropertiesGroupBox.Visible = show;
@@ -175,7 +175,7 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
       }
    }
 
-   private void addFileBtn_Click(object sender, EventArgs e)
+   protected virtual void addFileBtn_Click(object sender, EventArgs e)
    {
       Tuple<String, T> newFile = ConfigurationHelpers.NewConfigurationFile<T>(this.directory, "newfile");
       this.newFiles.Add(newFile.Item1);
@@ -189,7 +189,7 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
       tn.TreeView.BeginNodeTextEdit(tn);
    }
 
-   private void deleteFileBtn_Click(object sender, EventArgs e)
+   protected virtual void deleteFileBtn_Click(object sender, EventArgs e)
    {
       Tree.TreeNode selNode = this.filesTree.SelectedNodes.FirstOrDefault();
       if (selNode == null)
@@ -238,7 +238,7 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
       this.Close();
    }
 
-   private void Rollback()
+   protected virtual void Rollback()
    {
       foreach (KeyValuePair<String, String> renamedFile in this.renamedFiles)
       {
@@ -251,7 +251,7 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
       }
    }
 
-   private void Commit()
+   protected virtual void Commit()
    {
       foreach (KeyValuePair<String, T> configFile in this.files)
       {
