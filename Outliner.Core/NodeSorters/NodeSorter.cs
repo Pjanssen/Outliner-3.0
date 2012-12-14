@@ -24,9 +24,6 @@ public abstract class NodeSorter : IComparer<TreeNode>
    protected NodeSorter(SortOrder sortOrder)
    {
       this.SortOrder = sortOrder;
-
-      if (!(this is AlphabeticalSorter))
-         this.SecondarySorter = new AlphabeticalSorter(sortOrder);
    }
 
 
@@ -51,6 +48,7 @@ public abstract class NodeSorter : IComparer<TreeNode>
    /// method returns 0.
    /// </summary>
    [XmlElement("secondarySorter")]
+   [Browsable(false)]
    public NodeSorter SecondarySorter { get; set; }
 
 
@@ -86,10 +84,10 @@ public abstract class NodeSorter : IComparer<TreeNode>
 
       NodeSorter otherSorter = (NodeSorter)obj;
 
-      foreach (FieldInfo field in thisType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance))
+      foreach (PropertyInfo prop in thisType.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
       {
-         Object ownValue = field.GetValue(this);
-         Object otherValue = field.GetValue(otherSorter);
+         Object ownValue = prop.GetValue(this, null);
+         Object otherValue = prop.GetValue(otherSorter, null);
          if (ownValue == null)
          {
             if (otherValue != null)
@@ -106,9 +104,9 @@ public abstract class NodeSorter : IComparer<TreeNode>
       Type thisType = this.GetType();
       int hash = thisType.GetHashCode();
       int m = 7;
-      foreach (FieldInfo field in thisType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance))
+      foreach (PropertyInfo prop in thisType.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
       {
-         Object ownValue = field.GetValue(this);
+         Object ownValue = prop.GetValue(this, null);
          if (ownValue != null)
             hash = (hash * m) + ownValue.GetHashCode();
          else

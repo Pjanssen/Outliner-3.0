@@ -39,14 +39,14 @@
          // 
          // tableLayoutPanel1
          // 
-         this.tableLayoutPanel1.ColumnCount = 3;
-         this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-         this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+         this.tableLayoutPanel1.ColumnCount = 2;
+         this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
          this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 81F));
+         this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
          this.tableLayoutPanel1.Controls.Add(this.filtersComboBox, 0, 0);
-         this.tableLayoutPanel1.Controls.Add(this.addFilterButton, 2, 0);
+         this.tableLayoutPanel1.Controls.Add(this.addFilterButton, 1, 0);
          this.tableLayoutPanel1.Controls.Add(this.filtersTree, 0, 1);
-         this.tableLayoutPanel1.Controls.Add(this.deleteFilterButton, 2, 1);
+         this.tableLayoutPanel1.Controls.Add(this.deleteFilterButton, 1, 1);
          this.tableLayoutPanel1.Controls.Add(this.filterPropertyGrid, 0, 2);
          this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
          this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -55,13 +55,11 @@
          this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
          this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
          this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
-         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
          this.tableLayoutPanel1.Size = new System.Drawing.Size(469, 465);
          this.tableLayoutPanel1.TabIndex = 2;
          // 
          // filtersComboBox
          // 
-         this.tableLayoutPanel1.SetColumnSpan(this.filtersComboBox, 2);
          this.filtersComboBox.Dock = System.Windows.Forms.DockStyle.Top;
          this.filtersComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
          this.filtersComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -89,7 +87,6 @@
          this.filtersTree.AllowDrop = true;
          this.filtersTree.AutoScroll = true;
          this.filtersTree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.tableLayoutPanel1.SetColumnSpan(this.filtersTree, 2);
          this.filtersTree.Dock = System.Windows.Forms.DockStyle.Fill;
          this.filtersTree.Location = new System.Drawing.Point(3, 33);
          this.filtersTree.Name = "filtersTree";
@@ -112,7 +109,6 @@
          // 
          // filterPropertyGrid
          // 
-         this.tableLayoutPanel1.SetColumnSpan(this.filterPropertyGrid, 2);
          this.filterPropertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
          this.filterPropertyGrid.HelpVisible = false;
          this.filterPropertyGrid.Location = new System.Drawing.Point(3, 294);

@@ -249,4 +249,7 @@ This action cannot be undone.</value>
   <data name="Str_DeleteConfigWarningTitle" xml:space="preserve">
     <value>Delete configuration?</value>
   </data>
+  <data name="Str_NodePropertySorter" xml:space="preserve">
+    <value>Node Property</value>
+  </data>
 </root>

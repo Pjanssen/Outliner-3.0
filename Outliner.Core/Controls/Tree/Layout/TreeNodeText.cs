@@ -46,7 +46,7 @@ public class TreeNodeText : TreeNodeButton
 
    public override int GetAutoWidth(TreeNode tn)
    {
-      int textWidth = this.GetTextSize(tn).Width + (int)Math.Ceiling(this.GetText(tn).Length * 0.1);
+      int textWidth = this.GetTextSize(tn).Width + (int)Math.Ceiling(this.GetText(tn).Length * 0.25);
       int maxWidth = this.getMaxWidth(tn);
 
       return Math.Min(maxWidth, textWidth);
