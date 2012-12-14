@@ -180,9 +180,9 @@ namespace Outliner.NodeSorters {
         /// <summary>
         ///   Looks up a localized string similar to Type.
         /// </summary>
-        internal static string Str_Superclass {
+        internal static string Str_SuperClass {
             get {
-                return ResourceManager.GetString("Str_Superclass", resourceCulture);
+                return ResourceManager.GetString("Str_SuperClass", resourceCulture);
             }
         }
     }

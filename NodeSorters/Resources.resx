@@ -130,7 +130,7 @@
   <data name="Str_IINodeHandle" xml:space="preserve">
     <value>Chronological</value>
   </data>
-  <data name="Str_Superclass" xml:space="preserve">
+  <data name="Str_SuperClass" xml:space="preserve">
     <value>Type</value>
   </data>
   <data name="hidden_24" type="System.Resources.ResXFileRef, System.Windows.Forms">

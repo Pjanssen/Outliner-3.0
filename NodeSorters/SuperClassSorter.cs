@@ -10,7 +10,7 @@ using Outliner.Plugins;
 namespace Outliner.NodeSorters
 {
    [OutlinerPlugin(OutlinerPluginType.NodeSorter)]
-   [LocalizedDisplayName(typeof(Resources), "SuperClass_DisplayName")]
+   [LocalizedDisplayName(typeof(Resources), "Str_SuperClass")]
    public class SuperClassSorter : NodeSorter
    {
       public SuperClassSorter() : base() { }
