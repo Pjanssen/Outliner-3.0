@@ -5,8 +5,8 @@ using System.Text;
 using System.Xml.Serialization;
 using System.Windows.Forms;
 using System.IO;
+using Outliner.Configuration;
 using Outliner.Plugins;
-using Outliner.Presets;
 using Outliner.Scene;
 
 namespace Outliner

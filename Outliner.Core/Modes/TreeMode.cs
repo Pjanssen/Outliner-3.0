@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.Controls.Tree;
-using Outliner.Scene;
 using Outliner.Commands;
 using Outliner.Controls;
+using Outliner.Controls.ContextMenu;
+using Outliner.Controls.Tree;
 using Outliner.Filters;
-// Import System.Windows.Forms with alias to avoid ambiguity 
-// between System.Windows.TreeNode and Outliner.Controls.TreeNode.
-using WinForms = System.Windows.Forms;
+using Outliner.LayerTools;
 using Outliner.MaxUtils;
 using Outliner.NodeSorters;
-using Outliner.LayerTools;
-using System.Drawing;
-using Outliner.Controls.ContextMenu;
-using System.IO;
+using Outliner.Scene;
+using WinForms = System.Windows.Forms;
 
 namespace Outliner.Modes
 {

@@ -10,7 +10,6 @@ using System.Reflection;
 using Outliner.Scene;
 using Outliner.Plugins;
 using OutlinerTree = Outliner.Controls.Tree;
-using Outliner.Presets;
 using Outliner.Controls.Options;
 using Outliner.MaxUtils;
 using Outliner.Configuration;

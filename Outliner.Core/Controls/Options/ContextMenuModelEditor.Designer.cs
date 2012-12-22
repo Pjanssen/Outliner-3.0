@@ -28,7 +28,6 @@
       /// </summary>
       private void InitializeComponent()
       {
-         this.components = new System.ComponentModel.Container();
          this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
          this.itemsComboBox = new System.Windows.Forms.ComboBox();
          this.addBtn = new System.Windows.Forms.Button();
@@ -37,10 +36,8 @@
          this.moveUpBtn = new System.Windows.Forms.Button();
          this.moveDownBtn = new System.Windows.Forms.Button();
          this.deleteBtn = new System.Windows.Forms.Button();
-         this.outlinerPresetBindingSource = new System.Windows.Forms.BindingSource(this.components);
          this.outlinerGroupBox1 = new Outliner.Controls.OutlinerGroupBox();
          this.tableLayoutPanel2.SuspendLayout();
-         ((System.ComponentModel.ISupportInitialize)(this.outlinerPresetBindingSource)).BeginInit();
          this.outlinerGroupBox1.SuspendLayout();
          this.SuspendLayout();
          // 
@@ -156,10 +153,6 @@
          this.deleteBtn.UseVisualStyleBackColor = true;
          this.deleteBtn.Click += new System.EventHandler(this.deleteBtn_Click);
          // 
-         // outlinerPresetBindingSource
-         // 
-         this.outlinerPresetBindingSource.DataSource = typeof(Outliner.Presets.OutlinerPreset);
-         // 
          // outlinerGroupBox1
          // 
          this.outlinerGroupBox1.BorderColor = System.Drawing.Color.Black;
@@ -180,7 +173,6 @@
          this.Name = "ContextMenuModelEditor";
          this.Size = new System.Drawing.Size(454, 399);
          this.tableLayoutPanel2.ResumeLayout(false);
-         ((System.ComponentModel.ISupportInitialize)(this.outlinerPresetBindingSource)).EndInit();
          this.outlinerGroupBox1.ResumeLayout(false);
          this.ResumeLayout(false);
 
@@ -196,7 +188,6 @@
       private System.Windows.Forms.Button moveUpBtn;
       private System.Windows.Forms.Button moveDownBtn;
       private System.Windows.Forms.Button deleteBtn;
-      private System.Windows.Forms.BindingSource outlinerPresetBindingSource;
       private OutlinerGroupBox outlinerGroupBox1;
    }
 }

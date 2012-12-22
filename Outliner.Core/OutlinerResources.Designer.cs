@@ -318,6 +318,26 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap sort_default_16 {
+            get {
+                object obj = ResourceManager.GetObject("sort_default_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap sort_default_24 {
+            get {
+                object obj = ResourceManager.GetObject("sort_default_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alphabetical.
         /// </summary>
         internal static string Str_AlphabeticalSorter {
@@ -351,6 +371,15 @@ namespace Outliner {
         internal static string Str_FilterCombinator {
             get {
                 return ResourceManager.GetString("Str_FilterCombinator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Filters.
+        /// </summary>
+        internal static string Str_FiltersEditor {
+            get {
+                return ResourceManager.GetString("Str_FiltersEditor", resourceCulture);
             }
         }
         
@@ -414,6 +443,78 @@ namespace Outliner {
         internal static string Str_NodePropertySorter {
             get {
                 return ResourceManager.GetString("Str_NodePropertySorter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Context-Menu.
+        /// </summary>
+        internal static string Str_PresetContextMenu {
+            get {
+                return ResourceManager.GetString("Str_PresetContextMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filters.
+        /// </summary>
+        internal static string Str_PresetFilter {
+            get {
+                return ResourceManager.GetString("Str_PresetFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Layout.
+        /// </summary>
+        internal static string Str_PresetLayout {
+            get {
+                return ResourceManager.GetString("Str_PresetLayout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom Presets.
+        /// </summary>
+        internal static string Str_PresetsCustom {
+            get {
+                return ResourceManager.GetString("Str_PresetsCustom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Standard Presets.
+        /// </summary>
+        internal static string Str_PresetsDefault {
+            get {
+                return ResourceManager.GetString("Str_PresetsDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Presets.
+        /// </summary>
+        internal static string Str_PresetsEditor {
+            get {
+                return ResourceManager.GetString("Str_PresetsEditor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorting.
+        /// </summary>
+        internal static string Str_PresetSorter {
+            get {
+                return ResourceManager.GetString("Str_PresetSorter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Node Sorters.
+        /// </summary>
+        internal static string Str_SortersEditor {
+            get {
+                return ResourceManager.GetString("Str_SortersEditor", resourceCulture);
             }
         }
         

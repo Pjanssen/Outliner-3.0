@@ -10,7 +10,6 @@ using Outliner.Controls.Tree.Layout;
 using Outliner.MaxUtils;
 using Autodesk.Max;
 using Outliner.Plugins;
-using Outliner.Presets;
 
 namespace Outliner.Controls.Options
 {

@@ -12,7 +12,6 @@ using Outliner.Plugins;
 using Outliner.MaxUtils;
 using Autodesk.Max;
 using Outliner.Controls.Tree.Layout;
-using Outliner.Presets;
 using Outliner.Configuration;
 
 namespace Outliner.Controls.Options

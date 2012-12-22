@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Outliner.Controls.ContextMenu;
-using Outliner.Presets;
 using Outliner.Controls.Tree.Layout;
 using System.IO;
 using Outliner.Configuration;

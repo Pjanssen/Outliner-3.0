@@ -9,6 +9,7 @@ using System.Text;
 using System.Xml.Serialization;
 using Autodesk.Max;
 using Outliner.Controls;
+using Outliner.Controls.ContextMenu;
 using Outliner.Controls.Tree;
 using Outliner.Controls.Tree.Layout;
 using Outliner.Filters;
@@ -17,10 +18,8 @@ using Outliner.Modes;
 using Outliner.NodeSorters;
 using Outliner.Plugins;
 using Outliner.Scene;
-using Outliner.Configuration;
-using Outliner.Controls.ContextMenu;
 
-namespace Outliner.Presets
+namespace Outliner.Configuration
 {
 public class OutlinerPreset : ConfigurationFile
 {

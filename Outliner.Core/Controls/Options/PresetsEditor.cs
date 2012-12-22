@@ -4,10 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Outliner.Configuration;
 using Outliner.Controls.ContextMenu;
 using Outliner.Controls.Tree.Layout;
 using Outliner.NodeSorters;
-using Outliner.Presets;
 
 namespace Outliner.Controls.Options
 {
@@ -115,8 +115,19 @@ public class PresetsEditor : ConfigFilesEditor<OutlinerPreset>
    {
       foreach (KeyValuePair<String, OutlinerPreset> configFile in this.files)
       {
-         XmlSerializationHelpers.Serialize<TreeNodeLayout>(Path.Combine(OutlinerPaths.LayoutsDir, configFile.Value.LayoutFile), configFile.Value.TreeNodeLayout);
-         XmlSerializationHelpers.Serialize<ContextMenuModel>(Path.Combine(OutlinerPaths.ContextMenusDir, configFile.Value.ContextMenuFile), configFile.Value.ContextMenu);
+         OutlinerPreset preset = configFile.Value;
+
+         if (!String.IsNullOrEmpty(preset.LayoutFile) && preset.TreeNodeLayout != null)
+         {
+            String filePath = Path.Combine(OutlinerPaths.LayoutsDir, configFile.Value.LayoutFile);
+            XmlSerializationHelpers.Serialize<TreeNodeLayout>(filePath, configFile.Value.TreeNodeLayout);
+         }
+
+         if (!String.IsNullOrEmpty(configFile.Value.ContextMenuFile) && preset.ContextMenu != null)
+         {
+            String filePath = Path.Combine(OutlinerPaths.ContextMenusDir, configFile.Value.ContextMenuFile);
+            XmlSerializationHelpers.Serialize<ContextMenuModel>(filePath, configFile.Value.ContextMenu);
+         }
       }
 
       base.Commit();

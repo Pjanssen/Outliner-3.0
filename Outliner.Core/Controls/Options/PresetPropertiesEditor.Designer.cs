@@ -80,7 +80,7 @@
          // 
          // outlinerPresetBindingSource
          // 
-         this.outlinerPresetBindingSource.DataSource = typeof(Outliner.Presets.OutlinerPreset);
+         this.outlinerPresetBindingSource.DataSource = typeof(Outliner.Configuration.OutlinerPreset);
          // 
          // layoutComboBox
          // 

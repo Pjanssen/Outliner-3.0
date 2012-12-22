@@ -15,8 +15,8 @@ using Outliner.Filters;
 using Outliner.Modes;
 using Outliner.NodeSorters;
 using Outliner.Plugins;
-using Outliner.Presets;
 using Outliner.Scene;
+using Outliner.Configuration;
 
 namespace Outliner
 {
@@ -51,15 +51,6 @@ public class OutlinerGUP
       catch
       {
          this.ColorScheme = TreeViewColorScheme.MayaColors;
-         this.SettingsLoaded = false;
-      }
-
-      try
-      {
-         OutlinerPresets.LoadPresets();
-      }
-      catch
-      {
          this.SettingsLoaded = false;
       }
 
@@ -163,7 +154,6 @@ public class OutlinerGUP
    public void ReloadSettings()
    {
       XmlSerializationHelpers.ClearSerializerCache();
-      OutlinerPresets.LoadPresets();
       this.ColorScheme = loadColors(OutlinerPaths.ColorFile);
       this.State       = loadState(OutlinerPaths.StateFile);
    }
@@ -190,7 +180,7 @@ public class OutlinerGUP
    private static OutlinerState defaultState()
    {
       OutlinerState state = new OutlinerState();
-      IEnumerable<OutlinerPreset> presets = OutlinerPresets.Presets;
+      IEnumerable<OutlinerPreset> presets = ConfigurationHelpers.GetConfigurations<OutlinerPreset>(OutlinerPaths.PresetsDir);
       if (presets.Count() > 0)
       {
          state.Tree1Preset = presets.First();

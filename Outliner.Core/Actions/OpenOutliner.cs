@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using UiViewModels.Actions;
-using Outliner.Modes;
+using System.Windows.Forms.Integration;
+using Outliner.Configuration;
 using Outliner.Controls;
 using Outliner.Controls.Tree;
-using System.Windows.Forms.Integration;
-using Outliner.Presets;
+using Outliner.Modes;
+using UiViewModels.Actions;
 using WinForms = System.Windows.Forms;
 
 namespace Outliner.Actions

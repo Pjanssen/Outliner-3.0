@@ -6,7 +6,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Outliner.Presets;
 using Outliner.Plugins;
 using Outliner.Configuration;
 using Outliner.Controls.Tree.Layout;
