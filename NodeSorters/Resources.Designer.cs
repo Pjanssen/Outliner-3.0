@@ -178,6 +178,15 @@ namespace Outliner.NodeSorters {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Material.
+        /// </summary>
+        internal static string Str_MaterialSorter {
+            get {
+                return ResourceManager.GetString("Str_MaterialSorter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Type.
         /// </summary>
         internal static string Str_SuperClass {
