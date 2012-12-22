@@ -81,6 +81,8 @@
     <EmbeddedResource Include="Resources\sort_chronological_24.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\material_16.png" />
+    <EmbeddedResource Include="Resources\material_24.png" />
     <EmbeddedResource Include="Resources\sort_type_16.png" />
     <EmbeddedResource Include="Resources\sort_type_24.png" />
     <EmbeddedResource Include="Resources\frozen_16.png" />

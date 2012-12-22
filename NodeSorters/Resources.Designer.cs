@@ -103,6 +103,26 @@ namespace Outliner.NodeSorters {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap material_16 {
+            get {
+                object obj = ResourceManager.GetObject("material_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap material_24 {
+            get {
+                object obj = ResourceManager.GetObject("material_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap sort_chronological_16 {
             get {
                 object obj = ResourceManager.GetObject("sort_chronological_16", resourceCulture);

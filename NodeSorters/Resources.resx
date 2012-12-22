@@ -160,4 +160,10 @@
   <data name="Str_MaterialSorter" xml:space="preserve">
     <value>Material</value>
   </data>
+  <data name="material_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\material_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="material_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\material_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
