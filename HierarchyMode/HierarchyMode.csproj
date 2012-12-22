@@ -63,7 +63,6 @@
   <ItemGroup>
     <Compile Include="GroupDragDropHandler.cs" />
     <Compile Include="HierarchyMode.cs" />
-    <Compile Include="HierarchyPreset.cs" />
     <Compile Include="IINodeDragDropHandler.cs" />
     <Compile Include="OpenHierarchyMode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
