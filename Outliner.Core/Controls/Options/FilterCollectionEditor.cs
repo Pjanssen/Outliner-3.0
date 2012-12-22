@@ -44,6 +44,13 @@ public partial class FilterCollectionEditor : OutlinerUserControl
       this.filterConfiguration = config;
    }
 
+   public FilterCollectionEditor(Filter<IMaxNodeWrapper> rootFilter) : this()
+   {
+      Throw.IfArgumentIsNull(rootFilter, "rootFilter");
+
+      this.RootFilter = rootFilter;
+   }
+
    private void FillFilterComboBox()
    {
       IEnumerable<OutlinerPluginData> filters = OutlinerPlugins.GetPlugins(OutlinerPluginType.Filter);

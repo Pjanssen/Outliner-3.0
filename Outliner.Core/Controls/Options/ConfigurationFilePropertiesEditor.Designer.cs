@@ -145,7 +145,7 @@
          // 
          this.resTypeComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
          this.resTypeComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-         this.resTypeComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationFileBindingSource, "ResourceTypeName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+         this.resTypeComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationFileBindingSource, "ResourceType", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
          this.resTypeComboBox.Dock = System.Windows.Forms.DockStyle.Top;
          this.resTypeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
          this.resTypeComboBox.Location = new System.Drawing.Point(93, 3);
@@ -164,12 +164,12 @@
          this.label3.TabIndex = 3;
          this.label3.Text = "Image 16x16";
          // 
-         // ConfigurationFileEditor
+         // ConfigurationFilePropertiesEditor
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.Controls.Add(this.tableLayoutPanel1);
-         this.Name = "ConfigurationFileEditor";
+         this.Name = "ConfigurationFilePropertiesEditor";
          this.Size = new System.Drawing.Size(460, 108);
          this.tableLayoutPanel1.ResumeLayout(false);
          this.tableLayoutPanel1.PerformLayout();

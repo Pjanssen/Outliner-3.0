@@ -62,6 +62,5 @@ public partial class ConfigurationFilePropertiesEditor : OutlinerUserControl
                     .Select(p => p.Name)
                     .ToList();
    }
-
 }
 }

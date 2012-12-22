@@ -16,7 +16,7 @@ namespace Outliner.Controls.ContextMenu
          this.File = String.Empty;
       }
 
-      [XmlAttribute("file")]
+      [XmlElement("file")]
       public String File { get; set; }
 
       protected override void OnClick( Outliner.Controls.Tree.TreeView treeView

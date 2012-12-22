@@ -16,28 +16,32 @@ namespace Outliner.Controls.Options
 {
 public partial class ConfigFilesEditor<T> : Form where T : class, new()
 {
-   private String directory;
-   private Type editorType;
-   private IDictionary<String, T> files;
-   private ICollection<String> newFiles;
-   private Tuple<String, T> editingFile;
-   private IDictionary<String, String> renamedFiles;
+   protected String directory;
+   protected Type editorType;
+   protected IDictionary<String, T> files;
+   protected ICollection<String> newFiles;
+   protected IDictionary<String, String> renamedFiles;
+   protected String editingFile;
 
-   public ConfigFilesEditor(String directory, Type editorType, String title)
+   public ConfigFilesEditor(String directory, Type editorType)
    {
       Throw.IfArgumentIsNull(directory, "directory");
       Throw.IfArgumentIsNull(editorType, "editorType");
-      Throw.IfArgumentIsNull(title, "title");
 
       InitializeComponent();
 
       this.directory = directory;
       this.editorType = editorType;
-      this.Text = title;
 
+      this.files = new Dictionary<String, T>();
       this.newFiles = new List<String>();
       this.renamedFiles = new Dictionary<String, String>();
+      this.ShowUIProperties = true;
    }
+
+   public Boolean ShowUIProperties { get; set; }
+
+   public Action UpdateTreeAction { get; set; }
 
    protected override void OnLoad(EventArgs e)
    {
@@ -68,52 +72,52 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
       this.RefreshUI();
    }
 
-   private void RefreshUI()
+   protected virtual void RefreshUI()
    {
-      this.files = ConfigurationHelpers.GetConfigurationFiles<T>(this.directory);
-      this.FillFilesTree();
-      this.UpdateEditorsUI();
-   }
-
-   private void FillFilesTree()
-   {
-      if (this.files == null)
-         return;
-
       this.filesTree.Nodes.Clear();
+      this.files.Clear();
 
-      foreach (KeyValuePair<String, T> file in this.files)
+      foreach (KeyValuePair<String, T> file in ConfigurationHelpers.GetConfigurationFiles<T>(this.directory))
       {
-         this.AddFileToTree(file.Key, file.Value);
+         this.AddFileToTree(file.Key, file.Value, this.filesTree.Nodes);
       }
+
+      this.filesTree.OnSelectionChanged();
    }
 
-   protected virtual Tree.TreeNode AddFileToTree(String file, T config)
+   protected virtual Tree.TreeNode AddFileToTree(String file, T config, Tree.TreeNodeCollection parentCollection)
    {
       Tree.TreeNode tn = new Tree.TreeNode(Path.GetFileName(file));
-      tn.Tag = new Tuple<String, T>(file, config);
-      this.filesTree.Nodes.Add(tn);
+      tn.Tag = file;
+      parentCollection.Add(tn);
+      this.files.Add(file, config);
       return tn;
    }
 
-   protected virtual void filesTree_SelectionChanged(object sender, Tree.SelectionChangedEventArgs e)
+   protected virtual String GetEditingFile(Tree.TreeNode tn)
    {
-      Tree.TreeNode selNode = e.Nodes.FirstOrDefault();
-      if (selNode != null)
-         this.editingFile = selNode.Tag as Tuple<String, T>;
-      else
-         this.editingFile = null;
+      Throw.IfArgumentIsNull(tn, "tn");
 
-      this.UpdateEditorsUI();
+      return tn.Tag as String;
+   }
+
+   protected virtual T GetEditingConfiguration(Tree.TreeNode tn)
+   {
+      Throw.IfArgumentIsNull(tn, "tn");
+
+      String editingFile = GetEditingFile(tn);
+      T editingConfiguration = null;
+      this.files.TryGetValue(editingFile, out editingConfiguration);
+      return editingConfiguration;
    }
 
    protected virtual void filesTree_BeforeNodeTextEdit(object sender, Tree.BeforeNodeTextEditEventArgs e)
    {
-      Tuple<String, T> tag = e.TreeNode.Tag as Tuple<String, T>;
-      if (tag == null)
+      String editingFile = this.GetEditingFile(e.TreeNode);
+      if (String.IsNullOrEmpty(editingFile))
          e.Cancel = true;
       else
-         e.EditText = Path.GetFileNameWithoutExtension(tag.Item1);
+         e.EditText = Path.GetFileNameWithoutExtension(editingFile);
    }
 
    protected virtual void filesTree_AfterNodeTextEdit(object sender, Tree.AfterNodeTextEditEventArgs e)
@@ -121,10 +125,10 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
       if (e.Canceled)
          return;
 
-      Tuple<String, T> tag = e.TreeNode.Tag as Tuple<String, T>;
-      if (tag != null)
+      String editingFile = this.GetEditingFile(e.TreeNode);
+      if (!String.IsNullOrEmpty(editingFile))
       {
-         String oldname = tag.Item1;
+         String oldname = editingFile;
          String filename = String.Join("", e.NewText, ConfigurationHelpers.ConfigurationFileExtension);
          String fullFileName = Path.Combine(this.directory, filename);
          if (ConfigurationHelpers.IsValidFileName(fullFileName))
@@ -144,7 +148,7 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
          {
             e.TreeNode.Text = e.OldText;
 
-            if (fullFileName != tag.Item1)
+            if (fullFileName != editingFile)
             {
                //TODO: make nice messagebox.
                MessageBox.Show("Invalid file name");
@@ -154,18 +158,17 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
       }
    }
 
-   protected virtual void UpdateEditorsUI()
+   protected virtual void filesTree_SelectionChanged(object sender, Tree.SelectionChangedEventArgs e)
    {
-      Boolean show = this.editingFile != null;
-      this.uiPropertiesGroupBox.Visible = show;
-      this.configPropertiesGroupBox.Visible = show;
+      this.editorPanel.Controls.Clear();
 
-      if (show)
+      Tree.TreeNode selNode = e.Nodes.FirstOrDefault();
+      if (selNode == null)
+         return;
+
+      Control editor = this.GetEditorFor(selNode);
+      if (editor != null)
       {
-         this.configurationFileEditor.Configuration = this.editingFile.Item2 as ConfigurationFile;
-
-         Control editor = (Control)Activator.CreateInstance(this.editorType, new object[] { this.editingFile.Item2 });
-
          editor.Dock = DockStyle.Fill;
 
          this.SuspendLayout();
@@ -175,12 +178,38 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
       }
    }
 
+   protected virtual Control GetEditorFor(Tree.TreeNode tn)
+   {
+      T configuration = this.GetEditingConfiguration(tn);
+
+      Panel panel = new Panel();
+
+      Control detailsEditor = (Control)Activator.CreateInstance(this.editorType, new object[] { configuration });
+      detailsEditor.Dock = DockStyle.Fill;
+      panel.Controls.Add(detailsEditor);
+
+      if (this.ShowUIProperties)
+      {
+         OutlinerGroupBox uiProperties = new OutlinerGroupBox();
+         uiProperties.Text = "UI Properties";
+         uiProperties.Height = 125;
+         uiProperties.Dock = DockStyle.Top;
+         panel.Controls.Add(uiProperties);
+         ConfigurationFilePropertiesEditor configProperties = new ConfigurationFilePropertiesEditor();
+         configProperties.Configuration = configuration as ConfigurationFile;
+         configProperties.Dock = DockStyle.Fill;
+         uiProperties.Controls.Add(configProperties);
+      }
+
+      return panel;
+   }
+
    protected virtual void addFileBtn_Click(object sender, EventArgs e)
    {
       Tuple<String, T> newFile = ConfigurationHelpers.NewConfigurationFile<T>(this.directory, "newfile");
       this.newFiles.Add(newFile.Item1);
 
-      Tree.TreeNode tn = this.AddFileToTree(newFile.Item1, newFile.Item2);
+      Tree.TreeNode tn = this.AddFileToTree(newFile.Item1, newFile.Item2, this.filesTree.Nodes);
       this.filesTree.Sort();
 
       tn.TreeView.SelectNode(tn, true);
@@ -195,11 +224,9 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
       if (selNode == null)
          return;
 
-      if (!(selNode.Tag is Tuple<String, T>))
+      String file = selNode.Tag as String;
+      if (file == null)
          return;
-
-      Tuple<String, T> tag = (Tuple<String, T>)selNode.Tag;
-      String file = tag.Item1;
 
       if (MessageBox.Show( String.Format(OutlinerResources.Str_DeleteConfigWarning, Path.GetFileName(file))
                          , OutlinerResources.Str_DeleteConfigWarningTitle

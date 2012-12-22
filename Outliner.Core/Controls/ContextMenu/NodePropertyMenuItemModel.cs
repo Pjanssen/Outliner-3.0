@@ -23,8 +23,10 @@ public class NodePropertyMenuItemModel : MenuItemModel
       this.Property = property;
    }
 
-   [XmlAttribute("property")]
+   [XmlElement("property")]
    [DefaultValue(BooleanNodeProperty.None)]
+   [DisplayName("Node Property")]
+   [Category("2. Node Properties")]
    public BooleanNodeProperty Property { get; set; }
 
 

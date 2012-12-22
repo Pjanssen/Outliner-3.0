@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 using Outliner.Scene;
 
 namespace Outliner.Controls.ContextMenu
@@ -25,5 +27,36 @@ namespace Outliner.Controls.ContextMenu
 
          return separator;
       }
+
+      #region Hide members inherited from ConfigurationFile which aren't relevant.
+      
+      [XmlElement("image16")]
+      [DefaultValue("")]
+      [Browsable(false)]
+      public override string Image16Res
+      {
+         get { return ""; }
+         set { }
+      }
+
+      [XmlElement("text")]
+      [DefaultValue("")]
+      [Browsable(false)]
+      public override string TextRes
+      {
+         get { return ""; }
+         set { }
+      }
+
+      [XmlElement("resource_type")]
+      [DefaultValue("")]
+      [Browsable(false)]
+      public override string ResourceTypeName
+      {
+         get { return ""; }
+         set { }
+      }
+
+      #endregion
    }
 }

@@ -10,12 +10,17 @@ public static class ConfigurationHelpers
 {
    internal const String ConfigurationFileExtension = ".xml";
 
+   public static IEnumerable<String> GetConfigurationFiles(String directory)
+   {
+      return Directory.EnumerateFiles( directory
+                                     , "*" + ConfigurationFileExtension
+                                     , SearchOption.TopDirectoryOnly);
+   }
+
    public static IDictionary<String, T> GetConfigurationFiles<T>(String directory) where T : class
    {
       Dictionary<String, T> items = new Dictionary<String, T>();
-      IEnumerable<String> files = Directory.EnumerateFiles( directory
-                                                          ,  "*" + ConfigurationFileExtension
-                                                          , SearchOption.TopDirectoryOnly);
+      IEnumerable<String> files = GetConfigurationFiles(directory);
       
       foreach (String file in files)
       {

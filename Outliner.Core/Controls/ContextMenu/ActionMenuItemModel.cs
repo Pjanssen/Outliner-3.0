@@ -23,21 +23,24 @@ public class ActionMenuItemModel : MenuItemModel
       this.CheckedPredicate = String.Empty;
    }
 
-   [XmlAttribute("enabled")]
+   [XmlElement("enabled")]
    [DefaultValue("None")]
    [DisplayName("Enabled Predicate")]
+   [Category("2. Action Properties")]
    [TypeConverter(typeof(OutlinerPredicateConverter))]
    public String EnabledPredicate { get; set; }
 
-   [XmlAttribute("checked")]
+   [XmlElement("checked")]
    [DefaultValue("None")]
    [DisplayName("Checked Predicate")]
+   [Category("2. Action Properties")]
    [TypeConverter(typeof(OutlinerPredicateConverter))]
    public String CheckedPredicate { get; set; }
 
-   [XmlAttribute("onclick")]
+   [XmlElement("onclick")]
    [DefaultValue("None")]
    [DisplayName("OnClick Action")]
+   [Category("2. Action Properties")]
    [TypeConverter(typeof(OutlinerActionConverter))]
    public String OnClickAction { get; set; }
 

@@ -12,8 +12,6 @@ namespace Outliner.Controls.Tree
 {
 public class TreeView : ScrollableControl
 {
-   public TreeNode Root { get; private set; }
-
    public TreeView()
    {
       //Member initialization.
@@ -39,7 +37,10 @@ public class TreeView : ScrollableControl
       base.Dispose(disposing);
    }
 
+   [Browsable(false)]
+   public TreeNode Root { get; private set; }
 
+   [Browsable(false)]
    public TreeNodeCollection Nodes
    {
       get { return this.Root.Nodes; }
@@ -398,10 +399,6 @@ public class TreeView : ScrollableControl
       TreeNode tn = this.Nodes[0];
       while (tn != null)
       {
-         //Int32 nodeWidth = this.TreeNodeLayout.GetTreeNodeWidth(tn);
-         //if (nodeWidth > maxWidth)
-         //   maxWidth = nodeWidth;
-
          maxHeight += itemHeight;
          tn = tn.NextVisibleNode;
       }
@@ -627,11 +624,14 @@ public class TreeView : ScrollableControl
    #region Selection
 
    protected HashSet<TreeNode> selectedNodes { get; private set; }
+
+   [Browsable(false)]
    public IEnumerable<TreeNode> SelectedNodes
    {
       get { return this.selectedNodes; }
    }
 
+   [Browsable(false)]
    public TreeNode LastSelectedNode { get; private set; }
    public event EventHandler<SelectionChangedEventArgs> SelectionChanged;
 

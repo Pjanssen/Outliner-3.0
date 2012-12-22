@@ -8,12 +8,12 @@
 * Updating / Installing
 * Delete a node with children crashes
 * Fix NestedLayers to adapt to NodeProperty int type!!
-* MAterial sorter
 
 TREEVIEW
 --------
 * TreeNode selection implementation is a bit shoddy. MouseDown+MouseUp both fire selectionchangedevent
 * TreeNode.NextNode/NextVisible node bug when switching to layer mode.
+* Add option for single/multiple selection
 
 NODE BUTTONS
 ------------
@@ -68,6 +68,7 @@ NodeSorters
 * Type*
 * ColorTag*
 * Chronological*
+* Material*
 
 
 TreeNodeButtons

@@ -16,21 +16,22 @@ namespace Outliner.Controls.Options
 {
 public partial class TreeNodeLayoutEditor : OutlinerUserControl
 {
-   private OutlinerPreset preset;
    private TreeNodeLayout layout;
-   private Action updateAction;
 
    public TreeNodeLayoutEditor()
    {
       InitializeComponent();
    }
 
-   public TreeNodeLayoutEditor(OutlinerPreset preset, Action updateAction) : this()
+   public TreeNodeLayoutEditor(TreeNodeLayout layout) : this()
    {
-      this.preset = preset;
-      this.layout = preset.TreeNodeLayout;
-      this.updateAction = updateAction;
-      
+      this.layout = layout;
+   }
+
+   public Action UpdateTreeAction { get; set; }
+
+   protected override void OnLoad(EventArgs e)
+   {
       this.layoutTree.TreeNodeLayout = new TreeNodeLayout();
       this.layoutTree.TreeNodeLayout.LayoutItems.Add(new TreeNodeText());
       this.layoutTree.TreeNodeLayout.LayoutItems.Add(new EmptySpace());
@@ -43,10 +44,10 @@ public partial class TreeNodeLayoutEditor : OutlinerUserControl
 
       this.FillItemComboBox();
       this.FillItemsTree();
-      this.FillFileComboBox();
 
       this.layoutBindingSource.DataSource = this.layout;
-      this.presetBindingSource.DataSource = this.preset;
+
+      base.OnLoad(e);
    }
 
    private void FillItemComboBox()
@@ -71,16 +72,7 @@ public partial class TreeNodeLayoutEditor : OutlinerUserControl
       }
    }
 
-   private void FillFileComboBox()
-   {
-      System.IO.DirectoryInfo dirInfo = new System.IO.DirectoryInfo(OutlinerPaths.LayoutsDir);
-      List<System.IO.FileInfo> files = dirInfo.GetFiles("*.xml").ToList();
-      layoutFileComboBox.DataSource = files;
-      layoutFileComboBox.ValueMember = "Name";
-      layoutFileComboBox.DisplayMember = "Name";
-      
-   }
-
+   
    private void layoutTree_SelectionChanged(object sender, Tree.SelectionChangedEventArgs e)
    {
       Tree.TreeNode tn = e.Nodes.FirstOrDefault();
@@ -92,8 +84,8 @@ public partial class TreeNodeLayoutEditor : OutlinerUserControl
 
    private void itemProperties_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
    {
-      if (this.updateAction != null)
-         this.updateAction();
+      if (this.UpdateTreeAction != null)
+         this.UpdateTreeAction();
    }
 
    private void addButton_Click(object sender, EventArgs e)
@@ -106,8 +98,8 @@ public partial class TreeNodeLayoutEditor : OutlinerUserControl
          {
             this.layout.LayoutItems.Add(newItem);
             this.FillItemsTree();
-            if (this.updateAction != null)
-               this.updateAction();
+            if (this.UpdateTreeAction != null)
+               this.UpdateTreeAction();
          }
       }
    }
@@ -129,8 +121,8 @@ public partial class TreeNodeLayoutEditor : OutlinerUserControl
          this.layout.LayoutItems.Remove(item);
          this.FillItemsTree();
          this.itemProperties.SelectedObject = null;
-         if (this.updateAction != null)
-            this.updateAction();
+         if (this.UpdateTreeAction != null)
+            this.UpdateTreeAction();
       }
    }
 
@@ -146,8 +138,8 @@ public partial class TreeNodeLayoutEditor : OutlinerUserControl
             this.layout.LayoutItems.Insert(index - 1, item);
             this.FillItemsTree();
             this.layoutTree.SelectNode(this.layoutTree.Nodes.Where(tn => tn.Tag == item).First(), true);
-            if (this.updateAction != null)
-               this.updateAction();
+            if (this.UpdateTreeAction != null)
+               this.UpdateTreeAction();
          }
       }
    }
@@ -164,8 +156,8 @@ public partial class TreeNodeLayoutEditor : OutlinerUserControl
             this.layout.LayoutItems.Insert(index + 1, item);
             this.FillItemsTree();
             this.layoutTree.SelectNode(this.layoutTree.Nodes.Where(tn => tn.Tag == item).First(), true);
-            if (this.updateAction != null)
-               this.updateAction();
+            if (this.UpdateTreeAction != null)
+               this.UpdateTreeAction();
          }
       }
    }
@@ -174,52 +166,8 @@ public partial class TreeNodeLayoutEditor : OutlinerUserControl
    {
       if (e.BindingCompleteContext == BindingCompleteContext.DataSourceUpdate)
       {
-         if (this.updateAction != null)
-            this.updateAction();
-      }
-   }
-
-   private void newLayoutFileBtn_Click(object sender, EventArgs e)
-   {
-      saveFileDialog.InitialDirectory = OutlinerPaths.LayoutsDir;
-      if (saveFileDialog.ShowDialog() == DialogResult.OK)
-      {
-         String file = saveFileDialog.FileName;
-         Uri layoutDirUri = new Uri(OutlinerPaths.LayoutsDir);
-         Uri fileUri = layoutDirUri.MakeRelativeUri(new Uri(saveFileDialog.FileName));
-
-         TreeNodeLayout newLayout = null;
-         if (MessageBox.Show("Copy current layout to new file?", "Use current layout?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            newLayout = new TreeNodeLayout(this.layout);
-         else
-            newLayout = new TreeNodeLayout();
-
-         XmlSerializationHelpers.Serialize<TreeNodeLayout>(file, newLayout);
-
-         this.presetBindingSource.SuspendBinding();
-         this.layoutBindingSource.SuspendBinding();
-
-         this.preset.LayoutFile = Uri.UnescapeDataString(fileUri.ToString());
-         this.layout = this.preset.TreeNodeLayout;
-         this.FillItemsTree();
-         this.FillFileComboBox();
-
-         this.layoutBindingSource.DataSource = this.layout;
-         this.presetBindingSource.ResumeBinding();
-         this.layoutBindingSource.ResumeBinding();
-      }
-   }
-
-   private void presetBindingSource_BindingComplete(object sender, BindingCompleteEventArgs e)
-   {
-      if (e.BindingCompleteContext == BindingCompleteContext.DataSourceUpdate)
-      {
-         if (this.updateAction != null)
-            this.updateAction();
-
-         this.layout = this.preset.TreeNodeLayout;
-         this.layoutBindingSource.DataSource = this.layout;
-         this.FillItemsTree();
+         if (this.UpdateTreeAction != null)
+            this.UpdateTreeAction();
       }
    }
 }

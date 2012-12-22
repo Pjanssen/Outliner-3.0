@@ -26,27 +26,31 @@ public abstract class ConfigurationFile
    }
 
    [XmlElement("text")]
+   [DefaultValue("")]
    [DisplayName("Text")]
+   [Category("1. UI Properties")]
    [TypeConverter(typeof(StringResourceConverter))]
-   public String TextRes { get; set; }
+   public virtual String TextRes { get; set; }
 
    [XmlElement("image16")]
    [DefaultValue("")]
    [DisplayName("Image 16x16")]
+   [Category("1. UI Properties")]
    [TypeConverter(typeof(ImageResourceConverter))]
-   public String Image16Res { get; set; }
+   public virtual String Image16Res { get; set; }
 
    [XmlElement("image24")]
    [DefaultValue("")]
    [DisplayName("Image 24x24")]
+   [Category("1. UI Properties")]
    [TypeConverter(typeof(ImageResourceConverter))]
-   public String Image24Res { get; set; }
+   public virtual String Image24Res { get; set; }
 
    private String resourceTypeName;
    [XmlElement("resource_type")]
    [DefaultValue("")]
-   [Browsable(true)]
-   public String ResourceTypeName 
+   [Browsable(false)]
+   public virtual String ResourceTypeName 
    {
       get { return resourceTypeName; } 
       set
@@ -58,7 +62,9 @@ public abstract class ConfigurationFile
 
    private Type resourceType;
    [XmlIgnore]
-   [Browsable(false)]
+   [DisplayName("Resource Provider")]
+   [Category("1. UI Properties")]
+   [Browsable(true)]
    [TypeConverter(typeof(ResourceTypeConverter))]
    public Type ResourceType
    {
@@ -78,13 +84,13 @@ public abstract class ConfigurationFile
       set
       {
          this.resourceType = value;
-         this.resourceTypeName = value.Name;
+         this.resourceTypeName = value.FullName;
       }
    }
 
    [XmlIgnore]
    [Browsable(false)]
-   public String Text
+   public virtual String Text
    {
       get
       {
@@ -97,16 +103,40 @@ public abstract class ConfigurationFile
 
    [XmlIgnore]
    [Browsable(false)]
-   public Image Image16
+   public virtual Image Image16
    {
-      get { return LookupImage(this.Image16Res); }
+      get 
+      { 
+         Image img = LookupImage(this.Image16Res);
+         if (img != null)
+            return img;
+         else
+            return Image16Default;
+      }
+   }
+
+   protected virtual Image Image16Default
+   {
+      get { return null; }
    }
 
    [XmlIgnore]
    [Browsable(false)]
-   public Image Image24
+   public virtual Image Image24
    {
-      get { return LookupImage(this.Image24Res); }
+      get
+      {
+         Image img = LookupImage(this.Image24Res);
+         if (img != null)
+            return img;
+         else
+            return Image24Default;
+      }
+   }
+
+   protected virtual Image Image24Default
+   {
+      get { return null; }
    }
 
 

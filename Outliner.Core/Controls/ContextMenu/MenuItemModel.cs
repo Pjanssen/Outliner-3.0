@@ -37,9 +37,20 @@ public abstract class MenuItemModel : ConfigurationFile
       get { return OutlinerPaths.ContextMenusDir; }
    }
 
-   [XmlAttribute("visible_types")]
+   [XmlElement("image24")]
+   [DefaultValue("")]
+   [Browsable(false)]
+   public override string Image24Res
+   {
+      get { return ""; }
+      set { }
+   }
+
+   [XmlElement("visible_types")]
+   [DisplayName("Visible Types")]
+   [Category("1. UI Properties")]
    [DefaultValue(MaxNodeTypes.All)]
-   public MaxNodeTypes VisibleTypes { get; set; }
+   public virtual MaxNodeTypes VisibleTypes { get; set; }
 
    [XmlArray("SubItems")]
    [XmlArrayItem("MenuItem")]
@@ -51,7 +62,7 @@ public abstract class MenuItemModel : ConfigurationFile
    /// </summary>
    public bool ShouldSerializeSubItems()
    {
-      return this.SubItems != null && this.SubItems.Count > 0;
+      return !(this is IncludeContextMenuModel) && this.SubItems != null && this.SubItems.Count > 0;
    }
 
    /// <summary>

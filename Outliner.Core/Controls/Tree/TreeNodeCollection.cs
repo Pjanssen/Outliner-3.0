@@ -166,7 +166,7 @@ public class TreeNodeCollection : ICollection<TreeNode>
       tn.InvalidateBounds(true, true);
 
       if (tn.TreeView != null)
-         tn.TreeView.Update(TreeViewUpdateFlags.Redraw);
+         tn.TreeView.Update(TreeViewUpdateFlags.Scrollbars | TreeViewUpdateFlags.Redraw);
    }
 
    private void removeFiltered(TreeNode tn) 

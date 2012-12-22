@@ -22,16 +22,22 @@ public class MxsMenuItemModel : MenuItemModel
       this.CheckedScript = String.Empty;
    }
 
-   [XmlElement("OnClickScript")]
+   [XmlElement("onclickScript")]
    [DefaultValue("")]
+   [DisplayName("OnClick Script")]
+   [Category("2. Maxscript Properties")]
    public String OnClickScript { get; set; }
 
-   [XmlElement("EnabledScript")]
+   [XmlElement("enabledScript")]
    [DefaultValue("")]
+   [DisplayName("Enabled Script")]
+   [Category("2. Maxscript Properties")]
    public String EnabledScript { get; set; }
 
-   [XmlElement("CheckedScript")]
+   [XmlElement("checkedScript")]
    [DefaultValue("")]
+   [DisplayName("Checked Script")]
+   [Category("2. Maxscript Properties")]
    public String CheckedScript { get; set; }
 
 

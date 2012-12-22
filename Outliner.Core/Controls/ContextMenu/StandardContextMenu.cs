@@ -14,6 +14,8 @@ using Outliner.Presets;
 using Outliner.Controls.Options;
 using Outliner.MaxUtils;
 using Outliner.Configuration;
+using Outliner.Controls.Tree.Layout;
+using Outliner.NodeSorters;
 
 namespace Outliner.Controls.ContextMenu
 {
@@ -23,11 +25,6 @@ internal static class StandardContextMenu
    {
       ToolStripDropDown strip = new OutlinerContextMenu(menu);
       strip.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
-      //FlowLayoutSettings settings = strip.LayoutSettings as FlowLayoutSettings;
-      //settings.FlowDirection = FlowDirection.LeftToRight;
-      //TableLayoutSettings settings = strip.LayoutSettings as TableLayoutSettings;
-      //settings.ColumnCount = 4;
-      //settings.RowCount = 2;
       strip.Tag = new Tuple<OutlinerSplitContainer, OutlinerTree::TreeView, TreeMode>(container, tree, treeMode);
       strip.Renderer = new OutlinerToolStripRenderer(new OutlinerColorTable());
       strip.Padding = new Padding(3, 2, 1, 1);
@@ -37,39 +34,24 @@ internal static class StandardContextMenu
       OutlinerPreset currentPreset = OutlinerGUP.Instance.GetActivePreset(tree);
       preset_btn.Image = currentPreset.Image24;
       preset_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
-      foreach (OutlinerPreset preset in OutlinerPresets.Presets.Where(p => p.IsDefaultPreset))
+      IEnumerable<OutlinerPreset> presets = ConfigurationHelpers.GetConfigurations<OutlinerPreset>(OutlinerPaths.PresetsDir);
+      foreach (OutlinerPreset preset in presets.Where(p => p.IsDefaultPreset))
       {
          ToolStripMenuItem item = AddDropDownItem(preset_btn.DropDownItems, preset.Text, preset.Image16, preset_btn_click, preset);
          item.Checked = preset == currentPreset;
       }
       preset_btn.DropDownItems.Add(new ToolStripSeparator());
-      foreach (OutlinerPreset preset in OutlinerPresets.Presets.Where(p => !p.IsDefaultPreset))
+      foreach (OutlinerPreset preset in presets.Where(p => !p.IsDefaultPreset))
       {
          ToolStripMenuItem item = AddDropDownItem(preset_btn.DropDownItems, preset.Text, preset.Image16, preset_btn_click, preset);
          item.Checked = preset == currentPreset;
       }
-      preset_btn.DropDownItems.Add(new ToolStripSeparator());
-      AddDropDownItem(preset_btn.DropDownItems, ContextMenuResources.Str_EditPresets, null, EditPresets_Click, null);
+      //preset_btn.DropDownItems.Add(new ToolStripSeparator());
+      //AddDropDownItem(preset_btn.DropDownItems, ContextMenuResources.Str_EditPresets, null, editPresetsClick, null);
 
       strip.Items.Add(preset_btn);
 
       strip.Items.Add(new ToolStripSeparator());
-
-
-      //ToolStripDropDownButton mode_btn = new ToolStripDropDownButton("Mode");
-      //mode_btn.TextImageRelation = TextImageRelation.ImageAboveText;
-      //mode_btn.TextAlign = ContentAlignment.BottomCenter;
-      //mode_btn.ImageScaling = ToolStripItemImageScaling.None;
-      //mode_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
-      //IEnumerable<OutlinerPluginData> modeTypes = OutlinerPlugins.GetPluginsByType(OutlinerPluginType.TreeMode);
-      //Type currentModeType = treeMode.GetType();
-      //foreach (OutlinerPluginData mode in modeTypes)
-      //{
-      //   AddDropDownItem(mode_btn.DropDownItems, mode.DisplayName, mode.DisplayImageSmall, mode_btn_click, mode.Type);
-      //   if (currentModeType.Equals(mode.Type))
-      //      mode_btn.Image = mode.DisplayImageLarge;
-      //}
-      //strip.Items.Add(mode_btn);
 
 
 
@@ -100,11 +82,10 @@ internal static class StandardContextMenu
       if (AddUserFileItems(filter_btn.DropDownItems, treeMode, filters.Where(f => f.Category == FilterCategory.Properties), filter_ItemClick) > 0)
          filter_btn.DropDownItems.Add(new ToolStripSeparator());
 
-      if (AddUserFileItems(filter_btn.DropDownItems, treeMode, filters.Where(f => f.Category == FilterCategory.Custom), filter_ItemClick) > 0)
-         filter_btn.DropDownItems.Add(new ToolStripSeparator());
-
-      
-      filter_btn.DropDownItems.Add(ContextMenuResources.Str_EditFilters, null, editFiltersClick);
+      AddUserFileItems(filter_btn.DropDownItems, treeMode, filters.Where(f => f.Category == FilterCategory.Custom), filter_ItemClick);
+      //if (AddUserFileItems(filter_btn.DropDownItems, treeMode, filters.Where(f => f.Category == FilterCategory.Custom), filter_ItemClick) > 0)
+      //   filter_btn.DropDownItems.Add(new ToolStripSeparator());
+      //filter_btn.DropDownItems.Add(ContextMenuResources.Str_EditFilters, null, editFiltersClick);
 
       strip.Items.Add(filter_btn);
 
@@ -125,22 +106,10 @@ internal static class StandardContextMenu
          }
       }
       
-      if (sort_btn.DropDownItems.Count > 0)
-      //if (AddUserFileItems(sort_btn.DropDownItems, treeMode, sorters.OrderBy(x => x.Text), sort_itemClick) > 0)
-         sort_btn.DropDownItems.Add(new ToolStripSeparator());
+//      if (sort_btn.DropDownItems.Count > 0)
+//         sort_btn.DropDownItems.Add(new ToolStripSeparator());
+//      sort_btn.DropDownItems.Add("Edit Node Sorters...", null, editSortersClick);
 
-      sort_btn.DropDownItems.Add("Edit Node Sorters...", null, editSortersBtnClick);
-
-      //IEnumerable<OutlinerPluginData> sorterTypes = OutlinerPlugins.GetPlugins(OutlinerPluginType.NodeSorter);
-      //foreach (OutlinerPluginData sorter in sorterTypes)
-      //{
-      //   ToolStripMenuItem item = AddDropDownItem(sort_btn.DropDownItems, sorter.DisplayName, sorter.DisplayImageSmall, sort_itemClick, sorter.Type);
-      //   if (sorter.Type.Equals(currentSorterType))
-      //   {
-      //      sort_btn.Image = sorter.DisplayImageLarge;
-      //      item.Checked = true;
-      //   }
-      //}
       strip.Items.Add(sort_btn);
 
       strip.Items.Add(new ToolStripSeparator());
@@ -160,18 +129,17 @@ internal static class StandardContextMenu
       window_btn.DropDownItems.Add(ContextMenuResources.Str_WindowNew, ContextMenuResources.window_new_16, window_new_click);
       strip.Items.Add(window_btn);
 
-      ToolStripButton options_btn = new ToolStripButton("Options");
+      ToolStripDropDownButton options_btn = new ToolStripDropDownButton("Options");
       options_btn.Image = ContextMenuResources.options_24;
+      options_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
       strip.Items.Add(options_btn);
 
-      //ToolStripTextBox textFilter = new ToolStripTextBox();
-      //NameFilter nameFilter = treeMode.PermanentFilters.Get(typeof(NameFilter)) as NameFilter;
-      //if (nameFilter != null)
-      //   textFilter.Text = nameFilter.SearchString;
-      //textFilter.GotFocus += new EventHandler(textFilter_GotFocus);
-      //textFilter.LostFocus += new EventHandler(textFilter_LostFocus);
-      //textFilter.TextChanged += new EventHandler(textFilter_TextChanged);
-      //strip.Items.Add(textFilter);
+      options_btn.DropDownItems.Add("Edit Context-Menus", null, editContextMenusClick);
+      options_btn.DropDownItems.Add("Edit Filters", null, editFiltersClick);
+      options_btn.DropDownItems.Add("Edit Layouts", null, editLayoutsClick);
+      options_btn.DropDownItems.Add("Edit Presets", null, editPresetsClick);
+      options_btn.DropDownItems.Add("Edit Sorters", null, editSortersClick);
+
 
       foreach (ToolStripItem item in strip.Items)
       {
@@ -235,12 +203,6 @@ internal static class StandardContextMenu
       OutlinerPreset preset = ((ToolStripItem)sender).Tag as OutlinerPreset;
       OutlinerTree::TreeView tree = GetTreeView(sender);
       OutlinerGUP.Instance.SwitchPreset(tree, preset, true);
-   }
-
-   private static void EditPresets_Click(object sender, EventArgs e)
-   {
-      PresetEditor editor = new PresetEditor(GetTreeView(sender));
-      editor.ShowDialog(MaxInterfaces.MaxHwnd);
    }
 
    #endregion
@@ -319,13 +281,6 @@ internal static class StandardContextMenu
       if (config != null && config.Filter != null)
          filterType = config.Filter.GetType();
       item.Checked = treeMode.Filters.Filters.Get(filterType) != null;
-   }
-
-   private static void editFiltersClick(Object sender, EventArgs e)
-   {
-      TreeMode treeMode = GetTreeMode(sender);
-      ConfigFilesEditor<FilterConfiguration> editor = new ConfigFilesEditor<FilterConfiguration>(OutlinerPaths.FiltersDir, typeof(FilterCollectionEditor), ContextMenuResources.Str_EditFilters);
-      editor.ShowDialog(MaxInterfaces.MaxHwnd);
    }
 
    #endregion
@@ -428,12 +383,57 @@ internal static class StandardContextMenu
       return items.Count();
    }
 
-   public static void editSortersBtnClick(object sender, EventArgs e)
+   #region Options
+   
+   private static void openEditor<T>(string directory, Type editorType, string title, Boolean showUIProperties) where T: class, new()
    {
-      ConfigFilesEditor<SorterConfiguration> editor = new ConfigFilesEditor<SorterConfiguration>( OutlinerPaths.SortersDir
-                                                                                                , typeof(SorterConfigurationEditor)
-                                                                                                , "Edit Node Sorters");
-      editor.ShowDialog(MaxInterfaces.MaxHwnd);
+      ConfigFilesEditor<T> editor = new ConfigFilesEditor<T>(directory, editorType);
+      editor.Text = title;
+      editor.ShowUIProperties = showUIProperties;
+      editor.ShowDialog(MaxUtils.MaxInterfaces.MaxHwnd);
    }
+
+   private static void editContextMenusClick(object sender, EventArgs e)
+   {
+      openEditor<ContextMenuModel>( OutlinerPaths.ContextMenusDir
+                                  , typeof(ContextMenuModelEditor)
+                                  , "Edit context-menus"
+                                  , false);
+   }
+
+   private static void editFiltersClick(object sender, EventArgs e)
+   {
+      openEditor<FilterConfiguration>( OutlinerPaths.FiltersDir
+                                     , typeof(FilterCollectionEditor)
+                                     , "Edit filters"
+                                     , true);
+   }
+
+   private static void editLayoutsClick(object sender, EventArgs e)
+   {
+      openEditor<TreeNodeLayout>( OutlinerPaths.LayoutsDir
+                                , typeof(TreeNodeLayoutEditor)
+                                , "Edit layouts"
+                                , false);
+   }
+
+   private static void editPresetsClick(object sender, EventArgs e)
+   {
+      PresetsEditor editor = new PresetsEditor(OutlinerPaths.PresetsDir);
+      editor.Text = "Edit presets";
+      editor.ShowUIProperties = true;
+      editor.ShowDialog(MaxUtils.MaxInterfaces.MaxHwnd);
+   }
+
+   private static void editSortersClick(object sender, EventArgs e)
+   {
+      openEditor<SorterConfiguration>( OutlinerPaths.SortersDir
+                                     , typeof(SorterConfigurationEditor)
+                                     , "Edit sorters"
+                                     , true);
+   }
+
+   #endregion
+
 }
 }

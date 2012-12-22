@@ -18,6 +18,7 @@ using Outliner.NodeSorters;
 using Outliner.Plugins;
 using Outliner.Scene;
 using Outliner.Configuration;
+using Outliner.Controls.ContextMenu;
 
 namespace Outliner.Presets
 {
@@ -29,6 +30,7 @@ public class OutlinerPreset : ConfigurationFile
       this.ContextMenuFile = String.Empty;
       this.NodeSorter = new AlphabeticalSorter();
       this.Filters = new MaxNodeFilterCombinator() { Enabled = false };
+      this.IsDefaultPreset = false;
    }
 
    protected override string ImageBasePath
@@ -36,8 +38,17 @@ public class OutlinerPreset : ConfigurationFile
       get { return OutlinerPaths.PresetsDir; }
    }
 
-   [XmlIgnore]
-   internal Boolean IsDefaultPreset { get; set; }
+   protected override Image Image24Default
+   {
+      get
+      {
+         return OutlinerResources.default_preset_24;
+      }
+   }
+
+   [XmlElement("isDefaultPreset")]
+   [DefaultValue(false)]
+   public Boolean IsDefaultPreset { get; set; }
 
    [XmlElement("treemode")]
    public virtual String TreeModeTypeName { get; set; }
@@ -57,11 +68,28 @@ public class OutlinerPreset : ConfigurationFile
       }
    }
 
+   private string contextMenuFile;
    [XmlElement("contextmenu")]
-   public virtual String ContextMenuFile { get; set; }
+   public virtual String ContextMenuFile 
+   {
+      get { return this.contextMenuFile; }
+      set
+      {
+         this.contextMenuFile = value;
 
-   [XmlElement("nodesorter")]
-   public virtual NodeSorter NodeSorter { get; set; }
+         String path = value;
+         if (!Path.IsPathRooted(value))
+            path = Path.Combine(OutlinerPaths.ContextMenusDir, value);
+         if (path != null && File.Exists(path))
+            this.ContextMenu = XmlSerializationHelpers.Deserialize<ContextMenuModel>(path);
+      }
+   }
+
+   [XmlIgnore]
+   public virtual ContextMenuModel ContextMenu
+   {
+      get; protected set;
+   }
 
    private String layoutFile;
    [XmlElement("treenodelayout")]
@@ -75,10 +103,9 @@ public class OutlinerPreset : ConfigurationFile
          String path = value;
          if (!Path.IsPathRooted(value))
             path = Path.Combine(OutlinerPaths.LayoutsDir, value);
-         if (path != null)
+         if (path != null && File.Exists(path))
             this.TreeNodeLayout = XmlSerializationHelpers.Deserialize<TreeNodeLayout>(path);
-            //this.TreeNodeLayout = XmlSerializationHelpers<TreeNodeLayout>.FromXml(path, OutlinerPlugins.GetSerializableTypes());
-         }
+      }
    }
 
    private TreeNodeLayout layout;
@@ -97,6 +124,9 @@ public class OutlinerPreset : ConfigurationFile
          this.layout = value;
       }
    }
+
+   [XmlElement("nodesorter")]
+   public virtual NodeSorter NodeSorter { get; set; }
 
    [XmlElement("filters")]
    public virtual MaxNodeFilterCombinator Filters { get; set; }

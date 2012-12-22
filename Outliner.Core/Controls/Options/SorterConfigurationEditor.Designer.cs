@@ -36,7 +36,9 @@
          this.deleteButton = new System.Windows.Forms.Button();
          this.sorterTypesComboBox = new System.Windows.Forms.ComboBox();
          this.addButton = new System.Windows.Forms.Button();
+         this.outlinerGroupBox1 = new Outliner.Controls.OutlinerGroupBox();
          this.tableLayoutPanel1.SuspendLayout();
+         this.outlinerGroupBox1.SuspendLayout();
          this.SuspendLayout();
          // 
          // tableLayoutPanel1
@@ -52,7 +54,7 @@
          this.tableLayoutPanel1.Controls.Add(this.sorterTypesComboBox, 0, 0);
          this.tableLayoutPanel1.Controls.Add(this.addButton, 1, 0);
          this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+         this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 16);
          this.tableLayoutPanel1.Name = "tableLayoutPanel1";
          this.tableLayoutPanel1.RowCount = 5;
          this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
@@ -60,14 +62,14 @@
          this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
          this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
          this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
-         this.tableLayoutPanel1.Size = new System.Drawing.Size(513, 479);
+         this.tableLayoutPanel1.Size = new System.Drawing.Size(507, 460);
          this.tableLayoutPanel1.TabIndex = 0;
          // 
          // downButton
          // 
          this.downButton.Dock = System.Windows.Forms.DockStyle.Top;
          this.downButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-         this.downButton.Location = new System.Drawing.Point(435, 88);
+         this.downButton.Location = new System.Drawing.Point(429, 88);
          this.downButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 3);
          this.downButton.Name = "downButton";
          this.downButton.Size = new System.Drawing.Size(75, 23);
@@ -80,7 +82,7 @@
          // 
          this.upButton.Dock = System.Windows.Forms.DockStyle.Top;
          this.upButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-         this.upButton.Location = new System.Drawing.Point(435, 60);
+         this.upButton.Location = new System.Drawing.Point(429, 60);
          this.upButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 3);
          this.upButton.Name = "upButton";
          this.upButton.Size = new System.Drawing.Size(75, 23);
@@ -93,10 +95,10 @@
          // 
          this.sorterPropertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
          this.sorterPropertyGrid.HelpVisible = false;
-         this.sorterPropertyGrid.Location = new System.Drawing.Point(3, 364);
+         this.sorterPropertyGrid.Location = new System.Drawing.Point(3, 350);
          this.sorterPropertyGrid.Name = "sorterPropertyGrid";
          this.sorterPropertyGrid.PropertySort = System.Windows.Forms.PropertySort.NoSort;
-         this.sorterPropertyGrid.Size = new System.Drawing.Size(426, 112);
+         this.sorterPropertyGrid.Size = new System.Drawing.Size(420, 107);
          this.sorterPropertyGrid.TabIndex = 5;
          this.sorterPropertyGrid.ToolbarVisible = false;
          this.sorterPropertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.sorterPropertyGrid_PropertyValueChanged);
@@ -110,7 +112,7 @@
          this.sortersTree.Location = new System.Drawing.Point(3, 33);
          this.sortersTree.Name = "sortersTree";
          this.tableLayoutPanel1.SetRowSpan(this.sortersTree, 3);
-         this.sortersTree.Size = new System.Drawing.Size(426, 325);
+         this.sortersTree.Size = new System.Drawing.Size(420, 311);
          this.sortersTree.TabIndex = 3;
          this.sortersTree.Text = "sorterTree";
          this.sortersTree.SelectionChanged += new System.EventHandler<Outliner.Controls.Tree.SelectionChangedEventArgs>(this.sortersTree_SelectionChanged);
@@ -119,7 +121,7 @@
          // 
          this.deleteButton.Dock = System.Windows.Forms.DockStyle.Top;
          this.deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-         this.deleteButton.Location = new System.Drawing.Point(435, 32);
+         this.deleteButton.Location = new System.Drawing.Point(429, 32);
          this.deleteButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 3);
          this.deleteButton.Name = "deleteButton";
          this.deleteButton.Size = new System.Drawing.Size(75, 23);
@@ -135,14 +137,14 @@
          this.sorterTypesComboBox.FormattingEnabled = true;
          this.sorterTypesComboBox.Location = new System.Drawing.Point(3, 3);
          this.sorterTypesComboBox.Name = "sorterTypesComboBox";
-         this.sorterTypesComboBox.Size = new System.Drawing.Size(426, 21);
+         this.sorterTypesComboBox.Size = new System.Drawing.Size(420, 21);
          this.sorterTypesComboBox.TabIndex = 0;
          // 
          // addButton
          // 
          this.addButton.Dock = System.Windows.Forms.DockStyle.Top;
          this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-         this.addButton.Location = new System.Drawing.Point(435, 2);
+         this.addButton.Location = new System.Drawing.Point(429, 2);
          this.addButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 3);
          this.addButton.Name = "addButton";
          this.addButton.Size = new System.Drawing.Size(75, 23);
@@ -151,14 +153,27 @@
          this.addButton.UseVisualStyleBackColor = true;
          this.addButton.Click += new System.EventHandler(this.addButton_Click);
          // 
+         // outlinerGroupBox1
+         // 
+         this.outlinerGroupBox1.BorderColor = System.Drawing.Color.Black;
+         this.outlinerGroupBox1.Controls.Add(this.tableLayoutPanel1);
+         this.outlinerGroupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.outlinerGroupBox1.Location = new System.Drawing.Point(0, 0);
+         this.outlinerGroupBox1.Name = "outlinerGroupBox1";
+         this.outlinerGroupBox1.Size = new System.Drawing.Size(513, 479);
+         this.outlinerGroupBox1.TabIndex = 8;
+         this.outlinerGroupBox1.TabStop = false;
+         this.outlinerGroupBox1.Text = "Sorter Configuration";
+         // 
          // SorterConfigurationEditor
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.Controls.Add(this.tableLayoutPanel1);
+         this.Controls.Add(this.outlinerGroupBox1);
          this.Name = "SorterConfigurationEditor";
          this.Size = new System.Drawing.Size(513, 479);
          this.tableLayoutPanel1.ResumeLayout(false);
+         this.outlinerGroupBox1.ResumeLayout(false);
          this.ResumeLayout(false);
 
       }
@@ -173,6 +188,7 @@
       private System.Windows.Forms.PropertyGrid sorterPropertyGrid;
       private System.Windows.Forms.Button downButton;
       private System.Windows.Forms.Button upButton;
+      private OutlinerGroupBox outlinerGroupBox1;
 
 
    }

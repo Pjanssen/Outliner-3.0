@@ -33,20 +33,40 @@ public class TreeNodeText : TreeNodeButton
       return tn.Text;
    }
 
-   private Size GetTextSize(TreeNode tn)
+   private int MeasureTextWidth(TreeNode tn)
    {
-      if (this.Layout == null || this.Layout.TreeView == null || tn == null)
-         return Size.Empty;
+      if (tn == null | tn.TreeView == null)
+         return 0;
 
-      using (Font f = new Font(this.Layout.TreeView.Font, tn.FontStyle))
+      TreeView tree = tn.TreeView;
+      String text = this.GetText(tn);
+      if (text == null || text == "")
+         return 0;
+
+      Graphics g = Graphics.FromHwnd(tree.Handle);
+
+      using (Font font = new Font(tree.Font, tn.FontStyle))
       {
-         return TextRenderer.MeasureText(this.GetText(tn), f);
+         using (StringFormat format = new StringFormat(StringFormat.GenericDefault))
+         {
+            RectangleF rect = new RectangleF(0, 0, 1000, 1000);
+            CharacterRange[] ranges = { new CharacterRange(0, text.Length) };
+            Region[] regions = new Region[1];
+
+            format.SetMeasurableCharacterRanges(ranges);
+            format.FormatFlags = StringFormatFlags.MeasureTrailingSpaces;
+
+            regions = g.MeasureCharacterRanges(text, font, rect, format);
+            rect = regions[0].GetBounds(g);
+
+            return (int)rect.Right + 5;
+         }
       }
    }
 
    public override int GetAutoWidth(TreeNode tn)
    {
-      int textWidth = this.GetTextSize(tn).Width + (int)Math.Ceiling(this.GetText(tn).Length * 0.25);
+      int textWidth = this.MeasureTextWidth(tn);
       int maxWidth = this.getMaxWidth(tn);
 
       return Math.Min(maxWidth, textWidth);
@@ -96,7 +116,7 @@ public class TreeNodeText : TreeNodeButton
       if (tn == null)
          return String.Empty;
 
-      int textWidth = this.GetTextSize(tn).Width + 1;
+      int textWidth = this.MeasureTextWidth(tn) + 1;
       int maxWidth = this.getMaxWidth(tn);
 
       if (textWidth > maxWidth)
@@ -125,7 +145,6 @@ public class TreeNodeText : TreeNodeButton
                         fgBrush = new SolidBrush(fgColor))
       {
          Rectangle gBounds = this.GetBounds(tn);
-         gBounds.Width += 4;
 
          graphics.FillRectangle(bgBrush, gBounds);
 

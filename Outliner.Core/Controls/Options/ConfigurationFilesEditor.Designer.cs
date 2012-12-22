@@ -29,22 +29,17 @@
       private void InitializeComponent()
       {
          this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-         this.filesTree = new Outliner.Controls.Tree.TreeView();
          this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
          this.cancelBtn = new System.Windows.Forms.Button();
          this.okBtn = new System.Windows.Forms.Button();
          this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
          this.addFileBtn = new System.Windows.Forms.Button();
          this.deleteFileBtn = new System.Windows.Forms.Button();
-         this.uiPropertiesGroupBox = new Outliner.Controls.OutlinerGroupBox();
-         this.configurationFileEditor = new Outliner.Controls.Options.ConfigurationFilePropertiesEditor();
-         this.configPropertiesGroupBox = new Outliner.Controls.OutlinerGroupBox();
          this.editorPanel = new System.Windows.Forms.Panel();
+         this.filesTree = new Outliner.Controls.Tree.TreeView();
          this.tableLayoutPanel1.SuspendLayout();
          this.tableLayoutPanel2.SuspendLayout();
          this.tableLayoutPanel3.SuspendLayout();
-         this.uiPropertiesGroupBox.SuspendLayout();
-         this.configPropertiesGroupBox.SuspendLayout();
          this.SuspendLayout();
          // 
          // tableLayoutPanel1
@@ -53,37 +48,20 @@
          this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
          this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
          this.tableLayoutPanel1.Controls.Add(this.filesTree, 0, 0);
-         this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 3);
-         this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 2);
-         this.tableLayoutPanel1.Controls.Add(this.uiPropertiesGroupBox, 1, 0);
-         this.tableLayoutPanel1.Controls.Add(this.configPropertiesGroupBox, 1, 1);
+         this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 2);
+         this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 1);
+         this.tableLayoutPanel1.Controls.Add(this.editorPanel, 1, 0);
          this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
          this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
          this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
          this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-         this.tableLayoutPanel1.RowCount = 4;
-         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 129F));
+         this.tableLayoutPanel1.RowCount = 3;
          this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
          this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
          this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-         this.tableLayoutPanel1.Size = new System.Drawing.Size(571, 490);
+         this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+         this.tableLayoutPanel1.Size = new System.Drawing.Size(622, 490);
          this.tableLayoutPanel1.TabIndex = 0;
-         // 
-         // filesTree
-         // 
-         this.filesTree.AllowDrop = true;
-         this.filesTree.AutoScroll = true;
-         this.filesTree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.filesTree.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.filesTree.Location = new System.Drawing.Point(3, 3);
-         this.filesTree.Name = "filesTree";
-         this.tableLayoutPanel1.SetRowSpan(this.filesTree, 2);
-         this.filesTree.Size = new System.Drawing.Size(194, 414);
-         this.filesTree.TabIndex = 1;
-         this.filesTree.Text = "treeView1";
-         this.filesTree.SelectionChanged += new System.EventHandler<Outliner.Controls.Tree.SelectionChangedEventArgs>(this.filesTree_SelectionChanged);
-         this.filesTree.BeforeNodeTextEdit += new System.EventHandler<Outliner.Controls.Tree.BeforeNodeTextEditEventArgs>(this.filesTree_BeforeNodeTextEdit);
-         this.filesTree.AfterNodeTextEdit += new System.EventHandler<Outliner.Controls.Tree.AfterNodeTextEditEventArgs>(this.filesTree_AfterNodeTextEdit);
          // 
          // tableLayoutPanel2
          // 
@@ -98,14 +76,14 @@
          this.tableLayoutPanel2.Name = "tableLayoutPanel2";
          this.tableLayoutPanel2.RowCount = 1;
          this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-         this.tableLayoutPanel2.Size = new System.Drawing.Size(371, 35);
+         this.tableLayoutPanel2.Size = new System.Drawing.Size(422, 35);
          this.tableLayoutPanel2.TabIndex = 2;
          // 
          // cancelBtn
          // 
          this.cancelBtn.Dock = System.Windows.Forms.DockStyle.Right;
          this.cancelBtn.FlatStyle = System.Windows.Forms.FlatStyle.System;
-         this.cancelBtn.Location = new System.Drawing.Point(288, 3);
+         this.cancelBtn.Location = new System.Drawing.Point(339, 3);
          this.cancelBtn.Name = "cancelBtn";
          this.cancelBtn.Size = new System.Drawing.Size(80, 29);
          this.cancelBtn.TabIndex = 1;
@@ -117,7 +95,7 @@
          // 
          this.okBtn.Dock = System.Windows.Forms.DockStyle.Right;
          this.okBtn.FlatStyle = System.Windows.Forms.FlatStyle.System;
-         this.okBtn.Location = new System.Drawing.Point(198, 3);
+         this.okBtn.Location = new System.Drawing.Point(249, 3);
          this.okBtn.Name = "okBtn";
          this.okBtn.Size = new System.Drawing.Size(80, 29);
          this.okBtn.TabIndex = 0;
@@ -165,52 +143,34 @@
          this.deleteFileBtn.UseVisualStyleBackColor = true;
          this.deleteFileBtn.Click += new System.EventHandler(this.deleteFileBtn_Click);
          // 
-         // uiPropertiesGroupBox
-         // 
-         this.uiPropertiesGroupBox.BorderColor = System.Drawing.Color.Black;
-         this.uiPropertiesGroupBox.Controls.Add(this.configurationFileEditor);
-         this.uiPropertiesGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.uiPropertiesGroupBox.Location = new System.Drawing.Point(203, 3);
-         this.uiPropertiesGroupBox.Name = "uiPropertiesGroupBox";
-         this.uiPropertiesGroupBox.Size = new System.Drawing.Size(365, 123);
-         this.uiPropertiesGroupBox.TabIndex = 4;
-         this.uiPropertiesGroupBox.TabStop = false;
-         this.uiPropertiesGroupBox.Text = "UI Properties";
-         // 
-         // configurationFileEditor
-         // 
-         this.configurationFileEditor.Configuration = null;
-         this.configurationFileEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.configurationFileEditor.Location = new System.Drawing.Point(3, 16);
-         this.configurationFileEditor.Name = "configurationFileEditor";
-         this.configurationFileEditor.Size = new System.Drawing.Size(359, 104);
-         this.configurationFileEditor.TabIndex = 0;
-         // 
-         // configPropertiesGroupBox
-         // 
-         this.configPropertiesGroupBox.BorderColor = System.Drawing.Color.Black;
-         this.configPropertiesGroupBox.Controls.Add(this.editorPanel);
-         this.configPropertiesGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.configPropertiesGroupBox.Location = new System.Drawing.Point(203, 132);
-         this.configPropertiesGroupBox.Name = "configPropertiesGroupBox";
-         this.configPropertiesGroupBox.Size = new System.Drawing.Size(365, 285);
-         this.configPropertiesGroupBox.TabIndex = 0;
-         this.configPropertiesGroupBox.TabStop = false;
-         this.configPropertiesGroupBox.Text = "Configuration";
-         // 
          // editorPanel
          // 
          this.editorPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.editorPanel.Location = new System.Drawing.Point(3, 16);
+         this.editorPanel.Location = new System.Drawing.Point(203, 3);
          this.editorPanel.Name = "editorPanel";
-         this.editorPanel.Size = new System.Drawing.Size(359, 266);
-         this.editorPanel.TabIndex = 0;
+         this.editorPanel.Size = new System.Drawing.Size(416, 414);
+         this.editorPanel.TabIndex = 5;
+         // 
+         // filesTree
+         // 
+         this.filesTree.AllowDrop = true;
+         this.filesTree.AutoScroll = true;
+         this.filesTree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.filesTree.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.filesTree.Location = new System.Drawing.Point(3, 3);
+         this.filesTree.Name = "filesTree";
+         this.filesTree.Size = new System.Drawing.Size(194, 414);
+         this.filesTree.TabIndex = 1;
+         this.filesTree.Text = "treeView1";
+         this.filesTree.SelectionChanged += new System.EventHandler<Outliner.Controls.Tree.SelectionChangedEventArgs>(this.filesTree_SelectionChanged);
+         this.filesTree.BeforeNodeTextEdit += new System.EventHandler<Outliner.Controls.Tree.BeforeNodeTextEditEventArgs>(this.filesTree_BeforeNodeTextEdit);
+         this.filesTree.AfterNodeTextEdit += new System.EventHandler<Outliner.Controls.Tree.AfterNodeTextEditEventArgs>(this.filesTree_AfterNodeTextEdit);
          // 
          // ConfigFilesEditor
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.ClientSize = new System.Drawing.Size(577, 496);
+         this.ClientSize = new System.Drawing.Size(628, 496);
          this.Controls.Add(this.tableLayoutPanel1);
          this.MaximizeBox = false;
          this.Name = "ConfigFilesEditor";
@@ -221,8 +181,6 @@
          this.tableLayoutPanel1.ResumeLayout(false);
          this.tableLayoutPanel2.ResumeLayout(false);
          this.tableLayoutPanel3.ResumeLayout(false);
-         this.uiPropertiesGroupBox.ResumeLayout(false);
-         this.configPropertiesGroupBox.ResumeLayout(false);
          this.ResumeLayout(false);
 
       }
@@ -230,16 +188,13 @@
       #endregion
 
       private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-      private System.Windows.Forms.Panel editorPanel;
-      private Tree.TreeView filesTree;
       private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
       private System.Windows.Forms.Button cancelBtn;
       private System.Windows.Forms.Button okBtn;
       private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
       private System.Windows.Forms.Button addFileBtn;
       private System.Windows.Forms.Button deleteFileBtn;
-      private OutlinerGroupBox uiPropertiesGroupBox;
-      private ConfigurationFilePropertiesEditor configurationFileEditor;
-      private OutlinerGroupBox configPropertiesGroupBox;
+      protected Tree.TreeView filesTree;
+      private System.Windows.Forms.Panel editorPanel;
    }
 }
