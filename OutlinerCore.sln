@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Outliner.Core", "Outliner.Core\Outliner.Core.csproj", "{AA8562B6-988F-4AFE-94EB-BF2FD64BE93E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Outliner.Tests", "Outliner.Tests\Outliner.Tests.csproj", "{D60C045D-0975-4647-8637-8DFAA67F9EAF}"
@@ -23,6 +23,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Installer", "Installer\Installer.csproj", "{6233CC63-823A-441B-AD93-A40E73E77EA2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreInstallerCustomActions", "CoreInstallerCustomActions\CoreInstallerCustomActions.csproj", "{68D43806-884D-4690-9A62-E53D52F11D29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Outliner.IntegrationTests", "Outliner.IntegrationTests\Outliner.IntegrationTests.csproj", "{2F3227EE-79CB-464B-B9ED-346C71F3EE88}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -145,6 +147,18 @@ Global
 		{68D43806-884D-4690-9A62-E53D52F11D29}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{68D43806-884D-4690-9A62-E53D52F11D29}.Release|x64.ActiveCfg = Release|Any CPU
 		{68D43806-884D-4690-9A62-E53D52F11D29}.Release|x86.ActiveCfg = Release|Any CPU
+		{2F3227EE-79CB-464B-B9ED-346C71F3EE88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F3227EE-79CB-464B-B9ED-346C71F3EE88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F3227EE-79CB-464B-B9ED-346C71F3EE88}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2F3227EE-79CB-464B-B9ED-346C71F3EE88}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2F3227EE-79CB-464B-B9ED-346C71F3EE88}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2F3227EE-79CB-464B-B9ED-346C71F3EE88}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2F3227EE-79CB-464B-B9ED-346C71F3EE88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F3227EE-79CB-464B-B9ED-346C71F3EE88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F3227EE-79CB-464B-B9ED-346C71F3EE88}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2F3227EE-79CB-464B-B9ED-346C71F3EE88}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2F3227EE-79CB-464B-B9ED-346C71F3EE88}.Release|x64.ActiveCfg = Release|Any CPU
+		{2F3227EE-79CB-464B-B9ED-346C71F3EE88}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

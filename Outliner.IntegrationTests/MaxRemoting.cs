@@ -9,7 +9,7 @@ using Outliner;
 using System.Diagnostics;
 using Outliner.MaxUtils;
 
-namespace Outliner.Tests
+namespace Outliner.IntegrationTests
 {
 internal static class MaxRemoting
 {
@@ -69,42 +69,6 @@ internal static class MaxRemoting
    internal static void ResetScene()
    {
       Global.COREInterface.FileReset(true);
-   }
-}
-
-/// <summary>
-/// A generic test baseclass, which automates 3dsMax scene cleanup after each test.
-/// </summary>
-[TestClass]
-public abstract class MaxIntegrationTest
-{
-   [TestCleanup]
-   public void TestCleanup()
-   {
-      MaxRemoting.ResetScene();
-   }
-}
-
-
-[TestClass]
-public class RemotingTests : MaxIntegrationTest
-{
-   /// <summary>
-   /// Tests if the remoting to 3dsMax works.
-   /// </summary>
-   [TestMethod]
-   public void RemotingTest()
-   {
-      IGlobal global = MaxRemoting.Global;
-      IInterface ip = global.COREInterface;
-      int newSceneNumChildren = ip.RootNode.NumberOfChildren;
-
-      IINode boxNode = MaxRemoting.CreateBox();
-      Assert.IsNotNull(boxNode, "Create box");
-      Assert.AreEqual(newSceneNumChildren + 1, ip.RootNode.NumberOfChildren, "Add box");
-
-      MaxRemoting.DeleteNode(boxNode);
-      Assert.AreEqual(newSceneNumChildren, ip.RootNode.NumberOfChildren, "Delete box");
    }
 }
 }

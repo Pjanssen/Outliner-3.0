@@ -7,7 +7,7 @@ using Outliner.Scene;
 using Outliner.Commands;
 using Outliner.MaxUtils;
 
-namespace Outliner.Tests.Commands
+namespace Outliner.IntegrationTests.Commands
 {
 [TestClass]
 public class HideCommandTest : MaxIntegrationTest

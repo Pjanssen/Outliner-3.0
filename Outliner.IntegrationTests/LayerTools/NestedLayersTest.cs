@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Autodesk.Max;
 using Outliner.LayerTools;
 
-namespace Outliner.Tests
+namespace Outliner.IntegrationTests.LayerTools
 {
 [TestClass]
 public class NestedLayersTest : MaxIntegrationTest
@@ -49,7 +49,21 @@ public class NestedLayersTest : MaxIntegrationTest
    [TestMethod]
    public void GetPropertyTest()
    {
+      IILayer layer = MaxRemoting.CreateLayer();
 
+      layer.IsHidden = false;
+      Assert.IsFalse(layer.IsHidden, "Property should be set correctly");
+
+      Assert.IsFalse(NestedLayers.GetProperty(layer, MaxUtils.BooleanNodeProperty.IsHidden), "Uninherited property");
+
+      IILayer parent = MaxRemoting.CreateLayer();
+      NestedLayers.SetParent(layer, parent);
+      Assert.AreEqual(parent, NestedLayers.GetParent(layer), "Parenting should be successful");
+
+      parent.IsHidden = true;
+      Assert.IsTrue(parent.IsHidden);
+      Assert.IsTrue(layer.IsHidden, "Property was inherited");
+      Assert.IsFalse(NestedLayers.GetProperty(layer, MaxUtils.BooleanNodeProperty.IsHidden));
    }
 }
 }

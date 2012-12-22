@@ -8,7 +8,7 @@ using Autodesk.Max;
 using System.Runtime.InteropServices;
 using Outliner;
 
-namespace Outliner.Tests
+namespace Outliner.IntegrationTests
 {
 [TestClass]
 public class GroupHelpersTest : MaxIntegrationTest

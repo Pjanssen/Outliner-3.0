@@ -14,7 +14,16 @@ public static class NestedLayers
 {
    private const uint CID_A = 0x48197F50;
    private const uint CID_B = 0x9D545B8;
-   private static IClass_ID classID;
+   private static IClass_ID _classID;
+   private static IClass_ID ClassID
+   {
+      get
+      {
+         if (_classID == null)
+            _classID = MaxInterfaces.Global.Class_ID.Create(CID_A, CID_B);
+         return _classID;
+      }
+   }
    private const uint PropertySbidOffset = 10;
 
    public const SystemNotificationCode LayerParented = (SystemNotificationCode)0x00000100;
@@ -47,8 +56,6 @@ public static class NestedLayers
 
    internal static void Start()
    {
-      NestedLayers.classID = MaxInterfaces.Global.Class_ID.Create(CID_A, CID_B);
-
       foreach (KeyValuePair<GlobalDelegates.Delegate5, SystemNotificationCode> cb in NestedLayers.callbacks)
       {
          MaxInterfaces.Global.RegisterNotification(cb.Key, null, cb.Value);
@@ -74,7 +81,7 @@ public static class NestedLayers
    }
    private static byte[] getAppData(IAnimatable anim, uint sbid)
    {
-      IAppDataChunk chunk = anim.GetAppDataChunk(classID, SClass_ID.Gup, sbid);
+      IAppDataChunk chunk = anim.GetAppDataChunk(ClassID, SClass_ID.Gup, sbid);
       return (chunk != null) ? chunk.Data : null;
    }
 
@@ -89,7 +96,7 @@ public static class NestedLayers
    private static void setAppData(IAnimatable anim, uint sbid, byte[] data)
    {
       NestedLayers.removeAppData(anim, sbid);
-      anim.AddAppDataChunk(classID, SClass_ID.Gup, sbid, data);
+      anim.AddAppDataChunk(ClassID, SClass_ID.Gup, sbid, data);
    }
 
    private static void removeAppData(IAnimatable anim, SubID sbid)
@@ -102,7 +109,7 @@ public static class NestedLayers
    }
    private static void removeAppData(IAnimatable anim, uint sbid)
    {
-      anim.RemoveAppDataChunk(classID, SClass_ID.Gup, sbid);
+      anim.RemoveAppDataChunk(ClassID, SClass_ID.Gup, sbid);
    }
 
 

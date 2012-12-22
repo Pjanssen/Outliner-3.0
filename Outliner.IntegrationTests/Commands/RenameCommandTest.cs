@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Outliner.Scene;
 using Outliner.Commands;
 
-namespace Outliner.Tests.Commands
+namespace Outliner.IntegrationTests.Commands
 {
 [TestClass]
 public class RenameCommandTest : MaxIntegrationTest

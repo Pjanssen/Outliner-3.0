@@ -4,7 +4,7 @@ using System;
 using Outliner.Scene;
 using System.Collections.Generic;
 
-namespace Outliner.Tests.Commands
+namespace Outliner.IntegrationTests.Commands
 {
 [TestClass]
 public class MoveMaxNodeCommandTest : MaxIntegrationTest

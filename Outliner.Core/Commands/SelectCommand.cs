@@ -10,17 +10,21 @@ namespace Outliner.Commands
 {
 public class SelectCommand : Command
 {
+   private Boolean openGroups;
    private IEnumerable<IMaxNodeWrapper> nodes;
    private IEnumerable<IMaxNodeWrapper> oldSelection;
 
-   public SelectCommand(IEnumerable<IMaxNodeWrapper> nodes) 
+   public SelectCommand(IEnumerable<IMaxNodeWrapper> nodes) : this(nodes, true) { }
+
+   public SelectCommand(IEnumerable<IMaxNodeWrapper> nodes, Boolean openGroups) 
    {
       Throw.IfArgumentIsNull(nodes, "nodes");
 
       this.nodes = nodes;
+      this.openGroups = openGroups;
    }
- 
 
+   
    public override string Description
    {
       get { return OutlinerResources.Command_Select; }
@@ -39,7 +43,8 @@ public class SelectCommand : Command
       }
       this.oldSelection = oldSel;
 
-      GroupHelpers.OpenSelectedGroupHeads(this.nodes);
+      if (this.openGroups)
+         GroupHelpers.OpenSelectedGroupHeads(this.nodes);
 
       //Select new selection.
       SelectCommand.SelectNodes(ip, this.nodes);

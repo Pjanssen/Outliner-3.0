@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Outliner.Scene;
 using Outliner.Commands;
 
-namespace Outliner.Tests.Commands
+namespace Outliner.IntegrationTests.Commands
 {
 [TestClass]
 public class SelectCommandTest : MaxIntegrationTest
@@ -23,7 +23,7 @@ public class SelectCommandTest : MaxIntegrationTest
       Assert.AreEqual(false, nodeC.Selected);
 
       List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(2) { nodeA, nodeB };
-      SelectCommand cmd = new SelectCommand(nodes);
+      SelectCommand cmd = new SelectCommand(nodes, false);
 
       cmd.Redo();
       Assert.AreEqual(true, nodeA.Selected);
@@ -48,7 +48,7 @@ public class SelectCommandTest : MaxIntegrationTest
       Assert.AreEqual(false, nodeC.Selected);
 
       List<IMaxNodeWrapper> nodes1 = new List<IMaxNodeWrapper>(2) { nodeA, nodeB };
-      SelectCommand cmd = new SelectCommand(nodes1);
+      SelectCommand cmd = new SelectCommand(nodes1, false);
 
       cmd.Redo();
       Assert.AreEqual(true, nodeA.Selected);
@@ -56,7 +56,7 @@ public class SelectCommandTest : MaxIntegrationTest
       Assert.AreEqual(false, nodeC.Selected);
 
       List<IMaxNodeWrapper> nodes2 = new List<IMaxNodeWrapper>(1) { nodeC };
-      SelectCommand cmd2 = new SelectCommand(nodes2);
+      SelectCommand cmd2 = new SelectCommand(nodes2, false);
       
       cmd2.Redo();
       Assert.AreEqual(false, nodeA.Selected);
@@ -81,14 +81,14 @@ public class SelectCommandTest : MaxIntegrationTest
       Assert.AreEqual(false, nodeC.Selected);
 
       List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(2) { nodeA, nodeB };
-      SelectCommand cmd = new SelectCommand(nodes);
+      SelectCommand cmd = new SelectCommand(nodes, false);
 
       cmd.Redo();
       Assert.AreEqual(true, nodeA.Selected);
       Assert.AreEqual(true, nodeB.Selected);
       Assert.AreEqual(false, nodeC.Selected);
 
-      SelectCommand clearCmd = new SelectCommand(new List<IMaxNodeWrapper>());
+      SelectCommand clearCmd = new SelectCommand(new List<IMaxNodeWrapper>(), false);
 
       clearCmd.Redo();
       Assert.AreEqual(false, nodeA.Selected);
