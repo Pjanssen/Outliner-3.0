@@ -14,7 +14,7 @@ using Outliner.Plugins;
 namespace Outliner.Modes.SelectionSet
 {
 [OutlinerPlugin(OutlinerPluginType.TreeMode)]
-[LocalizedDisplayName(typeof(Resources), "Mode_DisplayName")]
+[LocalizedDisplayName(typeof(Resources), "Mode_SelectionSets")]
 public class SelectionSetMode : TreeMode
 {
    private AllObjectsSelectionSet allObjectsSelSet;

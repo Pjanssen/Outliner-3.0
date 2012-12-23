@@ -8,7 +8,7 @@ using Outliner.Plugins;
 namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
-   [LocalizedDisplayName(typeof(Resources), "Str_Layers")]
+   [LocalizedDisplayName(typeof(Resources), "Filter_Layers")]
    public class LayerFilter : Filter<IMaxNodeWrapper>
    {
       protected override bool ShowNodeInternal(IMaxNodeWrapper data)

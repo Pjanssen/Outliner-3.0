@@ -18,6 +18,7 @@ using Outliner.Controls.Tree;
 namespace Outliner.ColorTags
 {
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
+[LocalizedDisplayName(typeof(Resources), "Button_ColorTag")]
 public class ColorTagButton : TreeNodeButton
 {
    [XmlAttribute("button_width")]
@@ -69,7 +70,7 @@ public class ColorTagButton : TreeNodeButton
       if (wrapper == null)
          return String.Empty;
 
-      return String.Format(Resources.NodeButton_Tooltip, wrapper.GetColorTag().ToString());
+      return String.Format(Resources.Tooltip_NodeButton, wrapper.GetColorTag().ToString());
    }
 
    public override void Draw(Graphics graphics, TreeNode tn)

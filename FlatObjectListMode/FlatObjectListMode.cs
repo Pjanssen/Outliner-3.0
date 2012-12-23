@@ -12,7 +12,7 @@ using Outliner.Plugins;
 namespace Outliner.Modes.FlatObjectList
 {
 [OutlinerPlugin(OutlinerPluginType.TreeMode)]
-[LocalizedDisplayName(typeof(Resources), "Mode_DisplayName")]
+[LocalizedDisplayName(typeof(Resources), "Mode_FlatObjectList")]
 [LocalizedDisplayImage(typeof(Resources), "flatobjectlist_mode_16_dark", "flatobjectlist_mode_24_dark")]
 public class FlatObjectListMode : TreeMode
 {

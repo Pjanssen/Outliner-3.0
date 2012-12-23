@@ -25,7 +25,7 @@ public class SetColorTagCommand : Command
 
    public override string Description
    {
-      get { return Resources.Command_Description; }
+      get { return Resources.Command_SetColorTag; }
    }
 
    protected override void Do()

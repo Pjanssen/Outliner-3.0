@@ -12,7 +12,7 @@ using Outliner.NodeSorters;
 namespace Outliner.PolyCount
 {
 [OutlinerPlugin(OutlinerPluginType.NodeSorter)]
-[LocalizedDisplayName(typeof(Resources), "Str_PolyCount")]
+[LocalizedDisplayName(typeof(Resources), "Sorter_PolyCount")]
 public class PolycountSorter : NodeSorter
 {
    public PolycountSorter() : base() { }

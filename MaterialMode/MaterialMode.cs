@@ -9,7 +9,7 @@ using Outliner.Controls.Tree;
 namespace Outliner.MaterialMode
 {
    [OutlinerPlugin(OutlinerPluginType.TreeMode)]
-   [LocalizedDisplayName(typeof(Resources), "ModeDisplayName")]
+   [LocalizedDisplayName(typeof(Resources), "Mode_Materials")]
    public class MaterialMode : TreeMode
    {
       public MaterialMode(TreeView tree) : base(tree) 

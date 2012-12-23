@@ -61,6 +61,15 @@ namespace Outliner.PolyCount {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PolyCount Text.
+        /// </summary>
+        internal static string Button_PolyCount {
+            get {
+                return ResourceManager.GetString("Button_PolyCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap img_polycount_16 {
@@ -83,9 +92,9 @@ namespace Outliner.PolyCount {
         /// <summary>
         ///   Looks up a localized string similar to Polycount.
         /// </summary>
-        internal static string Str_PolyCount {
+        internal static string Sorter_PolyCount {
             get {
-                return ResourceManager.GetString("Str_PolyCount", resourceCulture);
+                return ResourceManager.GetString("Sorter_PolyCount", resourceCulture);
             }
         }
     }

@@ -10,6 +10,7 @@ using Outliner.Filters;
 namespace Outliner.ColorTags
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
+   [LocalizedDisplayName(typeof(Resources), "Filter_ColorTag")]
    public class ColorTagsFilter : Filter<IMaxNodeWrapper>
    {
       private ColorTag tags;

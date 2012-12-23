@@ -13,7 +13,7 @@ using Outliner.Plugins;
 namespace Outliner.Modes.Hierarchy
 {
 [OutlinerPlugin(OutlinerPluginType.TreeMode)]
-[LocalizedDisplayName(typeof(Resources), "Mode_DisplayName")]
+[LocalizedDisplayName(typeof(Resources), "Mode_Hierarchy")]
 public class HierarchyMode : TreeMode
 {
    public HierarchyMode(TreeView tree) : base(tree)

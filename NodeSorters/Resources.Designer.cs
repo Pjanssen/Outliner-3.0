@@ -173,45 +173,45 @@ namespace Outliner.NodeSorters {
         /// <summary>
         ///   Looks up a localized string similar to Frozen State.
         /// </summary>
-        internal static string Str_Frozen {
+        internal static string Sorter_Frozen {
             get {
-                return ResourceManager.GetString("Str_Frozen", resourceCulture);
+                return ResourceManager.GetString("Sorter_Frozen", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Visibility.
         /// </summary>
-        internal static string Str_Hidden {
+        internal static string Sorter_Hidden {
             get {
-                return ResourceManager.GetString("Str_Hidden", resourceCulture);
+                return ResourceManager.GetString("Sorter_Hidden", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Chronological.
         /// </summary>
-        internal static string Str_IINodeHandle {
+        internal static string Sorter_IINodeHandle {
             get {
-                return ResourceManager.GetString("Str_IINodeHandle", resourceCulture);
+                return ResourceManager.GetString("Sorter_IINodeHandle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Material.
         /// </summary>
-        internal static string Str_MaterialSorter {
+        internal static string Sorter_Material {
             get {
-                return ResourceManager.GetString("Str_MaterialSorter", resourceCulture);
+                return ResourceManager.GetString("Sorter_Material", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Type.
         /// </summary>
-        internal static string Str_SuperClass {
+        internal static string Sorter_SuperClass {
             get {
-                return ResourceManager.GetString("Str_SuperClass", resourceCulture);
+                return ResourceManager.GetString("Sorter_SuperClass", resourceCulture);
             }
         }
     }

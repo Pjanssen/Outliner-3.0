@@ -58,6 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContextMenuActions.cs" />
+    <Compile Include="CreateLayerCommand.cs" />
     <Compile Include="IILayerDragDropHandler.cs" />
     <Compile Include="IINodeDragDropHandler.cs" />
     <Compile Include="LayerMode.cs" />
@@ -87,6 +89,12 @@
       <Name>TreeNodeButtons</Name>
       <Private>False</Private>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\set_active_layer_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\new_layer_16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

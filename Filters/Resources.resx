@@ -124,43 +124,43 @@
   <data name="Img_Camera" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\camera.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Str_Bones" xml:space="preserve">
+  <data name="Filter_Bones" xml:space="preserve">
     <value>Bones</value>
   </data>
-  <data name="Str_Cameras" xml:space="preserve">
+  <data name="Filter_Cameras" xml:space="preserve">
     <value>Cameras</value>
   </data>
-  <data name="Str_Frozen" xml:space="preserve">
+  <data name="Filter_Frozen" xml:space="preserve">
     <value>Frozen Nodes</value>
   </data>
-  <data name="Str_Geometry" xml:space="preserve">
+  <data name="Filter_Geometry" xml:space="preserve">
     <value>Geometry</value>
   </data>
-  <data name="Str_Helpers" xml:space="preserve">
+  <data name="Filter_Helpers" xml:space="preserve">
     <value>Helpers</value>
   </data>
-  <data name="Str_Hidden" xml:space="preserve">
+  <data name="Filter_Hidden" xml:space="preserve">
     <value>Hidden Nodes</value>
   </data>
-  <data name="Str_Layers" xml:space="preserve">
+  <data name="Filter_Layers" xml:space="preserve">
     <value>Layers only</value>
   </data>
-  <data name="Str_Lights" xml:space="preserve">
+  <data name="Filter_Lights" xml:space="preserve">
     <value>Lights</value>
   </data>
-  <data name="Str_Nurbs" xml:space="preserve">
+  <data name="Filter_Nurbs" xml:space="preserve">
     <value>Nurbs</value>
   </data>
-  <data name="Str_Particles" xml:space="preserve">
+  <data name="Filter_Particles" xml:space="preserve">
     <value>Particles</value>
   </data>
-  <data name="Str_Shapes" xml:space="preserve">
+  <data name="Filter_Shapes" xml:space="preserve">
     <value>Shapes</value>
   </data>
-  <data name="Str_Spacewarps" xml:space="preserve">
+  <data name="Filter_Spacewarps" xml:space="preserve">
     <value>Spacewarps</value>
   </data>
-  <data name="Str_Xrefs" xml:space="preserve">
+  <data name="Filter_Xrefs" xml:space="preserve">
     <value>Xrefs</value>
   </data>
   <data name="Img_Freeze" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -189,5 +189,8 @@
   </data>
   <data name="Img_Spacewarp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\spacewarp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Filter_SuperClass" xml:space="preserve">
+    <value>Type</value>
   </data>
 </root>

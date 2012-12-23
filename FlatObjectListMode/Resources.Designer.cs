@@ -103,9 +103,9 @@ namespace Outliner.Modes.FlatObjectList {
         /// <summary>
         ///   Looks up a localized string similar to Flat Object List.
         /// </summary>
-        internal static string Str_DisplayName {
+        internal static string Mode_FlatObjectList {
             get {
-                return ResourceManager.GetString("Str_DisplayName", resourceCulture);
+                return ResourceManager.GetString("Mode_FlatObjectList", resourceCulture);
             }
         }
     }

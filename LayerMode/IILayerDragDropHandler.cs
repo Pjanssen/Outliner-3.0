@@ -49,8 +49,10 @@ public class IILayerDragDropHandler : DragDropHandler
       if (draggedNodes == null)
          return;
 
-      MoveMaxNodeCommand cmd = new MoveMaxNodeCommand(HelperMethods.GetMaxNodes(draggedNodes), this.Data,
-         Resources.Command_AddToLayer, Resources.Command_UnlinkLayer);
+      MoveMaxNodeCommand cmd = new MoveMaxNodeCommand( HelperMethods.GetMaxNodes(draggedNodes)
+                                                     , this.Data
+                                                     , Resources.Command_AddToLayer
+                                                     , Resources.Command_UnlinkLayer);
       cmd.Execute(true);
    }
 }

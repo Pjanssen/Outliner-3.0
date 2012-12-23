@@ -13,6 +13,7 @@ using Outliner.Scene;
 namespace Outliner.PolyCount
 {
    [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
+   [LocalizedDisplayName(typeof(Resources), "Button_PolyCount")]
    public class PolyCountLayoutItem : TreeNodeText
    {
       public PolyCountLayoutItem() { }

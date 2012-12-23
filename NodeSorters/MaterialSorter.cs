@@ -10,7 +10,7 @@ using Outliner.Scene;
 namespace Outliner.NodeSorters
 {
    [OutlinerPlugin(OutlinerPluginType.NodeSorter)]
-   [LocalizedDisplayName(typeof(Resources), "Str_MaterialSorter")]
+   [LocalizedDisplayName(typeof(Resources), "Sorter_MaterialSorter")]
    public class MaterialSorter : NodeSorter
    {
       protected override int InternalCompare(TreeNode x, TreeNode y)
