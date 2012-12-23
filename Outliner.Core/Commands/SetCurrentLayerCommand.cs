@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Scene;
 using Autodesk.Max;
 using Outliner.MaxUtils;
+using Outliner.Scene;
 
 namespace Outliner.Commands
 {
@@ -27,8 +27,7 @@ namespace Outliner.Commands
 
       protected override void Do()
       {
-         IInterface ip = MaxInterfaces.Global.COREInterface;
-         IILayerManager manager = ip.ScenePointer.GetReference(10) as IILayerManager;
+         IILayerManager manager = MaxInterfaces.IILayerManager;
          if (manager != null)
             oldCurrentLayer = IMaxNodeWrapper.Create(manager.CurrentLayer) as IILayerWrapper;
 

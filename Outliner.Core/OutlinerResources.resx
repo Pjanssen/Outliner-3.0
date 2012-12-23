@@ -147,9 +147,6 @@
   <data name="Warning_CannotEditNameTitle" xml:space="preserve">
     <value>Cannot edit name</value>
   </data>
-  <data name="Command_SetCurrentLayer" xml:space="preserve">
-    <value>Set Current Layer</value>
-  </data>
   <data name="Command_Link" xml:space="preserve">
     <value>Link</value>
   </data>
@@ -218,71 +215,65 @@ Use {0} to expand entire hierarchy.</value>
   <data name="default_preset_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\default_preset_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Str_FilterCombinator" xml:space="preserve">
+  <data name="Filter_Combinator" xml:space="preserve">
     <value>Combinator</value>
   </data>
-  <data name="Str_NameFilter" xml:space="preserve">
+  <data name="Filter_Name" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="Str_NodePropertyFilter" xml:space="preserve">
+  <data name="Filter_NodeProperty" xml:space="preserve">
     <value>Node Property</value>
   </data>
-  <data name="Str_LoadSettingsError" xml:space="preserve">
+  <data name="Error_LoadSettings" xml:space="preserve">
     <value>There was an error while loading settings:\n{0}</value>
   </data>
-  <data name="Str_LoadSettingsErrorTitle" xml:space="preserve">
+  <data name="Error_LoadSettingsTitle" xml:space="preserve">
     <value>Error loading settings</value>
   </data>
-  <data name="Str_InvisibleNodesFilter" xml:space="preserve">
+  <data name="Filter_InvisibleNodes" xml:space="preserve">
     <value>Invisible Nodes</value>
   </data>
-  <data name="Str_MaxscriptFilter" xml:space="preserve">
+  <data name="Filter_Maxscript" xml:space="preserve">
     <value>Maxscript Filter</value>
   </data>
-  <data name="Str_AlphabeticalSorter" xml:space="preserve">
+  <data name="Sorter_Alphabetical" xml:space="preserve">
     <value>Alphabetical</value>
   </data>
-  <data name="Str_DeleteConfigWarning" xml:space="preserve">
+  <data name="Warning_DeleteConfig" xml:space="preserve">
     <value>Are you sure you want to delete {0}?
 This action cannot be undone.</value>
   </data>
-  <data name="Str_DeleteConfigWarningTitle" xml:space="preserve">
+  <data name="Warning_DeleteConfigTitle" xml:space="preserve">
     <value>Delete configuration?</value>
   </data>
-  <data name="Str_NodePropertySorter" xml:space="preserve">
+  <data name="Sorter_NodeProperty" xml:space="preserve">
     <value>Node Property</value>
   </data>
-  <data name="Str_PresetsEditor" xml:space="preserve">
-    <value>Edit Presets</value>
-  </data>
-  <data name="Str_PresetContextMenu" xml:space="preserve">
-    <value>Context-Menu</value>
-  </data>
-  <data name="Str_PresetFilter" xml:space="preserve">
-    <value>Filters</value>
-  </data>
-  <data name="Str_PresetLayout" xml:space="preserve">
-    <value>Layout</value>
-  </data>
-  <data name="Str_PresetSorter" xml:space="preserve">
-    <value>Sorting</value>
-  </data>
-  <data name="Str_FiltersEditor" xml:space="preserve">
-    <value>Edit Filters</value>
-  </data>
-  <data name="Str_PresetsCustom" xml:space="preserve">
+  <data name="Preset_Custom" xml:space="preserve">
     <value>Custom Presets</value>
   </data>
-  <data name="Str_PresetsDefault" xml:space="preserve">
+  <data name="Preset_Default" xml:space="preserve">
     <value>Standard Presets</value>
-  </data>
-  <data name="Str_SortersEditor" xml:space="preserve">
-    <value>Edit Node Sorters</value>
   </data>
   <data name="sort_default_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\sort_default_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="sort_default_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\sort_default_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Command_SetCurrentLayer" xml:space="preserve">
+    <value>Set as current layer</value>
+  </data>
+  <data name="Preset_ContextMenu" xml:space="preserve">
+    <value>Context-Menu</value>
+  </data>
+  <data name="Preset_Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Preset_Layout" xml:space="preserve">
+    <value>Layout</value>
+  </data>
+  <data name="Preset_Sorter" xml:space="preserve">
+    <value>Sorter</value>
   </data>
 </root>

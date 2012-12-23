@@ -42,9 +42,9 @@ public class PresetsEditor : ConfigFilesEditor<OutlinerPreset>
 
    protected override void RefreshUI()
    {
-      this.defaultPresetsTn = new Tree.TreeNode(OutlinerResources.Str_PresetsDefault);
+      this.defaultPresetsTn = new Tree.TreeNode(OutlinerResources.Preset_Default);
       this.defaultPresetsTn.IsExpanded = true;
-      this.customPresetsTn = new Tree.TreeNode(OutlinerResources.Str_PresetsCustom);
+      this.customPresetsTn = new Tree.TreeNode(OutlinerResources.Preset_Custom);
       this.customPresetsTn.IsExpanded = true;
 
       base.RefreshUI();
@@ -62,19 +62,19 @@ public class PresetsEditor : ConfigFilesEditor<OutlinerPreset>
 
       Tree.TreeNode tn = base.AddFileToTree(file, config, parentCollection);
 
-      Tree.TreeNode layoutTn = new Tree.TreeNode(OutlinerResources.Str_PresetLayout);
+      Tree.TreeNode layoutTn = new Tree.TreeNode(OutlinerResources.Preset_Layout);
       layoutTn.Tag = EditorType.Layout;
       tn.Nodes.Add(layoutTn);
 
-      Tree.TreeNode sorterTn = new Tree.TreeNode(OutlinerResources.Str_PresetSorter);
+      Tree.TreeNode sorterTn = new Tree.TreeNode(OutlinerResources.Preset_Sorter);
       sorterTn.Tag = EditorType.Sorter;
       tn.Nodes.Add(sorterTn);
 
-      Tree.TreeNode filterTn = new Tree.TreeNode(OutlinerResources.Str_PresetFilter);
+      Tree.TreeNode filterTn = new Tree.TreeNode(OutlinerResources.Preset_Filter);
       filterTn.Tag = EditorType.Filters;
       tn.Nodes.Add(filterTn);
 
-      Tree.TreeNode contextMenuTn = new Tree.TreeNode(OutlinerResources.Str_PresetContextMenu);
+      Tree.TreeNode contextMenuTn = new Tree.TreeNode(OutlinerResources.Preset_ContextMenu);
       contextMenuTn.Tag = EditorType.ContextMenu;
       tn.Nodes.Add(contextMenuTn);
 

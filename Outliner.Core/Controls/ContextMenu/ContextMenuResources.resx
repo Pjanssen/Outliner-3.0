@@ -117,28 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Str_ModeFlat" xml:space="preserve">
-    <value>Flat Object List</value>
-  </data>
-  <data name="Str_ModeHierarchy" xml:space="preserve">
-    <value>Hierarchy</value>
-  </data>
-  <data name="Str_ModeLayer" xml:space="preserve">
-    <value>Layer</value>
-  </data>
-  <data name="Str_ModeMaterial" xml:space="preserve">
-    <value>Material</value>
-  </data>
-  <data name="Str_ModeSelSet" xml:space="preserve">
-    <value>Selection Set</value>
-  </data>
-  <data name="Str_WindowSingle" xml:space="preserve">
+  <data name="Context_WindowSingle" xml:space="preserve">
     <value>Single Window</value>
   </data>
-  <data name="Str_WindowSplitHor" xml:space="preserve">
+  <data name="Context_WindowSplitHor" xml:space="preserve">
     <value>Split Horizontally</value>
   </data>
-  <data name="Str_WindowSplitVer" xml:space="preserve">
+  <data name="Context_WindowSplitVer" xml:space="preserve">
     <value>Split Vertically</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
@@ -166,16 +151,16 @@
   <data name="window_ver_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\resources\contextmenu\window_ver_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Str_FreezeSelection" xml:space="preserve">
+  <data name="Context_FreezeSelection" xml:space="preserve">
     <value>Freeze Selection</value>
   </data>
-  <data name="Str_HideSelection" xml:space="preserve">
+  <data name="Context_HideSelection" xml:space="preserve">
     <value>Hide Selection</value>
   </data>
-  <data name="Str_UnfreezeSelection" xml:space="preserve">
+  <data name="Context_UnfreezeSelection" xml:space="preserve">
     <value>Unfreeze Selection</value>
   </data>
-  <data name="Str_UnhideSelection" xml:space="preserve">
+  <data name="Context_UnhideSelection" xml:space="preserve">
     <value>Unhide Selection</value>
   </data>
   <data name="freeze" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -184,40 +169,31 @@
   <data name="hide" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\resources\contextmenu\hide.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="newcontainer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\resources\contextmenu\newcontainer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="newgroup" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\resources\contextmenu\newgroup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="newlayer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\resources\contextmenu\newlayer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="properties" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\resources\contextmenu\properties.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="rename" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\resources\contextmenu\rename.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Str_AddSelectionTo" xml:space="preserve">
+  <data name="Context_AddSelectionTo" xml:space="preserve">
     <value>Add Selection To</value>
   </data>
-  <data name="Str_AddToNewContainer" xml:space="preserve">
+  <data name="Context_AddToNewContainer" xml:space="preserve">
     <value>New Container</value>
   </data>
-  <data name="Str_AddToNewGroup" xml:space="preserve">
+  <data name="Context_AddToNewGroup" xml:space="preserve">
     <value>New Group</value>
   </data>
-  <data name="Str_AddToNewLayer" xml:space="preserve">
+  <data name="Context_AddToNewLayer" xml:space="preserve">
     <value>New Layer</value>
   </data>
-  <data name="Str_AddToSelSet" xml:space="preserve">
+  <data name="Context_AddToSelSet" xml:space="preserve">
     <value>New Selection-Set</value>
   </data>
-  <data name="Str_Delete" xml:space="preserve">
+  <data name="Context_Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
-  <data name="Str_Rename" xml:space="preserve">
+  <data name="Context_Rename" xml:space="preserve">
     <value>Rename</value>
   </data>
   <data name="filter_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -226,88 +202,82 @@
   <data name="options_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\resources\contextmenu\options_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="layer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\resources\contextmenu\layer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="window_new_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\resources\contextmenu\window_new_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Str_WindowNew" xml:space="preserve">
+  <data name="Context_WindowNew" xml:space="preserve">
     <value>New Window</value>
   </data>
-  <data name="Str_EditPresets" xml:space="preserve">
-    <value>Edit Presets</value>
+  <data name="Context_EditPresets" xml:space="preserve">
+    <value>Edit Presets...</value>
   </data>
-  <data name="Str_SavePreset" xml:space="preserve">
-    <value>Save Preset</value>
-  </data>
-  <data name="Str_ClearFilter" xml:space="preserve">
+  <data name="Context_ClearFilter" xml:space="preserve">
     <value>Clear</value>
   </data>
-  <data name="Str_InvertFilter" xml:space="preserve">
+  <data name="Context_InvertFilter" xml:space="preserve">
     <value>Invert</value>
   </data>
-  <data name="Str_BackfaceCull" xml:space="preserve">
+  <data name="Context_BackfaceCull" xml:space="preserve">
     <value>Backface cull</value>
   </data>
-  <data name="Str_Boxmode" xml:space="preserve">
+  <data name="Context_Boxmode" xml:space="preserve">
     <value>Box mode</value>
   </data>
-  <data name="Str_ByLayer" xml:space="preserve">
+  <data name="Context_ByLayer" xml:space="preserve">
     <value>By Layer</value>
   </data>
-  <data name="Str_DisplaySettings" xml:space="preserve">
+  <data name="Context_DisplaySettings" xml:space="preserve">
     <value>Display Settings</value>
   </data>
-  <data name="Str_FrozenInGray" xml:space="preserve">
+  <data name="Context_FrozenInGray" xml:space="preserve">
     <value>Frozen in gray</value>
   </data>
-  <data name="Str_ObjectProperties" xml:space="preserve">
+  <data name="Context_ObjectProperties" xml:space="preserve">
     <value>Properties</value>
   </data>
-  <data name="Str_RenderSettings" xml:space="preserve">
+  <data name="Context_RenderSettings" xml:space="preserve">
     <value>Render Settings</value>
   </data>
-  <data name="Str_SeeThrough" xml:space="preserve">
+  <data name="Context_SeeThrough" xml:space="preserve">
     <value>See-through</value>
   </data>
-  <data name="Str_ShowBoundingBox" xml:space="preserve">
+  <data name="Context_ShowBoundingBox" xml:space="preserve">
     <value>Bounding box</value>
   </data>
-  <data name="Str_ShowInViewport" xml:space="preserve">
+  <data name="Context_ShowInViewport" xml:space="preserve">
     <value>Show in viewport</value>
   </data>
-  <data name="Str_ShowShaded" xml:space="preserve">
+  <data name="Context_ShowShaded" xml:space="preserve">
     <value>Shaded</value>
   </data>
-  <data name="Str_ShowWireframe" xml:space="preserve">
+  <data name="Context_ShowWireframe" xml:space="preserve">
     <value>Wireframe</value>
   </data>
-  <data name="Str_Trajectory" xml:space="preserve">
+  <data name="Context_Trajectory" xml:space="preserve">
     <value>Show trajectory</value>
   </data>
-  <data name="Str_ApplyAtmospherics" xml:space="preserve">
+  <data name="Context_ApplyAtmospherics" xml:space="preserve">
     <value>Apply atmospherics</value>
   </data>
-  <data name="Str_CastShadows" xml:space="preserve">
+  <data name="Context_CastShadows" xml:space="preserve">
     <value>Cast shadows</value>
   </data>
-  <data name="Str_InheritVisibility" xml:space="preserve">
+  <data name="Context_InheritVisibility" xml:space="preserve">
     <value>Inherit visibility</value>
   </data>
-  <data name="Str_PrimaryVisibility" xml:space="preserve">
+  <data name="Context_PrimaryVisibility" xml:space="preserve">
     <value>Visible to camera</value>
   </data>
-  <data name="Str_ReceiveShadows" xml:space="preserve">
+  <data name="Context_ReceiveShadows" xml:space="preserve">
     <value>Receive shadows</value>
   </data>
-  <data name="Str_Renderable" xml:space="preserve">
+  <data name="Context_Renderable" xml:space="preserve">
     <value>Renderable</value>
   </data>
-  <data name="Str_RenderOccluded" xml:space="preserve">
+  <data name="Context_RenderOccluded" xml:space="preserve">
     <value>Render occluded</value>
   </data>
-  <data name="Str_SecondaryVisibility" xml:space="preserve">
+  <data name="Context_SecondaryVisibility" xml:space="preserve">
     <value>Visible to reflection/refraction</value>
   </data>
   <data name="Str_ActionNotFound" xml:space="preserve">
@@ -316,7 +286,52 @@
   <data name="Str_ContextMenuWarningTitle" xml:space="preserve">
     <value>Context menu warning</value>
   </data>
-  <data name="Str_EditFilters" xml:space="preserve">
-    <value>Edit Filters ...</value>
+  <data name="Context_EditFilters" xml:space="preserve">
+    <value>Edit Filters...</value>
+  </data>
+  <data name="Context_EditContextMenus" xml:space="preserve">
+    <value>Edit Context-Menus...</value>
+  </data>
+  <data name="Context_EditLayouts" xml:space="preserve">
+    <value>Edit Layouts...</value>
+  </data>
+  <data name="Context_EditSorters" xml:space="preserve">
+    <value>Edit Sorters...</value>
+  </data>
+  <data name="Context_Filters" xml:space="preserve">
+    <value>Filters</value>
+  </data>
+  <data name="Context_Layout" xml:space="preserve">
+    <value>Layout</value>
+  </data>
+  <data name="Context_Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="Context_Preset" xml:space="preserve">
+    <value>Preset</value>
+  </data>
+  <data name="Context_Sorting" xml:space="preserve">
+    <value>Sorting</value>
+  </data>
+  <data name="Context_SelectChildnodes" xml:space="preserve">
+    <value>Select Childnodes</value>
+  </data>
+  <data name="childnodes_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\resources\contextmenu\childnodes_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="layer_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\resources\contextmenu\layer_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="new_container_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\resources\contextmenu\new_container_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="new_group_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\resources\contextmenu\new_group_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="new_layer_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\resources\contextmenu\new_layer_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="new_selectionset_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\resources\contextmenu\new_selectionset_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

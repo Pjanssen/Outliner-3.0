@@ -31,7 +31,7 @@ namespace Outliner.Controls.ContextMenu
 
          foreach (MenuItemModel item in this.Items)
          {
-            strip.Items.Add(item.ToToolStripMenuItem(treeView, clickedTn));
+            strip.Items.AddRange(item.ToToolStripMenuItems(treeView, clickedTn));
          }
 
          return strip;

@@ -13,7 +13,7 @@ namespace Outliner.Filters
    /// For example, particle helpers, the 3dxConnection camera, etc.
    /// </summary>
    [OutlinerPlugin(OutlinerPluginType.Filter)]
-   [LocalizedDisplayName(typeof(OutlinerResources), "Str_InvisibleNodesFilter")]
+   [LocalizedDisplayName(typeof(OutlinerResources), "Filter_InvisibleNodes")]
    public class InvisibleNodeFilter : Filter<IMaxNodeWrapper>
    {
       protected override Boolean ShowNodeInternal(IMaxNodeWrapper data)

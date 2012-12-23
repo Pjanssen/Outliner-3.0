@@ -13,7 +13,7 @@ using System.ComponentModel;
 namespace Outliner.NodeSorters
 {
 [OutlinerPlugin(OutlinerPluginType.NodeSorter)]
-[LocalizedDisplayName(typeof(OutlinerResources), "Str_NodePropertySorter")]
+[LocalizedDisplayName(typeof(OutlinerResources), "Sorter_NodeProperty")]
 public class NodePropertySorter : NodeSorter
 {
    [XmlElement("property")]

@@ -24,6 +24,17 @@ namespace Outliner.Scene
          this.name = name;
       }
 
+      private Int32 GetSelSetIndex(String name)
+      {
+         IINamedSelectionSetManager selSetManager = MaxInterfaces.SelectionSetManager;
+         for (int i = 0; i < selSetManager.NumNamedSelSets; i++)
+         {
+            if (selSetManager.GetNamedSelSetName(i) == name)
+               return i;
+         }
+         return -1;
+      }
+
       public static int SelSetIndexByName(String name)
       {
          Throw.IfArgumentIsNull(name, "name");
@@ -72,6 +83,13 @@ namespace Outliner.Scene
          return this.name.GetHashCode();
       }
 
+      public override int ChildNodeCount
+      {
+         get 
+         {
+            return MaxInterfaces.SelectionSetManager.GetNamedSelSetItemCount(GetSelSetIndex(this.name));
+         }
+      }
 
       public override IEnumerable<Object> ChildNodes
       {

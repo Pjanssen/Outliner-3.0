@@ -20,7 +20,7 @@ namespace Outliner.Commands
          Throw.IfArgumentIsNull(nodes, "nodes");
          Throw.IfArgumentIsNull(selSet, "selSet");
 
-         this.nodes = nodes;
+         this.nodes = nodes.ToList();
          this.selSet = selSet;
       }
 

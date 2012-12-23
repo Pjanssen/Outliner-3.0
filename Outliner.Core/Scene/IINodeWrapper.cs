@@ -64,6 +64,11 @@ public class IINodeWrapper : IMaxNodeWrapper
       }
    }
 
+   public override int ChildNodeCount
+   {
+      get { return this.iinode.NumberOfChildren; }
+   }
+
    public override IEnumerable<Object> ChildNodes
    {
       get 

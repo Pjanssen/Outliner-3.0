@@ -35,7 +35,7 @@ namespace Outliner.Commands
          Throw.IfArgumentIsNull(linkDescription, "linkDescription");
          Throw.IfArgumentIsNull(unlinkDescription, "unlinkDescription");
          
-         this.nodes = nodes;
+         this.nodes = nodes.ToList();
          this.newParent = newParent;
          this.linkDescription = linkDescription;
          this.unlinkDescription = unlinkDescription;

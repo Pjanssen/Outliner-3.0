@@ -59,7 +59,7 @@ public class TreeNodeText : TreeNodeButton
             regions = g.MeasureCharacterRanges(text, font, rect, format);
             rect = regions[0].GetBounds(g);
 
-            return (int)rect.Right + 5;
+            return (int)rect.Right + 3 + (int)(text.Length * 0.25);
          }
       }
    }

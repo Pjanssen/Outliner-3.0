@@ -79,6 +79,11 @@ namespace Outliner.Scene
          }
       }
 
+      public override int ChildNodeCount
+      {
+         get { return this.ChildNodes.Count(); }
+      }
+
       public override IEnumerable<Object> ChildNodes
       {
          get

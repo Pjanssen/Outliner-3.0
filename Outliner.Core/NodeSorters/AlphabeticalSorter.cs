@@ -10,7 +10,7 @@ using Outliner.Plugins;
 namespace Outliner.NodeSorters
 {
    [OutlinerPlugin(OutlinerPluginType.NodeSorter)]
-   [LocalizedDisplayName(typeof(OutlinerResources), "Str_AlphabeticalSorter")]
+   [LocalizedDisplayName(typeof(OutlinerResources), "Sorter_Alphabetical")]
    public class AlphabeticalSorter : NodeSorter
    {
       public AlphabeticalSorter() : base() { }

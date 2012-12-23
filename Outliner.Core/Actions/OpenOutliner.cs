@@ -74,9 +74,9 @@ public class OpenOutliner : CuiDockableContentAdapter
          }
          catch (Exception e)
          {
-            WinForms::MessageBox.Show( String.Format( OutlinerResources.Str_LoadSettingsError
+            WinForms::MessageBox.Show( String.Format( OutlinerResources.Error_LoadSettings
                                                     , e.Message)
-                                     , OutlinerResources.Str_LoadSettingsErrorTitle
+                                     , OutlinerResources.Error_LoadSettingsTitle
                                      , WinForms.MessageBoxButtons.OK
                                      , WinForms.MessageBoxIcon.Error);
 

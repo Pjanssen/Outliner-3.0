@@ -187,7 +187,7 @@ namespace Outliner {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set Current Layer.
+        ///   Looks up a localized string similar to Set as current layer.
         /// </summary>
         internal static string Command_SetCurrentLayer {
             get {
@@ -279,11 +279,128 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There was an error while loading settings:\n{0}.
+        /// </summary>
+        internal static string Error_LoadSettings {
+            get {
+                return ResourceManager.GetString("Error_LoadSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading settings.
+        /// </summary>
+        internal static string Error_LoadSettingsTitle {
+            get {
+                return ResourceManager.GetString("Error_LoadSettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Combinator.
+        /// </summary>
+        internal static string Filter_Combinator {
+            get {
+                return ResourceManager.GetString("Filter_Combinator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invisible Nodes.
+        /// </summary>
+        internal static string Filter_InvisibleNodes {
+            get {
+                return ResourceManager.GetString("Filter_InvisibleNodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maxscript Filter.
+        /// </summary>
+        internal static string Filter_Maxscript {
+            get {
+                return ResourceManager.GetString("Filter_Maxscript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string Filter_Name {
+            get {
+                return ResourceManager.GetString("Filter_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Node Property.
+        /// </summary>
+        internal static string Filter_NodeProperty {
+            get {
+                return ResourceManager.GetString("Filter_NodeProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Outliner.
         /// </summary>
         internal static string Outliner_WindowTitle {
             get {
                 return ResourceManager.GetString("Outliner_WindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Context-Menu.
+        /// </summary>
+        internal static string Preset_ContextMenu {
+            get {
+                return ResourceManager.GetString("Preset_ContextMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom Presets.
+        /// </summary>
+        internal static string Preset_Custom {
+            get {
+                return ResourceManager.GetString("Preset_Custom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Standard Presets.
+        /// </summary>
+        internal static string Preset_Default {
+            get {
+                return ResourceManager.GetString("Preset_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter.
+        /// </summary>
+        internal static string Preset_Filter {
+            get {
+                return ResourceManager.GetString("Preset_Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Layout.
+        /// </summary>
+        internal static string Preset_Layout {
+            get {
+                return ResourceManager.GetString("Preset_Layout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorter.
+        /// </summary>
+        internal static string Preset_Sorter {
+            get {
+                return ResourceManager.GetString("Preset_Sorter", resourceCulture);
             }
         }
         
@@ -340,181 +457,18 @@ namespace Outliner {
         /// <summary>
         ///   Looks up a localized string similar to Alphabetical.
         /// </summary>
-        internal static string Str_AlphabeticalSorter {
+        internal static string Sorter_Alphabetical {
             get {
-                return ResourceManager.GetString("Str_AlphabeticalSorter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete {0}?
-        ///This action cannot be undone..
-        /// </summary>
-        internal static string Str_DeleteConfigWarning {
-            get {
-                return ResourceManager.GetString("Str_DeleteConfigWarning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete configuration?.
-        /// </summary>
-        internal static string Str_DeleteConfigWarningTitle {
-            get {
-                return ResourceManager.GetString("Str_DeleteConfigWarningTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Combinator.
-        /// </summary>
-        internal static string Str_FilterCombinator {
-            get {
-                return ResourceManager.GetString("Str_FilterCombinator", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit Filters.
-        /// </summary>
-        internal static string Str_FiltersEditor {
-            get {
-                return ResourceManager.GetString("Str_FiltersEditor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invisible Nodes.
-        /// </summary>
-        internal static string Str_InvisibleNodesFilter {
-            get {
-                return ResourceManager.GetString("Str_InvisibleNodesFilter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There was an error while loading settings:\n{0}.
-        /// </summary>
-        internal static string Str_LoadSettingsError {
-            get {
-                return ResourceManager.GetString("Str_LoadSettingsError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error loading settings.
-        /// </summary>
-        internal static string Str_LoadSettingsErrorTitle {
-            get {
-                return ResourceManager.GetString("Str_LoadSettingsErrorTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Maxscript Filter.
-        /// </summary>
-        internal static string Str_MaxscriptFilter {
-            get {
-                return ResourceManager.GetString("Str_MaxscriptFilter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name.
-        /// </summary>
-        internal static string Str_NameFilter {
-            get {
-                return ResourceManager.GetString("Str_NameFilter", resourceCulture);
+                return ResourceManager.GetString("Sorter_Alphabetical", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Node Property.
         /// </summary>
-        internal static string Str_NodePropertyFilter {
+        internal static string Sorter_NodeProperty {
             get {
-                return ResourceManager.GetString("Str_NodePropertyFilter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Node Property.
-        /// </summary>
-        internal static string Str_NodePropertySorter {
-            get {
-                return ResourceManager.GetString("Str_NodePropertySorter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Context-Menu.
-        /// </summary>
-        internal static string Str_PresetContextMenu {
-            get {
-                return ResourceManager.GetString("Str_PresetContextMenu", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Filters.
-        /// </summary>
-        internal static string Str_PresetFilter {
-            get {
-                return ResourceManager.GetString("Str_PresetFilter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Layout.
-        /// </summary>
-        internal static string Str_PresetLayout {
-            get {
-                return ResourceManager.GetString("Str_PresetLayout", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Custom Presets.
-        /// </summary>
-        internal static string Str_PresetsCustom {
-            get {
-                return ResourceManager.GetString("Str_PresetsCustom", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Standard Presets.
-        /// </summary>
-        internal static string Str_PresetsDefault {
-            get {
-                return ResourceManager.GetString("Str_PresetsDefault", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit Presets.
-        /// </summary>
-        internal static string Str_PresetsEditor {
-            get {
-                return ResourceManager.GetString("Str_PresetsEditor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sorting.
-        /// </summary>
-        internal static string Str_PresetSorter {
-            get {
-                return ResourceManager.GetString("Str_PresetSorter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit Node Sorters.
-        /// </summary>
-        internal static string Str_SortersEditor {
-            get {
-                return ResourceManager.GetString("Str_SortersEditor", resourceCulture);
+                return ResourceManager.GetString("Sorter_NodeProperty", resourceCulture);
             }
         }
         
@@ -561,6 +515,25 @@ namespace Outliner {
         internal static string Warning_CannotEditNameTitle {
             get {
                 return ResourceManager.GetString("Warning_CannotEditNameTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete {0}?
+        ///This action cannot be undone..
+        /// </summary>
+        internal static string Warning_DeleteConfig {
+            get {
+                return ResourceManager.GetString("Warning_DeleteConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete configuration?.
+        /// </summary>
+        internal static string Warning_DeleteConfigTitle {
+            get {
+                return ResourceManager.GetString("Warning_DeleteConfigTitle", resourceCulture);
             }
         }
     }

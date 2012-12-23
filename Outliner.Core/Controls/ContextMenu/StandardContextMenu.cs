@@ -29,7 +29,7 @@ internal static class StandardContextMenu
       strip.Padding = new Padding(3, 2, 1, 1);
 
       
-      ToolStripDropDownButton preset_btn = new ToolStripDropDownButton("Preset");
+      ToolStripDropDownButton preset_btn = new ToolStripDropDownButton(ContextMenuResources.Context_Preset);
       OutlinerPreset currentPreset = OutlinerGUP.Instance.GetActivePreset(tree);
       preset_btn.Image = currentPreset.Image24;
       preset_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
@@ -45,8 +45,6 @@ internal static class StandardContextMenu
          ToolStripMenuItem item = AddDropDownItem(preset_btn.DropDownItems, preset.Text, preset.Image16, preset_btn_click, preset);
          item.Checked = preset == currentPreset;
       }
-      //preset_btn.DropDownItems.Add(new ToolStripSeparator());
-      //AddDropDownItem(preset_btn.DropDownItems, ContextMenuResources.Str_EditPresets, null, editPresetsClick, null);
 
       strip.Items.Add(preset_btn);
 
@@ -54,20 +52,19 @@ internal static class StandardContextMenu
 
 
 
-      ToolStripCheckedSplitButton filter_btn = new ToolStripCheckedSplitButton("Filters");
+      ToolStripCheckedSplitButton filter_btn = new ToolStripCheckedSplitButton(ContextMenuResources.Context_Filters);
       filter_btn.Image = ContextMenuResources.filter_24;
       filter_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
       filter_btn.Checked = treeMode.Filters.Enabled;
       filter_btn.ButtonClick += new EventHandler(filter_btn_ButtonClick);
       filter_btn.DropDown.Closing += new ToolStripDropDownClosingEventHandler(DropDown_Closing);
       
-      ToolStripMenuItem invertBtn = filter_btn.DropDownItems.Add(ContextMenuResources.Str_InvertFilter) as ToolStripMenuItem;
+      ToolStripMenuItem invertBtn = filter_btn.DropDownItems.Add(ContextMenuResources.Context_InvertFilter) as ToolStripMenuItem;
       invertBtn.Checked = treeMode.Filters.Invert;
       invertBtn.Tag = treeMode.Filters;
       invertBtn.Click += new EventHandler(invertBtn_Click);
 
-      ToolStripItem clearBtn = filter_btn.DropDownItems.Add(ContextMenuResources.Str_ClearFilter, ContextMenuResources.delete);
-      clearBtn.Name = "Clear";
+      ToolStripItem clearBtn = filter_btn.DropDownItems.Add(ContextMenuResources.Context_ClearFilter, ContextMenuResources.delete);
       clearBtn.Enabled = treeMode.Filters.Filters.Count > 0;
       clearBtn.Tag = treeMode.Filters;
       clearBtn.Click += new EventHandler(clearBtn_Click);
@@ -82,14 +79,11 @@ internal static class StandardContextMenu
          filter_btn.DropDownItems.Add(new ToolStripSeparator());
 
       AddUserFileItems(filter_btn.DropDownItems, treeMode, filters.Where(f => f.Category == FilterCategory.Custom), filter_ItemClick);
-      //if (AddUserFileItems(filter_btn.DropDownItems, treeMode, filters.Where(f => f.Category == FilterCategory.Custom), filter_ItemClick) > 0)
-      //   filter_btn.DropDownItems.Add(new ToolStripSeparator());
-      //filter_btn.DropDownItems.Add(ContextMenuResources.Str_EditFilters, null, editFiltersClick);
 
       strip.Items.Add(filter_btn);
 
 
-      ToolStripDropDownButton sort_btn = new ToolStripDropDownButton("Sorting");
+      ToolStripDropDownButton sort_btn = new ToolStripDropDownButton(ContextMenuResources.Context_Sorting);
       sort_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
       NodeSorters.NodeSorter currentSorter = treeMode.Tree.NodeSorter as NodeSorters.NodeSorter;
       IEnumerable<SorterConfiguration> sorters = ConfigurationHelpers.GetConfigurations<SorterConfiguration>(OutlinerPaths.SortersDir)
@@ -104,17 +98,13 @@ internal static class StandardContextMenu
             item.Checked = true;
          }
       }
-      
-//      if (sort_btn.DropDownItems.Count > 0)
-//         sort_btn.DropDownItems.Add(new ToolStripSeparator());
-//      sort_btn.DropDownItems.Add("Edit Node Sorters...", null, editSortersClick);
 
       strip.Items.Add(sort_btn);
 
       strip.Items.Add(new ToolStripSeparator());
 
 
-      ToolStripDropDownButton window_btn = new ToolStripDropDownButton("Layout");
+      ToolStripDropDownButton window_btn = new ToolStripDropDownButton(ContextMenuResources.Context_Layout);
       if (container.Panel1Collapsed || container.Panel2Collapsed)
          window_btn.Image = ContextMenuResources.window_24;
       else if (container.Orientation == Orientation.Horizontal)
@@ -122,22 +112,22 @@ internal static class StandardContextMenu
       else
          window_btn.Image = ContextMenuResources.window_ver_24;
       window_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
-      window_btn.DropDownItems.Add(ContextMenuResources.Str_WindowSingle, ContextMenuResources.window, window_click);
-      window_btn.DropDownItems.Add(ContextMenuResources.Str_WindowSplitHor, ContextMenuResources.window_split_hor, split_hor_btn_Click);
-      window_btn.DropDownItems.Add(ContextMenuResources.Str_WindowSplitVer, ContextMenuResources.window_split_ver, split_ver_btn_Click);
-      window_btn.DropDownItems.Add(ContextMenuResources.Str_WindowNew, ContextMenuResources.window_new_16, window_new_click);
+      window_btn.DropDownItems.Add(ContextMenuResources.Context_WindowSingle, ContextMenuResources.window, window_click);
+      window_btn.DropDownItems.Add(ContextMenuResources.Context_WindowSplitHor, ContextMenuResources.window_split_hor, split_hor_btn_Click);
+      window_btn.DropDownItems.Add(ContextMenuResources.Context_WindowSplitVer, ContextMenuResources.window_split_ver, split_ver_btn_Click);
+      window_btn.DropDownItems.Add(ContextMenuResources.Context_WindowNew, ContextMenuResources.window_new_16, window_new_click);
       strip.Items.Add(window_btn);
 
-      ToolStripDropDownButton options_btn = new ToolStripDropDownButton("Options");
+      ToolStripDropDownButton options_btn = new ToolStripDropDownButton(ContextMenuResources.Context_Options);
       options_btn.Image = ContextMenuResources.options_24;
       options_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
       strip.Items.Add(options_btn);
 
-      options_btn.DropDownItems.Add("Edit Context-Menus", null, editContextMenusClick);
-      options_btn.DropDownItems.Add("Edit Filters", null, editFiltersClick);
-      options_btn.DropDownItems.Add("Edit Layouts", null, editLayoutsClick);
-      options_btn.DropDownItems.Add("Edit Presets", null, editPresetsClick);
-      options_btn.DropDownItems.Add("Edit Sorters", null, editSortersClick);
+      options_btn.DropDownItems.Add(ContextMenuResources.Context_EditContextMenus, null, editContextMenusClick);
+      options_btn.DropDownItems.Add(ContextMenuResources.Context_EditFilters, null, editFiltersClick);
+      options_btn.DropDownItems.Add(ContextMenuResources.Context_EditLayouts, null, editLayoutsClick);
+      options_btn.DropDownItems.Add(ContextMenuResources.Context_EditPresets, null, editPresetsClick);
+      options_btn.DropDownItems.Add(ContextMenuResources.Context_EditSorters, null, editSortersClick);
 
 
       foreach (ToolStripItem item in strip.Items)
@@ -261,6 +251,9 @@ internal static class StandardContextMenu
    {
       ToolStripMenuItem item = sender as ToolStripMenuItem;
       FilterConfiguration config = item.Tag as FilterConfiguration;
+      if (config.Filter == null)
+         return;
+
       TreeMode treeMode = GetTreeMode(sender);
 
       Filter<Outliner.Scene.IMaxNodeWrapper> filter = treeMode.Filters.Filters.Get(config.Filter.GetType());

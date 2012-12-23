@@ -105,13 +105,13 @@ namespace Outliner.Plugins
    }
 
    [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
-   sealed class OutlinerActionAttribute : Attribute
+   public sealed class OutlinerActionAttribute : Attribute
    {
       public OutlinerActionAttribute() { }
    }
 
    [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
-   sealed class OutlinerPredicateAttribute : Attribute
+   public sealed class OutlinerPredicateAttribute : Attribute
    {
       public OutlinerPredicateAttribute() { }
    }

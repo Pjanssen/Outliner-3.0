@@ -22,6 +22,7 @@ namespace Outliner.Controls.ContextMenu
 [XmlInclude(typeof(MxsMenuItemModel))]
 [XmlInclude(typeof(NodePropertyMenuItemModel))]
 [XmlInclude(typeof(SeparatorMenuItemModel))]
+[XmlInclude(typeof(AddToLayerMenuItems))]
 public abstract class MenuItemModel : ConfigurationFile
 {
    public MenuItemModel() : this(String.Empty, String.Empty, null) { }
@@ -29,6 +30,7 @@ public abstract class MenuItemModel : ConfigurationFile
       : base(text, image, String.Empty, null)
    {
       this.VisibleTypes = MaxNodeTypes.All;
+      this.VisibleForEmptySelection = false;
       this.SubItems = new List<MenuItemModel>();
    }
 
@@ -51,6 +53,12 @@ public abstract class MenuItemModel : ConfigurationFile
    [Category("1. UI Properties")]
    [DefaultValue(MaxNodeTypes.All)]
    public virtual MaxNodeTypes VisibleTypes { get; set; }
+
+   [XmlElement("visible_for_empty_selection")]
+   [DisplayName("Visible for empty selection")]
+   [Category("1. UI Properties")]
+   [DefaultValue(false)]
+   public virtual Boolean VisibleForEmptySelection { get; set; }
 
    [XmlArray("SubItems")]
    [XmlArrayItem("MenuItem")]
@@ -89,22 +97,26 @@ public abstract class MenuItemModel : ConfigurationFile
       Throw.IfArgumentIsNull(treeView, "treeView");
 
       IEnumerable<IMaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
-      return context.Any(n => n != null && n.IsNodeType(this.VisibleTypes));
+
+      if (context.Count() == 0)
+         return this.VisibleForEmptySelection;
+      else
+         return context.Any(n => n != null && n.IsNodeType(this.VisibleTypes));
    }
 
    /// <summary>
    /// Executes code when the MenuItem is clicked.
    /// </summary>
-   protected abstract void OnClick( Outliner.Controls.Tree.TreeView treeView
-                                  , Outliner.Controls.Tree.TreeNode clickedTn);
+   protected virtual void OnClick( Outliner.Controls.Tree.TreeView treeView
+                                 , Outliner.Controls.Tree.TreeNode clickedTn) { }
    
    /// <summary>
    /// Creates a new ToolStripMenuItem from this model.
    /// </summary>
    /// <param name="clickedTn">The TreeNode that was clicked when opening the menu.</param>
    /// <param name="context">The context on which the menu item will operate (e.g. selected nodes).</param>
-   public virtual ToolStripItem ToToolStripMenuItem( Outliner.Controls.Tree.TreeView treeView
-                                                   , Outliner.Controls.Tree.TreeNode clickedTn)
+   public virtual ToolStripItem[] ToToolStripMenuItems( Outliner.Controls.Tree.TreeView treeView
+                                                      , Outliner.Controls.Tree.TreeNode clickedTn)
    {
       Throw.IfArgumentIsNull(treeView, "treeView");
       
@@ -123,13 +135,13 @@ public abstract class MenuItemModel : ConfigurationFile
 
          foreach (MenuItemModel subitem in this.SubItems)
          {
-            item.DropDownItems.Add(subitem.ToToolStripMenuItem(treeView, clickedTn));
+            item.DropDownItems.AddRange(subitem.ToToolStripMenuItems(treeView, clickedTn));
          }
 
          item.Click += new EventHandler((sender, eventArgs) => this.OnClick(treeView, clickedTn));
       }
 
-      return item;
+      return new ToolStripItem[1] { item };
    }
 }
 }

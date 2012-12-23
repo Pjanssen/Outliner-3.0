@@ -158,8 +158,8 @@
     <Compile Include="Commands\MoveMaxNodeCommand.cs" />
     <Compile Include="Commands\RenameCommand.cs" />
     <Compile Include="Commands\SelectCommand.cs" />
-    <Compile Include="Commands\SetNodePropertyCommand.cs" />
     <Compile Include="Commands\SetCurrentLayerCommand.cs" />
+    <Compile Include="Commands\SetNodePropertyCommand.cs" />
     <Compile Include="Commands\FreezeCommand.cs" />
     <Compile Include="Commands\HideCommand.cs" />
     <Compile Include="Commands\SetViewCameraCommand.cs" />
@@ -168,6 +168,7 @@
     <Compile Include="Configuration\ConfigurationHelpers.cs" />
     <Compile Include="Controls\BitmapProcessing.cs" />
     <Compile Include="Controls\ContextMenu\ActionMenuItemModel.cs" />
+    <Compile Include="Controls\ContextMenu\AddToLayerMenuItems.cs" />
     <Compile Include="Controls\ContextMenu\ContextMenuActions.cs" />
     <Compile Include="Controls\ContextMenu\ContextMenuModel.cs" />
     <Compile Include="Controls\ContextMenu\ContextMenuResources.Designer.cs">
@@ -330,6 +331,7 @@
     <Compile Include="Scene\IINodeWrapper.cs" />
     <Compile Include="Scene\IMaxNodeWrapper.cs" />
     <Compile Include="Scene\MaxNodeTypes.cs" />
+    <Compile Include="Scene\MaxScene.cs" />
     <Compile Include="Scene\SelectionSetWrapper.cs" />
     <Compile Include="HelperMethods.cs" />
     <Compile Include="Modes\TreeMode.cs" />
@@ -378,10 +380,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Notes.txt" />
+    <EmbeddedResource Include="Resources\contextmenu\layer_16.png" />
+    <EmbeddedResource Include="Resources\contextmenu\new_selectionset_16.png" />
+    <EmbeddedResource Include="Resources\contextmenu\new_container_16.png" />
+    <EmbeddedResource Include="Resources\contextmenu\new_group_16.png" />
+    <EmbeddedResource Include="Resources\contextmenu\new_layer_16.png" />
+    <EmbeddedResource Include="Resources\contextmenu\childnodes_16.png" />
     <EmbeddedResource Include="Resources\sort_default_16.png" />
     <EmbeddedResource Include="Resources\sort_default_24.png" />
     <EmbeddedResource Include="Resources\contextmenu\window_new_16.png" />
-    <EmbeddedResource Include="Resources\contextmenu\layer.png" />
     <EmbeddedResource Include="Resources\default_preset_16.png" />
     <EmbeddedResource Include="Resources\default_preset_24.png" />
     <EmbeddedResource Include="Resources\contextmenu\flatobjectlist_mode_24_dark.png" />
@@ -389,9 +396,6 @@
     <EmbeddedResource Include="Resources\contextmenu\filter_16.png" />
     <EmbeddedResource Include="Resources\contextmenu\freeze.png" />
     <EmbeddedResource Include="Resources\contextmenu\hide.png" />
-    <EmbeddedResource Include="Resources\contextmenu\newcontainer.png" />
-    <EmbeddedResource Include="Resources\contextmenu\newgroup.png" />
-    <EmbeddedResource Include="Resources\contextmenu\newlayer.png" />
     <EmbeddedResource Include="Resources\contextmenu\properties.png" />
     <EmbeddedResource Include="Resources\contextmenu\rename.png" />
     <EmbeddedResource Include="Resources\sort_alphabetical_24_dark.png" />

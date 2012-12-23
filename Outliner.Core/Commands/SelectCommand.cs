@@ -20,7 +20,7 @@ public class SelectCommand : Command
    {
       Throw.IfArgumentIsNull(nodes, "nodes");
 
-      this.nodes = nodes;
+      this.nodes = nodes.ToList();
       this.openGroups = openGroups;
    }
 

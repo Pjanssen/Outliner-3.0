@@ -12,7 +12,7 @@ using ManagedServices;
 namespace Outliner.Filters
 {
 [OutlinerPlugin(OutlinerPluginType.Filter)]
-[LocalizedDisplayName(typeof(OutlinerResources), "Str_MaxscriptFilter")]
+[LocalizedDisplayName(typeof(OutlinerResources), "Filter_Maxscript")]
 public class MaxscriptFilter : Filter<IMaxNodeWrapper>
 {
    public MaxscriptFilter()

@@ -20,6 +20,7 @@ namespace Outliner.Scene
       public override abstract int GetHashCode();
 
       public virtual IMaxNodeWrapper Parent { get { return null; }  }
+      public abstract Int32 ChildNodeCount { get; }
       public abstract IEnumerable<Object> ChildNodes { get; }
       public virtual IEnumerable<IMaxNodeWrapper> WrappedChildNodes 
       {

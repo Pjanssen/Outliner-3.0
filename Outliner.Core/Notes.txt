@@ -7,8 +7,8 @@
 * Exception handling
 * Updating / Installing
 * Delete a node with children crashes
-* Fix NestedLayers to adapt to NodeProperty int type!!
 * Alt-click om al het andere te hiden/freezen, etc.
+* Context-menu doesn't reload after editor is closed.
 
 TREEVIEW
 --------
@@ -70,7 +70,6 @@ NodeSorters
 * ColorTag*
 * Chronological*
 * Material*
-
 
 TreeNodeButtons
 ---------------

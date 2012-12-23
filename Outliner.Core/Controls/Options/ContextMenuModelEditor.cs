@@ -55,6 +55,8 @@ public partial class ContextMenuModelEditor : OutlinerUserControl
          return "Separator";
       if (modelType == typeof(IncludeContextMenuModel))
          return "Include context-menu";
+      if (modelType == typeof(AddToLayerMenuItems))
+         return "Add to layer items";
       return modelType.Name;
    }
 
@@ -74,6 +76,7 @@ public partial class ContextMenuModelEditor : OutlinerUserControl
          typeof(NodePropertyMenuItemModel),
          typeof(SeparatorMenuItemModel),
          typeof(IncludeContextMenuModel),
+         typeof(AddToLayerMenuItems)
       };
 
       this.itemsComboBox.DataSource = itemTypes.Select(t => new Tuple<Type, String>(t, GetMenuItemNameComboBox(t)))

@@ -228,8 +228,8 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
       if (file == null)
          return;
 
-      if (MessageBox.Show( String.Format(OutlinerResources.Str_DeleteConfigWarning, Path.GetFileName(file))
-                         , OutlinerResources.Str_DeleteConfigWarningTitle
+      if (MessageBox.Show( String.Format(OutlinerResources.Warning_DeleteConfig, Path.GetFileName(file))
+                         , OutlinerResources.Warning_DeleteConfigTitle
                          , MessageBoxButtons.YesNo
                          , MessageBoxIcon.Warning
                          , MessageBoxDefaultButton.Button2

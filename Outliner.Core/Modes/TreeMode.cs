@@ -554,15 +554,6 @@ public abstract class TreeMode
    }
 
 
-
-   protected virtual WinForms::ContextMenuStrip CreateContextMenu(TreeNode clickedTn)
-   {
-      String contextMenuFile = Path.Combine(OutlinerPaths.ContextMenusDir, "ContextMenu.xml");
-      ContextMenuModel data = XmlSerializationHelpers.Deserialize<ContextMenuModel>(contextMenuFile);
-
-      return data.ToContextMenuStrip(this.Tree, clickedTn);
-   }
-
    public virtual ContextMenuModel ContextMenu { get; set; }
 
 
@@ -634,7 +625,8 @@ public abstract class TreeMode
          foreach (TreeNode tn in item.Value)
          {
             IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
-            tn.ShowNode = this.filters.ShowNode(node);
+            if (node != null)
+               tn.ShowNode = this.filters.ShowNode(node);
          }
       }
       this.Tree.Sort();

@@ -66,7 +66,7 @@ public abstract class ConfigurationFile
    [Category("1. UI Properties")]
    [Browsable(true)]
    [TypeConverter(typeof(ResourceTypeConverter))]
-   public Type ResourceType
+   public virtual Type ResourceType
    {
       get
       {
