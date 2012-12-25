@@ -128,7 +128,8 @@ internal static class StandardContextMenu
       options_btn.DropDownItems.Add(ContextMenuResources.Context_EditLayouts, null, editLayoutsClick);
       options_btn.DropDownItems.Add(ContextMenuResources.Context_EditPresets, null, editPresetsClick);
       options_btn.DropDownItems.Add(ContextMenuResources.Context_EditSorters, null, editSortersClick);
-
+      options_btn.DropDownItems.Add(new ToolStripSeparator());
+      options_btn.DropDownItems.Add("About", null, aboutClick);
 
       foreach (ToolStripItem item in strip.Items)
       {
@@ -425,6 +426,11 @@ internal static class StandardContextMenu
                                      , true);
    }
 
+   private static void aboutClick(object sender, EventArgs e)
+   {
+      AboutBox aboutBox = new AboutBox();
+      aboutBox.ShowDialog(MaxInterfaces.MaxHwnd);
+   }
    #endregion
 
 }
