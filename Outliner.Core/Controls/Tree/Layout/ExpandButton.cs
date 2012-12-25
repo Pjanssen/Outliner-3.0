@@ -7,9 +7,12 @@ using System.Windows.Forms.VisualStyles;
 using System.Drawing;
 using System.Xml.Serialization;
 using System.ComponentModel;
+using Outliner.Plugins;
 
 namespace Outliner.Controls.Tree.Layout
 {
+[OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
+[LocalizedDisplayName(typeof(OutlinerResources), "Button_ExpandButton")]
 public class ExpandButton : TreeNodeButton
 {
    protected const Int32 GUTTERWIDTH = 15;

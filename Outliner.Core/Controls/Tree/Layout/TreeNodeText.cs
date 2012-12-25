@@ -7,9 +7,12 @@ using System.Windows.Forms;
 using Outliner.Filters;
 using System.Xml.Serialization;
 using System.ComponentModel;
+using Outliner.Plugins;
 
 namespace Outliner.Controls.Tree.Layout
 {
+[OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
+[LocalizedDisplayName(typeof(OutlinerResources), "Button_TreeNodeText")]
 public class TreeNodeText : TreeNodeButton
 {
    public TreeNodeText()

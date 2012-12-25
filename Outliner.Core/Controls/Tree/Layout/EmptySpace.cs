@@ -7,9 +7,12 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.ComponentModel;
 using Outliner.Scene;
+using Outliner.Plugins;
 
 namespace Outliner.Controls.Tree.Layout
 {
+[OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
+[LocalizedDisplayName(typeof(OutlinerResources), "Button_EmptySpace")]
 public class EmptySpace : TreeNodeLayoutItem
 {
    [XmlAttribute("visible_types")]
