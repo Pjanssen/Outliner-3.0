@@ -17,6 +17,7 @@ using Outliner.NodeSorters;
 using Outliner.Plugins;
 using Outliner.Scene;
 using Outliner.Configuration;
+using WinForms = System.Windows.Forms;
 
 namespace Outliner
 {
@@ -27,6 +28,7 @@ public class OutlinerGUP
    public Boolean SettingsLoaded { get; private set; }
    public OutlinerState State { get; private set; }
    public TreeViewColorScheme ColorScheme { get; private set; }
+   public SettingsCollection Settings { get; private set; }
 
    public Dictionary<TreeView, TreeMode> TreeModes { get; private set; }
    private Dictionary<TreeView, OutlinerPreset> currentPresets;
@@ -63,6 +65,16 @@ public class OutlinerGUP
          this.State = defaultState();
          this.SettingsLoaded = false;
       }
+
+      try
+      {
+         this.Settings = XmlSerializationHelpers.Deserialize<SettingsCollection>(OutlinerPaths.SettingsFile);
+      }
+      catch
+      {
+         this.Settings = OutlinerSettings.DefaultSettings;
+         this.SettingsLoaded = false;
+      }
    }
 
    internal static void Start()
@@ -77,6 +89,8 @@ public class OutlinerGUP
          treeMode.Stop();
       }
       this.TreeModes.Clear();
+
+      XmlSerializationHelpers.Serialize<SettingsCollection>(OutlinerPaths.SettingsFile, this.Settings);
    }
 
 
@@ -140,6 +154,8 @@ public class OutlinerGUP
 
       tree.TreeNodeLayout = preset.TreeNodeLayout;
       tree.NodeSorter = preset.NodeSorter;
+      tree.DragDropMouseButton = this.Settings.GetValue<WinForms::MouseButtons>(OutlinerSettings.CoreCategory, OutlinerSettings.DragDropMouseButton);
+      tree.DoubleClickAction = this.Settings.GetValue<TreeNodeDoubleClickAction>(OutlinerSettings.CoreCategory, OutlinerSettings.DoubleClickAction);
       TreeMode newMode = preset.CreateTreeMode(tree);
 
       this.RegisterTreeMode(tree, newMode);
@@ -199,5 +215,13 @@ public class OutlinerGUP
                                                             , this.State);
    }
 
+   public void Pause() 
+   {
+      throw new NotImplementedException();
+   }
+   public void Resume() 
+   {
+      throw new NotImplementedException();
+   }
 }
 }
