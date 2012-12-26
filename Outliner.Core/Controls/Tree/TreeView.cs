@@ -19,6 +19,8 @@ public class TreeView : ScrollableControl
       this.Colors = new TreeViewColorScheme();
       this.selectedNodes = new HashSet<TreeNode>();
       this.TreeNodeLayout = TreeNodeLayout.SimpleLayout; //TODO check that this does not cause unnecessary redrawing.
+      this.DragDropMouseButton = MouseButtons.Left;
+      this.DoubleClickAction = TreeNodeDoubleClickAction.Rename;
 
       //Set double buffered user paint style.
       this.SetStyle(ControlStyles.UserPaint, true);
@@ -46,6 +48,7 @@ public class TreeView : ScrollableControl
       get { return this.Root.Nodes; }
    }
 
+   public TreeNodeDoubleClickAction DoubleClickAction { get; set; }
 
    public TreeNode GetNodeAt(Point location)
    {
@@ -427,7 +430,7 @@ public class TreeView : ScrollableControl
       if (e == null || this.TreeNodeLayout == null)
          return;
 
-      if (e.Button == MouseButtons.Left)
+      if ((e.Button & this.DragDropMouseButton) == this.DragDropMouseButton)
          this.dragStartPos = e.Location;
 
       TreeNode tn = this.GetNodeAt(e.Location);
@@ -468,7 +471,8 @@ public class TreeView : ScrollableControl
       if (e == null || this.TreeNodeLayout == null)
          return;
 
-      if (e.Button != MouseButtons.Left)
+      Boolean isDragDropMouseButton = (e.Button & this.DragDropMouseButton) == this.DragDropMouseButton;
+      if (!isDragDropMouseButton)
       {
          this.isDragging = false;
          this.dragStartPos = Point.Empty;
@@ -478,7 +482,7 @@ public class TreeView : ScrollableControl
 
       //Start dragging.
       if (tn != null && !this.isDragging
-          && e.Button == MouseButtons.Left
+          && isDragDropMouseButton
           && HelperMethods.Distance(e.Location, this.dragStartPos) > 5
           && this.selectedNodes.Count > 0)
       {
@@ -533,6 +537,10 @@ public class TreeView : ScrollableControl
    [Browsable(false)]
    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
    public DragDropHandler DragDropHandler { get; set; }
+
+   [Browsable(false)]
+   [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+   public MouseButtons DragDropMouseButton { get; set; }
 
    protected override void OnDragEnter(DragEventArgs drgevent)
    {
