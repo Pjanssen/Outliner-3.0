@@ -100,6 +100,11 @@
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "C:\Users\Pier\AppData\Local\Autodesk\3dsMax\2013 - 64bit\ENU\en-US\plugcfg\Outliner\Plugins\$(TargetFileName)"</PostBuildEvent>
   </PropertyGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties BuildVersion_UseGlobalSettings="True" />
+    </VisualStudio>
+  </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
