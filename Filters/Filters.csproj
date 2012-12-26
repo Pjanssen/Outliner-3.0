@@ -65,6 +65,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SuperClassConverter.cs" />
     <Compile Include="SuperClassFilter.cs" />
     <Compile Include="XrefFilter.cs" />
   </ItemGroup>
