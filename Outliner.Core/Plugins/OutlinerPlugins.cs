@@ -27,6 +27,62 @@ public static class OutlinerPlugins
 
 
    /// <summary>
+   /// (Re)loads all plugins from the PluginDirectory.
+   /// </summary>
+   internal static IEnumerable<OutlinerPluginData> LoadPlugins()
+   {
+      OutlinerPlugins.plugins = PluginAssemblies.SelectMany(a => LoadPlugins(a));
+      return OutlinerPlugins.plugins;
+   }
+
+   private static IEnumerable<OutlinerPluginData> LoadPlugins(Assembly pluginAssembly)
+   {
+      AppDomain.CurrentDomain.AssemblyResolve -= new ResolveEventHandler(CurrentDomain_AssemblyResolve);
+      AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
+
+      IEnumerable<OutlinerPluginData> plugins = pluginAssembly.GetExportedTypes()
+                                                              .Where(t => t.IsPublic && (!t.IsAbstract || t.IsSealed))
+                                                              .Where(t => TypeHelpers.HasAttribute<OutlinerPluginAttribute>(t))
+                                                              .Select(t => new OutlinerPluginData(t));
+
+      StartPlugins(plugins);
+
+      return plugins;
+   }
+
+   private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+   {
+      return OutlinerPlugins.PluginAssemblies.FirstOrDefault(a => a.FullName == args.Name);
+   }
+
+   /// <summary>
+   /// Calls all methods in plugins marked with the OutlinerPluginStart attribute.
+   /// </summary>
+   internal static void StartPlugins(IEnumerable<OutlinerPluginData> plugins)
+   {
+      if (plugins != null)
+         plugins.ForEach(p => InvokePluginMethod<OutlinerPluginStartAttribute>(p.Type));
+   }
+
+   /// <summary>
+   /// Calls all methods in plugins marked with the OutlinerPluginStop attribute.
+   /// </summary>
+   internal static void StopPlugins()
+   {
+      if (plugins != null)
+         plugins.ForEach(p => InvokePluginMethod<OutlinerPluginStopAttribute>(p.Type));
+   }
+
+   private static void InvokePluginMethod<T>(Type pluginClass) where T : Attribute
+   {
+      String pluginClassName = pluginClass.Name;
+      pluginClass.GetMethods(BindingFlags.Static | BindingFlags.Public)
+                 .Where(m => TypeHelpers.HasAttribute<T>(m))
+                 .ForEach(m => m.Invoke(null, null));
+   }
+   
+
+   /// <summary>
    /// The collection of assemblies from which plugins have been loaded.
    /// </summary>
    public static IEnumerable<Assembly> PluginAssemblies
@@ -61,59 +117,6 @@ public static class OutlinerPlugins
    }
    
    /// <summary>
-   /// (Re)loads all plugins from the PluginDirectory.
-   /// </summary>
-   public static IEnumerable<OutlinerPluginData> LoadPlugins()
-   {
-      AppDomain.CurrentDomain.AssemblyResolve -= new ResolveEventHandler(CurrentDomain_AssemblyResolve);
-      AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
-
-      List<OutlinerPluginData> plugins = PluginAssemblies.SelectMany(a => a.GetExportedTypes())
-                                                         .Where(t => t.IsPublic && (!t.IsAbstract || t.IsSealed))
-                                                         .Where(t => TypeHelpers.HasAttribute<OutlinerPluginAttribute>(t))
-                                                         .Select(t => new OutlinerPluginData(t))
-                                                         .ToList();
-
-      plugins.Sort((pX, pY) => pX.DisplayName.CompareTo(pY.DisplayName));
-
-      StartPlugins();
-
-      return plugins;
-   }
-
-
-   private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
-   {
-      return OutlinerPlugins.PluginAssemblies.FirstOrDefault(a => a.FullName == args.Name);
-   }
-
-   /// <summary>
-   /// Calls all methods in plugins marked with the OutlinerPluginStart attribute.
-   /// </summary>
-   public static void StartPlugins()
-   {
-      if (plugins != null)
-         plugins.ForEach(p => InvokePluginMethod<OutlinerPluginStartAttribute>(p.Type));
-   }
-
-   /// <summary>
-   /// Calls all methods in plugins marked with the OutlinerPluginStop attribute.
-   /// </summary>
-   public static void StopPlugins()
-   {
-      if (plugins != null)
-         plugins.ForEach(p => InvokePluginMethod<OutlinerPluginStopAttribute>(p.Type));
-   }
-
-   private static void InvokePluginMethod<T>(Type pluginClass) where T : Attribute
-   {
-      String pluginClassName = pluginClass.Name;
-      pluginClass.GetMethods(BindingFlags.Static | BindingFlags.Public)
-                 .Where(m => TypeHelpers.HasAttribute<T>(m))
-                 .ForEach(m => m.Invoke(null, null));
-   }
-
-   /// <summary>
    /// A collection of all loaded plugin metadata.
    /// </summary>
    public static IEnumerable<OutlinerPluginData> Plugins
@@ -121,7 +124,7 @@ public static class OutlinerPlugins
       get
       {
          if (plugins == null)
-            plugins = OutlinerPlugins.LoadPlugins();
+            OutlinerPlugins.LoadPlugins();
 
          return plugins;
       }
@@ -129,12 +132,23 @@ public static class OutlinerPlugins
 
 
    /// <summary>
-   /// Gets a collection of plugin metadata for plugins of the given type.
+   /// Gets a collection of plugin metadata objects for plugins of the given type.
    /// </summary>
    /// <param name="type">The type of plugins to select.</param>
    public static IEnumerable<OutlinerPluginData> GetPlugins(OutlinerPluginType type)
    {
       return Plugins.Where(p => (p.PluginType & type) != 0);
+   }
+
+   /// <summary>
+   /// Gets a collection plugin metadata objects contained in the given assembly.
+   /// Note that the assembly has to be loaded by the plugin system first.
+   /// </summary>
+   /// <param name="pluginAssembly"></param>
+   /// <returns></returns>
+   public static IEnumerable<OutlinerPluginData> GetPlugins(Assembly pluginAssembly)
+   {
+      return Plugins.Where(p => p.Type.Assembly == pluginAssembly);
    }
 
    /// <summary>
