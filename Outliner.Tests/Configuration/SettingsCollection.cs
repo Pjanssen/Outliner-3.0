@@ -79,6 +79,21 @@ namespace Outliner.Tests.Configuration
          Assert.AreEqual(true, settings.GetValue<Boolean>(category, key));
       }
 
+
+      [TestMethod]
+      public void ContainsValueTest()
+      {
+         SettingsCollection settings = new SettingsCollection();
+         String category = "categoryA";
+         String key = "keyA";
+         settings.SetValue<Boolean>(category, key, false);
+
+         Assert.IsTrue(settings.ContainsValue(category, key));
+         Assert.IsFalse(settings.ContainsValue(category, "keyB"));
+         Assert.IsFalse(settings.ContainsValue("categoryB", key));
+      }
+
+
       [TestMethod]
       [ExpectedException(typeof(ArgumentNullException))]
       public void TryGetValueNullCategoryTest()

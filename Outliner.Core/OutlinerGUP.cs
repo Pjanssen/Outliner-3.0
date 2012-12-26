@@ -72,9 +72,10 @@ public class OutlinerGUP
       }
       catch
       {
-         this.Settings = OutlinerSettings.DefaultSettings;
+         this.Settings = new SettingsCollection();
          this.SettingsLoaded = false;
       }
+      OutlinerSettings.PopulateWithDefaults(this.Settings);
    }
 
    internal static void Start()

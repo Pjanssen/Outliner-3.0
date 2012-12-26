@@ -51,6 +51,18 @@ public class SettingsCollection : IXmlSerializable
 
 
    /// <summary>
+   /// Tests whether this SettingsCollection contains a value in the given category and key.
+   /// </summary>
+   public Boolean ContainsValue(String category, String key)
+   {
+      SettingsCategory settings = this.GetCategory(category);
+      if (settings != null)
+         return settings.ContainsKey(key);
+      else
+         return false;
+   }
+
+   /// <summary>
    /// Retrieves the value of a setting.
    /// </summary>
    /// <typeparam name="T">The type of value to retrieve.</typeparam>

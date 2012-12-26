@@ -13,16 +13,17 @@ namespace Outliner.Configuration
       public const String DragDropMouseButton = "DragDropButton";
       public const String DoubleClickAction = "DoubleClickAction";
 
-      public static SettingsCollection DefaultSettings
+      public static void PopulateWithDefaults(SettingsCollection settings)
       {
-         get
+         SetDefaultValue<MouseButtons>(settings, CoreCategory, DragDropMouseButton, MouseButtons.Left);
+         SetDefaultValue<Outliner.Controls.Tree.TreeNodeDoubleClickAction>(settings, CoreCategory, DoubleClickAction, Outliner.Controls.Tree.TreeNodeDoubleClickAction.Rename);
+      }
+
+      private static void SetDefaultValue<T>(SettingsCollection settings, String category, String key, T defaultValue)
+      {
+         if (!settings.ContainsValue(category, key))
          {
-            SettingsCollection settings = new SettingsCollection();
-
-            settings.SetValue<MouseButtons>(CoreCategory, DragDropMouseButton, MouseButtons.Left);
-            settings.SetValue<Outliner.Controls.Tree.TreeNodeDoubleClickAction>(CoreCategory, DoubleClickAction, Controls.Tree.TreeNodeDoubleClickAction.Rename);
-
-            return settings;
+            settings.SetValue<T>(category, key, defaultValue);
          }
       }
    }
