@@ -31,7 +31,9 @@ public static class OutlinerPlugins
    /// </summary>
    internal static IEnumerable<OutlinerPluginData> LoadPlugins()
    {
-      OutlinerPlugins.plugins = PluginAssemblies.SelectMany(a => LoadPlugins(a));
+      OutlinerPlugins.plugins = PluginAssemblies.SelectMany(a => LoadPlugins(a))
+                                                .ToList();
+
       return OutlinerPlugins.plugins;
    }
 
