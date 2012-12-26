@@ -72,12 +72,18 @@ internal static class StandardContextMenu
       filter_btn.DropDownItems.Add(new ToolStripSeparator());
       
       IEnumerable<FilterConfiguration> filters = ConfigurationHelpers.GetConfigurations<FilterConfiguration>(OutlinerPaths.FiltersDir);
-      if (AddUserFileItems(filter_btn.DropDownItems, treeMode, filters.Where(f => f.Category == FilterCategory.Classes), filter_ItemClick) > 0)
-         filter_btn.DropDownItems.Add(new ToolStripSeparator());
+      IEnumerable<FilterConfiguration> classesFilters = filters.Where(f => f.Category == FilterCategory.Classes);
+      IEnumerable<FilterConfiguration> propertiesFilters = filters.Where(f => f.Category == FilterCategory.Properties);
+      IEnumerable<FilterConfiguration> customFilters = filters.Where(f => f.Category == FilterCategory.Custom);
 
-      if (AddUserFileItems(filter_btn.DropDownItems, treeMode, filters.Where(f => f.Category == FilterCategory.Properties), filter_ItemClick) > 0)
+      AddUserFileItems(filter_btn.DropDownItems, treeMode, classesFilters, filter_ItemClick);
+      
+      if (propertiesFilters.Count() > 0)
          filter_btn.DropDownItems.Add(new ToolStripSeparator());
-
+      AddUserFileItems(filter_btn.DropDownItems, treeMode, propertiesFilters, filter_ItemClick);
+      
+      if (customFilters.Count() > 0)
+         filter_btn.DropDownItems.Add(new ToolStripSeparator());
       AddUserFileItems(filter_btn.DropDownItems, treeMode, filters.Where(f => f.Category == FilterCategory.Custom), filter_ItemClick);
 
       strip.Items.Add(filter_btn);
