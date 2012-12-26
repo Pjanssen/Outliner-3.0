@@ -213,16 +213,22 @@ public class OutlinerGUP
          Directory.CreateDirectory(OutlinerPaths.ConfigDir);
 
       XmlSerializationHelpers.Serialize<OutlinerState>( OutlinerPaths.StateFile
-                                                            , this.State);
+                                                      , this.State);
    }
 
    public void Pause() 
    {
-      throw new NotImplementedException();
+      foreach (TreeMode treeMode in this.TreeModes.Values)
+      {
+         treeMode.Stop();
+      }
    }
    public void Resume() 
    {
-      throw new NotImplementedException();
+      foreach (TreeMode treeMode in this.TreeModes.Values)
+      {
+         treeMode.Start();
+      }
    }
 }
 }
