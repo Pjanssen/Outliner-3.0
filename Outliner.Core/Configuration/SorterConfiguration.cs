@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace Outliner.Configuration
 {
-   public class SorterConfiguration : ConfigurationFile
+   public class SorterConfiguration : ConfigurationFile, ISorterConfiguration
    {
       protected override string ImageBasePath
       {

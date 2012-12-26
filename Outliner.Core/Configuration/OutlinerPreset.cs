@@ -21,13 +21,13 @@ using Outliner.Scene;
 
 namespace Outliner.Configuration
 {
-public class OutlinerPreset : ConfigurationFile
+public class OutlinerPreset : ConfigurationFile, ISorterConfiguration
 {
    public OutlinerPreset() : base()
    {
       this.TreeModeTypeName = String.Empty;
       this.ContextMenuFile = String.Empty;
-      this.NodeSorter = new AlphabeticalSorter();
+      this.Sorter = new AlphabeticalSorter();
       this.Filters = new MaxNodeFilterCombinator() { Enabled = false };
       this.IsDefaultPreset = false;
    }
@@ -124,11 +124,11 @@ public class OutlinerPreset : ConfigurationFile
       }
    }
 
-   [XmlElement("nodesorter")]
-   public virtual NodeSorter NodeSorter { get; set; }
+   [XmlElement("sorter")]
+   public NodeSorter Sorter { get; set; }
 
    [XmlElement("filters")]
-   public virtual MaxNodeFilterCombinator Filters { get; set; }
+   public MaxNodeFilterCombinator Filters { get; set; }
 
 
    public TreeMode CreateTreeMode(TreeView tree)

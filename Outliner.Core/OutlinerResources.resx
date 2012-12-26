@@ -276,4 +276,16 @@ This action cannot be undone.</value>
   <data name="Preset_Sorter" xml:space="preserve">
     <value>Sorter</value>
   </data>
+  <data name="Button_EmptySpace" xml:space="preserve">
+    <value>Empty Space</value>
+  </data>
+  <data name="Button_ExpandButton" xml:space="preserve">
+    <value>Expand Button</value>
+  </data>
+  <data name="Button_TreeNodeIndent" xml:space="preserve">
+    <value>TreeNode Indent</value>
+  </data>
+  <data name="Button_TreeNodeText" xml:space="preserve">
+    <value>Node Name</value>
+  </data>
 </root>

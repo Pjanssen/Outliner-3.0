@@ -154,7 +154,7 @@ public class OutlinerGUP
       this.currentPresets.Add(tree, preset);
 
       tree.TreeNodeLayout = preset.TreeNodeLayout;
-      tree.NodeSorter = preset.NodeSorter;
+      tree.NodeSorter = preset.Sorter;
       tree.DragDropMouseButton = this.Settings.GetValue<WinForms::MouseButtons>(OutlinerSettings.CoreCategory, OutlinerSettings.DragDropMouseButton);
       tree.DoubleClickAction = this.Settings.GetValue<TreeNodeDoubleClickAction>(OutlinerSettings.CoreCategory, OutlinerSettings.DoubleClickAction);
       TreeMode newMode = preset.CreateTreeMode(tree);

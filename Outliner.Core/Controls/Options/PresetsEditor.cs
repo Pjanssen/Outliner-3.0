@@ -97,7 +97,7 @@ public class PresetsEditor : ConfigFilesEditor<OutlinerPreset>
          EditorType editorType = (EditorType)tn.Tag;
          OutlinerPreset preset = this.GetEditingConfiguration(tn);
          if (editorType == EditorType.Sorter)
-            return new SorterConfigurationEditor();
+            return new SorterConfigurationEditor(preset);
          else if (editorType == EditorType.Filters)
             return new FilterCollectionEditor(preset.Filters);
          else if (editorType == EditorType.Layout)

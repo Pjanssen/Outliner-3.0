@@ -9,6 +9,22 @@ namespace Outliner.Configuration
 {
    public abstract class ConfigurationResourceConverter : TypeConverter
    {
+      public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+      {
+         if (sourceType == typeof(String))
+            return true;
+
+         return base.CanConvertFrom(context, sourceType);
+      }
+
+      public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+      {
+         if (value is String)
+            return value;
+
+         return base.ConvertFrom(context, culture, value);
+      }
+
       public override bool GetStandardValuesExclusive(ITypeDescriptorContext context)
       {
          return false;
@@ -34,6 +50,8 @@ namespace Outliner.Configuration
                                                    .Select(p => p.Name));
             }
          }
+
+         standardValues.Sort();
 
          return new StandardValuesCollection(standardValues);
       }

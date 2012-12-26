@@ -37,8 +37,8 @@
          this.textBoxPlugins = new System.Windows.Forms.TextBox();
          this.okButton = new System.Windows.Forms.Button();
          this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-         this.label1 = new System.Windows.Forms.Label();
          this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+         this.label1 = new System.Windows.Forms.Label();
          this.tableLayoutPanel.SuspendLayout();
          ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
          this.tableLayoutPanel1.SuspendLayout();
@@ -48,7 +48,7 @@
          // 
          this.tableLayoutPanel.ColumnCount = 2;
          this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 71F));
-         this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 84F));
+         this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 311F));
          this.tableLayoutPanel.Controls.Add(this.logoPictureBox, 0, 0);
          this.tableLayoutPanel.Controls.Add(this.labelProductName, 1, 0);
          this.tableLayoutPanel.Controls.Add(this.labelVersion, 1, 1);
@@ -174,18 +174,6 @@
          this.tableLayoutPanel1.Size = new System.Drawing.Size(311, 20);
          this.tableLayoutPanel1.TabIndex = 30;
          // 
-         // label1
-         // 
-         this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-         this.label1.Location = new System.Drawing.Point(3, 0);
-         this.label1.MaximumSize = new System.Drawing.Size(0, 17);
-         this.label1.Name = "label1";
-         this.label1.Size = new System.Drawing.Size(85, 17);
-         this.label1.TabIndex = 30;
-         this.label1.Text = "Report issues at:";
-         this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-         // 
          // linkLabel1
          // 
          this.linkLabel1.ActiveLinkColor = System.Drawing.Color.SteelBlue;
@@ -199,6 +187,18 @@
          this.linkLabel1.TabStop = true;
          this.linkLabel1.Text = "http://outliner.pjanssen.nl/issuetracker";
          this.linkLabel1.VisitedLinkColor = System.Drawing.Color.LightSkyBlue;
+         // 
+         // label1
+         // 
+         this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
+         this.label1.Location = new System.Drawing.Point(3, 0);
+         this.label1.MaximumSize = new System.Drawing.Size(0, 17);
+         this.label1.Name = "label1";
+         this.label1.Size = new System.Drawing.Size(85, 17);
+         this.label1.TabIndex = 30;
+         this.label1.Text = "Report issues at:";
+         this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
          // 
          // AboutBox
          // 

@@ -61,6 +61,11 @@ public static class OutlinerPaths
       get { return Path.Combine(OutlinerPaths.ConfigDir, "NodeSorters\\"); }
    }
 
+   public static String SettingsFile
+   {
+      get { return Path.Combine(OutlinerPaths.ConfigDir, "settings.xml"); }
+   }
+
    public static String StateFile
    {
       get { return Path.Combine(OutlinerPaths.ConfigDir, "saved_state.xml"); }

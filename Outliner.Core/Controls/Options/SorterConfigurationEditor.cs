@@ -15,7 +15,7 @@ namespace Outliner.Controls.Options
 {
 public partial class SorterConfigurationEditor : OutlinerUserControl
 {
-   private SorterConfiguration sorterConfiguration;
+   private ISorterConfiguration sorterConfiguration;
    private Dictionary<NodeSorter, Tree.TreeNode> treeNodes;
 
    public SorterConfigurationEditor()
@@ -23,7 +23,7 @@ public partial class SorterConfigurationEditor : OutlinerUserControl
       InitializeComponent();
    }
 
-   public SorterConfigurationEditor(SorterConfiguration config) : this() 
+   public SorterConfigurationEditor(ISorterConfiguration config) : this() 
    {
       Throw.IfArgumentIsNull(config, "config");
 

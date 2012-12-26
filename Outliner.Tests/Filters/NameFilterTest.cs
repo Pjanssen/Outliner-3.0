@@ -23,6 +23,10 @@ public class NameFilterTest
       public override bool Equals(object obj) { return false; }
       public override int GetHashCode() { return 0; }
 
+      public override int ChildNodeCount
+      {
+         get { return 0; }
+      }
       public override System.Collections.Generic.IEnumerable<Object> ChildNodes
       {
          get { return null; }

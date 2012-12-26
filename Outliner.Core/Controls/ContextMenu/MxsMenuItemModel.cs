@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.Design;
+using System.Drawing.Design;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
-using System.ComponentModel;
 using ManagedServices;
 using Outliner.Scene;
 
@@ -26,18 +28,21 @@ public class MxsMenuItemModel : MenuItemModel
    [DefaultValue("")]
    [DisplayName("OnClick Script")]
    [Category("2. Maxscript Properties")]
+   [Editor(typeof(MultilineStringEditor), typeof(UITypeEditor))]
    public String OnClickScript { get; set; }
 
    [XmlElement("enabledScript")]
    [DefaultValue("")]
    [DisplayName("Enabled Script")]
    [Category("2. Maxscript Properties")]
+   [Editor(typeof(MultilineStringEditor), typeof(UITypeEditor))]
    public String EnabledScript { get; set; }
 
    [XmlElement("checkedScript")]
    [DefaultValue("")]
    [DisplayName("Checked Script")]
    [Category("2. Maxscript Properties")]
+   [Editor(typeof(MultilineStringEditor), typeof(UITypeEditor))]
    public String CheckedScript { get; set; }
 
 

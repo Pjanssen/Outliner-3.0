@@ -161,6 +161,16 @@ public partial class FilterCollectionEditor : OutlinerUserControl
             if (this.filterConfiguration != null)
                this.filterConfiguration.Filter = filter;
          }
+         else
+         {
+            Filter<IMaxNodeWrapper> oldRoot = this.RootFilter;
+            combinator = new FilterCombinator<IMaxNodeWrapper>();
+            combinator.Filters.Add(oldRoot);
+            combinator.Filters.Add(filter);
+            this.RootFilter = combinator;
+            if (this.filterConfiguration != null)
+               this.filterConfiguration.Filter = combinator;
+         }
       }
    }
 

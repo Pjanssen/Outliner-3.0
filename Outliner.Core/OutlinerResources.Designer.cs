@@ -79,6 +79,42 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Empty Space.
+        /// </summary>
+        internal static string Button_EmptySpace {
+            get {
+                return ResourceManager.GetString("Button_EmptySpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expand Button.
+        /// </summary>
+        internal static string Button_ExpandButton {
+            get {
+                return ResourceManager.GetString("Button_ExpandButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TreeNode Indent.
+        /// </summary>
+        internal static string Button_TreeNodeIndent {
+            get {
+                return ResourceManager.GetString("Button_TreeNodeIndent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Node Name.
+        /// </summary>
+        internal static string Button_TreeNodeText {
+            get {
+                return ResourceManager.GetString("Button_TreeNodeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add To Layer.
         /// </summary>
         internal static string Command_AddToLayer {

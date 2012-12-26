@@ -165,17 +165,19 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
       Tree.TreeNode selNode = e.Nodes.FirstOrDefault();
       if (selNode == null)
          return;
+      
+      this.editorPanel.SuspendLayout();
+      this.editorPanel.Controls.Clear();
 
       Control editor = this.GetEditorFor(selNode);
       if (editor != null)
       {
          editor.Dock = DockStyle.Fill;
 
-         this.SuspendLayout();
-         this.editorPanel.Controls.Clear();
          this.editorPanel.Controls.Add(editor);
-         this.ResumeLayout();
       }
+
+      this.editorPanel.ResumeLayout();
    }
 
    protected virtual Control GetEditorFor(Tree.TreeNode tn)
