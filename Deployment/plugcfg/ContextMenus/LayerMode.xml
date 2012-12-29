@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ContextMenu xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Items>
+    <MenuItem xsi:type="ActionMenuItemModel">
+      <text>Context_CreateNewLayer</text>
+      <image16>new_layer_16</image16>
+      <resource_type>Outliner.Modes.Layer.Resources</resource_type>
+      <visible_for_empty_selection>true</visible_for_empty_selection>
+      <enabled />
+      <checked />
+      <onclick>CreateNewLayer</onclick>
+    </MenuItem>
+    <MenuItem xsi:type="ActionMenuItemModel">
+      <text>Context_SetCurrentLayer</text>
+      <image16>set_active_layer_16</image16>
+      <resource_type>Outliner.Modes.Layer.Resources</resource_type>
+      <enabled>IsNotCurrentLayer</enabled>
+      <checked />
+      <onclick>SetCurrentLayer</onclick>
+    </MenuItem>
+    <MenuItem xsi:type="ActionMenuItemModel">
+      <text>Context_SelectChildnodes</text>
+      <image16>childnodes_16</image16>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <enabled>SelectionHasChildNodes</enabled>
+      <checked />
+      <onclick>SelectChildNodes</onclick>
+    </MenuItem>
+  </Items>
+</ContextMenu>

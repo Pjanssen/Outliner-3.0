@@ -31,13 +31,14 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 SetupAppRunningError=Setup has detected that 3dsMax is currently running.%n%nPlease close all instances of it now, then click OK to continue, or Cancel to exit.
 
 [CustomMessages]
-SelectMaxVersionTitle=
+NoCompatibleMaxVersionsError=No compatible 3dsMax version found!%nThe {#AppName} {#AppVersion} requires 3dsMax %1 or above.
+SelectMaxVersionTitle=Select 3dsMax version
+SelectMaxVersionDescription=Select the 3dsMax version you want to install the {#AppName} for, then click Next.
+
 
 [Files]
-;Source: "C:\Code\OutlinerCore\Outliner.Core\bin\Release\Outliner.Core.dll"; DestDir: "{#MaxDir}\bin\assemblies\"; Flags: ignoreversion;
-;Source: "C:\Code\OutlinerCore\Outliner.Core\bin\Release\Outliner.LayerTools.dll"; DestDir: "{#MaxDir}\bin\assemblies\"; Flags: ignoreversion;
-;Source: "C:\Code\OutlinerCore\Outliner.Core\bin\Release\Outliner.MaxUtils.dll"; DestDir: "{#MaxDir}\bin\assemblies\"; Flags: ignoreversion;
-; NOTE: Don't use "Flags: ignoreversion" on any shared system files
+Source: "Deployment\assemblies\*"; DestDir: "{code:GetSelectedAssemblyDir}"; Flags: ignoreversion;
+Source: "Deployment\plugcfg\*"; DestDir: "{code:GetSelectedPlugCfgDir}"; Flags: recursesubdirs ignoreversion;
 
 [Code]
 var
@@ -51,10 +52,9 @@ procedure CheckMaxVersion;
 begin
   if not CompatibleVersionPresent(MaxVersions, {#Min3dsMaxVersion}) then
   begin
-    MsgBox('No compatible 3dsMax version found!' + #13#10 
-           + 'The {#AppName} {#AppVersion} requires 3dsMax ' 
-           + GetMaxVersionString({#Min3dsMaxVersion}) 
-           + ' or above.', mbError, MB_OK);
+    MsgBox( FmtMessage( ExpandConstant('{cm:NoCompatibleMaxVersionsError}')
+                      , [GetMaxVersionString({#Min3dsMaxVersion})])
+          , mbError, MB_OK);
     Abort;
   end;
 end;
@@ -65,8 +65,8 @@ var
   i: Integer;
 begin
   MaxVersionPage := CreateInputOptionPage(wpWelcome,
-    'Select 3dsMax version', '',
-    'Select the 3dsMax version you want to install the {#AppName} for, then click Next.',
+    ExpandConstant('{cm:SelectMaxVersionTitle}'), '',
+    ExpandConstant('{cm:SelectMaxVersionDescription}'),
     True, False);
   for i := 0 to GetArrayLength(MaxVersions) - 1 do
   begin
@@ -76,12 +76,19 @@ begin
 end;
 
 
+function GetSelectedAssemblyDir(Input: String): String;
+begin
+  Result := GetAssembliesDir(15);
+end;
+
+function GetSelectedPlugCfgDir(Input: String): String;
+begin
+  Result := GetPlugCfgDir(15);
+end;
+
 procedure InitializeWizard;
 begin
   MaxVersions := GetInstalledMaxVersions();
   CheckMaxVersion();
   CreateMaxVersionPage();
-
-  AssemblyPath := GetAssembliesDir(15);
-  OutlinerPlugCfgDir := GetPlugCfgDir(15);
 end;

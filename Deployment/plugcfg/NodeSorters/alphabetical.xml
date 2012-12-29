@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<SorterConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>Sorter_Alphabetical</text>
+  <image16>sort_alphabetical_16_dark</image16>
+  <image24>sort_alphabetical_24_dark</image24>
+  <resource_type>Outliner.OutlinerResources</resource_type>
+  <sorter xsi:type="AlphabeticalSorter" />
+</SorterConfiguration>

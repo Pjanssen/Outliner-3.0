@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ContextMenu xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Items>
+    <MenuItem xsi:type="NodePropertyMenuItemModel">
+      <text>Context_Renderable</text>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <property>Renderable</property>
+    </MenuItem>
+    <MenuItem xsi:type="NodePropertyMenuItemModel">
+      <text>Context_InheritVisibility</text>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <property>InheritVisibility</property>
+    </MenuItem>
+    <MenuItem xsi:type="NodePropertyMenuItemModel">
+      <text>Context_PrimaryVisibility</text>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <property>PrimaryVisibility</property>
+    </MenuItem>
+    <MenuItem xsi:type="NodePropertyMenuItemModel">
+      <text>Context_SecondaryVisibility</text>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <property>SecondaryVisibility</property>
+    </MenuItem>
+    <MenuItem xsi:type="NodePropertyMenuItemModel">
+      <text>Context_CastShadows</text>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <property>CastShadows</property>
+    </MenuItem>
+    <MenuItem xsi:type="NodePropertyMenuItemModel">
+      <text>Context_ReceiveShadows</text>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <property>ReceiveShadows</property>
+    </MenuItem>
+    <MenuItem xsi:type="NodePropertyMenuItemModel">
+      <text>Context_ApplyAtmospherics</text>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <property>ApplyAtmospherics</property>
+    </MenuItem>
+    <MenuItem xsi:type="NodePropertyMenuItemModel">
+      <text>Context_RenderOccluded</text>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <property>RenderOccluded</property>
+    </MenuItem>
+  </Items>
+</ContextMenu>

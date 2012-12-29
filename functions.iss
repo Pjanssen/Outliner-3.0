@@ -111,18 +111,27 @@ end;
 
 function GetPlugCfgDir(Version: Integer): String;
 var
-  ProductDir: String;
+  Path: String;
 begin
-  ProductDir := GetMaxProductName(Version);
-  Delete(ProductDir, 1, 16)
-  Result := ExpandConstant('{localappdata}')
-            + '\Autodesk\'
-            + ProductDir
-            + '\'
-            + GetMaxLanguage(Version)
-            + '\'
-            + GetMaxLangDir(Version)
-            + '\plugcfg\Outliner';
+  Path := ExpandConstant('{localappdata}')
+          + '\Autodesk\3dsMax\'
+          + GetMaxVersionString(Version);
+
+  if IsWin64 then
+  begin
+    Path := Path + ' - 64bit\';
+  end
+  else
+  begin
+    Path := Path + ' - 32bit\';
+  end;
+
+  Path := Path + GetMaxLanguage(Version)
+               + '\'
+               + GetMaxLangDir(Version)
+               + '\plugcfg\Outliner';
+
+  Result := Path;
 end;
 
 
