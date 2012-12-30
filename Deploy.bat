@@ -5,6 +5,7 @@ SET CoreAssembliesSource="..\Outliner.Core\Outliner.Core\bin\release"
 SET CoreAssembliesTarget="Deployment\assemblies"
 SET PluginsSource="..\Outliner.Plugins"
 SET PluginsTarget="Deployment\plugcfg\Plugins"
+SET SetupOutput="Builds"
 SET Log="Logs\Deploy.log"
 
 ::=============================================================================
@@ -44,11 +45,11 @@ ECHO %ShortCoreVersion% >> %Log%
 
 CALL :LogBlank
 CALL :LogSection "Compiling regular installer"
-%InnoSetupCompiler% "regular.iss" /F"OutlinerSetup_%ShortCoreVersion%_Regular" >> %Log% || GOTO :error
+%InnoSetupCompiler% "regular.iss" /O"%SetupOutput%" /F"Outliner_%ShortCoreVersion%_Regular" >> %Log% || GOTO :error
 
 CALL :LogBlank
 CALL :LogSection "Compiling full installer"
-%InnoSetupCompiler% "full.iss" /F"OutlinerSetup_%ShortCoreVersion%_Full" >> %Log% || GOTO :error
+%InnoSetupCompiler% "full.iss" /O"%SetupOutput%" /F"Outliner_%ShortCoreVersion%_Full" >> %Log% || GOTO :error
 
 goto :eof
 
