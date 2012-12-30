@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<FilterConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <text>Script Filter Test</text>
-  <FilterCategory>Custom</FilterCategory>
-  <Filter xsi:type="MaxscriptFilter">
-    <script>node.radius &gt; 10;</script>
-  </Filter>
-</FilterConfiguration>
