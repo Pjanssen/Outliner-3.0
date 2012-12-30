@@ -67,7 +67,6 @@ end;
 
 
 
-
 //Collects all data about a max version from te registry.
 function GetMaxVersionData(Key: String; VersionKey: String): MaxVersionData;
 var

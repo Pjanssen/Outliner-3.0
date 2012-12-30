@@ -1,5 +1,4 @@
 #define AppName "Outliner"
-#define AppVersion "3.0"
 #define AppPublisher "Pier Janssen"
 #define AppURL "http://outliner.pjanssen.nl"
 #define Min3dsMaxVersion 15
@@ -35,7 +34,6 @@ SelectMaxVersionDescription=Select the 3dsMax version you want to install the {#
 
 [Files]
 Source: "Deployment\assemblies\*"; DestDir: "{code:GetSelectedAssemblyDir}"; Flags: ignoreversion;
-Source: "Deployment\plugcfg\*"; DestDir: "{code:GetSelectedPlugCfgDir}"; Flags: recursesubdirs ignoreversion;
 
 [Code]
 var
