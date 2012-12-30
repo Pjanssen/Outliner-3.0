@@ -13,8 +13,6 @@ AppVersion={#AppVersion}
 AppVerName={#AppName} {#AppVersion}
 AppPublisher={#AppPublisher}
 AppPublisherURL={#AppURL}
-AppSupportURL={#AppURL}
-AppUpdatesURL={#AppURL}
 AppContact=pier@pjanssen.nl
 AppCopyright=Copyright (C) Pier Janssen 2012
 CreateAppDir=no
@@ -35,19 +33,16 @@ NoCompatibleMaxVersionsError=No compatible 3dsMax version found!%nThe {#AppName}
 SelectMaxVersionTitle=Select 3dsMax version
 SelectMaxVersionDescription=Select the 3dsMax version you want to install the {#AppName} for, then click Next.
 
-
 [Files]
 Source: "Deployment\assemblies\*"; DestDir: "{code:GetSelectedAssemblyDir}"; Flags: ignoreversion;
 Source: "Deployment\plugcfg\*"; DestDir: "{code:GetSelectedPlugCfgDir}"; Flags: recursesubdirs ignoreversion;
 
 [Code]
 var
-  MaxVersions: TArrayOfInteger;
+  MaxVersions: Array of MaxVersionData;
   MaxVersionPage: TInputOptionWizardPage;
-  AssemblyPath : String;
-  OutlinerPlugCfgDir: String;
 
-
+     
 procedure CheckMaxVersion;
 begin
   if not CompatibleVersionPresent(MaxVersions, {#Min3dsMaxVersion}) then
@@ -58,8 +53,8 @@ begin
     Abort;
   end;
 end;
-
-
+    
+ 
 procedure CreateMaxVersionPage;
 var
   i: Integer;
@@ -70,20 +65,35 @@ begin
     True, False);
   for i := 0 to GetArrayLength(MaxVersions) - 1 do
   begin
-    MaxVersionPage.Add(GetMaxProductName(MaxVersions[i]));
+    if (MaxVersions[i].Version >= {#Min3dsMaxVersion}) then
+      MaxVersionPage.Add(MaxVersions[i].ProductName);
   end;
   MaxVersionPage.Values[0] := True;
 end;
 
 
+function GetSelectedVersion(): MaxVersionData;
+var
+  i: Integer;
+begin
+  for i := 0 to GetArrayLength(MaxVersions) - 1 do
+  begin
+    if MaxVersionPage.Values[i] then
+    begin
+      Result := MaxVersions[i];
+      exit;
+    end;
+  end;
+end;
+
 function GetSelectedAssemblyDir(Input: String): String;
 begin
-  Result := GetAssembliesDir(15);
+  Result := GetAssembliesDir(GetSelectedVersion());
 end;
 
 function GetSelectedPlugCfgDir(Input: String): String;
 begin
-  Result := GetPlugCfgDir(15);
+  Result := GetPlugCfgDir(GetSelectedVersion());
 end;
 
 procedure InitializeWizard;
