@@ -37,6 +37,7 @@
     </Reference>
     <Reference Include="MaxCustomControls">
       <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\MaxCustomControls.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Outliner.Core">
       <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\Outliner.Core.dll</HintPath>
@@ -90,6 +91,7 @@
     <ProjectReference Include="..\PolyCount\PolyCount.csproj">
       <Project>{2644f454-7d80-4339-8221-7dd5b9213466}</Project>
       <Name>PolyCount</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\TreeNodeButtons\TreeNodeButtons.csproj">
       <Project>{F04022F4-F21E-42F2-865D-0BED07C690E4}</Project>
@@ -99,7 +101,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)" "C:\Users\Pier\AppData\Local\Autodesk\3dsMax\2013 - 64bit\ENU\en-US\plugcfg\Outliner\Plugins\$(TargetFileName)"</PostBuildEvent>
+    <PostBuildEvent>IF NOT '%25ISCMDLINEBUILD%25'=='TRUE' copy "$(TargetPath)" "C:\Users\Pier\AppData\Local\Autodesk\3dsMax\2013 - 64bit\ENU\en-US\plugcfg\Outliner\Plugins\$(TargetFileName)"</PostBuildEvent>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
