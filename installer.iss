@@ -6,7 +6,10 @@
 #include "functions.iss"
 
 [Setup]
-AppId={{2002D6FD-0D9C-4456-801F-979406054CFB}
+AppId=OutlinerMax{code:GetSelectedMaxVersion}
+;{2002D6FD-0D9C-4456-801F-979406054CFB}
+UsePreviousLanguage=no
+SetupLogging=yes
 AppName={#AppName}
 AppVersion={#AppVersion}
 AppVerName={#AppName} {#AppVersion}
@@ -20,6 +23,7 @@ Compression=lzma
 SolidCompression=yes
 AllowCancelDuringInstall=no
 AppMutex=3dsmax,Global\3dsmax
+UninstallDisplayName={#AppName} for 3dsMax {code:GetSelectedMaxVersion}
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -40,19 +44,19 @@ var
   MaxVersions: Array of MaxVersionData;
   MaxVersionPage: TInputOptionWizardPage;
 
-     
+//=============================================================================
+
 procedure CheckMaxVersion;
 begin
-  if not CompatibleVersionPresent(MaxVersions, {#Min3dsMaxVersion}) then
+  if GetArrayLength(MaxVersions) = 0 then
   begin
     MsgBox( FmtMessage( ExpandConstant('{cm:NoCompatibleMaxVersionsError}')
                       , [GetMaxVersionString({#Min3dsMaxVersion})])
           , mbError, MB_OK);
-    Abort;
+   Abort;
   end;
 end;
-    
- 
+
 procedure CreateMaxVersionPage;
 var
   i: Integer;
@@ -69,19 +73,39 @@ begin
   MaxVersionPage.Values[0] := True;
 end;
 
+//=============================================================================
 
 function GetSelectedVersion(): MaxVersionData;
 var
+  param: String;
+  version: Integer;
   i: Integer;
 begin
-  for i := 0 to GetArrayLength(MaxVersions) - 1 do
+  param := GetCommandLineParam('/TARGETMAXVERSION');
+  if not (param = '') then
   begin
-    if MaxVersionPage.Values[i] then
+    version := StrToInt(param);
+    for i := 0 to GetArrayLength(MaxVersions) - 1 do
     begin
-      Result := MaxVersions[i];
-      exit;
+      if MaxVersions[i].Version = version then
+      begin
+        Result := MaxVersions[i];
+        exit;
+      end;
     end;
+  end else if not (MaxVersionPage = nil) then
+  begin
+    Result := MaxVersions[MaxVersionPage.SelectedValueIndex];
   end;
+end;
+
+function GetSelectedMaxVersion(input: String): String;
+var
+  selVersion: MaxVersionData;
+begin
+  selVersion := GetSelectedVersion();
+  if not (selVersion.Version = 0) then
+    Result := GetMaxVersionString(selVersion.Version);
 end;
 
 function GetSelectedAssemblyDir(Input: String): String;
@@ -94,9 +118,50 @@ begin
   Result := GetPlugCfgDir(GetSelectedVersion());
 end;
 
+//=============================================================================
+
+procedure LogMaxVersionData(Version: MaxVersionData; Prefix: String);
+begin
+  Log(Prefix + 'Version:       ' + IntToStr(Version.Version));
+  Log(Prefix + 'IsDesign:      ' + BoolToStr(Version.IsDesign));
+  Log(Prefix + 'RegKey:        ' + Version.RegKey);
+  Log(Prefix + 'RegSubKey:     ' + Version.RegSubKey);
+  Log(Prefix + 'Name:          ' + Version.ProductName);
+  Log(Prefix + 'Language:      ' + Version.Language);
+  Log(Prefix + 'InstallDir:    ' + Version.Installdir);
+  Log(Prefix + 'AssembliesDir: ' + GetAssembliesDir(Version));
+  Log(Prefix + 'PlugCfgDir:    ' + GetPlugCfgDir(Version));
+end;
+
+procedure LogInstalledMaxVersions;
+var
+  i: Integer;
+  v: MaxVersionData;
+begin
+  Log('--- Installed 3dsMax Versions ---');
+  for i := 0 to GetArrayLength(MaxVersions) - 1 do
+  begin
+    v := MaxVersions[i];
+    Log('[' + IntToStr(i) + ']');
+    LogMaxVersionData(v, '    ');
+  end;
+  Log('');
+end;
+
+//=============================================================================
+
 procedure InitializeWizard;
 begin
-  MaxVersions := GetInstalledMaxVersions();
+  MaxVersions := GetInstalledMaxVersions(StrToInt(ExpandConstant('{#Min3dsMaxVersion}')));
+  Log('');
+  LogInstalledMaxVersions();
   CheckMaxVersion();
   CreateMaxVersionPage();
+end;
+
+function PrepareToInstall(var NeedsRestart: Boolean): String;
+begin
+  Log('--- Target 3dsMax Version ---');
+  LogMaxVersionData(GetSelectedVersion(), '');
+  Log('');
 end;

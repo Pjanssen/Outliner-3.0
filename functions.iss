@@ -16,6 +16,20 @@ begin
   end;
 end;
 
+//=============================================================================
+
+function BoolToStr(Value: Boolean): String;
+begin
+  if (Value = True) then
+  begin
+    Result := 'True';
+  end else
+  begin
+    Result := 'False';
+  end;
+end;
+
+//=============================================================================
 
 function QueryRegStringValue(Root: Integer; Key: String; ValueName: String): String;
 var
@@ -27,6 +41,35 @@ begin
     end;
 end;
 
+//=============================================================================
+
+function GetCommandlineParam (inParam: String):String;
+var
+  LoopVar : Integer;
+  BreakLoop : Boolean;
+begin
+  { Init the variable to known values }
+  LoopVar := 0;
+  Result := '';
+  BreakLoop := False;
+
+  { Loop through the passed in arry to find the parameter }
+  while ((LoopVar < ParamCount) and (not BreakLoop)) do
+  begin
+    { Determine if the looked for parameter is the next value }
+    if ((ParamStr(LoopVar) = inParam) and ((LoopVar+1) <= ParamCount )) then
+    begin
+      { Set the return result equal to the next command line parameter }
+      Result := ParamStr(LoopVar+1);
+
+      { Break the loop }
+      BreakLoop := True;
+    end;
+
+    { Increment the loop variable }
+    LoopVar := LoopVar + 1;
+  end;
+end;
 
 //=============================================================================
 
@@ -108,30 +151,39 @@ end;
 
 //Retrieves the installed 3dsMax versions from the registry.
 //Returns an array with MaxVersionData records.
-function GetInstalledMaxVersions: Array of MaxVersionData;
+function GetInstalledMaxVersions(MinVersion: Integer): Array of MaxVersionData;
 var
   MaxVersions: Array of MaxVersionData;
   MaxDesignVersions: Array of MaxVersionData;
   Versions: Array of MaxVersionData;
-  maxLen: Integer;
-  maxDesignLen: Integer;
   i: Integer;
+  len: Integer;
 begin
   MaxVersions := GetVersionsFromRegistry('{#MaxRegKey}');
   MaxDesignVersions := GetVersionsFromRegistry('{#MaxDesignRegKey}');
-  maxLen := GetArrayLength(MaxVersions);
-  maxDesignLen := GetArrayLength(MaxDesignVersions);
-  SetArrayLength(Versions, maxLen + maxDesignLen);
-  for i := 0 to maxLen - 1 do
+  
+  for i := 0 to GetArrayLength(MaxVersions) - 1 do
   begin
-    Versions[i] := MaxVersions[i];
-    Versions[i].IsDesign := False;
+    if (MaxVersions[i].Version >= MinVersion) then
+    begin
+      len := GetArrayLength(Versions);
+      SetArrayLength(Versions, len + 1);
+      Versions[len] := MaxVersions[i];
+      Versions[len].IsDesign := False;
+    end;
   end;
-  for i := 0 to maxDesignLen - 1 do
+  
+  for i := 0 to GetArrayLength(MaxDesignVersions) - 1 do
   begin
-    Versions[maxLen + i] := MaxDesignVersions[i];
-    Versions[maxLen + i].IsDesign := True;
+    if (MaxDesignVersions[i].Version >= MinVersion) then
+    begin
+      len := GetArrayLength(Versions);
+      SetArrayLength(Versions, len + 1);
+      Versions[len] := MaxDesignVersions[i];
+      Versions[len].IsDesign := True;
+    end;
   end;
+
   Result := Versions;
 end;
 
@@ -163,7 +215,7 @@ end;
 
 function GetAssembliesDir(Version: MaxVersionData): String;
 begin
-  Result := Version.InstallDir + '\bin\assemblies';
+  Result := Version.InstallDir + 'bin\assemblies';
 end;
 
 function GetMaxLangDir(Version: MaxVersionData): String;

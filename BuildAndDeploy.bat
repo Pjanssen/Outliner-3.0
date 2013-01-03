@@ -3,6 +3,7 @@
 SET OutlinerCore="..\Outliner.Core\Outliner.Core\Outliner.Core.csproj"
 SET OutlinerPlugins="..\Outliner.Plugins\OutlinerPlugins.sln"
 SET Log="Logs\Build.log"
+SET SkipAutoDeploy="True"
 
 ::=============================================================================
 
@@ -11,7 +12,7 @@ IF "%MSBuild%"=="" goto :ErrorMsg "Could not find MSBuild.exe for .NET 4.0."
 dir "%MSBuild%" > nul || goto :ErrorMsg "Could not find MSBuild.exe for .NET 4.0."
 
 IF NOT EXIST "Logs" MKDIR "Logs"
-IF EXIST %Log% DEL %log% /Q
+IF EXIST %Log% DEL %Log% /Q
 
 ::=============================================================================
 
