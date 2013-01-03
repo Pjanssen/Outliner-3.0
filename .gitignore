@@ -19,6 +19,7 @@ bin
 obj
 testresults
 *.log
+Deployment
 
 
 # Temporary Test Projects #

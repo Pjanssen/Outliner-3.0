@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
+  
+  <Target Name="IncrementVersion">
+    <Time Format="yy">
+      <Output TaskParameter="DayOfYear" PropertyName="DayOfYear" />
+      <Output TaskParameter="FormattedTime" PropertyName="Year" />
+    </Time>
+    <Version Major="3" Minor="0" BuildType="Increment" RevisionType="None" VersionFile="..\version.txt">
+      <Output TaskParameter="Major" PropertyName="Major" />
+      <Output TaskParameter="Minor" PropertyName="Minor" />
+      <Output TaskParameter="Build" PropertyName="Build" />
+    </Version>
+    <AssemblyInfo CodeLanguage="CS"
+                  OutputFile="..\AssemblyVersion.cs"
+                  AssemblyVersion="$(Major).$(Minor).$(Build).$(Year)$(DayOfYear)"
+                  AssemblyFileVersion="$(Major).$(Minor).$(Build).$(Year)$(DayOfYear)" />
+  </Target>
+
+  <Target Name="DeployOutput">
+    <Copy SourceFiles="$(OutDir)$(TargetFileName)" DestinationFolder="..\Deployment" />
+  </Target>
+</Project>
