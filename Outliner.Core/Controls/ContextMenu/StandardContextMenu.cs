@@ -37,13 +37,13 @@ internal static class StandardContextMenu
       foreach (OutlinerPreset preset in presets.Where(p => p.IsDefaultPreset))
       {
          ToolStripMenuItem item = AddDropDownItem(preset_btn.DropDownItems, preset.Text, preset.Image16, preset_btn_click, preset);
-         item.Checked = preset == currentPreset;
+         item.Checked = preset.Text == currentPreset.Text;
       }
       preset_btn.DropDownItems.Add(new ToolStripSeparator());
       foreach (OutlinerPreset preset in presets.Where(p => !p.IsDefaultPreset))
       {
          ToolStripMenuItem item = AddDropDownItem(preset_btn.DropDownItems, preset.Text, preset.Image16, preset_btn_click, preset);
-         item.Checked = preset == currentPreset;
+         item.Checked = preset.Text == currentPreset.Text;
       }
 
       strip.Items.Add(preset_btn);

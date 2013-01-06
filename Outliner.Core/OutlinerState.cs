@@ -13,8 +13,28 @@ namespace Outliner
 {
 public class OutlinerState
 {
-   public OutlinerPreset Tree1Preset { get; set; }
-   public OutlinerPreset Tree2Preset { get; set; }
+   public String Tree1PresetName { get; set; }
+   public String Tree2PresetName { get; set; }
+
+   private OutlinerPreset GetPresetByName(String name)
+   {
+      return ConfigurationHelpers.GetConfigurations<OutlinerPreset>(OutlinerPaths.PresetsDir)
+                                 .FirstOrDefault(p => p.Text == name);
+   }
+
+   [XmlIgnore]
+   public OutlinerPreset Tree1Preset 
+   { 
+      get { return GetPresetByName(this.Tree1PresetName); }
+      set { this.Tree1PresetName = value.Text; }
+   }
+
+   [XmlIgnore]
+   public OutlinerPreset Tree2Preset 
+   {
+      get { return GetPresetByName(this.Tree2PresetName); }
+      set { this.Tree2PresetName = value.Text; }
+   }
 
    public Boolean Panel1Collapsed { get; set; }
    public Boolean Panel2Collapsed { get; set; }
@@ -24,8 +44,8 @@ public class OutlinerState
 
    public OutlinerState()
    {
-      this.Tree1Preset = new OutlinerPreset();
-      this.Tree2Preset = new OutlinerPreset();
+      this.Tree1PresetName = "";
+      this.Tree2PresetName = "";
 
       this.Panel1Collapsed = false;
       this.Panel2Collapsed = true;

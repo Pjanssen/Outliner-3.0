@@ -179,7 +179,10 @@ public class OutlinerGUP
 
       try
       {
-         this.State = XmlSerializationHelpers.Deserialize<OutlinerState>(OutlinerPaths.StateFile);
+         if (File.Exists(OutlinerPaths.StateFile))
+            this.State = XmlSerializationHelpers.Deserialize<OutlinerState>(OutlinerPaths.StateFile);
+         else
+            this.State = defaultState();
       }
       catch (Exception e)
       {
