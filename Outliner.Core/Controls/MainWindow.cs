@@ -10,9 +10,9 @@ using UiViewModels.Actions;
 
 namespace Outliner.Controls
 {
-   public partial class TestForm : MaxCustomControls.MaxForm
+   public partial class MainWindow : MaxCustomControls.MaxForm
    {
-      public TestForm()
+      public MainWindow()
       {
          InitializeComponent();
       }

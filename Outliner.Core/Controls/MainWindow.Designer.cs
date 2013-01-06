@@ -1,6 +1,6 @@
 ﻿namespace Outliner.Controls
 {
-   partial class TestForm
+   partial class MainWindow
    {
       /// <summary>
       /// Required designer variable.

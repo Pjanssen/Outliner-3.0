@@ -262,11 +262,11 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\SerializableColor.cs" />
-    <Compile Include="Controls\TestForm.cs">
+    <Compile Include="Controls\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\TestForm.Designer.cs">
-      <DependentUpon>TestForm.cs</DependentUpon>
+    <Compile Include="Controls\MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Tree\DragDropHandler.cs" />
     <Compile Include="Controls\Tree\Layout\EmptySpace.cs" />
@@ -323,11 +323,11 @@
     <Compile Include="Filters\NameFilter.cs" />
     <Compile Include="Filters\Filter.cs" />
     <Compile Include="Filters\FilterCollection.cs" />
-    <Compile Include="Controls\TestControl.cs">
+    <Compile Include="Controls\MainControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\TestControl.Designer.cs">
-      <DependentUpon>TestControl.cs</DependentUpon>
+    <Compile Include="Controls\MainControl.Designer.cs">
+      <DependentUpon>MainControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Tree\TreeViewColorScheme.cs" />
     <Compile Include="OutlinerGUP.cs" />
@@ -385,13 +385,13 @@
     <EmbeddedResource Include="Controls\Options\ConfigurationFilesEditor.resx">
       <DependentUpon>ConfigurationFilesEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\TestControl.resx">
-      <DependentUpon>TestControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\MainControl.resx">
+      <DependentUpon>MainControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controls\TestForm.resx">
-      <DependentUpon>TestForm.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\MainWindow.resx">
+      <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OutlinerResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

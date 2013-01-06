@@ -1,7 +1,7 @@
 ﻿using Outliner.Controls.Tree;
 namespace Outliner.Controls
 {
-   partial class TestControl
+   partial class MainControl
    {
       /// <summary> 
       /// Required designer variable.

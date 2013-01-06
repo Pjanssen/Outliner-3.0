@@ -11,9 +11,9 @@ using Outliner.MaxUtils;
 
 namespace Outliner.Controls
 {
-public partial class TestControl : MaxCustomControls.MaxUserControl, MaxCustomControls.CuiUpdatable
+public partial class MainControl : MaxCustomControls.MaxUserControl, MaxCustomControls.CuiUpdatable
 {
-   public TestControl()
+   public MainControl()
    {
       InitializeComponent();
       MaxCustomControls.MaxCuiBinder.GetInstance().RegisterForNotification(this);

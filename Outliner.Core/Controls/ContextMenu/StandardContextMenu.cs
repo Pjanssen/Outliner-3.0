@@ -321,7 +321,7 @@ internal static class StandardContextMenu
 
    static void window_new_click(object sender, EventArgs e)
    {
-      TestForm f = new TestForm();
+      MainWindow f = new MainWindow();
 
       OutlinerGUP outlinerInstance = OutlinerGUP.Instance;
       OutlinerState outlinerState = outlinerInstance.State;

@@ -81,7 +81,7 @@ public class OpenOutliner : CuiDockableContentAdapter
          return host;
       }
 
-      TestControl mainControl = new TestControl();
+      MainControl mainControl = new MainControl();
       this.splitContainer = mainControl.outlinerSplitContainer1;
       this.tree1 = mainControl.TreeView1;
       this.tree2 = mainControl.TreeView2;
