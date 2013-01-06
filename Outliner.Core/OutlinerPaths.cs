@@ -61,6 +61,11 @@ public static class OutlinerPaths
       get { return Path.Combine(OutlinerPaths.ConfigDir, "NodeSorters\\"); }
    }
 
+   public static String ColorSchemesDir
+   {
+      get { return Path.Combine(OutlinerPaths.ConfigDir, "ColorSchemes"); }
+   }
+
    public static String SettingsFile
    {
       get { return Path.Combine(OutlinerPaths.ConfigDir, "settings.xml"); }

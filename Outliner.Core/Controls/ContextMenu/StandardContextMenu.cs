@@ -20,13 +20,13 @@ namespace Outliner.Controls.ContextMenu
 {
 internal static class StandardContextMenu
 {
-   internal static ToolStripDropDown Create(ContextMenuStrip menu, OutlinerSplitContainer container, OutlinerTree::TreeView tree, TreeMode treeMode)
+   public static ToolStripDropDown Create(ContextMenuStrip menu, OutlinerSplitContainer container, OutlinerTree::TreeView tree, TreeMode treeMode)
    {
       ToolStripDropDown strip = new OutlinerContextMenu(menu);
       strip.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
       strip.Tag = new Tuple<OutlinerSplitContainer, OutlinerTree::TreeView, TreeMode>(container, tree, treeMode);
-      strip.Renderer = new OutlinerToolStripRenderer(new OutlinerColorTable());
       strip.Padding = new Padding(3, 2, 1, 1);
+      strip.Renderer = new OutlinerToolStripRenderer(OutlinerGUP.Instance.ColorScheme.ContextMenuColorTable);
 
       
       ToolStripDropDownButton preset_btn = new ToolStripDropDownButton(ContextMenuResources.Context_Preset);
@@ -84,7 +84,7 @@ internal static class StandardContextMenu
       
       if (customFilters.Count() > 0)
          filter_btn.DropDownItems.Add(new ToolStripSeparator());
-      AddUserFileItems(filter_btn.DropDownItems, treeMode, filters.Where(f => f.Category == FilterCategory.Custom), filter_ItemClick);
+      AddUserFileItems(filter_btn.DropDownItems, treeMode, customFilters, filter_ItemClick);
 
       strip.Items.Add(filter_btn);
 
@@ -326,8 +326,8 @@ internal static class StandardContextMenu
       OutlinerGUP outlinerInstance = OutlinerGUP.Instance;
       OutlinerState outlinerState = outlinerInstance.State;
 
-      f.treeView1.Colors = OutlinerGUP.Instance.ColorScheme;
-      f.treeView2.Colors = OutlinerGUP.Instance.ColorScheme;
+      f.treeView1.Colors = OutlinerGUP.Instance.ColorScheme.TreeViewColorScheme;
+      f.treeView2.Colors = OutlinerGUP.Instance.ColorScheme.TreeViewColorScheme;
 
       f.outlinerSplitContainer1.Orientation = outlinerState.SplitterOrientation;
       f.outlinerSplitContainer1.SplitterDistance = outlinerState.SplitterDistance;
@@ -377,6 +377,11 @@ internal static class StandardContextMenu
       foreach (ConfigurationFile item in items)
       {
          ToolStripMenuItem menuItem = AddUserFilesItem(itemCollection, item, clickHandler);
+         IContextMenuExtendable contextMenuExt = item as IContextMenuExtendable;
+         if (contextMenuExt != null)
+         {
+            menuItem.DropDownItems.AddRange(contextMenuExt.ContextMenuItem.ToToolStripMenuItems(null, null));
+         }
          CheckFilterItem(menuItem, treeMode);
       }
       return items.Count();
@@ -437,7 +442,7 @@ internal static class StandardContextMenu
       AboutBox aboutBox = new AboutBox();
       aboutBox.ShowDialog(MaxInterfaces.MaxHwnd);
    }
-   #endregion
 
+   #endregion
 }
 }

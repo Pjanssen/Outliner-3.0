@@ -44,8 +44,11 @@ public partial class TestControl : MaxCustomControls.MaxUserControl, MaxCustomCo
       this.treeView1.Update(TreeViewUpdateFlags.Brushes | TreeViewUpdateFlags.Redraw);
       this.treeView2.Colors.UpdateColors();
       this.treeView2.Update(TreeViewUpdateFlags.Brushes | TreeViewUpdateFlags.Redraw);
-      this.nameFilterTextBox.BackColor = this.treeView1.Colors.Background.Color;
-      this.nameFilterTextBox.ForeColor = this.treeView1.Colors.ForegroundLight.Color;
+      TreeViewColorScheme colorScheme = this.treeView1.Colors;
+      this.nameFilterTextBox.BackColor = colorScheme.Background;
+      this.nameFilterTextBox.ForeColor = ColorHelpers.SelectContrastingColor( colorScheme.Background
+                                                                            , colorScheme.ForegroundLight
+                                                                            , colorScheme.ForegroundDark);
    }
 
    public Outliner.Controls.Tree.TreeView ActiveTreeView

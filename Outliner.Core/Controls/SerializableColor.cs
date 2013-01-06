@@ -46,6 +46,11 @@ public struct SerializableColor : IXmlSerializable
       this.color = ColorHelpers.FromMaxGuiColor(color);
    }
 
+   public static implicit operator Color(SerializableColor color)
+   {
+      return color.Color;
+   }
+
    public System.Xml.Schema.XmlSchema GetSchema()
    {
       return null;

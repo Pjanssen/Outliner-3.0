@@ -1,0 +1,84 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Xml" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Xml.Serialization" #>
+<#@ output extension=".cs" #>
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Xml.Serialization;
+using Outliner.Controls;
+
+namespace Outliner.Controls.ContextMenu
+{
+   public class ContextMenuColorTable : ProfessionalColorTable
+   {
+      [XmlElement("Text")]
+      public SerializableColor S_Text { get; set; }
+      public Color Text
+      {
+         get { return S_Text; } 
+      }
+      
+      [XmlElement("Arrow")]
+      public SerializableColor S_Arrow { get; set; }
+      public Color Arrow
+      {
+         get { return S_Arrow; } 
+      }
+
+      <#
+         List<String> members = new List<String>() {
+            "MenuBorder",
+            "ToolStripBorder",
+            "ToolStripDropDownBackground",
+            "SeparatorLight",
+            "SeparatorDark",
+
+            "ButtonCheckedHighlight",
+            "ButtonCheckedHighlightBorder",
+            "ButtonCheckedGradientBegin",
+            "ButtonCheckedGradientMiddle",
+            "ButtonCheckedGradientEnd",
+
+            "ButtonSelectedBorder",
+            "ButtonSelectedHighlightBorder",
+            "ButtonSelectedGradientBegin",
+            "ButtonSelectedGradientMiddle",
+            "ButtonSelectedGradientEnd",
+            
+            "ButtonPressedBorder",
+            "ButtonPressedHighlightBorder",
+            "ButtonPressedGradientBegin",
+            "ButtonPressedGradientMiddle",
+            "ButtonPressedGradientEnd",
+
+            "MenuItemPressedGradientBegin",
+            "MenuItemPressedGradientMiddle",
+            "MenuItemPressedGradientEnd",
+            "MenuItemSelected",
+
+            "ImageMarginGradientBegin",
+            "ImageMarginGradientMiddle",
+            "ImageMarginGradientEnd"
+         };
+         foreach(String member in members)
+         {
+      #>
+
+      [XmlElement("<#= member #>")]
+      public SerializableColor S_<#= member #> { get; set; }
+      public override Color <#= member #>
+      {
+         get { return S_<#= member #>; } 
+      }
+
+      <#
+         }
+      #>
+
+   }
+}

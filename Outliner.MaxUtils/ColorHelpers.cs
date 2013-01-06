@@ -55,10 +55,10 @@ public static class ColorHelpers
       Throw.IfArgumentIsNull(htmlColor, "htmlColor");
 
       if (htmlColor.Length == 9 && htmlColor[0] == '#')
-         return Color.FromArgb(Convert.ToInt32(htmlColor.Substring(1, 2), 16),
-                                 Convert.ToInt32(htmlColor.Substring(3, 2), 16),
-                                 Convert.ToInt32(htmlColor.Substring(5, 2), 16),
-                                 Convert.ToInt32(htmlColor.Substring(7, 2), 16));
+         return Color.FromArgb( Convert.ToInt32(htmlColor.Substring(1, 2), 16)
+                              , Convert.ToInt32(htmlColor.Substring(3, 2), 16)
+                              , Convert.ToInt32(htmlColor.Substring(5, 2), 16)
+                              , Convert.ToInt32(htmlColor.Substring(7, 2), 16));
       else
          return ColorTranslator.FromHtml(htmlColor);
    }
@@ -68,8 +68,7 @@ public static class ColorHelpers
    /// </summary>
    public static Color FromMaxGuiColor(GuiColors color)
    {
-      IIColorManager cm = MaxInterfaces.Global.ColorManager;
-      return ColorHelpers.FromMaxColor(cm.GetColor(color));
+      return ColorHelpers.FromMaxColor(MaxInterfaces.ColorManager.GetColor(color));
    }
 
 
@@ -88,6 +87,18 @@ public static class ColorHelpers
    public static int Compare(Color colorA, Color colorB)
    {
       return colorA.ToArgb().CompareTo(colorB.ToArgb());
+   }
+
+   public static Color SelectContrastingColor(Color backColor, Color foreColorLight, Color foreColorDark)
+   {
+      float backBrightness = backColor.GetBrightness();
+      float lightBrightness = foreColorLight.GetBrightness();
+      float darkBrightness = foreColorDark.GetBrightness();
+
+      if (Math.Abs(backBrightness - darkBrightness) > Math.Abs(backBrightness - lightBrightness))
+         return foreColorDark;
+      else
+         return foreColorLight;
    }
 }
 }

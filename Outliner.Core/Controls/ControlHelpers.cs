@@ -10,7 +10,7 @@ using Autodesk.Max;
 
 namespace Outliner.Controls
 {
-internal class ControlHelpers
+public class ControlHelpers
 {
    public static MessageBoxOptions GetLocalizedMessageBoxOptions()
    {

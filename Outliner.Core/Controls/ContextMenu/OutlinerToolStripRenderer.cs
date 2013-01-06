@@ -10,9 +10,8 @@ namespace Outliner.Controls.ContextMenu
 {
 public class OutlinerToolStripRenderer : ToolStripProfessionalRenderer
 {
-   private OutlinerColorTable outlinerColors;
-   public OutlinerToolStripRenderer() : this(new OutlinerColorTable()) { }
-   public OutlinerToolStripRenderer(OutlinerColorTable colorTable)
+   private ContextMenuColorTable outlinerColors;
+   public OutlinerToolStripRenderer(ContextMenuColorTable colorTable)
       : base(colorTable)
    {
       this.outlinerColors = colorTable;
@@ -20,13 +19,13 @@ public class OutlinerToolStripRenderer : ToolStripProfessionalRenderer
 
    protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e)
    {
-      e.ArrowColor = this.outlinerColors.ArrowColor;
+      e.ArrowColor = this.outlinerColors.Arrow;
       base.OnRenderArrow(e);
    }
 
    protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
    {
-      e.TextColor = this.outlinerColors.TextColor;
+      e.TextColor = this.outlinerColors.Text;
       base.OnRenderItemText(e);
    }
 

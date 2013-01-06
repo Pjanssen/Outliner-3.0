@@ -315,24 +315,6 @@ namespace Outliner {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was an error while loading settings:\n{0}.
-        /// </summary>
-        internal static string Error_LoadSettings {
-            get {
-                return ResourceManager.GetString("Error_LoadSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error loading settings.
-        /// </summary>
-        internal static string Error_LoadSettingsTitle {
-            get {
-                return ResourceManager.GetString("Error_LoadSettingsTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Combinator.
         /// </summary>
         internal static string Filter_Combinator {
@@ -570,6 +552,27 @@ namespace Outliner {
         internal static string Warning_DeleteConfigTitle {
             get {
                 return ResourceManager.GetString("Warning_DeleteConfigTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading the Outliner settings failed. This could mean that your Outliner installation is corrupt, and it will have to be reinstalled.
+        ///
+        ///To try to reload the settings manually, use Outliner.ReloadSettings()
+        ///For more details on the error, see Outliner.SettingsLoadException.ToString().
+        /// </summary>
+        internal static string Warning_SettingsNotLoaded {
+            get {
+                return ResourceManager.GetString("Warning_SettingsNotLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading settings.
+        /// </summary>
+        internal static string Warning_SettingsNotLoaded_Title {
+            get {
+                return ResourceManager.GetString("Warning_SettingsNotLoaded_Title", resourceCulture);
             }
         }
     }

@@ -6,6 +6,7 @@ using System.Windows.Forms.Integration;
 using Outliner.Configuration;
 using Outliner.Controls;
 using Outliner.Controls.Tree;
+using Outliner.MaxUtils;
 using Outliner.Modes;
 using UiViewModels.Actions;
 using WinForms = System.Windows.Forms;
@@ -58,38 +59,37 @@ public class OpenOutliner : CuiDockableContentAdapter
       WindowsFormsHost host = new WindowsFormsHost();
       host.Loaded += new System.Windows.RoutedEventHandler(host_Loaded);
       host.Unloaded += new System.Windows.RoutedEventHandler(host_Unloaded);
+      //host.MinWidth = 200;
+      //host.MinHeight = 200;
+      //host.Width = host.Height = 200;
+      
+
+      OutlinerGUP outlinerInstance = OutlinerGUP.Instance;
+      if (!outlinerInstance.SettingsLoaded)
+      {
+         WinForms::MessageBox.Show( OutlinerResources.Warning_SettingsNotLoaded
+                                  , OutlinerResources.Warning_SettingsNotLoaded_Title
+                                  , WinForms.MessageBoxButtons.OK
+                                  , WinForms.MessageBoxIcon.Error
+                                  , WinForms.MessageBoxDefaultButton.Button1
+                                  , ControlHelpers.GetLocalizedMessageBoxOptions());
+
+         host.Child = new Outliner.Controls.Options.OutlinerUserControl();
+         host.Child.Width = 150;
+         host.Child.Height = 200;
+
+         return host;
+      }
 
       TestControl mainControl = new TestControl();
       this.splitContainer = mainControl.outlinerSplitContainer1;
       this.tree1 = mainControl.TreeView1;
       this.tree2 = mainControl.TreeView2;
 
-      OutlinerGUP outlinerInstance = OutlinerGUP.Instance;
-
-      if (!outlinerInstance.SettingsLoaded)
-      {
-         try
-         {
-            outlinerInstance.ReloadSettings();
-         }
-         catch (Exception e)
-         {
-            WinForms::MessageBox.Show( String.Format( OutlinerResources.Error_LoadSettings
-                                                    , e.Message)
-                                     , OutlinerResources.Error_LoadSettingsTitle
-                                     , WinForms.MessageBoxButtons.OK
-                                     , WinForms.MessageBoxIcon.Error);
-
-            return host;
-         }
-      }
-
       OutlinerState outlinerState = outlinerInstance.State;
 
-      this.tree1.Colors = outlinerInstance.ColorScheme;
-      this.tree2.Colors = outlinerInstance.ColorScheme;
-      mainControl.NameFilterTextBox.BackColor = outlinerInstance.ColorScheme.Background.Color;
-      mainControl.NameFilterTextBox.ForeColor = outlinerInstance.ColorScheme.ForegroundLight.Color;
+      this.tree1.Colors = outlinerInstance.ColorScheme.TreeViewColorScheme;
+      this.tree2.Colors = outlinerInstance.ColorScheme.TreeViewColorScheme;
 
       this.splitContainer.Orientation      = outlinerState.SplitterOrientation;
       this.splitContainer.SplitterDistance = outlinerState.SplitterDistance;

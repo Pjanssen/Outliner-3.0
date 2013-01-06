@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
+using ManagedServices;
 using Outliner.MaxUtils;
 using Outliner.Plugins;
 
@@ -12,8 +13,12 @@ public static class AssemblyFunctions
 {
    private static GlobalDelegates.Delegate5 ProcPostStart;
 
+   private static System.Threading.Mutex appMutex;
+
    public static void AssemblyMain() 
    {
+      appMutex = new System.Threading.Mutex(true, "3dsmax");
+      
       ProcPostStart = new GlobalDelegates.Delegate5(PostStart);
 
       MaxInterfaces.Global.RegisterNotification( ProcPostStart
@@ -28,6 +33,7 @@ public static class AssemblyFunctions
                                                  , SystemNotificationCode.SystemStartup);
 
       OutlinerGUP.Start();
+      MaxscriptSDK.ExecuteMaxscriptCommand(@"Outliner = (dotnetclass ""Outliner.OutlinerGUP"").Instance");
    }
 
    public static void AssemblyShutdown() 
@@ -38,6 +44,9 @@ public static class AssemblyFunctions
       OutlinerGUP instance = OutlinerGUP.Instance;
       if (instance != null)
          instance.Stop();
+
+      if (appMutex != null)
+         appMutex.ReleaseMutex();
    }
 }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
+using Autodesk.Max.IColorManager;
 using Autodesk.Max.Remoting;
 
 namespace Outliner.MaxUtils
@@ -119,5 +120,27 @@ public static class MaxInterfaces
          return maxHwnd;
       }
    }
+
+   public static IIColorManager ColorManager
+   {
+      get { return MaxInterfaces.Global.ColorManager; }
+   }
+
+   /// <summary>
+   /// Indicates if the current color theme is 'light'.
+   /// </summary>
+   public static Boolean ColorThemeLightActive
+   {
+      get { return ColorManager.AppFrameColorTheme == AppFrameColorTheme.LightTheme; }
+   }
+
+   /// <summary>
+   /// Indicates if the current color theme is 'dark'.
+   /// </summary>
+   public static Boolean ColorThemeDarkActive
+   {
+      get { return ColorManager.AppFrameColorTheme == AppFrameColorTheme.DarkTheme; }
+   }
+
 }
 }

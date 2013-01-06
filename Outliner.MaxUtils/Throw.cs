@@ -16,7 +16,7 @@ public static class Throw
    /// <param name="argument">The argument object to test.</param>
    /// <param name="name">The name of the argument in the called function.</param>
    /// <exception cref="ArgumentNullException"></exception>
-   public static void IfArgumentIsNull(Object argument, String name)
+   public static void IfArgumentIsNull([ValidatedNotNull] Object argument, String name)
    {
       if (argument == null)
       {
@@ -48,4 +48,7 @@ public static class Throw
          throw new InvalidOperationException(message);
    }
 }
+
+[AttributeUsage(AttributeTargets.Parameter)]
+public sealed class ValidatedNotNullAttribute : Attribute { }
 }

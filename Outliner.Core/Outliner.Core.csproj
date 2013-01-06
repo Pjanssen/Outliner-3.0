@@ -191,7 +191,6 @@
     <Compile Include="Controls\ContextMenu\MenuItemModel.cs" />
     <Compile Include="Controls\ContextMenu\MxsMenuItemModel.cs" />
     <Compile Include="Controls\ContextMenu\NodePropertyMenuItemModel.cs" />
-    <Compile Include="Controls\ContextMenu\OutlinerColorTable.cs" />
     <Compile Include="Controls\ContextMenu\OutlinerContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -306,6 +305,12 @@
     <Compile Include="NodeSorters\NodePropertySorter.cs" />
     <Compile Include="NodeSorters\NodeSorter.cs" />
     <Compile Include="Controls\Tree\NodeTextEditEventArgs.cs" />
+    <Compile Include="Controls\ContextMenu\ContextMenuColorTable.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContextMenuColorTable.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OutlinerColorScheme.cs" />
     <Compile Include="OutlinerPaths.cs" />
     <Compile Include="Plugins\OutlinerActionConverter.cs" />
     <Compile Include="Plugins\OutlinerActions.cs" />
@@ -441,13 +446,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Outliner.Core.pfx" />
+    <None Include="Controls\ContextMenu\ContextMenuColorTable.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ContextMenuColorTable.cs</LastGenOutput>
+    </None>
     <None Include="Properties\DataSources\Outliner.Configuration.ConfigurationFile.datasource" />
     <None Include="Properties\DataSources\Outliner.Controls.Tree.Layout.TreeNodeLayout.datasource" />
     <None Include="Properties\DataSources\Outliner.Filters.NameFilter.datasource" />
     <None Include="Properties\DataSources\Outliner.NodeSorters.NodeSorter.datasource" />
     <None Include="Properties\DataSources\Outliner.Presets.OutlinerPreset.datasource" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF NOT DEFINED ISCMDLINEBUILD (

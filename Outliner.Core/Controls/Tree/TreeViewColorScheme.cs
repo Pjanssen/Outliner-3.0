@@ -34,22 +34,27 @@ public class TreeViewColorScheme
    public SerializableColor ParentForeground { get; set; }
    public SerializableColor ParentBackground { get; set; }
 
+   public SerializableColor ContextMenuBackground { get; set; }
+   public SerializableColor ContextMenuForeground { get; set; }
+
    [DefaultValue(false)]
    public Boolean AlternateBackground { get; set; }
 
    public TreeViewColorScheme()
    {
-      this.Editable             = true;
-      this.ForegroundLight      = new SerializableColor(Color.White);
-      this.ForegroundDark       = new SerializableColor(Color.Black);
-      this.Background           = new SerializableColor(Color.White);
-      this.AltBackground        = new SerializableColor(Color.LightGray);
-      this.SelectionForeground  = new SerializableColor(SystemColors.HighlightText);
-      this.SelectionBackground  = new SerializableColor(SystemColors.Highlight);
-      this.DropTargetForeground = new SerializableColor(SystemColors.WindowText);
-      this.DropTargetBackground = new SerializableColor(255, 177, 177);
-      this.ParentForeground     = new SerializableColor(SystemColors.WindowText);
-      this.ParentBackground     = new SerializableColor(177, 255, 177);
+      this.Editable              = true;
+      this.ForegroundLight       = new SerializableColor(Color.White);
+      this.ForegroundDark        = new SerializableColor(Color.Black);
+      this.Background            = new SerializableColor(Color.White);
+      this.AltBackground         = new SerializableColor(Color.LightGray);
+      this.SelectionForeground   = new SerializableColor(SystemColors.HighlightText);
+      this.SelectionBackground   = new SerializableColor(SystemColors.Highlight);
+      this.DropTargetForeground  = new SerializableColor(SystemColors.WindowText);
+      this.DropTargetBackground  = new SerializableColor(255, 177, 177);
+      this.ParentForeground      = new SerializableColor(SystemColors.WindowText);
+      this.ParentBackground      = new SerializableColor(177, 255, 177);
+      this.ContextMenuBackground = new SerializableColor(93, 93, 93);
+      this.ContextMenuForeground = new SerializableColor(230, 230, 230);
    }
 
    public void UpdateColors()

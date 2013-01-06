@@ -224,12 +224,6 @@ Use {0} to expand entire hierarchy.</value>
   <data name="Filter_NodeProperty" xml:space="preserve">
     <value>Node Property</value>
   </data>
-  <data name="Error_LoadSettings" xml:space="preserve">
-    <value>There was an error while loading settings:\n{0}</value>
-  </data>
-  <data name="Error_LoadSettingsTitle" xml:space="preserve">
-    <value>Error loading settings</value>
-  </data>
   <data name="Filter_InvisibleNodes" xml:space="preserve">
     <value>Invisible Nodes</value>
   </data>
@@ -287,5 +281,14 @@ This action cannot be undone.</value>
   </data>
   <data name="Button_TreeNodeText" xml:space="preserve">
     <value>Node Name</value>
+  </data>
+  <data name="Warning_SettingsNotLoaded" xml:space="preserve">
+    <value>Loading the Outliner settings failed. This could mean that your Outliner installation is corrupt, and it will have to be reinstalled.
+
+To try to reload the settings manually, use Outliner.ReloadSettings()
+For more details on the error, see Outliner.SettingsLoadException.ToString()</value>
+  </data>
+  <data name="Warning_SettingsNotLoaded_Title" xml:space="preserve">
+    <value>Error loading settings</value>
   </data>
 </root>

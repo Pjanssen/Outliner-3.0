@@ -24,10 +24,11 @@ namespace Outliner
 public class OutlinerGUP
 {
    public static OutlinerGUP Instance { get; private set; }
-
+   
    public Boolean SettingsLoaded { get; private set; }
+   public Exception SettingsLoadException { get; private set; }
    public OutlinerState State { get; private set; }
-   public TreeViewColorScheme ColorScheme { get; private set; }
+   public OutlinerColorScheme ColorScheme { get; private set; }
    public SettingsCollection Settings { get; private set; }
 
    public Dictionary<TreeView, TreeMode> TreeModes { get; private set; }
@@ -35,7 +36,7 @@ public class OutlinerGUP
 
    public NameFilter CommonNameFilter { get; private set; }
 
-   public OutlinerGUP()
+   private OutlinerGUP()
    {
       this.TreeModes = new Dictionary<TreeView, TreeMode>();
       this.currentPresets = new Dictionary<TreeView, OutlinerPreset>();
@@ -43,39 +44,8 @@ public class OutlinerGUP
       this.CommonNameFilter = new NameFilter();
 
       OutlinerPlugins.LoadPlugins();
-
-      this.SettingsLoaded = true;
-
-      try
-      {
-         this.ColorScheme = loadColors(OutlinerPaths.ColorFile);
-      }
-      catch
-      {
-         this.ColorScheme = TreeViewColorScheme.MayaColors;
-         this.SettingsLoaded = false;
-      }
-
-      try
-      {
-         this.State = loadState(OutlinerPaths.StateFile);
-      }
-      catch
-      {
-         this.State = defaultState();
-         this.SettingsLoaded = false;
-      }
-
-      try
-      {
-         this.Settings = XmlSerializationHelpers.Deserialize<SettingsCollection>(OutlinerPaths.SettingsFile);
-      }
-      catch
-      {
-         this.Settings = new SettingsCollection();
-         this.SettingsLoaded = false;
-      }
-      OutlinerSettings.PopulateWithDefaults(this.Settings);
+      
+      this.ReloadSettings();
    }
 
    internal static void Start()
@@ -91,7 +61,8 @@ public class OutlinerGUP
       }
       this.TreeModes.Clear();
 
-      XmlSerializationHelpers.Serialize<SettingsCollection>(OutlinerPaths.SettingsFile, this.Settings);
+      if (Directory.Exists(OutlinerPaths.ConfigDir))
+         XmlSerializationHelpers.Serialize<SettingsCollection>(OutlinerPaths.SettingsFile, this.Settings);
    }
 
 
@@ -168,31 +139,60 @@ public class OutlinerGUP
    }
 
 
-   public void ReloadSettings()
+   public Boolean ReloadSettings()
    {
       XmlSerializationHelpers.ClearSerializerCache();
-      this.ColorScheme = loadColors(OutlinerPaths.ColorFile);
-      this.State       = loadState(OutlinerPaths.StateFile);
-   }
 
-
-   private static TreeViewColorScheme loadColors(String colorFile)
-   {
-      if (File.Exists(colorFile))
-         return XmlSerializationHelpers.Deserialize<TreeViewColorScheme>(colorFile);
-      else
-         return TreeViewColorScheme.MayaColors;
-   }
-
-   private static OutlinerState loadState(String stateFile)
-   {
-      if (File.Exists(stateFile))
-         return XmlSerializationHelpers.Deserialize<OutlinerState>(stateFile);
-      else
+      if (!Directory.Exists(OutlinerPaths.ConfigDir))
       {
-         return defaultState();
+         this.SettingsLoaded = false;
+         this.SettingsLoadException = new Exception(String.Format("Outliner configuration directory does not exist. Expected:\r\n{0}", OutlinerPaths.ConfigDir));
+         return false;
       }
+
+      try
+      {
+         this.Settings = XmlSerializationHelpers.Deserialize<SettingsCollection>(OutlinerPaths.SettingsFile);
+      }
+      catch (Exception e)
+      {
+         this.Settings = new SettingsCollection();
+         this.SettingsLoaded = false;
+         this.SettingsLoadException = e;
+         return false;
+      }
+      OutlinerSettings.PopulateWithDefaults(this.Settings);
+
+      try
+      {
+         String colorSchemeFile = this.Settings.GetValue<String>(OutlinerSettings.CoreCategory, OutlinerSettings.ColorSchemeFile);
+         colorSchemeFile = Path.Combine(OutlinerPaths.ColorSchemesDir, colorSchemeFile);
+         this.ColorScheme = XmlSerializationHelpers.Deserialize<OutlinerColorScheme>(colorSchemeFile);
+      }
+      catch (Exception e)
+      {
+         this.ColorScheme = OutlinerColorScheme.Default;
+         this.SettingsLoaded = false;
+         this.SettingsLoadException = e;
+         return false;
+      }
+
+      try
+      {
+         this.State = XmlSerializationHelpers.Deserialize<OutlinerState>(OutlinerPaths.StateFile);
+      }
+      catch (Exception e)
+      {
+         this.State = defaultState();
+         this.SettingsLoaded = false;
+         this.SettingsLoadException = e;
+         return false;
+      }
+
+      this.SettingsLoaded = true;
+      return this.SettingsLoaded;
    }
+
 
    private static OutlinerState defaultState()
    {

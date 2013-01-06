@@ -120,7 +120,7 @@ public class TreeView : ScrollableControl
 
    public override Color BackColor
    {
-      get { return this.Colors.Background.Color; }
+      get { return this.Colors.Background; }
       set
       {
          this.Colors.Background = new SerializableColor(value);
@@ -182,14 +182,9 @@ public class TreeView : ScrollableControl
          color = tn.ForeColor;
       else
       {
-         float bBack = this.GetNodeBackColor(tn, highlight).GetBrightness();
-         float bDark = this.Colors.ForegroundDark.Color.GetBrightness();
-         float bLight = this.Colors.ForegroundLight.Color.GetBrightness();
-
-         if (Math.Abs(bBack - bDark) > Math.Abs(bBack - bLight))
-            color = this.Colors.ForegroundDark.Color;
-         else
-            color = this.Colors.ForegroundLight.Color;
+         color = Outliner.MaxUtils.ColorHelpers.SelectContrastingColor( this.GetNodeBackColor(tn, highlight)
+                                                                      , this.Colors.ForegroundLight.Color
+                                                                      , this.Colors.ForegroundDark.Color);
       }
 
       return Color.FromArgb(this.GetNodeOpacity(tn), color);

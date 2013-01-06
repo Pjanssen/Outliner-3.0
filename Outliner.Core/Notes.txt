@@ -7,8 +7,7 @@
 * Exception handling
 * Updating / Installing
 * Delete a node with children crashes
-* Alt-click om al het andere te hiden/freezen, etc.
-* Context-menu doesn't reload after editor is closed.
+* Add XmlSerializationHelpers.TryDeserialize?
 
 TREEVIEW
 --------
