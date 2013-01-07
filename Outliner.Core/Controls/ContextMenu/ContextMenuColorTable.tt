@@ -14,6 +14,7 @@ using Outliner.Controls;
 
 namespace Outliner.Controls.ContextMenu
 {
+   [System.CodeDom.Compiler.GeneratedCode("Outliner T4 template", "3.0")]
    public class ContextMenuColorTable : ProfessionalColorTable
    {
       [XmlElement("Text")]
