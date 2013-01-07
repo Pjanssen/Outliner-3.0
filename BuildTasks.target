@@ -19,6 +19,22 @@
   </Target>
 
   <Target Name="DeployOutput">
-    <Copy SourceFiles="$(OutDir)$(TargetFileName)" DestinationFolder="..\Deployment" />
+     <Message Text="Deploying $(TargetFileName)" />
+     <Copy SourceFiles="$(OutDir)$(TargetFileName)" DestinationFolder="..\Deployment" />
   </Target>
+
+   <Target Name="DeployInstaller">
+      <Message Text="Deploying installer" ContinueOnError="false" />
+      <Exec Command="$(SolutionDir)\..\Outliner.Installer\Deploy.bat" />
+   </Target>
+
+   <Target Name="RunInstaller">
+      <Message Text="Running installer..." ContinueOnError="false" />
+      <Exec Command="$(SolutionDir)\..\Outliner.Installer\Install.bat" />
+   </Target>
 </Project>
+
+<!--IF NOT DEFINED ISCMDLINEBUILD (
+call $(SolutionDir)\..\Outliner.Installer\Deploy.bat
+call $(SolutionDir)\..\Outliner.Installer\Install.bat
+)-->

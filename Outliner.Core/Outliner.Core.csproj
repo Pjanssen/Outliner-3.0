@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -461,16 +460,15 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>IF NOT DEFINED ISCMDLINEBUILD (
-  call $(SolutionDir)\..\Outliner.Installer\Deploy.bat
-  call $(SolutionDir)\..\Outliner.Installer\Install.bat
-)</PostBuildEvent>
+    <PostBuildEvent></PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\BuildTasks.target" />
   <Target Name="BeforeBuild">
     <CallTarget Targets="IncrementVersion" Condition="$(Configuration) == 'Release'" />
   </Target>
   <Target Name="AfterBuild">
-    <CallTarget Targets="DeployOutput" />
+     <CallTarget Targets="DeployOutput" />
+     <CallTarget Targets="DeployInstaller" Condition="$(ISCMDLINEBUILD) == ''" />
+     <CallTarget Targets="RunInstaller" Condition="$(ISCMDLINEBUILD) == ''" />
   </Target>
 </Project>
