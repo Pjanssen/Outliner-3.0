@@ -96,8 +96,11 @@ public class OpenOutliner : CuiDockableContentAdapter
       this.splitContainer.Panel1Collapsed  = outlinerState.Panel1Collapsed;
       this.splitContainer.Panel2Collapsed  = outlinerState.Panel2Collapsed;
 
-      outlinerInstance.SwitchPreset(tree1, outlinerState.Tree1Preset, false);
-      outlinerInstance.SwitchPreset(tree2, outlinerState.Tree2Preset, false);
+      TreeMode mode1 = outlinerInstance.SwitchPreset(tree1, outlinerState.Tree1Preset, false);
+      TreeMode mode2 = outlinerInstance.SwitchPreset(tree2, outlinerState.Tree2Preset, false);
+
+      mode1.Filters = outlinerState.Tree1Filters;
+      mode2.Filters = outlinerState.Tree2Filters;
 
       mainControl.NameFilterBindingSource.DataSource = outlinerInstance.CommonNameFilter;
       
@@ -219,6 +222,9 @@ public class OpenOutliner : CuiDockableContentAdapter
       OutlinerPreset preset2 = outliner.GetActivePreset(this.tree2);
       if (preset2 != null)
          state.Tree2Preset = preset2;
+
+      state.Tree1Filters = outliner.GetActiveTreeMode(this.tree1).Filters;
+      state.Tree2Filters = outliner.GetActiveTreeMode(this.tree2).Filters;
    }
 }
 }

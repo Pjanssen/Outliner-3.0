@@ -109,7 +109,7 @@ public class OutlinerGUP
    /// the given preset.
    /// </summary>
    /// <param name="start">If true, the new TreeMode will be started.</param>
-   public void SwitchPreset(TreeView tree, OutlinerPreset preset, Boolean start)
+   public TreeMode SwitchPreset(TreeView tree, OutlinerPreset preset, Boolean start)
    {
       Throw.IfArgumentIsNull(tree, "tree");
       Throw.IfArgumentIsNull(preset, "preset");
@@ -136,6 +136,8 @@ public class OutlinerGUP
 
       if (start)
          newMode.Start();
+
+      return newMode;
    }
 
 

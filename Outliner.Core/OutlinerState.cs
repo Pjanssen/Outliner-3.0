@@ -8,13 +8,17 @@ using System.IO;
 using Outliner.Configuration;
 using Outliner.Plugins;
 using Outliner.Scene;
+using Outliner.Filters;
 
 namespace Outliner
 {
 public class OutlinerState
 {
    public String Tree1PresetName { get; set; }
+   public MaxNodeFilterCombinator Tree1Filters { get; set; }
+
    public String Tree2PresetName { get; set; }
+   public MaxNodeFilterCombinator Tree2Filters { get; set; }
 
    private OutlinerPreset GetPresetByName(String name)
    {
