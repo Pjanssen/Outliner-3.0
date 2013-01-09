@@ -50,10 +50,10 @@ namespace Outliner.Controls
          // 
          this.panel1.Controls.Add(this.outlinerSplitContainer1);
          this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.panel1.Location = new System.Drawing.Point(0, 22);
+         this.panel1.Location = new System.Drawing.Point(0, 24);
          this.panel1.Name = "panel1";
-         this.panel1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 4);
-         this.panel1.Size = new System.Drawing.Size(314, 394);
+         this.panel1.Padding = new System.Windows.Forms.Padding(4, 1, 4, 4);
+         this.panel1.Size = new System.Drawing.Size(314, 392);
          this.panel1.TabIndex = 1;
          // 
          // nameFilterTextBox
@@ -76,14 +76,14 @@ namespace Outliner.Controls
          this.panel2.Location = new System.Drawing.Point(0, 0);
          this.panel2.Name = "panel2";
          this.panel2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 0);
-         this.panel2.Size = new System.Drawing.Size(314, 22);
+         this.panel2.Size = new System.Drawing.Size(314, 24);
          this.panel2.TabIndex = 0;
          // 
          // outlinerSplitContainer1
          // 
          this.outlinerSplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
          this.outlinerSplitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-         this.outlinerSplitContainer1.Location = new System.Drawing.Point(4, 3);
+         this.outlinerSplitContainer1.Location = new System.Drawing.Point(4, 1);
          this.outlinerSplitContainer1.Name = "outlinerSplitContainer1";
          this.outlinerSplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
          // 
@@ -105,6 +105,7 @@ namespace Outliner.Controls
          this.treeView1.AutoScroll = true;
          this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.treeView1.DoubleClickAction = Outliner.Controls.Tree.TreeNodeDoubleClickAction.Rename;
          this.treeView1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.treeView1.Location = new System.Drawing.Point(0, 0);
          this.treeView1.Name = "treeView1";
@@ -117,6 +118,7 @@ namespace Outliner.Controls
          this.treeView2.AutoScroll = true;
          this.treeView2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.treeView2.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.treeView2.DoubleClickAction = Outliner.Controls.Tree.TreeNodeDoubleClickAction.Rename;
          this.treeView2.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.treeView2.Location = new System.Drawing.Point(0, 0);
          this.treeView2.Name = "treeView2";
@@ -127,14 +129,14 @@ namespace Outliner.Controls
          // 
          this.NameFilterBindingSource.DataSource = typeof(Outliner.Filters.NameFilter);
          // 
-         // TestControl
+         // MainControl
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.Controls.Add(this.panel1);
          this.Controls.Add(this.panel2);
          this.MinimumSize = new System.Drawing.Size(100, 150);
-         this.Name = "TestControl";
+         this.Name = "MainControl";
          this.Size = new System.Drawing.Size(314, 416);
          this.panel1.ResumeLayout(false);
          this.panel2.ResumeLayout(false);
