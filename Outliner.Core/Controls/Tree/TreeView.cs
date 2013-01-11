@@ -18,9 +18,9 @@ public class TreeView : ScrollableControl
       this.Root = new TreeNode(this, "root");
       this.Colors = new TreeViewColorScheme();
       this.selectedNodes = new HashSet<TreeNode>();
-      this.TreeNodeLayout = TreeNodeLayout.SimpleLayout; //TODO check that this does not cause unnecessary redrawing.
-      this.DragDropMouseButton = MouseButtons.Left;
-      this.DoubleClickAction = TreeNodeDoubleClickAction.Rename;
+      this.autoExpandedNodes = new HashSet<TreeNode>();
+      this.TreeNodeLayout = TreeNodeLayout.SimpleLayout;
+      this.Settings = new TreeViewSettings();
 
       //Set double buffered user paint style.
       this.SetStyle(ControlStyles.UserPaint, true);
@@ -31,55 +31,6 @@ public class TreeView : ScrollableControl
       this.AllowDrop = true;
    }
 
-   protected override void Dispose(bool disposing)
-   {
-      if (this.brushBackground != null)
-         this.brushBackground.Dispose();
-
-      base.Dispose(disposing);
-   }
-
-   [Browsable(false)]
-   public TreeNode Root { get; private set; }
-
-   [Browsable(false)]
-   public TreeNodeCollection Nodes
-   {
-      get { return this.Root.Nodes; }
-   }
-
-   public TreeNodeDoubleClickAction DoubleClickAction { get; set; }
-
-   public TreeNode GetNodeAt(Point location)
-   {
-      return this.GetNodeAt(location.X, location.Y);
-   }
-   public TreeNode GetNodeAt(Int32 x, Int32 y)
-   {
-      if (this.Nodes.Count == 0 || this.TreeNodeLayout == null || !this.ClientRectangle.Contains(x, y))
-         return null;
-
-      Int32 itemHeight = this.TreeNodeLayout.ItemHeight;
-      TreeNode tn = this.Nodes[0];
-      Int32 curY = itemHeight - this.VerticalScroll.Value;
-      while (curY <= y && tn != null)
-      {
-         tn = tn.NextVisibleNode;
-         curY += itemHeight;
-      }
-      return tn;
-   }
-
-   private BorderStyle borderStyle = BorderStyle.FixedSingle;
-   public BorderStyle BorderStyle
-   {
-      get { return this.borderStyle; }
-      set
-      {
-         this.borderStyle = value;
-         this.Invalidate();
-      }
-   }
    protected override CreateParams CreateParams
    {
       get
@@ -99,6 +50,67 @@ public class TreeView : ScrollableControl
          return cp;
       }
    }
+
+   protected override void Dispose(bool disposing)
+   {
+      if (this.brushBackground != null)
+         this.brushBackground.Dispose();
+
+      base.Dispose(disposing);
+   }
+
+
+   #region Properties
+
+   [Browsable(false)]
+   public TreeNode Root { get; private set; }
+
+   [Browsable(false)]
+   public TreeNodeCollection Nodes
+   {
+      get { return this.Root.Nodes; }
+   }
+
+   public TreeViewSettings Settings { get; set; }
+
+   private BorderStyle borderStyle = BorderStyle.FixedSingle;
+   public BorderStyle BorderStyle
+   {
+      get { return this.borderStyle; }
+      set
+      {
+         this.borderStyle = value;
+         this.Invalidate();
+      }
+   }
+
+   #endregion
+
+
+   #region Helpers
+
+   public TreeNode GetNodeAt(Point location)
+   {
+      return this.GetNodeAt(location.X, location.Y);
+   }
+
+   public TreeNode GetNodeAt(Int32 x, Int32 y)
+   {
+      if (this.Nodes.Count == 0 || this.TreeNodeLayout == null || !this.ClientRectangle.Contains(x, y))
+         return null;
+
+      Int32 itemHeight = this.TreeNodeLayout.ItemHeight;
+      TreeNode tn = this.Nodes[0];
+      Int32 curY = itemHeight - this.VerticalScroll.Value;
+      while (curY <= y && tn != null)
+      {
+         tn = tn.NextVisibleNode;
+         curY += itemHeight;
+      }
+      return tn;
+   }
+
+   #endregion
 
 
    #region Colors
@@ -425,7 +437,7 @@ public class TreeView : ScrollableControl
       if (e == null || this.TreeNodeLayout == null)
          return;
 
-      if ((e.Button & this.DragDropMouseButton) == this.DragDropMouseButton)
+      if ((e.Button & this.Settings.DragDropMouseButton) == this.Settings.DragDropMouseButton)
          this.dragStartPos = e.Location;
 
       TreeNode tn = this.GetNodeAt(e.Location);
@@ -466,7 +478,7 @@ public class TreeView : ScrollableControl
       if (e == null || this.TreeNodeLayout == null)
          return;
 
-      Boolean isDragDropMouseButton = (e.Button & this.DragDropMouseButton) == this.DragDropMouseButton;
+      Boolean isDragDropMouseButton = (e.Button & this.Settings.DragDropMouseButton) == this.Settings.DragDropMouseButton;
       if (!isDragDropMouseButton)
       {
          this.isDragging = false;
@@ -532,10 +544,6 @@ public class TreeView : ScrollableControl
    [Browsable(false)]
    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
    public DragDropHandler DragDropHandler { get; set; }
-
-   [Browsable(false)]
-   [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-   public MouseButtons DragDropMouseButton { get; set; }
 
    protected override void OnDragEnter(DragEventArgs drgevent)
    {
@@ -627,6 +635,7 @@ public class TreeView : ScrollableControl
    #region Selection
 
    protected HashSet<TreeNode> selectedNodes { get; private set; }
+   private HashSet<TreeNode> autoExpandedNodes;
 
    [Browsable(false)]
    public IEnumerable<TreeNode> SelectedNodes
@@ -649,15 +658,26 @@ public class TreeView : ScrollableControl
       if (tn == null)
          return;
 
+      this.BeginUpdate(TreeViewUpdateFlags.Redraw | TreeViewUpdateFlags.Scrollbars);
+
       if (select)
       {
          if (!tn.IsSelected)
          {
+            if (!this.Settings.MultiSelect)
+               this.SelectAllNodes(false);
+
             this.selectedNodes.Add(tn);
 
             tn.SetStateFlag(TreeNodeStates.Selected);
 
             this.LastSelectedNode = tn;
+
+            if (this.Settings.AutoExpandSelectionParents)
+               this.AutoExpandParents(tn);
+
+            if (this.Settings.ScrollToSelection && !this.IsSelectionInView())
+               this.ScrollTreeNodeIntoView(tn);
          }
       }
       else
@@ -665,7 +685,12 @@ public class TreeView : ScrollableControl
          selectedNodes.Remove(tn);
 
          tn.RemoveStateFlag(TreeNodeStates.Selected);
+
+         if (this.Settings.CollapseAutoExpandedParents)
+            this.CollapseAutoExpandedParents(tn);
       }
+
+      this.EndUpdate();
    }
 
    public void SelectAllNodes(Boolean select)
@@ -682,6 +707,7 @@ public class TreeView : ScrollableControl
       }
       this.LastSelectedNode = null;
    }
+
    private void SelectAllNodes(Boolean select, TreeNodeCollection nodes)
    {
       foreach (TreeNode tn in nodes)
@@ -716,6 +742,63 @@ public class TreeView : ScrollableControl
          }
       }
       SelectNode(lastNode, true);
+   }
+
+   public void AutoExpandParents(TreeNode tn)
+   {
+      Throw.IfArgumentIsNull(tn, "tn");
+      
+      TreeNode parent = tn.Parent;
+      while (parent != null)
+      {
+         if (!parent.IsExpanded)
+         {
+            parent.IsExpanded = true;
+            this.autoExpandedNodes.Add(parent);
+         }
+
+         parent = parent.Parent;
+      }
+   }
+
+   private void CollapseAutoExpandedParents(TreeNode tn)
+   {
+      Throw.IfArgumentIsNull(tn, "tn");
+
+      TreeNode parent = tn.Parent;
+      while (parent != null)
+      {
+         if (this.autoExpandedNodes.Contains(parent) && !parent.IsParentOfSelectedNode)
+         {
+            parent.IsExpanded = false;
+            this.autoExpandedNodes.Remove(parent);
+         }
+
+         parent = parent.Parent;
+      }
+   }
+
+   public Boolean IsSelectionInView()
+   {
+      Rectangle treeBounds = this.Bounds;
+      foreach (TreeNode selTn in this.SelectedNodes)
+      {
+         if (treeBounds.Contains(selTn.Bounds))
+            return true;
+      }
+
+      return false;
+   }
+
+   public void ScrollTreeNodeIntoView(TreeNode tn)
+   {
+      Throw.IfArgumentIsNull(tn, "tn");
+
+      int y = tn.Bounds.Y;
+      if (y < 0 || y > this.Height)
+      {
+         this.AutoScrollPosition = new Point(this.AutoScrollPosition.X, y);
+      }
    }
 
    #endregion

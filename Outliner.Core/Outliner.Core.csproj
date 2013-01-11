@@ -148,7 +148,9 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\FocusOnSelection.cs" />
     <Compile Include="Actions\OpenOutliner.cs" />
+    <Compile Include="Actions\OutlinerActions.cs" />
     <Compile Include="AssemblyFunctions.cs" />
     <Compile Include="Commands\ChangeGroupCommand.cs" />
     <Compile Include="Commands\Command.cs" />
@@ -287,6 +289,7 @@
     <Compile Include="Controls\Tree\TreeView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\Tree\TreeViewSettings.cs" />
     <Compile Include="Filters\FilterChangedEventArgs.cs" />
     <Compile Include="Filters\FilterCombinator.cs" />
     <Compile Include="NodeSorters\NodeSorterHelpers.cs" />
@@ -460,15 +463,16 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent></PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\BuildTasks.target" />
   <Target Name="BeforeBuild">
     <CallTarget Targets="IncrementVersion" Condition="$(Configuration) == 'Release'" />
   </Target>
   <Target Name="AfterBuild">
-     <CallTarget Targets="DeployOutput" />
-     <CallTarget Targets="DeployInstaller" Condition="$(ISCMDLINEBUILD) == ''" />
-     <CallTarget Targets="RunInstaller" Condition="$(ISCMDLINEBUILD) == ''" />
+    <CallTarget Targets="DeployOutput" />
+    <CallTarget Targets="DeployInstaller" Condition="$(ISCMDLINEBUILD) == ''" />
+    <CallTarget Targets="RunInstaller" Condition="$(ISCMDLINEBUILD) == ''" />
   </Target>
 </Project>

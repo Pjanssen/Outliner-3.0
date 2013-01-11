@@ -66,6 +66,14 @@ public class OutlinerGUP
    }
 
 
+   public IEnumerable<TreeView> TreeViews
+   {
+      get
+      {
+         return this.TreeModes.Keys;
+      }
+   }
+
    public TreeMode GetActiveTreeMode(TreeView tree)
    {
       TreeMode mode = null;
@@ -126,8 +134,12 @@ public class OutlinerGUP
 
       tree.TreeNodeLayout = preset.TreeNodeLayout;
       tree.NodeSorter = preset.Sorter;
-      tree.DragDropMouseButton = this.Settings.GetValue<WinForms::MouseButtons>(OutlinerSettings.CoreCategory, OutlinerSettings.DragDropMouseButton);
-      tree.DoubleClickAction = this.Settings.GetValue<TreeNodeDoubleClickAction>(OutlinerSettings.CoreCategory, OutlinerSettings.DoubleClickAction);
+      tree.Settings.DragDropMouseButton = this.Settings.GetValue<WinForms::MouseButtons>(OutlinerSettings.TreeCategory, OutlinerSettings.DragDropMouseButton);
+      tree.Settings.DoubleClickAction = this.Settings.GetValue<TreeNodeDoubleClickAction>(OutlinerSettings.TreeCategory, OutlinerSettings.DoubleClickAction);
+      tree.Settings.ScrollToSelection = this.Settings.GetValue<Boolean>(OutlinerSettings.TreeCategory, OutlinerSettings.ScrollToSelection);
+      tree.Settings.AutoExpandSelectionParents = this.Settings.GetValue<Boolean>(OutlinerSettings.TreeCategory, OutlinerSettings.AutoExpandSelectionParents);
+      tree.Settings.CollapseAutoExpandedParents = this.Settings.GetValue<Boolean>(OutlinerSettings.TreeCategory, OutlinerSettings.CollapseAutoExpandedParents);
+      
       TreeMode newMode = preset.CreateTreeMode(tree);
 
       this.RegisterTreeMode(tree, newMode);

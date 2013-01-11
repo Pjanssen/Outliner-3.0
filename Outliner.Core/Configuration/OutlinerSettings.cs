@@ -11,19 +11,26 @@ namespace Outliner.Configuration
 {
    public static class OutlinerSettings
    {
-      public const String CoreCategory = "OutlinerCore";
+      public const String CoreCategory = "Core";
+      public const String TreeCategory = "TreeView";
 
       public const String ColorSchemeFile = "ColorScheme";
       public const String DragDropMouseButton = "DragDropButton";
       public const String DoubleClickAction = "DoubleClickAction";
+      public const String ScrollToSelection = "ScrollToSelection";
+      public const String AutoExpandSelectionParents = "AutoExpandSelectionParents";
+      public const String CollapseAutoExpandedParents = "CollapseAutoExpandedParents";
 
       public static void PopulateWithDefaults(SettingsCollection settings)
       {
          Throw.IfArgumentIsNull(settings, "settings");
 
          SetDefaultValue<String>(settings, CoreCategory, ColorSchemeFile, GetDefaultColorScheme() + ".xml");
-         SetDefaultValue<MouseButtons>(settings, CoreCategory, DragDropMouseButton, MouseButtons.Left);
-         SetDefaultValue<TreeNodeDoubleClickAction>(settings, CoreCategory, DoubleClickAction, TreeNodeDoubleClickAction.Rename);
+         SetDefaultValue<MouseButtons>(settings, TreeCategory, DragDropMouseButton, MouseButtons.Left);
+         SetDefaultValue<TreeNodeDoubleClickAction>(settings, TreeCategory, DoubleClickAction, TreeNodeDoubleClickAction.Rename);
+         SetDefaultValue<Boolean>(settings, TreeCategory, ScrollToSelection, true);
+         SetDefaultValue<Boolean>(settings, TreeCategory, AutoExpandSelectionParents, true);
+         SetDefaultValue<Boolean>(settings, TreeCategory, CollapseAutoExpandedParents, true);         
       }
 
       private static void SetDefaultValue<T>(SettingsCollection settings, String category, String key, T defaultValue)

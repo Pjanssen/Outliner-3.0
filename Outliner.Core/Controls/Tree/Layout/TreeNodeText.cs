@@ -219,9 +219,9 @@ public class TreeNodeText : TreeNodeButton
    public override void HandleDoubleClick(MouseEventArgs e, TreeNode tn)
    {
       TreeView tree = this.Layout.TreeView;
-      if (tree.DoubleClickAction == TreeNodeDoubleClickAction.Rename)
+      if (tree.Settings.DoubleClickAction == TreeNodeDoubleClickAction.Rename)
          tree.BeginNodeTextEdit(tn, this);
-      else if (tree.DoubleClickAction == TreeNodeDoubleClickAction.Expand)
+      else if (tree.Settings.DoubleClickAction == TreeNodeDoubleClickAction.Expand)
          tn.IsExpanded = !tn.IsExpanded;
    }
 }
