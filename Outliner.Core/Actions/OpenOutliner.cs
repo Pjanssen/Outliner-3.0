@@ -15,17 +15,26 @@ namespace Outliner.Actions
 {
 public class OpenOutliner : CuiDockableContentAdapter
 {
-   private const String OutlinerCategory = "Outliner Plugin";
-
    public override string ActionText
    {
-      get { return "Open Outliner"; }
+      get { return OutlinerResources.Action_ToggleOutliner; }
    }
 
    public override string Category
    {
-      get { return OutlinerCategory; }
+      get { return OutlinerResources.Action_Category; }
    }
+
+   public override string InternalActionText
+   {
+      get { return "Open Outliner"; }
+   }
+
+   public override string InternalCategory
+   {
+      get { return OutlinerActions.InternalCategory; }
+   }
+
 
    public override Type ContentType
    {

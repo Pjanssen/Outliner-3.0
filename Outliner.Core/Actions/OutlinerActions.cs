@@ -7,6 +7,6 @@ namespace Outliner.Actions
 {
    public static class OutlinerActions
    {
-      public const string Category = "Outliner Plugin";
+      public const string InternalCategory = "Outliner_Plugin";
    }
 }

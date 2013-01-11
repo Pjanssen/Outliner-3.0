@@ -11,7 +11,12 @@ namespace Outliner.Actions
    {
       public override string ActionText
       {
-         get { return "Focus on selection"; }
+         get { return OutlinerResources.Action_FocusOnSelection; }
+      }
+
+      public override string Category
+      {
+         get { return OutlinerResources.Action_Category; }
       }
 
       public override string InternalActionText
@@ -19,14 +24,9 @@ namespace Outliner.Actions
          get { return ActionText; }
       }
 
-      public override string Category
-      {
-         get { return OutlinerActions.Category; }
-      }
-
       public override string InternalCategory
       {
-         get { return Category; }
+         get { return OutlinerActions.InternalCategory; }
       }
 
       public override void Execute(object parameter)

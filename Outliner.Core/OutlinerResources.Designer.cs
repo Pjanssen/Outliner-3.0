@@ -61,6 +61,24 @@ namespace Outliner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Outliner 3.
+        /// </summary>
+        internal static string Action_Category {
+            get {
+                return ResourceManager.GetString("Action_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Focus on selection.
+        /// </summary>
+        internal static string Action_FocusOnSelection {
+            get {
+                return ResourceManager.GetString("Action_FocusOnSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toggle Outliner.
         /// </summary>
         internal static string Action_ToggleOutliner {

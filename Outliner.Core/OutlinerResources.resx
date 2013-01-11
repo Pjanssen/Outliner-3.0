@@ -291,4 +291,10 @@ For more details on the error, see Outliner.SettingsLoadException.ToString()</va
   <data name="Warning_SettingsNotLoaded_Title" xml:space="preserve">
     <value>Error loading settings</value>
   </data>
+  <data name="Action_Category" xml:space="preserve">
+    <value>Outliner 3</value>
+  </data>
+  <data name="Action_FocusOnSelection" xml:space="preserve">
+    <value>Focus on selection</value>
+  </data>
 </root>
