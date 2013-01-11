@@ -11,7 +11,7 @@ namespace Outliner
 public static class Throw
 {
    /// <summary>
-   /// Tests if an object is null, and throws an ArgumentNullException if it is.
+   /// Tests if an object argument is null.
    /// </summary>
    /// <param name="argument">The argument object to test.</param>
    /// <param name="name">The name of the argument in the called function.</param>
@@ -25,15 +25,39 @@ public static class Throw
    }
 
    /// <summary>
-   /// Tests if an object is null, and throws a NullReferenceException if it is.
+   /// Tests if a string argument is null or empty.
+   /// </summary>
+   /// <param name="str">The string argument to test.</param>
+   /// <param name="name">The name of the argument</param>
+   /// <exception cref="ArgumentNullException"></exception>
+   public static void IfArgumentIsNullOrEmpty(String str, String name)
+   {
+      if (String.IsNullOrEmpty(str))
+         throw new ArgumentNullException(name);
+   }
+
+   /// <summary>
+   /// Tests if an object is null.
    /// </summary>
    /// <param name="argument">The object to test.</param>
    /// <param name="message">The message for the exception if it is thrown.</param>
-   /// <exception cref="NullReferenceException"></exception>
+   /// <exception cref="InvalidOperationException"></exception>
    public static void IfNull(Object obj, String message)
    {
       if (obj == null)
-         throw new NullReferenceException(message);
+         throw new InvalidOperationException(message);
+   }
+
+   /// <summary>
+   /// Tests if a string is null or empty.
+   /// </summary>
+   /// <param name="str">The string to test.</param>
+   /// <param name="varName">The name of the string variable.</param>
+   /// <exception cref="InvalidOperationException"/>
+   public static void IfNullOrEmpty(String str, String varName)
+   {
+      if (String.IsNullOrEmpty(str))
+         throw new InvalidOperationException(varName + " cannot be null or empty");
    }
 
    /// <summary>
