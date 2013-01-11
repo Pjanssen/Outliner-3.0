@@ -105,7 +105,6 @@ namespace Outliner.Controls
          this.treeView1.AutoScroll = true;
          this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.treeView1.DoubleClickAction = Outliner.Controls.Tree.TreeNodeDoubleClickAction.Rename;
          this.treeView1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.treeView1.Location = new System.Drawing.Point(0, 0);
          this.treeView1.Name = "treeView1";
@@ -118,7 +117,6 @@ namespace Outliner.Controls
          this.treeView2.AutoScroll = true;
          this.treeView2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
          this.treeView2.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.treeView2.DoubleClickAction = Outliner.Controls.Tree.TreeNodeDoubleClickAction.Rename;
          this.treeView2.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
          this.treeView2.Location = new System.Drawing.Point(0, 0);
          this.treeView2.Name = "treeView2";
