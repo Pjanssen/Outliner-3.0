@@ -51,6 +51,9 @@ public class OutlinerState
       this.Tree1PresetName = "";
       this.Tree2PresetName = "";
 
+      this.Tree1Filters = new MaxNodeFilterCombinator();
+      this.Tree2Filters = new MaxNodeFilterCombinator();
+
       this.Panel1Collapsed = false;
       this.Panel2Collapsed = true;
       this.SplitterOrientation = Orientation.Horizontal;
