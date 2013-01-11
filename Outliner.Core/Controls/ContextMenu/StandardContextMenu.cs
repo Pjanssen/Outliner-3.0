@@ -22,11 +22,14 @@ internal static class StandardContextMenu
 {
    public static ToolStripDropDown Create(ContextMenuStrip menu, OutlinerSplitContainer container, OutlinerTree::TreeView tree, TreeMode treeMode)
    {
+      OutlinerGUP outliner = OutlinerGUP.Instance;
+      OutlinerColorScheme colorScheme = outliner.ColorScheme;
+
       ToolStripDropDown strip = new OutlinerContextMenu(menu);
       strip.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
       strip.Tag = new Tuple<OutlinerSplitContainer, OutlinerTree::TreeView, TreeMode>(container, tree, treeMode);
       strip.Padding = new Padding(3, 2, 1, 1);
-      strip.Renderer = new OutlinerToolStripRenderer(OutlinerGUP.Instance.ColorScheme.ContextMenuColorTable);
+      strip.Renderer = new OutlinerToolStripRenderer(colorScheme.ContextMenuColorTable);
 
       
       ToolStripDropDownButton preset_btn = new ToolStripDropDownButton(ContextMenuResources.Context_Preset);
@@ -52,11 +55,12 @@ internal static class StandardContextMenu
 
 
 
-      ToolStripCheckedSplitButton filter_btn = new ToolStripCheckedSplitButton(ContextMenuResources.Context_Filters);
-      filter_btn.Image = ContextMenuResources.filter_24;
+      ToolStripCheckedSplitButton filter_btn = new ToolStripCheckedSplitButton();
+      filter_btn.Text              = ContextMenuResources.Context_Filters;
+      filter_btn.Image             = colorScheme.GetImageFromResource(ContextMenuResources.ResourceManager, "filter_24"); //ContextMenuResources.filter_24;
       filter_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
-      filter_btn.Checked = treeMode.Filters.Enabled;
-      filter_btn.ButtonClick += new EventHandler(filter_btn_ButtonClick);
+      filter_btn.Checked           = treeMode.Filters.Enabled;
+      filter_btn.ButtonClick      += new EventHandler(filter_btn_ButtonClick);
       filter_btn.DropDown.Closing += new ToolStripDropDownClosingEventHandler(DropDown_Closing);
       
       ToolStripMenuItem invertBtn = filter_btn.DropDownItems.Add(ContextMenuResources.Context_InvertFilter) as ToolStripMenuItem;
