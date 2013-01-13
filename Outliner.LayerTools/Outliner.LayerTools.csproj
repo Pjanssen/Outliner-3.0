@@ -145,7 +145,7 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <Import Project="..\BuildTasks.target" />
+  <Import Project="..\..\Outliner.Installer\BuildTasks.target" />
   <Target Name="AfterBuild">
     <CallTarget Targets="DeployOutput" />
   </Target>
