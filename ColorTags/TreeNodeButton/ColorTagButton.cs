@@ -130,7 +130,7 @@ public class ColorTagButton : TreeNodeButton
       }
 
       WinForms::ToolStripDropDown strip = new WinForms::ToolStripDropDown();
-      strip.Renderer = new WinForms::ToolStripProfessionalRenderer(new OutlinerColorTable());
+      strip.Renderer = new WinForms::ToolStripProfessionalRenderer(OutlinerGUP.Instance.ColorScheme.ContextMenuColorTable);
       strip.LayoutStyle = WinForms::ToolStripLayoutStyle.HorizontalStackWithOverflow;
       strip.Padding = new WinForms::Padding(3, 2, 1, 1);
 
