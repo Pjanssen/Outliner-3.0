@@ -7,6 +7,7 @@ using Outliner.Scene;
 using Outliner.Commands;
 using Outliner.MaxUtils;
 using Outliner.Controls.Tree;
+using Autodesk.Max;
 
 namespace Outliner.Controls.ContextMenu
 {
@@ -18,6 +19,8 @@ public static class ContextMenuActions
    {
       return contextNodes != null && contextNodes.Count() > 0;
    }
+
+   #region Rename
 
    [OutlinerAction]
    public static void Rename(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
@@ -42,6 +45,10 @@ public static class ContextMenuActions
       return false;
    }
 
+   #endregion
+
+   #region Delete
+   
    [OutlinerAction]
    public static void Delete(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
    {
@@ -54,6 +61,10 @@ public static class ContextMenuActions
       }
    }
 
+   #endregion
+
+   #region Select Childnodes
+   
    [OutlinerPredicate]
    public static Boolean SelectionHasChildNodes(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
    {
@@ -83,6 +94,8 @@ public static class ContextMenuActions
 
       return result;
    }
+   
+   #endregion
 
    #region Hide & Freeze
       
@@ -156,6 +169,36 @@ public static class ContextMenuActions
 
    #endregion
 
+   #region Add Selection To
 
+   [OutlinerAction]
+   public static void AddSelectionToNewContainer(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   {
+      CreateContainerCommand cmd = new CreateContainerCommand(contextNodes);
+      cmd.Execute(true);
+   }
+
+   [OutlinerAction]
+   public static void AddSelectionToNewGroup(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   {
+      GroupNodesCommand cmd = new GroupNodesCommand(contextNodes);
+      cmd.Execute(true);
+   }
+
+   [OutlinerAction]
+   public static void AddSelectionToNewLayer(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   {
+      CreateNewLayerCommand newLayerCmd = new CreateNewLayerCommand(contextNodes);
+      newLayerCmd.Execute(false);
+   }
+
+   [OutlinerAction]
+   public static void AddSelectionToNewSelectionSet(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   {
+      CreateSelectionSetCommand cmd = new CreateSelectionSetCommand(contextNodes);
+      cmd.Execute(false);
+   }
+
+   #endregion
 }
 }

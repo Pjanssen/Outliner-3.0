@@ -133,11 +133,38 @@ namespace Outliner {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add To Layer.
+        ///   Looks up a localized string similar to Add to new container.
         /// </summary>
-        internal static string Command_AddToLayer {
+        internal static string Command_AddToNewContainer {
             get {
-                return ResourceManager.GetString("Command_AddToLayer", resourceCulture);
+                return ResourceManager.GetString("Command_AddToNewContainer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to new layer.
+        /// </summary>
+        internal static string Command_AddToNewLayer {
+            get {
+                return ResourceManager.GetString("Command_AddToNewLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to new selection-set.
+        /// </summary>
+        internal static string Command_AddToNewSelSet {
+            get {
+                return ResourceManager.GetString("Command_AddToNewSelSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create New Layer.
+        /// </summary>
+        internal static string Command_CreateNewLayer {
+            get {
+                return ResourceManager.GetString("Command_CreateNewLayer", resourceCulture);
             }
         }
         
@@ -286,7 +313,7 @@ namespace Outliner {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ungroup nodes.
+        ///   Looks up a localized string similar to Ungroup Nodes.
         /// </summary>
         internal static string Command_Ungroup {
             get {

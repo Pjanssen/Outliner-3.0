@@ -19,9 +19,30 @@ namespace Outliner.Scene
       public override abstract bool Equals(object obj);
       public override abstract int GetHashCode();
 
-      public virtual IMaxNodeWrapper Parent { get { return null; }  }
-      public abstract Int32 ChildNodeCount { get; }
-      public abstract IEnumerable<Object> ChildNodes { get; }
+      public virtual IMaxNodeWrapper Parent 
+      { 
+         get { return null; }
+         set 
+         {
+            if (value == null)
+               MaxScene.SceneRoot.AddChildNode(this);
+            else
+               value.AddChildNode(this);
+         }
+      }
+
+      #region ChildNodes
+
+      public abstract Int32 ChildNodeCount 
+      { 
+         get;
+      }
+
+      public abstract IEnumerable<Object> ChildNodes 
+      { 
+         get;
+      }
+
       public virtual IEnumerable<IMaxNodeWrapper> WrappedChildNodes 
       {
          get { return this.ChildNodes.Select(IMaxNodeWrapper.Create); }
@@ -31,11 +52,14 @@ namespace Outliner.Scene
       {
          return false;
       }
+      
       public virtual Boolean CanAddChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
       {
          return nodes.Any(this.CanAddChildNode);
       }
+
       public virtual void AddChildNode(IMaxNodeWrapper node) { }
+      
       public virtual void AddChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
       {
          nodes.ForEach(this.AddChildNode);
@@ -45,17 +69,20 @@ namespace Outliner.Scene
       {
          return false; 
       }
+      
       public virtual Boolean CanRemoveChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
       {
          return nodes.Any(this.CanRemoveChildNode);
       }
+      
       public virtual void RemoveChildNode(IMaxNodeWrapper node) { }
+      
       public virtual void RemoveChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
       {
          nodes.ForEach(this.RemoveChildNode);
       }
 
-      
+      #endregion
 
       public abstract String Name { get; set; }
       public virtual String DisplayName { get { return this.Name; } }

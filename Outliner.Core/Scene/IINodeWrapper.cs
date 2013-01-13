@@ -329,6 +329,7 @@ public class IINodeWrapper : IMaxNodeWrapper
 
    public const String ImgKeyBone      = "bone";
    public const String ImgKeyCamera    = "camera";
+   public const String ImgKeyContainer = "container";
    public const String ImgKeyGeometry  = "geometry";
    public const String ImgKeyGroupHead = "group";
    public const String ImgKeyHelper    = "helper";
@@ -366,6 +367,8 @@ public class IINodeWrapper : IMaxNodeWrapper
          {
             if (this.iinode.IsGroupHead)
                return ImgKeyGroupHead;
+            else if (MaxInterfaces.ContainerManager.IsContainerNode(this.iinode) != null)
+               return ImgKeyContainer;
             else
                return ImgKeyHelper;
          }

@@ -21,7 +21,7 @@ namespace Outliner.Actions
 
       public override string InternalActionText
       {
-         get { return ActionText; }
+         get { return "Focus_on_selection"; }
       }
 
       public override string InternalCategory

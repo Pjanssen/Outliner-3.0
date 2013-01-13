@@ -194,6 +194,8 @@ public abstract class TreeMode
 
       protected TreeModeNodeEventCallbacks(TreeMode treeMode)
       {
+         Throw.IfArgumentIsNull(treeMode, "treeMode");
+
          this.TreeMode = treeMode;
       }
 

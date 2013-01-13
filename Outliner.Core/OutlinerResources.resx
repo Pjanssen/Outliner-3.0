@@ -176,7 +176,7 @@ Use {0} to expand entire hierarchy.</value>
     <value>Group nodes</value>
   </data>
   <data name="Command_Ungroup" xml:space="preserve">
-    <value>Ungroup nodes</value>
+    <value>Ungroup Nodes</value>
   </data>
   <data name="Command_SetColorTag" xml:space="preserve">
     <value>Set color tag</value>
@@ -184,8 +184,8 @@ Use {0} to expand entire hierarchy.</value>
   <data name="Command_ToggleLight" xml:space="preserve">
     <value>Toggle Light</value>
   </data>
-  <data name="Command_AddToLayer" xml:space="preserve">
-    <value>Add To Layer</value>
+  <data name="Command_AddToNewLayer" xml:space="preserve">
+    <value>Add to new layer</value>
   </data>
   <data name="Command_UnlinkLayer" xml:space="preserve">
     <value>Unlink Layer</value>
@@ -296,5 +296,14 @@ For more details on the error, see Outliner.SettingsLoadException.ToString()</va
   </data>
   <data name="Action_FocusOnSelection" xml:space="preserve">
     <value>Focus on selection</value>
+  </data>
+  <data name="Command_CreateNewLayer" xml:space="preserve">
+    <value>Create New Layer</value>
+  </data>
+  <data name="Command_AddToNewSelSet" xml:space="preserve">
+    <value>Add to new selection-set</value>
+  </data>
+  <data name="Command_AddToNewContainer" xml:space="preserve">
+    <value>Add to new container</value>
   </data>
 </root>

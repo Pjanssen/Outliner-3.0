@@ -14,10 +14,11 @@ public static class AssemblyFunctions
    private static GlobalDelegates.Delegate5 ProcPostStart;
 
    private static System.Threading.Mutex appMutex;
+   private static Boolean appMutexCreated;
 
    public static void AssemblyMain() 
    {
-      appMutex = new System.Threading.Mutex(true, "3dsmax");
+      appMutex = new System.Threading.Mutex(true, "3dsmax", out appMutexCreated);
       
       ProcPostStart = new GlobalDelegates.Delegate5(PostStart);
 
@@ -45,7 +46,7 @@ public static class AssemblyFunctions
       if (instance != null)
          instance.Stop();
 
-      if (appMutex != null)
+      if (appMutexCreated && appMutex != null)
          appMutex.ReleaseMutex();
    }
 }

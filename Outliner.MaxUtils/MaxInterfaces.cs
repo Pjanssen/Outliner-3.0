@@ -8,6 +8,9 @@ using Autodesk.Max.Remoting;
 
 namespace Outliner.MaxUtils
 {
+/// <summary>
+/// This class provides central (mostly cached) access to basic 3dsMax interfaces.
+/// </summary>
 public static class MaxInterfaces
 {
    private static IGlobal global;
@@ -72,7 +75,7 @@ public static class MaxInterfaces
       get
       {
          if (iILayerManager == null)
-            iILayerManager = (IILayerManager)MaxInterfaces.Global.COREInterface.ScenePointer.GetReference(10);
+            iILayerManager = MaxInterfaces.Global.COREInterface13.LayerManager;
 
          return iILayerManager;
       }
@@ -92,6 +95,18 @@ public static class MaxInterfaces
       get
       {
          return MaxInterfaces.Global.INamedSelectionSetManager.Instance;
+      }
+   }
+
+   private static IIContainerManager containerManager;
+   public static IIContainerManager ContainerManager
+   {
+      get
+      {
+         if (containerManager == null)
+            containerManager = MaxInterfaces.Global.ContainerManagerInterface;
+
+         return containerManager;
       }
    }
 

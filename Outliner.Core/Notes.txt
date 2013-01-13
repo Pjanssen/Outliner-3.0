@@ -8,6 +8,7 @@
 * Updating / Installing
 * Delete a node with children crashes
 * Add XmlSerializationHelpers.TryDeserialize?
+* CAT Layers mode?
 
 TREEVIEW
 --------
@@ -89,3 +90,21 @@ Options
 * Text Double-Click action
 * search bar options
 * expand all
+
+
+
+3.0.18
+======
+* Color theme support and proper light theme for 3dsMax Design (except some icons...)
+* Rudimentary fix for installer overwriting existing userfiles.
+
+3.0.19
+======
+#12 - Hide/Show group contents
+#15 - New layer contains selected items. 
+#18 - Add selection to - not working
+#23 - Current preset is not highlighted
+#24 - Selection Set refresh 
+#31 - 1 pixel black line missing under search field 
+#33 - Plug-in Assembly Load Error 
+#34 - Search field also selects visible filtered out nodes 

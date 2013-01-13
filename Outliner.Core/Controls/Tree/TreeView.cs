@@ -693,6 +693,14 @@ public class TreeView : ScrollableControl
       this.EndUpdate();
    }
 
+   public void SelectNodes(IEnumerable<TreeNode> nodes, Boolean select)
+   {
+      foreach (TreeNode tn in nodes)
+      {
+         this.SelectNode(tn, select);
+      }
+   }
+
    public void SelectAllNodes(Boolean select)
    {
       if (select)

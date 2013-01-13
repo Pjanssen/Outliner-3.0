@@ -35,6 +35,14 @@ public static class MaxScene
       }
    }
 
+   public static IINodeWrapper SceneRoot
+   {
+      get
+      {
+         return new IINodeWrapper(MaxInterfaces.COREInterface.RootNode);
+      }
+   }
+
    public static IEnumerable<IINodeWrapper> RootObjects
    {
       get

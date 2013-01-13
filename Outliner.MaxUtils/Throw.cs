@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -35,6 +36,26 @@ public static class Throw
       if (String.IsNullOrEmpty(str))
          throw new ArgumentNullException(name);
    }
+
+   /// <summary>
+   /// Tests if a string argument is null or empty.
+   /// </summary>
+   /// <param name="str">The string argument to test.</param>
+   /// <param name="name">The name of the argument</param>
+   /// <exception cref="ArgumentNullException"></exception>
+   public static void IfArgumentIsNullOrEmpty([ValidatedNotNull] IEnumerable argument, String name)
+   {
+      Throw.IfArgumentIsNull(argument, name);
+      
+      if (!argument.GetEnumerator().MoveNext())
+         throw new ArgumentNullException(name);
+   }
+
+   public static Boolean IsEmpty<T>(this IEnumerable<T> enumerable)
+   {
+      return !enumerable.Any();
+   }
+
 
    /// <summary>
    /// Tests if an object is null.

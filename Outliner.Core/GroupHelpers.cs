@@ -144,6 +144,31 @@ internal static class GroupHelpers
       }
    }
 
+   public static IINodeWrapper CreateGroupHead()
+   {
+      IInterface ip = MaxInterfaces.COREInterface;
+      IGlobal global = MaxInterfaces.Global;
+      IClass_ID classID = global.Class_ID.Create((uint)BuiltInClassIDA.DUMMY_CLASS_ID, 0);
+      IDummyObject dummy = ip.CreateInstance(SClass_ID.Helper, classID) as IDummyObject;
+      dummy.Box = global.Box3.Create( global.Point3.Create(0, 0, 0)
+                                    , global.Point3.Create(0, 0, 0));
+      IINode groupHead = ip.CreateObjectNode(dummy);
+      String newName = "group";
+      MaxInterfaces.COREInterface.MakeNameUnique(ref newName);
+      groupHead.Name = newName;
+      groupHead.SetGroupHead(true);
+
+      return new IINodeWrapper(groupHead);
+   }
+
+   public static void AddNodesToGroup(IEnumerable<IMaxNodeWrapper> nodes, IINodeWrapper groupHead)
+   {
+      foreach (IMaxNodeWrapper node in nodes.Where(n => n is IINodeWrapper))
+      {
+         node.Parent = groupHead;
+         ((IINode)node.WrappedNode).SetGroupMember(true);
+      }
+   }
 
    private class CloseGroupHeadsNodeEventCb : INodeEventCallback
    {

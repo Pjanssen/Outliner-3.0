@@ -62,6 +62,7 @@ public class SettingsCollection : IXmlSerializable
          return false;
    }
 
+
    /// <summary>
    /// Retrieves the value of a setting.
    /// </summary>
@@ -72,20 +73,39 @@ public class SettingsCollection : IXmlSerializable
    /// <exception cref="InvalidOperationException"></exception>
    public T GetValue<T>(String category, String key)
    {
+      return GetValue<T>(category, key, default(T));
+   }
+
+   /// <summary>
+   /// Retrieves the value of a setting.
+   /// </summary>
+   /// <typeparam name="T">The type of value to retrieve.</typeparam>
+   /// <param name="category">The category of the setting.</param>
+   /// <param name="key">The name of the setting.</param>
+   /// <param name="defaultValue">The default value to return when the key could not be found.</param>
+   /// <exception cref="ArgumentNullException"></exception>
+   /// <exception cref="InvalidOperationException"></exception>
+   public T GetValue<T>(String category, String key, T defaultValue)
+   {
       Throw.IfArgumentIsNull(category, "category");
       Throw.IfArgumentIsNull(key, "key");
 
-      Object value = this.categories[category][key];
-      
-      if (value is T)
-         return (T)value;
-      
-      if (value is String)
+      if (!this.ContainsValue(category, key))
+         return defaultValue;
+      else
       {
-         String stringValue = this.categories[category][key] as String;
-         TypeConverter typeConverter = TypeDescriptor.GetConverter(typeof(T));
-         if (typeConverter != null && typeConverter.CanConvertFrom(typeof(String)))
-            return (T)typeConverter.ConvertFromString(stringValue);
+         Object value = this.categories[category][key];
+
+         if (value is T)
+            return (T)value;
+
+         if (value is String)
+         {
+            String stringValue = this.categories[category][key] as String;
+            TypeConverter typeConverter = TypeDescriptor.GetConverter(typeof(T));
+            if (typeConverter != null && typeConverter.CanConvertFrom(typeof(String)))
+               return (T)typeConverter.ConvertFromString(stringValue);
+         }
       }
 
       throw new InvalidOperationException("Cannot convert value into requested type");
