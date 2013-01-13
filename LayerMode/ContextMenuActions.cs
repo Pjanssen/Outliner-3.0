@@ -13,9 +13,9 @@ namespace Outliner.Modes.Layer
    public class ContextMenuActions
    {
       [OutlinerAction]
-      public static void CreateNewLayer(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+      public static void CreateEmptyLayer(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
       {
-         CreateLayerCommand cmd = new CreateLayerCommand();
+         CreateNewLayerCommand cmd = new CreateNewLayerCommand();
          cmd.Execute(false);
       }
 

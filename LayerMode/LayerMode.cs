@@ -19,11 +19,11 @@ namespace Outliner.Modes.Layer
 [LocalizedDisplayName(typeof(Resources), "Mode_DisplayName")]
 public class LayerMode : TreeMode
 {
-   public Boolean LayersOnly { get; set; }
+   public Boolean ShowGroupContents { get; set; }
 
    public LayerMode(TreeView tree) : base(tree) 
    {
-      this.LayersOnly = false;
+      this.ShowGroupContents = OutlinerGUP.Instance.Settings.GetValue<Boolean>("LayerMode", "ShowGroupContents", true);
 
       proc_LayerCreated = new GlobalDelegates.Delegate5(this.LayerCreated);
       proc_LayerDeleted = new GlobalDelegates.Delegate5(this.LayerDeleted);
@@ -61,12 +61,28 @@ public class LayerMode : TreeMode
          //Add nodes belonging to this layer.
          foreach (Object node in wrapper.ChildNodes)
          {
-            if (!this.LayersOnly || node is IILayer)
+            //if (!this.LayersOnly || node is IILayer)
+            if (this.ShouldAddNode(node))
                this.AddNode(node, tn.Nodes);
          }
       }
 
       return tn;
+   }
+
+   private Boolean ShouldAddNode(Object node)
+   {
+      if (node is IILayer)
+         return true;
+
+      IINode inode = node as IINode;
+      if (inode == null)
+         return false;
+
+      if (!ShowGroupContents)
+         return !inode.IsGroupMember;
+
+      return true;
    }
 
    public override DragDropHandler CreateDragDropHandler(IMaxNodeWrapper node)
@@ -100,21 +116,17 @@ public class LayerMode : TreeMode
 
    protected class LayerNodeEventCallbacks : TreeModeNodeEventCallbacks
    {
-      public LayerNodeEventCallbacks(TreeMode treeMode) : base(treeMode) { }
+      private LayerMode layerMode;
+      public LayerNodeEventCallbacks(LayerMode treeMode) : base(treeMode) 
+      {
+         this.layerMode = treeMode;
+      }
 
       public override void Added(ITab<UIntPtr> nodes)
       {
-         LayerMode layerMode = this.TreeMode as LayerMode;
-         if (layerMode == null || layerMode.LayersOnly)
-            return;
-
          foreach (IINode node in IINodeHelpers.NodeKeysToINodeList(nodes))
          {
-            IILayer layer = node.GetReference((int)ReferenceNumbers.NodeLayerRef) as IILayer;
-            if (layer == null)
-               continue;
-
-            TreeNode layerTn = this.TreeMode.GetFirstTreeNode(layer);
+            TreeNode layerTn = GetLayerTreeNode(node);
             if (layerTn == null)
                continue;
 
@@ -132,11 +144,7 @@ public class LayerMode : TreeMode
             if (tn == null)
                return;
 
-            IILayer layer = node.GetReference((int)ReferenceNumbers.NodeLayerRef) as IILayer;
-            if (layer == null)
-               continue;
-
-            TreeNode layerTn = this.TreeMode.GetFirstTreeNode(layer);
+            TreeNode layerTn = GetLayerTreeNode(node);            
             if (layerTn == null)
                continue;
 
@@ -144,6 +152,40 @@ public class LayerMode : TreeMode
             this.Tree.AddToSortQueue(layerTn.Nodes);
          }
          this.Tree.StartTimedSort(true);
+      }
+
+      public override void GroupChanged(ITab<UIntPtr> nodes)
+      {
+         if (this.layerMode.ShowGroupContents)
+            return;
+
+         foreach (IINode node in nodes.NodeKeysToINodeList())
+         {
+            if (node.IsGroupMember)
+            {
+               this.layerMode.RemoveNode(node);
+            }
+            else
+            {
+               TreeNode layerTn = GetLayerTreeNode(node);
+               if (layerTn == null)
+                  continue;
+
+               this.layerMode.AddNode(node, layerTn.Nodes);
+               this.Tree.AddToSortQueue(layerTn.Nodes);
+            }
+         }
+
+         this.Tree.StartTimedSort(true);
+      }
+
+      private TreeNode GetLayerTreeNode(IINode node)
+      {
+         IILayer layer = node.GetReference((int)ReferenceNumbers.NodeLayerRef) as IILayer;
+         if (layer == null)
+            return null;
+
+         return this.TreeMode.GetFirstTreeNode(layer);
       }
    }
 
