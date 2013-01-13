@@ -169,6 +169,7 @@ public class SelectionSetMode : TreeMode
       {
          //TODO: verify that this is correct.
          this.UnregisterNode(HelperMethods.GetMaxNode(childTn), childTn);
+         childTn.Remove();
       }
 
       foreach (Object node in wrapper.ChildNodes)
