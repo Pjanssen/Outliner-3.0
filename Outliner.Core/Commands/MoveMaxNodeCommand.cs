@@ -25,6 +25,18 @@ namespace Outliner.Commands
       /// <param name="nodes">The nodes to move.</param>
       /// <param name="newParent">The new parent for the nodes. Use null to unlink.</param>
       /// <param name="linkDescription">The command description for a link action.</param>
+      public MoveMaxNodeCommand(IEnumerable<IMaxNodeWrapper> nodes
+                               , IMaxNodeWrapper newParent
+                               , String linkDescription) 
+         : this (nodes, newParent, linkDescription, linkDescription)
+      { }
+
+      /// <summary>
+      /// Creates a new MoveMaxNodeCommand.
+      /// </summary>
+      /// <param name="nodes">The nodes to move.</param>
+      /// <param name="newParent">The new parent for the nodes. Use null to unlink.</param>
+      /// <param name="linkDescription">The command description for a link action.</param>
       /// <param name="unlinkDescription">The command description for an unlink action.</param>
       public MoveMaxNodeCommand( IEnumerable<IMaxNodeWrapper> nodes
                                , IMaxNodeWrapper newParent
