@@ -153,6 +153,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\Icons_Maya\selectionset.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Icons_Maya\container.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF NOT '%25ISCMDLINEBUILD%25'=='TRUE' copy "$(TargetPath)" "C:\Users\Pier\AppData\Local\Autodesk\3dsMax\2013 - 64bit\ENU\en-US\plugcfg\Outliner\Plugins\$(TargetFileName)"</PostBuildEvent>
@@ -162,11 +165,13 @@
       <UserProperties BuildVersion_UseGlobalSettings="True" />
     </VisualStudio>
   </ProjectExtensions>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
+   <Import Project="..\..\Outliner.Installer\BuildTasks.target" />
+   <Target Name="AfterBuild">
+      <CallTarget Targets="DeployOutput" />
+   </Target>
+   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
   -->
 </Project>

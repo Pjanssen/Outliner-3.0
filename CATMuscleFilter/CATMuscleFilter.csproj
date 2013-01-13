@@ -68,8 +68,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>IF NOT '%25ISCMDLINEBUILD%25'=='TRUE' copy "$(TargetPath)" "C:\Users\Pier\AppData\Local\Autodesk\3dsMax\2013 - 64bit\ENU\en-US\plugcfg\Outliner\Plugins\$(TargetFileName)"
-
+    <PostBuildEvent>IF NOT '%25ISCMDLINEBUILD%25'=='TRUE' copy "$(TargetPath)" "C:\Users\Pier\AppData\Local\Autodesk\3dsMax\2013 - 64bit\ENU\en-US\plugcfg\Outliner\Plugins\$(TargetFileName)"
+
+
+
 </PostBuildEvent>
   </PropertyGroup>
   <ProjectExtensions>
@@ -77,11 +79,13 @@
       <UserProperties BuildVersion_ConfigurationName="Release" BuildVersion_UseGlobalSettings="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
+   <Import Project="..\..\Outliner.Installer\BuildTasks.target" />
+   <Target Name="AfterBuild">
+      <CallTarget Targets="DeployOutput" />
+   </Target>
+   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
   -->
 </Project>
