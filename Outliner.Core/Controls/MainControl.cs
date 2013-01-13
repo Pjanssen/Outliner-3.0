@@ -72,15 +72,30 @@ public partial class MainControl : MaxCustomControls.MaxUserControl, MaxCustomCo
       MaxInterfaces.Global.EnableAccelerators();
    }
 
-   private void nameFilterTextBox_KeyUp(object sender, KeyEventArgs e)
+   private void nameFilterTextBox_KeyPress(object sender, KeyPressEventArgs e)
    {
-      //This appears to be more reliable than e.KeyCode.HasFlag(Keys.Enter),
-      //which also returns true for 'o' ?!
-      if (e.KeyValue == 13)
+      if (e.KeyChar == (char)Keys.Return)
       {
          Outliner.Controls.Tree.TreeView activeTree = this.ActiveTreeView;
-         activeTree.SelectAllNodes(true);
+         activeTree.SelectAllNodes(false);
+         activeTree.SelectNodes(GetVisibleNodes(activeTree.Root.Nodes), true);
          activeTree.OnSelectionChanged();
+         NativeMethods.SetFocus(MaxInterfaces.MaxHwnd.Handle);
+         e.Handled = true;
+      }
+   }
+
+   private IEnumerable<Tree.TreeNode> GetVisibleNodes(Tree.TreeNodeCollection nodes)
+   {
+      foreach (Tree.TreeNode tn in nodes)
+      {
+         if (tn.ShowNode)
+            yield return tn;
+
+         foreach (Tree.TreeNode childTn in GetVisibleNodes(tn.Nodes))
+         {
+            yield return childTn;
+         }
       }
    }
 }

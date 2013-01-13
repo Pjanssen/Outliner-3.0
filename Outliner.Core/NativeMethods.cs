@@ -11,5 +11,8 @@ namespace Outliner
    {
       [DllImport("shlwapi.dll", CharSet = CharSet.Unicode, ExactSpelling = true)]
       public static extern int StrCmpLogicalW(String x, String y);
+
+      [DllImport("user32.dll")]
+      public static extern IntPtr SetFocus(IntPtr hWnd);
    }
 }
