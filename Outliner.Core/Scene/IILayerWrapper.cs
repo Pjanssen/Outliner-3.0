@@ -65,7 +65,7 @@ namespace Outliner.Scene
          get { return this.layerProperties; }
       }
 
-      #region Nested Layers & Adding IINodes
+      #region Childnodes
       
       public override IMaxNodeWrapper Parent
       {
@@ -84,18 +84,25 @@ namespace Outliner.Scene
          get { return this.ChildNodes.Count(); }
       }
 
+      private IEnumerable<IILayer> GetChildLayers()
+      {
+         return NestedLayers.GetChildren(this.IILayer, false);
+      }
+
+      private IEnumerable<IINode> GetChildNodes()
+      {
+         ITab<IINode> nodes = MaxInterfaces.Global.INodeTabNS.Create();
+         this.layerProperties.Nodes(nodes);
+         return nodes.ToIEnumerable();
+      }
+
       public override IEnumerable<Object> ChildNodes
       {
          get
          {
-            IEnumerable<IILayer> childLayers = NestedLayers.GetChildren(this.IILayer, false);
-
-            ITab<IINode> nodes = MaxInterfaces.Global.INodeTabNS.Create();
-            this.layerProperties.Nodes(nodes);
-
             List<Object> childNodes = new List<object>();
-            childNodes.AddRange(childLayers);
-            childNodes.AddRange(nodes.ToIEnumerable());
+            childNodes.AddRange(this.GetChildLayers());
+            childNodes.AddRange(this.GetChildNodes());
 
             return childNodes;
          }
@@ -114,8 +121,7 @@ namespace Outliner.Scene
          }
          else if (node is IILayerWrapper)
          {
-            //TODO check if node is parent of this, etc.
-            return node != this;
+            return !node.Equals(this) && (node.Parent == null || !node.Parent.Equals(this));
          }
          else if (node is SelectionSetWrapper)
             return this.CanAddChildNodes(node.WrappedChildNodes);
@@ -181,6 +187,8 @@ namespace Outliner.Scene
          }
       }
 
+      #region Name
+      
       public override string Name 
       {
          get { return layer.Name; }
@@ -207,6 +215,10 @@ namespace Outliner.Scene
          get { return !this.IsDefault; }
       }
 
+      #endregion
+
+      #region Type
+
       public override IClass_ID ClassID 
       {
          get { return layer.ClassID; }
@@ -217,17 +229,45 @@ namespace Outliner.Scene
          get { return layer.SuperClassID; }
       }
 
+      public override bool IsNodeType(MaxNodeTypes types) 
+      {
+         return types.HasFlag(MaxNodeTypes.Layer);
+      }
+
+      #endregion
 
       public override bool Selected 
       {
          get { return false; }
       }
 
-      public override bool IsNodeType(MaxNodeTypes types) 
+      #region Delete
+      
+      public override bool CanDelete
       {
-         return types.HasFlag(MaxNodeTypes.Layer);
+         get { return !this.IsDefault; }
       }
 
+      public override void Delete()
+      {
+         if (CanDelete)
+         {
+            IILayer defaultLayer = MaxInterfaces.IILayerManager.GetLayer(0);
+            foreach (IINode node in this.GetChildNodes())
+            {
+               defaultLayer.AddToLayer(node);
+            }
+            foreach (IILayer layer in this.GetChildLayers())
+            {
+               NestedLayers.SetParent(layer, null);
+            }
+
+            String name = this.Name;
+            MaxInterfaces.IILayerManager.DeleteLayer(ref name);
+         }
+      }
+
+      #endregion
 
       public override System.Drawing.Color WireColor 
       {
@@ -271,7 +311,6 @@ namespace Outliner.Scene
             catch { return false; }
          }
       }
-
 
       public const String ImgKeyLayer       = "layer";
       public const String ImgKeyLayerActive = "layer_active";

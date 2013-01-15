@@ -83,6 +83,8 @@ namespace Outliner.Scene
          return this.name.GetHashCode();
       }
 
+      #region ChildNodes
+      
       public override int ChildNodeCount
       {
          get 
@@ -118,11 +120,13 @@ namespace Outliner.Scene
 
          return node is IINodeWrapper && !this.WrappedChildNodes.Contains(node);
       }
+
       public override void AddChildNode(IMaxNodeWrapper node)
       {
          Throw.IfArgumentIsNull(node, "node");
          this.AddChildNodes(new List<IMaxNodeWrapper>() { node });
       }
+      
       public override void AddChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
       {
          Throw.IfArgumentIsNull(nodes, "nodes");
@@ -154,12 +158,14 @@ namespace Outliner.Scene
 
          return this.ChildIINodes.Contains(inodeWrapper.IINode);
       }
+      
       public override void RemoveChildNode(IMaxNodeWrapper node)
       {
          Throw.IfArgumentIsNull(node, "node");
 
          this.RemoveChildNodes(new List<IMaxNodeWrapper>() { node });
       }
+      
       public override void RemoveChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
       {
          Throw.IfArgumentIsNull(nodes, "nodes");
@@ -177,6 +183,8 @@ namespace Outliner.Scene
 
          MaxInterfaces.SelectionSetManager.ReplaceNamedSelSet(nodeTab, ref this.name);
       }
+
+      #endregion
 
 
       public virtual void ReplaceNodeset(IEnumerable<IMaxNodeWrapper> nodes)
@@ -217,6 +225,8 @@ namespace Outliner.Scene
          }
       }
 
+      #region Type
+      
       public override Autodesk.Max.IClass_ID ClassID
       {
          get { return null; }
@@ -227,20 +237,36 @@ namespace Outliner.Scene
          get { return SClass_ID.Utility; }
       }
 
-      public override bool Selected
-      {
-         get { return false; }
-      }
-
       public override bool IsNodeType(MaxNodeTypes types)
       {
          return types.HasFlag(MaxNodeTypes.SelectionSet);
       }
 
+      #endregion
+
+      public override bool Selected
+      {
+         get { return false; }
+      }
+
+      public override void Delete()
+      {
+         if (this.CanDelete)
+         {
+            MaxInterfaces.SelectionSetManager.RemoveNamedSelSet(ref this.name);
+         }
+      }
+
+      #region NodeProperties
 
       private Boolean IntToBool(int i)
       {
          return i != 0;
+      }
+
+      private int BoolToInt(bool b)
+      {
+         return b ? 1 : 0;
       }
 
       private Boolean GetSelSetProperty(Func<IINode, Boolean> fn)
@@ -260,15 +286,15 @@ namespace Outliner.Scene
       {
          switch (property)
          {
-            case BooleanNodeProperty.IsHidden: 
+            case BooleanNodeProperty.IsHidden:
                return GetSelSetProperty(n => n.IsObjectHidden);
-            case BooleanNodeProperty.IsFrozen: 
+            case BooleanNodeProperty.IsFrozen:
                return GetSelSetProperty(n => n.IsObjectFrozen);
-            case BooleanNodeProperty.SeeThrough: 
+            case BooleanNodeProperty.SeeThrough:
                return GetSelSetProperty(n => IntToBool(n.XRayMtl_));
-            case BooleanNodeProperty.BoxMode: 
+            case BooleanNodeProperty.BoxMode:
                return GetSelSetProperty(n => IntToBool(n.BoxMode_));
-            case BooleanNodeProperty.BackfaceCull: 
+            case BooleanNodeProperty.BackfaceCull:
                return GetSelSetProperty(n => IntToBool(n.BackCull_));
             case BooleanNodeProperty.AllEdges:
                return GetSelSetProperty(n => IntToBool(n.AllEdges_));
@@ -278,32 +304,91 @@ namespace Outliner.Scene
                return GetSelSetProperty(n => IntToBool(n.TrajectoryON));
             case BooleanNodeProperty.IgnoreExtents:
                return GetSelSetProperty(n => IntToBool(n.IgnoreExtents_));
-            case BooleanNodeProperty.FrozenInGray: 
+            case BooleanNodeProperty.FrozenInGray:
                return GetSelSetProperty(n => IntToBool(n.ShowFrozenWithMtl));
-            case BooleanNodeProperty.Renderable: 
+            case BooleanNodeProperty.Renderable:
                return GetSelSetProperty(n => IntToBool(n.Renderable));
-            case BooleanNodeProperty.InheritVisibility: 
+            case BooleanNodeProperty.InheritVisibility:
                return GetSelSetProperty(n => n.InheritVisibility);
-            case BooleanNodeProperty.PrimaryVisibility: 
+            case BooleanNodeProperty.PrimaryVisibility:
                return GetSelSetProperty(n => IntToBool(n.PrimaryVisibility));
-            case BooleanNodeProperty.SecondaryVisibility: 
+            case BooleanNodeProperty.SecondaryVisibility:
                return GetSelSetProperty(n => IntToBool(n.SecondaryVisibility));
-            case BooleanNodeProperty.ReceiveShadows: 
+            case BooleanNodeProperty.ReceiveShadows:
                return GetSelSetProperty(n => IntToBool(n.RcvShadows));
-            case BooleanNodeProperty.CastShadows: 
+            case BooleanNodeProperty.CastShadows:
                return GetSelSetProperty(n => IntToBool(n.CastShadows));
-            case BooleanNodeProperty.ApplyAtmospherics: 
+            case BooleanNodeProperty.ApplyAtmospherics:
                return GetSelSetProperty(n => IntToBool(n.ApplyAtmospherics));
-            case BooleanNodeProperty.RenderOccluded: 
+            case BooleanNodeProperty.RenderOccluded:
                return GetSelSetProperty(n => n.RenderOccluded);
-            default: 
+            default:
                return base.GetNodeProperty(property);
          }
       }
 
-      public override void SetNodeProperty(NodeProperty property, object value)
+      public override void SetNodeProperty(BooleanNodeProperty property, bool value)
       {
-         throw new NotImplementedException();
+         switch (property)
+         {
+            case BooleanNodeProperty.IsHidden:
+               this.SetSelSetProperty(n => n.Hide(value));
+               break;
+            case BooleanNodeProperty.IsFrozen:
+               this.SetSelSetProperty(n => n.IsFrozen = value);
+               break;
+            case BooleanNodeProperty.SeeThrough:
+               this.SetSelSetProperty(n => n.XRayMtl(value));
+               break;
+            case BooleanNodeProperty.BoxMode:
+               this.SetSelSetProperty(n => n.BoxMode(value));
+               break;
+            case BooleanNodeProperty.BackfaceCull:
+               this.SetSelSetProperty(n => n.BackCull(value));
+               break;
+            case BooleanNodeProperty.AllEdges:
+               this.SetSelSetProperty(n => n.AllEdges(value));
+               break;
+            case BooleanNodeProperty.VertexTicks:
+               this.SetSelSetProperty(n => n.VertTicks = BoolToInt(value));
+               break;
+            case BooleanNodeProperty.Trajectory:
+               this.SetSelSetProperty(n => n.SetTrajectoryON(value));
+               break;
+            case BooleanNodeProperty.IgnoreExtents:
+               this.SetSelSetProperty(n => n.IgnoreExtents(value));
+               break;
+            case BooleanNodeProperty.FrozenInGray:
+               this.SetSelSetProperty(n => n.SetShowFrozenWithMtl(value));
+               break;
+            case BooleanNodeProperty.Renderable:
+               this.SetSelSetProperty(n => n.SetRenderable(value));
+               break;
+            case BooleanNodeProperty.InheritVisibility:
+               this.SetSelSetProperty(n => n.InheritVisibility = value);
+               break;
+            case BooleanNodeProperty.PrimaryVisibility:
+               this.SetSelSetProperty(n => n.SetPrimaryVisibility(value));
+               break;
+            case BooleanNodeProperty.SecondaryVisibility:
+               this.SetSelSetProperty(n => n.SetSecondaryVisibility(value));
+               break;
+            case BooleanNodeProperty.ReceiveShadows:
+               this.SetSelSetProperty(n => n.SetRcvShadows(value));
+               break;
+            case BooleanNodeProperty.CastShadows:
+               this.SetSelSetProperty(n => n.SetCastShadows(value));
+               break;
+            case BooleanNodeProperty.ApplyAtmospherics:
+               this.SetSelSetProperty(n => n.SetApplyAtmospherics(value));
+               break;
+            case BooleanNodeProperty.RenderOccluded:
+               this.SetSelSetProperty(n => n.RenderOccluded = value);
+               break;
+            default:
+               base.SetNodeProperty(property, value);
+               break;
+         }
       }
 
 
@@ -319,13 +404,14 @@ namespace Outliner.Scene
          {
             return System.Drawing.Color.Black;
          }
-         set 
+         set
          {
             Throw.IfArgumentIsNull(value, "value");
             this.SetSelSetProperty(n => n.WireColor = value);
          }
       }
 
+      #endregion
 
       public const String ImgKeySelectionSet = "selectionset";
       public override string ImageKey

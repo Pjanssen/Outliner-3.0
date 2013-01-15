@@ -7,9 +7,12 @@ using System.ComponentModel;
 using Outliner.MaxUtils;
 using Outliner.Commands;
 using Outliner.Scene;
+using Outliner.Plugins;
 
 namespace Outliner.Controls.ContextMenu
 {
+[OutlinerPlugin(OutlinerPluginType.ContextMenuItemModel)]
+[LocalizedDisplayName(typeof(ContextMenuResources), "Str_NodePropertyMenuItemModel")]
 public class NodePropertyMenuItemModel : MenuItemModel
 {
    public NodePropertyMenuItemModel() : base() 

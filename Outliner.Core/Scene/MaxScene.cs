@@ -60,11 +60,25 @@ public static class MaxScene
       }
    }
 
-   public static IEnumerable<IINodeWrapper> Objects
+   public static IEnumerable<IINodeWrapper> AllObjects
    {
       get
       {
-         throw new NotImplementedException();
+         return GetChildObjects(MaxInterfaces.COREInterface.RootNode);
+      }
+   }
+
+   private static IEnumerable<IINodeWrapper> GetChildObjects(IINode node)
+   {
+      for (int i = 0; i < node.NumberOfChildren; i++)
+      {
+         IINode childNode = node.GetChildNode(i);
+         yield return new IINodeWrapper(childNode);
+
+         foreach (IINodeWrapper child in GetChildObjects(childNode))
+         {
+            yield return child;
+         }
       }
    }
 

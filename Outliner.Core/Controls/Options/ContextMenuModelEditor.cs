@@ -10,6 +10,7 @@ using Outliner.Controls.ContextMenu;
 using Outliner.Controls.Tree.Layout;
 using System.IO;
 using Outliner.Configuration;
+using Outliner.Plugins;
 
 namespace Outliner.Controls.Options
 {
@@ -38,6 +39,7 @@ public partial class ContextMenuModelEditor : OutlinerUserControl
       this.itemTree.TreeNodeLayout.LayoutItems.Add(new TreeNodeText());
       this.itemTree.TreeNodeLayout.LayoutItems.Add(new EmptySpace());
       this.itemTree.TreeNodeLayout.FullRowSelect = true;
+      this.itemTree.Settings.MultiSelect = false;
 
       this.FillItemComboBox();
       this.FillItemTree();
@@ -46,17 +48,19 @@ public partial class ContextMenuModelEditor : OutlinerUserControl
    private static String GetMenuItemNameComboBox(Type modelType)
    {
       if (modelType == typeof(ActionMenuItemModel))
-         return "Action item";
+         return ContextMenuResources.Str_ActionMenuItemModel;
       if (modelType == typeof(MxsMenuItemModel))
-         return "Maxscript item";
+         return ContextMenuResources.Str_MxsMenuItemModel;
       if (modelType == typeof(NodePropertyMenuItemModel))
-         return "Node Property item";
+         return ContextMenuResources.Str_NodePropertyMenuItemModel;
       if (modelType == typeof(SeparatorMenuItemModel))
-         return "Separator";
+         return ContextMenuResources.Str_SeparatorMenuItemModel;
       if (modelType == typeof(IncludeContextMenuModel))
-         return "Include context-menu";
+         return ContextMenuResources.Str_IncludeContextMenuModel;
       if (modelType == typeof(AddToLayerMenuItems))
-         return "Add to layer items";
+         return ContextMenuResources.Str_AddToLayerItems;
+      if (modelType == typeof(HideFreezeItems))
+         return ContextMenuResources.Str_HideFreezeItems;
       return modelType.Name;
    }
 
@@ -70,19 +74,12 @@ public partial class ContextMenuModelEditor : OutlinerUserControl
 
    private void FillItemComboBox()
    {
-      List<Type> itemTypes = new List<Type>() {
-         typeof(ActionMenuItemModel),
-         typeof(MxsMenuItemModel),
-         typeof(NodePropertyMenuItemModel),
-         typeof(SeparatorMenuItemModel),
-         typeof(IncludeContextMenuModel),
-         typeof(AddToLayerMenuItems)
-      };
+      IEnumerable<OutlinerPluginData> plugins = OutlinerPlugins.GetPlugins(OutlinerPluginType.ContextMenuItemModel)
+                                                               .OrderBy(p => p.DisplayName);
 
-      this.itemsComboBox.DataSource = itemTypes.Select(t => new Tuple<Type, String>(t, GetMenuItemNameComboBox(t)))
-                                               .ToList();
-      this.itemsComboBox.DisplayMember = "Item2";
-      this.itemsComboBox.ValueMember = "Item1";
+      this.itemsComboBox.DataSource = plugins.ToList();
+      this.itemsComboBox.DisplayMember = "DisplayName";
+      this.itemsComboBox.ValueMember = "Type";
    }
 
    private void FillItemTree()
@@ -106,7 +103,7 @@ public partial class ContextMenuModelEditor : OutlinerUserControl
    {
       String text = item.Text;
       if (String.IsNullOrEmpty(text))
-         text = String.Format("-{0}-", GetMenuItemNameTree(item.GetType()));
+         text = GetMenuItemNameTree(item.GetType());
       Tree.TreeNode tn = new Tree.TreeNode(text);
       tn.Tag = item;
 
@@ -172,7 +169,7 @@ public partial class ContextMenuModelEditor : OutlinerUserControl
 
    private void addBtn_Click(object sender, EventArgs e)
    {
-      Tuple<Type, String> selectedItem = this.itemsComboBox.SelectedItem as Tuple<Type, String>;
+      OutlinerPluginData selectedItem = this.itemsComboBox.SelectedItem as OutlinerPluginData;
       if (selectedItem == null)
          return;
 
@@ -181,11 +178,25 @@ public partial class ContextMenuModelEditor : OutlinerUserControl
       if (selItem != null)
          target = selItem.SubItems;
 
-      MenuItemModel newItem = Activator.CreateInstance(selectedItem.Item1, null) as MenuItemModel;
+      MenuItemModel newItem = Activator.CreateInstance(selectedItem.Type, null) as MenuItemModel;
       target.Add(newItem);
 
       this.FillItemTree();
       this.SelectItem(newItem);
+      //Tuple<Type, String> selectedItem = this.itemsComboBox.SelectedItem as Tuple<Type, String>;
+      //if (selectedItem == null)
+      //   return;
+
+      //List<MenuItemModel> target = this.contextMenuModel.Items;
+      //MenuItemModel selItem = this.GetSelectedItem();
+      //if (selItem != null)
+      //   target = selItem.SubItems;
+
+      //MenuItemModel newItem = Activator.CreateInstance(selectedItem.Item1, null) as MenuItemModel;
+      //target.Add(newItem);
+
+      //this.FillItemTree();
+      //this.SelectItem(newItem);
    }
 
    private void deleteBtn_Click(object sender, EventArgs e)

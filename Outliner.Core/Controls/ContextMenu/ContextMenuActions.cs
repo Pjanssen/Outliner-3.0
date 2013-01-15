@@ -48,7 +48,13 @@ public static class ContextMenuActions
    #endregion
 
    #region Delete
-   
+
+   [OutlinerPredicate]
+   public static Boolean CanDeleteSelection(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   {
+      return contextNodes.Any(n => n.CanDelete);
+   }
+
    [OutlinerAction]
    public static void Delete(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
    {

@@ -28,12 +28,7 @@ public class DeleteCommand : Command
    {
       foreach (IMaxNodeWrapper node in this.nodes)
       {
-         IINodeWrapper iinodeWrapper = node as IINodeWrapper;
-         if (iinodeWrapper != null)
-         {
-            IInterface ip = MaxInterfaces.COREInterface;
-            ip.DeleteNode(iinodeWrapper.IINode, false, false);
-         }
+         node.Delete();
       }
    }
 

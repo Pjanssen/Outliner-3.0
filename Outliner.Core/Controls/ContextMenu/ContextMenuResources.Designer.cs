@@ -642,6 +642,15 @@ namespace Outliner.Controls.ContextMenu {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Action Item.
+        /// </summary>
+        internal static string Str_ActionMenuItemModel {
+            get {
+                return ResourceManager.GetString("Str_ActionMenuItemModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Action &quot;{0}&quot; not found!.
         /// </summary>
         internal static string Str_ActionNotFound {
@@ -651,11 +660,65 @@ namespace Outliner.Controls.ContextMenu {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to = Add To Layer Items =.
+        /// </summary>
+        internal static string Str_AddToLayerItems {
+            get {
+                return ResourceManager.GetString("Str_AddToLayerItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Context menu warning.
         /// </summary>
         internal static string Str_ContextMenuWarningTitle {
             get {
                 return ResourceManager.GetString("Str_ContextMenuWarningTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to = Hide / Freeze Items =.
+        /// </summary>
+        internal static string Str_HideFreezeItems {
+            get {
+                return ResourceManager.GetString("Str_HideFreezeItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to = Include Model File =.
+        /// </summary>
+        internal static string Str_IncludeContextMenuModel {
+            get {
+                return ResourceManager.GetString("Str_IncludeContextMenuModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maxscript Item.
+        /// </summary>
+        internal static string Str_MxsMenuItemModel {
+            get {
+                return ResourceManager.GetString("Str_MxsMenuItemModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Node Property Item.
+        /// </summary>
+        internal static string Str_NodePropertyMenuItemModel {
+            get {
+                return ResourceManager.GetString("Str_NodePropertyMenuItemModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- Separator --.
+        /// </summary>
+        internal static string Str_SeparatorMenuItemModel {
+            get {
+                return ResourceManager.GetString("Str_SeparatorMenuItemModel", resourceCulture);
             }
         }
         

@@ -56,6 +56,16 @@ public class IINodeWrapper : IMaxNodeWrapper
       }
    }
 
+   public bool IsInstance
+   {
+      get
+      {
+         IINodeTab instances = MaxInterfaces.Global.INodeTabNS.Create();
+         uint numInstances = MaxInterfaces.InstanceMgr.GetInstances(this.iinode, instances);
+         return numInstances > 1;
+      }
+   }
+
    public override IMaxNodeWrapper Parent
    {
       get
@@ -64,6 +74,8 @@ public class IINodeWrapper : IMaxNodeWrapper
       }
    }
 
+   #region ChildNodes
+   
    public override int ChildNodeCount
    {
       get { return this.iinode.NumberOfChildren; }
@@ -103,6 +115,7 @@ public class IINodeWrapper : IMaxNodeWrapper
 
       return loop == RefResult.Succeed;
    }
+
    public override bool CanAddChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
    {
       return nodes.All(this.CanAddChildNode);
@@ -131,13 +144,17 @@ public class IINodeWrapper : IMaxNodeWrapper
          ((IINodeWrapper)node).iinode.Detach(0, true);
    }
 
+   #endregion
+
+   #region Name
+   
    public override String Name
    {
       get { return this.iinode.Name; }
-      set 
+      set
       {
          Throw.IfArgumentIsNull(value, "value");
-         this.iinode.Name = value; 
+         this.iinode.Name = value;
       }
    }
 
@@ -165,6 +182,10 @@ public class IINodeWrapper : IMaxNodeWrapper
       }
    }
 
+   #endregion
+
+   #region Type
+   
    public override IClass_ID ClassID
    {
       get { return this.iinode.ObjectRef.ClassID; }
@@ -175,24 +196,35 @@ public class IINodeWrapper : IMaxNodeWrapper
       get { return this.iinode.ObjectRef.FindBaseObject().SuperClassID; }
    }
 
-   public override bool Selected
-   {
-      get { return this.iinode.Selected; }
-   }
-
    public override bool IsNodeType(MaxNodeTypes types)
    {
       return (types & MaxNodeTypes.Object) == MaxNodeTypes.Object;
    }
 
+   #endregion
+
+   public override bool Selected
+   {
+      get { return this.iinode.Selected; }
+   }
+
+   public override void Delete()
+   {
+      if (this.CanDelete)
+      {
+         MaxInterfaces.COREInterface.DeleteNode(this.IINode, false, false);
+      }
+   }
+
+   #region NodeProperties
 
    public override Color WireColor
    {
       get { return ColorHelpers.FromMaxColor(this.iinode.WireColor); }
-      set 
+      set
       {
          Throw.IfArgumentIsNull(value, "value");
-         this.iinode.WireColor = value; 
+         this.iinode.WireColor = value;
       }
    }
 
@@ -317,15 +349,9 @@ public class IINodeWrapper : IMaxNodeWrapper
          return false;
    }
 
-   public bool IsInstance
-   {
-      get
-      {
-         IINodeTab instances = MaxInterfaces.Global.INodeTabNS.Create();
-         uint numInstances = MaxInterfaces.InstanceMgr.GetInstances(this.iinode, instances);
-         return numInstances > 1;
-      }
-   }
+   #endregion
+   
+
 
    public const String ImgKeyBone      = "bone";
    public const String ImgKeyCamera    = "camera";

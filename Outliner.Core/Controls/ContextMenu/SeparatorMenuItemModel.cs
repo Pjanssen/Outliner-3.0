@@ -5,10 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using Outliner.Plugins;
 using Outliner.Scene;
 
 namespace Outliner.Controls.ContextMenu
 {
+   [OutlinerPlugin(OutlinerPluginType.ContextMenuItemModel)]
+   [LocalizedDisplayName(typeof(ContextMenuResources), "Str_SeparatorMenuItemModel")]
    public class SeparatorMenuItemModel : MenuItemModel
    {
       public SeparatorMenuItemModel() : base(String.Empty, String.Empty, null) { }

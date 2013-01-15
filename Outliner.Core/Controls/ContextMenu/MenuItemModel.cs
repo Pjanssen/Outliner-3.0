@@ -17,12 +17,6 @@ namespace Outliner.Controls.ContextMenu
 /// <summary>
 /// An Xml-serializable model for a ToolStripMenuItem.
 /// </summary>
-[XmlInclude(typeof(ActionMenuItemModel))]
-[XmlInclude(typeof(IncludeContextMenuModel))]
-[XmlInclude(typeof(MxsMenuItemModel))]
-[XmlInclude(typeof(NodePropertyMenuItemModel))]
-[XmlInclude(typeof(SeparatorMenuItemModel))]
-[XmlInclude(typeof(AddToLayerMenuItems))]
 public abstract class MenuItemModel : ConfigurationFile
 {
    public MenuItemModel() : this(String.Empty, String.Empty, null) { }

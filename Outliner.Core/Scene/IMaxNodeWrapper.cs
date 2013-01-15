@@ -84,15 +84,29 @@ namespace Outliner.Scene
 
       #endregion
 
+      #region Name
+      
       public abstract String Name { get; set; }
       public virtual String DisplayName { get { return this.Name; } }
       public virtual Boolean CanEditName { get { return true; } }
+
+      #endregion
+
+      #region Node Type
+
       public abstract SClass_ID SuperClassID { get; }
       public abstract IClass_ID ClassID { get; }
       public abstract Boolean IsNodeType(MaxNodeTypes types);
+
+      #endregion
+      
       public abstract Boolean Selected { get; } //TODO check if set should be added?
 
+      public virtual Boolean CanDelete { get { return true; } }
+      public virtual void Delete() { }
 
+      #region NodeProperties
+      
       public virtual Color WireColor
       {
          get { return Color.Empty; }
@@ -159,6 +173,7 @@ namespace Outliner.Scene
          return this.IsNodePropertyInherited(NodePropertyHelpers.ToProperty(property));
       }
 
+      #endregion
 
       /// <summary>
       /// Tests if the wrapped node is still a valid scene node and hasn't been deleted.

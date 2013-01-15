@@ -22,12 +22,12 @@ namespace Outliner.Plugins
    [Flags]
    public enum OutlinerPluginType
    {
-      TreeMode       = 0x01,
-      Filter         = 0x02,
-      NodeSorter     = 0x04,
-      TreeNodeButton = 0x08,
-      Utility        = 0x10,
-      DefaultPreset  = 0x20,
-      ActionProvider = 0x40
+      TreeMode             = 0x01,
+      Filter               = 0x02,
+      NodeSorter           = 0x04,
+      TreeNodeButton       = 0x08,
+      Utility              = 0x10,
+      ContextMenuItemModel = 0x20,
+      ActionProvider       = 0x40
    }
 }

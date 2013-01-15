@@ -11,6 +11,8 @@ using System.Globalization;
 
 namespace Outliner.Controls.ContextMenu
 {
+[OutlinerPlugin(OutlinerPluginType.ContextMenuItemModel)]
+[LocalizedDisplayName(typeof(ContextMenuResources), "Str_ActionMenuItemModel")]
 public class ActionMenuItemModel : MenuItemModel
 {
    public ActionMenuItemModel() : this(String.Empty, String.Empty, null) { }

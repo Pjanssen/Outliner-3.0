@@ -334,4 +334,25 @@
   <data name="new_selectionset_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\resources\contextmenu\new_selectionset_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Str_ActionMenuItemModel" xml:space="preserve">
+    <value>Action Item</value>
+  </data>
+  <data name="Str_AddToLayerItems" xml:space="preserve">
+    <value>= Add To Layer Items =</value>
+  </data>
+  <data name="Str_HideFreezeItems" xml:space="preserve">
+    <value>= Hide / Freeze Items =</value>
+  </data>
+  <data name="Str_IncludeContextMenuModel" xml:space="preserve">
+    <value>= Include Model File =</value>
+  </data>
+  <data name="Str_MxsMenuItemModel" xml:space="preserve">
+    <value>Maxscript Item</value>
+  </data>
+  <data name="Str_NodePropertyMenuItemModel" xml:space="preserve">
+    <value>Node Property Item</value>
+  </data>
+  <data name="Str_SeparatorMenuItemModel" xml:space="preserve">
+    <value>-- Separator --</value>
+  </data>
 </root>

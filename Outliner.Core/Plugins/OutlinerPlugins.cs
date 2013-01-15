@@ -179,7 +179,7 @@ public static class OutlinerPlugins
       return OutlinerPlugins.GetPlugins( OutlinerPluginType.Filter
                                        | OutlinerPluginType.NodeSorter
                                        | OutlinerPluginType.TreeNodeButton
-                                       | OutlinerPluginType.DefaultPreset)
+                                       | OutlinerPluginType.ContextMenuItemModel)
                             .Select(p => p.Type)
                             .ToArray();
    }

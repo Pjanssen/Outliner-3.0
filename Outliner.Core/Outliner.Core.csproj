@@ -151,7 +151,6 @@
     <Compile Include="AssemblyFunctions.cs" />
     <Compile Include="Commands\ChangeGroupCommand.cs" />
     <Compile Include="Commands\Command.cs" />
-    <Compile Include="Commands\CommandChain.cs" />
     <Compile Include="Commands\CreateSelectionSetCommand.cs" />
     <Compile Include="Commands\CreateContainerCommand.cs" />
     <Compile Include="Commands\GroupNodesCommand.cs" />
@@ -189,6 +188,7 @@
       <DependentUpon>ContextMenuResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Configuration\ImageResourceConverter.cs" />
+    <Compile Include="Controls\ContextMenu\HideFreezeItems.cs" />
     <Compile Include="Controls\ContextMenu\IContextMenuExtendable.cs" />
     <Compile Include="Controls\ContextMenu\IncludeContextMenuModel.cs" />
     <Compile Include="Controls\ContextMenu\MenuItemModel.cs" />

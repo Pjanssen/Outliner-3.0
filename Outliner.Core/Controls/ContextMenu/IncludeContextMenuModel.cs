@@ -6,9 +6,12 @@ using System.Xml.Serialization;
 using System.Windows.Forms;
 using System.IO;
 using Outliner.Scene;
+using Outliner.Plugins;
 
 namespace Outliner.Controls.ContextMenu
 {
+   [OutlinerPlugin(OutlinerPluginType.ContextMenuItemModel)]
+   [LocalizedDisplayName(typeof(ContextMenuResources), "Str_IncludeContextMenuModel")]
    public class IncludeContextMenuModel : MenuItemModel
    {
       public IncludeContextMenuModel() : base() 

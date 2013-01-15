@@ -7,10 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using ManagedServices;
+using Outliner.Plugins;
 using Outliner.Scene;
 
 namespace Outliner.Controls.ContextMenu
 {
+[OutlinerPlugin(OutlinerPluginType.ContextMenuItemModel)]
+[LocalizedDisplayName(typeof(ContextMenuResources), "Str_MxsMenuItemModel")]
 public class MxsMenuItemModel : MenuItemModel
 {
    public MxsMenuItemModel() 

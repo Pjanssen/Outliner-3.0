@@ -7,10 +7,13 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using Autodesk.Max;
 using Outliner.MaxUtils;
+using Outliner.Plugins;
 using Outliner.Scene;
 
 namespace Outliner.Controls.ContextMenu
 {
+[OutlinerPlugin(OutlinerPluginType.ContextMenuItemModel)]
+[LocalizedDisplayName(typeof(ContextMenuResources), "Str_AddToLayerItems")]
 public class AddToLayerMenuItems : MenuItemModel
 {
    public override ToolStripItem[] ToToolStripMenuItems( Outliner.Controls.Tree.TreeView treeView

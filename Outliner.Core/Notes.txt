@@ -108,3 +108,5 @@ Options
 #31 - 1 pixel black line missing under search field 
 #33 - Plug-in Assembly Load Error 
 #34 - Search field also selects visible filtered out nodes 
+#36 - Add contextual menu to Selection Set mode
+#39 - Drag dropping a layer onto its parent is "allowed" 

@@ -23,6 +23,10 @@ namespace Outliner.Scene
          get { return false; }
       }
 
+      public override bool CanDelete
+      {
+         get { return false; }
+      }
 
       public override IEnumerable<IINode> ChildIINodes
       {
