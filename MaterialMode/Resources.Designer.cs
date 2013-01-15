@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Outliner.MaterialMode {
+namespace Outliner.Modes.MaterialMode {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Outliner.MaterialMode {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Outliner.MaterialMode.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Outliner.Modes.MaterialMode.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -96,6 +96,15 @@ namespace Outliner.MaterialMode {
         internal static string Mode_Materials {
             get {
                 return ResourceManager.GetString("Mode_Materials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Unassigned -.
+        /// </summary>
+        internal static string Name_Unassigned {
+            get {
+                return ResourceManager.GetString("Name_Unassigned", resourceCulture);
             }
         }
     }

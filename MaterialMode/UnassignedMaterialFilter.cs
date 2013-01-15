@@ -5,13 +5,13 @@ using System.Text;
 using Outliner.Filters;
 using Outliner.Scene;
 
-namespace Outliner.MaterialMode
+namespace Outliner.Modes.MaterialMode
 {
    public class UnassignedMaterialFilter : Filter<IMaxNodeWrapper>
    {
       override protected Boolean ShowNodeInternal(IMaxNodeWrapper data)
       {
-         return false;
+         return true;
          //if (!(n is OutlinerMaterial))
          //   return FilterResult.Show;
 

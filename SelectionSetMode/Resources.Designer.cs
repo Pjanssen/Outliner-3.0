@@ -61,11 +61,30 @@ namespace Outliner.Modes.SelectionSet {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create selection-set.
+        /// </summary>
+        internal static string Context_NewSelSet {
+            get {
+                return ResourceManager.GetString("Context_NewSelSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selection-Sets.
         /// </summary>
         internal static string Mode_SelectionSets {
             get {
                 return ResourceManager.GetString("Mode_SelectionSets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap new_selectionset_16 {
+            get {
+                object obj = ResourceManager.GetObject("new_selectionset_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

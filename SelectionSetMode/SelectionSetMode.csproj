@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContextMenuActions.cs" />
     <Compile Include="IINodeDragDropHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
@@ -90,6 +91,9 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\new_selectionset_16.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF NOT '%25ISCMDLINEBUILD%25'=='TRUE' copy "$(TargetPath)" "C:\Users\Pier\AppData\Local\Autodesk\3dsMax\2013 - 64bit\ENU\en-US\plugcfg\Outliner\Plugins\$(TargetFileName)"</PostBuildEvent>
@@ -99,11 +103,11 @@
       <UserProperties BuildVersion_UseGlobalSettings="True" />
     </VisualStudio>
   </ProjectExtensions>
-   <Import Project="..\..\Outliner.Installer\BuildTasks.target" />
-   <Target Name="AfterBuild">
-      <CallTarget Targets="DeployOutput" />
-   </Target>
-   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <Import Project="..\..\Outliner.Installer\BuildTasks.target" />
+  <Target Name="AfterBuild">
+    <CallTarget Targets="DeployOutput" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
