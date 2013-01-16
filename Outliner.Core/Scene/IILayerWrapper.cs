@@ -269,6 +269,8 @@ namespace Outliner.Scene
 
       #endregion
 
+      #region NodeProperties
+      
       public override System.Drawing.Color WireColor 
       {
          get { return ColorHelpers.FromMaxColor(this.layer.WireColor); }
@@ -299,6 +301,8 @@ namespace Outliner.Scene
          
          return NestedLayers.IsPropertyInherited(layer, NodePropertyHelpers.ToBooleanProperty(property));
       }
+
+      #endregion
 
       public override bool IsValid 
       {

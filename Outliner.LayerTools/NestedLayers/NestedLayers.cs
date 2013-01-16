@@ -340,12 +340,19 @@ public static class NestedLayers
       NestedLayers.SetLayerProperty(layer, property, newValue);
 
       //Broadcast notification.
-      SystemNotificationCode notifCode = NestedLayers.LayerPropertyChanged;
       if (property == BooleanNodeProperty.IsHidden)
-         notifCode = SystemNotificationCode.LayerHiddenStateChanged;
+      {
+         MaxInterfaces.Global.BroadcastNotification(SystemNotificationCode.LayerHiddenStateChanged, layer);
+      }
       else if (property == BooleanNodeProperty.IsFrozen)
-         notifCode = SystemNotificationCode.LayerFrozenStateChanged;
-      MaxInterfaces.Global.BroadcastNotification(notifCode, layer);
+      {
+         MaxInterfaces.Global.BroadcastNotification(SystemNotificationCode.LayerFrozenStateChanged, layer);
+      }
+      else
+      {
+         LayerPropertyChangedParam parameters = new LayerPropertyChangedParam(layer, NodePropertyHelpers.ToProperty(property));
+         MaxInterfaces.Global.BroadcastNotification(NestedLayers.LayerPropertyChanged, parameters);
+      }
 
       //Propagate to children.
       IEnumerable<IILayer> childLayers = NestedLayers.GetChildren(layer, false);

@@ -24,6 +24,14 @@ public abstract class TreeMode
    public TreeView Tree { get; private set; }
    private ICollection<Tuple<GlobalDelegates.Delegate5, SystemNotificationCode>> systemNotifications;
    private ICollection<Tuple<uint, TreeModeNodeEventCallbacks>> nodeEventCallbacks;
+
+   private GlobalDelegates.Delegate5 proc_PausePreSystemEvent;
+   private GlobalDelegates.Delegate5 proc_ResumePostSystemEvent;
+   private GlobalDelegates.Delegate5 proc_SelectionsetChanged;
+   private GlobalDelegates.Delegate5 proc_LayerHiddenChanged;
+   private GlobalDelegates.Delegate5 proc_LayerFrozenChanged;
+   private GlobalDelegates.Delegate5 proc_LayerPropChanged;
+
    protected Dictionary<Object, ICollection<TreeNode>> treeNodes { get; private set; }
 
    internal FilterCombinator<IMaxNodeWrapper> filters;
@@ -38,6 +46,9 @@ public abstract class TreeMode
       proc_PausePreSystemEvent = new GlobalDelegates.Delegate5(this.PausePreSystemEvent);
       proc_ResumePostSystemEvent = new GlobalDelegates.Delegate5(this.ResumePostSystemEvent);
       proc_SelectionsetChanged = new GlobalDelegates.Delegate5(this.SelectionSetChanged);
+      proc_LayerHiddenChanged = new GlobalDelegates.Delegate5(this.LayerHiddenChanged);
+      proc_LayerFrozenChanged = new GlobalDelegates.Delegate5(this.LayerFrozenChanged);
+      proc_LayerPropChanged = new GlobalDelegates.Delegate5(this.LayerPropChanged);
 
       this.Tree = tree;
       this.treeNodes = new Dictionary<Object, ICollection<TreeNode>>();
@@ -64,6 +75,10 @@ public abstract class TreeMode
       this.RegisterSystemNotification(proc_PausePreSystemEvent, SystemNotificationCode.FilePreOpen);
       this.RegisterSystemNotification(proc_PausePreSystemEvent, SystemNotificationCode.FilePreMerge);
       this.RegisterSystemNotification(proc_SelectionsetChanged, SystemNotificationCode.SelectionsetChanged);
+
+      this.RegisterSystemNotification(this.proc_LayerHiddenChanged, SystemNotificationCode.LayerHiddenStateChanged);
+      this.RegisterSystemNotification(this.proc_LayerFrozenChanged, SystemNotificationCode.LayerFrozenStateChanged);
+      this.RegisterSystemNotification(this.proc_LayerPropChanged, NestedLayers.LayerPropertyChanged);
 
       this.RegisterNodeEventCallbackObject(new DefaultNodeEventCallbacks(this));
 
@@ -420,7 +435,7 @@ public abstract class TreeMode
 
    #region System notifications
 
-   protected GlobalDelegates.Delegate5 proc_PausePreSystemEvent;
+   
    protected virtual void PausePreSystemEvent(IntPtr param, IntPtr info)
    {
       this.Stop();
@@ -431,7 +446,7 @@ public abstract class TreeMode
       this.RegisterSystemNotification(this.proc_ResumePostSystemEvent, SystemNotificationCode.FilePostMerge);
    }
 
-   protected GlobalDelegates.Delegate5 proc_ResumePostSystemEvent;
+   
    protected virtual void ResumePostSystemEvent(IntPtr param, IntPtr info)
    {
       this.UnregisterSystemNotifications();
@@ -439,7 +454,8 @@ public abstract class TreeMode
       this.Start();
    }
 
-   protected GlobalDelegates.Delegate5 proc_SelectionsetChanged;
+
+   
    protected virtual void SelectionSetChanged(IntPtr param, IntPtr info)
    {
       this.Tree.SelectAllNodes(false);
@@ -454,6 +470,37 @@ public abstract class TreeMode
                tns.ForEach(tn => this.Tree.SelectNode(tn, true));
          }
       }
+   }
+
+
+   protected virtual void LayerPropertyChanged(IMaxNodeWrapper layer, NodeProperty property)
+   {
+      Boolean sort = NodeSorterHelpers.RequiresSort(this.Tree.NodeSorter as NodeSorter, property);
+      this.InvalidateObject(layer.WrappedNode, false, sort);
+      foreach (object child in layer.ChildNodes)
+      {
+         this.InvalidateObject(child, false, sort);
+      }
+   }
+   
+   private void LayerHiddenChanged(IntPtr param, IntPtr info)
+   {
+      IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
+      if (layer != null)
+         this.LayerPropertyChanged(IMaxNodeWrapper.Create(layer), NodeProperty.IsHidden);
+   }
+   
+   private void LayerFrozenChanged(IntPtr param, IntPtr info)
+   {
+      IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
+      if (layer != null)
+         this.LayerPropertyChanged(IMaxNodeWrapper.Create(layer), NodeProperty.IsFrozen);
+   }
+
+   private void LayerPropChanged(IntPtr param, IntPtr info)
+   {
+      LayerPropertyChangedParam callParam = (LayerPropertyChangedParam)MaxUtils.HelperMethods.GetCallParam(info);
+      this.LayerPropertyChanged(IMaxNodeWrapper.Create(callParam.Layer), callParam.Property);
    }
 
    #endregion
