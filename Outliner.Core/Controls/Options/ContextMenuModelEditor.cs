@@ -183,20 +183,6 @@ public partial class ContextMenuModelEditor : OutlinerUserControl
 
       this.FillItemTree();
       this.SelectItem(newItem);
-      //Tuple<Type, String> selectedItem = this.itemsComboBox.SelectedItem as Tuple<Type, String>;
-      //if (selectedItem == null)
-      //   return;
-
-      //List<MenuItemModel> target = this.contextMenuModel.Items;
-      //MenuItemModel selItem = this.GetSelectedItem();
-      //if (selItem != null)
-      //   target = selItem.SubItems;
-
-      //MenuItemModel newItem = Activator.CreateInstance(selectedItem.Item1, null) as MenuItemModel;
-      //target.Add(newItem);
-
-      //this.FillItemTree();
-      //this.SelectItem(newItem);
    }
 
    private void deleteBtn_Click(object sender, EventArgs e)
