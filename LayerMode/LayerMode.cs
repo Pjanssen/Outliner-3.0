@@ -28,10 +28,7 @@ public class LayerMode : TreeMode
       proc_LayerCreated = new GlobalDelegates.Delegate5(this.LayerCreated);
       proc_LayerDeleted = new GlobalDelegates.Delegate5(this.LayerDeleted);
       proc_LayerRenamed = new GlobalDelegates.Delegate5(this.LayerRenamed);
-      proc_LayerHiddenChanged = new GlobalDelegates.Delegate5(this.LayerHiddenChanged);
-      proc_LayerFrozenChanged = new GlobalDelegates.Delegate5(this.LayerFrozenChanged);
       proc_LayerParented = new GlobalDelegates.Delegate5(this.LayerParented);
-      proc_LayerPropChanged = new GlobalDelegates.Delegate5(this.LayerPropChanged);
    }
 
    protected override void FillTree()
@@ -101,10 +98,7 @@ public class LayerMode : TreeMode
       this.RegisterSystemNotification(proc_LayerCreated, SystemNotificationCode.LayerCreated);
       this.RegisterSystemNotification(proc_LayerDeleted, SystemNotificationCode.LayerDeleted);
       this.RegisterSystemNotification(proc_LayerRenamed, SystemNotificationCode.LayerRenamed);
-      this.RegisterSystemNotification(proc_LayerHiddenChanged, SystemNotificationCode.LayerHiddenStateChanged);
-      this.RegisterSystemNotification(proc_LayerFrozenChanged, SystemNotificationCode.LayerFrozenStateChanged);
       this.RegisterSystemNotification(proc_LayerParented, NestedLayers.LayerParented);
-      this.RegisterSystemNotification(proc_LayerPropChanged, NestedLayers.LayerPropertyChanged);
 
       this.RegisterNodeEventCallbackObject(new LayerNodeEventCallbacks(this));
 
@@ -214,39 +208,6 @@ public class LayerMode : TreeMode
    protected virtual void LayerRenamed(IntPtr param, IntPtr info)
    {
       Console.WriteLine(MaxUtils.HelperMethods.GetCallParam(info));
-   }
-
-   protected GlobalDelegates.Delegate5 proc_LayerHiddenChanged;
-   protected virtual void LayerHiddenChanged(IntPtr param, IntPtr info)
-   {
-      IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
-      if (layer != null)
-      {
-         Boolean sort = NodeSorterHelpers.RequiresSort(this.Tree.NodeSorter as NodeSorter, NodeProperty.IsHidden);
-         this.InvalidateObject(layer, true, sort);
-      }
-   }
-
-   protected GlobalDelegates.Delegate5 proc_LayerFrozenChanged;
-   protected virtual void LayerFrozenChanged(IntPtr param, IntPtr info)
-   {
-      IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
-      if (layer != null)
-      {
-         Boolean sort = NodeSorterHelpers.RequiresSort(this.Tree.NodeSorter as NodeSorter, NodeProperty.IsFrozen);
-         this.InvalidateObject(layer, true, sort);
-      }
-   }
-
-   protected GlobalDelegates.Delegate5 proc_LayerPropChanged;
-   protected virtual void LayerPropChanged(IntPtr param, IntPtr info)
-   {
-      IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
-      if (layer != null)
-      {
-         //TODO: check which properties should sort.
-         this.InvalidateObject(layer, true, false);
-      }
    }
 
    protected GlobalDelegates.Delegate5 proc_LayerParented;
