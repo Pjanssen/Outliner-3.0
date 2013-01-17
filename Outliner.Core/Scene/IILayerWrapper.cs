@@ -121,12 +121,28 @@ namespace Outliner.Scene
          }
          else if (node is IILayerWrapper)
          {
-            return !node.Equals(this) && (node.Parent == null || !node.Parent.Equals(this));
+            return !this.IsInParentChain(node) && (node.Parent == null || !node.Parent.Equals(this));
+            //return !node.Equals(this) && (node.Parent == null || !node.Parent.Equals(this));
          }
          else if (node is SelectionSetWrapper)
             return this.CanAddChildNodes(node.WrappedChildNodes);
          else
             return false;
+      }
+
+      private Boolean IsInParentChain(IMaxNodeWrapper node)
+      {
+         return this.IsInParentChain(node, this);
+      }
+
+      private Boolean IsInParentChain(IMaxNodeWrapper node, IMaxNodeWrapper currentParent)
+      {
+         if (currentParent == null)
+            return false;
+         if (node.Equals(currentParent))
+            return true;
+
+         return IsInParentChain(node, currentParent.Parent);
       }
 
       public override void AddChildNode(IMaxNodeWrapper node)
