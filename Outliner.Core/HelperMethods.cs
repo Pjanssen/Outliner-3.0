@@ -22,7 +22,7 @@ public static class HelperMethods
    /// <summary>
    /// Returns the NodeWrapper from the Tag of a TreeNode.
    /// </summary>
-   public static IMaxNodeWrapper GetMaxNode(TreeNode tn)
+   public static MaxNodeWrapper GetMaxNode(TreeNode tn)
    {
       if (tn == null)
          return null;
@@ -37,7 +37,7 @@ public static class HelperMethods
    /// <summary>
    /// Maps GetMaxNode to a list of TreeNodes, returning a list of NodeWrappers.
    /// </summary>
-   public static IEnumerable<IMaxNodeWrapper> GetMaxNodes(IEnumerable<TreeNode> treeNodes)
+   public static IEnumerable<MaxNodeWrapper> GetMaxNodes(IEnumerable<TreeNode> treeNodes)
    {
       return treeNodes.Select(HelperMethods.GetMaxNode);
    }
@@ -55,7 +55,7 @@ public static class HelperMethods
    /// Extracts all wrapped nodes of type T from a collection of IMaxNodeWrappers
    /// </summary>
    /// <typeparam name="T">The type of node to select from the IMaxNodeWrapper.</typeparam>
-   public static IEnumerable<T> GetWrappedNodes<T>(IEnumerable<IMaxNodeWrapper> wrappers)
+   public static IEnumerable<T> GetWrappedNodes<T>(IEnumerable<MaxNodeWrapper> wrappers)
    {
       return wrappers.Where(w => w.WrappedNode is T).Select(n => (T)n.WrappedNode);
    }
@@ -81,7 +81,7 @@ public static class HelperMethods
       return tab;
    }
 
-   public static IINodeTab ToIINodeTab(IEnumerable<IMaxNodeWrapper> nodes)
+   public static IINodeTab ToIINodeTab(IEnumerable<MaxNodeWrapper> nodes)
    {
       Throw.IfArgumentIsNull(nodes, "nodes");
 
@@ -92,14 +92,14 @@ public static class HelperMethods
    /// <summary>
    /// Returns true if the supplied node is a selected node, or a parent of a selected node.
    /// </summary>
-   public static Boolean IsParentOfSelected(IMaxNodeWrapper node)
+   public static Boolean IsParentOfSelected(MaxNodeWrapper node)
    {
       Throw.IfArgumentIsNull(node, "node");
 
       if (node.Selected)
          return true;
 
-      foreach (IMaxNodeWrapper child in node.WrappedChildNodes)
+      foreach (MaxNodeWrapper child in node.WrappedChildNodes)
       {
          if (child.Selected || HelperMethods.IsParentOfSelected(child))
             return true;

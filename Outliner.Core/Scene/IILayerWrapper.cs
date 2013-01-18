@@ -9,7 +9,7 @@ using Outliner.LayerTools;
 
 namespace Outliner.Scene
 {
-   public class IILayerWrapper : IMaxNodeWrapper
+   public class IILayerWrapper : MaxNodeWrapper
    {
       private IILayer layer;
       private IILayerProperties layerProperties;
@@ -67,7 +67,7 @@ namespace Outliner.Scene
 
       #region Childnodes
       
-      public override IMaxNodeWrapper Parent
+      public override MaxNodeWrapper Parent
       {
          get
          {
@@ -108,7 +108,7 @@ namespace Outliner.Scene
          }
       }
 
-      public override bool CanAddChildNode(IMaxNodeWrapper node)
+      public override bool CanAddChildNode(MaxNodeWrapper node)
       {
          if (node == null)
             return false;
@@ -130,12 +130,12 @@ namespace Outliner.Scene
             return false;
       }
 
-      private Boolean IsInParentChain(IMaxNodeWrapper node)
+      private Boolean IsInParentChain(MaxNodeWrapper node)
       {
          return this.IsInParentChain(node, this);
       }
 
-      private Boolean IsInParentChain(IMaxNodeWrapper node, IMaxNodeWrapper currentParent)
+      private Boolean IsInParentChain(MaxNodeWrapper node, MaxNodeWrapper currentParent)
       {
          if (currentParent == null)
             return false;
@@ -145,7 +145,7 @@ namespace Outliner.Scene
          return IsInParentChain(node, currentParent.Parent);
       }
 
-      public override void AddChildNode(IMaxNodeWrapper node)
+      public override void AddChildNode(MaxNodeWrapper node)
       {
          Throw.IfArgumentIsNull(node, "node");
 
@@ -160,7 +160,7 @@ namespace Outliner.Scene
             this.AddChildNodes(node.WrappedChildNodes);
       }
 
-      public override void RemoveChildNode(IMaxNodeWrapper node)
+      public override void RemoveChildNode(MaxNodeWrapper node)
       {
          Throw.IfArgumentIsNull(node, "node");
 

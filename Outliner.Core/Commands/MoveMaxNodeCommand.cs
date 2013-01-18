@@ -13,9 +13,9 @@ namespace Outliner.Commands
    /// </summary>
    public class MoveMaxNodeCommand : Command
    {
-      IEnumerable<IMaxNodeWrapper> nodes;
-      private IMaxNodeWrapper newParent;
-      private Dictionary<IMaxNodeWrapper, IMaxNodeWrapper> oldParents;
+      IEnumerable<MaxNodeWrapper> nodes;
+      private MaxNodeWrapper newParent;
+      private Dictionary<MaxNodeWrapper, MaxNodeWrapper> oldParents;
       private String linkDescription;
       private String unlinkDescription;
 
@@ -25,8 +25,8 @@ namespace Outliner.Commands
       /// <param name="nodes">The nodes to move.</param>
       /// <param name="newParent">The new parent for the nodes. Use null to unlink.</param>
       /// <param name="linkDescription">The command description for a link action.</param>
-      public MoveMaxNodeCommand(IEnumerable<IMaxNodeWrapper> nodes
-                               , IMaxNodeWrapper newParent
+      public MoveMaxNodeCommand(IEnumerable<MaxNodeWrapper> nodes
+                               , MaxNodeWrapper newParent
                                , String linkDescription) 
          : this (nodes, newParent, linkDescription, linkDescription)
       { }
@@ -38,8 +38,8 @@ namespace Outliner.Commands
       /// <param name="newParent">The new parent for the nodes. Use null to unlink.</param>
       /// <param name="linkDescription">The command description for a link action.</param>
       /// <param name="unlinkDescription">The command description for an unlink action.</param>
-      public MoveMaxNodeCommand( IEnumerable<IMaxNodeWrapper> nodes
-                               , IMaxNodeWrapper newParent
+      public MoveMaxNodeCommand( IEnumerable<MaxNodeWrapper> nodes
+                               , MaxNodeWrapper newParent
                                , String linkDescription
                                , String unlinkDescription)
       {
@@ -66,8 +66,8 @@ namespace Outliner.Commands
 
       protected override void Do()
       {
-         this.oldParents = new Dictionary<IMaxNodeWrapper, IMaxNodeWrapper>(this.nodes.Count());
-         foreach (IMaxNodeWrapper node in this.nodes)
+         this.oldParents = new Dictionary<MaxNodeWrapper, MaxNodeWrapper>(this.nodes.Count());
+         foreach (MaxNodeWrapper node in this.nodes)
             this.oldParents.Add(node, node.Parent);
 
          if (this.newParent != null)
@@ -81,7 +81,7 @@ namespace Outliner.Commands
          if (this.nodes == null || this.oldParents == null)
             return;
 
-         foreach (KeyValuePair<IMaxNodeWrapper, IMaxNodeWrapper> n in this.oldParents)
+         foreach (KeyValuePair<MaxNodeWrapper, MaxNodeWrapper> n in this.oldParents)
             n.Value.AddChildNode(n.Key);
       }
    }

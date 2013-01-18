@@ -62,14 +62,14 @@ internal static class GroupHelpers
    /// Opens any closed group heads in the provided list of nodewrappers.
    /// When the selection changes, the opened heads are closed automatically as required.
    /// </summary>
-   public static void OpenSelectedGroupHeads(IEnumerable<IMaxNodeWrapper> nodes)
+   public static void OpenSelectedGroupHeads(IEnumerable<MaxNodeWrapper> nodes)
    {
       Throw.IfArgumentIsNull(nodes, "nodes");
 
       if (GroupHelpers.openedGroupHeads == null)
          GroupHelpers.openedGroupHeads = new List<IINodeWrapper>();
 
-      foreach (IMaxNodeWrapper node in nodes)
+      foreach (MaxNodeWrapper node in nodes)
       {
          IINodeWrapper inode = node as IINodeWrapper;
          if (inode == null)
@@ -133,7 +133,7 @@ internal static class GroupHelpers
       if (groupHead.IINode.IsGroupHead)
          groupHead.IINode.SetGroupHeadOpen(open);
 
-      foreach (IMaxNodeWrapper child in groupHead.WrappedChildNodes)
+      foreach (MaxNodeWrapper child in groupHead.WrappedChildNodes)
       {
          IINodeWrapper inodeChild = child as IINodeWrapper;
          if (inodeChild != null && inodeChild.IINode.IsGroupMember)
@@ -161,9 +161,9 @@ internal static class GroupHelpers
       return new IINodeWrapper(groupHead);
    }
 
-   public static void AddNodesToGroup(IEnumerable<IMaxNodeWrapper> nodes, IINodeWrapper groupHead)
+   public static void AddNodesToGroup(IEnumerable<MaxNodeWrapper> nodes, IINodeWrapper groupHead)
    {
-      foreach (IMaxNodeWrapper node in nodes.Where(n => n is IINodeWrapper))
+      foreach (MaxNodeWrapper node in nodes.Where(n => n is IINodeWrapper))
       {
          node.Parent = groupHead;
          ((IINode)node.WrappedNode).SetGroupMember(true);

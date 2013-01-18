@@ -90,7 +90,7 @@ public abstract class MenuItemModel : ConfigurationFile
    {
       Throw.IfArgumentIsNull(treeView, "treeView");
 
-      IEnumerable<IMaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
+      IEnumerable<MaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
 
       if (context.Count() == 0)
          return this.VisibleForEmptySelection;

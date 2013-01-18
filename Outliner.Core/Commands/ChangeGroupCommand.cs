@@ -9,13 +9,13 @@ namespace Outliner.Commands
 {
 public class ChangeGroupCommand : Command
 {
-   private IEnumerable<IMaxNodeWrapper> nodes;
-   private IMaxNodeWrapper groupHead;
+   private IEnumerable<MaxNodeWrapper> nodes;
+   private MaxNodeWrapper groupHead;
    private Boolean group;
-   private List<Tuple<IINodeWrapper, IMaxNodeWrapper, Boolean>> previousParents;
+   private List<Tuple<IINodeWrapper, MaxNodeWrapper, Boolean>> previousParents;
 
-   public ChangeGroupCommand( IEnumerable<IMaxNodeWrapper> nodes
-                            , IMaxNodeWrapper groupHead, Boolean group)
+   public ChangeGroupCommand( IEnumerable<MaxNodeWrapper> nodes
+                            , MaxNodeWrapper groupHead, Boolean group)
    {
       Throw.IfArgumentIsNull(nodes, "nodes");
       Throw.IfArgumentIsNull(groupHead, "groupHead");
@@ -38,13 +38,13 @@ public class ChangeGroupCommand : Command
 
    protected override void Do()
    {
-      this.previousParents = new List<Tuple<IINodeWrapper, IMaxNodeWrapper, Boolean>>();
-      foreach (IMaxNodeWrapper node in this.nodes)
+      this.previousParents = new List<Tuple<IINodeWrapper, MaxNodeWrapper, Boolean>>();
+      foreach (MaxNodeWrapper node in this.nodes)
       {
          IINodeWrapper iinodeWrapper = node as IINodeWrapper;
          if (iinodeWrapper != null)
          {
-            this.previousParents.Add(new Tuple<IINodeWrapper, IMaxNodeWrapper, Boolean>(
+            this.previousParents.Add(new Tuple<IINodeWrapper, MaxNodeWrapper, Boolean>(
                iinodeWrapper,
                node.Parent,
                iinodeWrapper.IINode.IsGroupMember));
@@ -66,7 +66,7 @@ public class ChangeGroupCommand : Command
       if (this.previousParents == null)
          return;
 
-      foreach (Tuple<IINodeWrapper, IMaxNodeWrapper, Boolean> prevParent in this.previousParents)
+      foreach (Tuple<IINodeWrapper, MaxNodeWrapper, Boolean> prevParent in this.previousParents)
       {
          prevParent.Item2.AddChildNode(prevParent.Item1);
          prevParent.Item1.IINode.SetGroupMember(prevParent.Item3);

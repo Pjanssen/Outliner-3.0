@@ -8,7 +8,7 @@ using Outliner.LayerTools;
 
 namespace Outliner.Scene
 {
-   public class SelectionSetWrapper : IMaxNodeWrapper
+   public class SelectionSetWrapper : MaxNodeWrapper
    {
       private String name;
 
@@ -113,7 +113,7 @@ namespace Outliner.Scene
       }
 
 
-      public override bool CanAddChildNode(IMaxNodeWrapper node)
+      public override bool CanAddChildNode(MaxNodeWrapper node)
       {
          if (node == null)
             return false;
@@ -121,20 +121,20 @@ namespace Outliner.Scene
          return node is IINodeWrapper && !this.WrappedChildNodes.Contains(node);
       }
 
-      public override void AddChildNode(IMaxNodeWrapper node)
+      public override void AddChildNode(MaxNodeWrapper node)
       {
          Throw.IfArgumentIsNull(node, "node");
-         this.AddChildNodes(new List<IMaxNodeWrapper>() { node });
+         this.AddChildNodes(new List<MaxNodeWrapper>() { node });
       }
       
-      public override void AddChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
+      public override void AddChildNodes(IEnumerable<MaxNodeWrapper> nodes)
       {
          Throw.IfArgumentIsNull(nodes, "nodes");
 
          IINodeTab nodeTab = HelperMethods.ToIINodeTab(this.ChildNodes);
          nodeTab.Resize(nodeTab.Count + nodes.Count());
 
-         foreach (IMaxNodeWrapper node in nodes)
+         foreach (MaxNodeWrapper node in nodes)
          {
             IINodeWrapper inodeWrapper = node as IINodeWrapper;
             if (inodeWrapper == null)
@@ -147,7 +147,7 @@ namespace Outliner.Scene
       }
 
 
-      public override bool CanRemoveChildNode(IMaxNodeWrapper node)
+      public override bool CanRemoveChildNode(MaxNodeWrapper node)
       {
          if (node == null)
             return false;
@@ -159,20 +159,20 @@ namespace Outliner.Scene
          return this.ChildIINodes.Contains(inodeWrapper.IINode);
       }
       
-      public override void RemoveChildNode(IMaxNodeWrapper node)
+      public override void RemoveChildNode(MaxNodeWrapper node)
       {
          Throw.IfArgumentIsNull(node, "node");
 
-         this.RemoveChildNodes(new List<IMaxNodeWrapper>() { node });
+         this.RemoveChildNodes(new List<MaxNodeWrapper>() { node });
       }
       
-      public override void RemoveChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
+      public override void RemoveChildNodes(IEnumerable<MaxNodeWrapper> nodes)
       {
          Throw.IfArgumentIsNull(nodes, "nodes");
 
          IINodeTab nodeTab = HelperMethods.ToIINodeTab(this.ChildNodes);
 
-         foreach (IMaxNodeWrapper node in nodes)
+         foreach (MaxNodeWrapper node in nodes)
          {
             IINodeWrapper inodeWrapper = node as IINodeWrapper;
             if (inodeWrapper == null)
@@ -187,7 +187,7 @@ namespace Outliner.Scene
       #endregion
 
 
-      public virtual void ReplaceNodeset(IEnumerable<IMaxNodeWrapper> nodes)
+      public virtual void ReplaceNodeset(IEnumerable<MaxNodeWrapper> nodes)
       {
          Throw.IfArgumentIsNull(nodes, "nodes");
 

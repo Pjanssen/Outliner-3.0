@@ -10,20 +10,20 @@ namespace Outliner.Commands
 {
 public class CreateNewLayerCommand : Command
 {
-   private IEnumerable<IMaxNodeWrapper> nodes;
+   private IEnumerable<MaxNodeWrapper> nodes;
    private String name;
    private IILayer createdLayer;
 
    public CreateNewLayerCommand() 
-      : this(Enumerable.Empty<IMaxNodeWrapper>(), null) { }
+      : this(Enumerable.Empty<MaxNodeWrapper>(), null) { }
 
    public CreateNewLayerCommand(String name) 
-      : this(Enumerable.Empty<IMaxNodeWrapper>(), name) { }
+      : this(Enumerable.Empty<MaxNodeWrapper>(), name) { }
 
-   public CreateNewLayerCommand(IEnumerable<IMaxNodeWrapper> nodes) 
+   public CreateNewLayerCommand(IEnumerable<MaxNodeWrapper> nodes) 
       : this(nodes, null) { }
 
-   public CreateNewLayerCommand(IEnumerable<IMaxNodeWrapper> nodes, String name)
+   public CreateNewLayerCommand(IEnumerable<MaxNodeWrapper> nodes, String name)
    {
       Throw.IfArgumentIsNull(nodes, "nodes");
 

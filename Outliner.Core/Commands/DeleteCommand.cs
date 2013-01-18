@@ -10,9 +10,9 @@ namespace Outliner.Commands
 {
 public class DeleteCommand : Command
 {
-   private IEnumerable<IMaxNodeWrapper> nodes;
+   private IEnumerable<MaxNodeWrapper> nodes;
 
-   public DeleteCommand(IEnumerable<IMaxNodeWrapper> nodes)
+   public DeleteCommand(IEnumerable<MaxNodeWrapper> nodes)
    {
       Throw.IfArgumentIsNull(nodes, "nodes");
 
@@ -26,7 +26,7 @@ public class DeleteCommand : Command
 
    protected override void Do()
    {
-      foreach (IMaxNodeWrapper node in this.nodes)
+      foreach (MaxNodeWrapper node in this.nodes)
       {
          node.Delete();
       }

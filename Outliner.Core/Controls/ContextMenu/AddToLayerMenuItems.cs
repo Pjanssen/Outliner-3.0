@@ -38,7 +38,7 @@ public class AddToLayerMenuItems : MenuItemModel
 
    void item_Click(Tree.TreeView treeView, Tree.TreeNode clickedTn, IILayerWrapper layer)
    {
-      IEnumerable<IMaxNodeWrapper> nodes = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
+      IEnumerable<MaxNodeWrapper> nodes = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
       layer.AddChildNodes(nodes);
    }
 

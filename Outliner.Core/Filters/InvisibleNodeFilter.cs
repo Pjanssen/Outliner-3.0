@@ -14,9 +14,9 @@ namespace Outliner.Filters
    /// </summary>
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "Filter_InvisibleNodes")]
-   public class InvisibleNodeFilter : Filter<IMaxNodeWrapper>
+   public class InvisibleNodeFilter : Filter<MaxNodeWrapper>
    {
-      protected override Boolean ShowNodeInternal(IMaxNodeWrapper data)
+      protected override Boolean ShowNodeInternal(MaxNodeWrapper data)
       {
          if (data == null || !data.IsValid)
             return false;

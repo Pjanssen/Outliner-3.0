@@ -25,6 +25,6 @@ namespace Outliner.Configuration
       public FilterCategory Category { get; set; }
 
       [XmlElement("Filter")]
-      public Filter<IMaxNodeWrapper> Filter { get; set; }
+      public Filter<MaxNodeWrapper> Filter { get; set; }
    }
 }

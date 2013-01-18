@@ -10,9 +10,9 @@ namespace Outliner.Controls.Options
 {
    public class FilterCombinatorDragDropHandler : DragDropHandler
    {
-      FilterCombinator<IMaxNodeWrapper> filter;
+      FilterCombinator<MaxNodeWrapper> filter;
 
-      public FilterCombinatorDragDropHandler(FilterCombinator<IMaxNodeWrapper> filter)
+      public FilterCombinatorDragDropHandler(FilterCombinator<MaxNodeWrapper> filter)
          : base(null)
       {
          this.filter = filter;
@@ -26,7 +26,7 @@ namespace Outliner.Controls.Options
       public override bool IsValidDropTarget(System.Windows.Forms.IDataObject dragData)
       {
          IEnumerable<TreeNode> tns = DragDropHandler.GetNodesFromDataObject(dragData);
-         return tns != null && tns.All(tn => tn.Tag is Filter<IMaxNodeWrapper> && tn.Tag != filter);
+         return tns != null && tns.All(tn => tn.Tag is Filter<MaxNodeWrapper> && tn.Tag != filter);
       }
 
       public override System.Windows.Forms.DragDropEffects GetDragDropEffect(System.Windows.Forms.IDataObject dragData)
@@ -45,10 +45,10 @@ namespace Outliner.Controls.Options
          IEnumerable<TreeNode> tns = DragDropHandler.GetNodesFromDataObject(dragData);
          foreach (TreeNode tn in tns)
          {
-            Filter<IMaxNodeWrapper> draggedFilter = tn.Tag as Filter<IMaxNodeWrapper>;
+            Filter<MaxNodeWrapper> draggedFilter = tn.Tag as Filter<MaxNodeWrapper>;
             if (tn.Parent != null)
             {
-               FilterCombinator<IMaxNodeWrapper> parent = tn.Parent.Tag as FilterCombinator<IMaxNodeWrapper>;
+               FilterCombinator<MaxNodeWrapper> parent = tn.Parent.Tag as FilterCombinator<MaxNodeWrapper>;
                parent.Filters.Remove(draggedFilter);
             }
             this.filter.Filters.Add(draggedFilter);

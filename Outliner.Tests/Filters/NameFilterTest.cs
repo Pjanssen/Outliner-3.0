@@ -12,7 +12,7 @@ namespace Outliner.Tests.Filters
 [TestClass()]
 public class NameFilterTest
 {
-   public class MockWrapper : IMaxNodeWrapper
+   public class MockWrapper : MaxNodeWrapper
    {
       public MockWrapper(String name)
       {

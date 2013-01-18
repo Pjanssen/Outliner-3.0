@@ -58,7 +58,7 @@ namespace Outliner.Controls.Tree.Layout
       /// </summary>
       public virtual Boolean IsVisible(TreeNode tn)
       {
-         IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+         MaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
          if (node == null)
             return true;
          else

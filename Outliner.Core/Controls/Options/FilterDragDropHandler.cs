@@ -10,9 +10,9 @@ namespace Outliner.Controls.Options
 {
    public class FilterDragDropHandler : DragDropHandler
    {
-      private Filter<IMaxNodeWrapper> filter;
+      private Filter<MaxNodeWrapper> filter;
 
-      public FilterDragDropHandler(Filter<IMaxNodeWrapper> filter) : base(null)
+      public FilterDragDropHandler(Filter<MaxNodeWrapper> filter) : base(null)
       {
          this.filter = filter;
       }

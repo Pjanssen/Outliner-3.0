@@ -10,13 +10,13 @@ namespace Outliner.Commands
 {
    public class SetViewCameraCommand : Command
    {
-      private IMaxNodeWrapper cameraNode;
+      private MaxNodeWrapper cameraNode;
       private IViewExp viewport;
 
       private IINode prevCameraNode;
       private Boolean prevIsPerspView;
 
-      public SetViewCameraCommand(IMaxNodeWrapper cameraNode, IViewExp viewport)
+      public SetViewCameraCommand(MaxNodeWrapper cameraNode, IViewExp viewport)
       {
          Throw.IfArgumentIsNull(cameraNode, "cameraNode");
          Throw.IfArgumentIsNull(viewport, "viewport");

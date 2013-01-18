@@ -21,10 +21,10 @@ namespace Outliner.NodeSorters
          if (x == y)
             return 0;
 
-         IMaxNodeWrapper nodeX = HelperMethods.GetMaxNode(x);
+         MaxNodeWrapper nodeX = HelperMethods.GetMaxNode(x);
          if (nodeX == null || !nodeX.IsValid) return 0;
 
-         IMaxNodeWrapper nodeY = HelperMethods.GetMaxNode(y);
+         MaxNodeWrapper nodeY = HelperMethods.GetMaxNode(y);
          if (nodeY == null || !nodeY.IsValid) return 0;
 
          return NativeMethods.StrCmpLogicalW(nodeX.Name, nodeY.Name);

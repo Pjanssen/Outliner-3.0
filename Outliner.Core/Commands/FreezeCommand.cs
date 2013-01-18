@@ -10,7 +10,7 @@ namespace Outliner.Commands
 {
    public class FreezeCommand : SetNodePropertyCommand<Boolean>
    {
-      public FreezeCommand(IEnumerable<IMaxNodeWrapper> nodes, Boolean newValue)
+      public FreezeCommand(IEnumerable<MaxNodeWrapper> nodes, Boolean newValue)
          : base(nodes, NodeProperty.IsFrozen, newValue) { }
 
       public override string Description

@@ -9,7 +9,7 @@ namespace Outliner.Commands
 {
 public class RenameCommand : SetNodePropertyCommand<String>
 {
-   public RenameCommand(IEnumerable<IMaxNodeWrapper> nodes, String newName)
+   public RenameCommand(IEnumerable<MaxNodeWrapper> nodes, String newName)
       : base(nodes, NodeProperty.Name, newName) { }
 
    public override string Description

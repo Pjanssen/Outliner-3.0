@@ -15,7 +15,7 @@ namespace Outliner.Controls.ContextMenu
 public static class ContextMenuActions
 {
    [OutlinerPredicate]
-   public static Boolean SelectionNotEmpty(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   public static Boolean SelectionNotEmpty(TreeNode contextTn, IEnumerable<MaxNodeWrapper> contextNodes)
    {
       return contextNodes != null && contextNodes.Count() > 0;
    }
@@ -23,7 +23,7 @@ public static class ContextMenuActions
    #region Rename
 
    [OutlinerAction]
-   public static void Rename(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   public static void Rename(TreeNode contextTn, IEnumerable<MaxNodeWrapper> contextNodes)
    {
       Throw.IfArgumentIsNull(contextTn, "contextTn");
 
@@ -31,13 +31,13 @@ public static class ContextMenuActions
    }
 
    [OutlinerPredicate]
-   public static Boolean RenameEnabled(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   public static Boolean RenameEnabled(TreeNode contextTn, IEnumerable<MaxNodeWrapper> contextNodes)
    {
       Throw.IfArgumentIsNull(contextNodes, "contextNodes");
 
       if (contextTn != null)
       {
-         IMaxNodeWrapper node = HelperMethods.GetMaxNode(contextTn);
+         MaxNodeWrapper node = HelperMethods.GetMaxNode(contextTn);
          if (node != null)
             return node.CanEditName;
       }
@@ -50,13 +50,13 @@ public static class ContextMenuActions
    #region Delete
 
    [OutlinerPredicate]
-   public static Boolean CanDeleteSelection(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   public static Boolean CanDeleteSelection(TreeNode contextTn, IEnumerable<MaxNodeWrapper> contextNodes)
    {
       return contextNodes.Any(n => n.CanDelete);
    }
 
    [OutlinerAction]
-   public static void Delete(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   public static void Delete(TreeNode contextTn, IEnumerable<MaxNodeWrapper> contextNodes)
    {
       Throw.IfArgumentIsNull(contextNodes, "contextNodes");
 
@@ -72,28 +72,28 @@ public static class ContextMenuActions
    #region Select Childnodes
    
    [OutlinerPredicate]
-   public static Boolean SelectionHasChildNodes(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   public static Boolean SelectionHasChildNodes(TreeNode contextTn, IEnumerable<MaxNodeWrapper> contextNodes)
    {
       return contextNodes.Any(n => n.ChildNodeCount > 0);
    }
 
    [OutlinerAction]
-   public static void SelectChildNodes(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   public static void SelectChildNodes(TreeNode contextTn, IEnumerable<MaxNodeWrapper> contextNodes)
    {
       Throw.IfArgumentIsNull(contextNodes, "contextNodes");
 
-      IEnumerable<IMaxNodeWrapper> nodes = GetChildNodes(contextNodes);
+      IEnumerable<MaxNodeWrapper> nodes = GetChildNodes(contextNodes);
 
       SelectCommand cmd = new SelectCommand(nodes);
       cmd.Execute(true);
    }
 
-   private static IEnumerable<IMaxNodeWrapper> GetChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
+   private static IEnumerable<MaxNodeWrapper> GetChildNodes(IEnumerable<MaxNodeWrapper> nodes)
    {
-      IEnumerable<IMaxNodeWrapper> result = nodes;
-      foreach (IMaxNodeWrapper node in nodes)
+      IEnumerable<MaxNodeWrapper> result = nodes;
+      foreach (MaxNodeWrapper node in nodes)
       {
-         IEnumerable<IMaxNodeWrapper> childNodes = node.WrappedChildNodes;
+         IEnumerable<MaxNodeWrapper> childNodes = node.WrappedChildNodes;
          result = result.Concat(childNodes)
                         .Concat(GetChildNodes(childNodes));
       }
@@ -106,7 +106,7 @@ public static class ContextMenuActions
    #region Hide & Freeze
       
    [OutlinerAction]
-   public static void Hide(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   public static void Hide(TreeNode contextTn, IEnumerable<MaxNodeWrapper> contextNodes)
    {
       Throw.IfArgumentIsNull(contextNodes, "contextNodes");
 
@@ -115,7 +115,7 @@ public static class ContextMenuActions
    }
 
    [OutlinerPredicate]
-   public static Boolean HideEnabled(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   public static Boolean HideEnabled(TreeNode contextTn, IEnumerable<MaxNodeWrapper> contextNodes)
    {
       Throw.IfArgumentIsNull(contextNodes, "contextNodes");
 
@@ -123,7 +123,7 @@ public static class ContextMenuActions
    }
 
    [OutlinerAction]
-   public static void Unhide(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   public static void Unhide(TreeNode contextTn, IEnumerable<MaxNodeWrapper> contextNodes)
    {
       Throw.IfArgumentIsNull(contextNodes, "contextNodes");
 
@@ -132,7 +132,7 @@ public static class ContextMenuActions
    }
 
    [OutlinerPredicate]
-   public static Boolean UnhideEnabled(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   public static Boolean UnhideEnabled(TreeNode contextTn, IEnumerable<MaxNodeWrapper> contextNodes)
    {
       Throw.IfArgumentIsNull(contextNodes, "contextNodes");
 
@@ -140,7 +140,7 @@ public static class ContextMenuActions
    }
 
    [OutlinerAction]
-   public static void Freeze(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   public static void Freeze(TreeNode contextTn, IEnumerable<MaxNodeWrapper> contextNodes)
    {
       Throw.IfArgumentIsNull(contextNodes, "contextNodes");
 
@@ -149,7 +149,7 @@ public static class ContextMenuActions
    }
 
    [OutlinerPredicate]
-   public static Boolean FreezeEnabled(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   public static Boolean FreezeEnabled(TreeNode contextTn, IEnumerable<MaxNodeWrapper> contextNodes)
    {
       Throw.IfArgumentIsNull(contextNodes, "contextNodes");
 
@@ -157,7 +157,7 @@ public static class ContextMenuActions
    }
 
    [OutlinerAction]
-   public static void Unfreeze(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   public static void Unfreeze(TreeNode contextTn, IEnumerable<MaxNodeWrapper> contextNodes)
    {
       Throw.IfArgumentIsNull(contextNodes, "contextNodes");
 
@@ -166,7 +166,7 @@ public static class ContextMenuActions
    }
 
    [OutlinerPredicate]
-   public static Boolean UnfreezeEnabled(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   public static Boolean UnfreezeEnabled(TreeNode contextTn, IEnumerable<MaxNodeWrapper> contextNodes)
    {
       Throw.IfArgumentIsNull(contextNodes, "contextNodes");
 
@@ -178,28 +178,28 @@ public static class ContextMenuActions
    #region Add Selection To
 
    [OutlinerAction]
-   public static void AddSelectionToNewContainer(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   public static void AddSelectionToNewContainer(TreeNode contextTn, IEnumerable<MaxNodeWrapper> contextNodes)
    {
       CreateContainerCommand cmd = new CreateContainerCommand(contextNodes);
       cmd.Execute(true);
    }
 
    [OutlinerAction]
-   public static void AddSelectionToNewGroup(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   public static void AddSelectionToNewGroup(TreeNode contextTn, IEnumerable<MaxNodeWrapper> contextNodes)
    {
       GroupNodesCommand cmd = new GroupNodesCommand(contextNodes);
       cmd.Execute(true);
    }
 
    [OutlinerAction]
-   public static void AddSelectionToNewLayer(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   public static void AddSelectionToNewLayer(TreeNode contextTn, IEnumerable<MaxNodeWrapper> contextNodes)
    {
       CreateNewLayerCommand newLayerCmd = new CreateNewLayerCommand(contextNodes);
       newLayerCmd.Execute(false);
    }
 
    [OutlinerAction]
-   public static void AddSelectionToNewSelectionSet(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+   public static void AddSelectionToNewSelectionSet(TreeNode contextTn, IEnumerable<MaxNodeWrapper> contextNodes)
    {
       CreateSelectionSetCommand cmd = new CreateSelectionSetCommand(contextNodes);
       cmd.Execute(false);

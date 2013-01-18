@@ -60,8 +60,8 @@ public class OpenOutliner : CuiDockableContentAdapter
    protected OutlinerSplitContainer splitContainer;
    protected TreeView tree1;
    protected TreeView tree2;
-   protected IEnumerable<Scene.IMaxNodeWrapper> expandedNodes1;
-   protected IEnumerable<Scene.IMaxNodeWrapper> expandedNodes2;
+   protected IEnumerable<Scene.MaxNodeWrapper> expandedNodes1;
+   protected IEnumerable<Scene.MaxNodeWrapper> expandedNodes2;
 
    public override object CreateDockableContent()
    {
@@ -173,13 +173,13 @@ public class OpenOutliner : CuiDockableContentAdapter
          outlinerInstance.SwitchPreset(tree, outlinerInstance.State.Tree2Preset, !args.IsCollapsed);
    }
 
-   private IEnumerable<Outliner.Scene.IMaxNodeWrapper> GetExpandedNodes(TreeNode tn)
+   private IEnumerable<Outliner.Scene.MaxNodeWrapper> GetExpandedNodes(TreeNode tn)
    {
-      List<Outliner.Scene.IMaxNodeWrapper> nodes = new List<Scene.IMaxNodeWrapper>();
+      List<Outliner.Scene.MaxNodeWrapper> nodes = new List<Scene.MaxNodeWrapper>();
 
       if (tn.IsExpanded)
       {
-         Scene.IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+         Scene.MaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
          if (node != null)
             nodes.Add(node);
       }
@@ -192,14 +192,14 @@ public class OpenOutliner : CuiDockableContentAdapter
       return nodes;
    }
 
-   private void RestoreExpandedNodes(TreeMode mode, IEnumerable<Scene.IMaxNodeWrapper> nodes)
+   private void RestoreExpandedNodes(TreeMode mode, IEnumerable<Scene.MaxNodeWrapper> nodes)
    {
       if (mode == null || nodes == null)
          return;
 
       mode.Tree.BeginUpdate();
 
-      foreach (Scene.IMaxNodeWrapper node in nodes)
+      foreach (Scene.MaxNodeWrapper node in nodes)
       {
          IEnumerable<TreeNode> tns = mode.GetTreeNodes(node);
          if (tns != null)

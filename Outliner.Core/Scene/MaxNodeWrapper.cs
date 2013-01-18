@@ -13,13 +13,13 @@ namespace Outliner.Scene
    /// IMaxNodeWrapper is an adapter class which provides a common interface
    /// for INodes, ILayers and other 3dsmax objects.
    /// </summary>
-   public abstract class IMaxNodeWrapper
+   public abstract class MaxNodeWrapper
    {
       public abstract Object WrappedNode { get; }
       public override abstract bool Equals(object obj);
       public override abstract int GetHashCode();
 
-      public virtual IMaxNodeWrapper Parent 
+      public virtual MaxNodeWrapper Parent 
       { 
          get { return null; }
          set 
@@ -43,41 +43,41 @@ namespace Outliner.Scene
          get;
       }
 
-      public virtual IEnumerable<IMaxNodeWrapper> WrappedChildNodes 
+      public virtual IEnumerable<MaxNodeWrapper> WrappedChildNodes 
       {
-         get { return this.ChildNodes.Select(IMaxNodeWrapper.Create); }
+         get { return this.ChildNodes.Select(MaxNodeWrapper.Create); }
       }
 
-      public virtual Boolean CanAddChildNode(IMaxNodeWrapper node)
+      public virtual Boolean CanAddChildNode(MaxNodeWrapper node)
       {
          return false;
       }
       
-      public virtual Boolean CanAddChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
+      public virtual Boolean CanAddChildNodes(IEnumerable<MaxNodeWrapper> nodes)
       {
          return nodes.Any(this.CanAddChildNode);
       }
 
-      public virtual void AddChildNode(IMaxNodeWrapper node) { }
+      public virtual void AddChildNode(MaxNodeWrapper node) { }
       
-      public virtual void AddChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
+      public virtual void AddChildNodes(IEnumerable<MaxNodeWrapper> nodes)
       {
          nodes.ForEach(this.AddChildNode);
       }
 
-      public virtual Boolean CanRemoveChildNode(IMaxNodeWrapper node) 
+      public virtual Boolean CanRemoveChildNode(MaxNodeWrapper node) 
       {
          return false; 
       }
       
-      public virtual Boolean CanRemoveChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
+      public virtual Boolean CanRemoveChildNodes(IEnumerable<MaxNodeWrapper> nodes)
       {
          return nodes.Any(this.CanRemoveChildNode);
       }
       
-      public virtual void RemoveChildNode(IMaxNodeWrapper node) { }
+      public virtual void RemoveChildNode(MaxNodeWrapper node) { }
       
-      public virtual void RemoveChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
+      public virtual void RemoveChildNodes(IEnumerable<MaxNodeWrapper> nodes)
       {
          nodes.ForEach(this.RemoveChildNode);
       }
@@ -188,12 +188,12 @@ namespace Outliner.Scene
          get { return "unknown"; }
       }
 
-      public static IMaxNodeWrapper Create(Object node)
+      public static MaxNodeWrapper Create(Object node)
       {
          Throw.IfArgumentIsNull(node, "node");
 
-         if (node is IMaxNodeWrapper)
-            return (IMaxNodeWrapper)node;
+         if (node is MaxNodeWrapper)
+            return (MaxNodeWrapper)node;
 
          if (node is IINode)
             return new IINodeWrapper((IINode)node);

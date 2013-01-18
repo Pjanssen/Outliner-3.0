@@ -9,7 +9,7 @@ using Outliner.MaxUtils;
 
 namespace Outliner.Scene
 {
-public class IINodeWrapper : IMaxNodeWrapper
+public class IINodeWrapper : MaxNodeWrapper
 {
    private IINode iinode;
    public IINodeWrapper(IINode node)
@@ -66,7 +66,7 @@ public class IINodeWrapper : IMaxNodeWrapper
       }
    }
 
-   public override IMaxNodeWrapper Parent
+   public override MaxNodeWrapper Parent
    {
       get
       {
@@ -93,7 +93,7 @@ public class IINodeWrapper : IMaxNodeWrapper
       }
    }
 
-   public override bool CanAddChildNode(IMaxNodeWrapper node)
+   public override bool CanAddChildNode(MaxNodeWrapper node)
    {
       if (node == null)
          return false;
@@ -116,12 +116,12 @@ public class IINodeWrapper : IMaxNodeWrapper
       return loop == RefResult.Succeed;
    }
 
-   public override bool CanAddChildNodes(IEnumerable<IMaxNodeWrapper> nodes)
+   public override bool CanAddChildNodes(IEnumerable<MaxNodeWrapper> nodes)
    {
       return nodes.All(this.CanAddChildNode);
    }
 
-   public override void AddChildNode(IMaxNodeWrapper node)
+   public override void AddChildNode(MaxNodeWrapper node)
    {
       Throw.IfArgumentIsNull(node, "node");
 
@@ -136,7 +136,7 @@ public class IINodeWrapper : IMaxNodeWrapper
          this.iinode.AttachChild(iinode, true);
    }
 
-   public override void RemoveChildNode(IMaxNodeWrapper node)
+   public override void RemoveChildNode(MaxNodeWrapper node)
    {
       Throw.IfArgumentIsNull(node, "node");
 

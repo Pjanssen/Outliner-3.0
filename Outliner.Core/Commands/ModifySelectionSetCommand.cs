@@ -10,11 +10,11 @@ namespace Outliner.Commands
 {
    public class ModifySelectionSetCommand : Command
    {
-      private IEnumerable<IMaxNodeWrapper> nodes;
+      private IEnumerable<MaxNodeWrapper> nodes;
       private SelectionSetWrapper selSet;
-      private IEnumerable<IMaxNodeWrapper> oldNodes;
+      private IEnumerable<MaxNodeWrapper> oldNodes;
 
-      public ModifySelectionSetCommand( IEnumerable<IMaxNodeWrapper> nodes
+      public ModifySelectionSetCommand( IEnumerable<MaxNodeWrapper> nodes
                                       , SelectionSetWrapper selSet)
       {
          Throw.IfArgumentIsNull(nodes, "nodes");
