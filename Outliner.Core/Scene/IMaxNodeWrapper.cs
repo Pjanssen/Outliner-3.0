@@ -99,8 +99,8 @@ namespace Outliner.Scene
       public abstract Boolean IsNodeType(MaxNodeTypes types);
 
       #endregion
-      
-      public abstract Boolean Selected { get; } //TODO check if set should be added?
+
+      public abstract Boolean Selected { get; set; }
 
       public virtual Boolean CanDelete { get { return true; } }
       public virtual void Delete() { }

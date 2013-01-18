@@ -255,6 +255,10 @@ namespace Outliner.Scene
       public override bool Selected 
       {
          get { return false; }
+         set 
+         {
+            this.WrappedChildNodes.ForEach(n => n.Selected = value);
+         }
       }
 
       #region Delete

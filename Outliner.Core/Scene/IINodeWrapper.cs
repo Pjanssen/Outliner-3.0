@@ -206,6 +206,13 @@ public class IINodeWrapper : IMaxNodeWrapper
    public override bool Selected
    {
       get { return this.iinode.Selected; }
+      set
+      {
+         if (value)
+            MaxInterfaces.COREInterface.SelectNode(this.IINode, false);
+         else
+            MaxInterfaces.COREInterface.DeSelectNode(this.IINode);
+      }
    }
 
    public override void Delete()
