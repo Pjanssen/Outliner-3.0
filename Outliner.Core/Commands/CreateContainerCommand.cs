@@ -18,7 +18,7 @@ namespace Outliner.Commands
       {
          Throw.IfArgumentIsNull(nodes, "nodes");
 
-         this.nodes = nodes;
+         this.nodes = nodes.ToList();
       }
 
       public override string Description

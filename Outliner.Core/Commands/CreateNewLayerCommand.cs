@@ -27,7 +27,7 @@ public class CreateNewLayerCommand : Command
    {
       Throw.IfArgumentIsNull(nodes, "nodes");
 
-      this.nodes = nodes;
+      this.nodes = nodes.ToList();
       this.name = name;
    }
 

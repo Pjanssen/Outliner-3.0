@@ -109,4 +109,15 @@ Options
 #33 - Plug-in Assembly Load Error 
 #34 - Search field also selects visible filtered out nodes 
 #36 - Add contextual menu to Selection Set mode
-#39 - Drag dropping a layer onto its parent is "allowed" 
+#39 - Drag dropping a layer onto its parent is "allowed"
+
+3.0.20
+======
+#37 - Layer override not updated in other views. 
+#43 - Context menu not functioning
+#45, #46 - Installing 3.0.19 fails to create settings.xml
+#47 - Layer - delete in outliner UI
+
+3.0.21
+======
+#54 - Missing Rename Layer

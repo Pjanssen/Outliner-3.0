@@ -63,24 +63,28 @@ public class SelectCommand : Command
       //Clear previous selection.
       ip.ClearNodeSelection(false);
 
-      //Select INodes.
-      IEnumerable<IMaxNodeWrapper> inodes = nodes.Where(n => n is IINodeWrapper);
-      if (inodes.Count() > 0)
-         ip.SelectNodeTab(HelperMethods.ToIINodeTab(inodes), true, false);
-
-      //Select Layers.
-      IEnumerable<IILayerWrapper> layers = nodes.Where(n => n is IILayerWrapper).Cast<IILayerWrapper>();
-      foreach (IILayerWrapper layer in layers)
+      foreach (IMaxNodeWrapper node in nodes)
       {
-         layer.IILayerProperties.Select(true);
+         node.Selected = true;
       }
+      ////Select INodes.
+      //IEnumerable<IMaxNodeWrapper> inodes = nodes.Where(n => n is IINodeWrapper);
+      //if (inodes.Count() > 0)
+      //   ip.SelectNodeTab(HelperMethods.ToIINodeTab(inodes), true, false);
 
-      //Select SelectionSets
-      IEnumerable<SelectionSetWrapper> selsets = nodes.Where(n => n is SelectionSetWrapper).Cast<SelectionSetWrapper>();
-      foreach (SelectionSetWrapper selset in selsets)
-      {
-         ip.SelectNodeTab(HelperMethods.ToIINodeTab(selset.ChildNodes), true, false);
-      }
+      ////Select Layers.
+      //IEnumerable<IILayerWrapper> layers = nodes.Where(n => n is IILayerWrapper).Cast<IILayerWrapper>();
+      //foreach (IILayerWrapper layer in layers)
+      //{
+      //   layer.IILayerProperties.Select(true);
+      //}
+
+      ////Select SelectionSets
+      //IEnumerable<SelectionSetWrapper> selsets = nodes.Where(n => n is SelectionSetWrapper).Cast<SelectionSetWrapper>();
+      //foreach (SelectionSetWrapper selset in selsets)
+      //{
+      //   ip.SelectNodeTab(HelperMethods.ToIINodeTab(selset.ChildNodes), true, false);
+      //}
    }
 }
 }

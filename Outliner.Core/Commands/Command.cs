@@ -30,8 +30,7 @@ namespace Outliner.Commands
       public virtual void Execute(Boolean redrawViews)
       {
          IHold theHold = MaxInterfaces.Global.TheHold;
-         if (!theHold.Holding)
-            theHold.Begin();
+         theHold.Begin();
 
          this.Do();
 

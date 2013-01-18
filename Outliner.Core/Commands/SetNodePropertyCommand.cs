@@ -20,7 +20,7 @@ public class SetNodePropertyCommand<T> : Command
    {
       Throw.IfArgumentIsNull(nodes, "nodes");
 
-      this.nodes = nodes;
+      this.nodes = nodes.ToList();
       this.property = property;
       this.newValue = newValue;
    }
@@ -30,7 +30,7 @@ public class SetNodePropertyCommand<T> : Command
       Throw.IfArgumentIsNull(nodes, "nodes");
       Throw.IfArgumentIsNull(propertyName, "propertyName");
 
-      this.nodes = nodes;
+      this.nodes = nodes.ToList();
       this.propInfo = typeof(IMaxNodeWrapper).GetProperty(propertyName);
       this.property = NodeProperty.None;
       this.newValue = newValue;

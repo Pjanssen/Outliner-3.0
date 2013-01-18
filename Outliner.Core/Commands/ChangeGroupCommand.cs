@@ -20,7 +20,7 @@ public class ChangeGroupCommand : Command
       Throw.IfArgumentIsNull(nodes, "nodes");
       Throw.IfArgumentIsNull(groupHead, "groupHead");
 
-      this.nodes = nodes;
+      this.nodes = nodes.ToList();
       this.groupHead = groupHead;
       this.group = group;
    }

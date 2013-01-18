@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Autodesk.Max;
 using Outliner.Commands;
 using Outliner.Controls.Tree;
+using Outliner.MaxUtils;
+using Outliner.Scene;
 using UiViewModels.Actions;
 
 namespace Outliner.Actions
@@ -32,8 +35,15 @@ namespace Outliner.Actions
 
       public override void Execute(object parameter)
       {
-         CreateNewLayerCommand cmd = new CreateNewLayerCommand();
-         cmd.Execute(false);
+         IHold theHold = MaxInterfaces.Global.TheHold;
+         theHold.Begin();
+
+         MaxScene.AllObjects.ForEach(n => n.Selected = true);
+         
+         theHold.Accept("Test!");
+
+         IInterface ip = MaxInterfaces.Global.COREInterface;
+         ip.RedrawViews(ip.Time, RedrawFlags.Normal, null);
       }
 
    }

@@ -166,7 +166,10 @@ public class OutlinerGUP
 
       try
       {
-         this.Settings = XmlSerializationHelpers.Deserialize<SettingsCollection>(OutlinerPaths.SettingsFile);
+         if (File.Exists(OutlinerPaths.SettingsFile))
+            this.Settings = XmlSerializationHelpers.Deserialize<SettingsCollection>(OutlinerPaths.SettingsFile);
+         else
+            this.Settings = new SettingsCollection();
       }
       catch (Exception e)
       {
