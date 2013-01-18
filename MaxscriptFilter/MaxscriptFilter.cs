@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.Design;
+using System.Drawing.Design;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -17,28 +20,30 @@ public class MaxscriptFilter : Filter<IMaxNodeWrapper>
 {
    public MaxscriptFilter()
    {
-      _script = "";
+      script = "";
    }
 
-   private const String execFilterTemplate = "( local node = getAnimByHandle {0}; {1} )";
+   private const String execFilterTemplate = "( local node = getAnimByHandle {0};\r\n {1} )";
 
-   private String _script;
-   private String _filterFn;
+   private String script;
+   private String filterFn;
 
    [XmlElement("script")]
+   [DisplayName("Script")]
+   [Editor(typeof(MultilineStringEditor), typeof(UITypeEditor))]
    public String Script
    {
-      get { return _script; }
+      get { return script; }
       set
       {
-         _script = value;
-         _filterFn = String.Format(CultureInfo.InvariantCulture, execFilterTemplate, "{0:d}", value);
+         script = value;
+         filterFn = String.Format(CultureInfo.InvariantCulture, execFilterTemplate, "{0:d}", value);
       }
    }
 
    protected override Boolean ShowNodeInternal(IMaxNodeWrapper data)
    {
-      if (String.IsNullOrEmpty(_script))
+      if (String.IsNullOrEmpty(this.script))
          return true;
 
       IINodeWrapper iinodeWrapper = data as IINodeWrapper;
@@ -46,7 +51,7 @@ public class MaxscriptFilter : Filter<IMaxNodeWrapper>
          return false;
 
       UIntPtr handle = MaxInterfaces.Global.Animatable.GetHandleByAnim(iinodeWrapper.IINode);
-      String script = String.Format(CultureInfo.InvariantCulture, _filterFn, handle);
+      String script = String.Format(CultureInfo.InvariantCulture, filterFn, handle);
       return MaxscriptSDK.ExecuteBooleanMaxscriptQuery(script);
    }
 }

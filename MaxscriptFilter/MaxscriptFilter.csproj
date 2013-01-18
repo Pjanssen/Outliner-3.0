@@ -49,6 +49,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -79,11 +81,11 @@
       <UserProperties BuildVersion_UseGlobalSettings="True" />
     </VisualStudio>
   </ProjectExtensions>
-   <Import Project="..\..\Outliner.Installer\BuildTasks.target" />
-   <Target Name="AfterBuild">
-      <CallTarget Targets="DeployOutput" />
-   </Target>
-   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <Import Project="..\..\Outliner.Installer\BuildTasks.target" />
+  <Target Name="AfterBuild">
+    <CallTarget Targets="DeployOutput" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
