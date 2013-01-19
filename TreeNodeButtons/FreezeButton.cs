@@ -22,7 +22,7 @@ public class FreezeButton : NodePropertyButton
       get { return NodeProperty.IsFrozen; }
    }
 
-   protected override SetNodePropertyCommand<Boolean> CreateCommand(IEnumerable<IMaxNodeWrapper> nodes, bool newValue)
+   protected override SetNodePropertyCommand<Boolean> CreateCommand(IEnumerable<IMaxNode> nodes, bool newValue)
    {
       return new FreezeCommand(nodes, newValue);
    }

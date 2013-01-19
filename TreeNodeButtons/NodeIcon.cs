@@ -131,13 +131,13 @@ public class NodeIcon : TreeNodeButton
       if (tn == null)
          throw new ArgumentNullException("tn");
 
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = HelperMethods.GetMaxNode(tn);
       if (node == null)
          return;
 
-      if (node is IILayerWrapper)
+      if (node is ILayerWrapper)
       {
-         IILayerWrapper layer = (IILayerWrapper)node;
+         ILayerWrapper layer = (ILayerWrapper)node;
          if (!layer.IsCurrent)
          {
             SetCurrentLayerCommand cmd = new SetCurrentLayerCommand(layer);
@@ -148,13 +148,13 @@ public class NodeIcon : TreeNodeButton
       }
       else if (node.SuperClassID == Autodesk.Max.SClass_ID.Light)
       {
-         Autodesk.Max.IINode inode = node.WrappedNode as Autodesk.Max.IINode;
+         Autodesk.Max.IINode inode = node.BaseObject as Autodesk.Max.IINode;
          if (inode == null)
             return;
          Autodesk.Max.ILightObject light = inode.ObjectRef as Autodesk.Max.ILightObject;
          if (light == null)
             return;
-         ToggleLightCommand cmd = new ToggleLightCommand(new List<IMaxNodeWrapper>(1) { node }, !light.UseLight);
+         ToggleLightCommand cmd = new ToggleLightCommand(node.ToEnumerable(), !light.UseLight);
          cmd.Execute(true);
       }
       else if (node.SuperClassID == Autodesk.Max.SClass_ID.Camera)
@@ -168,13 +168,13 @@ public class NodeIcon : TreeNodeButton
 
    protected override bool Clickable(TreeNode tn)
    {
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = HelperMethods.GetMaxNode(tn);
       if (node == null)
          return false;
 
-      if (node is IILayerWrapper)
+      if (node is ILayerWrapper)
       {
-         if (!((IILayerWrapper)node).IsCurrent)
+         if (!((ILayerWrapper)node).IsCurrent)
             return true;
       }
       else if (node.SuperClassID == Autodesk.Max.SClass_ID.Light)
@@ -187,13 +187,13 @@ public class NodeIcon : TreeNodeButton
 
    protected override string GetTooltipText(TreeNode tn)
    {
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = HelperMethods.GetMaxNode(tn);
       if (node == null)
          return null;
 
-      if (node is IILayerWrapper)
+      if (node is ILayerWrapper)
       {
-         if (!((IILayerWrapper)node).IsCurrent)
+         if (!((ILayerWrapper)node).IsCurrent)
             return Resources.Tooltip_SetCurrentLayer;
       }
       else if (node.SuperClassID == Autodesk.Max.SClass_ID.Light)

@@ -21,16 +21,13 @@ namespace Outliner.NodeSorters
          if (x == y)
             return 0;
 
-         IMaxNodeWrapper nodeX = HelperMethods.GetMaxNode(x);
+         IMaxNode nodeX = HelperMethods.GetMaxNode(x);
          if (nodeX == null || !nodeX.IsValid) return 0;
 
-         IMaxNodeWrapper nodeY = HelperMethods.GetMaxNode(y);
+         IMaxNode nodeY = HelperMethods.GetMaxNode(y);
          if (nodeY == null || !nodeY.IsValid) return 0;
 
-         SClass_ID sClassIDX = nodeX.SuperClassID;
-         SClass_ID sClassIDY = nodeY.SuperClassID;
-
-         return sClassIDX.CompareTo(sClassIDY);
+         return nodeX.SuperClassID.CompareTo(nodeY.SuperClassID);
       }
    }
 }

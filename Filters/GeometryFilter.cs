@@ -9,18 +9,18 @@ namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "Filter_Geometry")]
-   public class GeometryFilter : Filter<IMaxNodeWrapper>
+   public class GeometryFilter : Filter<IMaxNode>
    {
-      override protected Boolean ShowNodeInternal(IMaxNodeWrapper data)
+      override protected Boolean ShowNodeInternal(IMaxNode data)
       {
-         IINodeWrapper iinodeWrapper = data as IINodeWrapper;
+         INodeWrapper iinodeWrapper = data as INodeWrapper;
          if (iinodeWrapper == null)
             return false;
 
          if (iinodeWrapper.SuperClassID != SClass_ID.Geomobject)
             return false;
 
-         IINode iinode = iinodeWrapper.IINode;
+         IINode iinode = iinodeWrapper.INode;
          if (iinode.IsTarget || IINodeHelpers.IsBone(iinode)
                              || iinode.ObjectRef.IsParticleSystem)
             return false;

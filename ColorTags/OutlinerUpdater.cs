@@ -56,14 +56,14 @@ namespace Outliner.ColorTags
          }
       }
 
-      private static Boolean ContainsColorTagsFilter(FilterCollection<IMaxNodeWrapper> collection)
+      private static Boolean ContainsColorTagsFilter(FilterCollection<IMaxNode> collection)
       {
-         foreach (Filter<IMaxNodeWrapper> filter in collection)
+         foreach (Filter<IMaxNode> filter in collection)
          {
             if (filter is ColorTagsFilter)
                return true;
 
-            FilterCombinator<IMaxNodeWrapper> combinator = filter as FilterCombinator<IMaxNodeWrapper>;
+            FilterCombinator<IMaxNode> combinator = filter as FilterCombinator<IMaxNode>;
             if (combinator != null && ContainsColorTagsFilter(combinator.Filters))
                return true;
          }

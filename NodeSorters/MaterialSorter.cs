@@ -18,16 +18,16 @@ namespace Outliner.NodeSorters
          if (x == y)
             return 0;
 
-         IINodeWrapper nodeX = HelperMethods.GetMaxNode(x) as IINodeWrapper;
+         INodeWrapper nodeX = HelperMethods.GetMaxNode(x) as INodeWrapper;
          if (nodeX == null || !nodeX.IsValid)
             return 0;
 
-         IINodeWrapper nodeY = HelperMethods.GetMaxNode(y) as IINodeWrapper;
+         INodeWrapper nodeY = HelperMethods.GetMaxNode(y) as INodeWrapper;
          if (nodeY == null || !nodeY.IsValid)
             return 0;
 
-         IMtl materialX = nodeX.IINode.Mtl;
-         IMtl materialY = nodeY.IINode.Mtl;
+         IMtl materialX = nodeX.INode.Mtl;
+         IMtl materialY = nodeY.INode.Mtl;
 
          if (materialX == materialY)
             return 0;

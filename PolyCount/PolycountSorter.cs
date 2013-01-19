@@ -23,16 +23,16 @@ public class PolycountSorter : NodeSorter
       if (x == y)
          return 0;
 
-      IINodeWrapper nodeX = HelperMethods.GetMaxNode(x) as IINodeWrapper;
+      INodeWrapper nodeX = HelperMethods.GetMaxNode(x) as INodeWrapper;
       if (nodeX == null || !nodeX.IsValid) 
          return 0;
 
-      IINodeWrapper nodeY = HelperMethods.GetMaxNode(y) as IINodeWrapper;
+      INodeWrapper nodeY = HelperMethods.GetMaxNode(y) as INodeWrapper;
       if (nodeY == null || !nodeY.IsValid) 
          return 0;
 
-      int numFacesX = IINodeHelpers.GetPolyCount(nodeX.IINode);
-      int numFacesY = IINodeHelpers.GetPolyCount(nodeY.IINode);
+      int numFacesX = IINodeHelpers.GetPolyCount(nodeX.INode);
+      int numFacesY = IINodeHelpers.GetPolyCount(nodeY.INode);
 
       return numFacesY.CompareTo(numFacesX);
    }

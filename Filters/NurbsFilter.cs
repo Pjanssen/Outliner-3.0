@@ -10,15 +10,15 @@ namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "Filter_Nurbs")]
-   public class NurbsFilter : Filter<IMaxNodeWrapper>
+   public class NurbsFilter : Filter<IMaxNode>
    {
-      protected override Boolean ShowNodeInternal(IMaxNodeWrapper data)
+      protected override Boolean ShowNodeInternal(IMaxNode data)
       {
-         IINodeWrapper iinodeWrapper = data as IINodeWrapper;
+         INodeWrapper iinodeWrapper = data as INodeWrapper;
          if (iinodeWrapper == null)
             return false;
 
-         return iinodeWrapper.SuperClassID == SClass_ID.Geomobject && iinodeWrapper.IINode.ObjectRef.IsShapeObject;
+         return iinodeWrapper.SuperClassID == SClass_ID.Geomobject && iinodeWrapper.INode.ObjectRef.IsShapeObject;
       }
    }
 }

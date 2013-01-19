@@ -31,10 +31,10 @@ public class ColorTagButton : TreeNodeButton
    }
 
    [XmlAttribute("visible_types")]
-   [DefaultValue(MaxNodeTypes.Layer | MaxNodeTypes.Object | MaxNodeTypes.SelectionSet)]
-   public override MaxNodeTypes VisibleTypes
+   [DefaultValue(MaxNodeType.Layer | MaxNodeType.Object | MaxNodeType.SelectionSet)]
+   public override MaxNodeType VisibleTypes
    {
-      get { return MaxNodeTypes.Layer | MaxNodeTypes.Object | MaxNodeTypes.SelectionSet; }
+      get { return MaxNodeType.Layer | MaxNodeType.Object | MaxNodeType.SelectionSet; }
       set { }
    }
 
@@ -66,7 +66,7 @@ public class ColorTagButton : TreeNodeButton
 
    protected override string GetTooltipText(TreeNode tn)
    {
-      IMaxNodeWrapper wrapper = HelperMethods.GetMaxNode(tn);
+      IMaxNode wrapper = HelperMethods.GetMaxNode(tn);
       if (wrapper == null)
          return String.Empty;
 
@@ -81,7 +81,7 @@ public class ColorTagButton : TreeNodeButton
       if (this.Layout == null || this.Layout.TreeView == null)
          return;
 
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = HelperMethods.GetMaxNode(tn);
       if (node == null)
          return;
 
@@ -104,7 +104,7 @@ public class ColorTagButton : TreeNodeButton
 
       if (hasTag)
       {
-         Color color = Color.FromArgb(opacity, ColorTags.GetColor(node.WrappedNode as IAnimatable, tag));
+         Color color = Color.FromArgb(opacity, ColorTags.GetColor(node.BaseObject as IAnimatable, tag));
          Color gradColor = Color.FromArgb(opacity, Math.Min(color.R + 40, 255)
                                                    , Math.Min(color.G + 40, 255)
                                                    , Math.Min(color.B + 40, 255));
@@ -123,7 +123,7 @@ public class ColorTagButton : TreeNodeButton
       this.clickedTn = tn;
 
       ColorTag currentTag = ColorTag.None;
-      IMaxNodeWrapper wrapper = HelperMethods.GetMaxNode(tn);
+      IMaxNode wrapper = HelperMethods.GetMaxNode(tn);
       if (wrapper != null)
       {
          currentTag = wrapper.GetColorTag();
@@ -168,11 +168,11 @@ public class ColorTagButton : TreeNodeButton
          ColorTag tag = btn.ColorTag;
 
          IEnumerable<TreeNode> selNodes = this.Layout.TreeView.SelectedNodes;
-         IEnumerable<IMaxNodeWrapper> nodes;
+         IEnumerable<IMaxNode> nodes;
          if (selNodes.Contains(this.clickedTn))
             nodes = HelperMethods.GetMaxNodes(selNodes);
          else
-            nodes = new List<IMaxNodeWrapper>(1) { HelperMethods.GetMaxNode(this.clickedTn) };
+            nodes = HelperMethods.GetMaxNode(this.clickedTn).ToEnumerable();
 
          SetColorTagCommand cmd = new SetColorTagCommand(nodes, tag);
          cmd.Execute(false);

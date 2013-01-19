@@ -20,11 +20,11 @@ namespace Outliner.PolyCount
 
       protected override string GetText(TreeNode tn)
       {
-         IINodeWrapper iinode = HelperMethods.GetMaxNode(tn) as IINodeWrapper;
+         INodeWrapper iinode = HelperMethods.GetMaxNode(tn) as INodeWrapper;
          if (iinode == null)
             return "0";
          else
-            return IINodeHelpers.GetPolyCount(iinode.IINode).ToString();
+            return IINodeHelpers.GetPolyCount(iinode.INode).ToString();
       }
    }
 }

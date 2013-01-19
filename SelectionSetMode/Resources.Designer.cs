@@ -127,5 +127,14 @@ namespace Outliner.Modes.SelectionSet {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - All objects -.
+        /// </summary>
+        internal static string Str_AllObjectsSelSet {
+            get {
+                return ResourceManager.GetString("Str_AllObjectsSelSet", resourceCulture);
+            }
+        }
     }
 }

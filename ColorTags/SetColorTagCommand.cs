@@ -11,11 +11,11 @@ namespace Outliner.ColorTags
 {
 public class SetColorTagCommand : Command
 {
-   private IEnumerable<IMaxNodeWrapper> nodes;
+   private IEnumerable<IMaxNode> nodes;
    private ColorTag tag;
-   private Dictionary<IMaxNodeWrapper, ColorTag> oldTags;
+   private Dictionary<IMaxNode, ColorTag> oldTags;
 
-   public SetColorTagCommand(IEnumerable<IMaxNodeWrapper> nodes, ColorTag tag)
+   public SetColorTagCommand(IEnumerable<IMaxNode> nodes, ColorTag tag)
    {
       Throw.IfArgumentIsNull(nodes, "nodes");
 
@@ -30,8 +30,8 @@ public class SetColorTagCommand : Command
 
    protected override void Do()
    {
-      this.oldTags = new Dictionary<IMaxNodeWrapper, ColorTag>();
-      foreach (IMaxNodeWrapper node in this.nodes)
+      this.oldTags = new Dictionary<IMaxNode, ColorTag>();
+      foreach (IMaxNode node in this.nodes)
       {
          if (!oldTags.ContainsKey(node))
             oldTags.Add(node, node.GetColorTag());
@@ -45,7 +45,7 @@ public class SetColorTagCommand : Command
       if (this.oldTags == null)
          return;
 
-      foreach (KeyValuePair<IMaxNodeWrapper, ColorTag> node in this.oldTags)
+      foreach (KeyValuePair<IMaxNode, ColorTag> node in this.oldTags)
       {
          node.Key.SetColorTag(node.Value);
       }

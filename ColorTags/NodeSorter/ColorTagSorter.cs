@@ -23,14 +23,14 @@ namespace Outliner.ColorTags
          if (x == y)
             return 0;
 
-         IMaxNodeWrapper nodeX = HelperMethods.GetMaxNode(x);
+         IMaxNode nodeX = HelperMethods.GetMaxNode(x);
          if (nodeX == null || !nodeX.IsValid) return 0;
 
-         IMaxNodeWrapper nodeY = HelperMethods.GetMaxNode(y);
+         IMaxNode nodeY = HelperMethods.GetMaxNode(y);
          if (nodeY == null || !nodeY.IsValid) return 0;
 
-         ColorTag tagX = ColorTags.GetTag(nodeX.WrappedNode as IAnimatable);
-         ColorTag tagY = ColorTags.GetTag(nodeY.WrappedNode as IAnimatable);
+         ColorTag tagX = ColorTags.GetTag(nodeX.BaseObject as IAnimatable);
+         ColorTag tagY = ColorTags.GetTag(nodeY.BaseObject as IAnimatable);
 
          if (tagX == tagY)
             return 0;

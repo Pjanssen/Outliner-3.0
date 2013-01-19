@@ -9,9 +9,9 @@ using Outliner.Controls.Tree;
 
 namespace Outliner.Modes.Hierarchy
 {
-public class IINodeDragDropHandler : DragDropHandler
+public class INodeDragDropHandler : DragDropHandler
 {
-   public IINodeDragDropHandler(IMaxNodeWrapper data) : base(data) { }
+   public INodeDragDropHandler(IMaxNode data) : base(data) { }
 
    public override bool AllowDrag
    {

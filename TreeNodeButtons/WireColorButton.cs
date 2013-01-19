@@ -83,7 +83,7 @@ public class WireColorButton : NodePropertyButton
       if (graphics == null || tn == null)
          return;
 
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = HelperMethods.GetMaxNode(tn);
       if (node == null)
          return;
 
@@ -112,7 +112,7 @@ public class WireColorButton : NodePropertyButton
       if (this.Layout == null || this.Layout.TreeView == null)
          return;
 
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = HelperMethods.GetMaxNode(tn);
       if (node == null)
          return;
 
@@ -127,7 +127,7 @@ public class WireColorButton : NodePropertyButton
          else
             nodes = new List<TreeNode>(1) { tn };
 
-         IEnumerable<IMaxNodeWrapper> maxNodes = HelperMethods.GetMaxNodes(nodes);
+         IEnumerable<IMaxNode> maxNodes = HelperMethods.GetMaxNodes(nodes);
          SetNodePropertyCommand<Color> cmd = new SetNodePropertyCommand<Color>(maxNodes, "WireColor", ColorHelpers.FromMaxColor(wc));
          cmd.Execute(true);
 

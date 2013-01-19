@@ -9,15 +9,15 @@ namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "Filter_Xrefs")]
-   public class XRefFilter : Filter<IMaxNodeWrapper>
+   public class XRefFilter : Filter<IMaxNode>
    {
-      override protected Boolean ShowNodeInternal(IMaxNodeWrapper data)
+      override protected Boolean ShowNodeInternal(IMaxNode data)
       {
-         IINodeWrapper iinodeWrapper = data as IINodeWrapper;
+         INodeWrapper iinodeWrapper = data as INodeWrapper;
          if (iinodeWrapper == null)
             return false;
 
-         return IINodeHelpers.IsXref(iinodeWrapper.IINode);
+         return IINodeHelpers.IsXref(iinodeWrapper.INode);
       }
    }
 }

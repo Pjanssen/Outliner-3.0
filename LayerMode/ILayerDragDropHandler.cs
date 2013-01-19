@@ -9,10 +9,10 @@ using Outliner.Controls.Tree;
 
 namespace Outliner.Modes.Layer
 {
-public class IILayerDragDropHandler : DragDropHandler
+public class ILayerDragDropHandler : DragDropHandler
 {
-   private IILayerWrapper layer;
-   public IILayerDragDropHandler(IILayerWrapper data)
+   private ILayerWrapper layer;
+   public ILayerDragDropHandler(ILayerWrapper data)
       : base(data)
    {
       this.layer = data;

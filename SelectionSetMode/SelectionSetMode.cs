@@ -17,7 +17,7 @@ namespace Outliner.Modes.SelectionSet
 [LocalizedDisplayName(typeof(Resources), "Mode_SelectionSets")]
 public class SelectionSetMode : TreeMode
 {
-   private AllObjectsSelectionSet allObjectsSelSet;
+   private AllObjectsSelectionSetWrapper allObjectsSelSet;
 
    public SelectionSetMode(TreeView tree) : base(tree)
    {
@@ -27,7 +27,7 @@ public class SelectionSetMode : TreeMode
       proc_NamedSelSetPostModify = new GlobalDelegates.Delegate5(this.NamedSelSetPostModify);
       proc_NamedSelSetRenamed    = new GlobalDelegates.Delegate5(this.NamedSelSetRenamed);
 
-      this.allObjectsSelSet = new AllObjectsSelectionSet();
+      this.allObjectsSelSet = new AllObjectsSelectionSetWrapper();
       this.Tree.DragDropHandler = new TreeViewDragDropHandler();
    }
 
@@ -48,25 +48,25 @@ public class SelectionSetMode : TreeMode
       this.Tree.EndUpdate();
    }
 
-   public override TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol)
+   public override TreeNode AddNode(IMaxNode wrapper, TreeNodeCollection parentCol)
    {
       TreeNode tn = base.AddNode(wrapper, parentCol);
 
       if (wrapper is SelectionSetWrapper)
       {
-         foreach (Object child in wrapper.ChildNodes)
+         foreach (Object child in wrapper.ChildBaseObjects)
             this.AddNode(child, tn.Nodes);
       }
 
       return tn;
    }
 
-   override public DragDropHandler CreateDragDropHandler(IMaxNodeWrapper wrapper)
+   override public DragDropHandler CreateDragDropHandler(IMaxNode wrapper)
    {
       if (wrapper is SelectionSetWrapper)
          return new SelectionSetDragDropHandler((SelectionSetWrapper)wrapper);
-      else if (wrapper is IINodeWrapper)
-         return new IINodeDragDropHandler(wrapper);
+      else if (wrapper is INodeWrapper)
+         return new INodeDragDropHandler(wrapper);
 
       return base.CreateDragDropHandler(wrapper);
    }
@@ -160,7 +160,7 @@ public class SelectionSetMode : TreeMode
          return;
 
       TreeNode tn = this.GetFirstTreeNode(this.modifyingSelSetName);
-      IMaxNodeWrapper wrapper = HelperMethods.GetMaxNode(tn);
+      IMaxNode wrapper = HelperMethods.GetMaxNode(tn);
       if (tn == null || wrapper == null)
          return;
 
@@ -172,7 +172,7 @@ public class SelectionSetMode : TreeMode
          childTn.Remove();
       }
 
-      foreach (Object node in wrapper.ChildNodes)
+      foreach (Object node in wrapper.ChildBaseObjects)
       {
          this.AddNode(node, tn.Nodes);
       }

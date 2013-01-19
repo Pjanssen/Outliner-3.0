@@ -191,9 +191,9 @@ namespace Outliner.NodeSorters {
         /// <summary>
         ///   Looks up a localized string similar to Chronological.
         /// </summary>
-        internal static string Sorter_IINodeHandle {
+        internal static string Sorter_INodeHandle {
             get {
-                return ResourceManager.GetString("Sorter_IINodeHandle", resourceCulture);
+                return ResourceManager.GetString("Sorter_INodeHandle", resourceCulture);
             }
         }
         

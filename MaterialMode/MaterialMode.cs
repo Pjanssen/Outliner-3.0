@@ -43,11 +43,11 @@ namespace Outliner.Modes.MaterialMode
          return this.AddNode(new MaterialWrapper(node as IMtl), parentCol);
       }
 
-      public override TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol)
+      public override TreeNode AddNode(IMaxNode wrapper, TreeNodeCollection parentCol)
       {
          TreeNode tn = base.AddNode(wrapper, parentCol);
 
-         foreach (IMaxNodeWrapper node in wrapper.WrappedChildNodes)
+         foreach (IMaxNode node in wrapper.ChildNodes)
          {
             this.AddNode(node, tn.Nodes);
          }

@@ -30,7 +30,7 @@ public abstract class NodePropertyButton : ImageButton
    }
 
    protected abstract NodeProperty Property { get; }
-   protected virtual SetNodePropertyCommand<Boolean> CreateCommand(IEnumerable<IMaxNodeWrapper> nodes, Boolean newValue)
+   protected virtual SetNodePropertyCommand<Boolean> CreateCommand(IEnumerable<IMaxNode> nodes, Boolean newValue)
    {
       return new SetNodePropertyCommand<Boolean>(nodes, this.Property, newValue);
    }
@@ -55,25 +55,25 @@ public abstract class NodePropertyButton : ImageButton
 
    protected Boolean isInheritedFromLayer(TreeNode tn)
    {
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = HelperMethods.GetMaxNode(tn);
       if (node == null)
          return false;
 
       NodeProperty property = this.Property;
-      if (node is IILayerWrapper)
+      if (node is ILayerWrapper)
       {
-         IILayer layer = ((IILayerWrapper)node).IILayer;
+         IILayer layer = ((ILayerWrapper)node).ILayer;
          if (!NodePropertyHelpers.IsBooleanProperty(property))
             return false;
          return NestedLayers.IsPropertyInherited(layer, NodePropertyHelpers.ToBooleanProperty(property));
       }
-      else if (node is IINodeWrapper)
+      else if (node is INodeWrapper)
       {
-         IINodeWrapper inode = (IINodeWrapper)node;
+         INodeWrapper inode = (INodeWrapper)node;
          if (property == NodeProperty.IsHidden)
-            return inode.IILayer != null && inode.IILayer.IsHidden;
+            return inode.ILayer != null && inode.ILayer.IsHidden;
          else if (property == NodeProperty.IsFrozen)
-            return inode.IILayer != null && inode.IILayer.IsFrozen;
+            return inode.ILayer != null && inode.ILayer.IsFrozen;
          else if (property == NodeProperty.WireColor)
             return inode.NodeLayerProperties.ColorByLayer;
          else if (NodePropertyHelpers.IsDisplayProperty(property))
@@ -89,7 +89,7 @@ public abstract class NodePropertyButton : ImageButton
 
    override public Boolean IsEnabled(TreeNode tn)
    {
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = HelperMethods.GetMaxNode(tn);
       if (node == null)
          return false;
 
@@ -105,7 +105,7 @@ public abstract class NodePropertyButton : ImageButton
       if (graphics == null || tn == null)
          return;
 
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = HelperMethods.GetMaxNode(tn);
       if (node != null && node.IsNodePropertyInherited(this.Property))
       {
          Image img = (!tn.ShowNode) ? this.ImageByLayer_Filtered : this.ImageByLayer;
@@ -118,7 +118,7 @@ public abstract class NodePropertyButton : ImageButton
 
    protected override string GetTooltipText(TreeNode tn)
    {
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = HelperMethods.GetMaxNode(tn);
       if (node == null)
          return base.GetTooltipText(tn);
 
@@ -133,7 +133,7 @@ public abstract class NodePropertyButton : ImageButton
 
    protected override bool Clickable(TreeNode tn)
    {
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = HelperMethods.GetMaxNode(tn);
       return node != null && !node.IsNodePropertyInherited(this.Property);
    }
 
@@ -146,7 +146,7 @@ public abstract class NodePropertyButton : ImageButton
       if (!NodePropertyHelpers.IsBooleanProperty(this.Property))
          return;
 
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = HelperMethods.GetMaxNode(tn);
       if (node == null)
          return;
 
@@ -158,7 +158,7 @@ public abstract class NodePropertyButton : ImageButton
          nodes = new List<TreeNode>(1) { tn };
 
       Boolean nodeValue = node.GetNodeProperty(NodePropertyHelpers.ToBooleanProperty(this.Property));
-      IEnumerable<IMaxNodeWrapper> maxNodes = HelperMethods.GetMaxNodes(nodes);
+      IEnumerable<IMaxNode> maxNodes = HelperMethods.GetMaxNodes(nodes);
       SetNodePropertyCommand<Boolean> cmd = this.CreateCommand(maxNodes, !nodeValue);
       if (cmd != null)
          cmd.Execute(true);

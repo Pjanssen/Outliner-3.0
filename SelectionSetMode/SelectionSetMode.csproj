@@ -54,8 +54,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContextMenuActions.cs" />
-    <Compile Include="IINodeDragDropHandler.cs" />
+    <Compile Include="AllObjectsSelectionSetWrapper.cs" />
+    <Compile Include="INodeDragDropHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>

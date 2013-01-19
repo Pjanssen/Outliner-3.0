@@ -22,7 +22,7 @@ public class HideButton : NodePropertyButton
       get { return NodeProperty.IsHidden; }
    }
 
-   protected override SetNodePropertyCommand<Boolean> CreateCommand(IEnumerable<IMaxNodeWrapper> nodes, bool newValue)
+   protected override SetNodePropertyCommand<Boolean> CreateCommand(IEnumerable<IMaxNode> nodes, bool newValue)
    {
       return new HideCommand(nodes, newValue);
    }

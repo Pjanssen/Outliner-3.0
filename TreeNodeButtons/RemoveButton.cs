@@ -21,10 +21,10 @@ public class RemoveButton : ImageButton
       : base(NodeButtonImages.GetButtonImages(NodeButtonImages.Images.Remove)) { }
 
    [XmlAttribute("visible_types")]
-   [DefaultValue(MaxNodeTypes.SelectionSet)]
-   public override MaxNodeTypes VisibleTypes
+   [DefaultValue(MaxNodeType.SelectionSet)]
+   public override MaxNodeType VisibleTypes
    {
-      get { return base.VisibleTypes & (MaxNodeTypes.SelectionSet); }
+      get { return base.VisibleTypes & (MaxNodeType.SelectionSet); }
       set { base.VisibleTypes = value; }
    }
 
@@ -53,16 +53,16 @@ public class RemoveButton : ImageButton
       if (selSet == null)
          return;
 
-      IEnumerable<IMaxNodeWrapper> selNodes = HelperMethods.GetMaxNodes(this.Layout.TreeView.SelectedNodes);
-      IEnumerable<IMaxNodeWrapper> newNodes = selSet.WrappedChildNodes.Except(selNodes);
-      ModifySelectionSetCommand cmd = new ModifySelectionSetCommand(newNodes.ToList(), selSet);
+      IEnumerable<IMaxNode> selNodes = HelperMethods.GetMaxNodes(this.Layout.TreeView.SelectedNodes);
+      IEnumerable<IMaxNode> newNodes = selSet.ChildNodes.Except(selNodes);
+      ModifySelectionSetCommand cmd = new ModifySelectionSetCommand(newNodes, selSet);
       cmd.Execute(true);
    }
 
 
    protected override string GetTooltipText(TreeNode tn)
    {
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = HelperMethods.GetMaxNode(tn);
       if (node == null || !this.IsEnabled(tn))
          return null;
 

@@ -9,11 +9,11 @@ namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "Filter_Layers")]
-   public class LayerFilter : Filter<IMaxNodeWrapper>
+   public class LayerFilter : Filter<IMaxNode>
    {
-      protected override bool ShowNodeInternal(IMaxNodeWrapper data)
+      protected override bool ShowNodeInternal(IMaxNode data)
       {
-         return !(data is IINodeWrapper);
+         return !(data is INodeWrapper);
       }
    }
 }

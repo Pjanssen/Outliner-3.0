@@ -31,12 +31,12 @@ public class FlatObjectListMode : TreeMode
       this.Tree.EndUpdate();
    }
 
-   public override TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol)
+   public override TreeNode AddNode(IMaxNode wrapper, TreeNodeCollection parentCol)
    {
       return this.AddNode(wrapper, parentCol, true);
    }
 
-   public TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol, Boolean recursive)
+   public TreeNode AddNode(IMaxNode wrapper, TreeNodeCollection parentCol, Boolean recursive)
    {
       TreeNode tn = base.AddNode(wrapper, parentCol);
 
@@ -66,7 +66,7 @@ public class FlatObjectListMode : TreeMode
       {
          foreach (IINode node in nodes.NodeKeysToINodeList())
          {
-            this.flatListMode.AddNode(IMaxNodeWrapper.Create(node), this.Tree.Nodes, false);
+            this.flatListMode.AddNode(MaxNodeWrapper.Create(node), this.Tree.Nodes, false);
          }
          this.Tree.StartTimedSort(false);
       }

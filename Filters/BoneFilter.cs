@@ -9,15 +9,15 @@ namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "Filter_Bones")]
-   public class BoneFilter : Filter<IMaxNodeWrapper>
+   public class BoneFilter : Filter<IMaxNode>
    {
-      protected override Boolean ShowNodeInternal(IMaxNodeWrapper data)
+      protected override Boolean ShowNodeInternal(IMaxNode data)
       {
-         IINodeWrapper iinodeWrapper = data as IINodeWrapper;
+         INodeWrapper iinodeWrapper = data as INodeWrapper;
          if (iinodeWrapper == null)
             return false;
 
-         return IINodeHelpers.IsBone(iinodeWrapper.IINode);
+         return IINodeHelpers.IsBone(iinodeWrapper.INode);
       }
    }
 }

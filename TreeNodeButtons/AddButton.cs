@@ -22,10 +22,10 @@ public class AddButton : ImageButton
 
 
    [XmlAttribute("visible_types")]
-   [DefaultValue(MaxNodeTypes.All)]
-   public override MaxNodeTypes VisibleTypes
+   [DefaultValue(MaxNodeType.All)]
+   public override MaxNodeType VisibleTypes
    {
-      get { return base.VisibleTypes & (MaxNodeTypes.SelectionSet | MaxNodeTypes.Layer); }
+      get { return base.VisibleTypes & (MaxNodeType.SelectionSet | MaxNodeType.Layer); }
       set { base.VisibleTypes = value; }
    }
 
@@ -35,7 +35,7 @@ public class AddButton : ImageButton
       if (this.Layout == null || this.Layout.TreeView == null)
          return false;
 
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = HelperMethods.GetMaxNode(tn);
       IEnumerable<TreeNode> selTreeNodes = this.Layout.TreeView.SelectedNodes;
       if (node == null || selTreeNodes.Count() == 0)
          return false;
@@ -51,16 +51,16 @@ public class AddButton : ImageButton
       if (!this.IsEnabled(tn))
          return;
 
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = HelperMethods.GetMaxNode(tn);
       if (node == null)
          return;
 
-      IEnumerable<IMaxNodeWrapper> nodes = HelperMethods.GetMaxNodes(this.Layout.TreeView.SelectedNodes);
+      IEnumerable<IMaxNode> nodes = HelperMethods.GetMaxNodes(this.Layout.TreeView.SelectedNodes);
       Command cmd;
       if (node is SelectionSetWrapper)
       {
          SelectionSetWrapper selSet = (SelectionSetWrapper)node;
-         IEnumerable<IMaxNodeWrapper> newNodes = selSet.WrappedChildNodes.Union(nodes);
+         IEnumerable<IMaxNode> newNodes = selSet.ChildNodes.Union(nodes);
          cmd = new ModifySelectionSetCommand(newNodes, selSet);
       }
       else
@@ -74,11 +74,11 @@ public class AddButton : ImageButton
 
    protected override string GetTooltipText(TreeNode tn)
    {
-      IMaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = HelperMethods.GetMaxNode(tn);
       if (node == null || !this.IsEnabled(tn))
          return null;
 
-      if (node is IILayerWrapper)
+      if (node is ILayerWrapper)
          return Resources.Tooltip_Add_Layer;
       else if (node is SelectionSetWrapper)
          return Resources.Tooltip_Add_SelSet;

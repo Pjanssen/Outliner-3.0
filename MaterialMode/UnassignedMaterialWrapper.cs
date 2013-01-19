@@ -6,39 +6,17 @@ using Outliner.Scene;
 
 namespace Outliner.Modes.MaterialMode
 {
-   public class UnassignedMaterialWrapper : IMaxNodeWrapper
+   public class UnassignedMaterialWrapper : MaxNodeWrapper
    {
-      public override int ChildNodeCount
+      public UnassignedMaterialWrapper() { }
+
+      public override object BaseObject
       {
-         get { return 0; }
+         get { return "--Internal_UnassignedMaterial--"; }
       }
 
-      public override IEnumerable<object> ChildNodes
-      {
-         get 
-         { 
-            return MaxScene.AllObjects.Where(n => n.IINode.Mtl != null)
-                                       .Select(n => n.IINode); 
-         }
-      }
 
-      public override IEnumerable<IMaxNodeWrapper> WrappedChildNodes
-      {
-         get
-         {
-            return MaxScene.AllObjects.Where(n => n.IINode.Mtl == null);
-         }
-      }
-
-      public override Autodesk.Max.IClass_ID ClassID
-      {
-         get { return null; }
-      }
-
-      public override Autodesk.Max.SClass_ID SuperClassID
-      {
-         get { return Autodesk.Max.SClass_ID.Material; }
-      }
+      #region Equality
 
       public override bool Equals(object obj)
       {
@@ -47,41 +25,67 @@ namespace Outliner.Modes.MaterialMode
 
       public override int GetHashCode()
       {
-         return 0;
+         return this.BaseObject.GetHashCode();
       }
 
-      public override bool IsNodeType(MaxNodeTypes types)
+      #endregion
+
+
+      #region Childnodes
+
+      public override IEnumerable<object> ChildBaseObjects
       {
-         return (types & MaxNodeTypes.Material) == MaxNodeTypes.Material;
+         get
+         {
+            return MaxScene.AllObjects.Where(n => n.INode.Mtl == null)
+                                      .Select(n => n.INode);
+         }
       }
 
+      public override IEnumerable<IMaxNode> ChildNodes
+      {
+         get
+         {
+            return MaxScene.AllObjects.Where(n => n.INode.Mtl == null);
+         }
+      }
+
+      #endregion
+
+
+      #region Node Type
+
+      protected override MaxNodeType MaxNodeType
+      {
+         get { return MaxNodeType.Material; }
+      }
+
+      #endregion
+
+
+      #region Name
+      
       public override string Name
       {
          get { return Resources.Name_Unassigned; }
          set { }
       }
 
-      public override bool CanEditName
-      {
-         get { return false; }
-      }
+      #endregion
 
-      public override bool Selected
-      {
-         get { return false; }
-      }
 
-      public override object WrappedNode
-      {
-         get { return "--Internal_UnassignedMaterial--"; }
-      }
+      #region ImageKey
 
       public override string ImageKey
       {
-         get
-         {
-            return "material_unassigned";
-         }
+         get { return "material_unassigned"; }
+      }
+
+      #endregion
+
+      public override string ToString()
+      {
+         return "UnassignedMaterialWrapper";
       }
    }
 }

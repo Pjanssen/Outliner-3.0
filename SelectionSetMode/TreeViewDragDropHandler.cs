@@ -47,14 +47,14 @@ public class TreeViewDragDropHandler : DragDropHandler
             continue;
 
          SelectionSetWrapper selSet = HelperMethods.GetMaxNode(tn.Parent) as SelectionSetWrapper;
-         if (selSet != null && !(selSet is AllObjectsSelectionSet) && !selSets.Contains(selSet))
+         if (selSet != null && !(selSet is AllObjectsSelectionSetWrapper) && !selSets.Contains(selSet))
             selSets.Add(selSet);
       }
 
-      IEnumerable<IMaxNodeWrapper> draggedMaxNodes = HelperMethods.GetMaxNodes(draggedNodes);
+      IEnumerable<IMaxNode> draggedMaxNodes = HelperMethods.GetMaxNodes(draggedNodes);
       foreach (SelectionSetWrapper selSet in selSets)
       {
-         IEnumerable<IMaxNodeWrapper> newNodes = selSet.WrappedChildNodes.Except(draggedMaxNodes);
+         IEnumerable<IMaxNode> newNodes = selSet.ChildNodes.Except(draggedMaxNodes);
          ModifySelectionSetCommand cmd = new ModifySelectionSetCommand(newNodes.ToList(), selSet);
          cmd.Execute(false);
       }

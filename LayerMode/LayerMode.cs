@@ -44,11 +44,11 @@ public class LayerMode : TreeMode
       this.Tree.EndUpdate();
    }
 
-   public override TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol)
+   public override TreeNode AddNode(IMaxNode wrapper, TreeNodeCollection parentCol)
    {
       TreeNode tn = base.AddNode(wrapper, parentCol);
 
-      IILayerWrapper layerWrapper = wrapper as IILayerWrapper;
+      ILayerWrapper layerWrapper = wrapper as ILayerWrapper;
       if (layerWrapper != null)
       {
          //Set italic font for default layer.
@@ -56,7 +56,7 @@ public class LayerMode : TreeMode
             tn.FontStyle = FontStyle.Italic;
 
          //Add nodes belonging to this layer.
-         foreach (Object node in wrapper.ChildNodes)
+         foreach (Object node in wrapper.ChildBaseObjects)
          {
             //if (!this.LayersOnly || node is IILayer)
             if (this.ShouldAddNode(node))
@@ -82,12 +82,12 @@ public class LayerMode : TreeMode
       return true;
    }
 
-   public override DragDropHandler CreateDragDropHandler(IMaxNodeWrapper node)
+   public override DragDropHandler CreateDragDropHandler(IMaxNode node)
    {
-      if (node is IILayerWrapper)
-         return new IILayerDragDropHandler((IILayerWrapper)node);
-      else if (node is IINodeWrapper)
-         return new IINodeDragDropHandler(node);
+      if (node is ILayerWrapper)
+         return new ILayerDragDropHandler((ILayerWrapper)node);
+      else if (node is INodeWrapper)
+         return new INodeDragDropHandler(node);
       else
          return base.CreateDragDropHandler(node);
    }

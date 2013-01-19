@@ -7,15 +7,15 @@ namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "Filter_Particles")]
-   public class ParticleFilter : Filter<IMaxNodeWrapper>
+   public class ParticleFilter : Filter<IMaxNode>
    {
-      override protected Boolean ShowNodeInternal(IMaxNodeWrapper data)
+      override protected Boolean ShowNodeInternal(IMaxNode data)
       {
-         IINodeWrapper iinodeWrapper = data as IINodeWrapper;
+         INodeWrapper iinodeWrapper = data as INodeWrapper;
          if (iinodeWrapper == null)
             return false;
 
-         return iinodeWrapper.IINode.ObjectRef.IsParticleSystem;
+         return iinodeWrapper.INode.ObjectRef.IsParticleSystem;
       }
    }
 }

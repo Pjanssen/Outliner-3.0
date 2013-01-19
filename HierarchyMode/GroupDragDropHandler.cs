@@ -9,9 +9,9 @@ using Outliner.Scene;
 
 namespace Outliner.Modes.Hierarchy
 {
-public class GroupDragDropHandler : IINodeDragDropHandler
+public class GroupDragDropHandler : INodeDragDropHandler
 {
-   public GroupDragDropHandler(IMaxNodeWrapper data) : base(data) { }
+   public GroupDragDropHandler(IMaxNode data) : base(data) { }
 
    public override bool AllowDrag
    {
@@ -44,7 +44,7 @@ public class GroupDragDropHandler : IINodeDragDropHandler
          if (draggedNodes == null)
             return;
 
-         IEnumerable<IMaxNodeWrapper> nodes = HelperMethods.GetMaxNodes(draggedNodes);
+         IEnumerable<IMaxNode> nodes = HelperMethods.GetMaxNodes(draggedNodes);
          ChangeGroupCommand cmd = new ChangeGroupCommand(nodes, this.Data, true);
          cmd.Execute(true);
       }

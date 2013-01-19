@@ -37,12 +37,12 @@ public class HierarchyMode : TreeMode
       this.Tree.EndUpdate();
    }
 
-   public override TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol)
+   public override TreeNode AddNode(IMaxNode wrapper, TreeNodeCollection parentCol)
    {
       return this.AddNode(wrapper, parentCol, true);
    }
 
-   public TreeNode AddNode(IMaxNodeWrapper wrapper, TreeNodeCollection parentCol, Boolean recursive)
+   public TreeNode AddNode(IMaxNode wrapper, TreeNodeCollection parentCol, Boolean recursive)
    {
       Throw.IfArgumentIsNull(wrapper, "wrapper");
       Throw.IfArgumentIsNull(parentCol, "parentCol");
@@ -51,7 +51,7 @@ public class HierarchyMode : TreeMode
 
       if (recursive)
       {
-         foreach (Object child in wrapper.ChildNodes)
+         foreach (Object child in wrapper.ChildBaseObjects)
          {
             this.AddNode(child, tn.Nodes);
          }
@@ -61,15 +61,15 @@ public class HierarchyMode : TreeMode
    }
 
 
-   public override DragDropHandler CreateDragDropHandler(IMaxNodeWrapper node)
+   public override DragDropHandler CreateDragDropHandler(IMaxNode node)
    {
-      IINodeWrapper iinodeWrapper = node as IINodeWrapper;
+      INodeWrapper iinodeWrapper = node as INodeWrapper;
       if (iinodeWrapper != null)
       {
-         if (iinodeWrapper.IINode.IsGroupMember || iinodeWrapper.IINode.IsGroupHead)
+         if (iinodeWrapper.INode.IsGroupMember || iinodeWrapper.INode.IsGroupHead)
             return new GroupDragDropHandler(node);
          else
-            return new IINodeDragDropHandler(node);
+            return new INodeDragDropHandler(node);
       }
 
       return base.CreateDragDropHandler(node);
@@ -102,7 +102,7 @@ public class HierarchyMode : TreeMode
 
             if (parentCol != null)
             {
-               this.hierarchyMode.AddNode(IMaxNodeWrapper.Create(node), parentCol, false);
+               this.hierarchyMode.AddNode(MaxNodeWrapper.Create(node), parentCol, false);
                this.Tree.AddToSortQueue(parentCol);
             }
          }

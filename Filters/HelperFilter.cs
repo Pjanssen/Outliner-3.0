@@ -7,15 +7,15 @@ namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "Filter_Helpers")]
-   public class HelperFilter : Filter<IMaxNodeWrapper>
+   public class HelperFilter : Filter<IMaxNode>
    {
-      override protected Boolean ShowNodeInternal(IMaxNodeWrapper data)
+      override protected Boolean ShowNodeInternal(IMaxNode data)
       {
-         IINodeWrapper iinodeWrapper = data as IINodeWrapper;
+         INodeWrapper iinodeWrapper = data as INodeWrapper;
          if (iinodeWrapper == null)
             return false;
 
-         return iinodeWrapper.SuperClassID == SClass_ID.Helper || iinodeWrapper.IINode.IsTarget;
+         return iinodeWrapper.SuperClassID == SClass_ID.Helper || iinodeWrapper.INode.IsTarget;
       }
    }
 }

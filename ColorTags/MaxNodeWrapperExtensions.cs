@@ -7,16 +7,16 @@ using Autodesk.Max;
 
 namespace Outliner.ColorTags
 {
-   public static class IMaxNodeWrapperExtensions
+   public static class MaxNodeWrapperExtensions
    {
-      public static ColorTag GetColorTag(this IMaxNodeWrapper wrapper)
+      public static ColorTag GetColorTag(this IMaxNode wrapper)
       {
-         return ColorTags.GetTag(wrapper.WrappedNode as IAnimatable);
+         return ColorTags.GetTag(wrapper.BaseObject as IAnimatable);
       }
 
-      public static void SetColorTag(this IMaxNodeWrapper wrapper, ColorTag tag)
+      public static void SetColorTag(this IMaxNode wrapper, ColorTag tag)
       {
-         ColorTags.SetTag(wrapper.WrappedNode as IAnimatable, tag);
+         ColorTags.SetTag(wrapper.BaseObject as IAnimatable, tag);
       }
 
 

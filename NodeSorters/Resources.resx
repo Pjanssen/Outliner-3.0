@@ -127,7 +127,7 @@
   <data name="Sorter_Hidden" xml:space="preserve">
     <value>Visibility</value>
   </data>
-  <data name="Sorter_IINodeHandle" xml:space="preserve">
+  <data name="Sorter_INodeHandle" xml:space="preserve">
     <value>Chronological</value>
   </data>
   <data name="Sorter_SuperClass" xml:space="preserve">

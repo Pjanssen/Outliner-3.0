@@ -13,23 +13,23 @@ namespace Outliner.Modes.Layer
    public class ContextMenuActions
    {
       [OutlinerAction]
-      public static void CreateEmptyLayer(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+      public static void CreateEmptyLayer(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
       {
          CreateNewLayerCommand cmd = new CreateNewLayerCommand();
          cmd.Execute(false);
       }
 
       [OutlinerPredicate]
-      public static Boolean IsNotCurrentLayer(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+      public static Boolean IsNotCurrentLayer(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
       {
-         IILayerWrapper layer = HelperMethods.GetMaxNode(contextTn) as IILayerWrapper;
+         ILayerWrapper layer = HelperMethods.GetMaxNode(contextTn) as ILayerWrapper;
          return layer != null && !layer.IsCurrent;
       }
 
       [OutlinerAction]
-      public static void SetCurrentLayer(TreeNode contextTn, IEnumerable<IMaxNodeWrapper> contextNodes)
+      public static void SetCurrentLayer(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
       {
-         IILayerWrapper layer = HelperMethods.GetMaxNode(contextTn) as IILayerWrapper;
+         ILayerWrapper layer = HelperMethods.GetMaxNode(contextTn) as ILayerWrapper;
          if (layer == null)
             return;
 

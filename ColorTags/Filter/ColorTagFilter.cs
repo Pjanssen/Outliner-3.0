@@ -11,7 +11,7 @@ namespace Outliner.ColorTags
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "Filter_ColorTag")]
-   public class ColorTagsFilter : Filter<IMaxNodeWrapper>
+   public class ColorTagsFilter : Filter<IMaxNode>
    {
       private ColorTag tags;
 
@@ -31,7 +31,7 @@ namespace Outliner.ColorTags
          }
       }
 
-      protected override Boolean ShowNodeInternal(IMaxNodeWrapper data)
+      protected override Boolean ShowNodeInternal(IMaxNode data)
       {
          if (data == null)
             return false;

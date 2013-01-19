@@ -24,7 +24,7 @@ public class TreeViewDragDropHandler : DragDropHandler
       if (draggedNodes == null)
          return false;
 
-      return HelperMethods.GetMaxNodes(draggedNodes).All(n => n is IINodeWrapper);
+      return HelperMethods.GetMaxNodes(draggedNodes).All(n => n is INodeWrapper);
    }
 
    public override WinForms::DragDropEffects GetDragDropEffect(WinForms::IDataObject dragData)

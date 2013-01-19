@@ -16,7 +16,7 @@ namespace Outliner.Filters
 {
 [OutlinerPlugin(OutlinerPluginType.Filter)]
 [LocalizedDisplayName(typeof(Resources), "Filter_Maxscript")]
-public class MaxscriptFilter : Filter<IMaxNodeWrapper>
+public class MaxscriptFilter : Filter<IMaxNode>
 {
    public MaxscriptFilter()
    {
@@ -41,16 +41,16 @@ public class MaxscriptFilter : Filter<IMaxNodeWrapper>
       }
    }
 
-   protected override Boolean ShowNodeInternal(IMaxNodeWrapper data)
+   protected override Boolean ShowNodeInternal(IMaxNode data)
    {
       if (String.IsNullOrEmpty(this.script))
          return true;
 
-      IINodeWrapper iinodeWrapper = data as IINodeWrapper;
+      INodeWrapper iinodeWrapper = data as INodeWrapper;
       if (data == null)
          return false;
 
-      UIntPtr handle = MaxInterfaces.Global.Animatable.GetHandleByAnim(iinodeWrapper.IINode);
+      UIntPtr handle = MaxInterfaces.Global.Animatable.GetHandleByAnim(iinodeWrapper.INode);
       String script = String.Format(CultureInfo.InvariantCulture, filterFn, handle);
       return MaxscriptSDK.ExecuteBooleanMaxscriptQuery(script);
    }
