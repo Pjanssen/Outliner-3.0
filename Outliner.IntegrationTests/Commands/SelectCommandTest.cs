@@ -14,15 +14,15 @@ public class SelectCommandTest : MaxIntegrationTest
    [TestMethod]
    public void SelectTest()
    {
-      IMaxNodeWrapper nodeA = IMaxNodeWrapper.Create(MaxRemoting.CreateBox());
-      IMaxNodeWrapper nodeB = IMaxNodeWrapper.Create(MaxRemoting.CreateBox());
-      IMaxNodeWrapper nodeC = IMaxNodeWrapper.Create(MaxRemoting.CreateBox());
+      MaxNodeWrapper nodeA = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
+      MaxNodeWrapper nodeB = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
+      MaxNodeWrapper nodeC = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
 
       Assert.AreEqual(false, nodeA.Selected);
       Assert.AreEqual(false, nodeB.Selected);
       Assert.AreEqual(false, nodeC.Selected);
 
-      List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(2) { nodeA, nodeB };
+      List<MaxNodeWrapper> nodes = new List<MaxNodeWrapper>(2) { nodeA, nodeB };
       SelectCommand cmd = new SelectCommand(nodes, false);
 
       cmd.Redo();
@@ -39,15 +39,15 @@ public class SelectCommandTest : MaxIntegrationTest
    [TestMethod]
    public void ChangeSelectionTest()
    {
-      IMaxNodeWrapper nodeA = IMaxNodeWrapper.Create(MaxRemoting.CreateBox());
-      IMaxNodeWrapper nodeB = IMaxNodeWrapper.Create(MaxRemoting.CreateBox());
-      IMaxNodeWrapper nodeC = IMaxNodeWrapper.Create(MaxRemoting.CreateBox());
+      MaxNodeWrapper nodeA = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
+      MaxNodeWrapper nodeB = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
+      MaxNodeWrapper nodeC = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
 
       Assert.AreEqual(false, nodeA.Selected);
       Assert.AreEqual(false, nodeB.Selected);
       Assert.AreEqual(false, nodeC.Selected);
 
-      List<IMaxNodeWrapper> nodes1 = new List<IMaxNodeWrapper>(2) { nodeA, nodeB };
+      List<MaxNodeWrapper> nodes1 = new List<MaxNodeWrapper>(2) { nodeA, nodeB };
       SelectCommand cmd = new SelectCommand(nodes1, false);
 
       cmd.Redo();
@@ -55,7 +55,7 @@ public class SelectCommandTest : MaxIntegrationTest
       Assert.AreEqual(true, nodeB.Selected);
       Assert.AreEqual(false, nodeC.Selected);
 
-      List<IMaxNodeWrapper> nodes2 = new List<IMaxNodeWrapper>(1) { nodeC };
+      List<MaxNodeWrapper> nodes2 = new List<MaxNodeWrapper>(1) { nodeC };
       SelectCommand cmd2 = new SelectCommand(nodes2, false);
       
       cmd2.Redo();
@@ -72,15 +72,15 @@ public class SelectCommandTest : MaxIntegrationTest
    [TestMethod]
    public void ClearSelectionTest()
    {
-      IMaxNodeWrapper nodeA = IMaxNodeWrapper.Create(MaxRemoting.CreateBox());
-      IMaxNodeWrapper nodeB = IMaxNodeWrapper.Create(MaxRemoting.CreateBox());
-      IMaxNodeWrapper nodeC = IMaxNodeWrapper.Create(MaxRemoting.CreateBox());
+      MaxNodeWrapper nodeA = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
+      MaxNodeWrapper nodeB = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
+      MaxNodeWrapper nodeC = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
 
       Assert.AreEqual(false, nodeA.Selected);
       Assert.AreEqual(false, nodeB.Selected);
       Assert.AreEqual(false, nodeC.Selected);
 
-      List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(2) { nodeA, nodeB };
+      List<MaxNodeWrapper> nodes = new List<MaxNodeWrapper>(2) { nodeA, nodeB };
       SelectCommand cmd = new SelectCommand(nodes, false);
 
       cmd.Redo();
@@ -88,7 +88,7 @@ public class SelectCommandTest : MaxIntegrationTest
       Assert.AreEqual(true, nodeB.Selected);
       Assert.AreEqual(false, nodeC.Selected);
 
-      SelectCommand clearCmd = new SelectCommand(new List<IMaxNodeWrapper>(), false);
+      SelectCommand clearCmd = new SelectCommand(new List<MaxNodeWrapper>(), false);
 
       clearCmd.Redo();
       Assert.AreEqual(false, nodeA.Selected);

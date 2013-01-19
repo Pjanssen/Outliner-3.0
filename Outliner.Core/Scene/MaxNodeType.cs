@@ -8,7 +8,7 @@ namespace Outliner.Scene
 {
 
 [Flags]
-public enum MaxNodeTypes
+public enum MaxNodeType
 {
    None         = 0x00,
 

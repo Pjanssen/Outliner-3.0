@@ -10,11 +10,11 @@ namespace Outliner.Commands
 {
    public class CreateSelectionSetCommand : Command
    {
-      private IEnumerable<MaxNodeWrapper> nodes;
+      private IEnumerable<IMaxNode> nodes;
       private int? selSetNum;
 
-      public CreateSelectionSetCommand() : this(Enumerable.Empty<MaxNodeWrapper>()) { }
-      public CreateSelectionSetCommand(IEnumerable<MaxNodeWrapper> nodes)
+      public CreateSelectionSetCommand() : this(Enumerable.Empty<IMaxNode>()) { }
+      public CreateSelectionSetCommand(IEnumerable<IMaxNode> nodes)
       {
          Throw.IfArgumentIsNull(nodes, "nodes");
 

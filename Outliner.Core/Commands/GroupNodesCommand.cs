@@ -13,11 +13,11 @@ namespace Outliner.Commands
 /// </summary>
 public class GroupNodesCommand : Command
 {
-   private IEnumerable<MaxNodeWrapper> nodes;
-   private IINodeWrapper groupHead;
-   private List<Tuple<IINodeWrapper, MaxNodeWrapper, Boolean>> previousParents;
+   private IEnumerable<IMaxNode> nodes;
+   private INodeWrapper groupHead;
+   private List<Tuple<INodeWrapper, IMaxNode, Boolean>> previousParents;
 
-   public GroupNodesCommand(IEnumerable<MaxNodeWrapper> nodes)
+   public GroupNodesCommand(IEnumerable<IMaxNode> nodes)
    {
       Throw.IfArgumentIsNull(nodes, "nodes");
 
@@ -37,22 +37,22 @@ public class GroupNodesCommand : Command
       StorePreviousParents();
 
       this.groupHead = GroupHelpers.CreateGroupHead();
-      this.groupHead.IINode.SetAFlag(AnimatableFlags.Held);
+      this.groupHead.INode.SetAFlag(AnimatableFlags.Held);
       GroupHelpers.AddNodesToGroup(this.nodes, this.groupHead);
    }
 
    private void StorePreviousParents()
    {
-      this.previousParents = new List<Tuple<IINodeWrapper, MaxNodeWrapper, Boolean>>();
-      foreach (MaxNodeWrapper node in this.nodes)
+      this.previousParents = new List<Tuple<INodeWrapper, IMaxNode, Boolean>>();
+      foreach (IMaxNode node in this.nodes)
       {
-         IINodeWrapper iinodeWrapper = node as IINodeWrapper;
-         if (iinodeWrapper != null)
+         INodeWrapper inodeWrapper = node as INodeWrapper;
+         if (inodeWrapper != null)
          {
-            this.previousParents.Add(new Tuple<IINodeWrapper, MaxNodeWrapper, Boolean>(
-               iinodeWrapper,
+            this.previousParents.Add(new Tuple<INodeWrapper, IMaxNode, Boolean>(
+               inodeWrapper,
                node.Parent,
-               iinodeWrapper.IINode.IsGroupMember));
+               inodeWrapper.INode.IsGroupMember));
          }
       }
    }
@@ -62,15 +62,15 @@ public class GroupNodesCommand : Command
       if (this.previousParents == null)
          return;
 
-      foreach (Tuple<IINodeWrapper, MaxNodeWrapper, Boolean> prevParent in this.previousParents)
+      foreach (Tuple<INodeWrapper, IMaxNode, Boolean> prevParent in this.previousParents)
       {
          prevParent.Item2.AddChildNode(prevParent.Item1);
-         prevParent.Item1.IINode.SetGroupMember(prevParent.Item3);
+         prevParent.Item1.INode.SetGroupMember(prevParent.Item3);
       }
 
       if (this.groupHead != null)
       {
-         MaxInterfaces.COREInterface.DeleteNode(this.groupHead.IINode, false, false);
+         MaxInterfaces.COREInterface.DeleteNode(this.groupHead.INode, false, false);
          this.groupHead = null;
       }
    }

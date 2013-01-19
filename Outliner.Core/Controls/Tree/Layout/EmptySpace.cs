@@ -16,10 +16,10 @@ namespace Outliner.Controls.Tree.Layout
 public class EmptySpace : TreeNodeLayoutItem
 {
    [XmlAttribute("visible_types")]
-   [DefaultValue(MaxNodeTypes.All)]
-   public override Scene.MaxNodeTypes VisibleTypes
+   [DefaultValue(MaxNodeType.All)]
+   public override Scene.MaxNodeType VisibleTypes
    {
-      get { return MaxNodeTypes.All; }
+      get { return MaxNodeType.All; }
       set { }
    }
 

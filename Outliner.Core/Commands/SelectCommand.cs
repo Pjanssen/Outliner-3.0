@@ -11,12 +11,12 @@ namespace Outliner.Commands
 public class SelectCommand : Command
 {
    private Boolean openGroups;
-   private IEnumerable<MaxNodeWrapper> nodes;
-   private IEnumerable<MaxNodeWrapper> oldSelection;
+   private IEnumerable<IMaxNode> nodes;
+   private IEnumerable<IMaxNode> oldSelection;
 
-   public SelectCommand(IEnumerable<MaxNodeWrapper> nodes) : this(nodes, true) { }
+   public SelectCommand(IEnumerable<IMaxNode> nodes) : this(nodes, true) { }
 
-   public SelectCommand(IEnumerable<MaxNodeWrapper> nodes, Boolean openGroups) 
+   public SelectCommand(IEnumerable<IMaxNode> nodes, Boolean openGroups) 
    {
       Throw.IfArgumentIsNull(nodes, "nodes");
 
@@ -36,7 +36,7 @@ public class SelectCommand : Command
 
       //Store old selection.
       Int32 selNodeCount = ip.SelNodeCount;
-      List<MaxNodeWrapper> oldSel = new List<MaxNodeWrapper>();
+      List<IMaxNode> oldSel = new List<IMaxNode>();
       for (int i = 0; i < selNodeCount; i++)
       {
          oldSel.Add(MaxNodeWrapper.Create(ip.GetSelNode(i)));
@@ -55,7 +55,7 @@ public class SelectCommand : Command
       SelectCommand.SelectNodes(MaxInterfaces.COREInterface, this.oldSelection);
    }
 
-   protected static void SelectNodes(IInterface ip, IEnumerable<MaxNodeWrapper> nodes)
+   protected static void SelectNodes(IInterface ip, IEnumerable<IMaxNode> nodes)
    {
       if (ip == null || nodes == null)
          return;
@@ -63,9 +63,9 @@ public class SelectCommand : Command
       //Clear previous selection.
       ip.ClearNodeSelection(false);
 
-      foreach (MaxNodeWrapper node in nodes)
+      foreach (IMaxNode node in nodes)
       {
-         node.Selected = true;
+         node.IsSelected = true;
       }
       ////Select INodes.
       //IEnumerable<IMaxNodeWrapper> inodes = nodes.Where(n => n is IINodeWrapper);

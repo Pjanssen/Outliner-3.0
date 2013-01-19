@@ -14,18 +14,18 @@ namespace Outliner.Filters
    /// </summary>
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "Filter_InvisibleNodes")]
-   public class InvisibleNodeFilter : Filter<MaxNodeWrapper>
+   public class InvisibleNodeFilter : Filter<IMaxNode>
    {
-      protected override Boolean ShowNodeInternal(MaxNodeWrapper data)
+      protected override Boolean ShowNodeInternal(IMaxNode data)
       {
          if (data == null || !data.IsValid)
             return false;
 
-         IINodeWrapper iinodeWrapper = data as IINodeWrapper;
+         INodeWrapper iinodeWrapper = data as INodeWrapper;
          if (iinodeWrapper == null)
             return true;
 
-         return !IINodeHelpers.IsInvisibleNode(iinodeWrapper.IINode);
+         return !IINodeHelpers.IsInvisibleNode(iinodeWrapper.INode);
       }
    }
 }

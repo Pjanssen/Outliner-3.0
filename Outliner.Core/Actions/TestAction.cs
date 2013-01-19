@@ -38,7 +38,7 @@ namespace Outliner.Actions
          IHold theHold = MaxInterfaces.Global.TheHold;
          theHold.Begin();
 
-         MaxScene.AllObjects.ForEach(n => n.Selected = true);
+         MaxScene.AllObjects.ForEach(n => n.IsSelected = true);
          
          theHold.Accept("Test!");
 

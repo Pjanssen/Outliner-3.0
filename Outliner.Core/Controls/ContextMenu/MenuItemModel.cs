@@ -23,7 +23,7 @@ public abstract class MenuItemModel : ConfigurationFile
    public MenuItemModel(String text, String image, Type resType) 
       : base(text, image, String.Empty, null)
    {
-      this.VisibleTypes = MaxNodeTypes.All;
+      this.VisibleTypes = MaxNodeType.All;
       this.VisibleForEmptySelection = false;
       this.SubItems = new List<MenuItemModel>();
    }
@@ -45,8 +45,8 @@ public abstract class MenuItemModel : ConfigurationFile
    [XmlElement("visible_types")]
    [DisplayName("Visible Types")]
    [Category("1. UI Properties")]
-   [DefaultValue(MaxNodeTypes.All)]
-   public virtual MaxNodeTypes VisibleTypes { get; set; }
+   [DefaultValue(MaxNodeType.All)]
+   public virtual MaxNodeType VisibleTypes { get; set; }
 
    [XmlElement("visible_for_empty_selection")]
    [DisplayName("Visible for empty selection")]
@@ -90,7 +90,7 @@ public abstract class MenuItemModel : ConfigurationFile
    {
       Throw.IfArgumentIsNull(treeView, "treeView");
 
-      IEnumerable<MaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
+      IEnumerable<IMaxNode> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
 
       if (context.Count() == 0)
          return this.VisibleForEmptySelection;

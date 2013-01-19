@@ -1,117 +1,152 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using System.Drawing;
 using Outliner.MaxUtils;
-using Outliner.LayerTools;
 
 namespace Outliner.Scene
 {
-   /// <summary>
-   /// IMaxNodeWrapper is an adapter class which provides a common interface
-   /// for INodes, ILayers and other 3dsmax objects.
-   /// </summary>
-   public abstract class MaxNodeWrapper
+   public abstract class MaxNodeWrapper : IMaxNode
    {
-      public abstract Object WrappedNode { get; }
-      public override abstract bool Equals(object obj);
+      public abstract Object BaseObject { get; }
+
+      public virtual IMaxNode Parent
+      {
+         get { return null; }
+         set { }
+      }
+
+      public virtual Boolean IsSelected
+      {
+         get { return false; }
+         set { }
+      }
+
+      public virtual Boolean IsValid
+      {
+         get { return this.BaseObject != null; }
+      }
+
+
+      #region Equality
+
+      public override abstract Boolean Equals(Object obj);
       public override abstract int GetHashCode();
 
-      public virtual MaxNodeWrapper Parent 
-      { 
-         get { return null; }
-         set 
-         {
-            if (value == null)
-               MaxScene.SceneRoot.AddChildNode(this);
-            else
-               value.AddChildNode(this);
-         }
-      }
+      #endregion
 
-      #region ChildNodes
 
-      public abstract Int32 ChildNodeCount 
-      { 
-         get;
-      }
-
-      public abstract IEnumerable<Object> ChildNodes 
-      { 
-         get;
-      }
-
-      public virtual IEnumerable<MaxNodeWrapper> WrappedChildNodes 
+      #region Delete
+      
+      public virtual Boolean CanDelete
       {
-         get { return this.ChildNodes.Select(MaxNodeWrapper.Create); }
+         get { return false; }
       }
 
-      public virtual Boolean CanAddChildNode(MaxNodeWrapper node)
+      public virtual void Delete() { }
+
+      #endregion
+
+
+      #region Childnodes
+      
+      public virtual Int32 ChildNodeCount
+      {
+         get { return this.ChildBaseObjects.Count(); }
+      }
+
+      public virtual IEnumerable<Object> ChildBaseObjects
+      {
+         get { return Enumerable.Empty<Object>(); }
+      }
+
+      public virtual IEnumerable<IMaxNode> ChildNodes
+      {
+         get { return ChildBaseObjects.Select(MaxNodeWrapper.Create); }
+      }
+
+      public virtual Boolean CanAddChildNode(IMaxNode node)
       {
          return false;
       }
-      
-      public virtual Boolean CanAddChildNodes(IEnumerable<MaxNodeWrapper> nodes)
+
+      public virtual Boolean CanAddChildNodes(IEnumerable<IMaxNode> nodes)
       {
          return nodes.Any(this.CanAddChildNode);
       }
 
-      public virtual void AddChildNode(MaxNodeWrapper node) { }
-      
-      public virtual void AddChildNodes(IEnumerable<MaxNodeWrapper> nodes)
+      public virtual void AddChildNode(IMaxNode node) { }
+
+      public virtual void AddChildNodes(IEnumerable<IMaxNode> nodes)
       {
          nodes.ForEach(this.AddChildNode);
       }
 
-      public virtual Boolean CanRemoveChildNode(MaxNodeWrapper node) 
+      public virtual Boolean CanRemoveChildNode(IMaxNode node)
       {
-         return false; 
+         return this.ChildBaseObjects.Contains(node.BaseObject);
       }
-      
-      public virtual Boolean CanRemoveChildNodes(IEnumerable<MaxNodeWrapper> nodes)
+
+      public virtual Boolean CanRemoveChildNodes(IEnumerable<IMaxNode> nodes)
       {
          return nodes.Any(this.CanRemoveChildNode);
       }
-      
-      public virtual void RemoveChildNode(MaxNodeWrapper node) { }
-      
-      public virtual void RemoveChildNodes(IEnumerable<MaxNodeWrapper> nodes)
+
+      public virtual void RemoveChildNode(IMaxNode node) { }
+
+      public virtual void RemoveChildNodes(IEnumerable<IMaxNode> nodes)
       {
          nodes.ForEach(this.RemoveChildNode);
       }
 
       #endregion
 
-      #region Name
-      
-      public abstract String Name { get; set; }
-      public virtual String DisplayName { get { return this.Name; } }
-      public virtual Boolean CanEditName { get { return true; } }
-
-      #endregion
 
       #region Node Type
 
-      public abstract SClass_ID SuperClassID { get; }
-      public abstract IClass_ID ClassID { get; }
-      public abstract Boolean IsNodeType(MaxNodeTypes types);
+      public virtual SClass_ID SuperClassID
+      {
+         get { return (SClass_ID)0; }
+      }
+
+      public virtual IClass_ID ClassID
+      {
+         get { return null; }
+      }
+
+      protected abstract MaxNodeType MaxNodeType { get; }
+      public virtual Boolean IsNodeType(MaxNodeType types)
+      {
+         return (types & MaxNodeType) == MaxNodeType;
+      }
 
       #endregion
 
-      public abstract Boolean Selected { get; set; }
 
-      public virtual Boolean CanDelete { get { return true; } }
-      public virtual void Delete() { }
+      #region Name
 
-      #region NodeProperties
-      
-      public virtual Color WireColor
+      public virtual String Name
       {
-         get { return Color.Empty; }
+         get { return ""; }
          set { }
       }
+
+      public virtual Boolean CanEditName
+      {
+         get { return false; }
+      }
+
+      public virtual String DisplayName
+      {
+         get { return this.Name; }
+      }
+
+      #endregion
+
+
+      #region Node Properties
 
       public virtual Object GetNodeProperty(NodeProperty property)
       {
@@ -133,7 +168,7 @@ namespace Outliner.Scene
          return false;
       }
 
-      public virtual void SetNodeProperty(NodeProperty property, Object value)
+      public virtual void SetNodeProperty(NodeProperty property, object value) 
       {
          if (NodePropertyHelpers.IsBooleanProperty(property))
             this.SetNodeProperty(NodePropertyHelpers.ToBooleanProperty(property), (Boolean)value);
@@ -141,11 +176,11 @@ namespace Outliner.Scene
          {
             switch (property)
             {
-               case NodeProperty.Name: 
-                  this.Name = (String)value; 
+               case NodeProperty.Name:
+                  this.Name = (String)value;
                   break;
-               case NodeProperty.WireColor: 
-                  this.WireColor = (Color)value; 
+               case NodeProperty.WireColor:
+                  this.WireColor = (Color)value;
                   break;
                default:
                   break;
@@ -153,56 +188,66 @@ namespace Outliner.Scene
          }
       }
 
-      public virtual void SetNodeProperty(BooleanNodeProperty property, Boolean value) { }
+      public virtual void SetNodeProperty(BooleanNodeProperty property, bool value) { }
 
-      /// <summary>
-      /// Returns true if the supplied property is inherited from another object, 
-      /// e.g. a layer.
-      /// </summary>
       public virtual Boolean IsNodePropertyInherited(NodeProperty property)
       {
          return false;
       }
 
-      /// <summary>
-      /// Returns true if the supplied property is inherited from another object, 
-      /// e.g. a layer.
-      /// </summary>
       public virtual Boolean IsNodePropertyInherited(BooleanNodeProperty property)
       {
          return this.IsNodePropertyInherited(NodePropertyHelpers.ToProperty(property));
       }
 
-      #endregion
-
-      /// <summary>
-      /// Tests if the wrapped node is still a valid scene node and hasn't been deleted.
-      /// </summary>
-      public virtual Boolean IsValid
+      public virtual Color WireColor 
       {
-         get { return this.WrappedNode != null; }
+         get { return Color.Empty; }
+         set { }
       }
 
+      #endregion
+
+
+      #region ImageKey
+      
       public virtual String ImageKey
       {
          get { return "unknown"; }
       }
 
-      public static MaxNodeWrapper Create(Object node)
+      #endregion
+
+
+      public override String ToString()
       {
-         Throw.IfArgumentIsNull(node, "node");
+         return "MaxNodeWrapper (" + this.Name + ")";
+      }
 
-         if (node is MaxNodeWrapper)
-            return (MaxNodeWrapper)node;
 
-         if (node is IINode)
-            return new IINodeWrapper((IINode)node);
-         else if (node is IILayer)
-            return new IILayerWrapper((IILayer)node);
-         else if (node is IILayerProperties)
-            return new IILayerWrapper((IILayerProperties)node);
-         else
-            throw new ArgumentException("Cannot create wrapper for type " + node.GetType().ToString());
+      public static MaxNodeWrapper Create(Object obj)
+      {
+         Throw.IfArgumentIsNull(obj, "obj");
+
+         //INodeWrapper
+         IINode inode = obj as IINode;
+         if (inode != null)
+            return new INodeWrapper(inode);
+
+         //ILayerWrapper
+         IILayer ilayer = obj as IILayer;
+         if (ilayer != null)
+            return new ILayerWrapper(ilayer);
+         IILayerProperties ilayerProperties = obj as IILayerProperties;
+         if (ilayerProperties != null)
+            return new ILayerWrapper(ilayerProperties);
+
+         //MaterialWrapper
+         IMtl imtl = obj as IMtl;
+         if (imtl != null)
+            return new MaterialWrapper(imtl);
+
+         throw new NotSupportedException("Cannot create a wrapper for object of type " + obj.GetType().Name);
       }
    }
 }

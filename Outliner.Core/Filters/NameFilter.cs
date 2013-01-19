@@ -10,7 +10,7 @@ namespace Outliner.Filters
 {
 [OutlinerPlugin(OutlinerPluginType.Filter)]
 [LocalizedDisplayName(typeof(OutlinerResources), "Filter_Name")]
-public class NameFilter : Filter<MaxNodeWrapper>
+public class NameFilter : Filter<IMaxNode>
 {
    private const String SEARCH_BEGINS_WITH = "^";
    private const String SEARCH_WILDCARD = ".";
@@ -96,7 +96,7 @@ public class NameFilter : Filter<MaxNodeWrapper>
       set { }
    }
 
-   protected override Boolean ShowNodeInternal(MaxNodeWrapper data) 
+   protected override Boolean ShowNodeInternal(IMaxNode data) 
    {
       if (data == null)
          return false;

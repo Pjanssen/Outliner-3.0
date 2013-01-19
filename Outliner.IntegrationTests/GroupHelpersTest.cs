@@ -13,13 +13,13 @@ namespace Outliner.IntegrationTests
 [TestClass]
 public class GroupHelpersTest : MaxIntegrationTest
 {
-   private IINode GroupNodes(IEnumerable<IMaxNodeWrapper> nodes)
+   private IINode GroupNodes(IEnumerable<MaxNodeWrapper> nodes)
    {
       IINode groupHead = MaxRemoting.CreateDummy();
       groupHead.SetGroupHead(true);
       ((IDummyObject)groupHead.ObjectRef).Box = MaxRemoting.Global.Box3.Create(MaxRemoting.Global.Point3.Create(0, 0, 0), MaxRemoting.Global.Point3.Create(0, 0, 0));
 
-      foreach (IMaxNodeWrapper node in nodes)
+      foreach (MaxNodeWrapper node in nodes)
       {
          IINodeWrapper inode = node as IINodeWrapper;
          if (inode != null && inode.IsValid)
@@ -38,10 +38,10 @@ public class GroupHelpersTest : MaxIntegrationTest
    {
       Assert.Inconclusive("Fix remoting exception.");
       IINode node = MaxRemoting.CreateBox();
-      IINodeWrapper nodeWrapper = IMaxNodeWrapper.Create(node) as IINodeWrapper;
+      IINodeWrapper nodeWrapper = MaxNodeWrapper.Create(node) as IINodeWrapper;
 
-      IINode groupHead = this.GroupNodes(new List<IMaxNodeWrapper>(1) { nodeWrapper });
-      IINodeWrapper groupWrapper = IMaxNodeWrapper.Create(groupHead) as IINodeWrapper;
+      IINode groupHead = this.GroupNodes(new List<MaxNodeWrapper>(1) { nodeWrapper });
+      IINodeWrapper groupWrapper = MaxNodeWrapper.Create(groupHead) as IINodeWrapper;
 
       Assert.IsNotNull(nodeWrapper);
       Assert.IsTrue(nodeWrapper.IsValid);
@@ -49,11 +49,8 @@ public class GroupHelpersTest : MaxIntegrationTest
       Assert.IsTrue(groupWrapper.IsValid);
       Assert.IsTrue(node.IsGroupMember);
 
-      OutlinerGUP gup = new OutlinerGUP();
-      Assert.IsNotNull(gup);
-
       Assert.IsFalse(node.IsOpenGroupMember);
-      GroupHelpers.OpenSelectedGroupHeads(new List<IMaxNodeWrapper>(1) { nodeWrapper });
+      GroupHelpers.OpenSelectedGroupHeads(new List<MaxNodeWrapper>(1) { nodeWrapper });
       Assert.IsTrue(node.IsOpenGroupMember);
 
       GroupHelpers.CloseUnselectedGroupHeads();

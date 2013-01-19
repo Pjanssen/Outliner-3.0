@@ -88,15 +88,6 @@ namespace Outliner {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to - All objects -.
-        /// </summary>
-        internal static string AllObjectsSelSet {
-            get {
-                return ResourceManager.GetString("AllObjectsSelSet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Empty Space.
         /// </summary>
         internal static string Button_EmptySpace {
@@ -532,6 +523,15 @@ namespace Outliner {
         internal static string Sorter_NodeProperty {
             get {
                 return ResourceManager.GetString("Sorter_NodeProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  (default).
+        /// </summary>
+        internal static string Str_LayerDefault {
+            get {
+                return ResourceManager.GetString("Str_LayerDefault", resourceCulture);
             }
         }
         

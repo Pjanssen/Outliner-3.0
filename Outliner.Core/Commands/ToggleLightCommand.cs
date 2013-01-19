@@ -9,7 +9,7 @@ namespace Outliner.Commands
 {
 public class ToggleLightCommand : SetNodePropertyCommand<Boolean>
 {
-   public ToggleLightCommand(IEnumerable<MaxNodeWrapper> nodes, Boolean on) 
+   public ToggleLightCommand(IEnumerable<IMaxNode> nodes, Boolean on) 
       : base(nodes, "UseLight", on) { }
 
    public override string Description
@@ -17,7 +17,7 @@ public class ToggleLightCommand : SetNodePropertyCommand<Boolean>
       get { return OutlinerResources.Command_ToggleLight; }
    }
 
-   protected override bool GetValue(Scene.MaxNodeWrapper node)
+   protected override bool GetValue(IMaxNode node)
    {
       if (node == null)
          return false;
@@ -25,7 +25,7 @@ public class ToggleLightCommand : SetNodePropertyCommand<Boolean>
       if (node.SuperClassID != Autodesk.Max.SClass_ID.Light)
          return false;
             
-      IINode inode = node.WrappedNode as IINode;
+      IINode inode = node.BaseObject as IINode;
       if (inode == null)
          return false;
       ILightObject light = inode.ObjectRef as ILightObject;
@@ -35,7 +35,7 @@ public class ToggleLightCommand : SetNodePropertyCommand<Boolean>
       return light.UseLight;
    }
 
-   protected override void SetValue(Scene.MaxNodeWrapper node, bool value)
+   protected override void SetValue(IMaxNode node, bool value)
    {
       if (node == null)
          return;
@@ -43,7 +43,7 @@ public class ToggleLightCommand : SetNodePropertyCommand<Boolean>
       if (node.SuperClassID != Autodesk.Max.SClass_ID.Light)
          return;
 
-      IINode inode = node.WrappedNode as IINode;
+      IINode inode = node.BaseObject as IINode;
       if (inode == null)
          return;
       ILightObject light = inode.ObjectRef as ILightObject;

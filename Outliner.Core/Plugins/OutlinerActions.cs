@@ -8,8 +8,8 @@ using Outliner.Controls.Tree;
 
 namespace Outliner.Plugins
 {
-   public delegate void OutlinerAction(TreeNode contextTn, IEnumerable<MaxNodeWrapper> contextNodes);
-   public delegate Boolean OutlinerPredicate(TreeNode contextTn, IEnumerable<MaxNodeWrapper> contextNodes);
+   public delegate void OutlinerAction(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes);
+   public delegate Boolean OutlinerPredicate(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes);
 
    public static class OutlinerActions
    {

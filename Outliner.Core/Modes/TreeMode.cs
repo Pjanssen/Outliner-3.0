@@ -34,7 +34,7 @@ public abstract class TreeMode
 
    protected Dictionary<Object, ICollection<TreeNode>> treeNodes { get; private set; }
 
-   internal FilterCombinator<MaxNodeWrapper> filters;
+   internal FilterCombinator<IMaxNode> filters;
    private const Int32 InvisibleNodesFilterIndex = 0;
    private const Int32 PermanentFiltersIndex = 1;
    private const Int32 OtherFiltersIndex = 2;
@@ -53,7 +53,7 @@ public abstract class TreeMode
       this.Tree = tree;
       this.treeNodes = new Dictionary<Object, ICollection<TreeNode>>();
 
-      this.filters = new FilterCombinator<MaxNodeWrapper>(Functor.And);
+      this.filters = new FilterCombinator<IMaxNode>(Functor.And);
       this.filters.Filters.Add(new InvisibleNodeFilter());
       this.filters.Filters.Add(new MaxNodeFilterCombinator() { Enabled = false });
       this.filters.Filters.Add(new MaxNodeFilterCombinator() { Enabled = false });
@@ -230,12 +230,12 @@ public abstract class TreeMode
 
    #region Helper methods
 
-   public virtual IEnumerable<TreeNode> GetTreeNodes(MaxNodeWrapper wrapper)
+   public virtual IEnumerable<TreeNode> GetTreeNodes(IMaxNode wrapper)
    {
       if (wrapper == null)
          return null;
 
-      return this.GetTreeNodes(wrapper.WrappedNode);
+      return this.GetTreeNodes(wrapper.BaseObject);
    }
 
    public virtual IEnumerable<TreeNode> GetTreeNodes(Object node)
@@ -259,12 +259,12 @@ public abstract class TreeMode
          return null;
    }
 
-   public virtual TreeNode GetFirstTreeNode(MaxNodeWrapper wrapper)
+   public virtual TreeNode GetFirstTreeNode(IMaxNode wrapper)
    {
       if (wrapper == null)
          return null;
 
-      return this.GetFirstTreeNode(wrapper.WrappedNode);
+      return this.GetFirstTreeNode(wrapper.BaseObject);
    }
 
    public virtual void RegisterNode(Object node, TreeNode tn)
@@ -278,12 +278,12 @@ public abstract class TreeMode
       tns.Add(tn);
    }
 
-   public virtual void RegisterNode(MaxNodeWrapper node, TreeNode tn)
+   public virtual void RegisterNode(IMaxNode node, TreeNode tn)
    {
       if (node == null)
          return;
 
-      this.RegisterNode(node.WrappedNode, tn);
+      this.RegisterNode(node.BaseObject, tn);
    }
 
    public virtual void UnregisterNode(Object node, TreeNode tn)
@@ -297,12 +297,12 @@ public abstract class TreeMode
       }
    }
 
-   public virtual void UnregisterNode(MaxNodeWrapper wrapper, TreeNode tn)
+   public virtual void UnregisterNode(IMaxNode wrapper, TreeNode tn)
    {
       if (wrapper == null)
          return;
 
-      this.UnregisterNode(wrapper.WrappedNode, tn);
+      this.UnregisterNode(wrapper.BaseObject, tn);
    }
 
    public virtual void UnregisterNode(Object node)
@@ -310,15 +310,15 @@ public abstract class TreeMode
       this.treeNodes.Remove(node);
    }
 
-   public virtual void UnregisterNode(MaxNodeWrapper wrapper)
+   public virtual void UnregisterNode(IMaxNode wrapper)
    {
       if (wrapper == null)
          return;
 
-      this.UnregisterNode(wrapper.WrappedNode);
+      this.UnregisterNode(wrapper.BaseObject);
    }
 
-   public virtual TreeNode AddNode(MaxNodeWrapper wrapper, TreeNodeCollection parentCol)
+   public virtual TreeNode AddNode(IMaxNode wrapper, TreeNodeCollection parentCol)
    {
       Throw.IfArgumentIsNull(wrapper, "wrapper");
       Throw.IfArgumentIsNull(parentCol, "parentCol");
@@ -331,7 +331,7 @@ public abstract class TreeMode
 
       parentCol.Add(tn);
 
-      if (wrapper.Selected)
+      if (wrapper.IsSelected)
          this.Tree.SelectNode(tn, true);
 
       return tn;
@@ -346,15 +346,15 @@ public abstract class TreeMode
    }
 
 
-   public virtual DragDropHandler CreateDragDropHandler(MaxNodeWrapper node)
+   public virtual DragDropHandler CreateDragDropHandler(IMaxNode node)
    {
       return null;
    }
 
 
-   public virtual void RemoveNode(MaxNodeWrapper wrapper)
+   public virtual void RemoveNode(IMaxNode wrapper)
    {
-      this.RemoveNode(wrapper.WrappedNode);
+      this.RemoveNode(wrapper.BaseObject);
    }
 
    public virtual void RemoveNode(Object node)
@@ -422,7 +422,7 @@ public abstract class TreeMode
          {
             foreach (TreeNode tn in tns)
             {
-               MaxNodeWrapper wrapper = HelperMethods.GetMaxNode(tn);
+               IMaxNode wrapper = HelperMethods.GetMaxNode(tn);
                tn.ShowNode = this.filters.ShowNode(wrapper);
             }
          }
@@ -473,11 +473,11 @@ public abstract class TreeMode
    }
 
 
-   protected virtual void LayerPropertyChanged(MaxNodeWrapper layer, NodeProperty property)
+   protected virtual void LayerPropertyChanged(IMaxNode layer, NodeProperty property)
    {
       Boolean sort = NodeSorterHelpers.RequiresSort(this.Tree.NodeSorter as NodeSorter, property);
-      this.InvalidateObject(layer.WrappedNode, false, sort);
-      foreach (object child in layer.ChildNodes)
+      this.InvalidateObject(layer.BaseObject, false, sort);
+      foreach (object child in layer.ChildBaseObjects)
       {
          this.InvalidateObject(child, false, sort);
       }
@@ -552,7 +552,7 @@ public abstract class TreeMode
    {
       this.UnregisterSystemNotification(proc_SelectionsetChanged, SystemNotificationCode.SelectionsetChanged);
 
-      IEnumerable<MaxNodeWrapper> selNodes = HelperMethods.GetMaxNodes(e.Nodes);
+      IEnumerable<IMaxNode> selNodes = HelperMethods.GetMaxNodes(e.Nodes);
       SelectCommand cmd = new SelectCommand(selNodes);
       cmd.Execute(true);
 
@@ -561,7 +561,7 @@ public abstract class TreeMode
 
    protected virtual void tree_BeforeNodeTextEdit(object sender, BeforeNodeTextEditEventArgs e)
    {
-      MaxNodeWrapper node = HelperMethods.GetMaxNode(e.TreeNode);
+      IMaxNode node = HelperMethods.GetMaxNode(e.TreeNode);
       if (node == null)
       {
          e.Cancel = true;
@@ -586,13 +586,13 @@ public abstract class TreeMode
 
    protected virtual void tree_AfterNodeTextEdit(object sender, AfterNodeTextEditEventArgs e)
    {
-      MaxNodeWrapper node = HelperMethods.GetMaxNode(e.TreeNode);
+      IMaxNode node = HelperMethods.GetMaxNode(e.TreeNode);
       if (node == null)
          return;
 
       if (e.NewText != e.OldText)
       {
-         RenameCommand cmd = new RenameCommand(new List<MaxNodeWrapper>(1) { node }, e.NewText);
+         RenameCommand cmd = new RenameCommand(new List<IMaxNode>(1) { node }, e.NewText);
          cmd.Execute(false);
       }
 
@@ -673,7 +673,7 @@ public abstract class TreeMode
       {
          foreach (TreeNode tn in item.Value)
          {
-            MaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+            IMaxNode node = HelperMethods.GetMaxNode(tn);
             if (node != null)
                tn.ShowNode = this.filters.ShowNode(node);
          }

@@ -8,9 +8,9 @@ namespace Outliner.Controls.Tree
 {
    public class MaxTreeNode : TreeNode
    {
-      public MaxNodeWrapper MaxNode { get; private set; }
+      public IMaxNode MaxNode { get; private set; }
 
-      public MaxTreeNode(MaxNodeWrapper maxNode)
+      public MaxTreeNode(IMaxNode maxNode)
       {
          this.MaxNode = maxNode;
       }
@@ -32,7 +32,7 @@ namespace Outliner.Controls.Tree
          get
          {
             System.Drawing.FontStyle style = base.FontStyle;
-            if (this.MaxNode is IINodeWrapper && ((IINodeWrapper)this.MaxNode).IsInstance)
+            if (this.MaxNode is INodeWrapper && ((INodeWrapper)this.MaxNode).IsInstance)
                return style | System.Drawing.FontStyle.Bold;
             else
                return style;

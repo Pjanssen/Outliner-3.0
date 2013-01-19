@@ -10,13 +10,13 @@ namespace Outliner.Commands
 {
 public class SetNodePropertyCommand<T> : Command
 {
-   private IEnumerable<MaxNodeWrapper> nodes;
+   private IEnumerable<IMaxNode> nodes;
    private NodeProperty property;
    private PropertyInfo propInfo;
    private T newValue;
-   private Dictionary<MaxNodeWrapper, T> prevValues;
+   private Dictionary<IMaxNode, T> prevValues;
 
-   public SetNodePropertyCommand(IEnumerable<MaxNodeWrapper> nodes, NodeProperty property, T newValue)
+   public SetNodePropertyCommand(IEnumerable<IMaxNode> nodes, NodeProperty property, T newValue)
    {
       Throw.IfArgumentIsNull(nodes, "nodes");
 
@@ -25,13 +25,13 @@ public class SetNodePropertyCommand<T> : Command
       this.newValue = newValue;
    }
 
-   public SetNodePropertyCommand(IEnumerable<MaxNodeWrapper> nodes, String propertyName, T newValue)
+   public SetNodePropertyCommand(IEnumerable<IMaxNode> nodes, String propertyName, T newValue)
    {
       Throw.IfArgumentIsNull(nodes, "nodes");
       Throw.IfArgumentIsNull(propertyName, "propertyName");
 
       this.nodes = nodes.ToList();
-      this.propInfo = typeof(MaxNodeWrapper).GetProperty(propertyName);
+      this.propInfo = typeof(IMaxNode).GetProperty(propertyName);
       this.property = NodeProperty.None;
       this.newValue = newValue;
    }
@@ -42,10 +42,10 @@ public class SetNodePropertyCommand<T> : Command
    }
 
    protected override void Do()
-   {      
-      this.prevValues = new Dictionary<MaxNodeWrapper, T>(this.nodes.Count());
+   {
+      this.prevValues = new Dictionary<IMaxNode, T>(this.nodes.Count());
 
-      foreach (MaxNodeWrapper node in this.nodes)
+      foreach (IMaxNode node in this.nodes)
       {
          this.prevValues.Add(node, this.GetValue(node));
          this.SetValue(node, this.newValue);
@@ -54,13 +54,13 @@ public class SetNodePropertyCommand<T> : Command
 
    protected override void Undo()
    {
-      foreach (KeyValuePair<MaxNodeWrapper, T> n in this.prevValues)
+      foreach (KeyValuePair<IMaxNode, T> n in this.prevValues)
       {
          this.SetValue(n.Key, n.Value);
       }
    }
 
-   protected virtual T GetValue(MaxNodeWrapper node)
+   protected virtual T GetValue(IMaxNode node)
    {
       Throw.IfArgumentIsNull(node, "node");
 
@@ -70,7 +70,7 @@ public class SetNodePropertyCommand<T> : Command
          return (T)this.propInfo.GetValue(node, null);
    }
 
-   protected virtual void SetValue(MaxNodeWrapper node, T value)
+   protected virtual void SetValue(IMaxNode node, T value)
    {
       Throw.IfArgumentIsNull(node, "node");
 

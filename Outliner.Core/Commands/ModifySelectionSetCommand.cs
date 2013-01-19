@@ -10,11 +10,11 @@ namespace Outliner.Commands
 {
    public class ModifySelectionSetCommand : Command
    {
-      private IEnumerable<MaxNodeWrapper> nodes;
+      private IEnumerable<IMaxNode> nodes;
       private SelectionSetWrapper selSet;
-      private IEnumerable<MaxNodeWrapper> oldNodes;
+      private IEnumerable<IMaxNode> oldNodes;
 
-      public ModifySelectionSetCommand( IEnumerable<MaxNodeWrapper> nodes
+      public ModifySelectionSetCommand( IEnumerable<IMaxNode> nodes
                                       , SelectionSetWrapper selSet)
       {
          Throw.IfArgumentIsNull(nodes, "nodes");
@@ -34,7 +34,7 @@ namespace Outliner.Commands
 
       protected override void Do()
       {
-         this.oldNodes = selSet.WrappedChildNodes;
+         this.oldNodes = selSet.ChildNodes;
          selSet.ReplaceNodeset(this.nodes);
       }
 

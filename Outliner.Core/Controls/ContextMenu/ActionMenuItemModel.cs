@@ -52,7 +52,7 @@ public class ActionMenuItemModel : MenuItemModel
    {
       Throw.IfArgumentIsNull(treeView, "treeView");
 
-      IEnumerable<MaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
+      IEnumerable<IMaxNode> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
       OutlinerPredicate predicate = OutlinerActions.GetPredicate(this.EnabledPredicate);
 
       if (predicate != null)
@@ -67,7 +67,7 @@ public class ActionMenuItemModel : MenuItemModel
    {
       Throw.IfArgumentIsNull(treeView, "treeView");
 
-      IEnumerable<MaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
+      IEnumerable<IMaxNode> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
       OutlinerPredicate predicate = OutlinerActions.GetPredicate(this.CheckedPredicate);
 
       if (predicate != null)
@@ -82,7 +82,7 @@ public class ActionMenuItemModel : MenuItemModel
    {
       Throw.IfArgumentIsNull(treeView, "treeView");
 
-      IEnumerable<MaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
+      IEnumerable<IMaxNode> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
       OutlinerAction action = OutlinerActions.GetAction(this.OnClickAction);
 
       if (action != null)

@@ -9,7 +9,7 @@ namespace Outliner.Controls.Tree
 {
 public abstract class DragDropHandler
 {
-   protected DragDropHandler(MaxNodeWrapper data)
+   protected DragDropHandler(IMaxNode data)
    {
       this.Data = data;
    }
@@ -17,7 +17,7 @@ public abstract class DragDropHandler
    /// <summary>
    /// The data object this DragDropHandler is associated with.
    /// </summary>
-   public MaxNodeWrapper Data { get; private set; }
+   public IMaxNode Data { get; private set; }
 
    /// <summary>
    /// Determines whether the node can be dragged.

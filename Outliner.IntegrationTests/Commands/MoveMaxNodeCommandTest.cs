@@ -12,15 +12,15 @@ public class MoveMaxNodeCommandTest : MaxIntegrationTest
    [TestMethod]
    public void LinkIINodeTest()
    {
-      IMaxNodeWrapper nodeA = IMaxNodeWrapper.Create(MaxRemoting.CreateBox());
-      IMaxNodeWrapper nodeB = IMaxNodeWrapper.Create(MaxRemoting.CreateBox());
+      MaxNodeWrapper nodeA = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
+      MaxNodeWrapper nodeB = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
       Assert.IsNotNull(nodeA);
       Assert.IsNotNull(nodeB);
 
-      IMaxNodeWrapper nodeAParent = nodeA.Parent;
-      IMaxNodeWrapper nodeBParent = nodeB.Parent;
+      MaxNodeWrapper nodeAParent = nodeA.Parent;
+      MaxNodeWrapper nodeBParent = nodeB.Parent;
 
-      List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(1) { nodeA };
+      List<MaxNodeWrapper> nodes = new List<MaxNodeWrapper>(1) { nodeA };
       MoveMaxNodeCommand cmd = new MoveMaxNodeCommand(nodes, nodeB, "", "");
 
       cmd.Redo();
@@ -36,9 +36,9 @@ public class MoveMaxNodeCommandTest : MaxIntegrationTest
    [TestMethod]
    public void UnlinkIINodeTest()
    {
-      IMaxNodeWrapper nodeA = IMaxNodeWrapper.Create(MaxRemoting.CreateBox());
-      IMaxNodeWrapper nodeB = IMaxNodeWrapper.Create(MaxRemoting.CreateBox());
-      IMaxNodeWrapper root  = IMaxNodeWrapper.Create(MaxRemoting.SceneRoot);
+      MaxNodeWrapper nodeA = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
+      MaxNodeWrapper nodeB = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
+      MaxNodeWrapper root  = MaxNodeWrapper.Create(MaxRemoting.SceneRoot);
       Assert.IsNotNull(nodeA);
       Assert.IsNotNull(nodeB);
       
@@ -46,7 +46,7 @@ public class MoveMaxNodeCommandTest : MaxIntegrationTest
       Assert.AreEqual(root, nodeA.Parent);
       Assert.AreEqual(nodeA, nodeB.Parent);
 
-      List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(1) { nodeB };
+      List<MaxNodeWrapper> nodes = new List<MaxNodeWrapper>(1) { nodeB };
       MoveMaxNodeCommand cmd = new MoveMaxNodeCommand(nodes, null, "", "");
 
       cmd.Redo();

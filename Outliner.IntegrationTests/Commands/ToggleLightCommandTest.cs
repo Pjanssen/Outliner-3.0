@@ -25,11 +25,11 @@ public class ToggleLightCommandTest : MaxIntegrationTest
    [TestMethod]
    public void ToggleLightTest()
    {
-      IINodeWrapper light = IMaxNodeWrapper.Create(this.createLight()) as IINodeWrapper;
+      IINodeWrapper light = MaxNodeWrapper.Create(this.createLight()) as IINodeWrapper;
       Assert.IsNotNull(light);
 
       Boolean useLight = ((ILightObject)light.IINode.ObjectRef).UseLight;
-      List<IMaxNodeWrapper> nodes = new List<IMaxNodeWrapper>(1) { light };
+      List<MaxNodeWrapper> nodes = new List<MaxNodeWrapper>(1) { light };
       ToggleLightCommand cmd = new ToggleLightCommand(nodes, !useLight);
 
       cmd.Redo();
@@ -43,10 +43,10 @@ public class ToggleLightCommandTest : MaxIntegrationTest
    [TestMethod]
    public void NonLightObjectTest()
    {
-      IINodeWrapper node = IMaxNodeWrapper.Create(MaxRemoting.CreateBox()) as IINodeWrapper;
+      IINodeWrapper node = MaxNodeWrapper.Create(MaxRemoting.CreateBox()) as IINodeWrapper;
       Assert.IsNotNull(node);
 
-      ToggleLightCommand cmd = new ToggleLightCommand(new List<IMaxNodeWrapper>(1) { node }, false);
+      ToggleLightCommand cmd = new ToggleLightCommand(new List<MaxNodeWrapper>(1) { node }, false);
 
       try
       {

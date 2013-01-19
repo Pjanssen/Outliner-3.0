@@ -233,7 +233,7 @@ internal static class StandardContextMenu
    static void invertBtn_Click(object sender, EventArgs e)
    {
       ToolStripMenuItem item = sender as ToolStripMenuItem;
-      Filter<MaxNodeWrapper> filter = item.Tag as Filter<MaxNodeWrapper>;
+      Filter<IMaxNode> filter = item.Tag as Filter<IMaxNode>;
       item.Checked = !item.Checked;
       filter.Invert = item.Checked;
    }
@@ -241,7 +241,7 @@ internal static class StandardContextMenu
    static void clearBtn_Click(object sender, EventArgs e)
    {
       ToolStripMenuItem item = sender as ToolStripMenuItem;
-      FilterCombinator<MaxNodeWrapper> filter = item.Tag as FilterCombinator<MaxNodeWrapper>;
+      FilterCombinator<IMaxNode> filter = item.Tag as FilterCombinator<IMaxNode>;
       if (filter != null)
       {
          filter.Filters.Clear();
@@ -267,7 +267,7 @@ internal static class StandardContextMenu
 
       TreeMode treeMode = GetTreeMode(sender);
 
-      Filter<Outliner.Scene.MaxNodeWrapper> filter = treeMode.Filters.Filters.Get(config.Filter.GetType());
+      Filter<IMaxNode> filter = treeMode.Filters.Filters.Get(config.Filter.GetType());
       if (filter == null)
          treeMode.Filters.Filters.Add(config.Filter);
       else

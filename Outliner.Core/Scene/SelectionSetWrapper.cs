@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using Outliner.MaxUtils;
-using Outliner.LayerTools;
 
 namespace Outliner.Scene
 {
@@ -20,9 +20,16 @@ namespace Outliner.Scene
       public SelectionSetWrapper(String name)
       {
          Throw.IfArgumentIsNull(name, "name");
-
          this.name = name;
       }
+
+      public override object BaseObject
+      {
+         get { return this.name; }
+      }
+
+
+      #region SelectionSet Specific
 
       private Int32 GetSelSetIndex(String name)
       {
@@ -59,18 +66,36 @@ namespace Outliner.Scene
          this.name = newName;
       }
 
-      public override object WrappedNode
+      public virtual void ReplaceNodeset(IEnumerable<IMaxNode> nodes)
       {
-         get { return this.name; }
+         Throw.IfArgumentIsNull(nodes, "nodes");
+
+         IINodeTab nodeTab = HelperMethods.ToIINodeTab(nodes);
+         MaxInterfaces.SelectionSetManager.ReplaceNamedSelSet(nodeTab, ref this.name);
       }
 
-      public override bool IsValid
+      public virtual int Index
       {
-         get 
+         get
          {
-            return true;
+            IINamedSelectionSetManager selSetMan = MaxInterfaces.SelectionSetManager;
+            for (int i = 0; i < selSetMan.NumNamedSelSets; i++)
+            {
+               String selSetName = selSetMan.GetNamedSelSetName(i);
+               if (selSetName == name)
+               {
+                  return i;
+               }
+            }
+
+            return -1;
          }
       }
+
+      #endregion
+
+
+      #region Equality
 
       public override bool Equals(object obj)
       {
@@ -83,17 +108,38 @@ namespace Outliner.Scene
          return this.name.GetHashCode();
       }
 
-      #region ChildNodes
-      
-      public override int ChildNodeCount
+      #endregion
+
+
+      #region Delete
+
+      public override bool CanDelete
       {
-         get 
+         get { return true; }
+      }
+
+      public override void Delete()
+      {
+         if (this.CanDelete)
          {
-            return MaxInterfaces.SelectionSetManager.GetNamedSelSetItemCount(GetSelSetIndex(this.name));
+            MaxInterfaces.SelectionSetManager.RemoveNamedSelSet(ref this.name);
          }
       }
 
-      public override IEnumerable<Object> ChildNodes
+      #endregion
+
+
+      #region Childnodes
+
+      public override int ChildNodeCount
+      {
+         get
+         {
+            return MaxInterfaces.SelectionSetManager.GetNamedSelSetItemCount(this.Index);
+         }
+      }
+
+      public override IEnumerable<object> ChildBaseObjects
       {
          get
          {
@@ -112,73 +158,61 @@ namespace Outliner.Scene
          }
       }
 
-
-      public override bool CanAddChildNode(MaxNodeWrapper node)
+      public override bool CanAddChildNode(IMaxNode node)
       {
          if (node == null)
             return false;
 
-         return node is IINodeWrapper && !this.WrappedChildNodes.Contains(node);
+         return node is INodeWrapper && !this.ChildNodes.Contains(node);
       }
 
-      public override void AddChildNode(MaxNodeWrapper node)
+      public override void AddChildNode(IMaxNode node)
       {
          Throw.IfArgumentIsNull(node, "node");
-         this.AddChildNodes(new List<MaxNodeWrapper>() { node });
+         
+         this.AddChildNodes(node.ToEnumerable());
       }
-      
-      public override void AddChildNodes(IEnumerable<MaxNodeWrapper> nodes)
+
+      public override void AddChildNodes(IEnumerable<IMaxNode> nodes)
       {
          Throw.IfArgumentIsNull(nodes, "nodes");
 
          IINodeTab nodeTab = HelperMethods.ToIINodeTab(this.ChildNodes);
          nodeTab.Resize(nodeTab.Count + nodes.Count());
 
-         foreach (MaxNodeWrapper node in nodes)
+         foreach (IMaxNode node in nodes)
          {
-            IINodeWrapper inodeWrapper = node as IINodeWrapper;
+            INodeWrapper inodeWrapper = node as INodeWrapper;
             if (inodeWrapper == null)
                continue;
             else
-               nodeTab.AppendNode(inodeWrapper.IINode, false, 0);
+               nodeTab.AppendNode(inodeWrapper.INode, false, 0);
          }
 
          MaxInterfaces.SelectionSetManager.ReplaceNamedSelSet(nodeTab, ref this.name);
       }
 
 
-      public override bool CanRemoveChildNode(MaxNodeWrapper node)
-      {
-         if (node == null)
-            return false;
-
-         IINodeWrapper inodeWrapper = node as IINodeWrapper;
-         if (inodeWrapper == null)
-            return false;
-
-         return this.ChildIINodes.Contains(inodeWrapper.IINode);
-      }
-      
-      public override void RemoveChildNode(MaxNodeWrapper node)
+      public override void RemoveChildNode(IMaxNode node)
       {
          Throw.IfArgumentIsNull(node, "node");
 
-         this.RemoveChildNodes(new List<MaxNodeWrapper>() { node });
+         this.RemoveChildNodes(node.ToEnumerable());
       }
-      
-      public override void RemoveChildNodes(IEnumerable<MaxNodeWrapper> nodes)
+
+      public override void RemoveChildNodes(IEnumerable<IMaxNode> nodes)
       {
          Throw.IfArgumentIsNull(nodes, "nodes");
 
          IINodeTab nodeTab = HelperMethods.ToIINodeTab(this.ChildNodes);
 
-         foreach (MaxNodeWrapper node in nodes)
+         foreach (IMaxNode node in nodes)
          {
-            IINodeWrapper inodeWrapper = node as IINodeWrapper;
+            INodeWrapper inodeWrapper = node as INodeWrapper;
             if (inodeWrapper == null)
                continue;
             else
-               nodeTab.RemoveNode(inodeWrapper.IINode);
+               nodeTab.RemoveNode(inodeWrapper.INode);
          }
 
          MaxInterfaces.SelectionSetManager.ReplaceNamedSelSet(nodeTab, ref this.name);
@@ -187,19 +221,32 @@ namespace Outliner.Scene
       #endregion
 
 
-      public virtual void ReplaceNodeset(IEnumerable<MaxNodeWrapper> nodes)
-      {
-         Throw.IfArgumentIsNull(nodes, "nodes");
+      #region Node Type
 
-         IINodeTab nodeTab = HelperMethods.ToIINodeTab(nodes);
-         MaxInterfaces.SelectionSetManager.ReplaceNamedSelSet(nodeTab, ref this.name);
+      protected override MaxNodeType MaxNodeType
+      {
+         get { return MaxNodeType.SelectionSet; }
       }
 
+      public override IClass_ID ClassID
+      {
+         get { return null; }
+      }
+
+      public override SClass_ID SuperClassID
+      {
+         get { return SClass_ID.Utility; }
+      }
+
+      #endregion
+
+
+      #region Name
 
       public override string Name
       {
          get { return this.name; }
-         set 
+         set
          {
             Throw.IfArgumentIsNull(value, "value");
             MaxInterfaces.SelectionSetManager.SetNamedSelSetName(this.Index, ref value);
@@ -207,61 +254,15 @@ namespace Outliner.Scene
          }
       }
 
-      public virtual int Index
+      public override bool CanEditName
       {
-         get 
-         {
-            IINamedSelectionSetManager selSetMan = MaxInterfaces.SelectionSetManager;
-            for (int i = 0; i < selSetMan.NumNamedSelSets; i++)
-            {
-               String selSetName = selSetMan.GetNamedSelSetName(i);
-               if (selSetName == name)
-               {
-                  return i;
-               }
-            }
-
-            return -1;
-         }
-      }
-
-      #region Type
-      
-      public override Autodesk.Max.IClass_ID ClassID
-      {
-         get { return null; }
-      }
-
-      public override Autodesk.Max.SClass_ID SuperClassID
-      {
-         get { return SClass_ID.Utility; }
-      }
-
-      public override bool IsNodeType(MaxNodeTypes types)
-      {
-         return types.HasFlag(MaxNodeTypes.SelectionSet);
+         get { return true; }
       }
 
       #endregion
 
-      public override bool Selected
-      {
-         get { return false; }
-         set 
-         {
-            this.WrappedChildNodes.ForEach(n => n.Selected = value);
-         }
-      }
 
-      public override void Delete()
-      {
-         if (this.CanDelete)
-         {
-            MaxInterfaces.SelectionSetManager.RemoveNamedSelSet(ref this.name);
-         }
-      }
-
-      #region NodeProperties
+      #region Node Properties
 
       private Boolean IntToBool(int i)
       {
@@ -398,11 +399,11 @@ namespace Outliner.Scene
 
       public override bool IsNodePropertyInherited(NodeProperty property)
       {
-         return this.WrappedChildNodes.All(n => n.IsNodePropertyInherited(property));
+         return this.ChildNodes.All(n => n.IsNodePropertyInherited(property));
       }
 
 
-      public override System.Drawing.Color WireColor
+      public Color WireColor
       {
          get
          {
@@ -417,15 +418,21 @@ namespace Outliner.Scene
 
       #endregion
 
+
+      #region ImageKey
+
       public const String ImgKeySelectionSet = "selectionset";
       public override string ImageKey
       {
          get { return ImgKeySelectionSet; }
       }
 
-      public override string ToString()
+      #endregion
+
+
+      public override String ToString()
       {
-         return String.Format("IISelectionSetWrapper ({0})", this.Name);
+         return "SelectionSetWrapper (" + this.Name + ")";
       }
    }
 }

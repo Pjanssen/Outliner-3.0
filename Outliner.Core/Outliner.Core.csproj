@@ -294,6 +294,7 @@
     <Compile Include="Controls\Tree\TreeViewSettings.cs" />
     <Compile Include="Filters\FilterChangedEventArgs.cs" />
     <Compile Include="Filters\FilterCombinator.cs" />
+    <Compile Include="IEnumerableExtensions.cs" />
     <Compile Include="NodeSorters\NodeSorterHelpers.cs" />
     <Compile Include="Configuration\FilterCategory.cs" />
     <Compile Include="Configuration\FilterConfiguration.cs" />
@@ -347,15 +348,16 @@
     <Compile Include="..\AssemblyVersion.cs">
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
-    <Compile Include="Scene\AllObjectsSelectionSet.cs" />
-    <Compile Include="Scene\IILayerWrapper.cs" />
-    <Compile Include="Scene\IINodeWrapper.cs" />
-    <Compile Include="Scene\IMaxNodeWrapper.cs" />
-    <Compile Include="Scene\MaxNodeTypes.cs" />
+    <Compile Include="Scene\ILayerWrapper.cs" />
+    <Compile Include="Scene\INodeWrapper.cs" />
+    <Compile Include="Scene\MaterialWrapper.cs" />
+    <Compile Include="Scene\MaxNodeWrapper.cs" />
+    <Compile Include="Scene\IMaxNode.cs" />
+    <Compile Include="Scene\MaxNodeType.cs" />
     <Compile Include="Scene\MaxScene.cs" />
-    <Compile Include="Scene\SelectionSetWrapper.cs" />
     <Compile Include="HelperMethods.cs" />
     <Compile Include="Modes\TreeMode.cs" />
+    <Compile Include="Scene\SelectionSetWrapper.cs" />
     <Compile Include="TypeHelpers.cs" />
     <Compile Include="Configuration\SorterConfiguration.cs" />
     <Compile Include="XmlSerializationHelpers.cs" />

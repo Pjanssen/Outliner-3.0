@@ -18,7 +18,7 @@ namespace Outliner.Controls.Tree.Layout
    {
       protected TreeNodeLayoutItem()
       {
-         this.VisibleTypes = MaxNodeTypes.All;
+         this.VisibleTypes = MaxNodeType.All;
          this.Width = AutoWidth;
       }
 
@@ -50,15 +50,15 @@ namespace Outliner.Controls.Tree.Layout
       /// Determines for which MaxNodeTypes this item will be visible.
       /// </summary>
       [XmlAttribute("visible_types")]
-      [DefaultValue(MaxNodeTypes.All)]
-      public virtual MaxNodeTypes VisibleTypes { get; set; }
+      [DefaultValue(MaxNodeType.All)]
+      public virtual MaxNodeType VisibleTypes { get; set; }
 
       /// <summary>
       /// The item will only be shown if this method returns true.
       /// </summary>
       public virtual Boolean IsVisible(TreeNode tn)
       {
-         MaxNodeWrapper node = HelperMethods.GetMaxNode(tn);
+         IMaxNode node = HelperMethods.GetMaxNode(tn);
          if (node == null)
             return true;
          else

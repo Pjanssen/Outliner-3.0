@@ -10,11 +10,11 @@ namespace Outliner.Commands
 {
    public class CreateContainerCommand : Command
    {
-      private IEnumerable<MaxNodeWrapper> nodes;
+      private IEnumerable<IMaxNode> nodes;
       private IINode containerNode;
 
-      public CreateContainerCommand() : this(Enumerable.Empty<MaxNodeWrapper>()) { }
-      public CreateContainerCommand(IEnumerable<MaxNodeWrapper> nodes)
+      public CreateContainerCommand() : this(Enumerable.Empty<IMaxNode>()) { }
+      public CreateContainerCommand(IEnumerable<IMaxNode> nodes)
       {
          Throw.IfArgumentIsNull(nodes, "nodes");
 

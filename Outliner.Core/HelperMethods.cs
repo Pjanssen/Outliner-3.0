@@ -22,7 +22,7 @@ public static class HelperMethods
    /// <summary>
    /// Returns the NodeWrapper from the Tag of a TreeNode.
    /// </summary>
-   public static MaxNodeWrapper GetMaxNode(TreeNode tn)
+   public static IMaxNode GetMaxNode(TreeNode tn)
    {
       if (tn == null)
          return null;
@@ -37,7 +37,7 @@ public static class HelperMethods
    /// <summary>
    /// Maps GetMaxNode to a list of TreeNodes, returning a list of NodeWrappers.
    /// </summary>
-   public static IEnumerable<MaxNodeWrapper> GetMaxNodes(IEnumerable<TreeNode> treeNodes)
+   public static IEnumerable<IMaxNode> GetMaxNodes(IEnumerable<TreeNode> treeNodes)
    {
       return treeNodes.Select(HelperMethods.GetMaxNode);
    }
@@ -55,9 +55,10 @@ public static class HelperMethods
    /// Extracts all wrapped nodes of type T from a collection of IMaxNodeWrappers
    /// </summary>
    /// <typeparam name="T">The type of node to select from the IMaxNodeWrapper.</typeparam>
-   public static IEnumerable<T> GetWrappedNodes<T>(IEnumerable<MaxNodeWrapper> wrappers)
+   public static IEnumerable<T> GetWrappedNodes<T>(IEnumerable<IMaxNode> wrappers)
    {
-      return wrappers.Where(w => w.WrappedNode is T).Select(n => (T)n.WrappedNode);
+      return wrappers.Where(w => w.BaseObject is T)
+                     .Select(n => (T)n.BaseObject);
    }
 
 
@@ -81,27 +82,27 @@ public static class HelperMethods
       return tab;
    }
 
-   public static IINodeTab ToIINodeTab(IEnumerable<MaxNodeWrapper> nodes)
+   public static IINodeTab ToIINodeTab(IEnumerable<IMaxNode> nodes)
    {
       Throw.IfArgumentIsNull(nodes, "nodes");
 
-      return HelperMethods.ToIINodeTab(nodes.Select(n => n.WrappedNode));
+      return HelperMethods.ToIINodeTab(nodes.Select(n => n.BaseObject));
    }
 
 
    /// <summary>
    /// Returns true if the supplied node is a selected node, or a parent of a selected node.
    /// </summary>
-   public static Boolean IsParentOfSelected(MaxNodeWrapper node)
+   public static Boolean IsParentOfSelected(IMaxNode node)
    {
       Throw.IfArgumentIsNull(node, "node");
 
-      if (node.Selected)
+      if (node.IsSelected)
          return true;
 
-      foreach (MaxNodeWrapper child in node.WrappedChildNodes)
+      foreach (IMaxNode child in node.ChildNodes)
       {
-         if (child.Selected || HelperMethods.IsParentOfSelected(child))
+         if (child.IsSelected || HelperMethods.IsParentOfSelected(child))
             return true;
       }
       
@@ -109,55 +110,6 @@ public static class HelperMethods
    }
 
 
-   /// <summary>
-   /// Iterates over all elements in the collection with the supplied function.
-   /// </summary>
-   public static void ForEach<T>(this IEnumerable<T> items, Action<T> action)
-   {
-      Throw.IfArgumentIsNull(items, "items");
-      Throw.IfArgumentIsNull(action, "action");
-
-      foreach (T item in items)
-         action(item);
-   }
-
-   /// <summary>
-   /// Applies a function to all elements in the collection and returns the collection.
-   /// NOTE: Only works when calling ToList() or similar after the operation!
-   /// </summary>
-   public static IEnumerable<T> Map<T>(this IEnumerable<T> items, Action<T> action)
-   {
-      Throw.IfArgumentIsNull(items, "items");
-      Throw.IfArgumentIsNull(action, "action");
-
-      foreach (T item in items)
-      {
-         action(item);
-         yield return item;
-      }
-   }
-
-   /// <summary>
-   /// Drops the last n number of elements from the IEnumerable.
-   /// </summary>
-   public static IEnumerable<T> DropLast<T>(this IEnumerable<T> source, int n)
-   {
-      if (source == null)
-         throw new ArgumentNullException("source");
-
-      if (n < 0)
-         throw new ArgumentOutOfRangeException("n", "Argument n should be non-negative.");
-
-      Queue<T> buffer = new Queue<T>(n + 1);
-
-      foreach (T x in source)
-      {
-         buffer.Enqueue(x);
-
-         if (buffer.Count == n + 1)
-            yield return buffer.Dequeue();
-      }
-   }
 
 
    /// <summary>

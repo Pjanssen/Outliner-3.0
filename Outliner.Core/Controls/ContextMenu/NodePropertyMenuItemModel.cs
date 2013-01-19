@@ -38,7 +38,7 @@ public class NodePropertyMenuItemModel : MenuItemModel
    {
       Throw.IfArgumentIsNull(treeView, "treeView");
 
-      IEnumerable<MaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
+      IEnumerable<IMaxNode> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
       return !context.All(n => n.IsNodePropertyInherited(this.Property));
    }
 
@@ -48,7 +48,7 @@ public class NodePropertyMenuItemModel : MenuItemModel
    {
       Throw.IfArgumentIsNull(treeView, "treeView");
 
-      IEnumerable<MaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
+      IEnumerable<IMaxNode> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
       return context.Any(n => n.GetNodeProperty(this.Property));
    }
 
@@ -58,7 +58,7 @@ public class NodePropertyMenuItemModel : MenuItemModel
    {
       Throw.IfArgumentIsNull(treeView, "treeView");
 
-      IEnumerable<MaxNodeWrapper> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
+      IEnumerable<IMaxNode> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
       Boolean newValue = !this.Checked(treeView, clickedTn);
       NodeProperty prop = NodePropertyHelpers.ToProperty(this.Property);
       SetNodePropertyCommand<Boolean> cmd = new SetNodePropertyCommand<Boolean>(context, prop, newValue);

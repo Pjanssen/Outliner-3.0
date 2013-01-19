@@ -19,14 +19,14 @@ namespace Outliner.Controls.Options
 public partial class FilterCollectionEditor : OutlinerUserControl
 {
    private FilterConfiguration filterConfiguration;
-   private Filter<MaxNodeWrapper> rootFilter;
-   private Dictionary<Filter<MaxNodeWrapper>, Tree.TreeNode> treeNodes;
+   private Filter<IMaxNode> rootFilter;
+   private Dictionary<Filter<IMaxNode>, Tree.TreeNode> treeNodes;
 
    public FilterCollectionEditor()
    {
       InitializeComponent();
 
-      this.treeNodes = new Dictionary<Filter<MaxNodeWrapper>, Tree.TreeNode>();
+      this.treeNodes = new Dictionary<Filter<IMaxNode>, Tree.TreeNode>();
 
       this.filtersTree.TreeNodeLayout = new TreeNodeLayout();
       this.filtersTree.TreeNodeLayout.LayoutItems.Add(new TreeNodeIndent() { UseVisualStyles = false });
@@ -43,7 +43,7 @@ public partial class FilterCollectionEditor : OutlinerUserControl
       this.filterConfiguration = config;
    }
 
-   public FilterCollectionEditor(Filter<MaxNodeWrapper> rootFilter) : this()
+   public FilterCollectionEditor(Filter<IMaxNode> rootFilter) : this()
    {
       Throw.IfArgumentIsNull(rootFilter, "rootFilter");
 
@@ -63,7 +63,7 @@ public partial class FilterCollectionEditor : OutlinerUserControl
 
    [Browsable(false)]
    [DefaultValue(null)]
-   public Filter<MaxNodeWrapper> RootFilter
+   public Filter<IMaxNode> RootFilter
    {
       get { return this.rootFilter; }
       set
@@ -85,7 +85,7 @@ public partial class FilterCollectionEditor : OutlinerUserControl
       this.filtersTree.Root.ExpandAll();
    }
 
-   private void AddFilterToTree(Filter<MaxNodeWrapper> filter, Tree.TreeNodeCollection parentCollection)
+   private void AddFilterToTree(Filter<IMaxNode> filter, Tree.TreeNodeCollection parentCollection)
    {
       filter.FilterChanged += filterChanged;
 
@@ -95,10 +95,10 @@ public partial class FilterCollectionEditor : OutlinerUserControl
 
       this.treeNodes.Add(filter, tn);
 
-      FilterCombinator<MaxNodeWrapper> combinator = filter as FilterCombinator<MaxNodeWrapper>;
+      FilterCombinator<IMaxNode> combinator = filter as FilterCombinator<IMaxNode>;
       if (combinator != null)
       {
-         foreach (Filter<MaxNodeWrapper> child in combinator.Filters)
+         foreach (Filter<IMaxNode> child in combinator.Filters)
          {
             this.AddFilterToTree(child, tn.Nodes);
          }
@@ -112,9 +112,9 @@ public partial class FilterCollectionEditor : OutlinerUserControl
       parentCollection.Add(tn);
    }
 
-   private String GetTreeNodeText(Filter<MaxNodeWrapper> filter, Tree.TreeNode tn)
+   private String GetTreeNodeText(Filter<IMaxNode> filter, Tree.TreeNode tn)
    {
-      FilterCombinator<MaxNodeWrapper> combinator = filter as FilterCombinator<MaxNodeWrapper>;
+      FilterCombinator<IMaxNode> combinator = filter as FilterCombinator<IMaxNode>;
       if (combinator != null)
       {
          return String.Format( "Combinator: {0}"
@@ -141,17 +141,17 @@ public partial class FilterCollectionEditor : OutlinerUserControl
    {
       OutlinerPluginData selPlugin = this.filtersComboBox.SelectedItem as OutlinerPluginData;
 
-      FilterCombinator<MaxNodeWrapper> combinator = null;
+      FilterCombinator<IMaxNode> combinator = null;
       Tree.TreeNode selCombinatorTn = this.filtersTree.SelectedNodes.FirstOrDefault();
       while (selCombinatorTn != null && combinator == null)
       {
-         combinator = selCombinatorTn.Tag as FilterCombinator<MaxNodeWrapper>;
+         combinator = selCombinatorTn.Tag as FilterCombinator<IMaxNode>;
          selCombinatorTn = selCombinatorTn.Parent;
       }
 
       if (selPlugin != null)
       {
-         Filter<MaxNodeWrapper> filter = Activator.CreateInstance(selPlugin.Type, null) as Filter<MaxNodeWrapper>;
+         Filter<IMaxNode> filter = Activator.CreateInstance(selPlugin.Type, null) as Filter<IMaxNode>;
          filter.FilterChanged += filterChanged;
          if (combinator != null)
             combinator.Filters.Add(filter);
@@ -163,8 +163,8 @@ public partial class FilterCollectionEditor : OutlinerUserControl
          }
          else
          {
-            Filter<MaxNodeWrapper> oldRoot = this.RootFilter;
-            combinator = new FilterCombinator<MaxNodeWrapper>();
+            Filter<IMaxNode> oldRoot = this.RootFilter;
+            combinator = new FilterCombinator<IMaxNode>();
             combinator.Filters.Add(oldRoot);
             combinator.Filters.Add(filter);
             this.RootFilter = combinator;
@@ -181,10 +181,10 @@ public partial class FilterCollectionEditor : OutlinerUserControl
       IEnumerable<Tree.TreeNode> selNodes = this.filtersTree.SelectedNodes.ToList();
       foreach (Tree.TreeNode tn in selNodes)
       {
-         Filter<MaxNodeWrapper> filter = tn.Tag as Filter<MaxNodeWrapper>;
+         Filter<IMaxNode> filter = tn.Tag as Filter<IMaxNode>;
          if (filter != null && tn.Parent != null)
          {
-            FilterCombinator<MaxNodeWrapper> combinator = tn.Parent.Tag as FilterCombinator<MaxNodeWrapper>;
+            FilterCombinator<IMaxNode> combinator = tn.Parent.Tag as FilterCombinator<IMaxNode>;
             if (combinator != null)
                combinator.Filters.Remove(filter);
          }
@@ -203,15 +203,15 @@ public partial class FilterCollectionEditor : OutlinerUserControl
       if (this.UpdateAction != null)
          this.UpdateAction();
 
-      Filter<MaxNodeWrapper> filter = sender as Filter<MaxNodeWrapper>;
+      Filter<IMaxNode> filter = sender as Filter<IMaxNode>;
       Tree.TreeNode tn;
       if (this.treeNodes.TryGetValue(filter, out tn))
          tn.Text = GetTreeNodeText(filter, tn);
    }
 
-   private void filterAdded(object sender, FilterChangedEventArgs<MaxNodeWrapper> args)
+   private void filterAdded(object sender, FilterChangedEventArgs<IMaxNode> args)
    {
-      FilterCollection<MaxNodeWrapper> collection = sender as FilterCollection<MaxNodeWrapper>;
+      FilterCollection<IMaxNode> collection = sender as FilterCollection<IMaxNode>;
       if (collection != null)
       {
          Tree.TreeNode parentTn;
@@ -224,7 +224,7 @@ public partial class FilterCollectionEditor : OutlinerUserControl
       }
    }
 
-   private void filterRemoved(object sender, FilterChangedEventArgs<MaxNodeWrapper> args)
+   private void filterRemoved(object sender, FilterChangedEventArgs<IMaxNode> args)
    {
       Tree.TreeNode tn;
       if (this.treeNodes.TryGetValue(args.Filter, out tn))

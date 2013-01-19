@@ -13,7 +13,7 @@ namespace Outliner.Filters
    /// </summary>
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "Filter_Combinator")]
-   public class MaxNodeFilterCombinator : FilterCombinator<MaxNodeWrapper> 
+   public class MaxNodeFilterCombinator : FilterCombinator<IMaxNode> 
    {
       public MaxNodeFilterCombinator() : base() { }
    }

@@ -11,7 +11,7 @@ namespace Outliner
 {
 internal static class GroupHelpers
 {
-   private static List<IINodeWrapper> openedGroupHeads;
+   private static List<INodeWrapper> openedGroupHeads;
    private static uint closeGroupHeadsCbKey = 0;
    private static GlobalDelegates.Delegate5 closeDelegate;
 
@@ -62,32 +62,32 @@ internal static class GroupHelpers
    /// Opens any closed group heads in the provided list of nodewrappers.
    /// When the selection changes, the opened heads are closed automatically as required.
    /// </summary>
-   public static void OpenSelectedGroupHeads(IEnumerable<MaxNodeWrapper> nodes)
+   public static void OpenSelectedGroupHeads(IEnumerable<IMaxNode> nodes)
    {
       Throw.IfArgumentIsNull(nodes, "nodes");
 
       if (GroupHelpers.openedGroupHeads == null)
-         GroupHelpers.openedGroupHeads = new List<IINodeWrapper>();
+         GroupHelpers.openedGroupHeads = new List<INodeWrapper>();
 
-      foreach (MaxNodeWrapper node in nodes)
+      foreach (IMaxNode node in nodes)
       {
-         IINodeWrapper inode = node as IINodeWrapper;
+         INodeWrapper inode = node as INodeWrapper;
          if (inode == null)
             continue;
 
-         if (inode.IINode.IsGroupMember && !inode.IINode.IsOpenGroupMember)
+         if (inode.INode.IsGroupMember && !inode.INode.IsOpenGroupMember)
          {
-            IINodeWrapper parent = inode.Parent as IINodeWrapper;
-            while (parent != null && (parent.IINode.IsGroupMember || parent.IINode.IsGroupHead))
+            INodeWrapper parent = inode.Parent as INodeWrapper;
+            while (parent != null && (parent.INode.IsGroupMember || parent.INode.IsGroupHead))
             {
-               if (parent.IINode.IsGroupHead && !parent.IINode.IsOpenGroupHead)
+               if (parent.INode.IsGroupHead && !parent.INode.IsOpenGroupHead)
                {
                   GroupHelpers.OpenCloseGroup(parent, true);
                   GroupHelpers.openedGroupHeads.Add(parent);
                }
-               parent = parent.Parent as IINodeWrapper;
+               parent = parent.Parent as INodeWrapper;
             }
-            inode.IINode.SetGroupMemberOpen(true);
+            inode.INode.SetGroupMemberOpen(true);
          }
       }
 
@@ -106,7 +106,7 @@ internal static class GroupHelpers
 
       for (int i = GroupHelpers.openedGroupHeads.Count - 1; i >= 0; i--)
       {
-         IINodeWrapper groupHead = GroupHelpers.openedGroupHeads[i];
+         INodeWrapper groupHead = GroupHelpers.openedGroupHeads[i];
          if (!HelperMethods.IsParentOfSelected(groupHead))
          {
             GroupHelpers.OpenCloseGroup(groupHead, false);
@@ -125,26 +125,26 @@ internal static class GroupHelpers
    /// Opens or closes a group head.
    /// </summary>
    /// <param name="groupHead">The group head node to open or close.</param>
-   public static void OpenCloseGroup(IINodeWrapper groupHead, Boolean open)
+   public static void OpenCloseGroup(INodeWrapper groupHead, Boolean open)
    {
       if (groupHead == null)
          return;
 
-      if (groupHead.IINode.IsGroupHead)
-         groupHead.IINode.SetGroupHeadOpen(open);
+      if (groupHead.INode.IsGroupHead)
+         groupHead.INode.SetGroupHeadOpen(open);
 
-      foreach (MaxNodeWrapper child in groupHead.WrappedChildNodes)
+      foreach (IMaxNode child in groupHead.ChildNodes)
       {
-         IINodeWrapper inodeChild = child as IINodeWrapper;
-         if (inodeChild != null && inodeChild.IINode.IsGroupMember)
+         INodeWrapper inodeChild = child as INodeWrapper;
+         if (inodeChild != null && inodeChild.INode.IsGroupMember)
          {
-            inodeChild.IINode.SetGroupMemberOpen(open);
+            inodeChild.INode.SetGroupMemberOpen(open);
             OpenCloseGroup(inodeChild, open);
          }
       }
    }
 
-   public static IINodeWrapper CreateGroupHead()
+   public static INodeWrapper CreateGroupHead()
    {
       IInterface ip = MaxInterfaces.COREInterface;
       IGlobal global = MaxInterfaces.Global;
@@ -158,15 +158,15 @@ internal static class GroupHelpers
       groupHead.Name = newName;
       groupHead.SetGroupHead(true);
 
-      return new IINodeWrapper(groupHead);
+      return new INodeWrapper(groupHead);
    }
 
-   public static void AddNodesToGroup(IEnumerable<MaxNodeWrapper> nodes, IINodeWrapper groupHead)
+   public static void AddNodesToGroup(IEnumerable<IMaxNode> nodes, INodeWrapper groupHead)
    {
-      foreach (MaxNodeWrapper node in nodes.Where(n => n is IINodeWrapper))
+      foreach (IMaxNode node in nodes.Where(n => n is INodeWrapper))
       {
          node.Parent = groupHead;
-         ((IINode)node.WrappedNode).SetGroupMember(true);
+         ((IINode)node.BaseObject).SetGroupMember(true);
       }
    }
 

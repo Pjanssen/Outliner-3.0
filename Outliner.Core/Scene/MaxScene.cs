@@ -17,50 +17,50 @@ public static class MaxScene
       }
    }
 
-   public static IEnumerable<IILayerWrapper> Layers
+   public static IEnumerable<ILayerWrapper> Layers
    {
       get
       {
          IILayerManager layerManager = MaxInterfaces.IILayerManager;
          int layerCount = layerManager.LayerCount;
-         List<IILayerWrapper> layers = new List<IILayerWrapper>(layerCount);
+         List<ILayerWrapper> layers = new List<ILayerWrapper>(layerCount);
 
          for (int i = 0; i < layerCount; i++)
          {
             IILayer layer = layerManager.GetLayer(i);
-            layers.Add(new IILayerWrapper(layer));
+            layers.Add(new ILayerWrapper(layer));
          }
 
          return layers;
       }
    }
 
-   public static IINodeWrapper SceneRoot
+   public static INodeWrapper SceneRoot
    {
       get
       {
-         return new IINodeWrapper(MaxInterfaces.COREInterface.RootNode);
+         return new INodeWrapper(MaxInterfaces.COREInterface.RootNode);
       }
    }
 
-   public static IEnumerable<IINodeWrapper> RootObjects
+   public static IEnumerable<INodeWrapper> RootObjects
    {
       get
       {
          IINode rootNode = MaxInterfaces.COREInterface.RootNode;
          Int32 nodeCount = rootNode.NumberOfChildren;
-         List<IINodeWrapper> nodes = new List<IINodeWrapper>(nodeCount);
+         List<INodeWrapper> nodes = new List<INodeWrapper>(nodeCount);
 
          for (int i = 0; i < nodeCount; i++)
          {
-            nodes.Add(new IINodeWrapper(rootNode.GetChildNode(i)));
+            nodes.Add(new INodeWrapper(rootNode.GetChildNode(i)));
          }
 
          return nodes;
       }
    }
 
-   public static IEnumerable<IINodeWrapper> AllObjects
+   public static IEnumerable<INodeWrapper> AllObjects
    {
       get
       {
@@ -68,14 +68,14 @@ public static class MaxScene
       }
    }
 
-   private static IEnumerable<IINodeWrapper> GetChildObjects(IINode node)
+   private static IEnumerable<INodeWrapper> GetChildObjects(IINode node)
    {
       for (int i = 0; i < node.NumberOfChildren; i++)
       {
          IINode childNode = node.GetChildNode(i);
-         yield return new IINodeWrapper(childNode);
+         yield return new INodeWrapper(childNode);
 
-         foreach (IINodeWrapper child in GetChildObjects(childNode))
+         foreach (INodeWrapper child in GetChildObjects(childNode))
          {
             yield return child;
          }

@@ -10,7 +10,7 @@ namespace Outliner.Commands
 {
    public class HideCommand : SetNodePropertyCommand<Boolean>
    {
-      public HideCommand(IEnumerable<MaxNodeWrapper> nodes, Boolean newValue) 
+      public HideCommand(IEnumerable<IMaxNode> nodes, Boolean newValue) 
          : base(nodes, NodeProperty.IsHidden, newValue) { }
 
       public override string Description

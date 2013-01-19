@@ -166,9 +166,6 @@
     <value>Expand node
 Use {0} to expand entire hierarchy.</value>
   </data>
-  <data name="AllObjectsSelSet" xml:space="preserve">
-    <value>- All objects -</value>
-  </data>
   <data name="Action_ToggleOutliner" xml:space="preserve">
     <value>Toggle Outliner</value>
   </data>
@@ -305,5 +302,8 @@ For more details on the error, see Outliner.SettingsLoadException.ToString()</va
   </data>
   <data name="Command_AddToNewContainer" xml:space="preserve">
     <value>Add to new container</value>
+  </data>
+  <data name="Str_LayerDefault" xml:space="preserve">
+    <value> (default)</value>
   </data>
 </root>

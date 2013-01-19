@@ -41,10 +41,10 @@ public class NodePropertySorter : NodeSorter
       if (x == y)
          return 0;
 
-      MaxNodeWrapper nodeX = HelperMethods.GetMaxNode(x);
+      IMaxNode nodeX = HelperMethods.GetMaxNode(x);
       if (nodeX == null || !nodeX.IsValid) return 0;
 
-      MaxNodeWrapper nodeY = HelperMethods.GetMaxNode(y);
+      IMaxNode nodeY = HelperMethods.GetMaxNode(y);
       if (nodeY == null || !nodeY.IsValid) return 0;
 
       Object propValueX = nodeX.GetNodeProperty(this.Property);

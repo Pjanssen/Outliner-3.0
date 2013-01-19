@@ -12,7 +12,7 @@ namespace Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "Filter_NodeProperty")]
-   public class NodePropertyFilter : Filter<MaxNodeWrapper>
+   public class NodePropertyFilter : Filter<IMaxNode>
    {
       private BooleanNodeProperty property;
 
@@ -34,7 +34,7 @@ namespace Outliner.Filters
          }
       }
 
-      protected override bool ShowNodeInternal(MaxNodeWrapper data)
+      protected override bool ShowNodeInternal(IMaxNode data)
       {
          return data.GetNodeProperty(this.Property);
       }

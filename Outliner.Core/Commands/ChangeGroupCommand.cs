@@ -9,13 +9,13 @@ namespace Outliner.Commands
 {
 public class ChangeGroupCommand : Command
 {
-   private IEnumerable<MaxNodeWrapper> nodes;
-   private MaxNodeWrapper groupHead;
+   private IEnumerable<IMaxNode> nodes;
+   private IMaxNode groupHead;
    private Boolean group;
-   private List<Tuple<IINodeWrapper, MaxNodeWrapper, Boolean>> previousParents;
+   private List<Tuple<INodeWrapper, IMaxNode, Boolean>> previousParents;
 
-   public ChangeGroupCommand( IEnumerable<MaxNodeWrapper> nodes
-                            , MaxNodeWrapper groupHead, Boolean group)
+   public ChangeGroupCommand( IEnumerable<IMaxNode> nodes
+                            , IMaxNode groupHead, Boolean group)
    {
       Throw.IfArgumentIsNull(nodes, "nodes");
       Throw.IfArgumentIsNull(groupHead, "groupHead");
@@ -38,16 +38,16 @@ public class ChangeGroupCommand : Command
 
    protected override void Do()
    {
-      this.previousParents = new List<Tuple<IINodeWrapper, MaxNodeWrapper, Boolean>>();
-      foreach (MaxNodeWrapper node in this.nodes)
+      this.previousParents = new List<Tuple<INodeWrapper, IMaxNode, Boolean>>();
+      foreach (IMaxNode node in this.nodes)
       {
-         IINodeWrapper iinodeWrapper = node as IINodeWrapper;
-         if (iinodeWrapper != null)
+         INodeWrapper inodeWrapper = node as INodeWrapper;
+         if (inodeWrapper != null)
          {
-            this.previousParents.Add(new Tuple<IINodeWrapper, MaxNodeWrapper, Boolean>(
-               iinodeWrapper,
+            this.previousParents.Add(new Tuple<INodeWrapper, IMaxNode, Boolean>(
+               inodeWrapper,
                node.Parent,
-               iinodeWrapper.IINode.IsGroupMember));
+               inodeWrapper.INode.IsGroupMember));
          }
       }
 
@@ -56,9 +56,9 @@ public class ChangeGroupCommand : Command
       else
          this.nodes.ForEach(n => n.Parent.RemoveChildNode(n));
 
-      this.nodes.Where(n => n is IINodeWrapper)
-                .Cast<IINodeWrapper>()
-                .ForEach(n => n.IINode.SetGroupMember(this.group));
+      this.nodes.Where(n => n is INodeWrapper)
+                .Cast<INodeWrapper>()
+                .ForEach(n => n.INode.SetGroupMember(this.group));
    }
 
    protected override void Undo()
@@ -66,10 +66,10 @@ public class ChangeGroupCommand : Command
       if (this.previousParents == null)
          return;
 
-      foreach (Tuple<IINodeWrapper, MaxNodeWrapper, Boolean> prevParent in this.previousParents)
+      foreach (Tuple<INodeWrapper, IMaxNode, Boolean> prevParent in this.previousParents)
       {
          prevParent.Item2.AddChildNode(prevParent.Item1);
-         prevParent.Item1.IINode.SetGroupMember(prevParent.Item3);
+         prevParent.Item1.INode.SetGroupMember(prevParent.Item3);
       }
    }
 }

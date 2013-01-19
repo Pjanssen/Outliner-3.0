@@ -19,25 +19,20 @@ public class NameFilterTest
          this.Name = name;
       }
 
-      public override object WrappedNode { get { return null; } }
+      public override string Name { get; set; }
+
       public override bool Equals(object obj) { return false; }
       public override int GetHashCode() { return 0; }
 
-      public override int ChildNodeCount
-      {
-         get { return 0; }
-      }
-      public override System.Collections.Generic.IEnumerable<Object> ChildNodes
+      public override object BaseObject
       {
          get { return null; }
       }
 
-      public override string Name { get; set; }
-
-      public override Autodesk.Max.SClass_ID SuperClassID { get { return Autodesk.Max.SClass_ID.Utility; } }
-      public override Autodesk.Max.IClass_ID ClassID { get { return null; } }
-      public override bool Selected { get { return false; } }
-      public override bool IsNodeType(MaxNodeTypes types) { return false; }
+      protected override MaxNodeType MaxNodeType
+      {
+         get { return MaxNodeType.None; }
+      }
    }
 
    /// <summary>
