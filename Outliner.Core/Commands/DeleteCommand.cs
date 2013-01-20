@@ -25,11 +25,9 @@ public class DeleteCommand : Command
       get { return OutlinerResources.Command_Delete; }
    }
 
-   protected override void Do()
+   public override void Do()
    {
       this.nodes.ForEach(n => n.Delete());
    }
-
-   protected override void Undo() { }
 }
 }

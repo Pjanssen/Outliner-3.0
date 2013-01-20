@@ -18,7 +18,6 @@ namespace Outliner.Scene
          Throw.IfArgumentIsNull(ilayer, "ilayer");
 
          this.ilayer = ilayer;
-         this.ilayerProperties = MaxInterfaces.IIFPLayerManager.GetLayer(ilayer.Name);
       }
 
       public ILayerWrapper(IILayerProperties ilayerProperties)
@@ -26,8 +25,6 @@ namespace Outliner.Scene
          Throw.IfArgumentIsNull(ilayerProperties, "IILayerProperties");
 
          this.ilayerProperties = ilayerProperties;
-         String layerName = ilayerProperties.Name;
-         this.ilayer = MaxInterfaces.IILayerManager.GetLayer(ref layerName);
       }
 
       public ILayerWrapper(IILayer ilayer, IILayerProperties ilayerProperties)
@@ -39,7 +36,7 @@ namespace Outliner.Scene
 
       public override object BaseObject
       {
-         get { return this.ilayer; }
+         get { return this.ILayer; }
       }
 
       public override bool IsValid
@@ -60,6 +57,18 @@ namespace Outliner.Scene
          }
       }
 
+      public override bool IsSelected
+      {
+         get
+         {
+            return false;
+         }
+         set
+         {
+            this.ChildNodes.ForEach(n => n.IsSelected = value);
+         }
+      }
+
       public override IMaxNode Parent
       {
          get
@@ -72,7 +81,11 @@ namespace Outliner.Scene
          }
          set
          {
-            throw new NotImplementedException();
+            IILayer newParent = null;
+            ILayerWrapper parentWrapper = value as ILayerWrapper;
+            if (parentWrapper != null)
+               newParent = parentWrapper.ILayer;
+            NestedLayers.SetParent(this.ILayer, newParent);
          }
       }
 
@@ -81,12 +94,43 @@ namespace Outliner.Scene
 
       public IILayer ILayer
       {
-         get { return this.ilayer; }
+         get 
+         {
+            if (this.ilayer == null)
+               this.ilayer = this.GetILayer();
+
+            return this.ilayer; 
+         }
+      }
+
+      private IILayer GetILayer()
+      {
+         if (this.ilayerProperties != null)
+         {
+            String layerName = ilayerProperties.Name;
+            return MaxInterfaces.IILayerManager.GetLayer(ref layerName);
+         }
+         else
+            return null;
       }
 
       public IILayerProperties ILayerProperties
       {
-         get { return this.ilayerProperties; }
+         get 
+         {
+            if (this.ilayerProperties == null)
+               this.ilayerProperties = this.GetLayerProperties();
+
+            return this.ilayerProperties; 
+         }
+      }
+
+      private IILayerProperties GetLayerProperties()
+      {
+         if (this.ilayer != null)
+            return MaxInterfaces.IIFPLayerManager.GetLayer(this.ilayer.Name);
+         else
+            return null;
       }
 
       /// <summary>
@@ -96,7 +140,7 @@ namespace Outliner.Scene
       {
          get
          {
-            return MaxInterfaces.IILayerManager.RootLayer.Handle == this.ilayer.Handle;
+            return MaxInterfaces.IILayerManager.RootLayer.Handle == this.ILayer.Handle;
          }
       }
 
@@ -105,13 +149,13 @@ namespace Outliner.Scene
       /// </summary>
       public Boolean IsCurrent
       {
-         get { return this.ilayerProperties.Current; }
+         get { return MaxInterfaces.IILayerManager.CurrentLayer.Handle == this.ILayer.Handle; }
          set
          {
             if (!value)
                throw new ArgumentException("Cannot set IsCurrent to false. Instead, use IsCurrent = true on the new current layer.");
 
-            this.ilayerProperties.Current = true;
+            LayerTools.LayerTools.SetCurrentLayer(this.ILayer);
          }
       }
 
@@ -165,6 +209,16 @@ namespace Outliner.Scene
 
       #region Childnodes
 
+      public override int ChildNodeCount
+      {
+         get
+         {
+            if (!this.ILayer.Used)
+               return 0;
+            else
+               return base.ChildNodeCount;
+         }
+      }
       private IEnumerable<IILayer> GetChildLayers()
       {
          return NestedLayers.GetChildren(this.ILayer, false);
@@ -173,7 +227,9 @@ namespace Outliner.Scene
       private IEnumerable<IINode> GetChildNodes()
       {
          ITab<IINode> nodes = MaxInterfaces.Global.INodeTabNS.Create();
-         this.ilayerProperties.Nodes(nodes);
+         IILayerProperties layerProperties = this.ILayerProperties;
+         if (layerProperties != null)
+            layerProperties.Nodes(nodes);
          return nodes.ToIEnumerable();
       }
 
@@ -244,14 +300,19 @@ namespace Outliner.Scene
       {
          Throw.IfArgumentIsNull(node, "node");
 
-         if (node is INodeWrapper)
+         INodeWrapper inodeWrapper = node as INodeWrapper;
+         if (inodeWrapper != null)
          {
             IILayer defaultLayer = MaxInterfaces.IILayerManager.GetLayer(0);
-            defaultLayer.AddToLayer(((INodeWrapper)node).INode);
+            defaultLayer.AddToLayer(inodeWrapper.INode);
+            return;
          }
-         else if (node is ILayerWrapper)
+
+         ILayerWrapper ilayerWrapper = node as ILayerWrapper;
+         if (ilayerWrapper != null)
          {
-            NestedLayers.SetParent(((ILayerWrapper)node).ILayer, null);
+            NestedLayers.SetParent(ilayerWrapper.ILayer, null);
+            return;
          }
       }
 
@@ -267,12 +328,12 @@ namespace Outliner.Scene
 
       public override SClass_ID SuperClassID
       {
-         get { return this.ilayer.SuperClassID; }
+         get { return this.ILayer.SuperClassID; }
       }
 
       public override IClass_ID ClassID
       {
-         get { return this.ilayer.ClassID; }
+         get { return this.ILayer.ClassID; }
       }
 
       #endregion
@@ -282,14 +343,15 @@ namespace Outliner.Scene
 
       public override string Name
       {
-         get { return this.ilayer.Name; }
+         get { return this.ILayer.Name; }
          set
          {
             Throw.IfArgumentIsNull(value, "value");
             if (!this.CanEditName)
                throw new InvalidOperationException("The name of this node cannot be edited.");
             
-            this.ilayer.SetName(ref value);
+            this.ILayer.SetName(ref value);
+            MaxInterfaces.Global.BroadcastNotification(SystemNotificationCode.LayerRenamed, this.ILayer);
          }
       }
 

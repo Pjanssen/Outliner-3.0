@@ -28,6 +28,21 @@ namespace Outliner.Scene
          get { return this.name; }
       }
 
+      public override bool IsValid
+      {
+         get
+         {
+            IINamedSelectionSetManager selSetManager = MaxInterfaces.SelectionSetManager;
+            for (int i = 0; i < selSetManager.NumNamedSelSets; i++)
+            {
+               if (selSetManager.GetNamedSelSetName(i) == this.Name)
+                  return true;
+            }
+
+            return false;
+         }
+      }
+
 
       #region SelectionSet Specific
 
@@ -192,6 +207,11 @@ namespace Outliner.Scene
          MaxInterfaces.SelectionSetManager.ReplaceNamedSelSet(nodeTab, ref this.name);
       }
 
+      public override bool CanRemoveChildNode(IMaxNode node)
+      {
+         INodeWrapper nodeWrapper = node as INodeWrapper;
+         return nodeWrapper != null && this.ChildBaseObjects.Contains(nodeWrapper.INode);
+      }
 
       public override void RemoveChildNode(IMaxNode node)
       {
@@ -403,7 +423,7 @@ namespace Outliner.Scene
       }
 
 
-      public Color WireColor
+      public override Color WireColor
       {
          get
          {

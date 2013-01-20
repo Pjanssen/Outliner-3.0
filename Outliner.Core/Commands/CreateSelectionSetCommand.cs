@@ -29,18 +29,7 @@ namespace Outliner.Commands
          }
       }
 
-      public SelectionSetWrapper CreatedSelectionSet
-      {
-         get
-         {
-            if (selSetNum != null)
-               return new SelectionSetWrapper(this.selSetNum.Value);
-            else
-               return null;
-         }
-      }
-
-      protected override void Do()
+      public override void Do()
       {
          IINamedSelectionSetManager selSetMan = MaxInterfaces.SelectionSetManager;
          INameMaker nameMaker = MaxInterfaces.COREInterface.NewNameMaker(false);
@@ -59,11 +48,14 @@ namespace Outliner.Commands
          }
       }
 
-      protected override void Undo()
+      public SelectionSetWrapper CreatedSelectionSet
       {
-         if (selSetNum != null)
+         get
          {
-            MaxInterfaces.SelectionSetManager.RemoveNamedSelSet(this.selSetNum.Value);
+            if (selSetNum != null)
+               return new SelectionSetWrapper(this.selSetNum.Value);
+            else
+               return null;
          }
       }
    }

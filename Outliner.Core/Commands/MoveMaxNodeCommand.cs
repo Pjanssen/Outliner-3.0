@@ -15,7 +15,6 @@ namespace Outliner.Commands
    {
       IEnumerable<IMaxNode> nodes;
       private IMaxNode newParent;
-      private Dictionary<IMaxNode, IMaxNode> oldParents;
       private String linkDescription;
       private String unlinkDescription;
 
@@ -64,25 +63,12 @@ namespace Outliner.Commands
          }
       }
 
-      protected override void Do()
+      public override void Do()
       {
-         this.oldParents = new Dictionary<IMaxNode, IMaxNode>(this.nodes.Count());
-         foreach (IMaxNode node in this.nodes)
-            this.oldParents.Add(node, node.Parent);
-
          if (this.newParent != null)
             this.newParent.AddChildNodes(this.nodes);
          else
             this.nodes.ForEach(n => n.Parent.RemoveChildNode(n));
-      }
-
-      protected override void Undo()
-      {
-         if (this.nodes == null || this.oldParents == null)
-            return;
-
-         foreach (KeyValuePair<IMaxNode, IMaxNode> n in this.oldParents)
-            n.Value.AddChildNode(n.Key);
       }
    }
 }

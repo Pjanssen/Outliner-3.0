@@ -11,7 +11,6 @@ namespace Outliner.Commands
    public class SetCurrentLayerCommand : Command
    {
       private ILayerWrapper newCurrentLayer;
-      private ILayerWrapper oldCurrentLayer;
 
       public SetCurrentLayerCommand(ILayerWrapper newActiveLayer)
       {
@@ -25,20 +24,9 @@ namespace Outliner.Commands
          get { return OutlinerResources.Command_SetCurrentLayer; }
       }
 
-      protected override void Do()
+      public override void Do()
       {
-         IILayerManager manager = MaxInterfaces.IILayerManager;
-         if (manager != null)
-            oldCurrentLayer = MaxNodeWrapper.Create(manager.CurrentLayer) as ILayerWrapper;
-
-         if (newCurrentLayer != null)
-            newCurrentLayer.IsCurrent = true;
-      }
-
-      protected override void Undo()
-      {
-         if (this.oldCurrentLayer != null)
-            this.oldCurrentLayer.IsCurrent = true;
+         this.newCurrentLayer.IsCurrent = true;
       }
    }
 }

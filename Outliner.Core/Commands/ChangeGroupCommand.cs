@@ -7,20 +7,23 @@ using Outliner.MaxUtils;
 
 namespace Outliner.Commands
 {
-public class ChangeGroupCommand : Command
+public class ChangeGroupCommand : CustomRestoreObjCommand
+
 {
-   private IEnumerable<IMaxNode> nodes;
+   private IEnumerable<INodeWrapper> nodes;
    private IMaxNode groupHead;
    private Boolean group;
-   private List<Tuple<INodeWrapper, IMaxNode, Boolean>> previousParents;
 
    public ChangeGroupCommand( IEnumerable<IMaxNode> nodes
-                            , IMaxNode groupHead, Boolean group)
+                            , IMaxNode groupHead
+                            , Boolean group)
    {
       Throw.IfArgumentIsNull(nodes, "nodes");
       Throw.IfArgumentIsNull(groupHead, "groupHead");
 
-      this.nodes = nodes.ToList();
+      this.nodes = nodes.Where(n => n is INodeWrapper)
+                        .Cast<INodeWrapper>()
+                        .ToList();
       this.groupHead = groupHead;
       this.group = group;
    }
@@ -36,40 +39,20 @@ public class ChangeGroupCommand : Command
       }
    }
 
-   protected override void Do()
+   public override void Redo()
    {
-      this.previousParents = new List<Tuple<INodeWrapper, IMaxNode, Boolean>>();
-      foreach (IMaxNode node in this.nodes)
+      foreach (INodeWrapper node in this.nodes)
       {
-         INodeWrapper inodeWrapper = node as INodeWrapper;
-         if (inodeWrapper != null)
-         {
-            this.previousParents.Add(new Tuple<INodeWrapper, IMaxNode, Boolean>(
-               inodeWrapper,
-               node.Parent,
-               inodeWrapper.INode.IsGroupMember));
-         }
+         node.Parent = this.groupHead;
+         node.INode.SetGroupMember(this.group);
       }
-
-      if (this.groupHead != null)
-         this.groupHead.AddChildNodes(this.nodes);
-      else
-         this.nodes.ForEach(n => n.Parent.RemoveChildNode(n));
-
-      this.nodes.Where(n => n is INodeWrapper)
-                .Cast<INodeWrapper>()
-                .ForEach(n => n.INode.SetGroupMember(this.group));
    }
 
-   protected override void Undo()
+   public override void Restore(bool isUndo)
    {
-      if (this.previousParents == null)
-         return;
-
-      foreach (Tuple<INodeWrapper, IMaxNode, Boolean> prevParent in this.previousParents)
+      foreach (INodeWrapper node in this.nodes)
       {
-         prevParent.Item2.AddChildNode(prevParent.Item1);
-         prevParent.Item1.INode.SetGroupMember(prevParent.Item3);
+         node.INode.SetGroupMember(!this.group);
       }
    }
 }

@@ -7,50 +7,35 @@ using Outliner.Scene;
 
 namespace Outliner.Commands
 {
-public class ToggleLightCommand : SetNodePropertyCommand<Boolean>
+public class ToggleLightCommand : Command
 {
-   public ToggleLightCommand(IEnumerable<IMaxNode> nodes, Boolean on) 
-      : base(nodes, "UseLight", on) { }
+   private IEnumerable<IMaxNode> nodes;
+   private Boolean on;
+
+   public ToggleLightCommand(IEnumerable<IMaxNode> nodes, Boolean on)
+   {
+      this.nodes = nodes;
+      this.on = on;
+   }
 
    public override string Description
    {
       get { return OutlinerResources.Command_ToggleLight; }
    }
 
-   protected override bool GetValue(IMaxNode node)
+   public override void Do()
    {
-      if (node == null)
-         return false;
+      foreach (IMaxNode node in this.nodes)
+      {
+         IINode inode = node.BaseObject as IINode;
+         if (inode == null)
+            continue;
+         ILightObject light = inode.ObjectRef as ILightObject;
+         if (light == null)
+            continue;
 
-      if (node.SuperClassID != Autodesk.Max.SClass_ID.Light)
-         return false;
-            
-      IINode inode = node.BaseObject as IINode;
-      if (inode == null)
-         return false;
-      ILightObject light = inode.ObjectRef as ILightObject;
-      if (light == null)
-         return false;
-
-      return light.UseLight;
-   }
-
-   protected override void SetValue(IMaxNode node, bool value)
-   {
-      if (node == null)
-         return;
-
-      if (node.SuperClassID != Autodesk.Max.SClass_ID.Light)
-         return;
-
-      IINode inode = node.BaseObject as IINode;
-      if (inode == null)
-         return;
-      ILightObject light = inode.ObjectRef as ILightObject;
-      if (light == null)
-         return;
-
-      light.SetUseLight(value ? 1 : 0);
+         light.SetUseLight(this.on ? 1 : 0);
+      }
    }
 }
 }

@@ -36,40 +36,22 @@ public class CreateNewLayerCommand : Command
       get { return OutlinerResources.Command_CreateNewLayer; }
    }
 
+
+   public override void Do()
+   {
+      if (this.name != null)
+         this.createdLayer = MaxInterfaces.IILayerManager.CreateLayer(ref this.name);
+      else
+         this.createdLayer = MaxInterfaces.IILayerManager.CreateLayer();
+
+      this.CreatedLayer.AddChildNodes(this.nodes);
+   }
+
    public ILayerWrapper CreatedLayer
    {
       get
       {
          return new ILayerWrapper(this.createdLayer);
-      }
-   }
-
-   protected override void Do()
-   {
-      //if (this.name != null)
-      //   this.createdLayer = MaxInterfaces.IILayerManager.CreateLayer(ref this.name);
-      //else
-      //   this.createdLayer = MaxInterfaces.IILayerManager.CreateLayer();
-      
-      //Temporary maxscript implementation due to crashes.
-      ManagedServices.MaxscriptSDK.ExecuteMaxscriptCommand("layermanager.newlayer()");
-      this.createdLayer = MaxInterfaces.IILayerManager.GetLayer(MaxInterfaces.IILayerManager.LayerCount - 1);
-
-      this.CreatedLayer.AddChildNodes(this.nodes);
-   }
-
-   protected override void Undo() 
-   {
-      if (this.createdLayer != null)
-      {
-         this.CreatedLayer.RemoveChildNodes(this.nodes);
-
-         String layerName = this.createdLayer.Name;
-         this.createdLayer = null;
-         //Boolean del = MaxInterfaces.IILayerManager.DeleteLayer(ref layerName);
-         
-         //Temporary maxscript implementation due to crashes.
-         ManagedServices.MaxscriptSDK.ExecuteMaxscriptCommand("layermanager.deleteLayerByName " + layerName);
       }
    }
 }

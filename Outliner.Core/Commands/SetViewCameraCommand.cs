@@ -13,9 +13,6 @@ namespace Outliner.Commands
       private IMaxNode cameraNode;
       private IViewExp viewport;
 
-      private IINode prevCameraNode;
-      private Boolean prevIsPerspView;
-
       public SetViewCameraCommand(IMaxNode cameraNode, IViewExp viewport)
       {
          Throw.IfArgumentIsNull(cameraNode, "cameraNode");
@@ -33,7 +30,7 @@ namespace Outliner.Commands
          }
       }
 
-      protected override void Do()
+      public override void Do()
       {
          if (this.viewport == null || this.cameraNode == null)
             return;
@@ -41,19 +38,7 @@ namespace Outliner.Commands
          if (!this.cameraNode.IsValid)
             return;
 
-         this.prevCameraNode = this.viewport.ViewCamera;
-         this.prevIsPerspView = this.viewport.IsPerspView;
-         
-
          viewport.ViewCamera = (IINode)this.cameraNode.BaseObject;
-      }
-
-      protected override void Undo()
-      {
-         if (this.prevCameraNode == null)
-            viewport.SetViewUser(this.prevIsPerspView);
-         else
-            viewport.ViewCamera = this.prevCameraNode;
       }
    }
 }

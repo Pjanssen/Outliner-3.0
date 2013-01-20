@@ -29,19 +29,15 @@ namespace Outliner.Commands
          }
       }
 
-      protected override void Do()
+      public override void Do()
       {
          this.containerNode = MaxInterfaces.ContainerManager.CreateContainer(HelperMethods.ToIINodeTab(this.nodes));
          this.containerNode.SetAFlag(AnimatableFlags.Held);
       }
 
-      protected override void Undo()
+      public IMaxNode CreatedContainer
       {
-         if (this.containerNode != null)
-         {
-            MaxInterfaces.COREInterface.DeleteNode(this.containerNode, false, false);
-            this.containerNode = null;
-         }
+         get { return MaxNodeWrapper.Create(this.containerNode); }
       }
    }
 }

@@ -2,11 +2,9 @@
 -------
 * Unhide/unfreeze layer when unhiding/unfreezing node
 * Superclass sorter does not really work with exceptions (target, bones, etc). -> use imagekey instead?
-* SetViewCameraCommand: properly store previous state.
 * ToggleLightTest use IInterface.CreateLightObject ?
 * Exception handling
 * Updating / Installing
-* Delete a node with children crashes
 * Add XmlSerializationHelpers.TryDeserialize?
 * CAT Layers mode?
 
@@ -120,4 +118,9 @@ Options
 
 3.0.21
 ======
+#35 - Undo-ing create layer command crashes 3dsMax
 #54 - Missing Rename Layer
+#63 - Different icon for light when turned off 
+
+
+* Rename (broadcast notification)

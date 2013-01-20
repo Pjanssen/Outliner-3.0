@@ -15,6 +15,20 @@ internal static class GroupHelpers
    private static uint closeGroupHeadsCbKey = 0;
    private static GlobalDelegates.Delegate5 closeDelegate;
 
+   private class CloseGroupHeadsNodeEventCb : INodeEventCallback
+   {
+      public CloseGroupHeadsNodeEventCb() { }
+
+      public override void SelectionChanged(ITab<UIntPtr> nodes)
+      {
+         if (GroupHelpers.CloseUnselectedGroupHeads())
+         {
+            IInterface core = MaxInterfaces.COREInterface;
+            core.RedrawViews(core.Time, RedrawFlags.Normal, null);
+         }
+      }
+   }
+
    private static void Start()
    {
       if (GroupHelpers.closeGroupHeadsCbKey == 0)
@@ -159,29 +173,6 @@ internal static class GroupHelpers
       groupHead.SetGroupHead(true);
 
       return new INodeWrapper(groupHead);
-   }
-
-   public static void AddNodesToGroup(IEnumerable<IMaxNode> nodes, INodeWrapper groupHead)
-   {
-      foreach (IMaxNode node in nodes.Where(n => n is INodeWrapper))
-      {
-         node.Parent = groupHead;
-         ((IINode)node.BaseObject).SetGroupMember(true);
-      }
-   }
-
-   private class CloseGroupHeadsNodeEventCb : INodeEventCallback
-   {
-      public CloseGroupHeadsNodeEventCb() { }
-
-      public override void SelectionChanged(ITab<UIntPtr> nodes)
-      {
-         if (GroupHelpers.CloseUnselectedGroupHeads())
-         {
-            IInterface core = MaxInterfaces.COREInterface;
-            core.RedrawViews(core.Time, RedrawFlags.Normal, null);
-         }
-      }
    }
 }
 }

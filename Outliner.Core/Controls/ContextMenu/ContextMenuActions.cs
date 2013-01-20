@@ -187,7 +187,7 @@ public static class ContextMenuActions
    [OutlinerAction]
    public static void AddSelectionToNewGroup(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
    {
-      GroupNodesCommand cmd = new GroupNodesCommand(contextNodes);
+      CreateNewGroupCommand cmd = new CreateNewGroupCommand(contextNodes);
       cmd.Execute(true);
    }
 

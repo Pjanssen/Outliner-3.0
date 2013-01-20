@@ -42,12 +42,12 @@ namespace Outliner.Scene
 
       #region Delete
 
-      public virtual Boolean CanDelete
+      override public Boolean CanDelete
       {
          get { return true; }
       }
 
-      public virtual void Delete() 
+      override public void Delete() 
       {
          throw new NotImplementedException();
       }
@@ -91,17 +91,17 @@ namespace Outliner.Scene
 
       #region Node Type
 
-      public virtual SClass_ID SuperClassID
+      override public SClass_ID SuperClassID
       {
          get { return this.Material.SuperClassID; }
       }
 
-      public virtual IClass_ID ClassID
+      override public IClass_ID ClassID
       {
          get { return this.Material.ClassID; }
       }
 
-      protected override MaxNodeType MaxNodeType
+      override protected MaxNodeType MaxNodeType
       {
          get { return MaxNodeType.Material; }
       }
@@ -111,13 +111,13 @@ namespace Outliner.Scene
 
       #region Name
 
-      public virtual String Name
+      override public String Name
       {
          get { return this.Material.Name; }
          set { this.Material.Name = value; }
       }
 
-      public virtual Boolean CanEditName
+      override public Boolean CanEditName
       {
          get { return true; }
       }
@@ -132,7 +132,7 @@ namespace Outliner.Scene
 
       #region ImageKey
 
-      public virtual String ImageKey
+      override public String ImageKey
       {
          get { return "material"; }
       }

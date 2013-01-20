@@ -5,16 +5,17 @@ using System.Text;
 using Outliner.MaxUtils;
 using Outliner.Scene;
 using System.Reflection;
+using Autodesk.Max.Plugins;
+using Autodesk.Max;
 
 namespace Outliner.Commands
 {
-public class SetNodePropertyCommand<T> : Command
+public class SetNodePropertyCommand<T> : CustomRestoreObjCommand
 {
    private IEnumerable<IMaxNode> nodes;
    private NodeProperty property;
-   private PropertyInfo propInfo;
    private T newValue;
-   private Dictionary<IMaxNode, T> prevValues;
+   private IEnumerable<Tuple<IMaxNode, object>> oldValues;
 
    public SetNodePropertyCommand(IEnumerable<IMaxNode> nodes, NodeProperty property, T newValue)
    {
@@ -25,60 +26,24 @@ public class SetNodePropertyCommand<T> : Command
       this.newValue = newValue;
    }
 
-   public SetNodePropertyCommand(IEnumerable<IMaxNode> nodes, String propertyName, T newValue)
-   {
-      Throw.IfArgumentIsNull(nodes, "nodes");
-      Throw.IfArgumentIsNull(propertyName, "propertyName");
-
-      this.nodes = nodes.ToList();
-      this.propInfo = typeof(IMaxNode).GetProperty(propertyName);
-      this.property = NodeProperty.None;
-      this.newValue = newValue;
-   }
-
    public override string Description
    {
       get { return OutlinerResources.Command_SetProperty; }
    }
 
-   protected override void Do()
+   public override void Redo()
    {
-      this.prevValues = new Dictionary<IMaxNode, T>(this.nodes.Count());
+      this.oldValues = this.nodes.Select(n => new Tuple<IMaxNode, object>(n, n.GetNodeProperty(this.property)))
+                                 .ToList();
+      this.nodes.ForEach(n => n.SetNodeProperty(this.property, this.newValue));
+   }
 
-      foreach (IMaxNode node in this.nodes)
+   public override void Restore(bool isUndo)
+   {
+      foreach (Tuple<IMaxNode, object> oldValue in this.oldValues)
       {
-         this.prevValues.Add(node, this.GetValue(node));
-         this.SetValue(node, this.newValue);
+         oldValue.Item1.SetNodeProperty(this.property, oldValue.Item2);
       }
-   }
-
-   protected override void Undo()
-   {
-      foreach (KeyValuePair<IMaxNode, T> n in this.prevValues)
-      {
-         this.SetValue(n.Key, n.Value);
-      }
-   }
-
-   protected virtual T GetValue(IMaxNode node)
-   {
-      Throw.IfArgumentIsNull(node, "node");
-
-      if (this.propInfo == null)
-         return (T)node.GetNodeProperty(this.property);
-      else 
-         return (T)this.propInfo.GetValue(node, null);
-   }
-
-   protected virtual void SetValue(IMaxNode node, T value)
-   {
-      Throw.IfArgumentIsNull(node, "node");
-
-      if (this.propInfo == null)
-         node.SetNodeProperty(this.property, value);
-      else
-         this.propInfo.SetValue(node, value, null);
-      
    }
 }
 }

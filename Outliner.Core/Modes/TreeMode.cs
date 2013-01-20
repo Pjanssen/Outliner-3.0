@@ -28,6 +28,7 @@ public abstract class TreeMode
    private GlobalDelegates.Delegate5 proc_PausePreSystemEvent;
    private GlobalDelegates.Delegate5 proc_ResumePostSystemEvent;
    private GlobalDelegates.Delegate5 proc_SelectionsetChanged;
+   private GlobalDelegates.Delegate5 proc_NodeRenamed;
    private GlobalDelegates.Delegate5 proc_LayerHiddenChanged;
    private GlobalDelegates.Delegate5 proc_LayerFrozenChanged;
    private GlobalDelegates.Delegate5 proc_LayerPropChanged;
@@ -46,6 +47,7 @@ public abstract class TreeMode
       proc_PausePreSystemEvent = new GlobalDelegates.Delegate5(this.PausePreSystemEvent);
       proc_ResumePostSystemEvent = new GlobalDelegates.Delegate5(this.ResumePostSystemEvent);
       proc_SelectionsetChanged = new GlobalDelegates.Delegate5(this.SelectionSetChanged);
+      proc_NodeRenamed = new GlobalDelegates.Delegate5(this.NodeRenamed);
       proc_LayerHiddenChanged = new GlobalDelegates.Delegate5(this.LayerHiddenChanged);
       proc_LayerFrozenChanged = new GlobalDelegates.Delegate5(this.LayerFrozenChanged);
       proc_LayerPropChanged = new GlobalDelegates.Delegate5(this.LayerPropChanged);
@@ -75,6 +77,8 @@ public abstract class TreeMode
       this.RegisterSystemNotification(proc_PausePreSystemEvent, SystemNotificationCode.FilePreOpen);
       this.RegisterSystemNotification(proc_PausePreSystemEvent, SystemNotificationCode.FilePreMerge);
       this.RegisterSystemNotification(proc_SelectionsetChanged, SystemNotificationCode.SelectionsetChanged);
+      this.RegisterSystemNotification(proc_NodeRenamed, SystemNotificationCode.NodeRenamed);
+      this.RegisterSystemNotification(proc_NodeRenamed, SystemNotificationCode.LayerRenamed);
 
       this.RegisterSystemNotification(this.proc_LayerHiddenChanged, SystemNotificationCode.LayerHiddenStateChanged);
       this.RegisterSystemNotification(this.proc_LayerFrozenChanged, SystemNotificationCode.LayerFrozenStateChanged);
@@ -470,6 +474,13 @@ public abstract class TreeMode
                tns.ForEach(tn => this.Tree.SelectNode(tn, true));
          }
       }
+   }
+
+   protected void NodeRenamed(IntPtr param, IntPtr info)
+   {
+      Object callParam = MaxUtils.HelperMethods.GetCallParam(info);
+      Boolean sort = NodeSorterHelpers.RequiresSort(this.Tree.NodeSorter as NodeSorter, NodeProperty.Name);
+      this.InvalidateObject(callParam, false, sort);
    }
 
 

@@ -32,6 +32,9 @@ public static class NodeSorterHelpers
       if (sorter == null)
          return false;
 
+      //if (prop == NodeProperty.Name && sorter is AlphabeticalSorter)
+      //   return true;
+
       NodePropertySorter propertySorter = sorter as NodePropertySorter;
       if (propertySorter != null && (propertySorter.Property & prop) != 0)
          return true;

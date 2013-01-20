@@ -6,15 +6,16 @@ using Outliner.Controls.Tree;
 using Autodesk.Max;
 using Outliner.Scene;
 using Outliner.Plugins;
+using Outliner.MaxUtils;
 
 namespace Outliner.NodeSorters
 {
    [OutlinerPlugin(OutlinerPluginType.NodeSorter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "Sorter_Alphabetical")]
-   public class AlphabeticalSorter : NodeSorter
+   public class AlphabeticalSorter : NodePropertySorter
    {
-      public AlphabeticalSorter() : base() { }
-      public AlphabeticalSorter(SortOrder sortOrder) : base(sortOrder) { }
+      public AlphabeticalSorter() : this(SortOrder.Ascending) { }
+      public AlphabeticalSorter(SortOrder sortOrder) : base(NodeProperty.Name, sortOrder) { }
 
       protected override int InternalCompare(TreeNode x, TreeNode y)
       {

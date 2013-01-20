@@ -153,7 +153,8 @@
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CreateSelectionSetCommand.cs" />
     <Compile Include="Commands\CreateContainerCommand.cs" />
-    <Compile Include="Commands\GroupNodesCommand.cs" />
+    <Compile Include="Commands\CustomRestoreObjCommand.cs" />
+    <Compile Include="Commands\CreateNewGroupCommand.cs" />
     <Compile Include="Commands\CreateNewLayerCommand.cs" />
     <Compile Include="Commands\DeleteCommand.cs" />
     <Compile Include="Commands\ModifySelectionSetCommand.cs" />

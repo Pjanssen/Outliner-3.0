@@ -8,20 +8,22 @@ using Outliner.MaxUtils;
 
 namespace Outliner.Commands
 {
+   /// <summary>
+   /// Replaces the nodes in a selection-set.
+   /// </summary>
    public class ModifySelectionSetCommand : Command
    {
       private IEnumerable<IMaxNode> nodes;
       private SelectionSetWrapper selSet;
-      private IEnumerable<IMaxNode> oldNodes;
 
-      public ModifySelectionSetCommand( IEnumerable<IMaxNode> nodes
-                                      , SelectionSetWrapper selSet)
+      public ModifySelectionSetCommand( SelectionSetWrapper selSet
+                                      , IEnumerable<IMaxNode> nodes)
       {
          Throw.IfArgumentIsNull(nodes, "nodes");
          Throw.IfArgumentIsNull(selSet, "selSet");
 
-         this.nodes = nodes.ToList();
          this.selSet = selSet;
+         this.nodes = nodes.ToList();
       }
 
       public override string Description
@@ -32,15 +34,9 @@ namespace Outliner.Commands
          }
       }
 
-      protected override void Do()
+      public override void Do()
       {
-         this.oldNodes = selSet.ChildNodes;
          selSet.ReplaceNodeset(this.nodes);
-      }
-
-      protected override void Undo()
-      {
-         selSet.ReplaceNodeset(this.oldNodes);
       }
    }
 }

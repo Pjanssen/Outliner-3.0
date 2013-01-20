@@ -122,6 +122,7 @@
     <Compile Include="AutoInheritProperties\AutoInheritProperties.cs" />
     <Compile Include="AutoInheritProperties\AutoInheritPropertiesMxs.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="LayerTools.cs" />
     <Compile Include="NestedLayers\LayerPropertyChangedParam.cs" />
     <Compile Include="NestedLayers\NestedLayersMxs.cs" />
     <Compile Include="NestedLayers\NestedLayers.cs" />

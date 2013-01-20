@@ -31,7 +31,25 @@ namespace Outliner.Scene
          }
          set
          {
-            throw new NotImplementedException();
+            if (value != null)
+               value.AddChildNode(this);
+            else
+               MaxScene.SceneRoot.AddChildNode(this);
+         }
+      }
+
+      public override bool IsSelected
+      {
+         get
+         {
+            return this.INode.Selected;
+         }
+         set
+         {
+            if (value)
+               MaxInterfaces.COREInterface.SelectNode(this.INode, false);
+            else
+               MaxInterfaces.COREInterface.DeSelectNode(this.INode);
          }
       }
 
@@ -225,6 +243,7 @@ namespace Outliner.Scene
          {
             Throw.IfArgumentIsNull(value, "value");
             this.INode.Name = value;
+            MaxInterfaces.Global.BroadcastNotification(SystemNotificationCode.NodeRenamed, this.INode);
          }
       }
 
@@ -396,20 +415,21 @@ namespace Outliner.Scene
 
       #region ImageKey
 
-      public const String ImgKeyBone = "bone";
-      public const String ImgKeyCamera = "camera";
+      public const String ImgKeyBone      = "bone";
+      public const String ImgKeyCamera    = "camera";
       public const String ImgKeyContainer = "container";
-      public const String ImgKeyGeometry = "geometry";
+      public const String ImgKeyGeometry  = "geometry";
       public const String ImgKeyGroupHead = "group";
-      public const String ImgKeyHelper = "helper";
-      public const String ImgKeyLight = "light";
-      public const String ImgKeyMaterial = "material";
-      public const String ImgKeyNurbs = "nurbs";
-      public const String ImgKeyParticle = "particle";
-      public const String ImgKeyShape = "shape";
+      public const String ImgKeyHelper    = "helper";
+      public const String ImgKeyLightOn   = "light_on";
+      public const String ImgKeyLightOff  = "light_off";
+      public const String ImgKeyMaterial  = "material";
+      public const String ImgKeyNurbs     = "nurbs";
+      public const String ImgKeyParticle  = "particle";
+      public const String ImgKeyShape     = "shape";
       public const String ImgKeySpaceWarp = "spacewarp";
-      public const String ImgKeyTarget = "helper";
-      public const String ImgKeyXref = "xref";
+      public const String ImgKeyTarget    = "helper";
+      public const String ImgKeyXref      = "xref";
 
 
       public override string ImageKey
@@ -425,7 +445,13 @@ namespace Outliner.Scene
             switch (superClass)
             {
                case SClass_ID.Camera: return ImgKeyCamera;
-               case SClass_ID.Light: return ImgKeyLight;
+               case SClass_ID.Light:
+                  {
+                     if (((ILightObject)inode.ObjectRef).UseLight)
+                        return ImgKeyLightOn;
+                     else
+                        return ImgKeyLightOff;
+                  }
                case SClass_ID.Material: return ImgKeyMaterial;
                case SClass_ID.Shape: return ImgKeyShape;
                case SClass_ID.WsmObject: return ImgKeySpaceWarp;
