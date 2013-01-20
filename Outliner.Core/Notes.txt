@@ -119,5 +119,9 @@ Options
 ======
 #25 - Display and Render settings contextual menu shouldn't close on click.
 #35 - Undo-ing create layer command crashes 3dsMax
+#41 - Selection Set : copy or move nodes to set
 #54 - Missing Rename Layer
+#60 - Closed groups expand when selected in viewport
+#61 - New Outliner group names don't track MAX groups.
 #63 - Different icon for light when turned off 
+

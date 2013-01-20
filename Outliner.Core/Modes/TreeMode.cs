@@ -469,9 +469,13 @@ public abstract class TreeMode
       {
          for (Int32 i = 0; i < selNodeCount; i++)
          {
-            IEnumerable<TreeNode> tns = this.GetTreeNodes(MaxInterfaces.COREInterface.GetSelNode(i));
-            if (tns != null)
-               tns.ForEach(tn => this.Tree.SelectNode(tn, true));
+            IINode inode = MaxInterfaces.COREInterface.GetSelNode(i);
+            if (!inode.IsGroupMember || inode.IsOpenGroupMember)
+            {
+               IEnumerable<TreeNode> tns = this.GetTreeNodes(inode);
+               if (tns != null)
+                  tns.ForEach(tn => this.Tree.SelectNode(tn, true));
+            }
          }
       }
    }

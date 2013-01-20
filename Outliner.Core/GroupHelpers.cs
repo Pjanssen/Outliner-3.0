@@ -167,7 +167,7 @@ internal static class GroupHelpers
       dummy.Box = global.Box3.Create( global.Point3.Create(0, 0, 0)
                                     , global.Point3.Create(0, 0, 0));
       IINode groupHead = ip.CreateObjectNode(dummy);
-      String newName = "group";
+      String newName = "Group";
       MaxInterfaces.COREInterface.MakeNameUnique(ref newName);
       groupHead.Name = newName;
       groupHead.SetGroupHead(true);
