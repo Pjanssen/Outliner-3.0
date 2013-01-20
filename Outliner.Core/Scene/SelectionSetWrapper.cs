@@ -43,6 +43,15 @@ namespace Outliner.Scene
          }
       }
 
+      public override bool IsSelected
+      {
+         get { return false; }
+         set
+         {
+            this.ChildNodes.ForEach(n => n.IsSelected = value);
+         }
+      }
+
 
       #region SelectionSet Specific
 

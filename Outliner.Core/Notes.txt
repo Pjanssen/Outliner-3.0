@@ -125,3 +125,8 @@ Options
 #61 - New Outliner group names don't track MAX groups.
 #63 - Different icon for light when turned off 
 
+3.0.22
+======
+#48 - Clicking the Edit Presets\Custom Presets throws out .Net exception
+#65 - "Layers Only" preset doesn't have the proper filter
+#67 - selection sets don't select anything
