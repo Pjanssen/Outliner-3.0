@@ -55,7 +55,7 @@ public class RemoveButton : ImageButton
 
       IEnumerable<IMaxNode> selNodes = HelperMethods.GetMaxNodes(this.Layout.TreeView.SelectedNodes);
       IEnumerable<IMaxNode> newNodes = selSet.ChildNodes.Except(selNodes);
-      ModifySelectionSetCommand cmd = new ModifySelectionSetCommand(newNodes, selSet);
+      ModifySelectionSetCommand cmd = new ModifySelectionSetCommand(selSet, newNodes);
       cmd.Execute(true);
    }
 

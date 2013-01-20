@@ -61,7 +61,7 @@ public class AddButton : ImageButton
       {
          SelectionSetWrapper selSet = (SelectionSetWrapper)node;
          IEnumerable<IMaxNode> newNodes = selSet.ChildNodes.Union(nodes);
-         cmd = new ModifySelectionSetCommand(newNodes, selSet);
+         cmd = new ModifySelectionSetCommand(selSet, newNodes);
       }
       else
       {

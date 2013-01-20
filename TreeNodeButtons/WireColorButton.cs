@@ -128,7 +128,7 @@ public class WireColorButton : NodePropertyButton
             nodes = new List<TreeNode>(1) { tn };
 
          IEnumerable<IMaxNode> maxNodes = HelperMethods.GetMaxNodes(nodes);
-         SetNodePropertyCommand<Color> cmd = new SetNodePropertyCommand<Color>(maxNodes, "WireColor", ColorHelpers.FromMaxColor(wc));
+         SetNodePropertyCommand<Color> cmd = new SetNodePropertyCommand<Color>(maxNodes, NodeProperty.WireColor, ColorHelpers.FromMaxColor(wc));
          cmd.Execute(true);
 
          if (tree.NodeSorter is NodePropertySorter &&

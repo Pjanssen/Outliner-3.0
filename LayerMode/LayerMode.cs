@@ -29,6 +29,7 @@ public class LayerMode : TreeMode
       proc_LayerDeleted = new GlobalDelegates.Delegate5(this.LayerDeleted);
       proc_LayerRenamed = new GlobalDelegates.Delegate5(this.LayerRenamed);
       proc_LayerParented = new GlobalDelegates.Delegate5(this.LayerParented);
+      proc_LayerCurrentChanged = new GlobalDelegates.Delegate5(this.LayerCurrentChanged);
    }
 
    protected override void FillTree()
@@ -99,6 +100,7 @@ public class LayerMode : TreeMode
       this.RegisterSystemNotification(proc_LayerDeleted, SystemNotificationCode.LayerDeleted);
       this.RegisterSystemNotification(proc_LayerRenamed, SystemNotificationCode.LayerRenamed);
       this.RegisterSystemNotification(proc_LayerParented, NestedLayers.LayerParented);
+      this.RegisterSystemNotification(proc_LayerCurrentChanged, LayerTools.LayerTools.LayerCurrentChanged);
 
       this.RegisterNodeEventCallbackObject(new LayerNodeEventCallbacks(this));
 
@@ -233,6 +235,14 @@ public class LayerMode : TreeMode
             }
          }
       }
+   }
+
+   protected GlobalDelegates.Delegate5 proc_LayerCurrentChanged;
+   protected virtual void LayerCurrentChanged(IntPtr param, IntPtr info)
+   {
+      IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
+      if (layer != null)
+         this.InvalidateObject(layer, false, false);
    }
 
    #endregion

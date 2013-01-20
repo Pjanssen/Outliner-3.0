@@ -55,7 +55,7 @@ public class TreeViewDragDropHandler : DragDropHandler
       foreach (SelectionSetWrapper selSet in selSets)
       {
          IEnumerable<IMaxNode> newNodes = selSet.ChildNodes.Except(draggedMaxNodes);
-         ModifySelectionSetCommand cmd = new ModifySelectionSetCommand(newNodes.ToList(), selSet);
+         ModifySelectionSetCommand cmd = new ModifySelectionSetCommand(selSet, newNodes);
          cmd.Execute(false);
       }
    }

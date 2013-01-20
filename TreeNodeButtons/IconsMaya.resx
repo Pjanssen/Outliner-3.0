@@ -145,6 +145,12 @@
   <data name="light" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\icons_maya\light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="light_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\icons_maya\light_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="light_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\icons_maya\light_on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="material" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\icons_maya\material.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
