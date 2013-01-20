@@ -37,8 +37,7 @@ public abstract class TreeMode
 
    internal FilterCombinator<IMaxNode> filters;
    private const Int32 InvisibleNodesFilterIndex = 0;
-   private const Int32 PermanentFiltersIndex = 1;
-   private const Int32 OtherFiltersIndex = 2;
+   private const Int32 OtherFiltersIndex = 1;
 
    protected TreeMode(TreeView tree)
    {
@@ -57,7 +56,6 @@ public abstract class TreeMode
 
       this.filters = new FilterCombinator<IMaxNode>(Functor.And);
       this.filters.Filters.Add(new InvisibleNodeFilter());
-      this.filters.Filters.Add(new MaxNodeFilterCombinator() { Enabled = false });
       this.filters.Filters.Add(new MaxNodeFilterCombinator() { Enabled = false });
       this.filters.FilterChanged += filters_FilterChanged;
 
@@ -658,18 +656,10 @@ public abstract class TreeMode
       }
    }
 
-   public MaxNodeFilterCombinator PermanentFilter
+   public void AddPermanentFilter(Filter<IMaxNode> filter)
    {
-      get { return this.filters.Filters[PermanentFiltersIndex] as MaxNodeFilterCombinator; }
-      set
-      {
-         Throw.IfArgumentIsNull(value, "value");
-
-         this.filters.Filters[PermanentFiltersIndex] = value;
-
-         if (this.started)
-            this.EvaluateFilters();
-      }
+      Throw.IfArgumentIsNull(filter, "filter");
+      this.filters.Filters.Add(filter);
    }
 
    void filters_FilterChanged(object sender, EventArgs e)

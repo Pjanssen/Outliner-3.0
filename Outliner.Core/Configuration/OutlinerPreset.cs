@@ -142,7 +142,11 @@ public class OutlinerPreset : ConfigurationFile, ISorterConfiguration
          treeModeType = typeof(NullTreeMode);
 
       TreeMode mode = Activator.CreateInstance(treeModeType, new object[] { tree }) as TreeMode;
-      mode.PermanentFilter = this.Filters;
+      foreach (Filter<IMaxNode> filter in this.Filters.Filters)
+      {
+         mode.AddPermanentFilter(filter);
+      }
+      //mode.PermanentFilter = this.Filters;
 
       String contextMenuFile = Path.Combine(OutlinerPaths.ContextMenusDir, this.ContextMenuFile);
       if (File.Exists(contextMenuFile))
