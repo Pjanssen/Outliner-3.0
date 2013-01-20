@@ -92,20 +92,23 @@ public class PresetsEditor : ConfigFilesEditor<OutlinerPreset>
 
    protected override Control GetEditorFor(Tree.TreeNode tn)
    {
+      if (tn.Tag == null)
+         return null;
+
       if (tn.Tag is EditorType)
       {
          EditorType editorType = (EditorType)tn.Tag;
          OutlinerPreset preset = this.GetEditingConfiguration(tn);
          if (editorType == EditorType.Sorter)
             return new SorterConfigurationEditor(preset);
-         else if (editorType == EditorType.Filters)
+         if (editorType == EditorType.Filters)
             return new FilterCollectionEditor(preset.Filters);
-         else if (editorType == EditorType.Layout)
+         if (editorType == EditorType.Layout)
             return new TreeNodeLayoutEditor(preset.TreeNodeLayout);
-         else if (editorType == EditorType.ContextMenu)
+         if (editorType == EditorType.ContextMenu)
             return new ContextMenuModelEditor(preset.ContextMenu);
-         else
-            return null;
+
+         return null;
       }
 
       return base.GetEditorFor(tn);

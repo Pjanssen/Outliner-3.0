@@ -61,6 +61,7 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
       treeColors.ParentForeground = new SerializableColor(windowTextColor);
       treeColors.AlternateBackground = false;
       this.filesTree.Colors = treeColors;
+      this.filesTree.Settings.MultiSelect = false;
 
       TreeNodeLayout layout = new TreeNodeLayout();
       layout.LayoutItems.Add(new TreeNodeText());
@@ -107,7 +108,10 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
 
       String editingFile = GetEditingFile(tn);
       T editingConfiguration = null;
-      this.files.TryGetValue(editingFile, out editingConfiguration);
+
+      if (editingFile != null)
+         this.files.TryGetValue(editingFile, out editingConfiguration);
+
       return editingConfiguration;
    }
 

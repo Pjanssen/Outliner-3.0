@@ -146,7 +146,6 @@ public class OutlinerPreset : ConfigurationFile, ISorterConfiguration
       {
          mode.AddPermanentFilter(filter);
       }
-      //mode.PermanentFilter = this.Filters;
 
       String contextMenuFile = Path.Combine(OutlinerPaths.ContextMenusDir, this.ContextMenuFile);
       if (File.Exists(contextMenuFile))
