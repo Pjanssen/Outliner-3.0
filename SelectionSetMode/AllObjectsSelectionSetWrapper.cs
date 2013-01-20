@@ -8,30 +8,50 @@ using Outliner.Scene;
 
 namespace Outliner.Modes.SelectionSet
 {
-   public class AllObjectsSelectionSetWrapper : SelectionSetWrapper
+   public class AllObjectsSelectionSetWrapper : MaxNodeWrapper
    {
       public const String SelSetName = "--Internal_AllObjects--";
-      public AllObjectsSelectionSetWrapper() : base(SelSetName) { }
+      public AllObjectsSelectionSetWrapper() { }
 
-      public override string Name
+      public override object BaseObject
       {
-         get { return Resources.Str_AllObjectsSelSet; }
-         set { throw new NotSupportedException(); }
+         get { return SelSetName; }
       }
 
-      public override bool CanEditName
+
+      #region Equality
+
+      public override bool Equals(object obj)
       {
-         get { return false; }
+         return obj is AllObjectsSelectionSetWrapper;
       }
+
+      public override int GetHashCode()
+      {
+         return SelSetName.GetHashCode();
+      }
+
+      #endregion
+
+
+      #region Delete
 
       public override bool CanDelete
       {
          get { return false; }
       }
 
-      public override IEnumerable<IINode> ChildIINodes
+      #endregion
+
+
+      #region Childnodes
+
+      public override IEnumerable<object> ChildBaseObjects
       {
-         get { return this.getChildren(MaxInterfaces.COREInterface.RootNode); }
+         get
+         {
+            return this.getChildren(MaxInterfaces.COREInterface.RootNode);
+         }
       }
 
       private IEnumerable<IINode> getChildren(IINode node)
@@ -50,24 +70,47 @@ namespace Outliner.Modes.SelectionSet
       {
          return false;
       }
-      public override void AddChildNode(IMaxNode node) { }
-      public override void AddChildNodes(IEnumerable<IMaxNode> nodes) { }
 
       public override bool CanRemoveChildNode(IMaxNode node)
       {
          return false;
       }
-      public override void RemoveChildNode(IMaxNode node) { }
-      public override void RemoveChildNodes(IEnumerable<IMaxNode> nodes) { }
 
-      public override bool Equals(object obj)
+      #endregion
+
+
+      #region Name
+      
+      public override string Name
       {
-         return obj is AllObjectsSelectionSetWrapper;
+         get { return Resources.Str_AllObjectsSelSet; }
+         set { throw new NotSupportedException(); }
       }
 
-      public override int GetHashCode()
+      public override bool CanEditName
       {
-         return SelSetName.GetHashCode();
+         get { return false; }
+      }
+
+      #endregion
+
+
+      #region Type
+
+      protected override MaxNodeType MaxNodeType
+      {
+         get { return MaxNodeType.SelectionSet; }
+      }
+
+      #endregion
+
+
+      public override string ImageKey
+      {
+         get
+         {
+            return "selectionset";
+         }
       }
 
       public override string ToString()

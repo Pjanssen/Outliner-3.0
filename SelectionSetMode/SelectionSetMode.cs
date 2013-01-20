@@ -8,8 +8,8 @@ using Outliner.Controls.Tree;
 using Outliner.Filters;
 using Outliner.MaxUtils;
 using System.Runtime.InteropServices;
-//using Outliner.LayerTools;
 using Outliner.Plugins;
+using System.Drawing;
 
 namespace Outliner.Modes.SelectionSet
 {
@@ -52,7 +52,7 @@ public class SelectionSetMode : TreeMode
    {
       TreeNode tn = base.AddNode(wrapper, parentCol);
 
-      if (wrapper is SelectionSetWrapper)
+      if (wrapper is SelectionSetWrapper || wrapper is AllObjectsSelectionSetWrapper)
       {
          foreach (Object child in wrapper.ChildBaseObjects)
             this.AddNode(child, tn.Nodes);

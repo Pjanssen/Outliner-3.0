@@ -47,7 +47,7 @@ public class TreeViewDragDropHandler : DragDropHandler
             continue;
 
          SelectionSetWrapper selSet = HelperMethods.GetMaxNode(tn.Parent) as SelectionSetWrapper;
-         if (selSet != null && !(selSet is AllObjectsSelectionSetWrapper) && !selSets.Contains(selSet))
+         if (selSet != null && !selSets.Contains(selSet))
             selSets.Add(selSet);
       }
 

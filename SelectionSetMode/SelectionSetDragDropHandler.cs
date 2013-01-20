@@ -6,6 +6,7 @@ using WinForms = System.Windows.Forms;
 using Outliner.Scene;
 using Outliner.Controls.Tree;
 using Outliner.Commands;
+using Outliner.MaxUtils;
 
 namespace Outliner.Modes.SelectionSet
 {
@@ -29,10 +30,13 @@ public class SelectionSetDragDropHandler : DragDropHandler
 
    public override WinForms::DragDropEffects GetDragDropEffect(WinForms::IDataObject dragData)
    {
-      if (this.IsValidDropTarget(dragData))
+      if (!this.IsValidDropTarget(dragData))
+         return TreeView.NoneDragDropEffects;
+
+      if (HelperMethods.ShiftPressed)
          return WinForms::DragDropEffects.Copy;
       else
-         return TreeView.NoneDragDropEffects;
+         return WinForms.DragDropEffects.Move;
    }
 
    public override void HandleDrop(WinForms::IDataObject dragData)
@@ -44,11 +48,27 @@ public class SelectionSetDragDropHandler : DragDropHandler
       if (draggedNodes == null)
          return;
 
-      IEnumerable<IMaxNode> nodes = HelperMethods.GetMaxNodes(draggedNodes);
-      SelectionSetWrapper selSet = (SelectionSetWrapper)this.Data;
-      IEnumerable<IMaxNode> newNodes = selSet.ChildNodes.Union(nodes);
-      ModifySelectionSetCommand cmd = new ModifySelectionSetCommand(selSet, newNodes);
-      cmd.Execute(true);
+      IEnumerable<IMaxNode> draggedMaxNodes = HelperMethods.GetMaxNodes(draggedNodes);
+      SelectionSetWrapper targetSelSet = (SelectionSetWrapper)this.Data;
+
+      IEnumerable<IMaxNode> combinedNodes = targetSelSet.ChildNodes.Union(draggedMaxNodes);
+      ModifySelectionSetCommand cmd = new ModifySelectionSetCommand(targetSelSet, combinedNodes);
+      cmd.Execute(false);
+
+      if (!HelperMethods.ShiftPressed)
+      {
+         IEnumerable<SelectionSetWrapper> selSets = draggedNodes.Select(tn => HelperMethods.GetMaxNode(tn.Parent))
+                                                                .Where(n => n is SelectionSetWrapper)
+                                                                .Cast<SelectionSetWrapper>()
+                                                                .Where(n => !n.Equals(targetSelSet))
+                                                                .Distinct();
+         foreach (SelectionSetWrapper selSet in selSets)
+         {
+            IEnumerable<IMaxNode> newNodes = selSet.ChildNodes.Except(draggedMaxNodes);
+            ModifySelectionSetCommand moveCmd = new ModifySelectionSetCommand(selSet, newNodes);
+            moveCmd.Execute(false);
+         }
+      }
    }
 }
 }

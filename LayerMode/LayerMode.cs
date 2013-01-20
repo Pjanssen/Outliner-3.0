@@ -59,7 +59,6 @@ public class LayerMode : TreeMode
          //Add nodes belonging to this layer.
          foreach (Object node in wrapper.ChildBaseObjects)
          {
-            //if (!this.LayersOnly || node is IILayer)
             if (this.ShouldAddNode(node))
                this.AddNode(node, tn.Nodes);
          }
