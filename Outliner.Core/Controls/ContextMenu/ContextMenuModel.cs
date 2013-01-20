@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml.Serialization;
 using System.Windows.Forms;
 using Outliner.Scene;
+using System.ComponentModel;
 
 namespace Outliner.Controls.ContextMenu
 {
@@ -22,7 +23,6 @@ namespace Outliner.Controls.ContextMenu
       [XmlArray("Items")]
       [XmlArrayItem("MenuItem")]
       public List<MenuItemModel> Items { get; set; }
-
 
       public ContextMenuStrip ToContextMenuStrip( Outliner.Controls.Tree.TreeView treeView
                                                 , Outliner.Controls.Tree.TreeNode clickedTn)

@@ -12,7 +12,6 @@ TREEVIEW
 --------
 * TreeNode selection implementation is a bit shoddy. MouseDown+MouseUp both fire selectionchangedevent
 * TreeNode.NextNode/NextVisible node bug when switching to layer mode.
-* Add option for single/multiple selection
 
 NODE BUTTONS
 ------------
@@ -118,9 +117,7 @@ Options
 
 3.0.21
 ======
+#25 - Display and Render settings contextual menu shouldn't close on click.
 #35 - Undo-ing create layer command crashes 3dsMax
 #54 - Missing Rename Layer
 #63 - Different icon for light when turned off 
-
-
-* Rename (broadcast notification)

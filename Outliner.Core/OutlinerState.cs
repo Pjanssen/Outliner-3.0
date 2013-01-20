@@ -52,7 +52,9 @@ public class OutlinerState
       this.Tree2PresetName = "";
 
       this.Tree1Filters = new MaxNodeFilterCombinator();
+      this.Tree1Filters.Enabled = false;
       this.Tree2Filters = new MaxNodeFilterCombinator();
+      this.Tree2Filters.Enabled = false;
 
       this.Panel1Collapsed = false;
       this.Panel2Collapsed = true;

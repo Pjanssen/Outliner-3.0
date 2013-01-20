@@ -20,7 +20,7 @@ namespace Outliner.Controls.ContextMenu
                                                           , Outliner.Controls.Tree.TreeNode clickedTn)
       {
          ToolStripSeparator separator = new ToolStripSeparator();
-         separator.Visible = base.Visible(treeView, clickedTn);
+         separator.Visible = base.Visible(null, treeView, clickedTn);
 
          return new ToolStripItem[1] { separator };
       }

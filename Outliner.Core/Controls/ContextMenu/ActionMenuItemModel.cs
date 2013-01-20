@@ -47,7 +47,8 @@ public class ActionMenuItemModel : MenuItemModel
    public String OnClickAction { get; set; }
 
 
-   protected override Boolean Enabled( Outliner.Controls.Tree.TreeView treeView
+   protected override Boolean Enabled( ToolStripMenuItem clickedItem
+                                     , Outliner.Controls.Tree.TreeView treeView
                                      , Outliner.Controls.Tree.TreeNode clickedTn)
    {
       Throw.IfArgumentIsNull(treeView, "treeView");
@@ -58,11 +59,12 @@ public class ActionMenuItemModel : MenuItemModel
       if (predicate != null)
          return predicate(clickedTn, context);
       else
-         return base.Enabled(treeView, clickedTn);
+         return base.Enabled(clickedItem, treeView, clickedTn);
    }
 
 
-   protected override Boolean Checked( Outliner.Controls.Tree.TreeView treeView
+   protected override Boolean Checked( ToolStripMenuItem clickedItem
+                                     , Outliner.Controls.Tree.TreeView treeView
                                      , Outliner.Controls.Tree.TreeNode clickedTn)
    {
       Throw.IfArgumentIsNull(treeView, "treeView");
@@ -73,11 +75,12 @@ public class ActionMenuItemModel : MenuItemModel
       if (predicate != null)
          return predicate(clickedTn, context);
       else
-         return base.Checked(treeView, clickedTn);
+         return base.Checked(clickedItem, treeView, clickedTn);
    }
 
 
-   protected override void OnClick(Outliner.Controls.Tree.TreeView treeView
+   protected override void OnClick( ToolStripMenuItem clickedItem
+                                  , Outliner.Controls.Tree.TreeView treeView
                                   , Outliner.Controls.Tree.TreeNode clickedTn)
    {
       Throw.IfArgumentIsNull(treeView, "treeView");

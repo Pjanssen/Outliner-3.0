@@ -170,8 +170,8 @@ namespace Outliner.Scene
             return false;
 
          //SelectionSet
-         //if (node is SelectionSetWrapper)
-         //   return this.CanAddChildNodes(node.WrappedChildNodes);
+         if (node is SelectionSetWrapper)
+            return this.CanAddChildNodes(node.ChildNodes);
 
          //IINode
          INodeWrapper inodeWrapper = node as INodeWrapper;
@@ -194,8 +194,8 @@ namespace Outliner.Scene
          if (!this.CanAddChildNode(node))
             return;
 
-         //if (node is SelectionSetWrapper)
-         //   this.AddChildNodes(node.WrappedChildNodes);
+         if (node is SelectionSetWrapper)
+            this.AddChildNodes(node.ChildNodes);
 
          IINode inode = node.BaseObject as IINode;
          if (inode != null)

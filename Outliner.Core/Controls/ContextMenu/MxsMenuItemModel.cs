@@ -5,6 +5,7 @@ using System.ComponentModel.Design;
 using System.Drawing.Design;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using System.Xml.Serialization;
 using ManagedServices;
 using Outliner.Plugins;
@@ -49,7 +50,8 @@ public class MxsMenuItemModel : MenuItemModel
    public String CheckedScript { get; set; }
 
 
-   protected override Boolean Enabled(Outliner.Controls.Tree.TreeView treeView
+   protected override Boolean Enabled( ToolStripMenuItem clickedItem
+                                     , Outliner.Controls.Tree.TreeView treeView
                                      , Outliner.Controls.Tree.TreeNode clickedTn)
    {
       Throw.IfArgumentIsNull(treeView, "treeView");
@@ -57,11 +59,12 @@ public class MxsMenuItemModel : MenuItemModel
       if (!String.IsNullOrEmpty(this.EnabledScript))
          return MaxscriptSDK.ExecuteBooleanMaxscriptQuery(this.EnabledScript);
       else
-         return base.Enabled(treeView, clickedTn);
+         return base.Enabled(clickedItem, treeView, clickedTn);
    }
 
 
-   protected override Boolean Checked(Outliner.Controls.Tree.TreeView treeView
+   protected override Boolean Checked( ToolStripMenuItem clickedItem
+                                     , Outliner.Controls.Tree.TreeView treeView
                                      , Outliner.Controls.Tree.TreeNode clickedTn)
    {
       Throw.IfArgumentIsNull(treeView, "treeView");
@@ -69,10 +72,11 @@ public class MxsMenuItemModel : MenuItemModel
       if (!String.IsNullOrEmpty(this.CheckedScript))
          return MaxscriptSDK.ExecuteBooleanMaxscriptQuery(this.CheckedScript);
       else
-         return base.Checked(treeView, clickedTn);
+         return base.Checked(clickedItem, treeView, clickedTn);
    }
 
-   protected override void OnClick( Outliner.Controls.Tree.TreeView treeView
+   protected override void OnClick( ToolStripMenuItem clickedItem
+                                  , Outliner.Controls.Tree.TreeView treeView
                                   , Outliner.Controls.Tree.TreeNode clickedTn)
    {
       Throw.IfArgumentIsNull(treeView, "treeView");

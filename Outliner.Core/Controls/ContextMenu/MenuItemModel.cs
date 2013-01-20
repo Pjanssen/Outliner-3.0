@@ -70,7 +70,8 @@ public abstract class MenuItemModel : ConfigurationFile
    /// <summary>
    /// Returns true if the MenuItem should be Enabled.
    /// </summary>
-   protected virtual Boolean Enabled( Outliner.Controls.Tree.TreeView treeView
+   protected virtual Boolean Enabled( ToolStripMenuItem clickedItem
+                                    , Outliner.Controls.Tree.TreeView treeView
                                     , Outliner.Controls.Tree.TreeNode clickedTn)
    {
       return true;
@@ -79,13 +80,15 @@ public abstract class MenuItemModel : ConfigurationFile
    /// <summary>
    /// Returns true if the MenuItem should be in a Checked state.
    /// </summary>
-   protected virtual Boolean Checked( Outliner.Controls.Tree.TreeView treeView
+   protected virtual Boolean Checked( ToolStripMenuItem clickedItem
+                                    , Outliner.Controls.Tree.TreeView treeView
                                     , Outliner.Controls.Tree.TreeNode clickedTn)
    {
       return false;
    }
 
-   protected virtual Boolean Visible( Outliner.Controls.Tree.TreeView treeView
+   protected virtual Boolean Visible( ToolStripMenuItem clickedItem
+                                    , Outliner.Controls.Tree.TreeView treeView
                                     , Outliner.Controls.Tree.TreeNode clickedTn)
    {
       Throw.IfArgumentIsNull(treeView, "treeView");
@@ -101,7 +104,8 @@ public abstract class MenuItemModel : ConfigurationFile
    /// <summary>
    /// Executes code when the MenuItem is clicked.
    /// </summary>
-   protected virtual void OnClick( Outliner.Controls.Tree.TreeView treeView
+   protected virtual void OnClick( ToolStripMenuItem clickedItem
+                                 , Outliner.Controls.Tree.TreeView treeView
                                  , Outliner.Controls.Tree.TreeNode clickedTn) { }
    
    /// <summary>
@@ -117,25 +121,30 @@ public abstract class MenuItemModel : ConfigurationFile
       ToolStripMenuItem item = new ToolStripMenuItem();
       item.Text = this.Text;
       item.Image = this.Image16;
-      Boolean visible = this.Visible(treeView, clickedTn);
+      Boolean visible = this.Visible(item, treeView, clickedTn);
       item.Visible = visible;
-
+      
       if (visible)
       {
-         Boolean enabled = this.Enabled(treeView, clickedTn);
+         Boolean enabled = this.Enabled(item, treeView, clickedTn);
          item.Enabled = enabled;
          if (enabled)
-            item.Checked = this.Checked(treeView, clickedTn);
+            item.Checked = this.Checked(item, treeView, clickedTn);
 
          foreach (MenuItemModel subitem in this.SubItems)
          {
             item.DropDownItems.AddRange(subitem.ToToolStripMenuItems(treeView, clickedTn));
          }
 
-         item.Click += new EventHandler((sender, eventArgs) => this.OnClick(treeView, clickedTn));
+         item.Click += new EventHandler((sender, eventArgs) => this.OnClick(item, treeView, clickedTn));  
       }
 
       return new ToolStripItem[1] { item };
+   }
+
+   void DropDown_Closing(object sender, ToolStripDropDownClosingEventArgs e)
+   {
+      
    }
 }
 }

@@ -8,6 +8,7 @@ using Outliner.MaxUtils;
 using Outliner.Commands;
 using Outliner.Scene;
 using Outliner.Plugins;
+using System.Windows.Forms;
 
 namespace Outliner.Controls.ContextMenu
 {
@@ -33,7 +34,8 @@ public class NodePropertyMenuItemModel : MenuItemModel
    public BooleanNodeProperty Property { get; set; }
 
 
-   protected override Boolean Enabled( Outliner.Controls.Tree.TreeView treeView
+   protected override Boolean Enabled( ToolStripMenuItem clickedItem
+                                     , Outliner.Controls.Tree.TreeView treeView
                                      , Outliner.Controls.Tree.TreeNode clickedTn)
    {
       Throw.IfArgumentIsNull(treeView, "treeView");
@@ -43,7 +45,8 @@ public class NodePropertyMenuItemModel : MenuItemModel
    }
 
 
-   protected override Boolean Checked(Outliner.Controls.Tree.TreeView treeView
+   protected override Boolean Checked( ToolStripMenuItem clickedItem
+                                     , Outliner.Controls.Tree.TreeView treeView
                                      , Outliner.Controls.Tree.TreeNode clickedTn)
    {
       Throw.IfArgumentIsNull(treeView, "treeView");
@@ -53,16 +56,19 @@ public class NodePropertyMenuItemModel : MenuItemModel
    }
 
 
-   protected override void OnClick(Outliner.Controls.Tree.TreeView treeView
+   protected override void OnClick( ToolStripMenuItem clickedItem
+                                  , Outliner.Controls.Tree.TreeView treeView
                                   , Outliner.Controls.Tree.TreeNode clickedTn)
    {
       Throw.IfArgumentIsNull(treeView, "treeView");
 
       IEnumerable<IMaxNode> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
-      Boolean newValue = !this.Checked(treeView, clickedTn);
+      Boolean newValue = !this.Checked(clickedItem, treeView, clickedTn);
       NodeProperty prop = NodePropertyHelpers.ToProperty(this.Property);
       SetNodePropertyCommand<Boolean> cmd = new SetNodePropertyCommand<Boolean>(context, prop, newValue);
       cmd.Execute(true);
+
+      clickedItem.Checked = newValue;
    }
 }
 }

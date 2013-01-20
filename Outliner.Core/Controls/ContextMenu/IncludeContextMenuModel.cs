@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.IO;
 using Outliner.Scene;
 using Outliner.Plugins;
+using System.ComponentModel;
 
 namespace Outliner.Controls.ContextMenu
 {
@@ -22,7 +23,13 @@ namespace Outliner.Controls.ContextMenu
       [XmlElement("file")]
       public String File { get; set; }
 
-      protected override void OnClick( Outliner.Controls.Tree.TreeView treeView
+      [XmlElement("keep_open")]
+      [DefaultValue(false)]
+      [DisplayName("Keep open")]
+      public Boolean KeepOpen { get; set; }
+
+      protected override void OnClick( ToolStripMenuItem clickedItem
+                                     , Outliner.Controls.Tree.TreeView treeView
                                      , Outliner.Controls.Tree.TreeNode clickedTn)
       {
          //IncludeContextMenuData does not execute anything.
@@ -48,6 +55,29 @@ namespace Outliner.Controls.ContextMenu
             return new List<MenuItemModel>();
          }
          set { }
+      }
+
+      public override ToolStripItem[] ToToolStripMenuItems(Tree.TreeView treeView, Tree.TreeNode clickedTn)
+      {
+         ToolStripItem[] items = base.ToToolStripMenuItems(treeView, clickedTn);
+
+         if (this.KeepOpen)
+         {
+            foreach (ToolStripItem item in items)
+            {
+               ToolStripMenuItem menuItem = item as ToolStripMenuItem;
+               if (menuItem != null)
+                  menuItem.DropDown.Closing += DropDown_Closing;
+            }
+         }
+
+         return items;
+      }
+
+      void DropDown_Closing(object sender, ToolStripDropDownClosingEventArgs e)
+      {
+         if ((e.CloseReason & ToolStripDropDownCloseReason.ItemClicked) == ToolStripDropDownCloseReason.ItemClicked)
+            e.Cancel = true;
       }
    }
 }

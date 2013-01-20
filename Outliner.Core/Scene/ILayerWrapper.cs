@@ -250,20 +250,26 @@ namespace Outliner.Scene
          if (node == null)
             return false;
 
-         if (node is INodeWrapper)
+         INodeWrapper inodeWrapper = node as INodeWrapper;
+         if (inodeWrapper != null)
          {
-            IINode n = (IINode)node.BaseObject;
-            IILayer l = (IILayer)n.GetReference((int)ReferenceNumbers.NodeLayerRef);
+            IILayer l = (IILayer)inodeWrapper.INode.GetReference((int)ReferenceNumbers.NodeLayerRef);
             return this.ILayer.Handle != l.Handle;
          }
-         else if (node is ILayerWrapper)
+
+         ILayerWrapper ilayerWrapper = node as ILayerWrapper;
+         if (ilayerWrapper != null)
          {
             return !this.IsInParentChain(node) && (node.Parent == null || !node.Parent.Equals(this));
          }
-         else if (node is SelectionSetWrapper)
+
+         SelectionSetWrapper selSetWrapper = node as SelectionSetWrapper;
+         if (selSetWrapper != null)
+         {
             return this.CanAddChildNodes(node.ChildNodes);
-         else
-            return false;
+         }
+         
+         return false;
       }
 
       private Boolean IsInParentChain(IMaxNode node)
@@ -288,12 +294,26 @@ namespace Outliner.Scene
          if (!this.CanAddChildNode(node))
             return;
 
-         if (node is INodeWrapper)
-            this.ILayer.AddToLayer(((INodeWrapper)node).INode);
-         else if (node is ILayerWrapper)
-            NestedLayers.SetParent(((ILayerWrapper)node).ILayer, this.ILayer);
-         else if (node is SelectionSetWrapper)
+         INodeWrapper inodeWrapper = node as INodeWrapper;
+         if (inodeWrapper != null)
+         {
+            this.ILayer.AddToLayer(inodeWrapper.INode);
+            return;
+         }
+
+         ILayerWrapper ilayerWrapper = node as ILayerWrapper;
+         if (ilayerWrapper != null)
+         {
+            NestedLayers.SetParent(ilayerWrapper.ILayer, this.ILayer);
+            return;
+         }
+
+         SelectionSetWrapper selSetWrapper = node as SelectionSetWrapper;
+         if (selSetWrapper != null)
+         {
             this.AddChildNodes(node.ChildNodes);
+            return;
+         }
       }
 
       public override void RemoveChildNode(IMaxNode node)
