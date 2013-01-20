@@ -18,6 +18,15 @@ namespace Outliner.Modes.SelectionSet
          get { return SelSetName; }
       }
 
+      public override bool IsSelected
+      {
+         get { return false; }
+         set
+         {
+            this.ChildNodes.ForEach(n => n.IsSelected = value);
+         }
+      }
+
 
       #region Equality
 
