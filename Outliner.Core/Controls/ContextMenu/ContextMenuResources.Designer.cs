@@ -413,20 +413,20 @@ namespace Outliner.Controls.ContextMenu {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show in viewport.
-        /// </summary>
-        internal static string Context_ShowInViewport {
-            get {
-                return ResourceManager.GetString("Context_ShowInViewport", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Shaded.
         /// </summary>
         internal static string Context_ShowShaded {
             get {
                 return ResourceManager.GetString("Context_ShowShaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Viewport.
+        /// </summary>
+        internal static string Context_ShowViewport {
+            get {
+                return ResourceManager.GetString("Context_ShowViewport", resourceCulture);
             }
         }
         

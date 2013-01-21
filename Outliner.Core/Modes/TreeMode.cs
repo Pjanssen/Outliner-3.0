@@ -512,8 +512,9 @@ public abstract class TreeMode
 
    private void LayerPropChanged(IntPtr param, IntPtr info)
    {
-      LayerPropertyChangedParam callParam = (LayerPropertyChangedParam)MaxUtils.HelperMethods.GetCallParam(info);
-      this.LayerPropertyChanged(MaxNodeWrapper.Create(callParam.Layer), callParam.Property);
+      LayerPropertyChangedParam? callParam = MaxUtils.HelperMethods.GetCallParam(info) as LayerPropertyChangedParam?;
+      if (callParam != null)
+         this.LayerPropertyChanged(MaxNodeWrapper.Create(callParam.Value.Layer), callParam.Value.Property);
    }
 
    #endregion

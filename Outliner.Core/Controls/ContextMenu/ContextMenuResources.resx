@@ -244,8 +244,8 @@
   <data name="Context_ShowBoundingBox" xml:space="preserve">
     <value>Bounding box</value>
   </data>
-  <data name="Context_ShowInViewport" xml:space="preserve">
-    <value>Show in viewport</value>
+  <data name="Context_ShowViewport" xml:space="preserve">
+    <value>Viewport</value>
   </data>
   <data name="Context_ShowShaded" xml:space="preserve">
     <value>Shaded</value>
