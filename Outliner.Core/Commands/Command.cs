@@ -28,10 +28,7 @@ namespace Outliner.Commands
          theHold.Accept(this.Description);
 
          if (redrawViews)
-         {
-            IInterface ip = MaxInterfaces.Global.COREInterface;
-            ip.RedrawViews(ip.Time, RedrawFlags.Normal, null);
-         }
+            Viewports.Redraw();
       }
    }
 }

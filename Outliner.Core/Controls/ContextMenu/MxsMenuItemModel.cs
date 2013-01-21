@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Drawing.Design;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using Autodesk.Max;
 using ManagedServices;
+using Outliner.MaxUtils;
 using Outliner.Plugins;
 using Outliner.Scene;
 
@@ -27,6 +30,7 @@ public class MxsMenuItemModel : MenuItemModel
       this.EnabledScript = String.Empty;
       this.CheckedScript = String.Empty;
    }
+
 
    [XmlElement("onclickScript")]
    [DefaultValue("")]
@@ -57,9 +61,14 @@ public class MxsMenuItemModel : MenuItemModel
       Throw.IfArgumentIsNull(treeView, "treeView");
 
       if (!String.IsNullOrEmpty(this.EnabledScript))
-         return MaxscriptSDK.ExecuteBooleanMaxscriptQuery(this.EnabledScript);
+      {
+         String script = FormatScript(this.EnabledScript, treeView);
+         return MaxscriptSDK.ExecuteBooleanMaxscriptQuery(script);
+      }
       else
+      {
          return base.Enabled(clickedItem, treeView, clickedTn);
+      }
    }
 
 
@@ -70,9 +79,14 @@ public class MxsMenuItemModel : MenuItemModel
       Throw.IfArgumentIsNull(treeView, "treeView");
 
       if (!String.IsNullOrEmpty(this.CheckedScript))
-         return MaxscriptSDK.ExecuteBooleanMaxscriptQuery(this.CheckedScript);
+      {
+         String script = FormatScript(this.CheckedScript, treeView);
+         return MaxscriptSDK.ExecuteBooleanMaxscriptQuery(script);
+      }
       else
+      {
          return base.Checked(clickedItem, treeView, clickedTn);
+      }
    }
 
    protected override void OnClick( ToolStripMenuItem clickedItem
@@ -83,8 +97,30 @@ public class MxsMenuItemModel : MenuItemModel
 
       if (!String.IsNullOrEmpty(this.OnClickScript))
       {
-         MaxscriptSDK.ExecuteMaxscriptCommand(this.OnClickScript);
+         String script = FormatScript(this.OnClickScript, treeView);
+         MaxscriptSDK.ExecuteMaxscriptCommand(script);
+         Viewports.ForceRedraw();
       }
+   }
+
+   private static String FormatScript(String script, Tree.TreeView treeView)
+   {
+      StringBuilder scriptBuilder = new StringBuilder("fn mxsFn = ( local nodes = #( ");
+
+      foreach (IMaxNode node in HelperMethods.GetMaxNodes(treeView.SelectedNodes))
+      {
+         IAnimatable anim = node.BaseObject as IAnimatable;
+         if (anim != null)
+         {
+            UIntPtr handle = MaxInterfaces.Global.Animatable.GetHandleByAnim(anim);
+            scriptBuilder.AppendFormat(CultureInfo.InvariantCulture, "\r\n(getAnimByHandle {0:d}),", handle);
+         }
+      }
+      scriptBuilder.Remove(scriptBuilder.Length - 1, 1);
+      scriptBuilder.AppendLine("); ");
+      scriptBuilder.AppendLine(script);
+      scriptBuilder.Append("); mxsFn();");
+      return scriptBuilder.ToString();
    }
 }
 }

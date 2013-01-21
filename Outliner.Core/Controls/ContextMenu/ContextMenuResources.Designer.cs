@@ -179,11 +179,56 @@ namespace Outliner.Controls.ContextMenu {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Display all nodes by layer.
+        /// </summary>
+        internal static string Context_DisplayAllByLayer {
+            get {
+                return ResourceManager.GetString("Context_DisplayAllByLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display - Bounding box.
+        /// </summary>
+        internal static string Context_DisplayBoundingBox {
+            get {
+                return ResourceManager.GetString("Context_DisplayBoundingBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Display Settings.
         /// </summary>
         internal static string Context_DisplaySettings {
             get {
                 return ResourceManager.GetString("Context_DisplaySettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display - Shaded.
+        /// </summary>
+        internal static string Context_DisplayShaded {
+            get {
+                return ResourceManager.GetString("Context_DisplayShaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display - Viewport.
+        /// </summary>
+        internal static string Context_DisplayViewport {
+            get {
+                return ResourceManager.GetString("Context_DisplayViewport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display - Wireframe.
+        /// </summary>
+        internal static string Context_DisplayWireframe {
+            get {
+                return ResourceManager.GetString("Context_DisplayWireframe", resourceCulture);
             }
         }
         
@@ -359,6 +404,15 @@ namespace Outliner.Controls.ContextMenu {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Render all nodes by layer.
+        /// </summary>
+        internal static string Context_RenderAllByLayer {
+            get {
+                return ResourceManager.GetString("Context_RenderAllByLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Render occluded.
         /// </summary>
         internal static string Context_RenderOccluded {
@@ -400,42 +454,6 @@ namespace Outliner.Controls.ContextMenu {
         internal static string Context_SelectChildnodes {
             get {
                 return ResourceManager.GetString("Context_SelectChildnodes", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bounding box.
-        /// </summary>
-        internal static string Context_ShowBoundingBox {
-            get {
-                return ResourceManager.GetString("Context_ShowBoundingBox", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Shaded.
-        /// </summary>
-        internal static string Context_ShowShaded {
-            get {
-                return ResourceManager.GetString("Context_ShowShaded", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Viewport.
-        /// </summary>
-        internal static string Context_ShowViewport {
-            get {
-                return ResourceManager.GetString("Context_ShowViewport", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wireframe.
-        /// </summary>
-        internal static string Context_ShowWireframe {
-            get {
-                return ResourceManager.GetString("Context_ShowWireframe", resourceCulture);
             }
         }
         
@@ -660,7 +678,7 @@ namespace Outliner.Controls.ContextMenu {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to = Add To Layer Items =.
+        ///   Looks up a localized string similar to - Add To Layer Items -.
         /// </summary>
         internal static string Str_AddToLayerItems {
             get {
@@ -678,7 +696,7 @@ namespace Outliner.Controls.ContextMenu {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to = Hide / Freeze Items =.
+        ///   Looks up a localized string similar to - Hide / Freeze Items -.
         /// </summary>
         internal static string Str_HideFreezeItems {
             get {
@@ -687,7 +705,7 @@ namespace Outliner.Controls.ContextMenu {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to = Include Model File =.
+        ///   Looks up a localized string similar to - Include Model File -.
         /// </summary>
         internal static string Str_IncludeContextMenuModel {
             get {

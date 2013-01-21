@@ -131,5 +131,6 @@ Options
 #59 - Wirecolorbutton inherited from layer throws exception
 #64 - Render Settings menu is empty in Layers preset
 #65 - "Layers Only" preset doesn't have the proper filter
+#66 - Exception and Missing actions, when trying to apply display settings to a layer
 #67 - selection sets don't select anything
 #68 - Drawing bug when using TreeNodeIndent without visual-styles

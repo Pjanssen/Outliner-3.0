@@ -159,6 +159,26 @@ namespace Outliner.Scene
          }
       }
 
+      public IEnumerable<IILayer> ChildILayers
+      {
+         get
+         {
+            return NestedLayers.GetChildren(this.ILayer, false);
+         }
+      }
+
+      public IEnumerable<IINode> ChildINodes
+      {
+         get
+         {
+            ITab<IINode> nodes = MaxInterfaces.Global.INodeTabNS.Create();
+            IILayerProperties layerProperties = this.ILayerProperties;
+            if (layerProperties != null)
+               layerProperties.Nodes(nodes);
+            return nodes.ToIEnumerable();
+         }
+      }
+
       #endregion
 
 
@@ -191,11 +211,11 @@ namespace Outliner.Scene
             return;
          
          IILayer defaultLayer = MaxInterfaces.IILayerManager.GetLayer(0);
-         foreach (IINode node in this.GetChildNodes())
+         foreach (IINode node in this.ChildINodes)
          {
             defaultLayer.AddToLayer(node);
          }
-         foreach (IILayer layer in this.GetChildLayers())
+         foreach (IILayer layer in this.ChildILayers)
          {
             NestedLayers.SetParent(layer, null);
          }
@@ -213,33 +233,21 @@ namespace Outliner.Scene
       {
          get
          {
-            if (!this.ILayer.Used)
+            if (!this.ILayer.Used && this.ChildILayers.Count() == 0)
                return 0;
             else
                return base.ChildNodeCount;
          }
       }
-      private IEnumerable<IILayer> GetChildLayers()
-      {
-         return NestedLayers.GetChildren(this.ILayer, false);
-      }
 
-      private IEnumerable<IINode> GetChildNodes()
-      {
-         ITab<IINode> nodes = MaxInterfaces.Global.INodeTabNS.Create();
-         IILayerProperties layerProperties = this.ILayerProperties;
-         if (layerProperties != null)
-            layerProperties.Nodes(nodes);
-         return nodes.ToIEnumerable();
-      }
 
       public override IEnumerable<object> ChildBaseObjects
       {
          get
          {
             List<Object> childNodes = new List<object>();
-            childNodes.AddRange(this.GetChildLayers());
-            childNodes.AddRange(this.GetChildNodes());
+            childNodes.AddRange(this.ChildILayers);
+            childNodes.AddRange(this.ChildINodes);
 
             return childNodes;
          }

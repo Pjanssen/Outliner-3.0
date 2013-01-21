@@ -241,17 +241,17 @@
   <data name="Context_SeeThrough" xml:space="preserve">
     <value>See-through</value>
   </data>
-  <data name="Context_ShowBoundingBox" xml:space="preserve">
-    <value>Bounding box</value>
+  <data name="Context_DisplayBoundingBox" xml:space="preserve">
+    <value>Display - Bounding box</value>
   </data>
-  <data name="Context_ShowViewport" xml:space="preserve">
-    <value>Viewport</value>
+  <data name="Context_DisplayViewport" xml:space="preserve">
+    <value>Display - Viewport</value>
   </data>
-  <data name="Context_ShowShaded" xml:space="preserve">
-    <value>Shaded</value>
+  <data name="Context_DisplayShaded" xml:space="preserve">
+    <value>Display - Shaded</value>
   </data>
-  <data name="Context_ShowWireframe" xml:space="preserve">
-    <value>Wireframe</value>
+  <data name="Context_DisplayWireframe" xml:space="preserve">
+    <value>Display - Wireframe</value>
   </data>
   <data name="Context_Trajectory" xml:space="preserve">
     <value>Show trajectory</value>
@@ -338,13 +338,13 @@
     <value>Action Item</value>
   </data>
   <data name="Str_AddToLayerItems" xml:space="preserve">
-    <value>= Add To Layer Items =</value>
+    <value>- Add To Layer Items -</value>
   </data>
   <data name="Str_HideFreezeItems" xml:space="preserve">
-    <value>= Hide / Freeze Items =</value>
+    <value>- Hide / Freeze Items -</value>
   </data>
   <data name="Str_IncludeContextMenuModel" xml:space="preserve">
-    <value>= Include Model File =</value>
+    <value>- Include Model File -</value>
   </data>
   <data name="Str_MxsMenuItemModel" xml:space="preserve">
     <value>Maxscript Item</value>
@@ -354,5 +354,11 @@
   </data>
   <data name="Str_SeparatorMenuItemModel" xml:space="preserve">
     <value>-- Separator --</value>
+  </data>
+  <data name="Context_DisplayAllByLayer" xml:space="preserve">
+    <value>Display all nodes by layer</value>
+  </data>
+  <data name="Context_RenderAllByLayer" xml:space="preserve">
+    <value>Render all nodes by layer</value>
   </data>
 </root>
