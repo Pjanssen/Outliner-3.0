@@ -55,7 +55,10 @@ public class WireColorButton : NodePropertyButton
 
    public override int GetHeight(TreeNode tn)
    {
-      return this.ButtonHeight;
+      if (!this.isInheritedFromLayer(tn))
+         return this.ButtonHeight;
+      else
+         return base.GetHeight(tn);
    }
 
    public override bool CenterVertically

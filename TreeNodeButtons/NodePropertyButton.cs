@@ -20,7 +20,12 @@ namespace Outliner.TreeNodeButtons
 {
 public abstract class NodePropertyButton : ImageButton
 {
-   protected NodePropertyButton() { }
+   protected NodePropertyButton() 
+   {
+      ButtonImages layerImages = NodeButtonImages.GetButtonImages(NodeButtonImages.Images.Layer);
+      imageByLayer = layerImages.Regular;
+      imageByLayer_Filtered = layerImages.RegularFiltered;
+   }
    protected NodePropertyButton(ButtonImages images)
       : base(images)
    {
@@ -85,6 +90,14 @@ public abstract class NodePropertyButton : ImageButton
       }
       else
          return false;
+   }
+
+   public override int GetHeight(TreeNode tn)
+   {
+      if (this.isInheritedFromLayer(tn))
+         return this.imageByLayer.Height;
+      else
+         return base.GetHeight(tn);
    }
 
    override public Boolean IsEnabled(TreeNode tn)
