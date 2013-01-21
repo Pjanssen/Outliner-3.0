@@ -23,7 +23,7 @@ public class MaxscriptFilter : Filter<IMaxNode>
       script = "";
    }
 
-   private const String execFilterTemplate = "( local node = getAnimByHandle {0};\r\n {1} )";
+   private const String execFilterTemplate = "fn mxsFn = ( local node = getAnimByHandle {0};\r\n {1} ); mxsFn();";
 
    private String script;
    private String filterFn;
@@ -47,7 +47,7 @@ public class MaxscriptFilter : Filter<IMaxNode>
          return true;
 
       INodeWrapper iinodeWrapper = data as INodeWrapper;
-      if (data == null)
+      if (iinodeWrapper == null)
          return false;
 
       UIntPtr handle = MaxInterfaces.Global.Animatable.GetHandleByAnim(iinodeWrapper.INode);
