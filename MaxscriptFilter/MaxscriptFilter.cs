@@ -23,7 +23,7 @@ public class MaxscriptFilter : Filter<IMaxNode>
       script = "";
    }
 
-   private const String execFilterTemplate = "fn mxsFn = ( local node = getAnimByHandle {0};\r\n {1} ); mxsFn();";
+   private const String execFilterTemplate = "( fn mxsFn = ( local node = getAnimByHandle {0};\r\n {1} ); mxsFn(); )";
 
    private String script;
    private String filterFn;
