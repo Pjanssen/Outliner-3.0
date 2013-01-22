@@ -14,7 +14,7 @@ using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyVersion("3.0.21.1320")]
-[assembly: AssemblyFileVersion("3.0.21.1320")]
+[assembly: AssemblyVersion("3.0.22.1322")]
+[assembly: AssemblyFileVersion("3.0.22.1322")]
 
 
