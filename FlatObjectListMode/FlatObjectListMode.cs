@@ -24,51 +24,21 @@ public class FlatObjectListMode : TreeMode
 
       IINode rootNode = MaxInterfaces.COREInterface.RootNode;
       for (int i = 0; i < rootNode.NumberOfChildren; i++)
-         this.AddNode(rootNode.GetChildNode(i), this.Tree.Nodes);
+      {
+         this.FillTree(rootNode.GetChildNode(i));
+      }
 
       this.Tree.Sort();
 
       this.Tree.EndUpdate();
    }
 
-   public override TreeNode AddNode(IMaxNode wrapper, TreeNodeCollection parentCol)
+   private void FillTree(IINode node)
    {
-      return this.AddNode(wrapper, parentCol, true);
-   }
-
-   public TreeNode AddNode(IMaxNode wrapper, TreeNodeCollection parentCol, Boolean recursive)
-   {
-      TreeNode tn = base.AddNode(wrapper, parentCol);
-
-      if (recursive)
-         wrapper.ChildNodes.ForEach(node => this.AddNode(node, parentCol));
-
-      return tn;
-   }
-
-
-   public override void Start()
-   {
-      this.RegisterNodeEventCallbackObject(new FlatListNodeEventCallbacks(this));
-      base.Start();
-   }
-
-
-   protected class FlatListNodeEventCallbacks : TreeModeNodeEventCallbacks
-   {
-      private FlatObjectListMode flatListMode;
-      public FlatListNodeEventCallbacks(FlatObjectListMode treeMode) : base(treeMode)
+      this.AddNode(node, this.Tree.Nodes);
+      for (int i = 0; i < node.NumberOfChildren; i++)
       {
-         flatListMode = treeMode;
-      }
-
-      public override void Added(ITab<UIntPtr> nodes)
-      {
-         foreach (IINode node in nodes.NodeKeysToINodeList())
-         {
-            this.flatListMode.AddNode(MaxNodeWrapper.Create(node), this.Tree.Nodes, false);
-         }
-         this.Tree.StartTimedSort(false);
+         this.FillTree(node.GetChildNode(i));
       }
    }
 }

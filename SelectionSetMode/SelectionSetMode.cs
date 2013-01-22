@@ -31,6 +31,21 @@ public class SelectionSetMode : TreeMode
       this.Tree.DragDropHandler = new TreeViewDragDropHandler();
    }
 
+
+   public override void Start()
+   {
+      this.RegisterSystemNotification(proc_NamedSelSetCreated, SystemNotificationCode.NamedSelSetCreated);
+      this.RegisterSystemNotification(proc_NamedSelSetDeleted, SystemNotificationCode.NamedSelSetDeleted);
+      this.RegisterSystemNotification(proc_NamedSelSetRenamed, SystemNotificationCode.NamedSelSetRenamed);
+      this.RegisterSystemNotification(proc_NamedSelSetPreModify, SystemNotificationCode.NamedSelSetPreModify);
+      this.RegisterSystemNotification(proc_NamedSelSetPostModify, SystemNotificationCode.NamedSelSetPostModify);
+
+      base.Start();
+   }
+
+
+   #region FillTree, AddNode
+
    protected override void FillTree()
    {
       this.Tree.BeginUpdate();
@@ -71,45 +86,9 @@ public class SelectionSetMode : TreeMode
       return base.CreateDragDropHandler(wrapper);
    }
 
-
-   public override void Start()
+   protected override TreeNode GetParentTreeNode(IINode node)
    {
-      this.RegisterSystemNotification(proc_NamedSelSetCreated, SystemNotificationCode.NamedSelSetCreated);
-      this.RegisterSystemNotification(proc_NamedSelSetDeleted, SystemNotificationCode.NamedSelSetDeleted);
-      this.RegisterSystemNotification(proc_NamedSelSetRenamed, SystemNotificationCode.NamedSelSetRenamed);
-      this.RegisterSystemNotification(proc_NamedSelSetPreModify, SystemNotificationCode.NamedSelSetPreModify);
-      this.RegisterSystemNotification(proc_NamedSelSetPostModify, SystemNotificationCode.NamedSelSetPostModify);
-
-      this.RegisterNodeEventCallbackObject(new SelectionSetNodeEventCallbacks(this));
-
-      base.Start();
-   }
-
-
-   #region NodeEventCallbacks
-
-   protected class SelectionSetNodeEventCallbacks : TreeModeNodeEventCallbacks
-   {
-      protected new SelectionSetMode TreeMode;
-      public SelectionSetNodeEventCallbacks(SelectionSetMode treeMode)
-         : base(treeMode)
-      {
-         this.TreeMode = treeMode;
-      }
-
-      public override void Added(ITab<UIntPtr> nodes)
-      {
-         TreeNode allObjSelSetTn = this.TreeMode.GetFirstTreeNode(this.TreeMode.allObjectsSelSet);
-         if (allObjSelSetTn == null)
-            return;
-
-         foreach (IINode node in IINodeHelpers.NodeKeysToINodeList(nodes))
-         {
-            this.TreeMode.AddNode(node, allObjSelSetTn.Nodes);
-            this.Tree.AddToSortQueue(allObjSelSetTn.Nodes);
-         }
-         this.Tree.StartTimedSort(true);
-      }
+      return this.GetFirstTreeNode(this.allObjectsSelSet);
    }
 
    #endregion

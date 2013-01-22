@@ -32,6 +32,23 @@ public class LayerMode : TreeMode
       proc_LayerCurrentChanged = new GlobalDelegates.Delegate5(this.LayerCurrentChanged);
    }
 
+
+   public override void Start()
+   {
+      this.RegisterSystemNotification(proc_LayerCreated, SystemNotificationCode.LayerCreated);
+      this.RegisterSystemNotification(proc_LayerDeleted, SystemNotificationCode.LayerDeleted);
+      this.RegisterSystemNotification(proc_LayerRenamed, SystemNotificationCode.LayerRenamed);
+      this.RegisterSystemNotification(proc_LayerParented, LayerNotificationCode.LayerParented);
+      this.RegisterSystemNotification(proc_LayerCurrentChanged, LayerTools.LayerTools.LayerCurrentChanged);
+
+      this.RegisterNodeEventCallbackObject(new LayerNodeEventCallbacks(this));
+
+      base.Start();
+   }
+
+
+   #region FillTree, AddNode
+   
    protected override void FillTree()
    {
       this.Tree.BeginUpdate();
@@ -67,12 +84,12 @@ public class LayerMode : TreeMode
       return tn;
    }
 
-   private Boolean ShouldAddNode(Object node)
+   protected override bool ShouldAddNode(Object obj)
    {
-      if (node is IILayer)
+      if (obj is IILayer)
          return true;
 
-      IINode inode = node as IINode;
+      IINode inode = obj as IINode;
       if (inode == null)
          return false;
 
@@ -80,6 +97,15 @@ public class LayerMode : TreeMode
          return !inode.IsGroupMember;
 
       return true;
+   }
+
+   protected override TreeNode GetParentTreeNode(IINode node)
+   {
+      IILayer layer = node.GetReference((int)ReferenceNumbers.NodeLayerRef) as IILayer;
+      if (layer == null)
+         return null;
+
+      return this.GetFirstTreeNode(layer);
    }
 
    public override DragDropHandler CreateDragDropHandler(IMaxNode node)
@@ -90,98 +116,6 @@ public class LayerMode : TreeMode
          return new INodeDragDropHandler(node);
       else
          return base.CreateDragDropHandler(node);
-   }
-
-
-   public override void Start()
-   {
-      this.RegisterSystemNotification(proc_LayerCreated, SystemNotificationCode.LayerCreated);
-      this.RegisterSystemNotification(proc_LayerDeleted, SystemNotificationCode.LayerDeleted);
-      this.RegisterSystemNotification(proc_LayerRenamed, SystemNotificationCode.LayerRenamed);
-      this.RegisterSystemNotification(proc_LayerParented, LayerNotificationCode.LayerParented);
-      this.RegisterSystemNotification(proc_LayerCurrentChanged, LayerTools.LayerTools.LayerCurrentChanged);
-
-      this.RegisterNodeEventCallbackObject(new LayerNodeEventCallbacks(this));
-
-      base.Start();
-   }
-
-
-   #region NodeEventCallbacks
-
-   protected class LayerNodeEventCallbacks : TreeModeNodeEventCallbacks
-   {
-      private LayerMode layerMode;
-      public LayerNodeEventCallbacks(LayerMode treeMode) : base(treeMode) 
-      {
-         this.layerMode = treeMode;
-      }
-
-      public override void Added(ITab<UIntPtr> nodes)
-      {
-         foreach (IINode node in IINodeHelpers.NodeKeysToINodeList(nodes))
-         {
-            TreeNode layerTn = GetLayerTreeNode(node);
-            if (layerTn == null)
-               continue;
-
-            this.TreeMode.AddNode(node, layerTn.Nodes);
-            this.Tree.AddToSortQueue(layerTn.Nodes);
-         }
-         this.Tree.StartTimedSort(true);
-      }
-
-      public override void LayerChanged(ITab<UIntPtr> nodes)
-      {
-         foreach (IINode node in nodes.NodeKeysToINodeList())
-         {
-            TreeNode tn = this.TreeMode.GetFirstTreeNode(node);
-            if (tn == null)
-               return;
-
-            TreeNode layerTn = GetLayerTreeNode(node);            
-            if (layerTn == null)
-               continue;
-
-            layerTn.Nodes.Add(tn);
-            this.Tree.AddToSortQueue(layerTn.Nodes);
-         }
-         this.Tree.StartTimedSort(true);
-      }
-
-      public override void GroupChanged(ITab<UIntPtr> nodes)
-      {
-         if (this.layerMode.ShowGroupContents)
-            return;
-
-         foreach (IINode node in nodes.NodeKeysToINodeList())
-         {
-            if (node.IsGroupMember)
-            {
-               this.layerMode.RemoveNode(node);
-            }
-            else
-            {
-               TreeNode layerTn = GetLayerTreeNode(node);
-               if (layerTn == null)
-                  continue;
-
-               this.layerMode.AddNode(node, layerTn.Nodes);
-               this.Tree.AddToSortQueue(layerTn.Nodes);
-            }
-         }
-
-         this.Tree.StartTimedSort(true);
-      }
-
-      private TreeNode GetLayerTreeNode(IINode node)
-      {
-         IILayer layer = node.GetReference((int)ReferenceNumbers.NodeLayerRef) as IILayer;
-         if (layer == null)
-            return null;
-
-         return this.TreeMode.GetFirstTreeNode(layer);
-      }
    }
 
    #endregion
@@ -242,6 +176,63 @@ public class LayerMode : TreeMode
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
       if (layer != null)
          this.InvalidateObject(layer, false, false);
+   }
+
+   #endregion
+
+
+   #region NodeEventCallbacks
+
+   protected class LayerNodeEventCallbacks : TreeModeNodeEventCallbacks
+   {
+      private LayerMode layerMode;
+      public LayerNodeEventCallbacks(LayerMode treeMode) : base(treeMode) 
+      {
+         this.layerMode = treeMode;
+      }
+
+      public override void LayerChanged(ITab<UIntPtr> nodes)
+      {
+         foreach (IINode node in nodes.NodeKeysToINodeList())
+         {
+            TreeNode tn = this.TreeMode.GetFirstTreeNode(node);
+            if (tn == null)
+               return;
+
+            TreeNode layerTn = this.layerMode.GetParentTreeNode(node);
+            if (layerTn == null)
+               continue;
+
+            layerTn.Nodes.Add(tn);
+            this.Tree.AddToSortQueue(layerTn.Nodes);
+         }
+         this.Tree.StartTimedSort(true);
+      }
+
+      public override void GroupChanged(ITab<UIntPtr> nodes)
+      {
+         if (this.layerMode.ShowGroupContents)
+            return;
+
+         foreach (IINode node in nodes.NodeKeysToINodeList())
+         {
+            if (node.IsGroupMember)
+            {
+               this.layerMode.RemoveNode(node);
+            }
+            else
+            {
+               TreeNode layerTn = this.layerMode.GetParentTreeNode(node);
+               if (layerTn == null)
+                  continue;
+
+               this.layerMode.AddNode(node, layerTn.Nodes);
+               this.Tree.AddToSortQueue(layerTn.Nodes);
+            }
+         }
+
+         this.Tree.StartTimedSort(true);
+      }
    }
 
    #endregion

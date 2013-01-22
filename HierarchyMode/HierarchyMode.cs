@@ -23,6 +23,17 @@ public class HierarchyMode : TreeMode
       tree.DragDropHandler = new TreeViewDragDropHandler();
    }
 
+
+   public override void Start()
+   {
+      this.RegisterNodeEventCallbackObject(new HierarchyNodeEventCallbacks(this));
+
+      base.Start();
+   }
+
+
+   #region FillTree, AddNode
+   
    protected override void FillTree()
    {
       this.Tree.BeginUpdate();
@@ -75,38 +86,25 @@ public class HierarchyMode : TreeMode
       return base.CreateDragDropHandler(node);
    }
 
-
-   public override void Start()
+   protected override TreeNode GetParentTreeNode(IINode node)
    {
-      this.RegisterNodeEventCallbackObject(new HierarchyNodeEventCallbacks(this));
-      base.Start();
+      if (node == null)
+         return null;
+
+      return this.GetFirstTreeNode(node.ParentNode);
    }
 
+   #endregion
 
+
+   #region NodeEventCallback
+   
    protected class HierarchyNodeEventCallbacks : TreeModeNodeEventCallbacks
    {
       private HierarchyMode hierarchyMode;
       public HierarchyNodeEventCallbacks(HierarchyMode treeMode) : base(treeMode) 
       {
          this.hierarchyMode = treeMode;
-      }
-
-      public override void Added(ITab<UIntPtr> nodes)
-      {
-         foreach (IINode node in nodes.NodeKeysToINodeList())
-         {
-            TreeNodeCollection parentCol = null;
-            TreeNode parentTn = this.TreeMode.GetFirstTreeNode(node.ParentNode);
-            if (parentTn != null)
-               parentCol = parentTn.Nodes;
-
-            if (parentCol != null)
-            {
-               this.hierarchyMode.AddNode(MaxNodeWrapper.Create(node), parentCol, false);
-               this.Tree.AddToSortQueue(parentCol);
-            }
-         }
-         this.Tree.StartTimedSort(true);
       }
 
       public override void LinkChanged(ITab<UIntPtr> nodes)
@@ -147,5 +145,7 @@ public class HierarchyMode : TreeMode
          }
       }
    }
+
+   #endregion
 }
 }
