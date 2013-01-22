@@ -21,7 +21,11 @@ public class AddToLayerMenuItems : MenuItemModel
    {
       List<ToolStripMenuItem> items = new List<ToolStripMenuItem>(MaxScene.LayerCount);
 
-      foreach (ILayerWrapper layer in MaxScene.Layers)
+      IEnumerable<ILayerWrapper> layers = MaxScene.Layers
+                                                  .OrderBy(n => !n.IsDefault)
+                                                  .ThenBy(n => n.DisplayName);
+
+      foreach (ILayerWrapper layer in layers)
       {
          ToolStripMenuItem item = new ToolStripMenuItem();
          item.Text = layer.DisplayName;
@@ -32,8 +36,7 @@ public class AddToLayerMenuItems : MenuItemModel
          items.Add(item);
       }
 
-      return items.OrderBy(i => i.Text)
-                  .ToArray();
+      return items.ToArray();
    }
 
    void item_Click(Tree.TreeView treeView, Tree.TreeNode clickedTn, ILayerWrapper layer)
