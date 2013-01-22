@@ -230,7 +230,7 @@ public class LayerMode : TreeMode
             if (newParentCol != null)
             {
                newParentCol.Add(tn);
-               this.Tree.AddToSortQueue(newParentCol);
+               this.Tree.StartTimedSort(newParentCol);
             }
          }
       }
