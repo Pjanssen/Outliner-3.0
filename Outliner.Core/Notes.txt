@@ -136,3 +136,6 @@ Options
 #67 - selection sets don't select anything
 #68 - Drawing bug when using TreeNodeIndent without visual-styles
 #69 - Drag&drop parenting layer doesn't sort
+
+3.0.23
+======

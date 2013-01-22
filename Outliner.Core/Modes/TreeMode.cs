@@ -35,7 +35,7 @@ public abstract class TreeMode
 
    protected Dictionary<Object, ICollection<TreeNode>> treeNodes { get; private set; }
 
-   internal FilterCombinator<IMaxNode> filters;
+   private FilterCombinator<IMaxNode> filters;
    private const Int32 InvisibleNodesFilterIndex = 0;
    private const Int32 OtherFiltersIndex = 1;
 
@@ -107,7 +107,8 @@ public abstract class TreeMode
       this.Tree.AfterNodeTextEdit -= tree_AfterNodeTextEdit;
       this.Tree.MouseClick -= tree_MouseClick;
 
-      this.Clear();
+      this.Tree.Nodes.Clear();
+      this.treeNodes.Clear();
 
       this.started = false;
    }
@@ -320,6 +321,19 @@ public abstract class TreeMode
       this.UnregisterNode(wrapper.BaseObject);
    }
 
+   #endregion
+
+
+   #region AddNode, RemoveNode
+
+   public virtual TreeNode AddNode(Object node, TreeNodeCollection parentCol)
+   {
+      Throw.IfArgumentIsNull(node, "node");
+      Throw.IfArgumentIsNull(parentCol, "parentCol");
+
+      return this.AddNode(MaxNodeWrapper.Create(node), parentCol);
+   }
+
    public virtual TreeNode AddNode(IMaxNode wrapper, TreeNodeCollection parentCol)
    {
       Throw.IfArgumentIsNull(wrapper, "wrapper");
@@ -339,20 +353,30 @@ public abstract class TreeMode
       return tn;
    }
 
-   public virtual TreeNode AddNode(Object node, TreeNodeCollection parentCol)
-   {
-      Throw.IfArgumentIsNull(node, "node");
-      Throw.IfArgumentIsNull(parentCol, "parentCol");
-
-      return this.AddNode(MaxNodeWrapper.Create(node), parentCol);
-   }
-
-
    public virtual DragDropHandler CreateDragDropHandler(IMaxNode node)
    {
       return null;
    }
 
+   protected virtual Boolean ShouldAddNode(object obj)
+   {
+      return true;
+   }
+
+   protected virtual Boolean ShouldAddNode(IINode node)
+   {
+      return true;
+   }
+
+   protected virtual TreeNode GetParentTreeNode(object obj)
+   {
+      return this.Tree.Root;
+   }
+
+   protected virtual TreeNode GetParentTreeNode(IINode node)
+   {
+      return this.Tree.Root;
+   }
 
    public virtual void RemoveNode(IMaxNode wrapper)
    {
@@ -367,22 +391,17 @@ public abstract class TreeMode
          foreach (TreeNode  tn in tns)
          {
             this.Tree.SelectNode(tn, false);
-            //this.Tree.SelectedNodes.Remove(tn);
             tn.Remove();
          }
          this.UnregisterNode(node);
       }
    }
 
-
-   protected void Clear()
-   {
-      this.Tree.Nodes.Clear();
-      this.treeNodes.Clear();
-   }
+   #endregion
 
 
-
+   #region Invalidate, UpdateFilter
+   
    public virtual void InvalidateObject(Object obj, Boolean recursive, Boolean sort)
    {
       if (obj != null)
@@ -430,7 +449,6 @@ public abstract class TreeMode
          }
       }
    }
-
 
    #endregion
 
@@ -525,6 +543,20 @@ public abstract class TreeMode
    protected class DefaultNodeEventCallbacks : TreeModeNodeEventCallbacks
    {
       public DefaultNodeEventCallbacks(TreeMode treeMode) : base(treeMode) { }
+
+      public override void Added(ITab<UIntPtr> nodes)
+      {
+         foreach (IINode node in IINodeHelpers.NodeKeysToINodeList(nodes))
+         {
+            TreeNode parentTn = this.TreeMode.GetParentTreeNode(node);
+            if (parentTn == null)
+               continue;
+
+            this.TreeMode.AddNode(node, parentTn.Nodes);
+            this.Tree.AddToSortQueue(parentTn.Nodes);
+         }
+         this.Tree.StartTimedSort(true);
+      }
 
       public override void Deleted(ITab<UIntPtr> nodes)
       {
