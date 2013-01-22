@@ -98,7 +98,7 @@ public class LayerMode : TreeMode
       this.RegisterSystemNotification(proc_LayerCreated, SystemNotificationCode.LayerCreated);
       this.RegisterSystemNotification(proc_LayerDeleted, SystemNotificationCode.LayerDeleted);
       this.RegisterSystemNotification(proc_LayerRenamed, SystemNotificationCode.LayerRenamed);
-      this.RegisterSystemNotification(proc_LayerParented, NestedLayers.LayerParented);
+      this.RegisterSystemNotification(proc_LayerParented, LayerNotificationCode.LayerParented);
       this.RegisterSystemNotification(proc_LayerCurrentChanged, LayerTools.LayerTools.LayerCurrentChanged);
 
       this.RegisterNodeEventCallbackObject(new LayerNodeEventCallbacks(this));
