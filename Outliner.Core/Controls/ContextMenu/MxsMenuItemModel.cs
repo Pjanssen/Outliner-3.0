@@ -105,7 +105,7 @@ public class MxsMenuItemModel : MenuItemModel
 
    private static String FormatScript(String script, Tree.TreeView treeView)
    {
-      StringBuilder scriptBuilder = new StringBuilder("fn mxsFn = ( local nodes = #( ");
+      StringBuilder scriptBuilder = new StringBuilder("( fn mxsFn = ( local nodes = #( ");
 
       foreach (IMaxNode node in HelperMethods.GetMaxNodes(treeView.SelectedNodes))
       {
@@ -119,7 +119,7 @@ public class MxsMenuItemModel : MenuItemModel
       scriptBuilder.Remove(scriptBuilder.Length - 1, 1);
       scriptBuilder.AppendLine("); ");
       scriptBuilder.AppendLine(script);
-      scriptBuilder.Append("); mxsFn();");
+      scriptBuilder.Append("); mxsFn(); )");
       return scriptBuilder.ToString();
    }
 }

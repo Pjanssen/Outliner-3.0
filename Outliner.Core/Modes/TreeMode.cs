@@ -80,7 +80,7 @@ public abstract class TreeMode
 
       this.RegisterSystemNotification(this.proc_LayerHiddenChanged, SystemNotificationCode.LayerHiddenStateChanged);
       this.RegisterSystemNotification(this.proc_LayerFrozenChanged, SystemNotificationCode.LayerFrozenStateChanged);
-      this.RegisterSystemNotification(this.proc_LayerPropChanged, NestedLayers.LayerPropertyChanged);
+      this.RegisterSystemNotification(this.proc_LayerPropChanged, LayerNotificationCode.LayerPropertyChanged);
 
       this.RegisterNodeEventCallbackObject(new DefaultNodeEventCallbacks(this));
 

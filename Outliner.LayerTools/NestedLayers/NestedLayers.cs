@@ -17,9 +17,6 @@ public static class NestedLayers
    private static IClass_ID classID;
    private const uint PropertySbidOffset = 10;
 
-   public const SystemNotificationCode LayerParented = (SystemNotificationCode)0x00000100;
-   public const SystemNotificationCode LayerPropertyChanged = (SystemNotificationCode)0x00000101;
-
    private enum SubID : uint
    {
       ParentHandle,
@@ -146,7 +143,7 @@ public static class NestedLayers
       if (updateProperties)
          NestedLayers.updateProperties(layer, true);
 
-      MaxInterfaces.Global.BroadcastNotification(LayerParented, layer);
+      MaxInterfaces.Global.BroadcastNotification(LayerNotificationCode.LayerParented, layer);
    }
 
    /// <summary>
@@ -351,7 +348,7 @@ public static class NestedLayers
       else
       {
          LayerPropertyChangedParam parameters = new LayerPropertyChangedParam(layer, NodePropertyHelpers.ToProperty(property));
-         MaxInterfaces.Global.BroadcastNotification(NestedLayers.LayerPropertyChanged, parameters);
+         MaxInterfaces.Global.BroadcastNotification(LayerNotificationCode.LayerPropertyChanged, parameters);
       }
 
       //Propagate to children.

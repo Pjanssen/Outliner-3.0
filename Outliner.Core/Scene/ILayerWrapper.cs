@@ -412,7 +412,8 @@ namespace Outliner.Scene
             Throw.IfArgumentIsNull(value, "value");
 
             this.ILayer.WireColor = value;
-            MaxInterfaces.Global.BroadcastNotification(NestedLayers.LayerPropertyChanged, this.ILayer);
+            LayerPropertyChangedParam parameters = new LayerPropertyChangedParam(this.ILayer, NodeProperty.WireColor);
+            MaxInterfaces.Global.BroadcastNotification(LayerNotificationCode.LayerPropertyChanged, parameters);
          }
       }
 

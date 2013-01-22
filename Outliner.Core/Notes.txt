@@ -128,9 +128,11 @@ Options
 3.0.22
 ======
 #48 - Clicking the Edit Presets\Custom Presets throws out .Net exception
+#56 - Setting "wirecolor" for layers results in .Net exception.
 #59 - Wirecolorbutton inherited from layer throws exception
 #64 - Render Settings menu is empty in Layers preset
 #65 - "Layers Only" preset doesn't have the proper filter
 #66 - Exception and Missing actions, when trying to apply display settings to a layer
 #67 - selection sets don't select anything
 #68 - Drawing bug when using TreeNodeIndent without visual-styles
+#69 - Drag&drop parenting layer doesn't sort
