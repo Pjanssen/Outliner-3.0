@@ -38,7 +38,7 @@ namespace Outliner.Commands
             String selSetName = selSetMan.GetNamedSelSetName(i);
             nameMaker.AddName(ref selSetName);
          }
-         String newName = "newSelSet";
+         String newName = "New Set ";
          nameMaker.MakeUniqueName(ref newName);
 
          ITab<IINode> nodeTab = HelperMethods.ToIINodeTab(this.nodes);
