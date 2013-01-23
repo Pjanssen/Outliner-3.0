@@ -2,34 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WinForms = System.Windows.Forms;
 using Outliner.Controls.Tree;
 using Outliner.Filters;
 using Outliner.Scene;
 
 namespace Outliner.Controls.Options
 {
-   public class FilterCombinatorDragDropHandler : DragDropHandler
+   public class FilterCombinatorDragDropHandler : IDragDropHandler
    {
       FilterCombinator<IMaxNode> filter;
 
       public FilterCombinatorDragDropHandler(FilterCombinator<IMaxNode> filter)
-         : base(null)
       {
          this.filter = filter;
       }
 
-      public override bool AllowDrag
+      public bool AllowDrag
       {
          get { return false; }
       }
 
-      public override bool IsValidDropTarget(System.Windows.Forms.IDataObject dragData)
+      public bool IsValidDropTarget(WinForms.IDataObject dragData)
       {
-         IEnumerable<TreeNode> tns = DragDropHandler.GetNodesFromDataObject(dragData);
+         IEnumerable<TreeNode> tns = TreeView.GetTreeNodesFromDragData(dragData);
          return tns != null && tns.All(tn => tn.Tag is Filter<IMaxNode> && tn.Tag != filter);
       }
 
-      public override System.Windows.Forms.DragDropEffects GetDragDropEffect(System.Windows.Forms.IDataObject dragData)
+      public WinForms.DragDropEffects GetDragDropEffect(WinForms.IDataObject dragData)
       {
          if (this.IsValidDropTarget(dragData))
             return System.Windows.Forms.DragDropEffects.Move;
@@ -37,12 +37,12 @@ namespace Outliner.Controls.Options
             return Tree.TreeView.NoneDragDropEffects;
       }
 
-      public override void HandleDrop(System.Windows.Forms.IDataObject dragData)
+      public void HandleDrop(System.Windows.Forms.IDataObject dragData)
       {
          if (!this.IsValidDropTarget(dragData))
             return;
 
-         IEnumerable<TreeNode> tns = DragDropHandler.GetNodesFromDataObject(dragData);
+         IEnumerable<TreeNode> tns = TreeView.GetTreeNodesFromDragData(dragData);
          foreach (TreeNode tn in tns)
          {
             Filter<IMaxNode> draggedFilter = tn.Tag as Filter<IMaxNode>;

@@ -353,7 +353,7 @@ public abstract class TreeMode
       return tn;
    }
 
-   public virtual DragDropHandler CreateDragDropHandler(IMaxNode node)
+   public virtual IDragDropHandler CreateDragDropHandler(IMaxNode node)
    {
       return null;
    }

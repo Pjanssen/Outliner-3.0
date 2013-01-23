@@ -543,7 +543,7 @@ public class TreeView : ScrollableControl
    /// </summary>
    [Browsable(false)]
    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-   public DragDropHandler DragDropHandler { get; set; }
+   public IDragDropHandler DragDropHandler { get; set; }
 
    protected override void OnDragEnter(DragEventArgs drgevent)
    {
@@ -564,7 +564,7 @@ public class TreeView : ScrollableControl
       base.OnDragLeave(e);
    }
 
-   private DragDropHandler getDragDropHandler(TreeNode tn, Point location)
+   private IDragDropHandler getDragDropHandler(TreeNode tn, Point location)
    {
       TreeNodeLayoutItem layoutItem = this.TreeNodeLayout.GetItemAt(tn, location);
 
@@ -581,7 +581,7 @@ public class TreeView : ScrollableControl
 
       Point location = this.PointToClient(new Point(drgevent.X, drgevent.Y));
       TreeNode tn = this.GetNodeAt(location);
-      DragDropHandler dragDropHandler = this.getDragDropHandler(tn, location);
+      IDragDropHandler dragDropHandler = this.getDragDropHandler(tn, location);
 
       if (prevDragTarget != null && prevDragTarget != tn)
       {
@@ -613,7 +613,7 @@ public class TreeView : ScrollableControl
 
       Point location = this.PointToClient(new Point(drgevent.X, drgevent.Y));
       TreeNode tn = this.GetNodeAt(location);
-      DragDropHandler dragDropHandler = this.getDragDropHandler(tn, location);
+      IDragDropHandler dragDropHandler = this.getDragDropHandler(tn, location);
 
       if (prevDragTarget != null)
       {
@@ -627,6 +627,18 @@ public class TreeView : ScrollableControl
       }
       
       base.OnDragDrop(drgevent);
+   }
+
+   public static IEnumerable<TreeNode> GetTreeNodesFromDragData(IDataObject dragData)
+   {
+      Throw.IfArgumentIsNull(dragData, "dragData");
+
+      Type dataType = typeof(IEnumerable<TreeNode>);
+
+      if (dragData.GetDataPresent(dataType))
+         return dragData.GetData(dataType) as IEnumerable<TreeNode>;
+      else
+         return Enumerable.Empty<TreeNode>();
    }
 
    #endregion

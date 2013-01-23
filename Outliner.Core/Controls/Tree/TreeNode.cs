@@ -25,7 +25,7 @@ public class TreeNode
    private Boolean showNode;
 
    public TreeNodeCollection Nodes { get; private set; }
-   public DragDropHandler DragDropHandler { get; set; }
+   public IDragDropHandler DragDropHandler { get; set; }
    public Object Tag { get; set; }
 
    public TreeNode() : this("") { }

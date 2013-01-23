@@ -272,13 +272,14 @@
     <Compile Include="Controls\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Tree\DragDropHandler.cs" />
+    <Compile Include="Controls\Tree\IDragDropHandler.cs" />
     <Compile Include="Controls\Tree\Layout\EmptySpace.cs" />
     <Compile Include="Controls\Tree\Layout\ImageButton.cs" />
     <Compile Include="Controls\Tree\Layout\TreeNodeButton.cs" />
     <Compile Include="Controls\Tree\Layout\TreeNodeLayoutItemCollection.cs" />
     <Compile Include="Controls\Tree\Layout\ExpandButton.cs" />
     <Compile Include="Controls\Tree\Layout\TreeNodeIndent.cs" />
+    <Compile Include="Controls\Tree\MaxNodeDragDropHandler.cs" />
     <Compile Include="Controls\Tree\MaxTreeNode.cs" />
     <Compile Include="Controls\Tree\SelectionChangedEventArgs.cs" />
     <Compile Include="Controls\Tree\TreeNode.cs" />
