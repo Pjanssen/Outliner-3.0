@@ -9,9 +9,9 @@ using Outliner.Controls.Tree;
 
 namespace Outliner.Modes.Hierarchy
 {
-public class INodeDragDropHandler : DragDropHandler
+public class INodeDragDropHandler : MaxNodeDragDropHandler
 {
-   public INodeDragDropHandler(IMaxNode data) : base(data) { }
+   public INodeDragDropHandler(IMaxNode node) : base(node) { }
 
    public override bool AllowDrag
    {
@@ -20,19 +20,12 @@ public class INodeDragDropHandler : DragDropHandler
 
    public override bool IsValidDropTarget(WinForms::IDataObject dragData)
    {
-      IEnumerable<TreeNode> draggedNodes = DragDropHandler.GetNodesFromDataObject(dragData);
-      if (draggedNodes == null)
-         return false;
-
-      return this.Data.CanAddChildNodes(HelperMethods.GetMaxNodes(draggedNodes));
+      return this.MaxNode.CanAddChildNodes(GetMaxNodesFromDragData(dragData));
    }
 
-   public override WinForms::DragDropEffects GetDragDropEffect(WinForms::IDataObject dragData)
+   public override WinForms.DragDropEffects DefaultDragDropEffect
    {
-      if (this.IsValidDropTarget(dragData))
-         return WinForms::DragDropEffects.Link;
-      else
-         return TreeView.NoneDragDropEffects;
+      get { return WinForms.DragDropEffects.Link; }
    }
 
    public override void HandleDrop(WinForms::IDataObject dragData)
@@ -40,12 +33,10 @@ public class INodeDragDropHandler : DragDropHandler
       if (!this.IsValidDropTarget(dragData))
          return;
 
-      IEnumerable<TreeNode> draggedNodes = DragDropHandler.GetNodesFromDataObject(dragData);
-      if (draggedNodes == null)
-         return;
+      IEnumerable<IMaxNode> draggedNodes = GetMaxNodesFromDragData(dragData);
 
-      MoveMaxNodeCommand cmd = new MoveMaxNodeCommand( HelperMethods.GetMaxNodes(draggedNodes)
-                                                     , this.Data
+      MoveMaxNodeCommand cmd = new MoveMaxNodeCommand( draggedNodes
+                                                     , this.MaxNode
                                                      , Resources.Command_Link
                                                      , Resources.Command_Unlink);
       cmd.Execute(true);

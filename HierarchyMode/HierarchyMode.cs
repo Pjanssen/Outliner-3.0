@@ -72,7 +72,7 @@ public class HierarchyMode : TreeMode
    }
 
 
-   public override DragDropHandler CreateDragDropHandler(IMaxNode node)
+   public override IDragDropHandler CreateDragDropHandler(IMaxNode node)
    {
       INodeWrapper iinodeWrapper = node as INodeWrapper;
       if (iinodeWrapper != null)

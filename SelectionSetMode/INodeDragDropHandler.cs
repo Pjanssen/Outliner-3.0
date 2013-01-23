@@ -8,9 +8,9 @@ using Outliner.Controls.Tree;
 
 namespace Outliner.Modes.SelectionSet
 {
-   public class INodeDragDropHandler : DragDropHandler
+   public class INodeDragDropHandler : MaxNodeDragDropHandler
    {
-      public INodeDragDropHandler(IMaxNode data) : base(data) { }
+      public INodeDragDropHandler(IMaxNode node) : base(node) { }
 
       public override bool AllowDrag
       {
@@ -20,16 +20,6 @@ namespace Outliner.Modes.SelectionSet
       public override bool IsValidDropTarget(WinForms::IDataObject dragData)
       {
          return false;
-      }
-
-      public override WinForms::DragDropEffects GetDragDropEffect(WinForms::IDataObject dragData)
-      {
-         return TreeView.NoneDragDropEffects;
-      }
-
-      public override void HandleDrop(WinForms::IDataObject dragData)
-      {
-         //Nothing can be dropped onto an IINode in selection-set mode.
       }
    }
 }

@@ -11,7 +11,7 @@ namespace Outliner.Modes.Hierarchy
 {
 public class GroupDragDropHandler : INodeDragDropHandler
 {
-   public GroupDragDropHandler(IMaxNode data) : base(data) { }
+   public GroupDragDropHandler(IMaxNode node) : base(node) { }
 
    public override bool AllowDrag
    {
@@ -40,12 +40,8 @@ public class GroupDragDropHandler : INodeDragDropHandler
          if (!this.IsValidDropTarget(dragData))
             return;
 
-         IEnumerable<TreeNode> draggedNodes = DragDropHandler.GetNodesFromDataObject(dragData);
-         if (draggedNodes == null)
-            return;
-
-         IEnumerable<IMaxNode> nodes = HelperMethods.GetMaxNodes(draggedNodes);
-         ChangeGroupCommand cmd = new ChangeGroupCommand(nodes, this.Data, true);
+         IEnumerable<IMaxNode> nodes = GetMaxNodesFromDragData(dragData);
+         ChangeGroupCommand cmd = new ChangeGroupCommand(nodes, this.MaxNode, true);
          cmd.Execute(true);
       }
    }

@@ -8,7 +8,7 @@ using Outliner.Controls.Tree;
 
 namespace Outliner.Modes.Layer
 {
-   public class INodeDragDropHandler : DragDropHandler
+   public class INodeDragDropHandler : MaxNodeDragDropHandler
    {
       public INodeDragDropHandler(IMaxNode data) : base(data) { }
 
@@ -20,16 +20,6 @@ namespace Outliner.Modes.Layer
       public override bool IsValidDropTarget(WinForms::IDataObject dragData)
       {
          return false;
-      }
-
-      public override WinForms::DragDropEffects GetDragDropEffect(WinForms::IDataObject dragData)
-      {
-         return TreeView.NoneDragDropEffects;
-      }
-
-      public override void HandleDrop(WinForms::IDataObject dragData)
-      {
-         //Nothing can be dropped onto an IINode in layer mode.
       }
    }
 }

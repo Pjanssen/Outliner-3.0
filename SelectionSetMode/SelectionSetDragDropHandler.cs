@@ -10,9 +10,9 @@ using Outliner.MaxUtils;
 
 namespace Outliner.Modes.SelectionSet
 {
-public class SelectionSetDragDropHandler : DragDropHandler
+public class SelectionSetDragDropHandler : MaxNodeDragDropHandler
 {
-   public SelectionSetDragDropHandler(SelectionSetWrapper data) : base(data) { }
+   public SelectionSetDragDropHandler(SelectionSetWrapper node) : base(node) { }
 
    public override bool AllowDrag
    {
@@ -21,11 +21,7 @@ public class SelectionSetDragDropHandler : DragDropHandler
 
    public override bool IsValidDropTarget(WinForms::IDataObject dragData)
    {
-      IEnumerable<TreeNode> draggedNodes = DragDropHandler.GetNodesFromDataObject(dragData);
-      if (draggedNodes == null)
-         return false;
-
-      return this.Data.CanAddChildNodes(HelperMethods.GetMaxNodes(draggedNodes));
+      return this.MaxNode.CanAddChildNodes(GetMaxNodesFromDragData(dragData));
    }
 
    public override WinForms::DragDropEffects GetDragDropEffect(WinForms::IDataObject dragData)
@@ -44,12 +40,12 @@ public class SelectionSetDragDropHandler : DragDropHandler
       if (!this.IsValidDropTarget(dragData))
          return;
 
-      IEnumerable<TreeNode> draggedNodes = DragDropHandler.GetNodesFromDataObject(dragData);
+      IEnumerable<TreeNode> draggedNodes = TreeView.GetTreeNodesFromDragData(dragData);
       if (draggedNodes == null)
          return;
 
       IEnumerable<IMaxNode> draggedMaxNodes = HelperMethods.GetMaxNodes(draggedNodes);
-      SelectionSetWrapper targetSelSet = (SelectionSetWrapper)this.Data;
+      SelectionSetWrapper targetSelSet = (SelectionSetWrapper)this.MaxNode;
 
       IEnumerable<IMaxNode> combinedNodes = targetSelSet.ChildNodes.Union(draggedMaxNodes);
       ModifySelectionSetCommand cmd = new ModifySelectionSetCommand(targetSelSet, combinedNodes);

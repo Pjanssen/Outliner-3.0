@@ -108,7 +108,7 @@ public class LayerMode : TreeMode
       return this.GetFirstTreeNode(layer);
    }
 
-   public override DragDropHandler CreateDragDropHandler(IMaxNode node)
+   public override IDragDropHandler CreateDragDropHandler(IMaxNode node)
    {
       if (node is ILayerWrapper)
          return new ILayerDragDropHandler((ILayerWrapper)node);

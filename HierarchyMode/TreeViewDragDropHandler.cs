@@ -9,25 +9,23 @@ using Outliner.Controls.Tree;
 
 namespace Outliner.Modes.Hierarchy
 {
-public class TreeViewDragDropHandler : DragDropHandler
+public class TreeViewDragDropHandler : IDragDropHandler
 {
-   public TreeViewDragDropHandler() : base(null) { }
+   public TreeViewDragDropHandler() { }
 
-   public override bool AllowDrag
+   public bool AllowDrag
    {
       get { return false; }
    }
 
-   public override bool IsValidDropTarget(WinForms::IDataObject dragData)
+   public bool IsValidDropTarget(WinForms::IDataObject dragData)
    {
-      IEnumerable<TreeNode> draggedNodes = DragDropHandler.GetNodesFromDataObject(dragData);
-      if (draggedNodes == null)
-         return false;
+      IEnumerable<IMaxNode> draggedNodes = MaxNodeDragDropHandler.GetMaxNodesFromDragData(dragData);
 
-      return HelperMethods.GetMaxNodes(draggedNodes).All(n => n is INodeWrapper);
+      return draggedNodes.All(n => n is INodeWrapper);
    }
 
-   public override WinForms::DragDropEffects GetDragDropEffect(WinForms::IDataObject dragData)
+   public WinForms::DragDropEffects GetDragDropEffect(WinForms::IDataObject dragData)
    {
       if (this.IsValidDropTarget(dragData))
          return WinForms::DragDropEffects.Move;
@@ -35,17 +33,17 @@ public class TreeViewDragDropHandler : DragDropHandler
          return TreeView.NoneDragDropEffects;
    }
 
-   public override void HandleDrop(WinForms::IDataObject dragData)
+   public void HandleDrop(WinForms::IDataObject dragData)
    {
       if (!this.IsValidDropTarget(dragData))
          return;
 
-      IEnumerable<TreeNode> draggedNodes = DragDropHandler.GetNodesFromDataObject(dragData);
-      if (draggedNodes == null)
-         return;
+      IEnumerable<IMaxNode> draggedNodes = MaxNodeDragDropHandler.GetMaxNodesFromDragData(dragData);
 
-      MoveMaxNodeCommand cmd = new MoveMaxNodeCommand(HelperMethods.GetMaxNodes(draggedNodes), null,
-         Resources.Command_Link, Resources.Command_Unlink);
+      MoveMaxNodeCommand cmd = new MoveMaxNodeCommand( draggedNodes
+                                                     , null
+                                                     , Resources.Command_Link
+                                                     , Resources.Command_Unlink);
       cmd.Execute(true);
    }
 }

@@ -9,21 +9,21 @@ using Outliner.Commands;
 
 namespace Outliner.Modes.SelectionSet
 {
-public class TreeViewDragDropHandler : DragDropHandler
+public class TreeViewDragDropHandler : IDragDropHandler
 {
-   public TreeViewDragDropHandler() : base(null) { }
+   public TreeViewDragDropHandler() { }
 
-   public override bool AllowDrag
+   public bool AllowDrag
    {
       get { return false; }
    }
 
-   public override bool IsValidDropTarget(WinForms::IDataObject dragData)
+   public bool IsValidDropTarget(WinForms::IDataObject dragData)
    {
       return true;
    }
 
-   public override WinForms::DragDropEffects GetDragDropEffect(WinForms::IDataObject dragData)
+   public WinForms::DragDropEffects GetDragDropEffect(WinForms::IDataObject dragData)
    {
       if (this.IsValidDropTarget(dragData))
          return WinForms::DragDropEffects.Move;
@@ -31,12 +31,12 @@ public class TreeViewDragDropHandler : DragDropHandler
          return TreeView.NoneDragDropEffects;
    }
 
-   public override void HandleDrop(WinForms::IDataObject dragData)
+   public void HandleDrop(WinForms::IDataObject dragData)
    {
       if (!this.IsValidDropTarget(dragData))
          return;
 
-      IEnumerable<TreeNode> draggedNodes = DragDropHandler.GetNodesFromDataObject(dragData);
+      IEnumerable<TreeNode> draggedNodes = TreeView.GetTreeNodesFromDragData(dragData);
       if (draggedNodes == null)
          return;
 
