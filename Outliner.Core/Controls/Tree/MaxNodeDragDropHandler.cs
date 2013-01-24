@@ -40,7 +40,7 @@ namespace Outliner.Controls.Tree
          get { return DragDropEffects.Move; }
       }
 
-      protected static IEnumerable<IMaxNode> GetMaxNodesFromDragData(IDataObject dragData)
+      public static IEnumerable<IMaxNode> GetMaxNodesFromDragData(IDataObject dragData)
       {
          return HelperMethods.GetMaxNodes(TreeView.GetTreeNodesFromDragData(dragData));
       }

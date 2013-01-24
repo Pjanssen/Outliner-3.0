@@ -81,13 +81,5 @@ public static class MaxScene
          }
       }
    }
-
-   public static IEnumerable<SelectionSetWrapper> SelectionSets
-   {
-      get
-      {
-         throw new NotImplementedException();
-      }
-   }
 }
 }

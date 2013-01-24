@@ -190,9 +190,6 @@ Use {0} to expand entire hierarchy.</value>
   <data name="Outliner_WindowTitle" xml:space="preserve">
     <value>Outliner</value>
   </data>
-  <data name="Command_ModifySelSet" xml:space="preserve">
-    <value>Modify Selection Set</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="sort_alphabetical_16_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\sort_alphabetical_16_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -297,13 +294,16 @@ For more details on the error, see Outliner.SettingsLoadException.ToString()</va
   <data name="Command_CreateNewLayer" xml:space="preserve">
     <value>Create New Layer</value>
   </data>
-  <data name="Command_AddToNewSelSet" xml:space="preserve">
-    <value>Add to new selection-set</value>
-  </data>
   <data name="Command_AddToNewContainer" xml:space="preserve">
     <value>Add to new container</value>
   </data>
   <data name="Str_LayerDefault" xml:space="preserve">
     <value> (default)</value>
+  </data>
+  <data name="Str_ILayer" xml:space="preserve">
+    <value>Layer</value>
+  </data>
+  <data name="Str_INode" xml:space="preserve">
+    <value>Node</value>
   </data>
 </root>

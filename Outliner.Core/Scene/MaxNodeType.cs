@@ -17,8 +17,9 @@ public enum MaxNodeType
    Layer        = 0x02,
    Material     = 0x04,
    SelectionSet = 0x08,
+   TextureMap   = 0x10,
 
-   All          = Object | Layer | Material | SelectionSet
+   All          = Object | Layer | Material | SelectionSet | TextureMap
 }
 
 }

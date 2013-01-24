@@ -37,7 +37,7 @@ namespace Outliner.Commands
 
       public IMaxNode CreatedContainer
       {
-         get { return MaxNodeWrapper.Create(this.containerNode); }
+         get { return new INodeWrapper(this.containerNode); }
       }
    }
 }

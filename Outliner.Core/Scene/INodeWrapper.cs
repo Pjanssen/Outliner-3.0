@@ -169,8 +169,8 @@ namespace Outliner.Scene
          if (node == null)
             return false;
 
-         //SelectionSet
-         if (node is SelectionSetWrapper)
+         //Aggregates (e.g. SelectionSet)
+         if (node.IsAggregate)
             return this.CanAddChildNodes(node.ChildNodes);
 
          //IINode
@@ -194,7 +194,8 @@ namespace Outliner.Scene
          if (!this.CanAddChildNode(node))
             return;
 
-         if (node is SelectionSetWrapper)
+         //Aggregates (e.g. SelectionSet)
+         if (node.IsAggregate)
             this.AddChildNodes(node.ChildNodes);
 
          IINode inode = node.BaseObject as IINode;
@@ -274,6 +275,11 @@ namespace Outliner.Scene
             else
                return name;
          }
+      }
+
+      public override string NodeTypeDisplayName
+      {
+         get { return OutlinerResources.Str_INode; }
       }
 
       #endregion

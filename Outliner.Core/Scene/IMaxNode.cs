@@ -19,6 +19,12 @@ namespace Outliner.Scene
       Object BaseObject { get; }
 
       /// <summary>
+      /// Indicates whether the node should be treated as an actual scene entity,
+      /// or as a collection of nodes, aggregated in a logical container (e.g. a Selection-Set).
+      /// </summary>
+      Boolean IsAggregate { get; }
+
+      /// <summary>
       /// Gets or sets the parent node of this IMaxNode.
       /// </summary>
       IMaxNode Parent { get; set; }
@@ -154,6 +160,9 @@ namespace Outliner.Scene
       /// The name of this IMaxNode formatted for displaying in the UI.
       /// </summary>
       String DisplayName { get; }
+
+
+      String NodeTypeDisplayName { get; }
 
       #endregion
 

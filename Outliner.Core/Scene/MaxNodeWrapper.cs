@@ -12,6 +12,11 @@ namespace Outliner.Scene
    {
       public abstract Object BaseObject { get; }
 
+      public virtual Boolean IsAggregate
+      {
+         get { return false; }
+      }
+
       public virtual IMaxNode Parent
       {
          get { return null; }
@@ -65,6 +70,7 @@ namespace Outliner.Scene
       public virtual IEnumerable<IMaxNode> ChildNodes
       {
          get { return ChildBaseObjects.Select(MaxNodeWrapper.Create); }
+         // Enumerable.Empty<IMaxNode>(); }
       }
 
       public virtual Boolean CanAddChildNode(IMaxNode node)
@@ -141,6 +147,11 @@ namespace Outliner.Scene
       public virtual String DisplayName
       {
          get { return this.Name; }
+      }
+
+      public virtual String NodeTypeDisplayName
+      {
+         get { return this.BaseObject.GetType().Name; }
       }
 
       #endregion
@@ -225,29 +236,43 @@ namespace Outliner.Scene
       }
 
 
-      public static MaxNodeWrapper Create(Object obj)
+
+      #region Factory
+
+      private static List<IMaxNodeFactory> maxNodeFactories;
+
+      /// <summary>
+      /// Registers a new IMaxNodeFactory. The factory can be used to create a wrapper
+      /// for any kind of node in the scene. When the factory can't create an appropriate
+      /// wrapper, it should return null.
+      /// </summary>
+      public static void RegisterMaxNodeFactory(IMaxNodeFactory factory)
       {
-         Throw.IfArgumentIsNull(obj, "obj");
+         if (maxNodeFactories == null)
+            maxNodeFactories = new List<IMaxNodeFactory>();
 
-         //INodeWrapper
-         IINode inode = obj as IINode;
-         if (inode != null)
-            return new INodeWrapper(inode);
-
-         //ILayerWrapper
-         IILayer ilayer = obj as IILayer;
-         if (ilayer != null)
-            return new ILayerWrapper(ilayer);
-         IILayerProperties ilayerProperties = obj as IILayerProperties;
-         if (ilayerProperties != null)
-            return new ILayerWrapper(ilayerProperties);
-
-         //MaterialWrapper
-         IMtl imtl = obj as IMtl;
-         if (imtl != null)
-            return new MaterialWrapper(imtl);
-
-         throw new NotSupportedException("Cannot create a wrapper for object of type " + obj.GetType().Name);
+         maxNodeFactories.Add(factory);
       }
+
+      /// <summary>
+      /// Attempts to create a new IMaxNode wrapper using the registered factories.
+      /// </summary>
+      /// <exception cref="ArgumentNullException" />
+      /// <exception cref="NotSupportedException" />
+      public static IMaxNode Create(object baseNode)
+      {
+         Throw.IfArgumentIsNull(baseNode, "baseNode");
+
+         foreach (IMaxNodeFactory factory in maxNodeFactories)
+         {
+            IMaxNode node = factory.CreateMaxNode(baseNode);
+            if (node != null)
+               return node;
+         }
+
+         throw new NotSupportedException("Cannot create a wrapper for object of type " + baseNode.GetType().Name);         
+      }
+
+      #endregion
    }
 }

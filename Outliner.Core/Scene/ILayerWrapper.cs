@@ -258,6 +258,12 @@ namespace Outliner.Scene
          if (node == null)
             return false;
 
+         //Aggregates (e.g. SelectionSet)
+         if (node.IsAggregate)
+         {
+            return this.CanAddChildNodes(node.ChildNodes);
+         }
+
          INodeWrapper inodeWrapper = node as INodeWrapper;
          if (inodeWrapper != null)
          {
@@ -269,12 +275,6 @@ namespace Outliner.Scene
          if (ilayerWrapper != null)
          {
             return !this.IsInParentChain(node) && (node.Parent == null || !node.Parent.Equals(this));
-         }
-
-         SelectionSetWrapper selSetWrapper = node as SelectionSetWrapper;
-         if (selSetWrapper != null)
-         {
-            return this.CanAddChildNodes(node.ChildNodes);
          }
          
          return false;
@@ -302,6 +302,13 @@ namespace Outliner.Scene
          if (!this.CanAddChildNode(node))
             return;
 
+         //Aggregates (e.g. SelectionSet)
+         if (node.IsAggregate)
+         {
+            this.AddChildNodes(node.ChildNodes);
+            return;
+         }
+
          INodeWrapper inodeWrapper = node as INodeWrapper;
          if (inodeWrapper != null)
          {
@@ -313,13 +320,6 @@ namespace Outliner.Scene
          if (ilayerWrapper != null)
          {
             NestedLayers.SetParent(ilayerWrapper.ILayer, this.ILayer);
-            return;
-         }
-
-         SelectionSetWrapper selSetWrapper = node as SelectionSetWrapper;
-         if (selSetWrapper != null)
-         {
-            this.AddChildNodes(node.ChildNodes);
             return;
          }
       }
@@ -397,6 +397,11 @@ namespace Outliner.Scene
             else
                return this.Name;
          }
+      }
+
+      public override string NodeTypeDisplayName
+      {
+         get { return OutlinerResources.Str_ILayer; }
       }
 
       #endregion

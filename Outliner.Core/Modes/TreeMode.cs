@@ -518,21 +518,21 @@ public abstract class TreeMode
    {
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
       if (layer != null)
-         this.LayerPropertyChanged(MaxNodeWrapper.Create(layer), NodeProperty.IsHidden);
+         this.LayerPropertyChanged(new ILayerWrapper(layer), NodeProperty.IsHidden);
    }
    
    private void LayerFrozenChanged(IntPtr param, IntPtr info)
    {
       IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
       if (layer != null)
-         this.LayerPropertyChanged(MaxNodeWrapper.Create(layer), NodeProperty.IsFrozen);
+         this.LayerPropertyChanged(new ILayerWrapper(layer), NodeProperty.IsFrozen);
    }
 
    private void LayerPropChanged(IntPtr param, IntPtr info)
    {
       LayerPropertyChangedParam? callParam = MaxUtils.HelperMethods.GetCallParam(info) as LayerPropertyChangedParam?;
       if (callParam != null)
-         this.LayerPropertyChanged(MaxNodeWrapper.Create(callParam.Value.Layer), callParam.Value.Property);
+         this.LayerPropertyChanged(new ILayerWrapper(callParam.Value.Layer), callParam.Value.Property);
    }
 
    #endregion

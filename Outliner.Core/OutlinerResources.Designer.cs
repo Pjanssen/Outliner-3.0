@@ -142,15 +142,6 @@ namespace Outliner {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add to new selection-set.
-        /// </summary>
-        internal static string Command_AddToNewSelSet {
-            get {
-                return ResourceManager.GetString("Command_AddToNewSelSet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Create New Layer.
         /// </summary>
         internal static string Command_CreateNewLayer {
@@ -210,15 +201,6 @@ namespace Outliner {
         internal static string Command_LinkLayer {
             get {
                 return ResourceManager.GetString("Command_LinkLayer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Modify Selection Set.
-        /// </summary>
-        internal static string Command_ModifySelSet {
-            get {
-                return ResourceManager.GetString("Command_ModifySelSet", resourceCulture);
             }
         }
         
@@ -523,6 +505,24 @@ namespace Outliner {
         internal static string Sorter_NodeProperty {
             get {
                 return ResourceManager.GetString("Sorter_NodeProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Layer.
+        /// </summary>
+        internal static string Str_ILayer {
+            get {
+                return ResourceManager.GetString("Str_ILayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Node.
+        /// </summary>
+        internal static string Str_INode {
+            get {
+                return ResourceManager.GetString("Str_INode", resourceCulture);
             }
         }
         

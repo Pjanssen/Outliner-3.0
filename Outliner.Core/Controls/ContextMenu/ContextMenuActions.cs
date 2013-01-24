@@ -198,13 +198,6 @@ public static class ContextMenuActions
       newLayerCmd.Execute(false);
    }
 
-   [OutlinerAction]
-   public static void AddSelectionToNewSelectionSet(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
-   {
-      CreateSelectionSetCommand cmd = new CreateSelectionSetCommand(contextNodes);
-      cmd.Execute(false);
-   }
-
    #endregion
 
    #region Layer display/render settings
