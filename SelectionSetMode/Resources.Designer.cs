@@ -61,6 +61,33 @@ namespace Outliner.Modes.SelectionSet {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add To New Selection-Set.
+        /// </summary>
+        internal static string Command_AddToNewSelSet {
+            get {
+                return ResourceManager.GetString("Command_AddToNewSelSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create New Selection-Set.
+        /// </summary>
+        internal static string Command_CreateNewSelSet {
+            get {
+                return ResourceManager.GetString("Command_CreateNewSelSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modify Selection Set.
+        /// </summary>
+        internal static string Command_ModifySelSet {
+            get {
+                return ResourceManager.GetString("Command_ModifySelSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create selection-set.
         /// </summary>
         internal static string Context_NewSelSet {
@@ -134,6 +161,15 @@ namespace Outliner.Modes.SelectionSet {
         internal static string Str_AllObjectsSelSet {
             get {
                 return ResourceManager.GetString("Str_AllObjectsSelSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selection-Set.
+        /// </summary>
+        internal static string Str_SelSet {
+            get {
+                return ResourceManager.GetString("Str_SelSet", resourceCulture);
             }
         }
     }

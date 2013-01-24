@@ -11,6 +11,7 @@ using System.ComponentModel;
 using Outliner.Controls.Tree.Layout;
 using Outliner.Controls.Tree;
 using Outliner.Plugins;
+using System.Globalization;
 
 namespace Outliner.TreeNodeButtons
 {
@@ -51,23 +52,14 @@ public class AddButton : ImageButton
       if (!this.IsEnabled(tn))
          return;
 
-      IMaxNode node = HelperMethods.GetMaxNode(tn);
-      if (node == null)
+      IMaxNode target = HelperMethods.GetMaxNode(tn);
+      if (target == null)
          return;
 
       IEnumerable<IMaxNode> nodes = HelperMethods.GetMaxNodes(this.Layout.TreeView.SelectedNodes);
-      Command cmd;
-      if (node is SelectionSetWrapper)
-      {
-         SelectionSetWrapper selSet = (SelectionSetWrapper)node;
-         IEnumerable<IMaxNode> newNodes = selSet.ChildNodes.Union(nodes);
-         cmd = new ModifySelectionSetCommand(selSet, newNodes);
-      }
-      else
-      {
-         cmd = new MoveMaxNodeCommand(nodes, node, Resources.Command_AddToLayer, Resources.Command_UnlinkLayer);
-      }
+      String description = Resources.Command_AddTo + target.NodeTypeDisplayName;
 
+      AddNodesCommand cmd = new AddNodesCommand(target, nodes, description);
       cmd.Execute(true);
    }
 
@@ -78,12 +70,7 @@ public class AddButton : ImageButton
       if (node == null || !this.IsEnabled(tn))
          return null;
 
-      if (node is ILayerWrapper)
-         return Resources.Tooltip_Add_Layer;
-      else if (node is SelectionSetWrapper)
-         return Resources.Tooltip_Add_SelSet;
-      else
-         return null;
+      return Resources.Tooltip_Add + node.NodeTypeDisplayName.ToLower(CultureInfo.InvariantCulture);
    }
 
 

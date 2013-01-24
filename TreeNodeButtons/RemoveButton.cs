@@ -11,6 +11,7 @@ using System.ComponentModel;
 using Outliner.Controls.Tree.Layout;
 using Outliner.Controls.Tree;
 using Outliner.Plugins;
+using System.Globalization;
 
 namespace Outliner.TreeNodeButtons
 {
@@ -33,11 +34,8 @@ public class RemoveButton : ImageButton
       if (this.Layout == null || this.Layout.TreeView == null)
          return false;
 
-      SelectionSetWrapper node = HelperMethods.GetMaxNode(tn) as SelectionSetWrapper;
+      IMaxNode node = HelperMethods.GetMaxNode(tn);
       IEnumerable<TreeNode> selTreeNodes = this.Layout.TreeView.SelectedNodes;
-      if (node == null || selTreeNodes.Count() == 0)
-         return false;
-
       return node.CanRemoveChildNodes(HelperMethods.GetMaxNodes(selTreeNodes));
    }
 
@@ -49,13 +47,14 @@ public class RemoveButton : ImageButton
       if (!this.IsEnabled(tn))
          return;
 
-      SelectionSetWrapper selSet = HelperMethods.GetMaxNode(tn) as SelectionSetWrapper;
-      if (selSet == null)
+      IMaxNode target = HelperMethods.GetMaxNode(tn);
+      if (target == null)
          return;
 
-      IEnumerable<IMaxNode> selNodes = HelperMethods.GetMaxNodes(this.Layout.TreeView.SelectedNodes);
-      IEnumerable<IMaxNode> newNodes = selSet.ChildNodes.Except(selNodes);
-      ModifySelectionSetCommand cmd = new ModifySelectionSetCommand(selSet, newNodes);
+      IEnumerable<IMaxNode> nodes = HelperMethods.GetMaxNodes(this.Layout.TreeView.SelectedNodes);
+      String description = Resources.Command_RemoveFrom + target.NodeTypeDisplayName;
+
+      RemoveNodesCommand cmd = new RemoveNodesCommand(target, nodes, description);
       cmd.Execute(true);
    }
 
@@ -66,7 +65,7 @@ public class RemoveButton : ImageButton
       if (node == null || !this.IsEnabled(tn))
          return null;
 
-      return Resources.Tooltip_Remove_SelSet;
+      return Resources.Tooltip_RemoveFrom + node.NodeTypeDisplayName.ToLower(CultureInfo.InvariantCulture);
    }
 
 

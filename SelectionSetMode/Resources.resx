@@ -142,4 +142,16 @@
   <data name="Str_AllObjectsSelSet" xml:space="preserve">
     <value>- All objects -</value>
   </data>
+  <data name="Command_ModifySelSet" xml:space="preserve">
+    <value>Modify Selection Set</value>
+  </data>
+  <data name="Command_AddToNewSelSet" xml:space="preserve">
+    <value>Add To New Selection-Set</value>
+  </data>
+  <data name="Command_CreateNewSelSet" xml:space="preserve">
+    <value>Create New Selection-Set</value>
+  </data>
+  <data name="Str_SelSet" xml:space="preserve">
+    <value>Selection-Set</value>
+  </data>
 </root>

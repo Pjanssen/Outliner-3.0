@@ -67,7 +67,7 @@
     <Compile Include="TreeNodeButton\ColorTagToolStripButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="MaxNodeWrapperExtensions.cs" />
+    <Compile Include="MaxNodeExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
