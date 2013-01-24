@@ -139,3 +139,4 @@ Options
 
 3.0.23
 ======
+#75 - Search doesn't work

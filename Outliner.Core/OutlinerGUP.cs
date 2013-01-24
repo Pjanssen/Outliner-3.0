@@ -144,7 +144,7 @@ public class OutlinerGUP
 
       this.RegisterTreeMode(tree, newMode);
 
-      //newMode.filters.Filters.Add(this.CommonNameFilter);
+      newMode.AddPermanentFilter(this.CommonNameFilter);
 
       if (start)
          newMode.Start();
