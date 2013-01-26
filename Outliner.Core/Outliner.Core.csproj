@@ -156,7 +156,6 @@
     <Compile Include="Commands\CustomRestoreObjCommand.cs" />
     <Compile Include="Commands\CreateNewGroupCommand.cs" />
     <Compile Include="Commands\DeleteCommand.cs" />
-    <Compile Include="Commands\MoveMaxNodeCommand.cs" />
     <Compile Include="Commands\RemoveNodesCommand.cs" />
     <Compile Include="Commands\RenameCommand.cs" />
     <Compile Include="Commands\SelectCommand.cs" />
@@ -165,6 +164,7 @@
     <Compile Include="Commands\HideCommand.cs" />
     <Compile Include="Commands\SetViewCameraCommand.cs" />
     <Compile Include="Commands\ToggleLightCommand.cs" />
+    <Compile Include="Commands\UnlinkNodesCommand.cs" />
     <Compile Include="Configuration\ConfigurationFile.cs" />
     <Compile Include="Configuration\ConfigurationHelpers.cs" />
     <Compile Include="Configuration\ISorterConfiguration.cs" />
