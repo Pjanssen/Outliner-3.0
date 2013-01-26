@@ -59,7 +59,6 @@ public class TreeView : ScrollableControl
       base.Dispose(disposing);
    }
 
-
    #region Properties
 
    [Browsable(false)]
@@ -251,6 +250,12 @@ public class TreeView : ScrollableControl
          this.treeNodeLayout = value;
          this.treeNodeLayout.TreeView = this;
       }
+   }
+
+   protected override void OnScroll(ScrollEventArgs se)
+   {
+      //Invalidate entire control when scrolling, to avoid drawing artifacts.
+      this.Invalidate();
    }
 
    private SolidBrush brushBackground;

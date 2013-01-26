@@ -139,4 +139,6 @@ Options
 
 3.0.23
 ======
+#26 - background zebras bug when scrolling.
+#72 - Selection Set : select child nodes.
 #75 - Search doesn't work
