@@ -40,9 +40,7 @@ public class TreeViewDragDropHandler : IDragDropHandler
 
       IEnumerable<IMaxNode> draggedNodes = MaxNodeDragDropHandler.GetMaxNodesFromDragData(dragData);
 
-      MoveMaxNodeCommand cmd = new MoveMaxNodeCommand( draggedNodes
-                                                     , null
-                                                     , Resources.Command_Link
+      UnlinkNodesCommand cmd = new UnlinkNodesCommand( draggedNodes
                                                      , Resources.Command_Unlink);
       cmd.Execute(true);
    }

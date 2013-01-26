@@ -40,10 +40,9 @@ public class ILayerDragDropHandler : MaxNodeDragDropHandler
 
       IEnumerable<IMaxNode> draggedNodes = GetMaxNodesFromDragData(dragData);
 
-      MoveMaxNodeCommand cmd = new MoveMaxNodeCommand( draggedNodes
-                                                     , this.MaxNode
-                                                     , Resources.Command_AddToLayer
-                                                     , Resources.Command_UnlinkLayer);
+      AddNodesCommand cmd = new AddNodesCommand( this.MaxNode
+                                               , draggedNodes
+                                               , Resources.Command_AddToLayer);
       cmd.Execute(true);
    }
 }

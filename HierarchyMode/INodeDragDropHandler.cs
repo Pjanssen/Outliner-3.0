@@ -35,10 +35,9 @@ public class INodeDragDropHandler : MaxNodeDragDropHandler
 
       IEnumerable<IMaxNode> draggedNodes = GetMaxNodesFromDragData(dragData);
 
-      MoveMaxNodeCommand cmd = new MoveMaxNodeCommand( draggedNodes
-                                                     , this.MaxNode
-                                                     , Resources.Command_Link
-                                                     , Resources.Command_Unlink);
+      AddNodesCommand cmd = new AddNodesCommand( this.MaxNode
+                                               , draggedNodes
+                                               , Resources.Command_Link);
       cmd.Execute(true);
    }
 }
