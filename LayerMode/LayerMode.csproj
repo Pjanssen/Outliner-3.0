@@ -58,7 +58,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContextMenuActions.cs" />
+    <Compile Include="AddToLayerMenuItems.cs" />
+    <Compile Include="Commands\ContextMenuActions.cs" />
+    <Compile Include="Commands\CreateNewLayerCommand.cs" />
+    <Compile Include="Commands\SetCurrentLayerCommand.cs" />
     <Compile Include="ILayerDragDropHandler.cs" />
     <Compile Include="INodeDragDropHandler.cs" />
     <Compile Include="LayerMode.cs" />
@@ -68,6 +71,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Scene\ILayerWrapper.cs" />
+    <Compile Include="Scene\ILayerWrapperFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">
@@ -83,17 +88,13 @@
     <EmbeddedResource Include="Resources\layer_mode_24.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TreeNodeButtons\TreeNodeButtons.csproj">
-      <Project>{F04022F4-F21E-42F2-865D-0BED07C690E4}</Project>
-      <Name>TreeNodeButtons</Name>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\set_active_layer_16.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\new_layer_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\layer_16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -70,6 +70,24 @@ namespace Outliner.Modes.Layer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create new layer.
+        /// </summary>
+        internal static string Command_CreateNewLayer {
+            get {
+                return ResourceManager.GetString("Command_CreateNewLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set as current layer.
+        /// </summary>
+        internal static string Command_SetCurrentLayer {
+            get {
+                return ResourceManager.GetString("Command_SetCurrentLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unparent layer.
         /// </summary>
         internal static string Command_UnlinkLayer {
@@ -93,6 +111,16 @@ namespace Outliner.Modes.Layer {
         internal static string Context_SetCurrentLayer {
             get {
                 return ResourceManager.GetString("Context_SetCurrentLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap layer_16 {
+            get {
+                object obj = ResourceManager.GetObject("layer_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -152,6 +180,33 @@ namespace Outliner.Modes.Layer {
             get {
                 object obj = ResourceManager.GetObject("set_active_layer_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Add To Layer Items -.
+        /// </summary>
+        internal static string Str_AddToLayerItems {
+            get {
+                return ResourceManager.GetString("Str_AddToLayerItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Layer.
+        /// </summary>
+        internal static string Str_ILayer {
+            get {
+                return ResourceManager.GetString("Str_ILayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (default).
+        /// </summary>
+        internal static string Str_LayerDefault {
+            get {
+                return ResourceManager.GetString("Str_LayerDefault", resourceCulture);
             }
         }
     }

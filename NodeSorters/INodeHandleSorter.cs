@@ -10,7 +10,7 @@ using Outliner.Plugins;
 namespace Outliner.NodeSorters
 {
    [OutlinerPlugin(OutlinerPluginType.NodeSorter)]
-   [LocalizedDisplayName(typeof(Resources), "Sorter_IINodeHandle")]
+   [LocalizedDisplayName(typeof(Resources), "Sorter_INodeHandle")]
    public class INodeHandleSorter : NodeSorter
    {
       public INodeHandleSorter() : base() { }
