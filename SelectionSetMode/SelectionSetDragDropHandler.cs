@@ -16,7 +16,7 @@ public class SelectionSetDragDropHandler : MaxNodeDragDropHandler
 
    public override bool AllowDrag
    {
-      get { return false; }
+      get { return true; }
    }
 
    public override bool IsValidDropTarget(WinForms::IDataObject dragData)

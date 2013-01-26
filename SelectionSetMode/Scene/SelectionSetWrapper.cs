@@ -193,12 +193,18 @@ namespace Outliner.Scene
          if (node == null)
             return false;
 
+         if (node.IsAggregate)
+            return this.CanAddChildNodes(node.ChildNodes);
+
          return node is INodeWrapper && !this.ChildNodes.Contains(node);
       }
 
       public override void AddChildNode(IMaxNode node)
       {
          Throw.IfArgumentIsNull(node, "node");
+
+         if (node.IsAggregate)
+            this.AddChildNodes(node.ChildNodes);
          
          this.AddChildNodes(node.ToEnumerable());
       }
@@ -212,6 +218,12 @@ namespace Outliner.Scene
 
          foreach (IMaxNode node in nodes)
          {
+            if (node.IsAggregate)
+            {
+               AppendNodesToNodeTab(node.ChildBaseObjects, nodeTab);
+               continue;
+            }
+
             INodeWrapper inodeWrapper = node as INodeWrapper;
             if (inodeWrapper == null)
                continue;
@@ -222,8 +234,21 @@ namespace Outliner.Scene
          MaxInterfaces.SelectionSetManager.ReplaceNamedSelSet(nodeTab, ref this.name);
       }
 
+      private static void AppendNodesToNodeTab(IEnumerable<Object> nodes, IINodeTab nodeTab)
+      {
+         foreach (object child in nodes)
+         {
+            IINode inode = child as IINode;
+            if (inode != null)
+               nodeTab.AppendNode(inode, false, 0);
+         }
+      }
+
       public override bool CanRemoveChildNode(IMaxNode node)
       {
+         if (node.IsAggregate)
+            return this.CanRemoveChildNodes(node.ChildNodes);
+
          INodeWrapper nodeWrapper = node as INodeWrapper;
          return nodeWrapper != null && this.ChildBaseObjects.Contains(nodeWrapper.INode);
       }
@@ -231,6 +256,9 @@ namespace Outliner.Scene
       public override void RemoveChildNode(IMaxNode node)
       {
          Throw.IfArgumentIsNull(node, "node");
+
+         if (node.IsAggregate)
+            this.RemoveChildNodes(node.ChildNodes);
 
          this.RemoveChildNodes(node.ToEnumerable());
       }
@@ -243,6 +271,12 @@ namespace Outliner.Scene
 
          foreach (IMaxNode node in nodes)
          {
+            if (node.IsAggregate)
+            {
+               AppendNodesToNodeTab(node.ChildBaseObjects, nodeTab);
+               continue;
+            }
+
             INodeWrapper inodeWrapper = node as INodeWrapper;
             if (inodeWrapper == null)
                continue;

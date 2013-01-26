@@ -54,7 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AllObjectsSelectionSetWrapper.cs" />
+    <Compile Include="Scene\AllObjectsSelectionSetWrapper.cs" />
     <Compile Include="Commands\ContextMenuActions.cs" />
     <Compile Include="Commands\CreateSelectionSetCommand.cs" />
     <Compile Include="Commands\ModifySelectionSetCommand.cs" />
