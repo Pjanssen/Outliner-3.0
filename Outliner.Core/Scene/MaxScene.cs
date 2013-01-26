@@ -9,32 +9,9 @@ namespace Outliner.Scene
 {
 public static class MaxScene
 {
-   public static Int32 LayerCount
-   {
-      get
-      {
-         return MaxInterfaces.IILayerManager.LayerCount;
-      }
-   }
-
-   public static IEnumerable<ILayerWrapper> Layers
-   {
-      get
-      {
-         IILayerManager layerManager = MaxInterfaces.IILayerManager;
-         int layerCount = layerManager.LayerCount;
-         List<ILayerWrapper> layers = new List<ILayerWrapper>(layerCount);
-
-         for (int i = 0; i < layerCount; i++)
-         {
-            IILayer layer = layerManager.GetLayer(i);
-            layers.Add(new ILayerWrapper(layer));
-         }
-
-         return layers;
-      }
-   }
-
+   /// <summary>
+   /// The scene's root object.
+   /// </summary>
    public static INodeWrapper SceneRoot
    {
       get
@@ -43,23 +20,25 @@ public static class MaxScene
       }
    }
 
+   /// <summary>
+   /// Gets all objects without a parent in the scene.
+   /// </summary>
    public static IEnumerable<INodeWrapper> RootObjects
    {
       get
       {
          IINode rootNode = MaxInterfaces.COREInterface.RootNode;
          Int32 nodeCount = rootNode.NumberOfChildren;
-         List<INodeWrapper> nodes = new List<INodeWrapper>(nodeCount);
-
          for (int i = 0; i < nodeCount; i++)
          {
-            nodes.Add(new INodeWrapper(rootNode.GetChildNode(i)));
+            yield return new INodeWrapper(rootNode.GetChildNode(i));
          }
-
-         return nodes;
       }
    }
 
+   /// <summary>
+   /// Gets all objects in the scene in a flat list.
+   /// </summary>
    public static IEnumerable<INodeWrapper> AllObjects
    {
       get
@@ -78,6 +57,35 @@ public static class MaxScene
          foreach (INodeWrapper child in GetChildObjects(childNode))
          {
             yield return child;
+         }
+      }
+   }
+
+   /// <summary>
+   /// Gets the number of layers in the scene.
+   /// </summary>
+   public static Int32 LayerCount
+   {
+      get
+      {
+         return MaxInterfaces.IILayerManager.LayerCount;
+      }
+   }
+
+   /// <summary>
+   /// Gets all layers in the scene.
+   /// </summary>
+   public static IEnumerable<IMaxNode> Layers
+   {
+      get
+      {
+         IILayerManager layerManager = MaxInterfaces.IILayerManager;
+         int layerCount = layerManager.LayerCount;
+
+         for (int i = 0; i < layerCount; i++)
+         {
+            IILayer layer = layerManager.GetLayer(i);
+            yield return MaxNodeWrapper.Create(layer);
          }
       }
    }

@@ -133,24 +133,6 @@ namespace Outliner {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add to new layer.
-        /// </summary>
-        internal static string Command_AddToNewLayer {
-            get {
-                return ResourceManager.GetString("Command_AddToNewLayer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create New Layer.
-        /// </summary>
-        internal static string Command_CreateNewLayer {
-            get {
-                return ResourceManager.GetString("Command_CreateNewLayer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         internal static string Command_Delete {
@@ -237,15 +219,6 @@ namespace Outliner {
         internal static string Command_SetColorTag {
             get {
                 return ResourceManager.GetString("Command_SetColorTag", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Set as current layer.
-        /// </summary>
-        internal static string Command_SetCurrentLayer {
-            get {
-                return ResourceManager.GetString("Command_SetCurrentLayer", resourceCulture);
             }
         }
         
@@ -509,29 +482,11 @@ namespace Outliner {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Layer.
-        /// </summary>
-        internal static string Str_ILayer {
-            get {
-                return ResourceManager.GetString("Str_ILayer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Node.
         /// </summary>
         internal static string Str_INode {
             get {
                 return ResourceManager.GetString("Str_INode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to  (default).
-        /// </summary>
-        internal static string Str_LayerDefault {
-            get {
-                return ResourceManager.GetString("Str_LayerDefault", resourceCulture);
             }
         }
         

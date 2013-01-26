@@ -47,20 +47,10 @@ public partial class ContextMenuModelEditor : OutlinerUserControl
 
    private static String GetMenuItemNameComboBox(Type modelType)
    {
-      if (modelType == typeof(ActionMenuItemModel))
-         return ContextMenuResources.Str_ActionMenuItemModel;
-      if (modelType == typeof(MxsMenuItemModel))
-         return ContextMenuResources.Str_MxsMenuItemModel;
-      if (modelType == typeof(NodePropertyMenuItemModel))
-         return ContextMenuResources.Str_NodePropertyMenuItemModel;
-      if (modelType == typeof(SeparatorMenuItemModel))
-         return ContextMenuResources.Str_SeparatorMenuItemModel;
-      if (modelType == typeof(IncludeContextMenuModel))
-         return ContextMenuResources.Str_IncludeContextMenuModel;
-      if (modelType == typeof(AddToLayerMenuItems))
-         return ContextMenuResources.Str_AddToLayerItems;
-      if (modelType == typeof(HideFreezeItems))
-         return ContextMenuResources.Str_HideFreezeItems;
+      OutlinerPluginData plugin = OutlinerPlugins.GetPlugin(modelType);
+      if (plugin != null)
+         return plugin.DisplayName;
+
       return modelType.Name;
    }
 

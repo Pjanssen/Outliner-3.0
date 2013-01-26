@@ -181,9 +181,6 @@ Use {0} to expand entire hierarchy.</value>
   <data name="Command_ToggleLight" xml:space="preserve">
     <value>Toggle Light</value>
   </data>
-  <data name="Command_AddToNewLayer" xml:space="preserve">
-    <value>Add to new layer</value>
-  </data>
   <data name="Command_UnlinkLayer" xml:space="preserve">
     <value>Unlink Layer</value>
   </data>
@@ -249,9 +246,6 @@ This action cannot be undone.</value>
   <data name="sort_default_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\sort_default_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Command_SetCurrentLayer" xml:space="preserve">
-    <value>Set as current layer</value>
-  </data>
   <data name="Preset_ContextMenu" xml:space="preserve">
     <value>Context-Menu</value>
   </data>
@@ -291,17 +285,8 @@ For more details on the error, see Outliner.SettingsLoadException.ToString()</va
   <data name="Action_FocusOnSelection" xml:space="preserve">
     <value>Focus on selection</value>
   </data>
-  <data name="Command_CreateNewLayer" xml:space="preserve">
-    <value>Create New Layer</value>
-  </data>
   <data name="Command_AddToNewContainer" xml:space="preserve">
     <value>Add to new container</value>
-  </data>
-  <data name="Str_LayerDefault" xml:space="preserve">
-    <value> (default)</value>
-  </data>
-  <data name="Str_ILayer" xml:space="preserve">
-    <value>Layer</value>
   </data>
   <data name="Str_INode" xml:space="preserve">
     <value>Node</value>

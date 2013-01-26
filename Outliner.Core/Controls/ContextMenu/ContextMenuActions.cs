@@ -191,47 +191,6 @@ public static class ContextMenuActions
       cmd.Execute(true);
    }
 
-   [OutlinerAction]
-   public static void AddSelectionToNewLayer(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
-   {
-      CreateNewLayerCommand newLayerCmd = new CreateNewLayerCommand(contextNodes);
-      newLayerCmd.Execute(false);
-   }
-
-   #endregion
-
-   #region Layer display/render settings
-
-   private static IEnumerable<ILayerWrapper> GetLayers(IEnumerable<IMaxNode> nodes)
-   {
-      return nodes.Where(n => n is ILayerWrapper)
-                  .Cast<ILayerWrapper>();
-   }
-
-   [OutlinerAction]
-   public static void DisplayAllByLayer(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
-   {
-      foreach (ILayerWrapper layer in GetLayers(contextNodes))
-      {
-         foreach (IINode node in layer.ChildINodes)
-         {
-            layer.ILayer.SetDisplayByLayer(true, node);
-         }
-      }
-   }
-
-   [OutlinerAction]
-   public static void RenderAllByLayer(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
-   {
-      foreach (ILayerWrapper layer in GetLayers(contextNodes))
-      {
-         foreach (IINode node in layer.ChildINodes)
-         {
-            layer.ILayer.SetRenderByLayer(true, node);
-         }
-      }
-   }
-
    #endregion
 }
 }

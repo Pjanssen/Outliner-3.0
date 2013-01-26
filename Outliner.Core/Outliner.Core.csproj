@@ -155,13 +155,11 @@
     <Compile Include="Commands\CreateContainerCommand.cs" />
     <Compile Include="Commands\CustomRestoreObjCommand.cs" />
     <Compile Include="Commands\CreateNewGroupCommand.cs" />
-    <Compile Include="Commands\CreateNewLayerCommand.cs" />
     <Compile Include="Commands\DeleteCommand.cs" />
     <Compile Include="Commands\MoveMaxNodeCommand.cs" />
     <Compile Include="Commands\RemoveNodesCommand.cs" />
     <Compile Include="Commands\RenameCommand.cs" />
     <Compile Include="Commands\SelectCommand.cs" />
-    <Compile Include="Commands\SetCurrentLayerCommand.cs" />
     <Compile Include="Commands\SetNodePropertyCommand.cs" />
     <Compile Include="Commands\FreezeCommand.cs" />
     <Compile Include="Commands\HideCommand.cs" />
@@ -180,7 +178,6 @@
     </Compile>
     <Compile Include="Controls\BitmapProcessing.cs" />
     <Compile Include="Controls\ContextMenu\ActionMenuItemModel.cs" />
-    <Compile Include="Controls\ContextMenu\AddToLayerMenuItems.cs" />
     <Compile Include="Controls\ContextMenu\ContextMenuActions.cs" />
     <Compile Include="Controls\ContextMenu\ContextMenuModel.cs" />
     <Compile Include="Controls\ContextMenu\ContextMenuResources.Designer.cs">
@@ -350,8 +347,6 @@
     <Compile Include="..\AssemblyVersion.cs">
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
-    <Compile Include="Scene\ILayerWrapperFactory.cs" />
-    <Compile Include="Scene\ILayerWrapper.cs" />
     <Compile Include="Scene\IMaxNodeFactory.cs" />
     <Compile Include="Scene\INodeWrapper.cs" />
     <Compile Include="Scene\INodeWrapperFactory.cs" />

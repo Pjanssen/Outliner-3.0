@@ -70,7 +70,6 @@ namespace Outliner.Scene
       public virtual IEnumerable<IMaxNode> ChildNodes
       {
          get { return ChildBaseObjects.Select(MaxNodeWrapper.Create); }
-         // Enumerable.Empty<IMaxNode>(); }
       }
 
       public virtual Boolean CanAddChildNode(IMaxNode node)

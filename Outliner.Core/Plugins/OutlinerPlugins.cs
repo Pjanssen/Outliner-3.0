@@ -146,8 +146,6 @@ public static class OutlinerPlugins
    /// Gets a collection plugin metadata objects contained in the given assembly.
    /// Note that the assembly has to be loaded by the plugin system first.
    /// </summary>
-   /// <param name="pluginAssembly"></param>
-   /// <returns></returns>
    public static IEnumerable<OutlinerPluginData> GetPlugins(Assembly pluginAssembly)
    {
       return Plugins.Where(p => p.Type.Assembly == pluginAssembly);
