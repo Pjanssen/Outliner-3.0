@@ -16,6 +16,7 @@ using System.Globalization;
 namespace Outliner.TreeNodeButtons
 {
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
+[LocalizedDisplayName(typeof(Resources), "Str_AddButton")]
 public class AddButton : ImageButton
 {
    public AddButton()
@@ -23,13 +24,17 @@ public class AddButton : ImageButton
 
 
    [XmlAttribute("visible_types")]
-   [DefaultValue(MaxNodeType.All)]
+   [DefaultValue(MaxNodeType.Layer | MaxNodeType.Material | MaxNodeType.SelectionSet)]
    public override MaxNodeType VisibleTypes
    {
-      get { return base.VisibleTypes & (MaxNodeType.SelectionSet | MaxNodeType.Layer); }
+      get { return base.VisibleTypes & (MaxNodeType.SelectionSet | MaxNodeType.Layer | MaxNodeType.Material); }
       set { base.VisibleTypes = value; }
    }
 
+   public override bool ShowForNonMaxNodes
+   {
+      get { return false; }
+   }
 
    public override bool IsEnabled(TreeNode tn)
    {

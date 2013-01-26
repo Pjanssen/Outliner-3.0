@@ -7,19 +7,23 @@ using Outliner.Commands;
 using System.Drawing;
 using Outliner.Plugins;
 using Outliner.Controls.Tree.Layout;
-using System.Xml.Serialization;
+using System.Xml.Serialization;
+
 using Outliner.MaxUtils;
 
 namespace Outliner.TreeNodeButtons
 {
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
+[LocalizedDisplayName(typeof(Resources), "Str_RenderableButton")]
 public class RenderableButton : NodePropertyButton
 {
    public RenderableButton()
-      : base(NodeButtonImages.GetButtonImages(NodeButtonImages.Images.Renderable)) { }
-
+      : base(NodeButtonImages.GetButtonImages(NodeButtonImages.Images.Renderable)) 
+   { }
+
+
    protected override NodeProperty Property
-   {
+   {
       get { return NodeProperty.Renderable; }
    }
 

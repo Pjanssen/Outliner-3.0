@@ -13,6 +13,7 @@ using Outliner.Controls.Tree;
 namespace Outliner.TreeNodeButtons
 {
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
+[LocalizedDisplayName(typeof(Resources), "Str_MayaStyleIndent")]
 public class MayaStyleIndent : TreeNodeLayoutItem
 {
    protected const Int32 CIRCLE_SIZE = 4;

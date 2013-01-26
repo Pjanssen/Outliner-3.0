@@ -16,17 +16,32 @@ using System.Globalization;
 namespace Outliner.TreeNodeButtons
 {
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
+[LocalizedDisplayName(typeof(Resources), "Str_RemoveButton")]
 public class RemoveButton : ImageButton
 {
    public RemoveButton()
       : base(NodeButtonImages.GetButtonImages(NodeButtonImages.Images.Remove)) { }
 
    [XmlAttribute("visible_types")]
-   [DefaultValue(MaxNodeType.SelectionSet)]
+   [DefaultValue(MaxNodeType.SelectionSet | MaxNodeType.Material)]
    public override MaxNodeType VisibleTypes
    {
-      get { return base.VisibleTypes & (MaxNodeType.SelectionSet); }
+      get { return base.VisibleTypes & (MaxNodeType.SelectionSet | MaxNodeType.Material); }
       set { base.VisibleTypes = value; }
+   }
+
+   public override bool ShowForNonMaxNodes
+   {
+      get { return false; }
+   }
+
+   public override Boolean IsVisible(TreeNode tn)
+   {
+      IMaxNode node = HelperMethods.GetMaxNode(tn);
+      if (node == null)
+         return false;
+      else
+         return node.IsNodeType(this.VisibleTypes);
    }
 
    public override bool IsEnabled(TreeNode tn)
@@ -35,6 +50,9 @@ public class RemoveButton : ImageButton
          return false;
 
       IMaxNode node = HelperMethods.GetMaxNode(tn);
+      if (node == null)
+         return false;
+
       IEnumerable<TreeNode> selTreeNodes = this.Layout.TreeView.SelectedNodes;
       return node.CanRemoveChildNodes(HelperMethods.GetMaxNodes(selTreeNodes));
    }

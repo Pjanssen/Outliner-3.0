@@ -184,4 +184,31 @@
   <data name="Tooltip_RemoveFrom" xml:space="preserve">
     <value>Remove selected nodes from </value>
   </data>
+  <data name="Str_AddButton" xml:space="preserve">
+    <value>Add Button</value>
+  </data>
+  <data name="Str_BoxModeButton" xml:space="preserve">
+    <value>Boxmode Button</value>
+  </data>
+  <data name="Str_FreezeButton" xml:space="preserve">
+    <value>Freeze Button</value>
+  </data>
+  <data name="Str_HideButton" xml:space="preserve">
+    <value>Hide Button</value>
+  </data>
+  <data name="Str_MayaStyleIndent" xml:space="preserve">
+    <value>Maya Style Indent</value>
+  </data>
+  <data name="Str_NodeIcon" xml:space="preserve">
+    <value>Node Icon</value>
+  </data>
+  <data name="Str_RemoveButton" xml:space="preserve">
+    <value>Remove Button</value>
+  </data>
+  <data name="Str_RenderableButton" xml:space="preserve">
+    <value>Renderable Button</value>
+  </data>
+  <data name="Str_WireColorButton" xml:space="preserve">
+    <value>Wirecolor Button</value>
+  </data>
 </root>

@@ -63,6 +63,16 @@ namespace Outliner.TreeNodeButtons {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bitmap {
+            get {
+                object obj = ResourceManager.GetObject("bitmap", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap bone {
             get {
                 object obj = ResourceManager.GetObject("bone", resourceCulture);
@@ -83,6 +93,16 @@ namespace Outliner.TreeNodeButtons {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap checker {
+            get {
+                object obj = ResourceManager.GetObject("checker", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap container {
             get {
                 object obj = ResourceManager.GetObject("container", resourceCulture);
@@ -96,6 +116,16 @@ namespace Outliner.TreeNodeButtons {
         internal static System.Drawing.Bitmap geometry {
             get {
                 object obj = ResourceManager.GetObject("geometry", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap gradient {
+            get {
+                object obj = ResourceManager.GetObject("gradient", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -6,19 +6,24 @@ using System.Windows.Forms;
 using Outliner.Scene;
 using Outliner.Commands;
 using Outliner.Controls.Tree.Layout;
-using Outliner.Plugins;
+using Outliner.Plugins;
+
 using Outliner.MaxUtils;
 
 namespace Outliner.TreeNodeButtons
 {
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
+[LocalizedDisplayName(typeof(Resources), "Str_BoxModeButton")]
 public class BoxModeButton : NodePropertyButton
 {
    public BoxModeButton()
-      : base(NodeButtonImages.GetButtonImages(NodeButtonImages.Images.BoxMode)) { }
-
+      : base(NodeButtonImages.GetButtonImages(NodeButtonImages.Images.BoxMode)) { }
+
+
+
    protected override NodeProperty Property
-   {
+   {
+
       get { return NodeProperty.BoxMode; }
    }
 

@@ -100,6 +100,11 @@ public abstract class NodePropertyButton : ImageButton
          return base.GetHeight(tn);
    }
 
+   public override bool ShowForNonMaxNodes
+   {
+      get { return false; }
+   }
+
    override public Boolean IsEnabled(TreeNode tn)
    {
       IMaxNode node = HelperMethods.GetMaxNode(tn);

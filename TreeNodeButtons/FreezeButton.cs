@@ -12,6 +12,7 @@ using Outliner.Controls.Tree.Layout;
 namespace Outliner.TreeNodeButtons
 {
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
+[LocalizedDisplayName(typeof(Resources), "Str_FreezeButton")]
 public class FreezeButton : NodePropertyButton
 {
    public FreezeButton()

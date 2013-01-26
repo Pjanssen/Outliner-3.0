@@ -18,6 +18,7 @@ using Outliner.Plugins;
 namespace Outliner.TreeNodeButtons
 {
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
+[LocalizedDisplayName(typeof(Resources), "Str_WireColorButton")]
 public class WireColorButton : NodePropertyButton
 {
    [XmlAttribute("button_width")]

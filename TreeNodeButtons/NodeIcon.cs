@@ -18,6 +18,7 @@ using Outliner.Controls.Tree;
 namespace Outliner.TreeNodeButtons
 {
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
+[LocalizedDisplayName(typeof(Resources), "Str_NodeIcon")]
 public class NodeIcon : TreeNodeButton
 {
    private Dictionary<String, Bitmap> icons;

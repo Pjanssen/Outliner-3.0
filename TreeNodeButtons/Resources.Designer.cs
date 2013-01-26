@@ -149,6 +149,87 @@ namespace Outliner.TreeNodeButtons {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Button.
+        /// </summary>
+        internal static string Str_AddButton {
+            get {
+                return ResourceManager.GetString("Str_AddButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boxmode Button.
+        /// </summary>
+        internal static string Str_BoxModeButton {
+            get {
+                return ResourceManager.GetString("Str_BoxModeButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Freeze Button.
+        /// </summary>
+        internal static string Str_FreezeButton {
+            get {
+                return ResourceManager.GetString("Str_FreezeButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide Button.
+        /// </summary>
+        internal static string Str_HideButton {
+            get {
+                return ResourceManager.GetString("Str_HideButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maya Style Indent.
+        /// </summary>
+        internal static string Str_MayaStyleIndent {
+            get {
+                return ResourceManager.GetString("Str_MayaStyleIndent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Node Icon.
+        /// </summary>
+        internal static string Str_NodeIcon {
+            get {
+                return ResourceManager.GetString("Str_NodeIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Button.
+        /// </summary>
+        internal static string Str_RemoveButton {
+            get {
+                return ResourceManager.GetString("Str_RemoveButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Renderable Button.
+        /// </summary>
+        internal static string Str_RenderableButton {
+            get {
+                return ResourceManager.GetString("Str_RenderableButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wirecolor Button.
+        /// </summary>
+        internal static string Str_WireColorButton {
+            get {
+                return ResourceManager.GetString("Str_WireColorButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add selected nodes to .
         /// </summary>
         internal static string Tooltip_Add {
