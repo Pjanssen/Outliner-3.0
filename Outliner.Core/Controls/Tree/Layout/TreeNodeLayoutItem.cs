@@ -54,13 +54,24 @@ namespace Outliner.Controls.Tree.Layout
       public virtual MaxNodeType VisibleTypes { get; set; }
 
       /// <summary>
+      /// Indicates whether the item should be shown for treenodes which don't
+      /// have an IMaxNode attached.
+      /// </summary>
+      [XmlIgnore]
+      [DefaultValue(true)]
+      public virtual Boolean ShowForNonMaxNodes 
+      {
+         get { return true; }
+      }
+      
+      /// <summary>
       /// The item will only be shown if this method returns true.
       /// </summary>
       public virtual Boolean IsVisible(TreeNode tn)
       {
          IMaxNode node = HelperMethods.GetMaxNode(tn);
          if (node == null)
-            return true;
+            return this.ShowForNonMaxNodes;
          else
             return node.IsNodeType(this.VisibleTypes);
       }

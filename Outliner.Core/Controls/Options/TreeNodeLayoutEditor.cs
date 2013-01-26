@@ -35,6 +35,7 @@ public partial class TreeNodeLayoutEditor : OutlinerUserControl
       this.layoutTree.TreeNodeLayout.LayoutItems.Add(new TreeNodeText());
       this.layoutTree.TreeNodeLayout.LayoutItems.Add(new EmptySpace());
       this.layoutTree.TreeNodeLayout.FullRowSelect = true;
+      this.layoutTree.Settings.MultiSelect = false;
 
       this.fullRowSelectCheckBox.Checked = this.layout.FullRowSelect;
       this.itemHeightSpinner.Value = this.layout.ItemHeight;
@@ -52,7 +53,7 @@ public partial class TreeNodeLayoutEditor : OutlinerUserControl
    private void FillItemComboBox()
    {
       IEnumerable<OutlinerPluginData> layoutItems = OutlinerPlugins.GetPlugins(OutlinerPluginType.TreeNodeButton);
-      foreach (OutlinerPluginData layoutItem in layoutItems)
+      foreach (OutlinerPluginData layoutItem in layoutItems.OrderBy(i => i.DisplayName))
       {
          this.layoutComboBox.Items.Add(layoutItem);
       }
@@ -65,12 +66,17 @@ public partial class TreeNodeLayoutEditor : OutlinerUserControl
       this.layoutTree.Nodes.Clear();
       foreach (TreeNodeLayoutItem item in this.layout.LayoutItems)
       {
-         Tree.TreeNode tn = new Tree.TreeNode(item.GetType().Name);
+         Tree.TreeNode tn = new Tree.TreeNode(GetItemName(item));
          tn.Tag = item;
          this.layoutTree.Nodes.Add(tn);
       }
    }
 
+   private static String GetItemName(TreeNodeLayoutItem item)
+   {
+      OutlinerPluginData plugin = OutlinerPlugins.GetPlugin(item.GetType());
+      return plugin.DisplayName;
+   }
    
    private void layoutTree_SelectionChanged(object sender, Tree.SelectionChangedEventArgs e)
    {
