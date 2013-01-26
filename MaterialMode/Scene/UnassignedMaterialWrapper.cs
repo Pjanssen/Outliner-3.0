@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Outliner.Modes.MaterialMode;
 using Outliner.Scene;
 
-namespace Outliner.Modes.MaterialMode
+namespace Outliner.Scene
 {
    public class UnassignedMaterialWrapper : MaxNodeWrapper
    {
@@ -32,6 +33,14 @@ namespace Outliner.Modes.MaterialMode
 
 
       #region Childnodes
+
+      public override int ChildNodeCount
+      {
+         get
+         {
+            return this.ChildNodes.Count();
+         }
+      }
 
       public override IEnumerable<object> ChildBaseObjects
       {

@@ -133,4 +133,13 @@
   <data name="Name_Unassigned" xml:space="preserve">
     <value>- Unassigned -</value>
   </data>
+  <data name="Command_AssignMaterial" xml:space="preserve">
+    <value>Assign material</value>
+  </data>
+  <data name="Str_Objects" xml:space="preserve">
+    <value>Objects</value>
+  </data>
+  <data name="Str_TextureMaps" xml:space="preserve">
+    <value>Texture Maps</value>
+  </data>
 </root>

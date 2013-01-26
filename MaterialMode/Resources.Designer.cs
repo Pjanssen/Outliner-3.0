@@ -61,6 +61,15 @@ namespace Outliner.Modes.MaterialMode {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assign material.
+        /// </summary>
+        internal static string Command_AssignMaterial {
+            get {
+                return ResourceManager.GetString("Command_AssignMaterial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap material_mode_16 {
@@ -105,6 +114,24 @@ namespace Outliner.Modes.MaterialMode {
         internal static string Name_Unassigned {
             get {
                 return ResourceManager.GetString("Name_Unassigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Objects.
+        /// </summary>
+        internal static string Str_Objects {
+            get {
+                return ResourceManager.GetString("Str_Objects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Texture Maps.
+        /// </summary>
+        internal static string Str_TextureMaps {
+            get {
+                return ResourceManager.GetString("Str_TextureMaps", resourceCulture);
             }
         }
     }

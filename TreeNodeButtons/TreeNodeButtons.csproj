@@ -173,6 +173,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\Icons_Maya\material.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LayerMode\LayerMode.csproj">
+      <Project>{3c0e5187-7e46-4753-afec-0c2ec08928f2}</Project>
+      <Name>LayerMode</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF NOT '%25ISCMDLINEBUILD%25'=='TRUE' copy "$(TargetPath)" "C:\Users\Pier\AppData\Local\Autodesk\3dsMax\2013 - 64bit\ENU\en-US\plugcfg\Outliner\Plugins\$(TargetFileName)"</PostBuildEvent>

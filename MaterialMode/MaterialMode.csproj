@@ -54,15 +54,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="INodeDragDropHandler.cs" />
+    <Compile Include="MaterialDragDropHandler.cs" />
     <Compile Include="MaterialMode.cs" />
+    <Compile Include="Scene\MaterialObjectsWrapper.cs" />
+    <Compile Include="Scene\MaterialWrapper.cs" />
+    <Compile Include="Scene\MaterialWrapperFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Scene\TextureMapWrapper.cs" />
     <Compile Include="UnassignedMaterialFilter.cs" />
-    <Compile Include="UnassignedMaterialWrapper.cs" />
+    <Compile Include="Scene\UnassignedMaterialWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">
