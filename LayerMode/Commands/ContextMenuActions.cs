@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using Outliner.Controls.Tree;
+using Outliner.Modes;
 using Outliner.Plugins;
 using Outliner.Scene;
 
@@ -35,14 +36,14 @@ public static class ContextMenuActions
    [OutlinerPredicate]
    public static Boolean IsNotCurrentLayer(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
    {
-      ILayerWrapper layer = HelperMethods.GetMaxNode(contextTn) as ILayerWrapper;
+      ILayerWrapper layer = TreeMode.GetMaxNode(contextTn) as ILayerWrapper;
       return layer != null && !layer.IsCurrent;
    }
 
    [OutlinerAction]
    public static void SetCurrentLayer(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
    {
-      ILayerWrapper layer = HelperMethods.GetMaxNode(contextTn) as ILayerWrapper;
+      ILayerWrapper layer = TreeMode.GetMaxNode(contextTn) as ILayerWrapper;
       if (layer == null)
          return;
 

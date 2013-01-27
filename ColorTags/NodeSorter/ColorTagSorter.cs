@@ -8,6 +8,7 @@ using Outliner.LayerTools;
 using Autodesk.Max;
 using Outliner.Plugins;
 using Outliner.NodeSorters;
+using Outliner.Modes;
 
 namespace Outliner.ColorTags
 {
@@ -23,10 +24,10 @@ namespace Outliner.ColorTags
          if (x == y)
             return 0;
 
-         IMaxNode nodeX = HelperMethods.GetMaxNode(x);
+         IMaxNode nodeX = TreeMode.GetMaxNode(x);
          if (nodeX == null || !nodeX.IsValid) return 0;
 
-         IMaxNode nodeY = HelperMethods.GetMaxNode(y);
+         IMaxNode nodeY = TreeMode.GetMaxNode(y);
          if (nodeY == null || !nodeY.IsValid) return 0;
 
          ColorTag tagX = ColorTags.GetTag(nodeX.BaseObject as IAnimatable);

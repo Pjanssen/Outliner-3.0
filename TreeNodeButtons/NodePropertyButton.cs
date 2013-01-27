@@ -15,6 +15,8 @@ using WinForms = System.Windows.Forms;
 using Outliner.NodeSorters;
 using Outliner.Controls.Tree.Layout;
 using Outliner.Controls.Tree;
+using Outliner.Modes;
+using Outliner.Controls;
 
 namespace Outliner.TreeNodeButtons
 {
@@ -60,7 +62,7 @@ public abstract class NodePropertyButton : ImageButton
 
    protected Boolean isInheritedFromLayer(TreeNode tn)
    {
-      IMaxNode node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = TreeMode.GetMaxNode(tn);
       if (node == null)
          return false;
 
@@ -68,9 +70,9 @@ public abstract class NodePropertyButton : ImageButton
       if (node.BaseObject is IILayer)
       {
          IILayer layer = (IILayer)node.BaseObject;
-         if (!NodePropertyHelpers.IsBooleanProperty(property))
+         if (!NodeProperties.IsBooleanProperty(property))
             return false;
-         return NestedLayers.IsPropertyInherited(layer, NodePropertyHelpers.ToBooleanProperty(property));
+         return NestedLayers.IsPropertyInherited(layer, NodeProperties.ToBooleanProperty(property));
       }
       else if (node is INodeWrapper)
       {
@@ -81,9 +83,9 @@ public abstract class NodePropertyButton : ImageButton
             return inode.ILayer != null && inode.ILayer.IsFrozen;
          else if (property == NodeProperty.WireColor)
             return inode.NodeLayerProperties.ColorByLayer;
-         else if (NodePropertyHelpers.IsDisplayProperty(property))
+         else if (NodeProperties.IsDisplayProperty(property))
             return inode.NodeLayerProperties.DisplayByLayer;
-         else if (NodePropertyHelpers.IsRenderProperty(property))
+         else if (NodeProperties.IsRenderProperty(property))
             return inode.NodeLayerProperties.RenderByLayer;
          else
             return false;
@@ -107,11 +109,11 @@ public abstract class NodePropertyButton : ImageButton
 
    override public Boolean IsEnabled(TreeNode tn)
    {
-      IMaxNode node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = TreeMode.GetMaxNode(tn);
       if (node == null)
          return false;
 
-      if (!NodePropertyHelpers.IsBooleanProperty(this.Property))
+      if (!NodeProperties.IsBooleanProperty(this.Property))
          return true;
 
       return !node.GetNodeProperty(this.Property).Equals(this.InvertBehavior);
@@ -123,7 +125,7 @@ public abstract class NodePropertyButton : ImageButton
       if (graphics == null || tn == null)
          return;
 
-      IMaxNode node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = TreeMode.GetMaxNode(tn);
       if (node != null && node.IsNodePropertyInherited(this.Property))
       {
          Image img = (!tn.ShowNode) ? this.ImageByLayer_Filtered : this.ImageByLayer;
@@ -136,7 +138,7 @@ public abstract class NodePropertyButton : ImageButton
 
    protected override string GetTooltipText(TreeNode tn)
    {
-      IMaxNode node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = TreeMode.GetMaxNode(tn);
       if (node == null)
          return base.GetTooltipText(tn);
 
@@ -151,7 +153,7 @@ public abstract class NodePropertyButton : ImageButton
 
    protected override bool Clickable(TreeNode tn)
    {
-      IMaxNode node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = TreeMode.GetMaxNode(tn);
       return node != null && !node.IsNodePropertyInherited(this.Property);
    }
 
@@ -161,22 +163,22 @@ public abstract class NodePropertyButton : ImageButton
       if (this.Layout == null || this.Layout.TreeView == null)
          return;
 
-      if (!NodePropertyHelpers.IsBooleanProperty(this.Property))
+      if (!NodeProperties.IsBooleanProperty(this.Property))
          return;
 
-      IMaxNode node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = TreeMode.GetMaxNode(tn);
       if (node == null)
          return;
 
       TreeView tree = this.Layout.TreeView;
       IEnumerable<TreeNode> nodes = null;
-      if (tn.IsSelected && !HelperMethods.ControlPressed)
+      if (tn.IsSelected && !ControlHelpers.ControlPressed)
          nodes = tree.SelectedNodes;
       else
          nodes = new List<TreeNode>(1) { tn };
 
-      Boolean nodeValue = node.GetNodeProperty(NodePropertyHelpers.ToBooleanProperty(this.Property));
-      IEnumerable<IMaxNode> maxNodes = HelperMethods.GetMaxNodes(nodes);
+      Boolean nodeValue = node.GetNodeProperty(NodeProperties.ToBooleanProperty(this.Property));
+      IEnumerable<IMaxNode> maxNodes = TreeMode.GetMaxNodes(nodes);
       SetNodePropertyCommand<Boolean> cmd = this.CreateCommand(maxNodes, !nodeValue);
       if (cmd != null)
          cmd.Execute(true);

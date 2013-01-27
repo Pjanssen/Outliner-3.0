@@ -42,7 +42,7 @@ public class AddToLayerMenuItems : MenuItemModel
 
    void item_Click(Outliner.Controls.Tree.TreeView treeView, Outliner.Controls.Tree.TreeNode clickedTn, IMaxNode layer)
    {
-      IEnumerable<IMaxNode> nodes = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
+      IEnumerable<IMaxNode> nodes = TreeMode.GetMaxNodes(treeView.SelectedNodes);
       layer.AddChildNodes(nodes);
    }
 

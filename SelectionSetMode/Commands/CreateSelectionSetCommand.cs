@@ -45,7 +45,7 @@ namespace Outliner.Commands
          String newName = "New Set ";
          nameMaker.MakeUniqueName(ref newName);
 
-         ITab<IINode> nodeTab = HelperMethods.ToIINodeTab(this.nodes);
+         ITab<IINode> nodeTab = this.nodes.ToIINodeTab();
          if (MaxInterfaces.SelectionSetManager.AddNewNamedSelSet(nodeTab, ref newName))
          {
             this.selSetNum = MaxInterfaces.SelectionSetManager.NumNamedSelSets - 1;

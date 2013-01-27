@@ -176,7 +176,7 @@ namespace Outliner.Scene
             IILayerProperties layerProperties = this.ILayerProperties;
             if (layerProperties != null)
                layerProperties.Nodes(nodes);
-            return nodes.ToIEnumerable();
+            return MaxUtils.HelperMethods.ITabToIEnumerable(nodes);
          }
       }
 
@@ -435,10 +435,10 @@ namespace Outliner.Scene
 
       public override bool IsNodePropertyInherited(NodeProperty property)
       {
-         if (!NodePropertyHelpers.IsBooleanProperty(property))
+         if (!NodeProperties.IsBooleanProperty(property))
             return false;
 
-         return NestedLayers.IsPropertyInherited(this.ILayer, NodePropertyHelpers.ToBooleanProperty(property));
+         return NestedLayers.IsPropertyInherited(this.ILayer, NodeProperties.ToBooleanProperty(property));
       }
 
       #endregion

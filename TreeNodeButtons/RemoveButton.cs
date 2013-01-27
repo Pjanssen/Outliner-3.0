@@ -12,6 +12,7 @@ using Outliner.Controls.Tree.Layout;
 using Outliner.Controls.Tree;
 using Outliner.Plugins;
 using System.Globalization;
+using Outliner.Modes;
 
 namespace Outliner.TreeNodeButtons
 {
@@ -37,7 +38,7 @@ public class RemoveButton : ImageButton
 
    public override Boolean IsVisible(TreeNode tn)
    {
-      IMaxNode node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = TreeMode.GetMaxNode(tn);
       if (node == null)
          return false;
       else
@@ -49,12 +50,12 @@ public class RemoveButton : ImageButton
       if (this.Layout == null || this.Layout.TreeView == null)
          return false;
 
-      IMaxNode node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = TreeMode.GetMaxNode(tn);
       if (node == null)
          return false;
 
       IEnumerable<TreeNode> selTreeNodes = this.Layout.TreeView.SelectedNodes;
-      return node.CanRemoveChildNodes(HelperMethods.GetMaxNodes(selTreeNodes));
+      return node.CanRemoveChildNodes(TreeMode.GetMaxNodes(selTreeNodes));
    }
 
    public override void HandleMouseUp(WinForms::MouseEventArgs e, TreeNode tn)
@@ -65,11 +66,11 @@ public class RemoveButton : ImageButton
       if (!this.IsEnabled(tn))
          return;
 
-      IMaxNode target = HelperMethods.GetMaxNode(tn);
+      IMaxNode target = TreeMode.GetMaxNode(tn);
       if (target == null)
          return;
 
-      IEnumerable<IMaxNode> nodes = HelperMethods.GetMaxNodes(this.Layout.TreeView.SelectedNodes);
+      IEnumerable<IMaxNode> nodes = TreeMode.GetMaxNodes(this.Layout.TreeView.SelectedNodes);
       String description = Resources.Command_RemoveFrom + target.NodeTypeDisplayName;
 
       RemoveNodesCommand cmd = new RemoveNodesCommand(target, nodes, description);
@@ -79,7 +80,7 @@ public class RemoveButton : ImageButton
 
    protected override string GetTooltipText(TreeNode tn)
    {
-      IMaxNode node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = TreeMode.GetMaxNode(tn);
       if (node == null || !this.IsEnabled(tn))
          return null;
 

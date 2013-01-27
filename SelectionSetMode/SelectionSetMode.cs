@@ -139,7 +139,7 @@ public class SelectionSetMode : TreeMode
          return;
 
       TreeNode tn = this.GetFirstTreeNode(this.modifyingSelSetName);
-      IMaxNode wrapper = HelperMethods.GetMaxNode(tn);
+      IMaxNode wrapper = TreeMode.GetMaxNode(tn);
       if (tn == null || wrapper == null)
          return;
 
@@ -147,7 +147,7 @@ public class SelectionSetMode : TreeMode
       foreach (TreeNode childTn in tnNodes)
       {
          //TODO: verify that this is correct.
-         this.UnregisterNode(HelperMethods.GetMaxNode(childTn), childTn);
+         this.UnregisterNode(TreeMode.GetMaxNode(childTn), childTn);
          childTn.Remove();
       }
 
@@ -177,7 +177,7 @@ public class SelectionSetMode : TreeMode
 
       NameChange nameChange = (NameChange)Marshal.PtrToStructure(callParam, typeof(NameChange));
       TreeNode tn = this.GetFirstTreeNode(nameChange.oldName);
-      SelectionSetWrapper wrapper = HelperMethods.GetMaxNode(tn) as SelectionSetWrapper;
+      SelectionSetWrapper wrapper = TreeMode.GetMaxNode(tn) as SelectionSetWrapper;
       if (tn != null && wrapper != null)
       {
          this.UnregisterNode(wrapper);

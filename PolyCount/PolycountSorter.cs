@@ -8,6 +8,7 @@ using Outliner.Scene;
 using Autodesk.Max;
 using Outliner.MaxUtils;
 using Outliner.NodeSorters;
+using Outliner.Modes;
 
 namespace Outliner.PolyCount
 {
@@ -23,11 +24,11 @@ public class PolycountSorter : NodeSorter
       if (x == y)
          return 0;
 
-      INodeWrapper nodeX = HelperMethods.GetMaxNode(x) as INodeWrapper;
+      INodeWrapper nodeX = TreeMode.GetMaxNode(x) as INodeWrapper;
       if (nodeX == null || !nodeX.IsValid) 
          return 0;
 
-      INodeWrapper nodeY = HelperMethods.GetMaxNode(y) as INodeWrapper;
+      INodeWrapper nodeY = TreeMode.GetMaxNode(y) as INodeWrapper;
       if (nodeY == null || !nodeY.IsValid) 
          return 0;
 

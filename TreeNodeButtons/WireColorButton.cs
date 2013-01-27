@@ -14,6 +14,8 @@ using Outliner.NodeSorters;
 using Outliner.Controls.Tree.Layout;
 using Outliner.Controls.Tree;
 using Outliner.Plugins;
+using Outliner.Modes;
+using Outliner.Controls;
 
 namespace Outliner.TreeNodeButtons
 {
@@ -87,7 +89,7 @@ public class WireColorButton : NodePropertyButton
       if (graphics == null || tn == null)
          return;
 
-      IMaxNode node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = TreeMode.GetMaxNode(tn);
       if (node == null)
          return;
 
@@ -116,7 +118,7 @@ public class WireColorButton : NodePropertyButton
       if (this.Layout == null || this.Layout.TreeView == null)
          return;
 
-      IMaxNode node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = TreeMode.GetMaxNode(tn);
       if (node == null)
          return;
 
@@ -126,12 +128,12 @@ public class WireColorButton : NodePropertyButton
       {
          TreeView tree = this.Layout.TreeView;
          IEnumerable<TreeNode> nodes = null;
-         if (tn.IsSelected && !HelperMethods.ControlPressed)
+         if (tn.IsSelected && !ControlHelpers.ControlPressed)
             nodes = tree.SelectedNodes;
          else
             nodes = new List<TreeNode>(1) { tn };
 
-         IEnumerable<IMaxNode> maxNodes = HelperMethods.GetMaxNodes(nodes);
+         IEnumerable<IMaxNode> maxNodes = TreeMode.GetMaxNodes(nodes);
          SetNodePropertyCommand<Color> cmd = new SetNodePropertyCommand<Color>(maxNodes, NodeProperty.WireColor, ColorHelpers.FromMaxColor(wc));
          cmd.Execute(true);
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using Outliner.Controls.Tree;
+using Outliner.Modes;
 using Outliner.Plugins;
 using Outliner.Scene;
 
@@ -18,11 +19,11 @@ namespace Outliner.NodeSorters
          if (x == y)
             return 0;
 
-         INodeWrapper nodeX = HelperMethods.GetMaxNode(x) as INodeWrapper;
+         INodeWrapper nodeX = TreeMode.GetMaxNode(x) as INodeWrapper;
          if (nodeX == null || !nodeX.IsValid)
             return 0;
 
-         INodeWrapper nodeY = HelperMethods.GetMaxNode(y) as INodeWrapper;
+         INodeWrapper nodeY = TreeMode.GetMaxNode(y) as INodeWrapper;
          if (nodeY == null || !nodeY.IsValid)
             return 0;
 

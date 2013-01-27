@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions.cs" />
     <Compile Include="AddButton.cs" />
     <Compile Include="NodePropertyButton.cs" />
     <Compile Include="BoxModeButton.cs" />

@@ -15,6 +15,7 @@ using Outliner.Controls.Tree.Layout;
 using Outliner.Plugins;
 using Outliner.Controls.Tree;
 using Autodesk.Max;
+using Outliner.Modes;
 
 namespace Outliner.TreeNodeButtons
 {
@@ -133,71 +134,55 @@ public class NodeIcon : TreeNodeButton
       if (tn == null)
          throw new ArgumentNullException("tn");
 
-      IMaxNode node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = TreeMode.GetMaxNode(tn);
       if (node == null)
          return;
 
-      if (node.BaseObject is IILayer)
-      {
-         //ILayerWrapper layer = (ILayerWrapper)node;
-         //if (!layer.IsCurrent)
-         //{
-         //   SetCurrentLayerCommand cmd = new SetCurrentLayerCommand(layer);
-         //   cmd.Execute(false);
+      OutlinerAction action = null;
 
-         //   tn.TreeView.Invalidate();
-         //}
-      }
+      if (node.BaseObject is IILayer)
+         action = OutlinerActions.GetAction("SetCurrentLayer");
       else if (node.SuperClassID == SClass_ID.Light)
-      {
-         IINode inode = node.BaseObject as IINode;
-         if (inode == null)
-            return;
-         ILightObject light = inode.ObjectRef as ILightObject;
-         if (light == null)
-            return;
-         ToggleLightCommand cmd = new ToggleLightCommand(node.ToEnumerable(), !light.UseLight);
-         cmd.Execute(true);
-      }
+         action = Actions.ToggleLight;
       else if (node.SuperClassID == SClass_ID.Camera)
-      {
-         IInterface ip = MaxInterfaces.Global.COREInterface;
-         IViewExp vpt = ip.ActiveViewExp;
-         SetViewCameraCommand cmd = new SetViewCameraCommand(node, vpt);
-         cmd.Execute(true);
-      }
+         action = Actions.SetActiveViewCamera;
+
+      if (action != null)
+         action(tn, TreeMode.GetMaxNodes(this.Layout.TreeView.SelectedNodes));
    }
 
    protected override bool Clickable(TreeNode tn)
    {
-      IMaxNode node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = TreeMode.GetMaxNode(tn);
       if (node == null)
          return false;
 
-      if (node.BaseObject is IILayer)
-      {
-         //if (!((IILayer)node.BaseObject))
-         //   return true;
-      }
-      else if (node.SuperClassID == SClass_ID.Light)
-         return true;
-      else if (node.SuperClassID == SClass_ID.Camera)
-         return true;
+      OutlinerPredicate predicate = null;
 
-      return false;
+      if (node.BaseObject is IILayer)
+         predicate = OutlinerActions.GetPredicate("IsNotCurrentLayer");
+      else if (node.SuperClassID == SClass_ID.Light)
+         predicate = Actions.AlwaysTrue;
+      else if (node.SuperClassID == SClass_ID.Camera)
+         predicate = Actions.AlwaysTrue;
+
+      if (predicate != null)
+         return predicate(tn, TreeMode.GetMaxNodes(this.Layout.TreeView.SelectedNodes));
+      else
+         return false;
    }
 
    protected override string GetTooltipText(TreeNode tn)
    {
-      IMaxNode node = HelperMethods.GetMaxNode(tn);
+      if (!this.Clickable(tn))
+         return null;
+
+      IMaxNode node = TreeMode.GetMaxNode(tn);
       if (node == null)
          return null;
 
       if (node.BaseObject is IILayer)
-      {
-         //if (!((ILayerWrapper)node).IsCurrent)
-         //   return Resources.Tooltip_SetCurrentLayer;
-      }
+         return Resources.Tooltip_SetCurrentLayer;
       else if (node.SuperClassID == Autodesk.Max.SClass_ID.Light)
          return Resources.Tooltip_ToggleLight;
       else if (node.SuperClassID == Autodesk.Max.SClass_ID.Camera)

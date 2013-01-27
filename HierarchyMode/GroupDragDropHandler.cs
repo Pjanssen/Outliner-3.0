@@ -6,6 +6,7 @@ using WinForms = System.Windows.Forms;
 using Outliner.Controls.Tree;
 using Outliner.Commands;
 using Outliner.Scene;
+using Outliner.Controls;
 
 namespace Outliner.Modes.Hierarchy
 {
@@ -20,7 +21,7 @@ public class GroupDragDropHandler : INodeDragDropHandler
 
    public override WinForms::DragDropEffects GetDragDropEffect(WinForms::IDataObject dragData)
    {
-      if (HelperMethods.ShiftPressed)
+      if (ControlHelpers.ShiftPressed)
          return base.GetDragDropEffect(dragData);
       else
       {
@@ -33,7 +34,7 @@ public class GroupDragDropHandler : INodeDragDropHandler
 
    public override void HandleDrop(WinForms::IDataObject dragData)
    {
-      if (HelperMethods.ShiftPressed)
+      if (ControlHelpers.ShiftPressed)
          base.HandleDrop(dragData);
       else
       {

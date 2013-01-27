@@ -14,6 +14,7 @@ using Outliner.Controls.ContextMenu;
 using Outliner.Plugins;
 using Outliner.Controls.Tree.Layout;
 using Outliner.Controls.Tree;
+using Outliner.Modes;
 
 namespace Outliner.ColorTags
 {
@@ -66,7 +67,7 @@ public class ColorTagButton : TreeNodeButton
 
    protected override string GetTooltipText(TreeNode tn)
    {
-      IMaxNode wrapper = HelperMethods.GetMaxNode(tn);
+      IMaxNode wrapper = TreeMode.GetMaxNode(tn);
       if (wrapper == null)
          return String.Empty;
 
@@ -81,7 +82,7 @@ public class ColorTagButton : TreeNodeButton
       if (this.Layout == null || this.Layout.TreeView == null)
          return;
 
-      IMaxNode node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = TreeMode.GetMaxNode(tn);
       if (node == null)
          return;
 
@@ -123,7 +124,7 @@ public class ColorTagButton : TreeNodeButton
       this.clickedTn = tn;
 
       ColorTag currentTag = ColorTag.None;
-      IMaxNode wrapper = HelperMethods.GetMaxNode(tn);
+      IMaxNode wrapper = TreeMode.GetMaxNode(tn);
       if (wrapper != null)
       {
          currentTag = wrapper.GetColorTag();
@@ -170,9 +171,9 @@ public class ColorTagButton : TreeNodeButton
          IEnumerable<TreeNode> selNodes = this.Layout.TreeView.SelectedNodes;
          IEnumerable<IMaxNode> nodes;
          if (selNodes.Contains(this.clickedTn))
-            nodes = HelperMethods.GetMaxNodes(selNodes);
+            nodes = TreeMode.GetMaxNodes(selNodes);
          else
-            nodes = HelperMethods.GetMaxNode(this.clickedTn).ToEnumerable();
+            nodes = TreeMode.GetMaxNode(this.clickedTn).ToIEnumerable();
 
          SetColorTagCommand cmd = new SetColorTagCommand(nodes, tag);
          cmd.Execute(false);

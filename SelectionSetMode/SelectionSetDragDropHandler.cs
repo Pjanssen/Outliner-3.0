@@ -7,6 +7,7 @@ using Outliner.Scene;
 using Outliner.Controls.Tree;
 using Outliner.Commands;
 using Outliner.MaxUtils;
+using Outliner.Controls;
 
 namespace Outliner.Modes.SelectionSet
 {
@@ -29,7 +30,7 @@ public class SelectionSetDragDropHandler : MaxNodeDragDropHandler
       if (!this.IsValidDropTarget(dragData))
          return TreeView.NoneDragDropEffects;
 
-      if (HelperMethods.ShiftPressed)
+      if (ControlHelpers.ShiftPressed)
          return WinForms::DragDropEffects.Copy;
       else
          return WinForms.DragDropEffects.Move;
@@ -44,16 +45,16 @@ public class SelectionSetDragDropHandler : MaxNodeDragDropHandler
       if (draggedNodes == null)
          return;
 
-      IEnumerable<IMaxNode> draggedMaxNodes = HelperMethods.GetMaxNodes(draggedNodes);
+      IEnumerable<IMaxNode> draggedMaxNodes = TreeMode.GetMaxNodes(draggedNodes);
       SelectionSetWrapper targetSelSet = (SelectionSetWrapper)this.MaxNode;
 
       IEnumerable<IMaxNode> combinedNodes = targetSelSet.ChildNodes.Union(draggedMaxNodes);
       ModifySelectionSetCommand cmd = new ModifySelectionSetCommand(targetSelSet, combinedNodes);
       cmd.Execute(false);
 
-      if (!HelperMethods.ShiftPressed)
+      if (!ControlHelpers.ShiftPressed)
       {
-         IEnumerable<SelectionSetWrapper> selSets = draggedNodes.Select(tn => HelperMethods.GetMaxNode(tn.Parent))
+         IEnumerable<SelectionSetWrapper> selSets = draggedNodes.Select(tn => TreeMode.GetMaxNode(tn.Parent))
                                                                 .Where(n => n is SelectionSetWrapper)
                                                                 .Cast<SelectionSetWrapper>()
                                                                 .Where(n => !n.Equals(targetSelSet))

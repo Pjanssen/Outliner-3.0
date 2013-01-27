@@ -12,6 +12,7 @@ using Outliner.Controls.Tree.Layout;
 using Outliner.Controls.Tree;
 using Outliner.Plugins;
 using System.Globalization;
+using Outliner.Modes;
 
 namespace Outliner.TreeNodeButtons
 {
@@ -41,12 +42,12 @@ public class AddButton : ImageButton
       if (this.Layout == null || this.Layout.TreeView == null)
          return false;
 
-      IMaxNode node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = TreeMode.GetMaxNode(tn);
       IEnumerable<TreeNode> selTreeNodes = this.Layout.TreeView.SelectedNodes;
       if (node == null || selTreeNodes.Count() == 0)
          return false;
 
-      return node.CanAddChildNodes(HelperMethods.GetMaxNodes(selTreeNodes));
+      return node.CanAddChildNodes(TreeMode.GetMaxNodes(selTreeNodes));
    }
 
    public override void HandleMouseUp(WinForms::MouseEventArgs e, TreeNode tn)
@@ -57,11 +58,11 @@ public class AddButton : ImageButton
       if (!this.IsEnabled(tn))
          return;
 
-      IMaxNode target = HelperMethods.GetMaxNode(tn);
+      IMaxNode target = TreeMode.GetMaxNode(tn);
       if (target == null)
          return;
 
-      IEnumerable<IMaxNode> nodes = HelperMethods.GetMaxNodes(this.Layout.TreeView.SelectedNodes);
+      IEnumerable<IMaxNode> nodes = TreeMode.GetMaxNodes(this.Layout.TreeView.SelectedNodes);
       String description = Resources.Command_AddTo + target.NodeTypeDisplayName;
 
       AddNodesCommand cmd = new AddNodesCommand(target, nodes, description);
@@ -71,7 +72,7 @@ public class AddButton : ImageButton
 
    protected override string GetTooltipText(TreeNode tn)
    {
-      IMaxNode node = HelperMethods.GetMaxNode(tn);
+      IMaxNode node = TreeMode.GetMaxNode(tn);
       if (node == null || !this.IsEnabled(tn))
          return null;
 

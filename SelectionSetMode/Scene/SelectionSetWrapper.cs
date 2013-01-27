@@ -100,7 +100,7 @@ namespace Outliner.Scene
       {
          Throw.IfArgumentIsNull(nodes, "nodes");
 
-         IINodeTab nodeTab = HelperMethods.ToIINodeTab(nodes);
+         IINodeTab nodeTab = nodes.ToIINodeTab();
          MaxInterfaces.SelectionSetManager.ReplaceNamedSelSet(nodeTab, ref this.name);
       }
 
@@ -184,7 +184,7 @@ namespace Outliner.Scene
             int index = this.Index;
             IINodeTab nodeTab = MaxInterfaces.Global.INodeTabNS.Create();
             MaxInterfaces.SelectionSetManager.GetNamedSelSetList(nodeTab, index);
-            return nodeTab.ToIEnumerable();
+            return MaxUtils.HelperMethods.ITabToIEnumerable(nodeTab);
          }
       }
 
@@ -206,14 +206,14 @@ namespace Outliner.Scene
          if (node.IsAggregate)
             this.AddChildNodes(node.ChildNodes);
          
-         this.AddChildNodes(node.ToEnumerable());
+         this.AddChildNodes(node.ToIEnumerable());
       }
 
       public override void AddChildNodes(IEnumerable<IMaxNode> nodes)
       {
          Throw.IfArgumentIsNull(nodes, "nodes");
 
-         IINodeTab nodeTab = HelperMethods.ToIINodeTab(this.ChildNodes);
+         IINodeTab nodeTab = this.ChildNodes.ToIINodeTab();
          nodeTab.Resize(nodeTab.Count + nodes.Count());
 
          foreach (IMaxNode node in nodes)
@@ -260,14 +260,14 @@ namespace Outliner.Scene
          if (node.IsAggregate)
             this.RemoveChildNodes(node.ChildNodes);
 
-         this.RemoveChildNodes(node.ToEnumerable());
+         this.RemoveChildNodes(node.ToIEnumerable());
       }
 
       public override void RemoveChildNodes(IEnumerable<IMaxNode> nodes)
       {
          Throw.IfArgumentIsNull(nodes, "nodes");
 
-         IINodeTab nodeTab = HelperMethods.ToIINodeTab(this.ChildNodes);
+         IINodeTab nodeTab = this.ChildNodes.ToIINodeTab();
 
          foreach (IMaxNode node in nodes)
          {

@@ -7,6 +7,7 @@ using Autodesk.Max;
 using Outliner.Controls.Tree;
 using Outliner.Controls.Tree.Layout;
 using Outliner.MaxUtils;
+using Outliner.Modes;
 using Outliner.Plugins;
 using Outliner.Scene;
 
@@ -20,7 +21,7 @@ namespace Outliner.PolyCount
 
       protected override string GetText(TreeNode tn)
       {
-         INodeWrapper iinode = HelperMethods.GetMaxNode(tn) as INodeWrapper;
+         INodeWrapper iinode = TreeMode.GetMaxNode(tn) as INodeWrapper;
          if (iinode == null)
             return "0";
          else
