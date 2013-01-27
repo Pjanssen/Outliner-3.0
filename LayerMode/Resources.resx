@@ -130,9 +130,6 @@
   <data name="Mode_Layer" xml:space="preserve">
     <value>Layers</value>
   </data>
-  <data name="Context_CreateNewLayer" xml:space="preserve">
-    <value>Create new layer</value>
-  </data>
   <data name="Context_SetCurrentLayer" xml:space="preserve">
     <value>Set active layer</value>
   </data>
@@ -165,5 +162,11 @@
   </data>
   <data name="Str_LayerDefault" xml:space="preserve">
     <value>(default)</value>
+  </data>
+  <data name="Context_CreateEmptyLayer" xml:space="preserve">
+    <value>Create new layer</value>
+  </data>
+  <data name="Context_CreateLayerFromSelection" xml:space="preserve">
+    <value>Add selection to new layer</value>
   </data>
 </root>

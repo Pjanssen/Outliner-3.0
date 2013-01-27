@@ -99,9 +99,18 @@ namespace Outliner.Modes.Layer {
         /// <summary>
         ///   Looks up a localized string similar to Create new layer.
         /// </summary>
-        internal static string Context_CreateNewLayer {
+        internal static string Context_CreateEmptyLayer {
             get {
-                return ResourceManager.GetString("Context_CreateNewLayer", resourceCulture);
+                return ResourceManager.GetString("Context_CreateEmptyLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add selection to new layer.
+        /// </summary>
+        internal static string Context_CreateLayerFromSelection {
+            get {
+                return ResourceManager.GetString("Context_CreateLayerFromSelection", resourceCulture);
             }
         }
         

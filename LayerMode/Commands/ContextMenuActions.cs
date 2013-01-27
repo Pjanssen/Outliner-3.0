@@ -5,6 +5,7 @@ using System.Text;
 using Autodesk.Max;
 using Outliner.Controls.Tree;
 using Outliner.Modes;
+using Outliner.Modes.Layer;
 using Outliner.Plugins;
 using Outliner.Scene;
 
@@ -18,15 +19,44 @@ public static class ContextMenuActions
    [OutlinerAction]
    public static void AddSelectionToNewLayer(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
    {
-      CreateNewLayerCommand newLayerCmd = new CreateNewLayerCommand(contextNodes);
-      newLayerCmd.Execute(false);
+      CreateNewLayerCommand createCmd = new CreateNewLayerCommand(contextNodes);
+      createCmd.Execute(false);
    }
 
    [OutlinerAction]
    public static void CreateEmptyLayer(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
    {
-      CreateNewLayerCommand cmd = new CreateNewLayerCommand();
-      cmd.Execute(false);
+      CreateNewLayerCommand createCmd = new CreateNewLayerCommand();
+      createCmd.Execute(false);
+
+      MoveCreatedLayer(contextTn, createCmd.CreatedLayer);
+   }
+
+   private static void MoveCreatedLayer(TreeNode contextTn, IMaxNode createdLayer)
+   {
+      if (contextTn != null)
+      {
+         IMaxNode node = GetSelectedLayer(contextTn);
+         if (node != null)
+         {
+            AddNodesCommand addCmd = new AddNodesCommand( node
+                                                        , createdLayer.ToIEnumerable()
+                                                        , Resources.Command_AddToLayer);
+            addCmd.Execute(true);
+         }
+      }
+   }
+
+   private static IMaxNode GetSelectedLayer(TreeNode contextTn)
+   {
+      if (contextTn == null)
+         return null;
+
+      IMaxNode node = TreeMode.GetMaxNode(contextTn);
+      if (node is ILayerWrapper)
+         return node;
+      else
+         return GetSelectedLayer(contextTn.Parent);
    }
 
    #endregion
