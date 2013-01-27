@@ -10,7 +10,7 @@ namespace Outliner
       /// <summary>
       /// Returns an IEnumerable with a single element.
       /// </summary>
-      public static IEnumerable<T> ToEnumerable<T>(this T item)
+      public static IEnumerable<T> ToIEnumerable<T>(this T item)
       {
          yield return item;
       }

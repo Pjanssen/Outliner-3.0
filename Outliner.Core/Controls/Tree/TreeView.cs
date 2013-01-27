@@ -462,7 +462,7 @@ public class TreeView : ScrollableControl
       TreeNode tn = this.GetNodeAt(e.Location);
       if (tn != null)
          this.TreeNodeLayout.HandleMouseUp(e, tn);
-      else if (!HelperMethods.ControlPressed && !HelperMethods.ShiftPressed && !HelperMethods.AltPressed)
+      else if (!ControlHelpers.ControlPressed && !ControlHelpers.ShiftPressed && !ControlHelpers.AltPressed)
       {
          int selCount = this.selectedNodes.Count;
          this.SelectAllNodes(false);
@@ -495,7 +495,7 @@ public class TreeView : ScrollableControl
       //Start dragging.
       if (tn != null && !this.isDragging
           && isDragDropMouseButton
-          && HelperMethods.Distance(e.Location, this.dragStartPos) > 5
+          && ControlHelpers.Distance(e.Location, this.dragStartPos) > 5
           && this.selectedNodes.Count > 0)
       {
          this.isDragging = true;

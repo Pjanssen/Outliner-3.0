@@ -180,7 +180,7 @@ public class OpenOutliner : CuiDockableContentAdapter
 
       if (tn.IsExpanded)
       {
-         IMaxNode node = HelperMethods.GetMaxNode(tn);
+         IMaxNode node = TreeMode.GetMaxNode(tn);
          if (node != null)
             nodes.Add(node);
       }

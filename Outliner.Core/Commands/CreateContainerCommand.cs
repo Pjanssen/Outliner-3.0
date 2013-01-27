@@ -31,7 +31,8 @@ namespace Outliner.Commands
 
       public override void Do()
       {
-         this.containerNode = MaxInterfaces.ContainerManager.CreateContainer(HelperMethods.ToIINodeTab(this.nodes));
+         IINodeTab nodeTab = this.nodes.ToIINodeTab();
+         this.containerNode = MaxInterfaces.ContainerManager.CreateContainer(nodeTab);
          this.containerNode.SetAFlag(AnimatableFlags.Held);
       }
 

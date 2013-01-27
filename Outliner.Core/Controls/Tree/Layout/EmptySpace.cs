@@ -80,7 +80,7 @@ public class EmptySpace : TreeNodeLayoutItem
 
       TreeView tree = this.Layout.TreeView;
       Boolean isSelected = tn.IsSelected;
-      if (!HelperMethods.ControlPressed && !HelperMethods.ShiftPressed)
+      if (!ControlHelpers.ControlPressed && !ControlHelpers.ShiftPressed)
       {
          if (!isSelected && this.Layout.FullRowSelect)
          {
@@ -101,7 +101,7 @@ public class EmptySpace : TreeNodeLayoutItem
 
       if ((e.Button & MouseButtons.Right) != MouseButtons.Right)
       {
-         if (!HelperMethods.ControlPressed && !HelperMethods.ShiftPressed)
+         if (!ControlHelpers.ControlPressed && !ControlHelpers.ShiftPressed)
          {
             tree.SelectAllNodes(false);
          }
@@ -109,9 +109,9 @@ public class EmptySpace : TreeNodeLayoutItem
 
       if (this.Layout.FullRowSelect)
       {
-         if (HelperMethods.ShiftPressed && tree.LastSelectedNode != null)
+         if (ControlHelpers.ShiftPressed && tree.LastSelectedNode != null)
             tree.SelectNodesInsideRange(tree.LastSelectedNode, tn);
-         else if (HelperMethods.ControlPressed)
+         else if (ControlHelpers.ControlPressed)
             tree.SelectNode(tn, !isSelected);
          else
             tree.SelectNode(tn, true);

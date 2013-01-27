@@ -398,9 +398,9 @@ namespace Outliner.Scene
             return layer != null && layer.IsFrozen;
          else if (property == NodeProperty.WireColor)
             return this.NodeLayerProperties.ColorByLayer;
-         else if (NodePropertyHelpers.IsDisplayProperty(property))
+         else if (NodeProperties.IsDisplayProperty(property))
             return layerProperties.DisplayByLayer;
-         else if (NodePropertyHelpers.IsRenderProperty(property))
+         else if (NodeProperties.IsRenderProperty(property))
             return layerProperties.RenderByLayer;
          else
             return false;

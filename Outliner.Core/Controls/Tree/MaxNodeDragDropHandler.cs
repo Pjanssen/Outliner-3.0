@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Outliner.Modes;
 using Outliner.Scene;
 
 namespace Outliner.Controls.Tree
@@ -17,7 +18,6 @@ namespace Outliner.Controls.Tree
       }
 
 
-      
       public abstract bool AllowDrag { get; }
 
       public abstract bool IsValidDropTarget(IDataObject dragData);
@@ -34,15 +34,15 @@ namespace Outliner.Controls.Tree
       public virtual void HandleDrop(IDataObject dragData) { }
 
 
-
       public virtual DragDropEffects DefaultDragDropEffect
       {
          get { return DragDropEffects.Move; }
       }
 
+
       public static IEnumerable<IMaxNode> GetMaxNodesFromDragData(IDataObject dragData)
       {
-         return HelperMethods.GetMaxNodes(TreeView.GetTreeNodesFromDragData(dragData));
+         return TreeMode.GetMaxNodes(TreeView.GetTreeNodesFromDragData(dragData));
       }
    }
 }

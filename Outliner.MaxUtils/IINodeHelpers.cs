@@ -74,8 +74,33 @@ public static class IINodeHelpers
    /// </summary>
    public static IEnumerable<IINode> NodeKeysToINodeList(this ITab<UIntPtr> handles)
    {
-      return handles.ToIEnumerable().Select(MaxInterfaces.Global.NodeEventNamespace.GetNodeByKey);
+      return HelperMethods.ITabToIEnumerable(handles)
+                          .Select(MaxInterfaces.Global.NodeEventNamespace.GetNodeByKey);
    }
+
+
+   /// <summary>
+   /// Converts an IEnumerable of objects into an IINodeTab.
+   /// </summary>
+   public static IINodeTab ToIINodeTab(IEnumerable<Object> nodes)
+   {
+      Throw.IfArgumentIsNull(nodes, "nodes");
+
+      IINodeTab tab = MaxInterfaces.Global.INodeTabNS.Create();
+      Int32 nodeCount = nodes.Count();
+      if (nodes.Count() > 0)
+      {
+         tab.Resize(nodeCount);
+         foreach (Object node in nodes)
+         {
+            IINode inode = node as IINode;
+            if (inode != null)
+               tab.AppendNode(inode, true, 0);
+         }
+      }
+      return tab;
+   }
+
 
    private const int enable = (int)Autodesk.Max.ObjectWrapper.E173.AllEnable;
    private const int nativeType = (int)Autodesk.Max.ObjectWrapper.E172.TriObject;

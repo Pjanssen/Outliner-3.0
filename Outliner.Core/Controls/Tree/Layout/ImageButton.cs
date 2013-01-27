@@ -47,6 +47,11 @@ public abstract class ImageButton : TreeNodeButton
 
    public abstract Boolean IsEnabled(TreeNode tn);
 
+   protected override bool Clickable(TreeNode tn)
+   {
+      return this.IsEnabled(tn);
+   }
+
    protected static Image CreateDisabledImage(Image image)
    {
       if (image == null)

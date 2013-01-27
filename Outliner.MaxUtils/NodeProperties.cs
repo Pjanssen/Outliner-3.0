@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Autodesk.Max;
 
 namespace Outliner.MaxUtils
 {
-public static class NodePropertyHelpers
+public static class NodeProperties
 {
    public static Boolean IsBooleanProperty(NodeProperty property)
    {

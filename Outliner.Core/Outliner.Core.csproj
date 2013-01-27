@@ -347,6 +347,7 @@
     <Compile Include="..\AssemblyVersion.cs">
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
+    <Compile Include="Scene\IMaxNodeExtensions.cs" />
     <Compile Include="Scene\IMaxNodeFactory.cs" />
     <Compile Include="Scene\INodeWrapper.cs" />
     <Compile Include="Scene\INodeWrapperFactory.cs" />
@@ -354,7 +355,6 @@
     <Compile Include="Scene\IMaxNode.cs" />
     <Compile Include="Scene\MaxNodeType.cs" />
     <Compile Include="Scene\MaxScene.cs" />
-    <Compile Include="HelperMethods.cs" />
     <Compile Include="Modes\TreeMode.cs" />
     <Compile Include="TypeHelpers.cs" />
     <Compile Include="Configuration\SorterConfiguration.cs" />

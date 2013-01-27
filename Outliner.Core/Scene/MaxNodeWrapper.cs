@@ -160,8 +160,8 @@ namespace Outliner.Scene
 
       public virtual Object GetNodeProperty(NodeProperty property)
       {
-         if (NodePropertyHelpers.IsBooleanProperty(property))
-            return this.GetNodeProperty(NodePropertyHelpers.ToBooleanProperty(property));
+         if (NodeProperties.IsBooleanProperty(property))
+            return this.GetNodeProperty(NodeProperties.ToBooleanProperty(property));
          else
          {
             switch (property)
@@ -180,8 +180,8 @@ namespace Outliner.Scene
 
       public virtual void SetNodeProperty(NodeProperty property, object value) 
       {
-         if (NodePropertyHelpers.IsBooleanProperty(property))
-            this.SetNodeProperty(NodePropertyHelpers.ToBooleanProperty(property), (Boolean)value);
+         if (NodeProperties.IsBooleanProperty(property))
+            this.SetNodeProperty(NodeProperties.ToBooleanProperty(property), (Boolean)value);
          else
          {
             switch (property)
@@ -207,7 +207,7 @@ namespace Outliner.Scene
 
       public virtual Boolean IsNodePropertyInherited(BooleanNodeProperty property)
       {
-         return this.IsNodePropertyInherited(NodePropertyHelpers.ToProperty(property));
+         return this.IsNodePropertyInherited(NodeProperties.ToProperty(property));
       }
 
       public virtual Color WireColor 

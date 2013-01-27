@@ -11,29 +11,14 @@ namespace Outliner.MaxUtils
 public static class HelperMethods
 {
    /// <summary>
-   /// Iterates over all elements in the collection with the supplied function.
-   /// </summary>
-   public static void ForEach<T>(this IEnumerable<T> items, Action<T> action)
-   {
-      Throw.IfArgumentIsNull(items, "items");
-      Throw.IfArgumentIsNull(action, "action");
-      
-      foreach (T item in items)
-         action(item);
-   }
-
-   /// <summary>
    /// Converts the ITab to a more convenient IEnumerable.
    /// </summary>
-   public static IEnumerable<T> ToIEnumerable<T>(this ITab<T> tab)
+   public static IEnumerable<T> ITabToIEnumerable<T>(ITab<T> tab)
    {
       Throw.IfArgumentIsNull(tab, "tab");
       
-      List<T> lst = new List<T>(tab.Count);
       for (int i = 0; i < tab.Count; i++)
-         lst.Add(tab[(IntPtr)i]);
-
-      return lst;
+         yield return tab[(IntPtr)i];
    }
 
 

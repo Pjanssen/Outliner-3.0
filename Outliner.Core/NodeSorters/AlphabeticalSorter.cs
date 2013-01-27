@@ -7,6 +7,7 @@ using Autodesk.Max;
 using Outliner.Scene;
 using Outliner.Plugins;
 using Outliner.MaxUtils;
+using Outliner.Modes;
 
 namespace Outliner.NodeSorters
 {
@@ -22,10 +23,10 @@ namespace Outliner.NodeSorters
          if (x == y)
             return 0;
 
-         IMaxNode nodeX = HelperMethods.GetMaxNode(x);
+         IMaxNode nodeX = TreeMode.GetMaxNode(x);
          if (nodeX == null || !nodeX.IsValid) return 0;
 
-         IMaxNode nodeY = HelperMethods.GetMaxNode(y);
+         IMaxNode nodeY = TreeMode.GetMaxNode(y);
          if (nodeY == null || !nodeY.IsValid) return 0;
 
          return NativeMethods.StrCmpLogicalW(nodeX.Name, nodeY.Name);

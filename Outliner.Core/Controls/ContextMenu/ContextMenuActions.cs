@@ -8,6 +8,7 @@ using Outliner.Commands;
 using Outliner.MaxUtils;
 using Outliner.Controls.Tree;
 using Autodesk.Max;
+using Outliner.Modes;
 
 namespace Outliner.Controls.ContextMenu
 {
@@ -37,7 +38,7 @@ public static class ContextMenuActions
 
       if (contextTn != null)
       {
-         IMaxNode node = HelperMethods.GetMaxNode(contextTn);
+         IMaxNode node = TreeMode.GetMaxNode(contextTn);
          if (node != null)
             return node.CanEditName;
       }

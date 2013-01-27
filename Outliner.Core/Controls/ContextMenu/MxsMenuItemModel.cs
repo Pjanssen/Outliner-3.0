@@ -11,6 +11,7 @@ using System.Xml.Serialization;
 using Autodesk.Max;
 using ManagedServices;
 using Outliner.MaxUtils;
+using Outliner.Modes;
 using Outliner.Plugins;
 using Outliner.Scene;
 
@@ -107,7 +108,7 @@ public class MxsMenuItemModel : MenuItemModel
    {
       StringBuilder scriptBuilder = new StringBuilder("( fn mxsFn = ( local nodes = #( ");
 
-      foreach (IMaxNode node in HelperMethods.GetMaxNodes(treeView.SelectedNodes))
+      foreach (IMaxNode node in TreeMode.GetMaxNodes(treeView.SelectedNodes))
       {
          IAnimatable anim = node.BaseObject as IAnimatable;
          if (anim != null)

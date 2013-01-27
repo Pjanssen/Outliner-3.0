@@ -154,7 +154,7 @@ public static class AutoInheritProperties
       IILayerProperties layerProperties = MaxInterfaces.IIFPLayerManager.GetLayer(layer.Name);
       layerProperties.Nodes(nodes);
 
-      foreach (IINode node in nodes.ToIEnumerable())
+      foreach (IINode node in HelperMethods.ITabToIEnumerable(nodes))
       {
          setNodeInheritProperty(node, prop, value);
       }

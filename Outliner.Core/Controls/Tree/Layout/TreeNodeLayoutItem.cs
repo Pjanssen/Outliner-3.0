@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.ComponentModel;
 using Outliner.Scene;
+using Outliner.Modes;
 
 namespace Outliner.Controls.Tree.Layout
 {
@@ -69,7 +70,7 @@ namespace Outliner.Controls.Tree.Layout
       /// </summary>
       public virtual Boolean IsVisible(TreeNode tn)
       {
-         IMaxNode node = HelperMethods.GetMaxNode(tn);
+         IMaxNode node = TreeMode.GetMaxNode(tn);
          if (node == null)
             return this.ShowForNonMaxNodes;
          else

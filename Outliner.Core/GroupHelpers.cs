@@ -121,7 +121,7 @@ internal static class GroupHelpers
       for (int i = GroupHelpers.openedGroupHeads.Count - 1; i >= 0; i--)
       {
          INodeWrapper groupHead = GroupHelpers.openedGroupHeads[i];
-         if (!HelperMethods.IsParentOfSelected(groupHead))
+         if (!groupHead.IsParentOfSelected())
          {
             GroupHelpers.OpenCloseGroup(groupHead, false);
             GroupHelpers.openedGroupHeads.RemoveAt(i);

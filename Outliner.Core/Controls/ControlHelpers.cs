@@ -66,5 +66,39 @@ public class ControlHelpers
          SetControlColor(child, foreColor, backColor);
       }
    }
+
+   /// <summary>
+   /// Returns true if the Control key is pressed, possibly in combination with other keys.
+   /// </summary>
+   public static Boolean ControlPressed
+   {
+      get { return Control.ModifierKeys.HasFlag(Keys.Control); }
+   }
+
+   /// <summary>
+   /// Returns true if the Alt key is pressed, possibly in combination with other keys.
+   /// </summary>
+   public static Boolean AltPressed
+   {
+      get { return Control.ModifierKeys.HasFlag(Keys.Alt); }
+   }
+
+   /// <summary>
+   /// Returns true if the Shift key is pressed, possibly in combination with other keys.
+   /// </summary>
+   public static Boolean ShiftPressed
+   {
+      get { return Control.ModifierKeys.HasFlag(Keys.Shift); }
+   }
+
+   /// <summary>
+   /// Calculates the distance between two points.
+   /// </summary>
+   public static Double Distance(Point pt1, Point pt2)
+   {
+      double a = Math.Pow(pt1.X - pt2.X, 2);
+      double b = Math.Pow(pt1.Y - pt2.Y, 2);
+      return Math.Sqrt(a + b);
+   }
 }
 }

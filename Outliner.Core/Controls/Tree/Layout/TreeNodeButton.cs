@@ -18,20 +18,20 @@ public abstract class TreeNodeButton : TreeNodeLayoutItem, IDisposable
    private ToolTip tooltip;
    public override void HandleMouseEnter(MouseEventArgs e, TreeNode tn)
    {
-      if (this.Layout != null && this.Layout.TreeView != null)
-      {
-         String tooltipText = this.GetTooltipText(tn);
-         if (this.Clickable(tn))
-            this.Layout.TreeView.Cursor = Cursors.Hand;
+      if (this.Layout == null || this.Layout.TreeView == null)
+         return;
 
-         if (tooltipText != null)
-         {
-            this.tooltip = new ToolTip();
-            this.tooltip.InitialDelay = TOOLTIP_INITIAL_DELAY;
-            this.tooltip.AutoPopDelay = TOOLTIP_AUTOPOP_DELAY;
-            this.tooltip.ShowAlways = true;
-            this.tooltip.SetToolTip(this.Layout.TreeView, tooltipText);
-         }
+      String tooltipText = this.GetTooltipText(tn);
+      if (this.Clickable(tn))
+         this.Layout.TreeView.Cursor = Cursors.Hand;
+
+      if (tooltipText != null)
+      {
+         this.tooltip = new ToolTip();
+         this.tooltip.InitialDelay = TOOLTIP_INITIAL_DELAY;
+         this.tooltip.AutoPopDelay = TOOLTIP_AUTOPOP_DELAY;
+         this.tooltip.ShowAlways = true;
+         this.tooltip.SetToolTip(this.Layout.TreeView, tooltipText);
       }
    }
 

@@ -347,7 +347,7 @@ public static class NestedLayers
       }
       else
       {
-         LayerPropertyChangedParam parameters = new LayerPropertyChangedParam(layer, NodePropertyHelpers.ToProperty(property));
+         LayerPropertyChangedParam parameters = new LayerPropertyChangedParam(layer, NodeProperties.ToProperty(property));
          MaxInterfaces.Global.BroadcastNotification(LayerNotificationCode.LayerPropertyChanged, parameters);
       }
 

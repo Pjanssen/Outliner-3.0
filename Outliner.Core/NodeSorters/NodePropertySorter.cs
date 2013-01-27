@@ -9,6 +9,7 @@ using System.Drawing;
 using Outliner.Plugins;
 using System.Xml.Serialization;
 using System.ComponentModel;
+using Outliner.Modes;
 
 namespace Outliner.NodeSorters
 {
@@ -41,10 +42,10 @@ public class NodePropertySorter : NodeSorter
       if (x == y)
          return 0;
 
-      IMaxNode nodeX = HelperMethods.GetMaxNode(x);
+      IMaxNode nodeX = TreeMode.GetMaxNode(x);
       if (nodeX == null || !nodeX.IsValid) return 0;
 
-      IMaxNode nodeY = HelperMethods.GetMaxNode(y);
+      IMaxNode nodeY = TreeMode.GetMaxNode(y);
       if (nodeY == null || !nodeY.IsValid) return 0;
 
       Object propValueX = nodeX.GetNodeProperty(this.Property);

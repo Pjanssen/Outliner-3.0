@@ -175,7 +175,7 @@ public class TreeNodeText : TreeNodeButton
       this.clickHandledAtMouseDown = false;
       TreeView tree          = this.Layout.TreeView;
       Boolean isSelected     = tn.IsSelected;
-      if (!HelperMethods.ControlPressed && !HelperMethods.ShiftPressed)
+      if (!ControlHelpers.ControlPressed && !ControlHelpers.ShiftPressed)
       {
          if (!isSelected)
          {
@@ -200,15 +200,15 @@ public class TreeNodeText : TreeNodeButton
 
       if ((e.Button & MouseButtons.Right) != MouseButtons.Right)
       {
-         if (!HelperMethods.ControlPressed && !HelperMethods.ShiftPressed)
+         if (!ControlHelpers.ControlPressed && !ControlHelpers.ShiftPressed)
          {
             tree.SelectAllNodes(false);
          }
       }
 
-      if (HelperMethods.ShiftPressed && tree.LastSelectedNode != null)
+      if (ControlHelpers.ShiftPressed && tree.LastSelectedNode != null)
          tree.SelectNodesInsideRange(tree.LastSelectedNode, tn);
-      else if (HelperMethods.ControlPressed)
+      else if (ControlHelpers.ControlPressed)
          tree.SelectNode(tn, !isSelected);
       else
          tree.SelectNode(tn, true);

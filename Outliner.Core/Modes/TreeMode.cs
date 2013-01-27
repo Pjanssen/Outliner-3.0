@@ -233,6 +233,29 @@ public abstract class TreeMode
 
    #region Helper methods
 
+   /// <summary>
+   /// Returns the NodeWrapper from the Tag of a TreeNode.
+   /// </summary>
+   public static IMaxNode GetMaxNode(TreeNode tn)
+   {
+      if (tn == null)
+         return null;
+
+      MaxTreeNode maxTn = tn as MaxTreeNode;
+      if (maxTn == null)
+         return null;
+      else
+         return maxTn.MaxNode;
+   }
+
+   /// <summary>
+   /// Maps GetMaxNode to a list of TreeNodes, returning a list of NodeWrappers.
+   /// </summary>
+   public static IEnumerable<IMaxNode> GetMaxNodes(IEnumerable<TreeNode> treeNodes)
+   {
+      return treeNodes.Select(TreeMode.GetMaxNode);
+   }
+
    public virtual IEnumerable<TreeNode> GetTreeNodes(IMaxNode wrapper)
    {
       if (wrapper == null)
@@ -443,7 +466,7 @@ public abstract class TreeMode
          {
             foreach (TreeNode tn in tns)
             {
-               IMaxNode wrapper = HelperMethods.GetMaxNode(tn);
+               IMaxNode wrapper = TreeMode.GetMaxNode(tn);
                tn.ShowNode = this.filters.ShowNode(wrapper);
             }
          }
@@ -578,13 +601,13 @@ public abstract class TreeMode
 
       public override void DisplayPropertiesChanged(ITab<UIntPtr> nodes)
       {
-         Boolean sort = NodeSorterHelpers.RequiresSort(this.NodeSorter, NodePropertyHelpers.DisplayProperties);
+         Boolean sort = NodeSorterHelpers.RequiresSort(this.NodeSorter, NodeProperties.DisplayProperties);
          this.TreeMode.InvalidateTreeNodes(nodes, sort);
       }
 
       public override void RenderPropertiesChanged(ITab<UIntPtr> nodes)
       {
-         Boolean sort = NodeSorterHelpers.RequiresSort(this.NodeSorter, NodePropertyHelpers.RenderProperties);
+         Boolean sort = NodeSorterHelpers.RequiresSort(this.NodeSorter, NodeProperties.RenderProperties);
          this.TreeMode.InvalidateTreeNodes(nodes, sort);
       }
    }
@@ -598,7 +621,7 @@ public abstract class TreeMode
    {
       this.UnregisterSystemNotification(proc_SelectionsetChanged, SystemNotificationCode.SelectionsetChanged);
 
-      IEnumerable<IMaxNode> selNodes = HelperMethods.GetMaxNodes(e.Nodes);
+      IEnumerable<IMaxNode> selNodes = TreeMode.GetMaxNodes(e.Nodes);
       SelectCommand cmd = new SelectCommand(selNodes);
       cmd.Execute(true);
 
@@ -607,7 +630,7 @@ public abstract class TreeMode
 
    protected virtual void tree_BeforeNodeTextEdit(object sender, BeforeNodeTextEditEventArgs e)
    {
-      IMaxNode node = HelperMethods.GetMaxNode(e.TreeNode);
+      IMaxNode node = TreeMode.GetMaxNode(e.TreeNode);
       if (node == null)
       {
          e.Cancel = true;
@@ -632,7 +655,7 @@ public abstract class TreeMode
 
    protected virtual void tree_AfterNodeTextEdit(object sender, AfterNodeTextEditEventArgs e)
    {
-      IMaxNode node = HelperMethods.GetMaxNode(e.TreeNode);
+      IMaxNode node = TreeMode.GetMaxNode(e.TreeNode);
       if (node == null)
          return;
 
@@ -711,7 +734,7 @@ public abstract class TreeMode
       {
          foreach (TreeNode tn in item.Value)
          {
-            IMaxNode node = HelperMethods.GetMaxNode(tn);
+            IMaxNode node = TreeMode.GetMaxNode(tn);
             if (node != null)
                tn.ShowNode = this.filters.ShowNode(node);
          }

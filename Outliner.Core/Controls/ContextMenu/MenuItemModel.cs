@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.ComponentModel;
 using Outliner.Scene;
 using Outliner.Configuration;
+using Outliner.Modes;
 
 namespace Outliner.Controls.ContextMenu
 {
@@ -93,7 +94,7 @@ public abstract class MenuItemModel : ConfigurationFile
    {
       Throw.IfArgumentIsNull(treeView, "treeView");
 
-      IEnumerable<IMaxNode> context = HelperMethods.GetMaxNodes(treeView.SelectedNodes);
+      IEnumerable<IMaxNode> context = TreeMode.GetMaxNodes(treeView.SelectedNodes);
 
       if (context.Count() == 0)
          return this.VisibleForEmptySelection;
