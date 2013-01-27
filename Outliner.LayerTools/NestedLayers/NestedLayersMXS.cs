@@ -12,8 +12,8 @@ public static class NestedLayersMxs
 {
    internal static void Start()
    {
-      HelperMethods.RunResourceScript(typeof(NestedLayersMxs).Assembly,
-                                      "Outliner.LayerTools.NestedLayers.NestedLayersMxs.ms");
+      MaxscriptHelpers.RunResourceScript( typeof(NestedLayersMxs).Assembly
+                                        , "Outliner.LayerTools.NestedLayers.NestedLayersMxs.ms");
    }
 
    public const UInt64 RootHandle = 0;

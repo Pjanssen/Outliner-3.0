@@ -11,8 +11,8 @@ public static class AutoInheritPropertiesMxs
 {
    internal static void Start()
    {
-      HelperMethods.RunResourceScript(typeof(AutoInheritPropertiesMxs).Assembly,
-                                      "Outliner.LayerTools.AutoInheritProperties.AutoInheritPropertiesMxs.ms");
+      MaxscriptHelpers.RunResourceScript( typeof(AutoInheritPropertiesMxs).Assembly
+                                        , "Outliner.LayerTools.AutoInheritProperties.AutoInheritPropertiesMxs.ms");
    }
 
    private static IILayer getLayer(UInt64 layerHandle)

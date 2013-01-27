@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="ClassIDHelpers.cs" />
     <Compile Include="ColorHelpers.cs" />
+    <Compile Include="MaxscriptHelpers.cs" />
     <Compile Include="Throw.cs" />
     <Compile Include="Functor.cs" />
     <Compile Include="GlobalSuppressions.cs" />

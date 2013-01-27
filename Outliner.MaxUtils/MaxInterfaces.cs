@@ -136,6 +136,65 @@ public static class MaxInterfaces
       }
    }
 
+   public static IntPtr MtlEditorHwnd
+   {
+      get
+      {
+         IntPtr mtlPtr = IntPtr.Zero;
+         NativeMethods.EnumWindows(
+             (IntPtr hwnd, IntPtr lparam) => {
+                if (HwndIsMtlEditor(hwnd))
+                {
+                   mtlPtr = hwnd;
+                   return false;
+                }
+                return true;
+             }, IntPtr.Zero);
+         return mtlPtr;
+      }
+   }
+
+   public static IntPtr SlateMtlEditorHwnd
+   {
+      get
+      {
+         IntPtr mtlPtr = IntPtr.Zero;
+         NativeMethods.EnumWindows(
+             (IntPtr hwnd, IntPtr lparam) => {
+                if (HwndIsSlateMtlEditor(hwnd))
+                {
+                   mtlPtr = hwnd;
+                   return false;
+                }
+                return true;
+             }, IntPtr.Zero);
+         return mtlPtr;
+      }
+   }
+
+
+   private static String getHwndTitle(IntPtr hwnd)
+   {
+      int textLength = NativeMethods.GetWindowTextLength(hwnd);
+      StringBuilder windowText = new StringBuilder(textLength + 1);
+      if (NativeMethods.GetWindowText(hwnd, windowText, windowText.Capacity) > 0)
+         return windowText.ToString();
+      else
+         return String.Empty;
+   }
+
+   private static bool HwndIsMtlEditor(IntPtr hwnd)
+   {
+      //TODO: verify if this works in non-English 3dsmax versions
+      return getHwndTitle(hwnd).StartsWith("Material Editor", StringComparison.Ordinal);
+   }
+
+   private static bool HwndIsSlateMtlEditor(IntPtr hwnd)
+   {
+      return getHwndTitle(hwnd) == "Slate Material Editor";
+   }
+
+
    public static IIColorManager ColorManager
    {
       get { return MaxInterfaces.Global.ColorManager; }
