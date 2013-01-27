@@ -705,7 +705,7 @@ namespace Outliner.Controls.ContextMenu {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to - Include Model File -.
+        ///   Looks up a localized string similar to - Include ContextMenu File -.
         /// </summary>
         internal static string Str_IncludeContextMenuModel {
             get {

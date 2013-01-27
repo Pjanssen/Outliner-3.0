@@ -165,53 +165,26 @@ public class TreeNodeText : TreeNodeButton
       }
    }
 
-   private Boolean clickHandledAtMouseDown;
-
    public override void HandleMouseDown(MouseEventArgs e, TreeNode tn)
    {
       if (this.Layout == null || this.Layout.TreeView == null)
          return;
 
-      this.clickHandledAtMouseDown = false;
-      TreeView tree          = this.Layout.TreeView;
-      Boolean isSelected     = tn.IsSelected;
-      if (!ControlHelpers.ControlPressed && !ControlHelpers.ShiftPressed)
+      TreeView tree = this.Layout.TreeView;
+
+      if (ControlHelpers.ControlPressed)
       {
-         if (!isSelected)
-         {
-            tree.SelectAllNodes(false);
-            tree.SelectNode(tn, true);
-            tree.OnSelectionChanged();
-            this.clickHandledAtMouseDown = true;
-         }
+         tree.SelectNode(tn, !tn.IsSelected);
       }
-   }
-
-   public override void HandleMouseUp(MouseEventArgs e, TreeNode tn)
-   {
-      if (this.Layout == null || this.Layout.TreeView == null)
-         return;
-
-      if (this.clickHandledAtMouseDown)
-         return;
-
-      TreeView tree          = this.Layout.TreeView;
-      Boolean isSelected     = tn.IsSelected;
-
-      if ((e.Button & MouseButtons.Right) != MouseButtons.Right)
+      else if (ControlHelpers.ShiftPressed)
       {
-         if (!ControlHelpers.ControlPressed && !ControlHelpers.ShiftPressed)
-         {
-            tree.SelectAllNodes(false);
-         }
-      }
-
-      if (ControlHelpers.ShiftPressed && tree.LastSelectedNode != null)
          tree.SelectNodesInsideRange(tree.LastSelectedNode, tn);
-      else if (ControlHelpers.ControlPressed)
-         tree.SelectNode(tn, !isSelected);
+      }
       else
+      {
+         tree.SelectAllNodes(false);
          tree.SelectNode(tn, true);
+      }
 
       tree.OnSelectionChanged();
    }

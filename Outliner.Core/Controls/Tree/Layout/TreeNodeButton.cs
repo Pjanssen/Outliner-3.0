@@ -16,6 +16,18 @@ public abstract class TreeNodeButton : TreeNodeLayoutItem, IDisposable
    protected const int TOOLTIP_AUTOPOP_DELAY = 4000;
 
    private ToolTip tooltip;
+
+
+   protected virtual String GetTooltipText(TreeNode tn)
+   {
+      return null;
+   }
+
+   protected virtual Boolean Clickable(TreeNode tn)
+   {
+      return true;
+   }
+
    public override void HandleMouseEnter(MouseEventArgs e, TreeNode tn)
    {
       if (this.Layout == null || this.Layout.TreeView == null)
@@ -33,16 +45,6 @@ public abstract class TreeNodeButton : TreeNodeLayoutItem, IDisposable
          this.tooltip.ShowAlways = true;
          this.tooltip.SetToolTip(this.Layout.TreeView, tooltipText);
       }
-   }
-
-   protected virtual String GetTooltipText(TreeNode tn)
-   {
-      return null;
-   }
-
-   protected virtual Boolean Clickable(TreeNode tn)
-   {
-      return true;
    }
 
    public override void HandleMouseLeave(MouseEventArgs e, TreeNode tn)

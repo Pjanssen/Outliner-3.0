@@ -344,7 +344,7 @@
     <value>- Hide / Freeze Items -</value>
   </data>
   <data name="Str_IncludeContextMenuModel" xml:space="preserve">
-    <value>- Include Model File -</value>
+    <value>- Include ContextMenu File -</value>
   </data>
   <data name="Str_MxsMenuItemModel" xml:space="preserve">
     <value>Maxscript Item</value>

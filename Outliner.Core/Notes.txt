@@ -10,8 +10,7 @@
 
 TREEVIEW
 --------
-* TreeNode selection implementation is a bit shoddy. MouseDown+MouseUp both fire selectionchangedevent
-* TreeNode.NextNode/NextVisible node bug when switching to layer mode.
+
 
 NODE BUTTONS
 ------------
@@ -142,5 +141,8 @@ Options
 #26 - background zebras bug when scrolling.
 #38 - unhandled exception when freezing/hidding a selected child layer.
 #44 - layer cannot be fully unparented.
+#52 - unwanted behaviours when creating a new layer on a layer.
+#65 - "Layers Only" preset doesn't have the proper filter.
+#71 - Selection Set : set isn't selected when switching from whatever mode to SS mode.
 #72 - Selection Set : select child nodes.
-#75 - Search doesn't work
+#75 - Search doesn't work.

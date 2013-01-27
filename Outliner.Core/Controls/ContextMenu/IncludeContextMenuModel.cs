@@ -50,7 +50,7 @@ namespace Outliner.Controls.ContextMenu
                   ContextMenuModel contextMenu = XmlSerializationHelpers.Deserialize<ContextMenuModel>(file);
                   return contextMenu.Items;
                }
-               catch (InvalidOperationException e) { }
+               catch (InvalidOperationException) { }
             }
             return new List<MenuItemModel>();
          }

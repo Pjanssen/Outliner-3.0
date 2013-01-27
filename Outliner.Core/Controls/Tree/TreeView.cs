@@ -437,6 +437,7 @@ public class TreeView : ScrollableControl
 
    #region Mouse Events
 
+   private Boolean MouseEventHandledAtMouseDown;
    protected override void OnMouseDown(MouseEventArgs e)
    {
       if (e == null || this.TreeNodeLayout == null)
@@ -447,8 +448,10 @@ public class TreeView : ScrollableControl
 
       TreeNode tn = this.GetNodeAt(e.Location);
       if (tn != null)
-         this.TreeNodeLayout.HandleMouseDown(e, tn);
-      
+         this.MouseEventHandledAtMouseDown = this.TreeNodeLayout.HandleMouseDown(e, tn);
+      else
+         this.MouseEventHandledAtMouseDown = false;
+
       base.OnMouseDown(e);
    }
 
@@ -458,11 +461,13 @@ public class TreeView : ScrollableControl
          return;
 
       this.Select(); //Select the treeview to be able to end a potential TreeNodeText::TextEdit.
-
+      
       TreeNode tn = this.GetNodeAt(e.Location);
       if (tn != null)
          this.TreeNodeLayout.HandleMouseUp(e, tn);
-      else if (!ControlHelpers.ControlPressed && !ControlHelpers.ShiftPressed && !ControlHelpers.AltPressed)
+      else if (!this.MouseEventHandledAtMouseDown && !ControlHelpers.ControlPressed 
+                                                  && !ControlHelpers.ShiftPressed 
+                                                  && !ControlHelpers.AltPressed)
       {
          int selCount = this.selectedNodes.Count;
          this.SelectAllNodes(false);

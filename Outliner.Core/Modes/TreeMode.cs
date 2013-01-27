@@ -411,7 +411,7 @@ public abstract class TreeMode
       IEnumerable<TreeNode> tns = this.GetTreeNodes(node);
       if (tns != null)
       {
-         foreach (TreeNode  tn in tns)
+         foreach (TreeNode tn in tns)
          {
             this.Tree.SelectNode(tn, false);
             tn.Remove();

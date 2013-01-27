@@ -185,67 +185,58 @@ public class TreeNodeLayout
             this.prevMouseOverTn = null;
          }
       }
-      foreach (TreeNodeLayoutItem item in this.layoutItems)
+
+      HandleMouseEvent(e, tn, i => InvokeHandleMouseEnter(e, tn, i));
+   }
+
+   private void InvokeHandleMouseEnter(MouseEventArgs e, TreeNode tn, TreeNodeLayoutItem item)
+   {
+      if (item != prevMouseOverItem || tn != prevMouseOverTn)
       {
-         if (item.IsVisible(tn) && item.GetBounds(tn).Contains(e.Location))
-         {
-            if (item != prevMouseOverItem || tn != prevMouseOverTn)
-            {
-               item.HandleMouseEnter(e, tn);
-               prevMouseOverItem = item;
-               prevMouseOverTn = tn;
-               break;
-            }
-         }
+         item.HandleMouseEnter(e, tn);
+         prevMouseOverItem = item;
+         prevMouseOverTn = tn;
       }
    }
 
-   public void HandleMouseDown(MouseEventArgs e, TreeNode tn)
+   public Boolean HandleMouseDown(MouseEventArgs e, TreeNode tn)
    {
-      if (e == null)
-         return;
+      if (e == null || tn == null)
+         return false;
 
-      foreach (TreeNodeLayoutItem i in this.layoutItems)
-      {
-         if (i.GetBounds(tn).Contains(e.Location))
-         {
-            i.HandleMouseDown(e, tn);
-            break;
-         }
-      }
+      return HandleMouseEvent(e, tn, i => i.HandleMouseDown(e, tn));
    }
 
    public void HandleMouseUp(MouseEventArgs e, TreeNode tn)
    {
-      if (e == null)
+      if (e == null || tn == null)
          return;
 
-      foreach (TreeNodeLayoutItem i in this.layoutItems)
-      {
-         if (i.GetBounds(tn).Contains(e.Location))
-         {
-            i.HandleMouseUp(e, tn);
-            break;
-         }
-      }
+      HandleMouseEvent(e, tn, i => i.HandleMouseUp(e, tn));
    }
 
    public void HandleMouseDoubleClick(MouseEventArgs e, TreeNode tn)
    {
-      if (e == null)
+      if (e == null || tn == null)
          return;
 
-      foreach (TreeNodeLayoutItem i in this.layoutItems)
-      {
-         if (i.GetBounds(tn).Contains(e.Location))
-         {
-            i.HandleDoubleClick(e, tn);
-            break;
-         }
-      }
+      HandleMouseEvent(e, tn, i => i.HandleDoubleClick(e, tn));
    }
 
+   private Boolean HandleMouseEvent(MouseEventArgs e, TreeNode tn, Action<TreeNodeLayoutItem> action)
+   {
+      foreach (TreeNodeLayoutItem i in this.layoutItems)
+      {
+         if (i.IsVisible(tn) && i.GetBounds(tn).Contains(e.Location))
+         {
+            action(i);
+            return true;
+         }
+      }
+      return false;
+   }
 
+   
 
 
    public static TreeNodeLayout SimpleLayout

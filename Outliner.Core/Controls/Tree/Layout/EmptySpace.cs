@@ -79,42 +79,23 @@ public class EmptySpace : TreeNodeLayoutItem
          return;
 
       TreeView tree = this.Layout.TreeView;
-      Boolean isSelected = tn.IsSelected;
-      if (!ControlHelpers.ControlPressed && !ControlHelpers.ShiftPressed)
+
+      if (!this.Layout.FullRowSelect)
       {
-         if (!isSelected && this.Layout.FullRowSelect)
-         {
-            tree.SelectAllNodes(false);
-            tree.SelectNode(tn, true);
-            tree.OnSelectionChanged();
-         }
+         tree.SelectAllNodes(false);
       }
-   }
-
-   public override void HandleMouseUp(MouseEventArgs e, TreeNode tn)
-   {
-      if (this.Layout == null || this.Layout.TreeView == null)
-         return;
-
-      TreeView tree = this.Layout.TreeView;
-      Boolean isSelected = tn.IsSelected;
-
-      if ((e.Button & MouseButtons.Right) != MouseButtons.Right)
+      else if (ControlHelpers.ControlPressed)
       {
-         if (!ControlHelpers.ControlPressed && !ControlHelpers.ShiftPressed)
-         {
-            tree.SelectAllNodes(false);
-         }
+         tree.SelectNode(tn, !tn.IsSelected);
       }
-
-      if (this.Layout.FullRowSelect)
+      else if (ControlHelpers.ShiftPressed)
       {
-         if (ControlHelpers.ShiftPressed && tree.LastSelectedNode != null)
-            tree.SelectNodesInsideRange(tree.LastSelectedNode, tn);
-         else if (ControlHelpers.ControlPressed)
-            tree.SelectNode(tn, !isSelected);
-         else
-            tree.SelectNode(tn, true);
+         tree.SelectNodesInsideRange(tree.LastSelectedNode, tn);
+      }
+      else
+      {
+         tree.SelectAllNodes(false);
+         tree.SelectNode(tn, true);
       }
 
       tree.OnSelectionChanged();
