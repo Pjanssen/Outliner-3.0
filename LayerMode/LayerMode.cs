@@ -25,11 +25,13 @@ public class LayerMode : TreeMode
    {
       this.ShowGroupContents = OutlinerGUP.Instance.Settings.GetValue<Boolean>("LayerMode", "ShowGroupContents", true);
 
-      proc_LayerCreated = new GlobalDelegates.Delegate5(this.LayerCreated);
-      proc_LayerDeleted = new GlobalDelegates.Delegate5(this.LayerDeleted);
-      proc_LayerRenamed = new GlobalDelegates.Delegate5(this.LayerRenamed);
-      proc_LayerParented = new GlobalDelegates.Delegate5(this.LayerParented);
+      proc_LayerRenamed        = new GlobalDelegates.Delegate5(this.LayerRenamed);
+      proc_LayerCreated        = new GlobalDelegates.Delegate5(this.LayerCreated);
+      proc_LayerDeleted        = new GlobalDelegates.Delegate5(this.LayerDeleted);
+      proc_LayerParented       = new GlobalDelegates.Delegate5(this.LayerParented);
       proc_LayerCurrentChanged = new GlobalDelegates.Delegate5(this.LayerCurrentChanged);
+
+      this.Tree.DragDropHandler = new TreeViewDragDropHandler();
    }
 
 

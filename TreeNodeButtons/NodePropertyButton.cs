@@ -65,9 +65,9 @@ public abstract class NodePropertyButton : ImageButton
          return false;
 
       NodeProperty property = this.Property;
-      if (node is ILayerWrapper)
+      if (node.BaseObject is IILayer)
       {
-         IILayer layer = ((ILayerWrapper)node).ILayer;
+         IILayer layer = (IILayer)node.BaseObject;
          if (!NodePropertyHelpers.IsBooleanProperty(property))
             return false;
          return NestedLayers.IsPropertyInherited(layer, NodePropertyHelpers.ToBooleanProperty(property));

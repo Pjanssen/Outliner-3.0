@@ -73,6 +73,7 @@
     </Compile>
     <Compile Include="Scene\ILayerWrapper.cs" />
     <Compile Include="Scene\ILayerWrapperFactory.cs" />
+    <Compile Include="TreeViewDragDropHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">

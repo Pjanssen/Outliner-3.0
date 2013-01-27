@@ -14,6 +14,7 @@ using Outliner.MaxUtils;
 using Outliner.Controls.Tree.Layout;
 using Outliner.Plugins;
 using Outliner.Controls.Tree;
+using Autodesk.Max;
 
 namespace Outliner.TreeNodeButtons
 {
@@ -136,32 +137,32 @@ public class NodeIcon : TreeNodeButton
       if (node == null)
          return;
 
-      if (node is ILayerWrapper)
+      if (node.BaseObject is IILayer)
       {
-         ILayerWrapper layer = (ILayerWrapper)node;
-         if (!layer.IsCurrent)
-         {
-            SetCurrentLayerCommand cmd = new SetCurrentLayerCommand(layer);
-            cmd.Execute(false);
+         //ILayerWrapper layer = (ILayerWrapper)node;
+         //if (!layer.IsCurrent)
+         //{
+         //   SetCurrentLayerCommand cmd = new SetCurrentLayerCommand(layer);
+         //   cmd.Execute(false);
 
-            tn.TreeView.Invalidate();
-         }
+         //   tn.TreeView.Invalidate();
+         //}
       }
-      else if (node.SuperClassID == Autodesk.Max.SClass_ID.Light)
+      else if (node.SuperClassID == SClass_ID.Light)
       {
-         Autodesk.Max.IINode inode = node.BaseObject as Autodesk.Max.IINode;
+         IINode inode = node.BaseObject as IINode;
          if (inode == null)
             return;
-         Autodesk.Max.ILightObject light = inode.ObjectRef as Autodesk.Max.ILightObject;
+         ILightObject light = inode.ObjectRef as ILightObject;
          if (light == null)
             return;
          ToggleLightCommand cmd = new ToggleLightCommand(node.ToEnumerable(), !light.UseLight);
          cmd.Execute(true);
       }
-      else if (node.SuperClassID == Autodesk.Max.SClass_ID.Camera)
+      else if (node.SuperClassID == SClass_ID.Camera)
       {
-         Autodesk.Max.IInterface ip = MaxInterfaces.Global.COREInterface;
-         Autodesk.Max.IViewExp vpt = ip.ActiveViewExp;
+         IInterface ip = MaxInterfaces.Global.COREInterface;
+         IViewExp vpt = ip.ActiveViewExp;
          SetViewCameraCommand cmd = new SetViewCameraCommand(node, vpt);
          cmd.Execute(true);
       }
@@ -173,14 +174,14 @@ public class NodeIcon : TreeNodeButton
       if (node == null)
          return false;
 
-      if (node is ILayerWrapper)
+      if (node.BaseObject is IILayer)
       {
-         if (!((ILayerWrapper)node).IsCurrent)
-            return true;
+         //if (!((IILayer)node.BaseObject))
+         //   return true;
       }
-      else if (node.SuperClassID == Autodesk.Max.SClass_ID.Light)
+      else if (node.SuperClassID == SClass_ID.Light)
          return true;
-      else if (node.SuperClassID == Autodesk.Max.SClass_ID.Camera)
+      else if (node.SuperClassID == SClass_ID.Camera)
          return true;
 
       return false;
@@ -192,10 +193,10 @@ public class NodeIcon : TreeNodeButton
       if (node == null)
          return null;
 
-      if (node is ILayerWrapper)
+      if (node.BaseObject is IILayer)
       {
-         if (!((ILayerWrapper)node).IsCurrent)
-            return Resources.Tooltip_SetCurrentLayer;
+         //if (!((ILayerWrapper)node).IsCurrent)
+         //   return Resources.Tooltip_SetCurrentLayer;
       }
       else if (node.SuperClassID == Autodesk.Max.SClass_ID.Light)
          return Resources.Tooltip_ToggleLight;
