@@ -469,10 +469,13 @@ public class TreeView : ScrollableControl
                                                   && !ControlHelpers.ShiftPressed 
                                                   && !ControlHelpers.AltPressed)
       {
-         int selCount = this.selectedNodes.Count;
-         this.SelectAllNodes(false);
-         if (selCount > 0)
-            this.OnSelectionChanged();
+         if ((e.Button & MouseButtons.Right) != MouseButtons.Right)
+         {
+            int selCount = this.selectedNodes.Count;
+            this.SelectAllNodes(false);
+            if (selCount > 0)
+               this.OnSelectionChanged();
+         }
       }
 
       if ((e.Button & MouseButtons.Right) == MouseButtons.Right && this.ContextMenu != null)

@@ -146,3 +146,6 @@ Options
 #71 - Selection Set : set isn't selected when switching from whatever mode to SS mode.
 #72 - Selection Set : select child nodes.
 #75 - Search doesn't work.
+
+3.0.24
+======

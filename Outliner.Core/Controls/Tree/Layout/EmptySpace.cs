@@ -92,7 +92,7 @@ public class EmptySpace : TreeNodeLayoutItem
       {
          tree.SelectNodesInsideRange(tree.LastSelectedNode, tn);
       }
-      else
+      else if ((e.Button & MouseButtons.Right) != MouseButtons.Right || !tn.IsSelected)
       {
          tree.SelectAllNodes(false);
          tree.SelectNode(tn, true);
