@@ -228,7 +228,8 @@ public class TreeView : ScrollableControl
 
    private Boolean isAlternatingTn(TreeNode tn)
    {
-      return ((tn.Bounds.Y - this.VerticalScroll.Value) / this.TreeNodeLayout.ItemHeight) % 2 != 0;
+      Int32 itemHeight = this.TreeNodeLayout.ItemHeight;
+      return (tn.AbsoluteBounds.Y % (2 * itemHeight)) >= itemHeight;
    }
 
    #endregion
@@ -250,12 +251,6 @@ public class TreeView : ScrollableControl
          this.treeNodeLayout = value;
          this.treeNodeLayout.TreeView = this;
       }
-   }
-
-   protected override void OnScroll(ScrollEventArgs se)
-   {
-      //Invalidate entire control when scrolling, to avoid drawing artifacts.
-      this.Invalidate();
    }
 
    private SolidBrush brushBackground;

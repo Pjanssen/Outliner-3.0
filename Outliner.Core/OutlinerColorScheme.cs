@@ -27,7 +27,7 @@ namespace Outliner
       {
          this.TreeViewColorScheme = new TreeViewColorScheme();
          this.ContextMenuColorTable = new ContextMenuColorTable();
-         this.ImageResourceSuffix = "dark";
+         this.ImageResourceSuffix = "";
       }
 
       public static OutlinerColorScheme Default
