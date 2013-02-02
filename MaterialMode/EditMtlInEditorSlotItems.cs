@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -22,6 +23,9 @@ public class EditMtlInEditorSlotItems : MenuItemModel
    {
       List<ToolStripMenuItem> items = new List<ToolStripMenuItem>(24);
 
+      MaterialWrapper mat = TreeMode.GetMaxNode(clickedTn) as MaterialWrapper;
+      if (mat == null)
+         return items.ToArray();
 
       IIMtlEditInterface mtlEditor = MaxInterfaces.Global.MtlEditInterface;
 
@@ -33,6 +37,12 @@ public class EditMtlInEditorSlotItems : MenuItemModel
          item.Text = (i + 1).ToString() + ": " + slotMtl.Name;
          item.Tag = i;
          item.Click += new EventHandler((sender, eventArgs) => this.item_Click(clickedTn, item));
+
+         if (mat.Material.Handle == slotMtl.Handle)
+         {
+            item.Font = new Font(item.Font, FontStyle.Bold);
+            item.Checked = true;
+         }
 
          items.Add(item);
       }
