@@ -149,3 +149,4 @@ Options
 
 3.0.24
 ======
+#81 - Zebras still messy

@@ -86,8 +86,11 @@ public class ActionMenuItemModel : MenuItemModel
    {
       Throw.IfArgumentIsNull(treeView, "treeView");
 
-      IEnumerable<IMaxNode> context = TreeMode.GetMaxNodes(treeView.SelectedNodes);
+      if (String.IsNullOrEmpty(this.OnClickAction))
+         return;
+
       OutlinerAction action = OutlinerActions.GetAction(this.OnClickAction);
+      IEnumerable<IMaxNode> context = TreeMode.GetMaxNodes(treeView.SelectedNodes);
 
       if (action != null)
          action(clickedTn, context);
