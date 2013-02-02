@@ -24,7 +24,7 @@ public static class ConfigurationHelpers
       
       foreach (String file in files)
       {
-         items.Add(file, XmlSerializationHelpers.Deserialize<T>(file));
+         items.Add(file, XmlSerialization.Deserialize<T>(file));
       }
 
       return items;
@@ -35,7 +35,7 @@ public static class ConfigurationHelpers
       IEnumerable<String> files = Directory.EnumerateFiles( directory
                                                           ,  "*" + ConfigurationFileExtension
                                                           , SearchOption.TopDirectoryOnly);
-      return files.Select(f => XmlSerializationHelpers.Deserialize<T>(f));
+      return files.Select(f => XmlSerialization.Deserialize<T>(f));
    }
 
    public static Tuple<String, T> NewConfigurationFile<T>(String directory, String basename) where T : class, new()
@@ -49,7 +49,7 @@ public static class ConfigurationHelpers
       }
 
       T newConfig = new T();
-      XmlSerializationHelpers.Serialize<T>(filename, newConfig);
+      XmlSerialization.Serialize<T>(filename, newConfig);
       return new Tuple<String, T>(filename, newConfig);
    }
 

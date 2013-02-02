@@ -113,7 +113,7 @@
     <Compile Include="Throw.cs" />
     <Compile Include="Functor.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="HelperMethods.cs" />
+    <Compile Include="SystemNotifications.cs" />
     <Compile Include="IINodeHelpers.cs" />
     <Compile Include="MaxInterfaces.cs" />
     <Compile Include="NativeMethods.cs" />

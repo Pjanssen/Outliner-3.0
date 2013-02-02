@@ -123,13 +123,13 @@ public class PresetsEditor : ConfigFilesEditor<OutlinerPreset>
          if (!String.IsNullOrEmpty(preset.LayoutFile) && preset.TreeNodeLayout != null)
          {
             String filePath = Path.Combine(OutlinerPaths.LayoutsDir, configFile.Value.LayoutFile);
-            XmlSerializationHelpers.Serialize<TreeNodeLayout>(filePath, configFile.Value.TreeNodeLayout);
+            XmlSerialization.Serialize<TreeNodeLayout>(filePath, configFile.Value.TreeNodeLayout);
          }
 
          if (!String.IsNullOrEmpty(configFile.Value.ContextMenuFile) && preset.ContextMenu != null)
          {
             String filePath = Path.Combine(OutlinerPaths.ContextMenusDir, configFile.Value.ContextMenuFile);
-            XmlSerializationHelpers.Serialize<ContextMenuModel>(filePath, configFile.Value.ContextMenu);
+            XmlSerialization.Serialize<ContextMenuModel>(filePath, configFile.Value.ContextMenu);
          }
       }
 

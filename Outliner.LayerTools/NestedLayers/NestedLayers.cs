@@ -598,7 +598,7 @@ public static class NestedLayers
 
    private static void LayerPropChanged(IntPtr param, IntPtr info)
    {
-      IILayer layer = HelperMethods.GetCallParam(info) as IILayer;
+      IILayer layer = SystemNotifications.GetCallParam(info) as IILayer;
       if (layer != null)
       {
          foreach (IILayer child in NestedLayers.GetChildren(layer, false))

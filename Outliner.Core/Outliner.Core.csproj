@@ -356,9 +356,9 @@
     <Compile Include="Scene\MaxNodeType.cs" />
     <Compile Include="Scene\MaxScene.cs" />
     <Compile Include="Modes\TreeMode.cs" />
-    <Compile Include="TypeHelpers.cs" />
+    <Compile Include="MemberInfoExtensions.cs" />
     <Compile Include="Configuration\SorterConfiguration.cs" />
-    <Compile Include="XmlSerializationHelpers.cs" />
+    <Compile Include="XmlSerialization.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\AboutBox.resx">

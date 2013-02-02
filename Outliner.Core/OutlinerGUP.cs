@@ -62,7 +62,7 @@ public class OutlinerGUP
       this.TreeModes.Clear();
 
       if (Directory.Exists(OutlinerPaths.ConfigDir))
-         XmlSerializationHelpers.Serialize<SettingsCollection>(OutlinerPaths.SettingsFile, this.Settings);
+         XmlSerialization.Serialize<SettingsCollection>(OutlinerPaths.SettingsFile, this.Settings);
    }
 
 
@@ -155,7 +155,7 @@ public class OutlinerGUP
 
    public Boolean ReloadSettings()
    {
-      XmlSerializationHelpers.ClearSerializerCache();
+      XmlSerialization.ClearSerializerCache();
 
       if (!Directory.Exists(OutlinerPaths.ConfigDir))
       {
@@ -167,7 +167,7 @@ public class OutlinerGUP
       try
       {
          if (File.Exists(OutlinerPaths.SettingsFile))
-            this.Settings = XmlSerializationHelpers.Deserialize<SettingsCollection>(OutlinerPaths.SettingsFile);
+            this.Settings = XmlSerialization.Deserialize<SettingsCollection>(OutlinerPaths.SettingsFile);
          else
             this.Settings = new SettingsCollection();
       }
@@ -184,7 +184,7 @@ public class OutlinerGUP
       {
          String colorSchemeFile = this.Settings.GetValue<String>(OutlinerSettings.CoreCategory, OutlinerSettings.ColorSchemeFile);
          colorSchemeFile = Path.Combine(OutlinerPaths.ColorSchemesDir, colorSchemeFile);
-         this.ColorScheme = XmlSerializationHelpers.Deserialize<OutlinerColorScheme>(colorSchemeFile);
+         this.ColorScheme = XmlSerialization.Deserialize<OutlinerColorScheme>(colorSchemeFile);
       }
       catch (Exception e)
       {
@@ -197,7 +197,7 @@ public class OutlinerGUP
       try
       {
          if (File.Exists(OutlinerPaths.StateFile))
-            this.State = XmlSerializationHelpers.Deserialize<OutlinerState>(OutlinerPaths.StateFile);
+            this.State = XmlSerialization.Deserialize<OutlinerState>(OutlinerPaths.StateFile);
          else
             this.State = defaultState();
       }
@@ -232,7 +232,7 @@ public class OutlinerGUP
       if (!Directory.Exists(OutlinerPaths.ConfigDir))
          Directory.CreateDirectory(OutlinerPaths.ConfigDir);
 
-      XmlSerializationHelpers.Serialize<OutlinerState>( OutlinerPaths.StateFile
+      XmlSerialization.Serialize<OutlinerState>( OutlinerPaths.StateFile
                                                       , this.State);
    }
 

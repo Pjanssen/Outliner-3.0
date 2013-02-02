@@ -32,17 +32,17 @@ public class OutlinerPluginData
       Throw.IfArgumentIsNull(type, "type");
       this.Type = type;
 
-      OutlinerPluginAttribute pluginAttr = TypeHelpers.GetAttribute<OutlinerPluginAttribute>(type);
+      OutlinerPluginAttribute pluginAttr = type.GetAttribute<OutlinerPluginAttribute>();
       Throw.IfNull(pluginAttr, "OutlinerPlugin attribute not found on type.");
       this.PluginType = pluginAttr.PluginType;
 
-      DisplayNameAttribute dispAtrr = TypeHelpers.GetAttribute<DisplayNameAttribute>(type);
+      DisplayNameAttribute dispAtrr = type.GetAttribute<DisplayNameAttribute>();
       if (dispAtrr != null)
          this.DisplayName = dispAtrr.DisplayName;
       else
          this.DisplayName = type.Name;
 
-      LocalizedDisplayImageAttribute imgAttr = TypeHelpers.GetAttribute<LocalizedDisplayImageAttribute>(type);
+      LocalizedDisplayImageAttribute imgAttr = type.GetAttribute<LocalizedDisplayImageAttribute>();
       if (imgAttr != null)
       {
          this.DisplayImageSmall = imgAttr.DisplayImageSmall;

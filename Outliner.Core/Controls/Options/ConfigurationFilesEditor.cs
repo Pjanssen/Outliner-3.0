@@ -288,7 +288,7 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
    {
       foreach (KeyValuePair<String, T> configFile in this.files)
       {
-         XmlSerializationHelpers.Serialize<T>(configFile.Key, configFile.Value);
+         XmlSerialization.Serialize<T>(configFile.Key, configFile.Value);
       }
    }
 }

@@ -80,7 +80,7 @@ public class OutlinerPreset : ConfigurationFile, ISorterConfiguration
          if (!Path.IsPathRooted(value))
             path = Path.Combine(OutlinerPaths.ContextMenusDir, value);
          if (path != null && File.Exists(path))
-            this.ContextMenu = XmlSerializationHelpers.Deserialize<ContextMenuModel>(path);
+            this.ContextMenu = XmlSerialization.Deserialize<ContextMenuModel>(path);
       }
    }
 
@@ -103,7 +103,7 @@ public class OutlinerPreset : ConfigurationFile, ISorterConfiguration
          if (!Path.IsPathRooted(value))
             path = Path.Combine(OutlinerPaths.LayoutsDir, value);
          if (path != null && File.Exists(path))
-            this.TreeNodeLayout = XmlSerializationHelpers.Deserialize<TreeNodeLayout>(path);
+            this.TreeNodeLayout = XmlSerialization.Deserialize<TreeNodeLayout>(path);
       }
    }
 
@@ -149,7 +149,7 @@ public class OutlinerPreset : ConfigurationFile, ISorterConfiguration
 
       String contextMenuFile = Path.Combine(OutlinerPaths.ContextMenusDir, this.ContextMenuFile);
       if (File.Exists(contextMenuFile))
-         mode.ContextMenu = XmlSerializationHelpers.Deserialize<Outliner.Controls.ContextMenu.ContextMenuModel>(contextMenuFile);
+         mode.ContextMenu = XmlSerialization.Deserialize<Outliner.Controls.ContextMenu.ContextMenuModel>(contextMenuFile);
 
       return mode;
    }

@@ -44,7 +44,7 @@ public static class OutlinerPlugins
 
       IEnumerable<OutlinerPluginData> plugins = pluginAssembly.GetExportedTypes()
                                                               .Where(t => t.IsPublic && (!t.IsAbstract || t.IsSealed))
-                                                              .Where(t => TypeHelpers.HasAttribute<OutlinerPluginAttribute>(t))
+                                                              .Where(t => t.HasAttribute<OutlinerPluginAttribute>())
                                                               .Select(t => new OutlinerPluginData(t));
 
       StartPlugins(plugins);
@@ -79,7 +79,7 @@ public static class OutlinerPlugins
    {
       String pluginClassName = pluginClass.Name;
       pluginClass.GetMethods(BindingFlags.Static | BindingFlags.Public)
-                 .Where(m => TypeHelpers.HasAttribute<T>(m))
+                 .Where(m => m.HasAttribute<T>())
                  .ForEach(m => m.Invoke(null, null));
    }
    

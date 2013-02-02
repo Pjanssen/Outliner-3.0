@@ -74,10 +74,21 @@ public static class IINodeHelpers
    /// </summary>
    public static IEnumerable<IINode> NodeKeysToINodeList(this ITab<UIntPtr> handles)
    {
-      return HelperMethods.ITabToIEnumerable(handles)
+      return IINodeHelpers.ITabToIEnumerable(handles)
                           .Select(MaxInterfaces.Global.NodeEventNamespace.GetNodeByKey);
    }
 
+
+   /// <summary>
+   /// Converts the ITab to a more convenient IEnumerable.
+   /// </summary>
+   public static IEnumerable<T> ITabToIEnumerable<T>(ITab<T> tab)
+   {
+      Throw.IfArgumentIsNull(tab, "tab");
+      
+      for (int i = 0; i < tab.Count; i++)
+         yield return tab[(IntPtr)i];
+   }
 
    /// <summary>
    /// Converts an IEnumerable of objects into an IINodeTab.

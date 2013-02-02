@@ -47,7 +47,7 @@ namespace Outliner.Controls.ContextMenu
             {
                try
                {
-                  ContextMenuModel contextMenu = XmlSerializationHelpers.Deserialize<ContextMenuModel>(file);
+                  ContextMenuModel contextMenu = XmlSerialization.Deserialize<ContextMenuModel>(file);
                   return contextMenu.Items;
                }
                catch (InvalidOperationException) { }

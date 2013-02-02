@@ -6,9 +6,9 @@ using System.Reflection;
 
 namespace Outliner
 {
-   public static class TypeHelpers
+   public static class MemberInfoExtensions
    {
-      public static Boolean HasAttribute<T>(MemberInfo memberInfo) where T : Attribute
+      public static Boolean HasAttribute<T>(this MemberInfo memberInfo) where T : Attribute
       {
          Throw.IfArgumentIsNull(memberInfo, "memberInfo");
 
@@ -16,7 +16,7 @@ namespace Outliner
          return attributes != null && attributes.Count() > 0;
       }
 
-      public static T GetAttribute<T>(MemberInfo memberInfo) where T : Attribute
+      public static T GetAttribute<T>(this MemberInfo memberInfo) where T : Attribute
       {
          Throw.IfArgumentIsNull(memberInfo, "memberInfo");
 

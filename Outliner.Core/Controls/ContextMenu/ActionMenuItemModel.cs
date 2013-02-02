@@ -95,7 +95,7 @@ public class ActionMenuItemModel : MenuItemModel
       if (action != null)
          action(clickedTn, context);
       else
-         MessageBox.Show(String.Format(CultureInfo.CurrentCulture
+         MessageBox.Show( String.Format( CultureInfo.CurrentCulture
                                        , ContextMenuResources.Str_ActionNotFound
                                        , this.OnClickAction)
                         , ContextMenuResources.Str_ContextMenuWarningTitle

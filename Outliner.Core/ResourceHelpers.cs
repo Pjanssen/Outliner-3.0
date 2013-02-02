@@ -10,7 +10,7 @@ namespace Outliner
 {
 public static class ResourceHelpers
 {
-   public static Object LookupResource(Type resourceManagerProvider, String resourceKey)
+   public static Object LookupObject(Type resourceManagerProvider, String resourceKey)
    {
       Throw.IfArgumentIsNull(resourceManagerProvider, "resourceManagerProvider");
       Throw.IfArgumentIsNull(resourceKey, "resourceKey");
@@ -24,7 +24,7 @@ public static class ResourceHelpers
 
    public static String LookupString(Type resourceManagerProvider, String resourceKey)
    {
-      Object resource = LookupResource(resourceManagerProvider, resourceKey);
+      Object resource = LookupObject(resourceManagerProvider, resourceKey);
       String str = resource as String;
       if (str != null)
          return str;
@@ -34,7 +34,7 @@ public static class ResourceHelpers
 
    public static Image LookupImage(Type resourceManagerProvider, String resourceKey)
    {
-      Object resource = LookupResource(resourceManagerProvider, resourceKey);
+      Object resource = LookupObject(resourceManagerProvider, resourceKey);
       return resource as Image;
    }
 }

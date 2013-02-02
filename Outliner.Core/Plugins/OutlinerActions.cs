@@ -27,9 +27,9 @@ namespace Outliner.Plugins
             MethodInfo[] methods = plugin.Type.GetMethods(BindingFlags.Static | BindingFlags.Public);
             foreach (MethodInfo method in methods)
             {
-               if (TypeHelpers.HasAttribute<OutlinerActionAttribute>(method))
+               if (method.HasAttribute<OutlinerActionAttribute>())
                   actions.Add(method.Name, Delegate.CreateDelegate(typeof(OutlinerAction), method) as OutlinerAction);
-               else if (TypeHelpers.HasAttribute<OutlinerPredicateAttribute>(method))
+               else if (method.HasAttribute<OutlinerPredicateAttribute>())
                   predicates.Add(method.Name, Delegate.CreateDelegate(typeof(OutlinerPredicate), method) as OutlinerPredicate);
             }
          }

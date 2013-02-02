@@ -521,7 +521,7 @@ public abstract class TreeMode
 
    protected void NodeRenamed(IntPtr param, IntPtr info)
    {
-      Object callParam = MaxUtils.HelperMethods.GetCallParam(info);
+      Object callParam = MaxUtils.SystemNotifications.GetCallParam(info);
       Boolean sort = NodeSorterHelpers.RequiresSort(this.Tree.NodeSorter as NodeSorter, NodeProperty.Name);
       this.InvalidateObject(callParam, false, sort);
    }
@@ -539,21 +539,21 @@ public abstract class TreeMode
    
    private void LayerHiddenChanged(IntPtr param, IntPtr info)
    {
-      IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
+      IILayer layer = MaxUtils.SystemNotifications.GetCallParam(info) as IILayer;
       if (layer != null)
          this.LayerPropertyChanged(MaxNodeWrapper.Create(layer), NodeProperty.IsHidden);
    }
    
    private void LayerFrozenChanged(IntPtr param, IntPtr info)
    {
-      IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
+      IILayer layer = MaxUtils.SystemNotifications.GetCallParam(info) as IILayer;
       if (layer != null)
          this.LayerPropertyChanged(MaxNodeWrapper.Create(layer), NodeProperty.IsFrozen);
    }
 
    private void LayerPropChanged(IntPtr param, IntPtr info)
    {
-      LayerPropertyChangedParam? callParam = MaxUtils.HelperMethods.GetCallParam(info) as LayerPropertyChangedParam?;
+      LayerPropertyChangedParam? callParam = MaxUtils.SystemNotifications.GetCallParam(info) as LayerPropertyChangedParam?;
       if (callParam != null)
          this.LayerPropertyChanged(MaxNodeWrapper.Create(callParam.Value.Layer), callParam.Value.Property);
    }
