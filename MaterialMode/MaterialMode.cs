@@ -27,7 +27,7 @@ public class MaterialMode : TreeMode
    public override void Start()
    {
       this.RegisterNodeEventCallbackObject(new MaterialModeNodeCallback(this));
-
+      
       base.Start();
    }
 

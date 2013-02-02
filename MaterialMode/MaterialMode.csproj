@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EditMtlInEditorSlotItems.cs" />
     <Compile Include="INodeDragDropHandler.cs" />
     <Compile Include="MaterialDragDropHandler.cs" />
     <Compile Include="MaterialMode.cs" />
@@ -84,6 +85,14 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\material_mode_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\material_editor_16.png" />
+    <EmbeddedResource Include="Resources\slate_16.png" />
+    <EmbeddedResource Include="Resources\slate_new_view_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\edit_material_16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

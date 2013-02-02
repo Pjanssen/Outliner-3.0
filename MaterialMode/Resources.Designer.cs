@@ -70,6 +70,62 @@ namespace Outliner.Modes.MaterialMode {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current Slate View.
+        /// </summary>
+        internal static string Context_CurrentSlate {
+            get {
+                return ResourceManager.GetString("Context_CurrentSlate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Material In.
+        /// </summary>
+        internal static string Context_EditMaterial {
+            get {
+                return ResourceManager.GetString("Context_EditMaterial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Material Editor Slot:.
+        /// </summary>
+        internal static string Context_MaterialSlot {
+            get {
+                return ResourceManager.GetString("Context_MaterialSlot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Slate View.
+        /// </summary>
+        internal static string Context_NewSlate {
+            get {
+                return ResourceManager.GetString("Context_NewSlate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap edit_material_16 {
+            get {
+                object obj = ResourceManager.GetObject("edit_material_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap material_editor_16 {
+            get {
+                object obj = ResourceManager.GetObject("material_editor_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap material_mode_16 {
@@ -114,6 +170,35 @@ namespace Outliner.Modes.MaterialMode {
         internal static string Name_Unassigned {
             get {
                 return ResourceManager.GetString("Name_Unassigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap slate_16 {
+            get {
+                object obj = ResourceManager.GetObject("slate_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap slate_new_view_16 {
+            get {
+                object obj = ResourceManager.GetObject("slate_new_view_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Material editor slot items -.
+        /// </summary>
+        internal static string Str_EditMaterialItems {
+            get {
+                return ResourceManager.GetString("Str_EditMaterialItems", resourceCulture);
             }
         }
         
