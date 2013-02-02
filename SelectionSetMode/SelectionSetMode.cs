@@ -101,7 +101,7 @@ public class SelectionSetMode : TreeMode
    protected GlobalDelegates.Delegate5 proc_NamedSelSetCreated;
    protected virtual void NamedSelSetCreated(IntPtr param, IntPtr info)
    {
-      IntPtr callParam = (IntPtr)MaxUtils.HelperMethods.GetCallParam(info);
+      IntPtr callParam = (IntPtr)SystemNotifications.GetCallParam(info);
       String selSetName = Marshal.PtrToStringUni(callParam);
 
       if (this.modifyingSelSetName == null || this.modifyingSelSetName != selSetName)
@@ -117,7 +117,7 @@ public class SelectionSetMode : TreeMode
    protected GlobalDelegates.Delegate5 proc_NamedSelSetDeleted;
    protected virtual void NamedSelSetDeleted(IntPtr param, IntPtr info)
    {
-      IntPtr callParam = (IntPtr)MaxUtils.HelperMethods.GetCallParam(info);
+      IntPtr callParam = (IntPtr)SystemNotifications.GetCallParam(info);
       String selSetName = Marshal.PtrToStringUni(callParam);
 
       if (this.modifyingSelSetName == null || this.modifyingSelSetName != selSetName)
@@ -127,7 +127,7 @@ public class SelectionSetMode : TreeMode
    protected GlobalDelegates.Delegate5 proc_NamedSelSetPreModify;
    protected virtual void NamedSelSetPreModify(IntPtr param, IntPtr info)
    {
-      IntPtr callParam = (IntPtr)MaxUtils.HelperMethods.GetCallParam(info);
+      IntPtr callParam = (IntPtr)SystemNotifications.GetCallParam(info);
       String selSetName = Marshal.PtrToStringUni(callParam);
       this.modifyingSelSetName = selSetName;
    }
@@ -173,7 +173,7 @@ public class SelectionSetMode : TreeMode
    protected GlobalDelegates.Delegate5 proc_NamedSelSetRenamed;
    protected virtual void NamedSelSetRenamed(IntPtr param, IntPtr info)
    {
-      IntPtr callParam = (IntPtr)MaxUtils.HelperMethods.GetCallParam(info);
+      IntPtr callParam = (IntPtr)SystemNotifications.GetCallParam(info);
 
       NameChange nameChange = (NameChange)Marshal.PtrToStructure(callParam, typeof(NameChange));
       TreeNode tn = this.GetFirstTreeNode(nameChange.oldName);

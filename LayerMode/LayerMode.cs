@@ -128,7 +128,7 @@ public class LayerMode : TreeMode
    protected GlobalDelegates.Delegate5 proc_LayerCreated;
    protected virtual void LayerCreated(IntPtr param, IntPtr info)
    {
-      IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
+      IILayer layer = SystemNotifications.GetCallParam(info) as IILayer;
       if (layer != null)
          this.AddNode(layer, this.Tree.Nodes);
    }
@@ -136,7 +136,7 @@ public class LayerMode : TreeMode
    protected GlobalDelegates.Delegate5 proc_LayerDeleted;
    protected virtual void LayerDeleted(IntPtr param, IntPtr info)
    {
-      IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
+      IILayer layer = SystemNotifications.GetCallParam(info) as IILayer;
       if (layer != null)
          this.RemoveNode(layer);
    }
@@ -144,13 +144,13 @@ public class LayerMode : TreeMode
    protected GlobalDelegates.Delegate5 proc_LayerRenamed;
    protected virtual void LayerRenamed(IntPtr param, IntPtr info)
    {
-      Console.WriteLine(MaxUtils.HelperMethods.GetCallParam(info));
+      Console.WriteLine(SystemNotifications.GetCallParam(info));
    }
 
    protected GlobalDelegates.Delegate5 proc_LayerParented;
    protected virtual void LayerParented(IntPtr param, IntPtr info)
    {
-      IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
+      IILayer layer = SystemNotifications.GetCallParam(info) as IILayer;
       if (layer != null)
       {
          TreeNode tn = this.GetFirstTreeNode(layer);
@@ -175,7 +175,7 @@ public class LayerMode : TreeMode
    protected GlobalDelegates.Delegate5 proc_LayerCurrentChanged;
    protected virtual void LayerCurrentChanged(IntPtr param, IntPtr info)
    {
-      IILayer layer = MaxUtils.HelperMethods.GetCallParam(info) as IILayer;
+      IILayer layer = SystemNotifications.GetCallParam(info) as IILayer;
       if (layer != null)
          this.InvalidateObject(layer, false, false);
    }

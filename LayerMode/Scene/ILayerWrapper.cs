@@ -176,7 +176,7 @@ namespace Outliner.Scene
             IILayerProperties layerProperties = this.ILayerProperties;
             if (layerProperties != null)
                layerProperties.Nodes(nodes);
-            return MaxUtils.HelperMethods.ITabToIEnumerable(nodes);
+            return IINodeHelpers.ITabToIEnumerable(nodes);
          }
       }
 

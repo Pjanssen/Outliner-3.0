@@ -46,7 +46,7 @@ namespace Outliner.ColorTags
          if (outliner == null)
             return;
 
-         IAnimatable node = MaxUtils.HelperMethods.GetCallParam(info) as IAnimatable;
+         IAnimatable node = SystemNotifications.GetCallParam(info) as IAnimatable;
          foreach (TreeMode treeMode in outliner.TreeModes.Values)
          {
             treeMode.InvalidateObject(node, false, treeMode.Tree.NodeSorter is ColorTagSorter);
