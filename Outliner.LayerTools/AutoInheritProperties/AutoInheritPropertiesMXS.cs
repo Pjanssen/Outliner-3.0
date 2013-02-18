@@ -11,7 +11,7 @@ public static class AutoInheritPropertiesMxs
 {
    internal static void Start()
    {
-      MaxscriptHelpers.RunResourceScript( typeof(AutoInheritPropertiesMxs).Assembly
+      Maxscript.RunResourceScript( typeof(AutoInheritPropertiesMxs).Assembly
                                         , "Outliner.LayerTools.AutoInheritProperties.AutoInheritPropertiesMxs.ms");
    }
 

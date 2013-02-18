@@ -82,7 +82,7 @@ public class OpenOutliner : CuiDockableContentAdapter
                                   , WinForms.MessageBoxButtons.OK
                                   , WinForms.MessageBoxIcon.Error
                                   , WinForms.MessageBoxDefaultButton.Button1
-                                  , ControlHelpers.GetLocalizedMessageBoxOptions());
+                                  , ControlHelpers.CreateLocalizedMessageBoxOptions());
 
          host.Child = new Outliner.Controls.Options.OutlinerUserControl();
          host.Child.Width = 150;
@@ -95,7 +95,7 @@ public class OpenOutliner : CuiDockableContentAdapter
       this.splitContainer = mainControl.outlinerSplitContainer1;
       this.tree1 = mainControl.TreeView1;
       this.tree2 = mainControl.TreeView2;
-
+      
       OutlinerState outlinerState = outlinerInstance.State;
 
       this.tree1.Colors = outlinerInstance.ColorScheme.TreeViewColorScheme;

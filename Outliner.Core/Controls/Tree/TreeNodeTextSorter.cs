@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Outliner.Controls.Tree
 {
+   /// <summary>
+   /// The default TreeNode sorter. TreeNodes are sorted alphabetically by their Text value.
+   /// </summary>
    public class TreeNodeTextSorter : IComparer<TreeNode>
    {
       public int Compare(TreeNode x, TreeNode y)

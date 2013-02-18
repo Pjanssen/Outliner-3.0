@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Outliner
 {
+   /// <summary>
+   /// Provides extension methods for IEnumerable objects.
+   /// </summary>
    public static class IEnumerableExtensions
    {
       /// <summary>
@@ -65,5 +68,12 @@ namespace Outliner
          }
       }
 
+      /// <summary>
+      /// Tests if the collection is empty.
+      /// </summary>
+      public static Boolean IsEmpty<T>(this IEnumerable<T> enumerable)
+      {
+         return !enumerable.Any();
+      }
    }
 }

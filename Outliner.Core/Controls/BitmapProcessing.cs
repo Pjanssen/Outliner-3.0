@@ -8,6 +8,9 @@ using System.Security.Permissions;
 
 namespace Outliner.Controls
 {
+   /// <summary>
+   /// Provides methods for common Bitmap processing operations.
+   /// </summary>
    public static class BitmapProcessing
    {
       /// <summary>

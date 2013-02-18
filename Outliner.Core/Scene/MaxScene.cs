@@ -7,6 +7,9 @@ using Outliner.MaxUtils;
 
 namespace Outliner.Scene
 {
+/// <summary>
+/// The MaxScene class provides access to commonly used scene entities, such as objects and layers.
+/// </summary>
 public static class MaxScene
 {
    /// <summary>

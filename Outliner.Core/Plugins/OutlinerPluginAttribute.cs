@@ -11,39 +11,49 @@ namespace Outliner.Plugins
    [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
    sealed public class OutlinerPluginAttribute : Attribute
    {
+      /// <summary>
+      /// The type of plugin.
+      /// </summary>
       public OutlinerPluginType PluginType { get; private set; }
 
+      /// <summary>
+      /// Initializes a new instance of the OutlinerPluginAttribute class.
+      /// </summary>
+      /// <param name="pluginType">The type of plugin.</param>
       public OutlinerPluginAttribute(OutlinerPluginType pluginType) 
       {
          this.PluginType = pluginType;
       }
    }
 
+   /// <summary>
+   /// Defines the type of Outliner plugin.
+   /// </summary>
    [Flags]
    public enum OutlinerPluginType
    {
       /// <summary>
       /// A plugin which controls how the treeview should be filled and updated.
-      /// The plugin class must inherit from TreeMode.
       /// </summary>
+      /// <remarks>The plugin class must inherit from TreeMode.</remarks>
       TreeMode             = 0x01,
 
       /// <summary>
       /// A plugin which controls whether a node in the tree should be shown or hidden.
-      /// The plugin class must inherit from Filter<IMaxNode>.
       /// </summary>
+      /// <remarks>The plugin class must inherit from Filter&lt;IMaxNode&gt;.</remarks>
       Filter               = 0x02,
 
       /// <summary>
-      /// A plugin which sorts the nodes in the treeview. The plugin class must inherit
-      /// from NodeSorter.
+      /// A plugin which sorts the nodes in the treeview.
       /// </summary>
+      /// <remarks>The plugin class must inherit from NodeSorter.</remarks>
       NodeSorter           = 0x04,
 
       /// <summary>
-      /// A plugin which displays an item in the treeview. The plugin class must inherit
-      /// from TreeNodeButton.
+      /// A plugin which displays an item in the treeview.
       /// </summary>
+      /// <remarks>The plugin class must inherit from TreeNodeButton.</remarks>
       TreeNodeButton       = 0x08,
 
       /// <summary>
@@ -52,7 +62,9 @@ namespace Outliner.Plugins
       /// </summary>
       Utility              = 0x10,
       
-
+      /// <summary>
+      /// A model for a ContextMenuItem.
+      /// </summary>
       ContextMenuItemModel = 0x20,
       
       /// <summary>

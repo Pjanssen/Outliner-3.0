@@ -11,18 +11,18 @@ using Outliner.Plugins;
 
 namespace Outliner.Controls.Tree.Layout
 {
+/// <summary>
+/// Defines a TreeNodeLayoutItem which does not draw anything, but which does handle 
+/// TreeNode selection. It will fill the remaining space of the layout, after
+/// all other item widths have been calculated.
+/// </summary>
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
 [LocalizedDisplayName(typeof(OutlinerResources), "Button_EmptySpace")]
 public class EmptySpace : TreeNodeLayoutItem
 {
-   [XmlAttribute("visible_types")]
-   [DefaultValue(MaxNodeType.All)]
-   public override Scene.MaxNodeType VisibleTypes
-   {
-      get { return MaxNodeType.All; }
-      set { }
-   }
-
+   /// <summary>
+   /// Initializes a new instance of the EmptySpace class.
+   /// </summary>
    public EmptySpace() { }
 
    public override TreeNodeLayoutItem Copy()
@@ -35,7 +35,7 @@ public class EmptySpace : TreeNodeLayoutItem
       return true;
    }
 
-   public override int GetAutoWidth(TreeNode tn)
+   protected override int GetAutoWidth(TreeNode tn)
    {
       if (this.Layout == null || this.Layout.TreeView == null)
          return 0;

@@ -23,7 +23,7 @@ namespace Outliner.Controls
 
       protected override void OnLoad(EventArgs e)
       {
-         ControlHelpers.SetControlColors(this);
+         ControlHelpers.Set3dsMaxControlColors(this);
       }
 
       public string AssemblyVersion

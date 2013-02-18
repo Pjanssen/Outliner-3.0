@@ -11,10 +11,17 @@ using Outliner.Plugins;
 
 namespace Outliner.Controls.Tree.Layout
 {
+/// <summary>
+/// Defines a layout item which draws the text of a TreeNode. It selects the TreeNode
+/// when it is clicked, and executes the TreeView's DoubleClickAction when double-clicked.
+/// </summary>
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
 [LocalizedDisplayName(typeof(OutlinerResources), "Button_TreeNodeText")]
 public class TreeNodeText : TreeNodeButton
 {
+   /// <summary>
+   /// Initializes a new instance of the TreeNodeText class.
+   /// </summary>
    public TreeNodeText()
    {
       this.Alignment = StringAlignment.Near;
@@ -67,7 +74,7 @@ public class TreeNodeText : TreeNodeButton
       }
    }
 
-   public override int GetAutoWidth(TreeNode tn)
+   protected override int GetAutoWidth(TreeNode tn)
    {
       int textWidth = this.MeasureTextWidth(tn);
       int maxWidth = this.getMaxWidth(tn);
@@ -128,6 +135,10 @@ public class TreeNodeText : TreeNodeButton
          return null;
    }
 
+   /// <summary>
+   /// Gets or sets the horizontal text alignment.
+   /// </summary>
+   /// <remarks>This property is only relevant when a fixed item width is used.</remarks>
    [XmlAttribute("alignment")]
    [DefaultValue(StringAlignment.Near)]
    public StringAlignment Alignment { get; set; }

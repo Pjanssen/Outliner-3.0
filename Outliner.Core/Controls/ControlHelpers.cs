@@ -10,9 +10,16 @@ using Autodesk.Max;
 
 namespace Outliner.Controls
 {
+/// <summary>
+/// Provides methods for common Control operations.
+/// </summary>
 public class ControlHelpers
 {
-   public static MessageBoxOptions GetLocalizedMessageBoxOptions()
+   /// <summary>
+   /// Creates a MessageBoxOptions object for the current UI culture.
+   /// </summary>
+   /// <returns></returns>
+   public static MessageBoxOptions CreateLocalizedMessageBoxOptions()
    {
       if (CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft)
          return MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading;
@@ -20,6 +27,9 @@ public class ControlHelpers
          return (MessageBoxOptions)0;
    }
 
+   /// <summary>
+   /// Indicates if the control is drawn in (Visual Studio) design mode.
+   /// </summary>
    public static Boolean IsInDesignMode
    {
       get
@@ -31,12 +41,16 @@ public class ControlHelpers
       }
    }
 
-   public static void SetControlColors(Control control)
+   /// <summary>
+   /// Sets the fore- and backcolor of the given control to GuiColors.WindowText and GuiColors.Window.
+   /// </summary>
+   /// <param name="control">The control to set the colors on.</param>
+   public static void Set3dsMaxControlColors(Control control)
    {
       if (!ControlHelpers.IsInDesignMode)
       {
-         Color foreColor = ColorHelpers.FromMaxGuiColor(GuiColors.WindowText);
-         Color backColor = ColorHelpers.FromMaxGuiColor(GuiColors.Window);
+         Color foreColor = Colors.FromMaxGuiColor(GuiColors.WindowText);
+         Color backColor = Colors.FromMaxGuiColor(GuiColors.Window);
          SetControlColor(control, foreColor, backColor);
       }
    }

@@ -8,6 +8,9 @@ using System.IO;
 
 namespace Outliner
 {
+/// <summary>
+/// Provides the locations of various types of files used by the Outliner.
+/// </summary>
 public static class OutlinerPaths
 {
    private static String GetMaxDirectory(MaxDirectory dir)
@@ -19,6 +22,10 @@ public static class OutlinerPaths
    }
    
    private static String configDir;
+
+   /// <summary>
+   /// Gets the general Configuration directory.
+   /// </summary>
    public static String ConfigDir
    {
       get
@@ -30,52 +37,81 @@ public static class OutlinerPaths
       }
    }
 
+   /// <summary>
+   /// Gets the plugins directory.
+   /// </summary>
    public static String PluginsDir
    {
       get { return Path.Combine(OutlinerPaths.ConfigDir, "Plugins\\"); }
    }
 
-
+   /// <summary>
+   /// Gets the presets directory.
+   /// </summary>
    public static String PresetsDir
    {
       get { return Path.Combine(OutlinerPaths.ConfigDir, "Presets\\"); }
    }
 
+   /// <summary>
+   /// Gets the treeview layouts directory.
+   /// </summary>
    public static String LayoutsDir
    {
       get { return Path.Combine(OutlinerPaths.ConfigDir, "Layouts\\"); }
    }
 
+   /// <summary>
+   /// Gets the context menus directory.
+   /// </summary>
    public static String ContextMenusDir
    {
       get { return Path.Combine(OutlinerPaths.ConfigDir, "ContextMenus\\"); }
    }
 
+   /// <summary>
+   /// Gets the filter configurations directory.
+   /// </summary>
    public static String FiltersDir
    {
       get { return Path.Combine(OutlinerPaths.ConfigDir, "Filters\\"); }
    }
 
+   /// <summary>
+   /// Gets the sorter configurations directory.
+   /// </summary>
    public static String SortersDir
    {
       get { return Path.Combine(OutlinerPaths.ConfigDir, "NodeSorters\\"); }
    }
 
+   /// <summary>
+   /// Gets the color schemes directory.
+   /// </summary>
    public static String ColorSchemesDir
    {
       get { return Path.Combine(OutlinerPaths.ConfigDir, "ColorSchemes"); }
    }
 
+   /// <summary>
+   /// Gets the general settings file location.
+   /// </summary>
    public static String SettingsFile
    {
       get { return Path.Combine(OutlinerPaths.ConfigDir, "settings.xml"); }
    }
 
+   /// <summary>
+   /// Gets the stored state file location.
+   /// </summary>
    public static String StateFile
    {
       get { return Path.Combine(OutlinerPaths.ConfigDir, "saved_state.xml"); }
    }
 
+   /// <summary>
+   /// Gets the color file location.
+   /// </summary>
    public static String ColorFile
    {
       get { return Path.Combine(OutlinerPaths.ConfigDir, "colors.xml"); }

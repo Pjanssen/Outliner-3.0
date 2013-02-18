@@ -9,7 +9,7 @@ using System.Resources;
 
 namespace Outliner.Configuration
 {
-public class ResourceTypeConverter : TypeListConverter
+internal class ResourceTypeConverter : TypeListConverter
 {
    public ResourceTypeConverter() : base(GetResourceTypes()) { }
 

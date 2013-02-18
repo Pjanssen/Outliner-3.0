@@ -8,10 +8,17 @@ using Outliner.MaxUtils;
 
 namespace Outliner.Commands
 {
+/// <summary>
+/// Deletes the given IMaxNodes from the scene.
+/// </summary>
 public class DeleteCommand : Command
 {
    private IEnumerable<IMaxNode> nodes;
 
+   /// <summary>
+   /// Initializes a new instance of the DeleteCommand class.
+   /// </summary>
+   /// <param name="nodes">The IMaxNodes to delete.</param>
    public DeleteCommand(IEnumerable<IMaxNode> nodes)
    {
       Throw.IfArgumentIsNull(nodes, "nodes");

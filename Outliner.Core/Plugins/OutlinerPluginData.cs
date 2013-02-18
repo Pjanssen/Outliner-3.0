@@ -8,25 +8,40 @@ using System.ComponentModel;
 
 namespace Outliner.Plugins
 {
+/// <summary>
+/// A class containing metadata for an Outliner plugin.
+/// </summary>
 public class OutlinerPluginData
 {
+   /// <summary>
+   /// Gets the plugintype of this plugin.
+   /// </summary>
    public OutlinerPluginType PluginType { get; private set; }
+
+   /// <summary>
+   /// Gets the type of this plugin.
+   /// </summary>
    public Type Type { get; private set; }
+
+   /// <summary>
+   /// Gets the displayname of this plugin.
+   /// </summary>
    public String DisplayName { get; private set; }
+
+   /// <summary>
+   /// Gets the small display-image of this plugin.
+   /// </summary>
    public Image DisplayImageSmall { get; private set; }
+
+   /// <summary>
+   /// Gets the large display-image of this plugin.
+   /// </summary>
    public Image DisplayImageLarge { get; private set; }
 
-   public OutlinerPluginData( OutlinerPluginType pluginType
-                            , Type type, String displayName
-                            , Image displayImageSmall, Image displayImageLarge)
-   {
-      this.PluginType = pluginType;
-      this.Type = type;
-      this.DisplayName = displayName;
-      this.DisplayImageSmall = displayImageSmall;
-      this.DisplayImageLarge = displayImageLarge;
-   }
-
+   /// <summary>
+   /// Initializes a new instance of the OutlinerPluginData class.
+   /// </summary>
+   /// <param name="type">The type to create the metadata for.</param>
    public OutlinerPluginData(Type type)
    {
       Throw.IfArgumentIsNull(type, "type");

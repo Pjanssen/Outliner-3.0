@@ -5,13 +5,16 @@ using System.Text;
 
 namespace Outliner.Controls.Tree
 {
+/// <summary>
+/// Represents a collection of TreeNode objects.
+/// </summary>
 public class TreeNodeCollection : ICollection<TreeNode>
 {
    private TreeNode owner;
    private List<TreeNode> unfilteredNodes;
    private List<TreeNode> filteredNodes;
 
-   public TreeNodeCollection(TreeNode owner)
+   internal TreeNodeCollection(TreeNode owner)
    {
       if (owner == null)
          throw new ArgumentNullException("owner");
@@ -30,7 +33,13 @@ public class TreeNodeCollection : ICollection<TreeNode>
    }
 
    #region ICollection members
-      
+     
+   /// <summary>
+   /// Adds a TreeNode to this collection.
+   /// </summary>
+   /// <remarks>The given TreeNode will be removed from its current parent before it's
+   /// added to this collection.</remarks>
+   /// <param name="item">The TreeNode to add.</param>
    public void Add(TreeNode item)
    {
       if (item == null)
@@ -62,6 +71,11 @@ public class TreeNodeCollection : ICollection<TreeNode>
       return this.owner.IsChildOf(newItem);
    }
 
+   /// <summary>
+   /// Removes all TreeNodes from this collection.
+   /// </summary>
+   /// <remarks>The TreeNodes in the collection will be removed from the TreeView 
+   /// and will not be added to the TreeView's rootnode.</remarks>
    public void Clear()
    {
       foreach (TreeNode tn in this.unfilteredNodes)
@@ -79,31 +93,53 @@ public class TreeNodeCollection : ICollection<TreeNode>
          this.owner.TreeView.Update(TreeViewUpdateFlags.All);
    }
 
+   /// <summary>
+   /// Tests if the collection contains the given TreeNode.
+   /// </summary>
    public bool Contains(TreeNode item)
    {
       return this.unfilteredNodes.Contains(item);
    }
 
+   /// <summary>
+   /// Tests if the collection contains the given TreeNode.
+   /// </summary>
+   /// <param name="item">The TreeNode to find in the collection.</param>
+   /// <param name="recursive">Specifies whether the child collections should be searched too.</param>
    public bool Contains(TreeNode item, Boolean recursive)
    {
       return this.Contains(item) || this.Any(tn => tn.Nodes.Contains(item, true));
    }
 
+   /// <summary>
+   /// Copies the collection to an array.
+   /// </summary>
+   /// <param name="array">The array to copy the collection to.</param>
+   /// <param name="arrayIndex">The starting index for the copy operation.</param>
    public void CopyTo(TreeNode[] array, int arrayIndex)
    {
       this.unfilteredNodes.CopyTo(array, arrayIndex);
    }
 
+   /// <summary>
+   /// Gets the number of TreeNodes in this collection.
+   /// </summary>
    public int Count
    {
       get { return this.filteredNodes.Count; }
    }
 
+   /// <summary>
+   /// Gets a value indicating whether the collection is read-only.
+   /// </summary>
    public bool IsReadOnly
    {
       get { return false; }
    }
 
+   /// <summary>
+   /// Removes the given TreeNode from the collection.
+   /// </summary>
    public bool Remove(TreeNode item)
    {
       if (item == null)
@@ -129,6 +165,9 @@ public class TreeNodeCollection : ICollection<TreeNode>
       return result;
    }
 
+   /// <summary>
+   /// Gets the enumerator for this collection.
+   /// </summary>
    public IEnumerator<TreeNode> GetEnumerator()
    {
       return this.filteredNodes.GetEnumerator();
@@ -142,8 +181,8 @@ public class TreeNodeCollection : ICollection<TreeNode>
    #endregion
 
 
-
-
+   #region Filter
+   
    private void addFiltered(TreeNode tn)
    {
       if (this.filteredNodes.Contains(tn))
@@ -194,9 +233,12 @@ public class TreeNodeCollection : ICollection<TreeNode>
          this.addFiltered(tn);
    }
 
+   #endregion
 
 
-
+   /// <summary>
+   /// Gets or sets the TreeNode at the given index from the collection.
+   /// </summary>
    public TreeNode this[Int32 index]
    {
       get 
@@ -228,11 +270,19 @@ public class TreeNodeCollection : ICollection<TreeNode>
       }
    }
 
+   /// <summary>
+   /// Gets the index of the given TreeNode.
+   /// </summary>
    public Int32 IndexOf(TreeNode item)
    {
       return this.filteredNodes.IndexOf(item);
    }
 
+   /// <summary>
+   /// Sorts the TreeNodes in the collection.
+   /// </summary>
+   /// <param name="comparer">The comparer to use for the sorting.</param>
+   /// <param name="sortChildren">If true, the childnodes of the TreeNodes in the collection will be sorted recursively.</param>
    public void Sort(IComparer<TreeNode> comparer, Boolean sortChildren)
    {
       if (comparer == null)

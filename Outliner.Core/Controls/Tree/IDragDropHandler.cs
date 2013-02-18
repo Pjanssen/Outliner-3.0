@@ -7,6 +7,9 @@ using Outliner.Scene;
 
 namespace Outliner.Controls.Tree
 {
+   /// <summary>
+   /// Defines methods and properties for drag &amp; drop handling.
+   /// </summary>
    public interface IDragDropHandler
    {
       /// <summary>

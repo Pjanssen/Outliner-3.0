@@ -39,14 +39,14 @@ public partial class MainControl : MaxCustomControls.MaxUserControl, MaxCustomCo
       
    public void UpdateColors()
    {
-      this.BackColor = ColorHelpers.FromMaxGuiColor(Autodesk.Max.GuiColors.Background);
+      this.BackColor = Colors.FromMaxGuiColor(Autodesk.Max.GuiColors.Background);
       this.treeView1.Colors.UpdateColors();
       this.treeView1.Update(TreeViewUpdateFlags.Brushes | TreeViewUpdateFlags.Redraw);
       this.treeView2.Colors.UpdateColors();
       this.treeView2.Update(TreeViewUpdateFlags.Brushes | TreeViewUpdateFlags.Redraw);
       TreeViewColorScheme colorScheme = this.treeView1.Colors;
       this.nameFilterTextBox.BackColor = colorScheme.Background;
-      this.nameFilterTextBox.ForeColor = ColorHelpers.SelectContrastingColor( colorScheme.Background
+      this.nameFilterTextBox.ForeColor = Colors.SelectContrastingColor( colorScheme.Background
                                                                             , colorScheme.ForegroundLight
                                                                             , colorScheme.ForegroundDark);
    }

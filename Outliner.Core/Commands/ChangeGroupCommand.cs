@@ -8,7 +8,6 @@ using Outliner.MaxUtils;
 namespace Outliner.Commands
 {
 public class ChangeGroupCommand : CustomRestoreObjCommand
-
 {
    private IEnumerable<INodeWrapper> nodes;
    private IMaxNode groupHead;

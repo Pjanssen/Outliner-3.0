@@ -25,7 +25,7 @@ namespace Outliner.Filters
          if (iinodeWrapper == null)
             return true;
 
-         return !IINodeHelpers.IsInvisibleNode(iinodeWrapper.INode);
+         return !IINodes.IsInvisibleNode(iinodeWrapper.INode);
       }
    }
 }

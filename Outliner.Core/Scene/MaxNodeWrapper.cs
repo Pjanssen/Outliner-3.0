@@ -8,8 +8,14 @@ using Outliner.MaxUtils;
 
 namespace Outliner.Scene
 {
+   /// <summary>
+   /// Provides a base wrapper class for a 3dsMax object, implementing IMaxNode.
+   /// </summary>
    public abstract class MaxNodeWrapper : IMaxNode
    {
+      /// <summary>
+      /// Gets the wrapped base object.
+      /// </summary>
       public abstract Object BaseObject { get; }
 
       public virtual Boolean IsAggregate

@@ -7,7 +7,7 @@ using System.Globalization;
 
 namespace Outliner.Plugins
 {
-public class OutlinerActionConverter : TypeConverter
+internal class OutlinerActionConverter : TypeConverter
 {
    public override TypeConverter.StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
    {
@@ -28,7 +28,7 @@ public class OutlinerActionConverter : TypeConverter
    }
 }
 
-public class OutlinerPredicateConverter : TypeConverter
+internal class OutlinerPredicateConverter : TypeConverter
 {
    public override TypeConverter.StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
    {

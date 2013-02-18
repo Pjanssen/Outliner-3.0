@@ -15,7 +15,7 @@ public class OutlinerUserControl : UserControl
 
    protected override void OnLoad(EventArgs e)
    {
-      ControlHelpers.SetControlColors(this);
+      ControlHelpers.Set3dsMaxControlColors(this);
       base.OnLoad(e);
    }
 }

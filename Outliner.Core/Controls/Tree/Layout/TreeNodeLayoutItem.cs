@@ -11,12 +11,18 @@ using Outliner.Modes;
 
 namespace Outliner.Controls.Tree.Layout
 {
+   /// <summary>
+   /// Defines a base class for drawing TreeNodes in a TreeView.
+   /// </summary>
    [XmlInclude(typeof(ExpandButton))]
    [XmlInclude(typeof(EmptySpace))]
    [XmlInclude(typeof(TreeNodeIndent))]
    [XmlInclude(typeof(TreeNodeText))]
    public abstract class TreeNodeLayoutItem
    {
+      /// <summary>
+      /// Initializes a new instance of the TreeNodeLayoutItem
+      /// </summary>
       protected TreeNodeLayoutItem()
       {
          this.VisibleTypes = MaxNodeType.All;
@@ -25,10 +31,13 @@ namespace Outliner.Controls.Tree.Layout
 
 
       /// <summary>
-      /// Creates a deep copy of this <see cref="TreeNodeLayoutItem"/>.
+      /// Creates a deep copy of this TreeNodeLayoutItem.
       /// </summary>
       public abstract TreeNodeLayoutItem Copy();
 
+      /// <summary>
+      /// Gets the Layout to which this TreeNodeLayoutItem belongs.
+      /// </summary>
       [XmlIgnore]
       [Browsable(false)]
       public TreeNodeLayout Layout { get; internal set; }
@@ -116,6 +125,9 @@ namespace Outliner.Controls.Tree.Layout
       /// </summary>
       public const Int32 AutoWidth = -1;
 
+      /// <summary>
+      /// Gets or sets a fixed width for the TreeNodeLayoutItem.
+      /// </summary>
       [XmlAttribute("width")]
       [DefaultValue(AutoWidth)]
       public Int32 Width { get; set; }
@@ -131,7 +143,10 @@ namespace Outliner.Controls.Tree.Layout
             return this.Width;
       }
 
-      public abstract Int32 GetAutoWidth(TreeNode tn);
+      /// <summary>
+      /// Calculates a dynamic width value for the TreeNodeLayoutItem.
+      /// </summary>
+      protected abstract Int32 GetAutoWidth(TreeNode tn);
 
       /// <summary>
       /// Returns the height of the item.
@@ -174,15 +189,11 @@ namespace Outliner.Controls.Tree.Layout
       /// <summary>
       /// This method is called when the mouse pointer is moved from within to outside the bounds of the item.
       /// </summary>
-      /// <param name="e"></param>
-      /// <param name="tn"></param>
       public virtual void HandleMouseLeave(MouseEventArgs e, TreeNode tn) { }
 
       /// <summary>
       /// This method is called when a mouse button is held down over a TreeNode.
       /// </summary>
-      /// <param name="e"></param>
-      /// <param name="tn"></param>
       public virtual void HandleMouseDown(MouseEventArgs e, TreeNode tn) { }
 
       /// <summary>

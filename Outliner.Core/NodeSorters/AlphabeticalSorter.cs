@@ -11,11 +11,22 @@ using Outliner.Modes;
 
 namespace Outliner.NodeSorters
 {
+   /// <summary>
+   /// Sorts TreeNodes alphabetically by the name of the IMaxNode attached to the TreeNode.
+   /// </summary>
    [OutlinerPlugin(OutlinerPluginType.NodeSorter)]
    [LocalizedDisplayName(typeof(OutlinerResources), "Sorter_Alphabetical")]
    public class AlphabeticalSorter : NodePropertySorter
    {
+      /// <summary>
+      /// Initializes a new instance of the AlphabeticalSorter class, using SortOrder.Ascending.
+      /// </summary>
       public AlphabeticalSorter() : this(SortOrder.Ascending) { }
+
+      /// <summary>
+      /// Initializes a new instance of the AlphabeticalSorter class
+      /// </summary>
+      /// <param name="sortOrder">The order to sort by.</param>
       public AlphabeticalSorter(SortOrder sortOrder) : base(NodeProperty.Name, sortOrder) { }
 
       protected override int InternalCompare(TreeNode x, TreeNode y)

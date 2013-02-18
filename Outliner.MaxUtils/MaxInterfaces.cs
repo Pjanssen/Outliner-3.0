@@ -9,11 +9,22 @@ using Autodesk.Max.Remoting;
 namespace Outliner.MaxUtils
 {
 /// <summary>
-/// This class provides central (mostly cached) access to basic 3dsMax interfaces.
+/// Provides (mostly cached) access to common 3dsMax interfaces.
 /// </summary>
 public static class MaxInterfaces
 {
    private static IGlobal global;
+   private static IInterface_ID nodeLayerProperties;
+   private static IIFPLayerManager iIFPLayerManager;
+   private static IILayerManager iILayerManager;
+   private static IIContainerManager containerManager;
+   private static IInterval intervalForever;
+   private static System.Windows.Forms.IWin32Window maxHwnd;
+
+
+   /// <summary>
+   /// Gets the Global interface.
+   /// </summary>
    public static IGlobal Global
    {
       get 
@@ -35,12 +46,17 @@ public static class MaxInterfaces
       }
    }
 
+   /// <summary>
+   /// Gets the COREInterface.
+   /// </summary>
    public static IInterface COREInterface
    {
       get { return MaxInterfaces.Global.COREInterface; }
    }
 
-   private static IInterface_ID nodeLayerProperties;
+   /// <summary>
+   /// Gets the NodeLayerProperties interface
+   /// </summary>
    public static IInterface_ID NodeLayerProperties
    {
       get
@@ -52,8 +68,9 @@ public static class MaxInterfaces
       }
    }
 
-
-   private static IIFPLayerManager iIFPLayerManager;
+   /// <summary>
+   /// Gets the Function-Published layer manager.
+   /// </summary>
    public static IIFPLayerManager IIFPLayerManager
    {
       get 
@@ -69,7 +86,9 @@ public static class MaxInterfaces
       }
    }
 
-   private static IILayerManager iILayerManager;
+   /// <summary>
+   /// Gets the layer manager.
+   /// </summary>
    public static IILayerManager IILayerManager
    {
       get
@@ -81,7 +100,9 @@ public static class MaxInterfaces
       }
    }
 
-
+   /// <summary>
+   /// Gets the instance manager.
+   /// </summary>
    public static IIInstanceMgr InstanceMgr
    {
       get
@@ -90,6 +111,9 @@ public static class MaxInterfaces
       }
    }
 
+   /// <summary>
+   /// Gets the selection-set manager.
+   /// </summary>
    public static IINamedSelectionSetManager SelectionSetManager
    {
       get
@@ -98,7 +122,9 @@ public static class MaxInterfaces
       }
    }
 
-   private static IIContainerManager containerManager;
+   /// <summary>
+   /// Gets the container manager.
+   /// </summary>
    public static IIContainerManager ContainerManager
    {
       get
@@ -110,7 +136,9 @@ public static class MaxInterfaces
       }
    }
 
-   private static IInterval intervalForever;
+   /// <summary>
+   /// Gets an interval with an infinite duration.
+   /// </summary>
    public static IInterval IntervalForever
    {
       get
@@ -124,7 +152,9 @@ public static class MaxInterfaces
       }
    }
 
-   private static System.Windows.Forms.IWin32Window maxHwnd;
+   /// <summary>
+   /// Gets the 3dsMax main window handle.
+   /// </summary>
    public static System.Windows.Forms.IWin32Window MaxHwnd
    {
       get
@@ -136,6 +166,9 @@ public static class MaxInterfaces
       }
    }
 
+   /// <summary>
+   /// Gets the Material Editor handle.
+   /// </summary>
    public static IntPtr MtlEditorHwnd
    {
       get
@@ -154,6 +187,9 @@ public static class MaxInterfaces
       }
    }
 
+   /// <summary>
+   /// Gets the Slate Material Editor handle.
+   /// </summary>
    public static IntPtr SlateMtlEditorHwnd
    {
       get
@@ -194,7 +230,9 @@ public static class MaxInterfaces
       return getHwndTitle(hwnd) == "Slate Material Editor";
    }
 
-
+   /// <summary>
+   /// Gets the color manager.
+   /// </summary>
    public static IIColorManager ColorManager
    {
       get { return MaxInterfaces.Global.ColorManager; }
@@ -215,6 +253,5 @@ public static class MaxInterfaces
    {
       get { return ColorManager.AppFrameColorTheme == AppFrameColorTheme.DarkTheme; }
    }
-
 }
 }

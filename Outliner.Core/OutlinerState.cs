@@ -22,7 +22,7 @@ public class OutlinerState
 
    private OutlinerPreset GetPresetByName(String name)
    {
-      return ConfigurationHelpers.GetConfigurations<OutlinerPreset>(OutlinerPaths.PresetsDir)
+      return Configurations.GetConfigurations<OutlinerPreset>(OutlinerPaths.PresetsDir)
                                  .FirstOrDefault(p => p.Text == name);
    }
 

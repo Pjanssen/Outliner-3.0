@@ -7,8 +7,8 @@ using System.Windows.Forms;
 namespace Outliner.Controls.Tree.Layout
 {
 /// <summary>
-/// TreeNodeButton is a baseclass for all node buttons.
-/// It provides a Tooltip and changes the cursor when the mouse moves over it.
+/// Provides a baseclass for all node buttons. It provides a Tooltip and changes 
+/// the cursor when the mouse moves over it.
 /// </summary>
 public abstract class TreeNodeButton : TreeNodeLayoutItem, IDisposable
 {
@@ -18,11 +18,18 @@ public abstract class TreeNodeButton : TreeNodeLayoutItem, IDisposable
    private ToolTip tooltip;
 
 
+   /// <summary>
+   /// Returns the text for the tooltip for the given TreeNode.
+   /// </summary>
+   /// <remarks>If this method returns null, no tooltip will be shown.</remarks>
    protected virtual String GetTooltipText(TreeNode tn)
    {
       return null;
    }
 
+   /// <summary>
+   /// Determines whether the TreeNodeButton can be clicked for the given TreeNode.
+   /// </summary>
    protected virtual Boolean Clickable(TreeNode tn)
    {
       return true;

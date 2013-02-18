@@ -33,18 +33,49 @@ public struct ButtonImages
    }
 }
 
+/// <summary>
+/// Provides a base class for treenode layout buttons which use images to show their
+/// enabled/disabled state.
+/// </summary>
 public abstract class ImageButton : TreeNodeButton
 {
-   [XmlAttribute("invert_behavior")]
-   [DefaultValue(false)]
-   public Boolean InvertBehavior { get; set; }
+   protected Image imageEnabled;
+   protected Image imageDisabled;
+   protected Image imageEnabled_Filtered;
+   protected Image imageDisabled_Filtered;
 
+   /// <summary>
+   /// Initializes a new instance of the ImageButton class.
+   /// </summary>
    protected ImageButton()
    {
       this.InvertBehavior = false;
    }
 
+   /// <summary>
+   /// Initializes a new instance of the ImageButton class.
+   /// </summary>
+   /// <param name="images"></param>
+   public ImageButton(ButtonImages images)
+      : this()
+   {
+      imageEnabled = images.Regular;
+      imageEnabled_Filtered = images.RegularFiltered;
+      imageDisabled = images.Disabled;
+      imageDisabled_Filtered = images.DisabledFiltered;
+   }
 
+   /// <summary>
+   /// Gets or sets whether the enabled/disabled state should be flipped.
+   /// </summary>
+   [XmlAttribute("invert_behavior")]
+   [DefaultValue(false)]
+   public Boolean InvertBehavior { get; set; }
+
+   /// <summary>
+   /// Determines whether the button is in the enabled state for the given TreeNode.
+   /// </summary>
+   /// <remarks>If this method returns false, the button will not be clickable either.</remarks>
    public abstract Boolean IsEnabled(TreeNode tn);
 
    protected override bool Clickable(TreeNode tn)
@@ -74,56 +105,47 @@ public abstract class ImageButton : TreeNodeButton
    }
 
 
-   public ImageButton(ButtonImages images) : this()
-   {
-      imageEnabled = images.Regular;
-      imageEnabled_Filtered = images.RegularFiltered;
-      imageDisabled = images.Disabled;
-      imageDisabled_Filtered = images.DisabledFiltered;
+
+   protected virtual Image ImageEnabled 
+   { 
+      get { return imageEnabled; } 
    }
 
-   protected Image imageEnabled;
-   protected virtual Image ImageEnabled { get { return imageEnabled; } }
-   protected Image imageDisabled;
    protected virtual Image ImageDisabled
    {
       get
       {
          if (this.imageDisabled == null)
-         {
             this.imageDisabled = ImageButton.CreateDisabledImage(this.ImageEnabled);
-         }
+
          return this.imageDisabled;
       }
    }
-   protected Image imageEnabled_Filtered;
+
    protected virtual Image ImageEnabled_Filtered
    {
       get
       {
          if (this.imageEnabled_Filtered == null)
-         {
             this.imageEnabled_Filtered = ImageButton.CreateFilteredImage(this.ImageEnabled);
-         }
+
          return this.imageEnabled_Filtered;
       }
    }
-   protected Image imageDisabled_Filtered;
+
    protected virtual Image ImageDisabled_Filtered
    {
       get
       {
          if (this.imageDisabled_Filtered == null)
-         {
             this.imageDisabled_Filtered = ImageButton.CreateFilteredImage(this.ImageDisabled);
-         }
+
          return this.imageDisabled_Filtered;
       }
    }
 
 
-
-   public override int GetAutoWidth(TreeNode tn)
+   protected override int GetAutoWidth(TreeNode tn)
    {
       return this.ImageEnabled.Width;
    }

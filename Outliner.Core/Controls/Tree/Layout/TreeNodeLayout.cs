@@ -10,6 +10,9 @@ using System.ComponentModel;
 
 namespace Outliner.Controls.Tree.Layout
 {
+/// <summary>
+/// Defines a layout for the TreeView control.
+/// </summary>
 [Serializable]
 public class TreeNodeLayout
 {
@@ -19,7 +22,38 @@ public class TreeNodeLayout
    private Boolean fullRowSelect;
    private Int32 paddingLeft;
    private Int32 paddingRight;
+   private TreeNode prevMouseOverTn;
+   private TreeNodeLayoutItem prevMouseOverItem;
 
+   /// <summary>
+   /// Initializes a new instance of the TreeNodeLayout class.
+   /// </summary>
+   public TreeNodeLayout()
+   {
+      this.LayoutItems = new TreeNodeLayoutItemCollection();
+      this.itemHeight = 18;
+      this.fullRowSelect = false;
+      this.paddingLeft = 2;
+      this.paddingRight = 2;
+   }
+
+   /// <summary>
+   /// Initializes a new instance of the TreeNodeLayout class, as a copy of 
+   /// the given TreeNodeLayout.
+   /// </summary>
+   /// <param name="layout">The TreeNodeLayout to copy.</param>
+   public TreeNodeLayout(TreeNodeLayout layout)
+   {
+      this.LayoutItems = new TreeNodeLayoutItemCollection(layout.layoutItems);
+      this.itemHeight = layout.itemHeight;
+      this.fullRowSelect = layout.fullRowSelect;
+      this.paddingLeft = layout.paddingLeft;
+      this.paddingRight = layout.paddingRight;
+   }
+
+   /// <summary>
+   /// Gets or sets the TreeView control with which this layout is associated.
+   /// </summary>
    [XmlIgnore]
    public TreeView TreeView 
    {
@@ -35,6 +69,9 @@ public class TreeNodeLayout
       }
    }
 
+   /// <summary>
+   /// Gets or sets the height of one item in the TreeView.
+   /// </summary>
    [XmlElement("item_height")]
    [DefaultValue(18)]
    public Int32 ItemHeight
@@ -52,7 +89,10 @@ public class TreeNodeLayout
       }
    }
 
-
+   /// <summary>
+   /// Gets or sets whether the entire width of the TreeView should be used for the
+   /// selection highlighting.
+   /// </summary>
    [XmlElement("fullrow_select")]
    [DefaultValue(false)]
    public Boolean FullRowSelect
@@ -66,7 +106,9 @@ public class TreeNodeLayout
       }
    }
 
-
+   /// <summary>
+   /// Gets or sets the padding on the left side of the TreeView control.
+   /// </summary>
    [XmlElement("padding_left")]
    [DefaultValue(2)]
    public Int32 PaddingLeft
@@ -80,7 +122,9 @@ public class TreeNodeLayout
       }
    }
 
-
+   /// <summary>
+   /// Gets or sets the padding on the right side of the TreeView control.
+   /// </summary>
    [XmlElement("padding_right")]
    [DefaultValue(2)]
    public Int32 PaddingRight
@@ -94,6 +138,9 @@ public class TreeNodeLayout
       }
    }
 
+   /// <summary>
+   /// Gets or sets the collection of layout items for this layout.
+   /// </summary>
    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
    [XmlArray("layout_items")]
    public TreeNodeLayoutItemCollection LayoutItems
@@ -109,34 +156,17 @@ public class TreeNodeLayout
       }
    }
 
-   public TreeNodeLayout()
-   {
-      this.LayoutItems = new TreeNodeLayoutItemCollection();
-      this.itemHeight = 18;
-      this.fullRowSelect = false;
-      this.paddingLeft = 2;
-      this.paddingRight = 2;
-   }
-
    /// <summary>
-   /// Creates a new <see cref="TreeNodeLayout"/>, as a copy of the passed <see cref="TreeNodeLayout"/>.
+   /// Calculates the combined width of all layout items for the given TreeNode.
    /// </summary>
-   /// <param name="layout">The <see cref="TreeNodeLayout"/> to copy.</param>
-   public TreeNodeLayout(TreeNodeLayout layout)
-   {
-      this.LayoutItems = new TreeNodeLayoutItemCollection(layout.layoutItems);
-      this.itemHeight = layout.itemHeight;
-      this.fullRowSelect = layout.fullRowSelect;
-      this.paddingLeft = layout.paddingLeft;
-      this.paddingRight = layout.paddingRight;
-   }
-
-
    public Int32 GetTreeNodeWidth(TreeNode tn)
    {
       return this.layoutItems.Sum(i => i.PaddingLeft + i.GetWidth(tn) + i.PaddingRight);
    }
 
+   /// <summary>
+   /// Draws the layout items for the given TreeNode.
+   /// </summary>
    public void DrawTreeNode(Graphics graphics, TreeNode tn) 
    {
       foreach (TreeNodeLayoutItem item in this.layoutItems)
@@ -148,10 +178,23 @@ public class TreeNodeLayout
       }
    }
 
+   /// <summary>
+   /// Gets the layout item at the given location.
+   /// </summary>
+   /// <param name="tn">The TreeNode at the given location.</param>
+   /// <param name="location">The location to look for a layout item.</param>
    public TreeNodeLayoutItem GetItemAt(TreeNode tn, Point location)
    {
       return this.GetItemAt(tn, location.X, location.Y);
    }
+
+   /// <summary>
+   /// Gets the layout item at the given location.
+   /// </summary>
+   /// <param name="tn">The TreeNode at the given location.</param>
+   /// <param name="x">The x coordinate of the location to look for a layout item at.</param>
+   /// <param name="y">The y coordinate of the location to look for a layout item at.</param>
+   /// <returns></returns>
    public TreeNodeLayoutItem GetItemAt(TreeNode tn, Int32 x, Int32 y)
    {
       if (tn == null)
@@ -166,9 +209,9 @@ public class TreeNodeLayout
       return null;
    }
 
-   private TreeNode prevMouseOverTn;
-   private TreeNodeLayoutItem prevMouseOverItem;
-
+   /// <summary>
+   /// Handles the TreeView's MouseMove event, passing the event on to the layout items.
+   /// </summary>
    public void HandleMouseMove(MouseEventArgs e, TreeNode tn)
    {
       if (e == null)
@@ -199,6 +242,9 @@ public class TreeNodeLayout
       }
    }
 
+   /// <summary>
+   /// Handles the TreeView's MouseDown event, passing the event on to the layout items.
+   /// </summary>
    public Boolean HandleMouseDown(MouseEventArgs e, TreeNode tn)
    {
       if (e == null || tn == null)
@@ -207,6 +253,9 @@ public class TreeNodeLayout
       return HandleMouseEvent(e, tn, i => i.HandleMouseDown(e, tn));
    }
 
+   /// <summary>
+   /// Handles the TreeView's MouseUp event, passing the event on to the layout items.
+   /// </summary>
    public void HandleMouseUp(MouseEventArgs e, TreeNode tn)
    {
       if (e == null || tn == null)
@@ -215,6 +264,9 @@ public class TreeNodeLayout
       HandleMouseEvent(e, tn, i => i.HandleMouseUp(e, tn));
    }
 
+   /// <summary>
+   /// Handles the TreeView's MouseDoubleClick event, passing the event on to the layout items.
+   /// </summary>
    public void HandleMouseDoubleClick(MouseEventArgs e, TreeNode tn)
    {
       if (e == null || tn == null)
@@ -238,7 +290,9 @@ public class TreeNodeLayout
 
    
 
-
+   /// <summary>
+   /// Defines a standard layout with indentation, text and an empty space.
+   /// </summary>
    public static TreeNodeLayout SimpleLayout
    {
       get

@@ -8,10 +8,17 @@ using Outliner.Scene;
 
 namespace Outliner.Controls.Tree
 {
+   /// <summary>
+   /// Defines an abstract base class for drag &amp; drop operations on IMaxNodes.
+   /// </summary>
    public abstract class MaxNodeDragDropHandler : IDragDropHandler
    {
       protected IMaxNode MaxNode { get; private set; }
 
+      /// <summary>
+      /// Initializes a new instance of the MaxNodeDragDropHandler.
+      /// </summary>
+      /// <param name="maxNode">The IMaxNode object the DragDropHandler is associated with.</param>
       public MaxNodeDragDropHandler(IMaxNode maxNode)
       {
          this.MaxNode = maxNode;
@@ -33,13 +40,18 @@ namespace Outliner.Controls.Tree
 
       public virtual void HandleDrop(IDataObject dragData) { }
 
-
+      /// <summary>
+      /// Gets the DragDropEffects to be used when a node is dragged onto this handler.
+      /// </summary>
       public virtual DragDropEffects DefaultDragDropEffect
       {
          get { return DragDropEffects.Move; }
       }
 
-
+      /// <summary>
+      /// Retrieves the collection of IMaxNodes from the IDataObject in a drag &amp; drop procedure.
+      /// </summary>
+      /// <param name="dragData">The IDataObject object containing the dragged IMaxNodes.</param>
       public static IEnumerable<IMaxNode> GetMaxNodesFromDragData(IDataObject dragData)
       {
          return TreeMode.GetMaxNodes(TreeView.GetTreeNodesFromDragData(dragData));

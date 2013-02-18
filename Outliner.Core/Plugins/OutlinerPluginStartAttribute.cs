@@ -10,6 +10,9 @@ namespace Outliner.Plugins
    [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
    public class OutlinerPluginStartAttribute : Attribute
    {
+      /// <summary>
+      /// Initializes a new instance of the OutlinerPluginStartAttribute class.
+      /// </summary>
       public OutlinerPluginStartAttribute() { }
    }
 
@@ -18,6 +21,9 @@ namespace Outliner.Plugins
    [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
    public class OutlinerPluginStopAttribute : Attribute
    {
+      /// <summary>
+      /// Initializes a new instance of the OutlinerPluginStopAttribute class.
+      /// </summary>
       public OutlinerPluginStopAttribute() { }
    }
 }

@@ -7,11 +7,19 @@ using Outliner.Scene;
 
 namespace Outliner.Commands
 {
+/// <summary>
+/// Turns lights on or off.
+/// </summary>
 public class ToggleLightCommand : Command
 {
    private IEnumerable<IMaxNode> nodes;
    private Boolean on;
 
+   /// <summary>
+   /// Initializes a new instance of the ToggleListCommand class.
+   /// </summary>
+   /// <param name="nodes">The lights to turn on or off.</param>
+   /// <param name="on">The new on state.</param>
    public ToggleLightCommand(IEnumerable<IMaxNode> nodes, Boolean on)
    {
       this.nodes = nodes;

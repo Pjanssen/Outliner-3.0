@@ -10,6 +10,9 @@ using Outliner.MaxUtils;
 
 namespace Outliner.LayerTools
 {
+/// <summary>
+/// Provides methods to manage layer nesting.
+/// </summary>
 public static class NestedLayers
 {
    private const uint CID_A = 0x48197F50;
@@ -124,9 +127,16 @@ public static class NestedLayers
    /// </summary>
    public static void SetParent(IILayer layer, IILayer parent)
    {
-      NestedLayers.SetParent(layer, parent, true);
+      SetLayerParentRestoreObj restoreObj = new SetLayerParentRestoreObj(layer, parent, true);
+      if (MaxInterfaces.Global.TheHold.Holding)
+      {
+         MaxInterfaces.Global.TheHold.Put(restoreObj);
+      }
+      restoreObj.Redo();
+      //NestedLayers.SetParent(layer, parent, true);
    }
-   private static void SetParent(IILayer layer, IILayer parent, Boolean updateProperties)
+
+   internal static void SetParent(IILayer layer, IILayer parent, Boolean updateProperties)
    {
       if (layer == null || layer == parent)
          return;
@@ -359,6 +369,9 @@ public static class NestedLayers
       }
    }
 
+   /// <summary>
+   /// Tests if the given property on the given layer is inherited from a parent layer.
+   /// </summary>
    public static Boolean IsPropertyInherited(IILayer layer, BooleanNodeProperty prop)
    {
       if (layer == null)
@@ -418,16 +431,33 @@ public static class NestedLayers
       }
    }
 
-  
 
-   /// <summary>
-   /// Stores the layer hierarchy and properties for each layer, in the LayerHierarchy AppDataChunk.
-   /// </summary>
-   /// <remarks>
-   /// Data format:
-   /// Int                  | Bool  | .. | Bool  | String
-   /// Number of properties | prop1 | .. | propx | Parent Name
-   /// </remarks>
+   #region Store and rebuild layer hierarchy
+
+   private static void FilePostOpen(IntPtr param, IntPtr info)
+   {
+      NestedLayers.RebuildHierarchy(false);
+      NestedLayers.postLoadCleanup();
+   }
+
+   private static void FilePreSave(IntPtr param, IntPtr info)
+   {
+      NestedLayers.StoreHierarchy();
+      NestedLayers.preSaveCleanup();
+   }
+
+   private static void FilePostMerge(IntPtr param, IntPtr info)
+   {
+      NestedLayers.RebuildHierarchy(true);
+      NestedLayers.postLoadCleanup();
+      NestedLayers.updateProperties();
+   }
+
+
+   // Stores the layer hierarchy and properties for each layer, in the LayerHierarchy AppDataChunk.
+   // Data format:
+   //    Int                  | Bool  | .. | Bool  | String
+   //    Number of properties | prop1 | .. | propx | Parent Name
    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
    private static void StoreHierarchy()
    {
@@ -464,9 +494,7 @@ public static class NestedLayers
    }
 
 
-   /// <summary>
-   /// Recreates the ParentHandle and LayerProperties AppDataChunks from the LayerHierarchy.
-   /// </summary>
+   // Recreates the ParentHandle and LayerProperties AppDataChunks from the LayerHierarchy.
    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
    private static void RebuildHierarchy(Boolean recursive)
    {
@@ -541,7 +569,6 @@ public static class NestedLayers
    }
 
   
-
    private static void preSaveCleanup()
    {
       IILayerManager layerManager = MaxInterfaces.IILayerManager;
@@ -564,47 +591,6 @@ public static class NestedLayers
       }
    }
 
-
-
-
-   private static void FilePostOpen(IntPtr param, IntPtr info)
-   {
-      NestedLayers.RebuildHierarchy(false);
-      NestedLayers.postLoadCleanup();
-   }
-
-   private static void FilePreSave(IntPtr param, IntPtr info)
-   {
-      NestedLayers.StoreHierarchy();
-      NestedLayers.preSaveCleanup();
-   }
-
-   private static void FilePostMerge(IntPtr param, IntPtr info)
-   {
-      NestedLayers.RebuildHierarchy(true);
-      NestedLayers.postLoadCleanup();
-      NestedLayers.updateProperties();
-   }
-
-
-   private static void LayerHiddenChanged(IntPtr param, IntPtr info)
-   {
-      NestedLayers.LayerPropChanged(param, info);
-   }
-   private static void LayerFrozenChanged(IntPtr param, IntPtr info)
-   {
-      NestedLayers.LayerPropChanged(param, info);
-   }
-
-   private static void LayerPropChanged(IntPtr param, IntPtr info)
-   {
-      IILayer layer = SystemNotifications.GetCallParam(info) as IILayer;
-      if (layer != null)
-      {
-         foreach (IILayer child in NestedLayers.GetChildren(layer, false))
-            NestedLayers.updateProperties(child, true);
-      }
-   }
-   
+   #endregion
 }
 }

@@ -30,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Outliner.MaxUtils.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -107,14 +108,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassIDHelpers.cs" />
-    <Compile Include="ColorHelpers.cs" />
-    <Compile Include="MaxscriptHelpers.cs" />
+    <Compile Include="ClassIDs.cs" />
+    <Compile Include="Colors.cs" />
+    <Compile Include="Maxscript.cs" />
     <Compile Include="Throw.cs" />
     <Compile Include="Functor.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="SystemNotifications.cs" />
-    <Compile Include="IINodeHelpers.cs" />
+    <Compile Include="IINodes.cs" />
     <Compile Include="MaxInterfaces.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="NodeProperty.cs" />
@@ -126,8 +126,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>$(SolutionDir)../TransformXmlDoc/TransformXmlDoc/bin/Release/TransformXmlDoc.exe "$(TargetDir)$(ProjectName).xml" "$(TargetDir)$(ProjectName).Transformed.xml"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\Outliner.Installer\BuildTasks.target" />
   <Target Name="AfterBuild">

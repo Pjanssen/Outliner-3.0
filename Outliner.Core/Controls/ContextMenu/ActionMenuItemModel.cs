@@ -102,7 +102,7 @@ public class ActionMenuItemModel : MenuItemModel
                         , MessageBoxButtons.OK
                         , MessageBoxIcon.Warning
                         , MessageBoxDefaultButton.Button1
-                        , ControlHelpers.GetLocalizedMessageBoxOptions());
+                        , ControlHelpers.CreateLocalizedMessageBoxOptions());
    }
 }
 }

@@ -8,10 +8,17 @@ using Outliner.MaxUtils;
 
 namespace Outliner.Scene
 {
+   /// <summary>
+   /// Defines a MaxNodeWrapper class for an INode object.
+   /// </summary>
    public class INodeWrapper : MaxNodeWrapper
    {
       private IINode inode;
 
+      /// <summary>
+      /// Initializes a new instance of the INodeWrapper class for the given INode.
+      /// </summary>
+      /// <param name="inode">The INode object to wrap.</param>
       public INodeWrapper(IINode inode)
       {
          Throw.IfArgumentIsNull(inode, "inode");
@@ -73,11 +80,17 @@ namespace Outliner.Scene
 
       #region INodeWrapper specific
 
+      /// <summary>
+      /// Gets the wrapped INode.
+      /// </summary>
       public IINode INode
       {
          get { return this.inode; }
       }
 
+      /// <summary>
+      /// Gets the IINodeLayerProperties from the wrapped INode.
+      /// </summary>
       public IINodeLayerProperties NodeLayerProperties
       {
          get
@@ -87,6 +100,9 @@ namespace Outliner.Scene
          }
       }
 
+      /// <summary>
+      /// Gets the layer to which this node belongs.
+      /// </summary>
       public IILayer ILayer
       {
          get
@@ -95,6 +111,9 @@ namespace Outliner.Scene
          }
       }
 
+      /// <summary>
+      /// Gets whether the wrapped INode is an instanced object.
+      /// </summary>
       public bool IsInstance
       {
          get
@@ -263,7 +282,7 @@ namespace Outliner.Scene
                return "-unnamed-";
 
             Boolean isGroupedNode = this.INode.IsGroupHead || this.INode.IsGroupMember;
-            if (IINodeHelpers.IsXref(this.INode))
+            if (IINodes.IsXref(this.INode))
             {
                if (isGroupedNode)
                   return "{[" + name + "]}";
@@ -408,7 +427,7 @@ namespace Outliner.Scene
 
       public override Color WireColor
       {
-         get { return ColorHelpers.FromMaxColor(this.INode.WireColor); }
+         get { return Colors.FromMaxColor(this.INode.WireColor); }
          set
          {
             Throw.IfArgumentIsNull(value, "value");
@@ -421,21 +440,21 @@ namespace Outliner.Scene
 
       #region ImageKey
 
-      public const String ImgKeyBone      = "bone";
-      public const String ImgKeyCamera    = "camera";
-      public const String ImgKeyContainer = "container";
-      public const String ImgKeyGeometry  = "geometry";
-      public const String ImgKeyGroupHead = "group";
-      public const String ImgKeyHelper    = "helper";
-      public const String ImgKeyLightOn   = "light_on";
-      public const String ImgKeyLightOff  = "light_off";
-      public const String ImgKeyMaterial  = "material";
-      public const String ImgKeyNurbs     = "nurbs";
-      public const String ImgKeyParticle  = "particle";
-      public const String ImgKeyShape     = "shape";
-      public const String ImgKeySpaceWarp = "spacewarp";
-      public const String ImgKeyTarget    = "helper";
-      public const String ImgKeyXref      = "xref";
+      private const String ImgKeyBone      = "bone";
+      private const String ImgKeyCamera    = "camera";
+      private const String ImgKeyContainer = "container";
+      private const String ImgKeyGeometry  = "geometry";
+      private const String ImgKeyGroupHead = "group";
+      private const String ImgKeyHelper    = "helper";
+      private const String ImgKeyLightOn   = "light_on";
+      private const String ImgKeyLightOff  = "light_off";
+      private const String ImgKeyMaterial  = "material";
+      private const String ImgKeyNurbs     = "nurbs";
+      private const String ImgKeyParticle  = "particle";
+      private const String ImgKeyShape     = "shape";
+      private const String ImgKeySpaceWarp = "spacewarp";
+      private const String ImgKeyTarget    = "helper";
+      private const String ImgKeyXref      = "xref";
 
 
       public override string ImageKey
@@ -463,7 +482,7 @@ namespace Outliner.Scene
                case SClass_ID.WsmObject: return ImgKeySpaceWarp;
             }
 
-            if (superClass == SClass_ID.System && IINodeHelpers.IsXref(inode))
+            if (superClass == SClass_ID.System && IINodes.IsXref(inode))
                return ImgKeyXref;
 
             if (superClass == SClass_ID.Helper)
@@ -495,7 +514,7 @@ namespace Outliner.Scene
                   return ImgKeyParticle;
 
                //Bone and biped objects have Geomobject as a superclass.
-               if (IINodeHelpers.IsBone(inode))
+               if (IINodes.IsBone(inode))
                   return ImgKeyBone;
 
                //All other geometry objects.

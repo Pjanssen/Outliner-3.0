@@ -10,11 +10,38 @@ using System.Drawing.Drawing2D;
 
 namespace Outliner.Controls.Tree
 {
+/// <summary>
+/// A general-purpose multiselect TreeView control, with customizable layout.
+/// </summary>
 public class TreeView : ScrollableControl
 {
+   protected HashSet<TreeNode> selectedNodes { get; private set; }
+   private HashSet<TreeNode> autoExpandedNodes;
+
+   private Int32 beginUpdateCalls = 0;
+   private TreeViewUpdateFlags updating = TreeViewUpdateFlags.None;
+
+   private TreeNodeLayout treeNodeLayout;
+   private TreeViewColorScheme colors;
+   private BorderStyle borderStyle = BorderStyle.FixedSingle;
+   private SolidBrush brushBackground;
+
+   private Boolean MouseEventHandledAtMouseDown;
+
+   private Point dragStartPos;
+   private Boolean isDragging;
+   private TreeNode prevDragTarget;
+
+   private IComparer<TreeNode> nodeSorter;
+   private List<TreeNodeCollection> _sortQueue;
+   private Timer _sortTimer;
+   private Boolean _timedSortQueueOnly;
+
+   /// <summary>
+   /// Initializes a new instance of the TreeView control.
+   /// </summary>
    public TreeView()
    {
-      //Member initialization.
       this.Root = new TreeNode(this, "root");
       this.Colors = new TreeViewColorScheme();
       this.selectedNodes = new HashSet<TreeNode>();
@@ -64,15 +91,23 @@ public class TreeView : ScrollableControl
    [Browsable(false)]
    public TreeNode Root { get; private set; }
 
+   /// <summary>
+   /// Gets the root TreeNodes of the TreeView.
+   /// </summary>
    [Browsable(false)]
    public TreeNodeCollection Nodes
    {
       get { return this.Root.Nodes; }
    }
 
+   /// <summary>
+   /// Gets or sets the TreeView's settings object.
+   /// </summary>
    public TreeViewSettings Settings { get; set; }
 
-   private BorderStyle borderStyle = BorderStyle.FixedSingle;
+   /// <summary>
+   /// Gets or sets the border style of the control.
+   /// </summary>
    public BorderStyle BorderStyle
    {
       get { return this.borderStyle; }
@@ -88,11 +123,22 @@ public class TreeView : ScrollableControl
 
    #region Helpers
 
+   /// <summary>
+   /// Gets the TreeNode at the given location.
+   /// </summary>
+   /// <param name="location">The point relative to the TreeView control to find a TreeNode at.</param>
+   /// <returns>A TreeNode if one exists at the given location, null otherwise.</returns>
    public TreeNode GetNodeAt(Point location)
    {
       return this.GetNodeAt(location.X, location.Y);
    }
 
+   /// <summary>
+   /// Gets the TreeNode at the given location.
+   /// </summary>
+   /// <param name="x">The x coordinate relative to the TreeView control to find a TreeNode at.</param>
+   /// <param name="y">The y coordinate relative to the TreeView control to find a TreeNode at.</param>
+   /// <returns>A TreeNode if one exists at the given location, null otherwise.</returns>
    public TreeNode GetNodeAt(Int32 x, Int32 y)
    {
       if (this.Nodes.Count == 0 || this.TreeNodeLayout == null || !this.ClientRectangle.Contains(x, y))
@@ -114,7 +160,9 @@ public class TreeView : ScrollableControl
 
    #region Colors
 
-   private TreeViewColorScheme colors;
+   /// <summary>
+   /// Gets or sets the color scheme for the TreeView.
+   /// </summary>
    [Browsable(false)]
    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
    public TreeViewColorScheme Colors
@@ -129,6 +177,9 @@ public class TreeView : ScrollableControl
       }
    }
 
+   /// <summary>
+   /// Gets or sets the background color of the TreeView.
+   /// </summary>
    public override Color BackColor
    {
       get { return this.Colors.Background; }
@@ -193,7 +244,7 @@ public class TreeView : ScrollableControl
          color = tn.ForeColor;
       else
       {
-         color = Outliner.MaxUtils.ColorHelpers.SelectContrastingColor( this.GetNodeBackColor(tn, highlight)
+         color = Outliner.MaxUtils.Colors.SelectContrastingColor( this.GetNodeBackColor(tn, highlight)
                                                                       , this.Colors.ForegroundLight.Color
                                                                       , this.Colors.ForegroundDark.Color);
       }
@@ -237,7 +288,9 @@ public class TreeView : ScrollableControl
 
    #region Paint
 
-   private TreeNodeLayout treeNodeLayout;
+   /// <summary>
+   /// Gets or sets the layout of the TreeView.
+   /// </summary>
    [Browsable(false)]
    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
    public TreeNodeLayout TreeNodeLayout 
@@ -253,7 +306,6 @@ public class TreeView : ScrollableControl
       }
    }
 
-   private SolidBrush brushBackground;
 
    protected override void OnPaintBackground(PaintEventArgs e)
    {
@@ -305,9 +357,6 @@ public class TreeView : ScrollableControl
    
 
    #region Update
-
-   private Int32 beginUpdateCalls = 0;
-   private TreeViewUpdateFlags updating = TreeViewUpdateFlags.None;
 
    /// <summary>
    /// Tests if one or more update flags are set.
@@ -432,7 +481,6 @@ public class TreeView : ScrollableControl
 
    #region Mouse Events
 
-   private Boolean MouseEventHandledAtMouseDown;
    protected override void OnMouseDown(MouseEventArgs e)
    {
       if (e == null || this.TreeNodeLayout == null)
@@ -460,8 +508,8 @@ public class TreeView : ScrollableControl
       TreeNode tn = this.GetNodeAt(e.Location);
       if (tn != null)
          this.TreeNodeLayout.HandleMouseUp(e, tn);
-      else if (!this.MouseEventHandledAtMouseDown && !ControlHelpers.ControlPressed 
-                                                  && !ControlHelpers.ShiftPressed 
+      else if (!this.MouseEventHandledAtMouseDown && !ControlHelpers.ControlPressed
+                                                  && !ControlHelpers.ShiftPressed
                                                   && !ControlHelpers.AltPressed)
       {
          if ((e.Button & MouseButtons.Right) != MouseButtons.Right)
@@ -529,22 +577,13 @@ public class TreeView : ScrollableControl
 
    #region DragDrop
 
-   /// <summary>
-   /// The allowed DragDropEffects to use in a drag action.
-   /// </summary>
    private const DragDropEffects AllowedDragDropEffects = DragDropEffects.Copy
                                                         | DragDropEffects.Link
                                                         | DragDropEffects.Move;
    
-   /// <summary>
-   /// Use DragDropEffects.Scroll instead of DragDropEffects.None, 
-   /// otherwise the OnDragDrop event won't be raised.
-   /// </summary>
+   // Use DragDropEffects.Scroll instead of DragDropEffects.None, 
+   // otherwise the OnDragDrop event won't be raised.
    public const DragDropEffects NoneDragDropEffects = DragDropEffects.Scroll;
-
-   private Point dragStartPos;
-   private Boolean isDragging;
-   private TreeNode prevDragTarget;
 
    /// <summary>
    /// The DragDropHandler for the TreeView.
@@ -637,6 +676,9 @@ public class TreeView : ScrollableControl
       base.OnDragDrop(drgevent);
    }
 
+   /// <summary>
+   /// Extracts the TreeNodes being dragged from an IDataObject.
+   /// </summary>
    public static IEnumerable<TreeNode> GetTreeNodesFromDragData(IDataObject dragData)
    {
       Throw.IfArgumentIsNull(dragData, "dragData");
@@ -654,17 +696,24 @@ public class TreeView : ScrollableControl
 
    #region Selection
 
-   protected HashSet<TreeNode> selectedNodes { get; private set; }
-   private HashSet<TreeNode> autoExpandedNodes;
-
+   /// <summary>
+   /// Gets the selected TreeNodes.
+   /// </summary>
    [Browsable(false)]
    public IEnumerable<TreeNode> SelectedNodes
    {
       get { return this.selectedNodes; }
    }
 
+   /// <summary>
+   /// Gets the last selected TreeNode.
+   /// </summary>
    [Browsable(false)]
    public TreeNode LastSelectedNode { get; private set; }
+
+   /// <summary>
+   /// Occurs when the selection has changed.
+   /// </summary>
    public event EventHandler<SelectionChangedEventArgs> SelectionChanged;
 
    internal void OnSelectionChanged()
@@ -673,6 +722,11 @@ public class TreeView : ScrollableControl
          this.SelectionChanged(this, new SelectionChangedEventArgs(this.selectedNodes));
    }
 
+   /// <summary>
+   /// Selects or deselects a TreeNode.
+   /// </summary>
+   /// <param name="tn">The TreeNode to select or deselect.</param>
+   /// <param name="select">If true, the TreeNode will be selected, if false, it will be deselected.</param>
    public void SelectNode(TreeNode tn, Boolean select)
    {
       if (tn == null)
@@ -713,14 +767,23 @@ public class TreeView : ScrollableControl
       this.EndUpdate();
    }
 
-   public void SelectNodes(IEnumerable<TreeNode> nodes, Boolean select)
+   /// <summary>
+   /// Selects or deselects a collection of TreeNodes.
+   /// </summary>
+   /// <param name="tns">The TreeNodes to select or deselect.</param>
+   /// <param name="select">If true, the TreeNodes will be selected, if false, they will be deselected.</param>
+   public void SelectNodes(IEnumerable<TreeNode> tns, Boolean select)
    {
-      foreach (TreeNode tn in nodes)
+      foreach (TreeNode tn in tns)
       {
          this.SelectNode(tn, select);
       }
    }
 
+   /// <summary>
+   /// Selects or deselects all TreeNodes in the TreeView.
+   /// </summary>
+   /// <param name="select">If true, the TreeNodes will be selected, if false, they will be deselected.</param>
    public void SelectAllNodes(Boolean select)
    {
       if (select)
@@ -745,6 +808,11 @@ public class TreeView : ScrollableControl
       }
    }
 
+   /// <summary>
+   /// Selects all visible TreeNodes between two TreeNodes.
+   /// </summary>
+   /// <param name="startNode">The TreeNode to start selecting from.</param>
+   /// <param name="endNode">The TreeNode to stop selecting at.</param>
    public void SelectNodesInsideRange(TreeNode startNode, TreeNode endNode)
    {
       if (startNode == null || endNode == null)
@@ -772,6 +840,10 @@ public class TreeView : ScrollableControl
       SelectNode(lastNode, true);
    }
 
+   /// <summary>
+   /// Expands the parents of the given TreeNode, and registers them to be closed automatically
+   /// when the selection changes.
+   /// </summary>
    public void AutoExpandParents(TreeNode tn)
    {
       Throw.IfArgumentIsNull(tn, "tn");
@@ -806,6 +878,9 @@ public class TreeView : ScrollableControl
       }
    }
 
+   /// <summary>
+   /// Tests if any of the currently selected TreeNodes are scrolled into view.
+   /// </summary>
    public Boolean IsSelectionInView()
    {
       Rectangle treeBounds = this.Bounds;
@@ -818,6 +893,10 @@ public class TreeView : ScrollableControl
       return false;
    }
 
+   /// <summary>
+   /// Adjusts the vertical scrollbar so that the given TreeNode is scrolled into view.
+   /// </summary>
+   /// <param name="tn"></param>
    public void ScrollTreeNodeIntoView(TreeNode tn)
    {
       Throw.IfArgumentIsNull(tn, "tn");
@@ -834,7 +913,9 @@ public class TreeView : ScrollableControl
 
    #region Sort
 
-   private IComparer<TreeNode> nodeSorter;
+   /// <summary>
+   /// Gets or sets the NodeSorter object used to sort the TreeNodes in the tree.
+   /// </summary>
    [Browsable(false)]
    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
    public IComparer<TreeNode> NodeSorter 
@@ -847,9 +928,6 @@ public class TreeView : ScrollableControl
       }
    }
    
-   private List<TreeNodeCollection> _sortQueue;
-   private Timer _sortTimer;
-   private Boolean _timedSortQueueOnly;
    
    /// <summary>
    /// Sorts all nodes in the tree.
@@ -902,12 +980,20 @@ public class TreeView : ScrollableControl
       _timedSortQueueOnly = queueOnly;
    }
 
+   /// <summary>
+   /// Adds the given node to the sort queue and then sorts the TreeView after a certain 
+   /// amount of time has expired without this method being called.
+   /// </summary>
    public void StartTimedSort(TreeNode tn)
    {
       this.AddToSortQueue(tn);
       this.StartTimedSort(true);
    }
 
+   /// <summary>
+   /// Adds the given nodes to the sort queue and then sorts the TreeView after a certain 
+   /// amount of time has expired without this method being called.
+   /// </summary>
    public void StartTimedSort(IEnumerable<TreeNode> tns)
    {
       this.AddToSortQueue(tns);
@@ -989,6 +1075,10 @@ public class TreeView : ScrollableControl
    private TreeNode editingTreeNode;
    private Boolean editTextBoxOpening;
 
+   /// <summary>
+   /// Initiates the TreeNode edit text procedure.
+   /// </summary>
+   /// <param name="tn">The TreeNode of which the text will be edited.</param>
    public void BeginNodeTextEdit(TreeNode tn)
    {
       if (this.TreeNodeLayout == null)
@@ -1060,6 +1150,10 @@ public class TreeView : ScrollableControl
       e.Handled = true;
    }
 
+   /// <summary>
+   /// Stops the TreeNode edit text procedure.
+   /// </summary>
+   /// <param name="cancel">Indicates whether the operation should be cancelled or committed.</param>
    public void EndNodeTextEdit(Boolean cancel)
    {
       String oldText = null;
@@ -1088,16 +1182,5 @@ public class TreeView : ScrollableControl
    }
 
    #endregion
-}
-
-[Flags]
-public enum TreeViewUpdateFlags
-{
-   None           = 0x00,
-   Redraw         = 0x01,
-   TreeNodeBounds = 0x02,
-   Scrollbars     = 0x04,
-   Brushes        = 0x08,
-   All            = Redraw | TreeNodeBounds | Scrollbars | Brushes
 }
 }

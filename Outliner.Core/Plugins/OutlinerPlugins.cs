@@ -15,6 +15,9 @@ using Outliner.MaxUtils;
 
 namespace Outliner.Plugins
 {
+/// <summary>
+/// The OutlinerPlugins class provides an interface to managing plugins in the Outliner.
+/// </summary>
 public static class OutlinerPlugins
 {
    internal const OutlinerPluginType PluginTypeAll = (OutlinerPluginType)0xFF;

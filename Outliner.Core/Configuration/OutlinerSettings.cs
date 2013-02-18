@@ -9,7 +9,7 @@ using Outliner.Controls.Tree;
 
 namespace Outliner.Configuration
 {
-   public static class OutlinerSettings
+   internal static class OutlinerSettings
    {
       public const String CoreCategory = "Core";
       public const String TreeCategory = "TreeView";

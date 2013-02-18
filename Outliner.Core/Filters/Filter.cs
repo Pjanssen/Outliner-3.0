@@ -7,6 +7,10 @@ using System.Xml.Serialization;
 
 namespace Outliner.Filters
 {
+   /// <summary>
+   /// A baseclass for a Filter of type T.
+   /// </summary>
+   /// <typeparam name="T">The type of object to be filtered.</typeparam>
    public abstract class Filter<T>
    {
       private Boolean enabled;
@@ -18,6 +22,9 @@ namespace Outliner.Filters
          this.invert = false;
       }
       
+      /// <summary>
+      /// Gets or sets whether this filter should be evaluated.
+      /// </summary>
       [DefaultValue(true)]
       [XmlAttribute("enabled")]
       public virtual Boolean Enabled 
@@ -30,6 +37,9 @@ namespace Outliner.Filters
          }
       }
 
+      /// <summary>
+      /// Gets or sets whether the filter result should be inverted.
+      /// </summary>
       [DefaultValue(false)]
       [XmlAttribute("invert")]
       public virtual Boolean Invert 

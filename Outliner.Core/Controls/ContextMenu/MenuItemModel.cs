@@ -142,10 +142,5 @@ public abstract class MenuItemModel : ConfigurationFile
 
       return new ToolStripItem[1] { item };
    }
-
-   void DropDown_Closing(object sender, ToolStripDropDownClosingEventArgs e)
-   {
-      
-   }
 }
 }

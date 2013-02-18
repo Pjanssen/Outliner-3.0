@@ -11,11 +11,27 @@ using System.Reflection;
 
 namespace Outliner.Configuration
 {
+/// <summary>
+/// Defines an abstract base class for configuration files.
+/// </summary>
 public abstract class ConfigurationFile
 {
+   private Type resourceType;
+   private String resourceTypeName;
+
+   /// <summary>
+   /// Initializes a new instance of the ConfigurationFile class.
+   /// </summary>
    public ConfigurationFile() 
       : this(String.Empty, String.Empty, String.Empty, null) { }
 
+   /// <summary>
+   /// Initializes a new instance of the ConfigurationFile class.
+   /// </summary>
+   /// <param name="text">The text or string resource for this Configuration.</param>
+   /// <param name="image16">The 16x16 image path or resource for this Configuration.</param>
+   /// <param name="image24">The 24x24 image path or resource for this Configuration.</param>
+   /// <param name="resType">The type of the resource provider for text and images. Null when not using resources.</param>
    public ConfigurationFile(String text, String image16, String image24, Type resType)
    {
       this.TextRes = text;
@@ -25,6 +41,9 @@ public abstract class ConfigurationFile
          this.ResourceTypeName = resType.Name;
    }
 
+   /// <summary>
+   /// Gets or sets the text or string resource for this Configuration.
+   /// </summary>
    [XmlElement("text")]
    [DefaultValue("")]
    [DisplayName("Text")]
@@ -32,6 +51,9 @@ public abstract class ConfigurationFile
    [TypeConverter(typeof(StringResourceConverter))]
    public virtual String TextRes { get; set; }
 
+   /// <summary>
+   /// Gets or sets the 16x16 image path or resource for this Configuration.
+   /// </summary>
    [XmlElement("image16")]
    [DefaultValue("")]
    [DisplayName("Image 16x16")]
@@ -39,6 +61,9 @@ public abstract class ConfigurationFile
    [TypeConverter(typeof(ImageResourceConverter))]
    public virtual String Image16Res { get; set; }
 
+   /// <summary>
+   /// Gets or sets the 24x24 image path or resource for this Configuration.
+   /// </summary>
    [XmlElement("image24")]
    [DefaultValue("")]
    [DisplayName("Image 24x24")]
@@ -46,7 +71,9 @@ public abstract class ConfigurationFile
    [TypeConverter(typeof(ImageResourceConverter))]
    public virtual String Image24Res { get; set; }
 
-   private String resourceTypeName;
+   /// <summary>
+   /// Gets or sets the full typename of the resource-provider for this Configuration.
+   /// </summary>
    [XmlElement("resource_type")]
    [DefaultValue("")]
    [Browsable(false)]
@@ -60,7 +87,9 @@ public abstract class ConfigurationFile
       }
    }
 
-   private Type resourceType;
+   /// <summary>
+   /// Gets or sets the type of resource-provider for this Configuration.
+   /// </summary>
    [XmlIgnore]
    [DisplayName("Resource Provider")]
    [Category("1. UI Properties")]
@@ -88,6 +117,9 @@ public abstract class ConfigurationFile
       }
    }
 
+   /// <summary>
+   /// Gets the text for this Configuration.
+   /// </summary>
    [XmlIgnore]
    [Browsable(false)]
    public virtual String Text
@@ -101,6 +133,9 @@ public abstract class ConfigurationFile
       }
    }
 
+   /// <summary>
+   /// Gets the 16x16 image for this Configuration.
+   /// </summary>
    [XmlIgnore]
    [Browsable(false)]
    public virtual Image Image16
@@ -115,11 +150,17 @@ public abstract class ConfigurationFile
       }
    }
 
+   /// <summary>
+   /// Gets the fallback 16x16 image, when the Image16 is null.
+   /// </summary>
    protected virtual Image Image16Default
    {
       get { return null; }
    }
 
+   /// <summary>
+   /// Gets the 24x24 image for this Configuration.
+   /// </summary>
    [XmlIgnore]
    [Browsable(false)]
    public virtual Image Image24
@@ -134,12 +175,17 @@ public abstract class ConfigurationFile
       }
    }
 
+   /// <summary>
+   /// Gets the fallback 24x24 image, when the Image16 is null.
+   /// </summary>
    protected virtual Image Image24Default
    {
       get { return null; }
    }
 
-
+   /// <summary>
+   /// Gets the base path to load images from, when not using resources.
+   /// </summary>
    protected abstract String ImageBasePath { get; }
 
    private Image LookupImage(String image)

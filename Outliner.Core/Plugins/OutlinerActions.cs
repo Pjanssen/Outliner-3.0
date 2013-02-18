@@ -8,111 +8,152 @@ using Outliner.Controls.Tree;
 
 namespace Outliner.Plugins
 {
-   public delegate void OutlinerAction(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes);
-   public delegate Boolean OutlinerPredicate(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes);
+public delegate void OutlinerAction(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes);
+public delegate Boolean OutlinerPredicate(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes);
 
-   public static class OutlinerActions
+/// <summary>
+/// An interface used to manage OutlinerActions and OutlinerPredicates.
+/// </summary>
+public static class OutlinerActions
+{
+   private static Dictionary<String, OutlinerAction> actions;
+   private static Dictionary<String, OutlinerPredicate> predicates;
+
+   private static void BuildActionsSet()
    {
-      private static Dictionary<String, OutlinerAction> actions;
-      private static Dictionary<String, OutlinerPredicate> predicates;
+      actions = new Dictionary<String, OutlinerAction>();
+      predicates = new Dictionary<String, OutlinerPredicate>();
 
-      private static void BuildActionsSet()
+      IEnumerable<OutlinerPluginData> plugins = OutlinerPlugins.GetPlugins(OutlinerPluginType.ActionProvider);
+      foreach (OutlinerPluginData plugin in plugins)
       {
-         actions = new Dictionary<String, OutlinerAction>();
-         predicates = new Dictionary<String, OutlinerPredicate>();
-
-         IEnumerable<OutlinerPluginData> plugins = OutlinerPlugins.GetPlugins(OutlinerPluginType.ActionProvider);
-         foreach (OutlinerPluginData plugin in plugins)
+         MethodInfo[] methods = plugin.Type.GetMethods(BindingFlags.Static | BindingFlags.Public);
+         foreach (MethodInfo method in methods)
          {
-            MethodInfo[] methods = plugin.Type.GetMethods(BindingFlags.Static | BindingFlags.Public);
-            foreach (MethodInfo method in methods)
-            {
-               if (method.HasAttribute<OutlinerActionAttribute>())
-                  actions.Add(method.Name, Delegate.CreateDelegate(typeof(OutlinerAction), method) as OutlinerAction);
-               else if (method.HasAttribute<OutlinerPredicateAttribute>())
-                  predicates.Add(method.Name, Delegate.CreateDelegate(typeof(OutlinerPredicate), method) as OutlinerPredicate);
-            }
+            if (method.HasAttribute<OutlinerActionAttribute>())
+               actions.Add(method.Name, Delegate.CreateDelegate(typeof(OutlinerAction), method) as OutlinerAction);
+            else if (method.HasAttribute<OutlinerPredicateAttribute>())
+               predicates.Add(method.Name, Delegate.CreateDelegate(typeof(OutlinerPredicate), method) as OutlinerPredicate);
          }
       }
+   }
 
-      public static IEnumerable<OutlinerAction> Actions
-      {
-         get
-         {
-            if (actions == null)
-               BuildActionsSet();
-
-            return actions.Values;
-         }
-      }
-
-      public static IEnumerable<String> ActionNames
-      {
-         get
-         {
-            if (actions == null)
-               BuildActionsSet();
-
-            return actions.Keys;
-         }
-      }
-
-      public static IEnumerable<OutlinerPredicate> Predicates
-      {
-         get
-         {
-            if (predicates == null)
-               BuildActionsSet();
-
-            return predicates.Values;
-         }
-      }
-
-      public static IEnumerable<String> PredicateNames
-      {
-         get
-         {
-            if (actions == null)
-               BuildActionsSet();
-
-            return predicates.Keys;
-         }
-      }
-
-      public static OutlinerAction GetAction(String name)
+   /// <summary>
+   /// Gets all OutlinerActions.
+   /// </summary>
+   public static IEnumerable<OutlinerAction> Actions
+   {
+      get
       {
          if (actions == null)
             BuildActionsSet();
 
-         OutlinerAction action = null;
-         if (actions.TryGetValue(name, out action))
-            return action;
-         else
-            return null;
+         return actions.Values;
       }
+   }
 
-      public static OutlinerPredicate GetPredicate(String name)
+   /// <summary>
+   /// Gets the names of all OutlinerActions.
+   /// </summary>
+   public static IEnumerable<String> ActionNames
+   {
+      get
+      {
+         if (actions == null)
+            BuildActionsSet();
+
+         return actions.Keys;
+      }
+   }
+
+   /// <summary>
+   /// Gets all OutlinerPredicates.
+   /// </summary>
+   public static IEnumerable<OutlinerPredicate> Predicates
+   {
+      get
       {
          if (predicates == null)
             BuildActionsSet();
 
-         OutlinerPredicate predicate = null;
-         if (predicates.TryGetValue(name, out predicate))
-            return predicate;
-         else
-            return null;
+         return predicates.Values;
       }
    }
 
-   [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
-   public sealed class OutlinerActionAttribute : Attribute
+   /// <summary>
+   /// Gets the names of all OutlinerPredicates.
+   /// </summary>
+   public static IEnumerable<String> PredicateNames
    {
-      public OutlinerActionAttribute() { }
+      get
+      {
+         if (actions == null)
+            BuildActionsSet();
+
+         return predicates.Keys;
+      }
    }
 
-   [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
-   public sealed class OutlinerPredicateAttribute : Attribute
+   /// <summary>
+   /// Gets the OutlinerAction with the supplied name.
+   /// </summary>
+   /// <param name="name">The name of the action to retrieve.</param>
+   public static OutlinerAction GetAction(String name)
    {
-      public OutlinerPredicateAttribute() { }
+      if (actions == null)
+         BuildActionsSet();
+
+      OutlinerAction action = null;
+      if (actions.TryGetValue(name, out action))
+         return action;
+      else
+         return null;
    }
+
+   /// <summary>
+   /// Gets the OutlinerPredicate with the supplied name.
+   /// </summary>
+   /// <param name="name">The name of the action to retrieve.</param>
+   public static OutlinerPredicate GetPredicate(String name)
+   {
+      if (predicates == null)
+         BuildActionsSet();
+
+      OutlinerPredicate predicate = null;
+      if (predicates.TryGetValue(name, out predicate))
+         return predicate;
+      else
+         return null;
+   }
+}
+
+/// <summary>
+/// Marks a method as an OutlinerAction.
+/// </summary>
+/// <remarks>A method marked with this attribute must have a unique name 
+/// and have the following signature:<br />
+/// void OutlinerAction(TreeNode, IEnumerable&lt;IMaxNode&gt;)</remarks>
+[AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
+public sealed class OutlinerActionAttribute : Attribute
+{
+   /// <summary>
+   /// Initializes a new instance of the OutlinerActionAttribute class.
+   /// </summary>
+   public OutlinerActionAttribute() { }
+}
+
+/// <summary>
+/// Marks a method as an OutlinerPredicate.
+/// </summary>
+/// <remarks>A method marked with this attribute must have a unique name 
+/// and have the following signature:<br />
+/// Boolean OutlinerPredicate(TreeNode, IEnumerable&lt;IMaxNode&gt;)</remarks>
+[AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
+public sealed class OutlinerPredicateAttribute : Attribute
+{
+   /// <summary>
+   /// Initializes a new instance of the OutlinerPredicateAttribute class.
+   /// </summary>
+   public OutlinerPredicateAttribute() { }
+}
 }

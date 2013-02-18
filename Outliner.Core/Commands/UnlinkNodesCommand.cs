@@ -6,11 +6,19 @@ using Outliner.Scene;
 
 namespace Outliner.Commands
 {
+   /// <summary>
+   /// Removes IMaxNodes from their parent nodes.
+   /// </summary>
    public class UnlinkNodesCommand : Command
    {
       private IEnumerable<IMaxNode> nodes;
       private String description;
 
+      /// <summary>
+      /// Initializes a new instance of the UnlinkNodesCommand class.
+      /// </summary>
+      /// <param name="nodes">The IMaxNodes to unlink.</param>
+      /// <param name="description">The description of the command.</param>
       public UnlinkNodesCommand(IEnumerable<IMaxNode> nodes, String description)
       {
          this.nodes = nodes;

@@ -36,7 +36,7 @@ internal static class StandardContextMenu
       OutlinerPreset currentPreset = OutlinerGUP.Instance.GetActivePreset(tree);
       preset_btn.Image = currentPreset.Image24;
       preset_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
-      IEnumerable<OutlinerPreset> presets = ConfigurationHelpers.GetConfigurations<OutlinerPreset>(OutlinerPaths.PresetsDir);
+      IEnumerable<OutlinerPreset> presets = Configurations.GetConfigurations<OutlinerPreset>(OutlinerPaths.PresetsDir);
       foreach (OutlinerPreset preset in presets.Where(p => p.IsDefaultPreset))
       {
          ToolStripMenuItem item = AddDropDownItem(preset_btn.DropDownItems, preset.Text, preset.Image16, preset_btn_click, preset);
@@ -75,7 +75,7 @@ internal static class StandardContextMenu
 
       filter_btn.DropDownItems.Add(new ToolStripSeparator());
       
-      IEnumerable<FilterConfiguration> filters = ConfigurationHelpers.GetConfigurations<FilterConfiguration>(OutlinerPaths.FiltersDir);
+      IEnumerable<FilterConfiguration> filters = Configurations.GetConfigurations<FilterConfiguration>(OutlinerPaths.FiltersDir);
       IEnumerable<FilterConfiguration> classesFilters = filters.Where(f => f.Category == FilterCategory.Classes);
       IEnumerable<FilterConfiguration> propertiesFilters = filters.Where(f => f.Category == FilterCategory.Properties);
       IEnumerable<FilterConfiguration> customFilters = filters.Where(f => f.Category == FilterCategory.Custom);
@@ -96,7 +96,7 @@ internal static class StandardContextMenu
       ToolStripDropDownButton sort_btn = new ToolStripDropDownButton(ContextMenuResources.Context_Sorting);
       sort_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
       NodeSorters.NodeSorter currentSorter = treeMode.Tree.NodeSorter as NodeSorters.NodeSorter;
-      IEnumerable<SorterConfiguration> sorters = ConfigurationHelpers.GetConfigurations<SorterConfiguration>(OutlinerPaths.SortersDir)
+      IEnumerable<SorterConfiguration> sorters = Configurations.GetConfigurations<SorterConfiguration>(OutlinerPaths.SortersDir)
                                                                      .Where(s => s.Sorter != null)
                                                                      .OrderBy(s => s.Text);
       foreach (SorterConfiguration sorterConfig in sorters)

@@ -47,10 +47,10 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
    {
       base.OnLoad(e);
 
-      Color backColor = ColorHelpers.FromMaxGuiColor(GuiColors.Background);
-      Color foreColor = ColorHelpers.FromMaxGuiColor(GuiColors.Text);
-      Color windowColor = ColorHelpers.FromMaxGuiColor(GuiColors.Window);
-      Color windowTextColor = ColorHelpers.FromMaxGuiColor(GuiColors.WindowText);
+      Color backColor = Colors.FromMaxGuiColor(GuiColors.Background);
+      Color foreColor = Colors.FromMaxGuiColor(GuiColors.Text);
+      Color windowColor = Colors.FromMaxGuiColor(GuiColors.Window);
+      Color windowTextColor = Colors.FromMaxGuiColor(GuiColors.WindowText);
 
       this.BackColor = backColor;
       this.ForeColor = foreColor;
@@ -78,7 +78,7 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
       this.filesTree.Nodes.Clear();
       this.files.Clear();
 
-      foreach (KeyValuePair<String, T> file in ConfigurationHelpers.GetConfigurationFiles<T>(this.directory))
+      foreach (KeyValuePair<String, T> file in Configurations.GetConfigurationFiles<T>(this.directory))
       {
          this.AddFileToTree(file.Key, file.Value, this.filesTree.Nodes);
       }
@@ -133,11 +133,11 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
       if (!String.IsNullOrEmpty(editingFile))
       {
          String oldname = editingFile;
-         String filename = String.Join("", e.NewText, ConfigurationHelpers.ConfigurationFileExtension);
+         String filename = String.Join("", e.NewText, Configurations.ConfigurationFileExtension);
          String fullFileName = Path.Combine(this.directory, filename);
-         if (ConfigurationHelpers.IsValidFileName(fullFileName))
+         if (Configurations.IsValidNewFileName(fullFileName))
          {
-            ConfigurationHelpers.RenameConfigurationFile(oldname, fullFileName);
+            Configurations.RenameConfigurationFile(oldname, fullFileName);
 
             String originalname = null;
             if (this.renamedFiles.TryGetValue(oldname, out originalname))
@@ -212,7 +212,7 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
 
    protected virtual void addFileBtn_Click(object sender, EventArgs e)
    {
-      Tuple<String, T> newFile = ConfigurationHelpers.NewConfigurationFile<T>(this.directory, "newfile");
+      Tuple<String, T> newFile = Configurations.NewConfigurationFile<T>(this.directory, "newfile");
       this.newFiles.Add(newFile.Item1);
 
       Tree.TreeNode tn = this.AddFileToTree(newFile.Item1, newFile.Item2, this.filesTree.Nodes);
@@ -239,10 +239,10 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
                          , MessageBoxButtons.YesNo
                          , MessageBoxIcon.Warning
                          , MessageBoxDefaultButton.Button2
-                         , ControlHelpers.GetLocalizedMessageBoxOptions()) 
+                         , ControlHelpers.CreateLocalizedMessageBoxOptions()) 
             == System.Windows.Forms.DialogResult.Yes)
       {
-         ConfigurationHelpers.DeleteConfigurationFile(file);
+         Configurations.DeleteConfigurationFile(file);
 
          this.files.Remove(file);
          selNode.Remove();
@@ -275,12 +275,12 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
    {
       foreach (KeyValuePair<String, String> renamedFile in this.renamedFiles)
       {
-         ConfigurationHelpers.RenameConfigurationFile(renamedFile.Key, renamedFile.Value);
+         Configurations.RenameConfigurationFile(renamedFile.Key, renamedFile.Value);
       }
 
       foreach (String file in this.newFiles)
       {
-         ConfigurationHelpers.DeleteConfigurationFile(file);
+         Configurations.DeleteConfigurationFile(file);
       }
    }
 

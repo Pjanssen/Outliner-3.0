@@ -8,6 +8,9 @@ using Outliner.MaxUtils;
 
 namespace Outliner.Commands
 {
+   /// <summary>
+   /// Defines a base class for commands that require custom restore logic for the 3dsmax undo system.
+   /// </summary>
    public abstract class CustomRestoreObjCommand : RestoreObj
    {
       public void Execute(Boolean redrawViews)

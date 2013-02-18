@@ -7,6 +7,9 @@ using Outliner.MaxUtils;
 
 namespace Outliner.Scene
 {
+   /// <summary>
+   /// Defines extension methods for IMaxNode and IEnumerable&lt;IMaxNode&gt;.
+   /// </summary>
    public static class IMaxNodeExtensions
    {
       /// <summary>
@@ -22,7 +25,7 @@ namespace Outliner.Scene
       /// </summary>
       public static IINodeTab ToIINodeTab(this IEnumerable<IMaxNode> nodes)
       {
-         return IINodeHelpers.ToIINodeTab(nodes.GetBaseObjects());
+         return IINodes.ToIINodeTab(nodes.GetBaseObjects());
       }
 
       /// <summary>

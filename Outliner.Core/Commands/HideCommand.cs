@@ -8,8 +8,16 @@ using Outliner.MaxUtils;
 
 namespace Outliner.Commands
 {
+   /// <summary>
+   /// Hides or unhides nodes in the 3dsmax scene.
+   /// </summary>
    public class HideCommand : SetNodePropertyCommand<Boolean>
    {
+      /// <summary>
+      /// Initializes a new instance of the HideCommand class.
+      /// </summary>
+      /// <param name="nodes">The IMaxNodes to hide or unhide.</param>
+      /// <param name="newValue">The new hidden value.</param>
       public HideCommand(IEnumerable<IMaxNode> nodes, Boolean newValue) 
          : base(nodes, NodeProperty.IsHidden, newValue) { }
 

@@ -11,6 +11,10 @@ using Outliner.Plugins;
 
 namespace Outliner.Controls.Tree.Layout
 {
+/// <summary>
+/// Defines a button which expands the TreeNode. It can either use the standard windows
+/// expand button glyph, or draw a more plain graphic itself.
+/// </summary>
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
 [LocalizedDisplayName(typeof(OutlinerResources), "Button_ExpandButton")]
 public class ExpandButton : TreeNodeButton
@@ -20,10 +24,17 @@ public class ExpandButton : TreeNodeButton
    protected const Int32 GLYPHSIZE = 9;
    protected const Int32 GLYPHMID = 4;
 
+   /// <summary>
+   /// Gets or sets whether to use visual styles (i.e. whether to use the standard 
+   /// windows expand/collapse glyph).
+   /// </summary>
    [XmlAttribute("use_visual_styles")]
    [DefaultValue(true)]
    public Boolean UseVisualStyles { get; set; }
 
+   /// <summary>
+   /// Initializes a new instance of the ExpandButton  class.
+   /// </summary>
    public ExpandButton()
    {
       this.UseVisualStyles = true;
@@ -68,7 +79,7 @@ public class ExpandButton : TreeNodeButton
    }
 
 
-   public override int GetAutoWidth(TreeNode tn)
+   protected override int GetAutoWidth(TreeNode tn)
    {
       return ExpandButton.GUTTERWIDTH;
    }

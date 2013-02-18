@@ -8,10 +8,15 @@ using Outliner.MaxUtils;
 
 namespace Outliner.LayerTools
 {
+   /// <summary>
+   /// Provides common methods and constants for 3dsMax Layer management.
+   /// </summary>
    public static class LayerTools
    {
-      public const SystemNotificationCode LayerCurrentChanged = (SystemNotificationCode)0x00000102;
-
+      /// <summary>
+      /// Sets the current layer in an undo context.
+      /// </summary>
+      /// <param name="newCurrentLayer">The new active layer.</param>
       public static void SetCurrentLayer(IILayer newCurrentLayer)
       {
          IHold theHold = MaxInterfaces.Global.TheHold;
@@ -47,8 +52,8 @@ namespace Outliner.LayerTools
          {
             String name = layer.Name;
             MaxInterfaces.IILayerManager.SetCurrentLayer(ref name);
-            MaxInterfaces.Global.BroadcastNotification(LayerTools.LayerCurrentChanged, this.oldCurrentLayer);
-            MaxInterfaces.Global.BroadcastNotification(LayerTools.LayerCurrentChanged, this.newCurrentLayer);
+            MaxInterfaces.Global.BroadcastNotification(LayerNotificationCode.LayerCurrentChanged, this.oldCurrentLayer);
+            MaxInterfaces.Global.BroadcastNotification(LayerNotificationCode.LayerCurrentChanged, this.newCurrentLayer);
          }
       }
    }

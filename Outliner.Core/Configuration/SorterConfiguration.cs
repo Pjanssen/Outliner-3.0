@@ -8,8 +8,16 @@ using System.Xml.Serialization;
 
 namespace Outliner.Configuration
 {
+   /// <summary>
+   /// Defines a NodeSorter configuration file.
+   /// </summary>
    public class SorterConfiguration : ConfigurationFile, ISorterConfiguration
    {
+      /// <summary>
+      /// Initializes a new instance of the SorterConfiguration class.
+      /// </summary>
+      public SorterConfiguration() { }
+
       protected override string ImageBasePath
       {
          get { return OutlinerPaths.SortersDir; }
@@ -31,6 +39,9 @@ namespace Outliner.Configuration
          }
       }
 
+      /// <summary>
+      /// Gets or sets the NodeSorter for this configuration.
+      /// </summary>
       [XmlElement("sorter")]
       public NodeSorter Sorter { get; set; }
    }

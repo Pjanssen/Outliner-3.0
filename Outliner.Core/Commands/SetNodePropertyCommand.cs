@@ -10,6 +10,10 @@ using Autodesk.Max;
 
 namespace Outliner.Commands
 {
+/// <summary>
+/// Sets the value of a NodeProperty on a set of nodes.
+/// </summary>
+/// <typeparam name="T">The type of the NodeProperty value.</typeparam>
 public class SetNodePropertyCommand<T> : CustomRestoreObjCommand
 {
    private IEnumerable<IMaxNode> nodes;
@@ -17,6 +21,12 @@ public class SetNodePropertyCommand<T> : CustomRestoreObjCommand
    private T newValue;
    private IEnumerable<Tuple<IMaxNode, object>> oldValues;
 
+   /// <summary>
+   /// Initializes a new instance of the SetNodePropertyCommand class.
+   /// </summary>
+   /// <param name="nodes">The IMaxNodes to set the property on.</param>
+   /// <param name="property">The NodeProperty to set.</param>
+   /// <param name="newValue">The new value to set.</param>
    public SetNodePropertyCommand(IEnumerable<IMaxNode> nodes, NodeProperty property, T newValue)
    {
       Throw.IfArgumentIsNull(nodes, "nodes");

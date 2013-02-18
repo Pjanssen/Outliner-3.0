@@ -12,7 +12,7 @@ public static class NestedLayersMxs
 {
    internal static void Start()
    {
-      MaxscriptHelpers.RunResourceScript( typeof(NestedLayersMxs).Assembly
+      Maxscript.RunResourceScript( typeof(NestedLayersMxs).Assembly
                                         , "Outliner.LayerTools.NestedLayers.NestedLayersMxs.ms");
    }
 

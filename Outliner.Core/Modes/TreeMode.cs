@@ -18,10 +18,21 @@ using WinForms = System.Windows.Forms;
 
 namespace Outliner.Modes
 {
+/// <summary>
+/// A baseclass for a TreeMode, which controls how the TreeView is filled and updated.
+/// </summary>
 public abstract class TreeMode
 {
-   protected Boolean started;
+   /// <summary>
+   /// Gets whether this TreeMode has been started.
+   /// </summary>
+   public Boolean Started { get; private set; }
+
+   /// <summary>
+   /// Gets the TreeView control associated with this TreeMode.
+   /// </summary>
    public TreeView Tree { get; private set; }
+
    private ICollection<Tuple<GlobalDelegates.Delegate5, SystemNotificationCode>> systemNotifications;
    private ICollection<Tuple<uint, TreeModeNodeEventCallbacks>> nodeEventCallbacks;
 
@@ -39,6 +50,10 @@ public abstract class TreeMode
    private const Int32 InvisibleNodesFilterIndex = 0;
    private const Int32 OtherFiltersIndex = 1;
 
+   /// <summary>
+   /// Initializes a new instance of the TreeMode class.
+   /// </summary>
+   /// <param name="tree">The TreeView control which this TreeMode operates on.</param>
    protected TreeMode(TreeView tree)
    {
       Throw.IfArgumentIsNull(tree, "tree");
@@ -59,15 +74,23 @@ public abstract class TreeMode
       this.filters.Filters.Add(new MaxNodeFilterCombinator() { Enabled = false });
       this.filters.FilterChanged += filters_FilterChanged;
 
-      this.started = false;
+      this.Started = false;
    }
 
+   /// <summary>
+   /// Fills the associated TreeView with nodes.
+   /// </summary>
    protected abstract void FillTree();
 
 
+   #region Start, Stop
+   
+   /// <summary>
+   /// Starts the TreeMode: registers system notifications, NodeEventCallbacks, and fills the TreeView.
+   /// </summary>
    public virtual void Start()
    {
-      if (started)
+      if (Started)
          return;
 
       this.RegisterSystemNotification(proc_PausePreSystemEvent, SystemNotificationCode.SystemPreNew);
@@ -91,12 +114,15 @@ public abstract class TreeMode
 
       this.FillTree();
 
-      this.started = true;
+      this.Started = true;
    }
 
+   /// <summary>
+   /// Stops the TreeMode: unregistes SystemNotifications, NodeEventCallbacks and clears the TreeView.
+   /// </summary>
    public virtual void Stop()
    {
-      if (!started)
+      if (!Started)
          return;
 
       this.UnregisterSystemNotifications();
@@ -110,14 +136,16 @@ public abstract class TreeMode
       this.Tree.Nodes.Clear();
       this.treeNodes.Clear();
 
-      this.started = false;
+      this.Started = false;
    }
+
+   #endregion
 
 
    #region Register SystemNotifications and NodeEventCallbacks
 
    /// <summary>
-   /// Registers a SystemNotification proc, which will be automatically unregistered when <see cref="UnregisterSystemNotifications"/> is called.
+   /// Registers a SystemNotification proc, which will be automatically unregistered when UnregisterSystemNotifications is called.
    /// </summary>
    protected void RegisterSystemNotification(GlobalDelegates.Delegate5 proc, SystemNotificationCode code)
    {
@@ -144,7 +172,7 @@ public abstract class TreeMode
    }
 
    /// <summary>
-   /// Unregisters all SystemNotifications registered using <see cref="RegisterSystemNotification"/>.
+   /// Unregisters all SystemNotifications registered using RegisterSystemNotification.
    /// </summary>
    protected virtual void UnregisterSystemNotifications()
    {
@@ -160,7 +188,7 @@ public abstract class TreeMode
 
 
    /// <summary>
-   /// Registers a NodeEventCallback object, which will be automatically unregistered when <see cref="UnregisterNodeEventCallbacks"/> is called.
+   /// Registers a NodeEventCallback object, which will be automatically unregistered when UnregisterNodeEventCallbacks is called.
    /// </summary>
    protected void RegisterNodeEventCallbackObject(TreeModeNodeEventCallbacks cb)
    {
@@ -174,7 +202,7 @@ public abstract class TreeMode
    }
 
    /// <summary>
-   /// Unregisters all NodeEventCallbacks registered using <see cref="RegisterNodeEventCallbackObject"/>.
+   /// Unregisters all NodeEventCallbacks registered using RegisterNodeEventCallbackObject.
    /// </summary>
    protected virtual void UnregisterNodeEventCallbacks()
    {
@@ -569,7 +597,7 @@ public abstract class TreeMode
 
       public override void Added(ITab<UIntPtr> nodes)
       {
-         foreach (IINode node in IINodeHelpers.NodeKeysToINodeList(nodes))
+         foreach (IINode node in IINodes.NodeKeysToINodeList(nodes))
          {
             TreeNode parentTn = this.TreeMode.GetParentTreeNode(node);
             if (parentTn == null)
@@ -698,6 +726,9 @@ public abstract class TreeMode
 
    #region Filters
 
+   /// <summary>
+   /// Gets or sets the filters for this TreeMode.
+   /// </summary>
    public MaxNodeFilterCombinator Filters
    {
       get { return this.filters.Filters[OtherFiltersIndex] as MaxNodeFilterCombinator; }
@@ -707,11 +738,16 @@ public abstract class TreeMode
 
          this.filters.Filters[OtherFiltersIndex] = value;
 
-         if (this.started)
+         if (this.Started)
             this.EvaluateFilters();
       }
    }
 
+   /// <summary>
+   /// Adds a permanent filter to this TreeMode.
+   /// </summary>
+   /// <remarks>The filter will not be added to the Filters collection.</remarks>
+   /// <param name="filter">The filter to add.</param>
    public void AddPermanentFilter(Filter<IMaxNode> filter)
    {
       Throw.IfArgumentIsNull(filter, "filter");
@@ -720,14 +756,14 @@ public abstract class TreeMode
 
    void filters_FilterChanged(object sender, EventArgs e)
    {
-      if (this.started)
+      if (this.Started)
          this.EvaluateFilters();
    }
 
    /// <summary>
    /// Evaluates the filters and adds/removes treenodes based on it.
    /// </summary>
-   public void EvaluateFilters()
+   protected void EvaluateFilters()
    {
       this.Tree.BeginUpdate();
       foreach (KeyValuePair<Object, ICollection<TreeNode>> item in this.treeNodes)

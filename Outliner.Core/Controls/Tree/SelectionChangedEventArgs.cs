@@ -5,11 +5,17 @@ using System.Text;
 
 namespace Outliner.Controls.Tree
 {
+   /// <summary>
+   /// Provides data for the SelectionChanged event.
+   /// </summary>
    public class SelectionChangedEventArgs : EventArgs
    {
+      /// <summary>
+      /// The new TreeNode selection.
+      /// </summary>
       public IEnumerable<TreeNode> Nodes { get; set; }
 
-      public SelectionChangedEventArgs(IEnumerable<TreeNode> nodes)
+      internal SelectionChangedEventArgs(IEnumerable<TreeNode> nodes)
       {
          this.Nodes = nodes;
       }

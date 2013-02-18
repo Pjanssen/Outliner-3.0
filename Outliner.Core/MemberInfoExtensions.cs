@@ -6,8 +6,15 @@ using System.Reflection;
 
 namespace Outliner
 {
+   /// <summary>
+   /// Provides extension methods for MemberInfo objects.
+   /// </summary>
    public static class MemberInfoExtensions
    {
+      /// <summary>
+      /// Tests if a member has an attribute of a given type.
+      /// </summary>
+      /// <typeparam name="T">The type of attribute to find.</typeparam>
       public static Boolean HasAttribute<T>(this MemberInfo memberInfo) where T : Attribute
       {
          Throw.IfArgumentIsNull(memberInfo, "memberInfo");
@@ -16,6 +23,10 @@ namespace Outliner
          return attributes != null && attributes.Count() > 0;
       }
 
+      /// <summary>
+      /// Gets the attribute of the given type.
+      /// </summary>
+      /// <typeparam name="T">The type of attribute to find.</typeparam>
       public static T GetAttribute<T>(this MemberInfo memberInfo) where T : Attribute
       {
          Throw.IfArgumentIsNull(memberInfo, "memberInfo");

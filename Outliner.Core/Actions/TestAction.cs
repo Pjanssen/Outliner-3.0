@@ -35,15 +35,7 @@ namespace Outliner.Actions
 
       public override void Execute(object parameter)
       {
-         IHold theHold = MaxInterfaces.Global.TheHold;
-         theHold.Begin();
-
-         MaxScene.AllObjects.ForEach(n => n.IsSelected = true);
          
-         theHold.Accept("Test!");
-
-         IInterface ip = MaxInterfaces.Global.COREInterface;
-         ip.RedrawViews(ip.Time, RedrawFlags.Normal, null);
       }
 
    }

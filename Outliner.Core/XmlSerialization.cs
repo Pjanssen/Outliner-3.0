@@ -94,7 +94,7 @@ public static class XmlSerialization
    /// Serializes an object with plugin types to an XML-stream.
    /// </summary>
    /// <typeparam name="T">The type of object to serialize.</typeparam>
-   /// <param name="filePath">The XML-stream to serialize.</param>
+   /// <param name="stream">The XML-stream to serialize.</param>
    /// <param name="data">The object to serialize.</param>
    public static void Serialize<T>(Stream stream, T data)
    {

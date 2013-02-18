@@ -8,6 +8,9 @@ using System.Reflection;
 
 namespace Outliner.MaxUtils
 {
+/// <summary>
+/// Provides methods for common 3dsMax SDK SystemNotification operations.
+/// </summary>
 public static class SystemNotifications
 {
    /// <summary>

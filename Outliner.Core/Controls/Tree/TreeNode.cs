@@ -7,6 +7,9 @@ using Outliner.Filters;
 
 namespace Outliner.Controls.Tree
 {
+/// <summary>
+/// Represents a node in a TreeView.
+/// </summary>
 public class TreeNode
 {
    public const Int32 FilteredNodeOpacity = 50;
@@ -24,26 +27,55 @@ public class TreeNode
    private String imageKey;
    private Boolean showNode;
 
+   /// <summary>
+   /// Gets or sets the childnodes of this TreeNode.
+   /// </summary>
    public TreeNodeCollection Nodes { get; private set; }
+
+   /// <summary>
+   /// Gets or sets the objec that handles drag &amp; drop operations.
+   /// </summary>
    public IDragDropHandler DragDropHandler { get; set; }
+
+   /// <summary>
+   /// Gets or sets a general purpose tag object associated with this TreeNode.
+   /// </summary>
    public Object Tag { get; set; }
 
+   /// <summary>
+   /// Initializes a new empty instance of the TreeNode class.
+   /// </summary>
    public TreeNode() : this("") { }
    internal TreeNode(TreeView tree, String text) : this(text)
    {
       this.TreeView = tree;
    }
-   public TreeNode(String text) 
-      : this (text, Color.Empty, Color.Empty, FontStyle.Regular, String.Empty, true)
+
+   /// <summary>
+   /// Initializes a new instance of the TreeNode class.
+   /// </summary>
+   /// <param name="text">The text to display for this TreeNode.</param>
+   public TreeNode(String text)
+      : this(text, FontStyle.Regular, Color.Empty, Color.Empty, String.Empty, true)
    { }
-   public TreeNode(String text, Color backColor, Color foreColor,
-                   FontStyle fontStyle, String imageKey, 
-                   Boolean showNode)
+
+   /// <summary>
+   /// Initializes a new instance of the TreeNode class.
+   /// </summary>
+   /// <param name="text">The text to display for the TreeNode.</param>
+   /// <param name="foreColor">The foreground color of the TreeNode.</param>
+   /// <param name="fontStyle">The FontStyle to be used when rendering the TreeNode's text.</param>
+   /// <param name="backColor">The background color of the TreeNode.</param>
+   /// <param name="imageKey">The image key of the TreeNode.</param>
+   /// <param name="showNode">The filter state of the TreeNode.</param>
+   public TreeNode( String text, FontStyle fontStyle
+                  , Color backColor, Color foreColor
+                  , String imageKey, Boolean showNode)
    {
       this.text = text;
+      this.fontStyle = fontStyle;
       this.backColor = backColor;
       this.foreColor = foreColor;
-      this.fontStyle = fontStyle;
       this.imageKey = imageKey;
       this.showNode = showNode;
 
@@ -51,6 +83,9 @@ public class TreeNode
       this.Nodes = new TreeNodeCollection(this);
    }
 
+   /// <summary>
+   /// The text to be displayed for this TreeNode.
+   /// </summary>
    public virtual String Text 
    {
       get { return this.text; }
@@ -61,26 +96,9 @@ public class TreeNode
       }
    }
 
-   public virtual Color BackColor
-   {
-      get { return this.backColor; }
-      set
-      {
-         this.backColor = value;
-         this.Invalidate();
-      }
-   }
-
-   public virtual Color ForeColor
-   {
-      get { return this.foreColor; }
-      set
-      {
-         this.foreColor = value;
-         this.Invalidate();
-      }
-   }
-
+   /// <summary>
+   /// Gets or sets the FontStyle to render this TreeNode's text with.
+   /// </summary>
    public virtual FontStyle FontStyle
    {
       get { return this.fontStyle; }
@@ -91,6 +109,35 @@ public class TreeNode
       }
    }
 
+   /// <summary>
+   /// Gets or sets the background color of this TreeNode.
+   /// </summary>
+   public virtual Color BackColor
+   {
+      get { return this.backColor; }
+      set
+      {
+         this.backColor = value;
+         this.Invalidate();
+      }
+   }
+
+   /// <summary>
+   /// Gets or sets the foreground color of this TreeNode.
+   /// </summary>
+   public virtual Color ForeColor
+   {
+      get { return this.foreColor; }
+      set
+      {
+         this.foreColor = value;
+         this.Invalidate();
+      }
+   }
+
+   /// <summary>
+   /// Gets or sets the image key of this TreeNode.
+   /// </summary>
    public virtual String ImageKey 
    {
       get { return this.imageKey; }
@@ -101,11 +148,18 @@ public class TreeNode
       }
    }
 
+   /// <summary>
+   /// Forces the TreeView to redraw the bounds of this TreeNode.
+   /// </summary>
    public void Invalidate()
    {
       this.Invalidate(false);
    }
 
+   /// <summary>
+   /// Forces the TreeView to redraw the bounds of this TreeNode.
+   /// </summary>
+   /// <param name="recursive">If true, the childnodes of this TreeNode will be redrawn recursively.</param>
    public void Invalidate(Boolean recursive)
    {
       if (this.TreeView == null)
@@ -126,7 +180,6 @@ public class TreeNode
    /// </summary>
    /// <remarks>
    /// If the parent node is a root node, null is returned!
-   /// This is because the TreeView uses a TreeNode as a (hidden) root.
    /// </remarks>
    public TreeNode Parent 
    {
@@ -149,6 +202,9 @@ public class TreeNode
       }
    }
 
+   /// <summary>
+   /// Tests if this TreeNode is a child of the given parent TreeNode.
+   /// </summary>
    public Boolean IsChildOf(TreeNode parent)
    {
       return this.Parent != null && (this.Parent.Equals(parent)
@@ -170,7 +226,8 @@ public class TreeNode
    }
 
    /// <summary>
-   /// Removes the node from the parent's TreeNodeCollection.
+   /// Removes the node from the parent's TreeNodeCollection and subsequently 
+   /// from the TreeView.
    /// </summary>
    public void Remove() 
    {
@@ -286,6 +343,8 @@ public class TreeNode
    #endregion
 
 
+   #region Expanded state
+
    /// <summary>
    /// Gets or sets the expanded state of the node.
    /// </summary>
@@ -344,9 +403,14 @@ public class TreeNode
       }
    }
 
+   #endregion
+
 
    #region Filter
-   
+
+   /// <summary>
+   /// Gets or sets whether this TreeNode should be shown in the TreeView.
+   /// </summary>
    public Boolean ShowNode
    {
       get { return this.showNode; }
@@ -450,7 +514,7 @@ public class TreeNode
    #region TreeNodeState
 
    /// <summary>
-   /// Gets or sets the selection state of the treenode.
+   /// Gets or sets the highlighting state of the treenode.
    /// </summary>
    public TreeNodeStates State
    {

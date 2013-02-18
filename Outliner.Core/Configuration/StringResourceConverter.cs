@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace Outliner.Configuration
 {
-   public class StringResourceConverter : ConfigurationResourceConverter
+   internal class StringResourceConverter : ConfigurationResourceConverter
    {
       override protected Boolean IsValidResource(PropertyInfo property)
       {

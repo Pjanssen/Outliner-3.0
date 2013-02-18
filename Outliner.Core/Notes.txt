@@ -149,4 +149,9 @@ Options
 
 3.0.24
 ======
+#73 - Selection Set icon barely visible with light theme.
+#76 - Nesting layers cannot be undone
 #81 - Zebras still messy
+
+3.0.25
+======

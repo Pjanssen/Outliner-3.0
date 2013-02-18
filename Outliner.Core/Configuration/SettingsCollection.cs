@@ -8,10 +8,18 @@ using SettingsCategory = System.Collections.Generic.Dictionary<string, object>;
 
 namespace Outliner.Configuration
 {
+/// <summary>
+/// The SettingsCollection is a generic class which holds typed values that can be 
+/// retrieved using a category and a key string. The collection implements IXmlSerializable, 
+/// to save the collection in an xml file.
+/// </summary>
 public class SettingsCollection : IXmlSerializable
 {
    private Dictionary<String, SettingsCategory> categories;
 
+   /// <summary>
+   /// Initializes a new instance of the SettingsCollection class.
+   /// </summary>
    public SettingsCollection()
    {
       this.categories = new Dictionary<string, SettingsCategory>();

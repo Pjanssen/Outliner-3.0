@@ -11,14 +11,24 @@ using Outliner.Plugins;
 
 namespace Outliner.Controls.Tree.Layout
 {
+/// <summary>
+/// Defines a TreeNodeLayoutItem which draws a hierarchical indent combined with an
+/// expand button.
+/// </summary>
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
 [LocalizedDisplayName(typeof(OutlinerResources), "Button_TreeNodeIndent")]
 public class TreeNodeIndent : ExpandButton
 {
+   /// <summary>
+   /// The horizontal size of the indent per level
+   /// </summary>
    [XmlAttribute("indent")]
    [DefaultValue(15)]
    public Int32 Indent { get; set; }
 
+   /// <summary>
+   /// Initializes a new instance of the TreeNodeIndent class.
+   /// </summary>
    public TreeNodeIndent()
    {
       this.Indent = 15;
@@ -37,7 +47,7 @@ public class TreeNodeIndent : ExpandButton
       return newItem;
    }
 
-   public override int GetAutoWidth(TreeNode tn)
+   protected override int GetAutoWidth(TreeNode tn)
    {
       Int32 tnLevel = (tn == null) ? 0 : tn.Level;
       return GUTTERWIDTH + this.Indent * tnLevel;

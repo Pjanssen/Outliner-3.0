@@ -7,6 +7,9 @@ using Outliner.Plugins;
 
 namespace Outliner.Scene
 {
+   /// <summary>
+   /// A factory class which creates an INodeWrapper for an INode object.
+   /// </summary>
    [OutlinerPlugin(OutlinerPluginType.Utility)]
    public class INodeWrapperFactory : IMaxNodeFactory
    {

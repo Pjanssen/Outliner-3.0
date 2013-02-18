@@ -21,19 +21,51 @@ using WinForms = System.Windows.Forms;
 
 namespace Outliner
 {
+/// <summary>
+/// The main access point for the Outliner. It holds the settings, states and treemodes.
+/// Use OutlinerGUP.Instance to get hold of an instance of this object once 3dsmax is loaded.
+/// </summary>
 public class OutlinerGUP
 {
+   /// <summary>
+   /// Gets the active OutlinerGUP instance.
+   /// </summary>
    public static OutlinerGUP Instance { get; private set; }
    
+   /// <summary>
+   /// Gets a flag indicating whether the settings have been loaded succesfully.
+   /// </summary>
    public Boolean SettingsLoaded { get; private set; }
+
+   /// <summary>
+   /// Gets the exception thrown while trying to load the Outliner settings.
+   /// </summary>
    public Exception SettingsLoadException { get; private set; }
-   public OutlinerState State { get; private set; }
-   public OutlinerColorScheme ColorScheme { get; private set; }
+
+   /// <summary>
+   /// Gets the Settings collection for this Outliner instance.
+   /// </summary>
    public SettingsCollection Settings { get; private set; }
 
+   /// <summary>
+   /// Gets the current Outliner state object.
+   /// </summary>
+   public OutlinerState State { get; private set; }
+
+   /// <summary>
+   /// Gets the ColorScheme object for this Outliner instance.
+   /// </summary>
+   public OutlinerColorScheme ColorScheme { get; private set; }
+
+   /// <summary>
+   /// Gets a collection of registered TreeModes and TreeView controls.
+   /// </summary>
    public Dictionary<TreeView, TreeMode> TreeModes { get; private set; }
    private Dictionary<TreeView, OutlinerPreset> currentPresets;
 
+   /// <summary>
+   /// Gets the NameFilter used for all TreeModes.
+   /// </summary>
    public NameFilter CommonNameFilter { get; private set; }
 
    private OutlinerGUP()
@@ -65,7 +97,9 @@ public class OutlinerGUP
          XmlSerialization.Serialize<SettingsCollection>(OutlinerPaths.SettingsFile, this.Settings);
    }
 
-
+   /// <summary>
+   /// Gets all registered TreeView controls.
+   /// </summary>
    public IEnumerable<TreeView> TreeViews
    {
       get
@@ -74,6 +108,9 @@ public class OutlinerGUP
       }
    }
 
+   /// <summary>
+   /// Gets the TreeMode for the given TreeView control.
+   /// </summary>
    public TreeMode GetActiveTreeMode(TreeView tree)
    {
       TreeMode mode = null;
@@ -152,7 +189,9 @@ public class OutlinerGUP
       return newMode;
    }
 
-
+   /// <summary>
+   /// Reloads the Outliner settings.
+   /// </summary>
    public Boolean ReloadSettings()
    {
       XmlSerialization.ClearSerializerCache();
@@ -217,7 +256,7 @@ public class OutlinerGUP
    private static OutlinerState defaultState()
    {
       OutlinerState state = new OutlinerState();
-      IEnumerable<OutlinerPreset> presets = ConfigurationHelpers.GetConfigurations<OutlinerPreset>(OutlinerPaths.PresetsDir);
+      IEnumerable<OutlinerPreset> presets = Configurations.GetConfigurations<OutlinerPreset>(OutlinerPaths.PresetsDir);
       if (presets.Count() > 0)
       {
          state.Tree1Preset = presets.First();
@@ -226,16 +265,20 @@ public class OutlinerGUP
       return state;
    }
 
-
+   /// <summary>
+   /// Stores the current Outliner settings.
+   /// </summary>
    public void StoreSettings()
    {
       if (!Directory.Exists(OutlinerPaths.ConfigDir))
          Directory.CreateDirectory(OutlinerPaths.ConfigDir);
 
-      XmlSerialization.Serialize<OutlinerState>( OutlinerPaths.StateFile
-                                                      , this.State);
+      XmlSerialization.Serialize<OutlinerState>(OutlinerPaths.StateFile, this.State);
    }
 
+   /// <summary>
+   /// Stops all registered TreeModes.
+   /// </summary>
    public void Pause() 
    {
       foreach (TreeMode treeMode in this.TreeModes.Values)
@@ -243,6 +286,10 @@ public class OutlinerGUP
          treeMode.Stop();
       }
    }
+
+   /// <summary>
+   /// Starts all registered TreeModes.
+   /// </summary>
    public void Resume() 
    {
       foreach (TreeMode treeMode in this.TreeModes.Values)

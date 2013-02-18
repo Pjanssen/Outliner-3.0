@@ -6,8 +6,14 @@ using Autodesk.Max;
 
 namespace Outliner.MaxUtils
 {
-public static class IINodeHelpers
+/// <summary>
+/// Provides methods for common IINode operations.
+/// </summary>
+public static class IINodes
 {
+   /// <summary>
+   /// The name of the 3DxStudio camera.
+   /// </summary>
    public const String Cam3DXStudioName = "3DxStudio Perspective";
 
    /// <summary>
@@ -18,7 +24,7 @@ public static class IINodeHelpers
       if (node == null)
          return false;
       else
-         return IsPFHelper(node) || node.Name == IINodeHelpers.Cam3DXStudioName;
+         return IsPFHelper(node) || node.Name == IINodes.Cam3DXStudioName;
    }
 
    /// <summary>
@@ -26,14 +32,14 @@ public static class IINodeHelpers
    /// </summary>
    public static Boolean IsBone(IINode node)
    {
-      if (!ClassIDHelpers.IsSuperClass(node, SClass_ID.Geomobject))
+      if (!ClassIDs.IsSuperClass(node, SClass_ID.Geomobject))
          return false;
 
-      return ClassIDHelpers.IsClass(node, BuiltInClassIDA.BONE_OBJ_CLASSID, BuiltInClassIDB.BONE_OBJ_CLASSID)
-             || ClassIDHelpers.IsClass(node, ClassIDHelpers.SkelObjClassIDA, 0)
-             || ClassIDHelpers.IsClass(node, ClassIDHelpers.BipedClassIDA, 0)
-             || ClassIDHelpers.IsClass(node, ClassIDHelpers.CatBoneClassIDA, ClassIDHelpers.CatBoneClassIDB)
-             || ClassIDHelpers.IsClass(node, ClassIDHelpers.CatHubClassIDA, ClassIDHelpers.CatHubClassIDB);
+      return ClassIDs.IsClass(node, BuiltInClassIDA.BONE_OBJ_CLASSID, BuiltInClassIDB.BONE_OBJ_CLASSID)
+             || ClassIDs.IsClass(node, ClassIDs.SkelObjClassIDA, 0)
+             || ClassIDs.IsClass(node, ClassIDs.BipedClassIDA, 0)
+             || ClassIDs.IsClass(node, ClassIDs.CatBoneClassIDA, ClassIDs.CatBoneClassIDB)
+             || ClassIDs.IsClass(node, ClassIDs.CatHubClassIDA, ClassIDs.CatHubClassIDB);
    }
 
    /// <summary>
@@ -47,10 +53,10 @@ public static class IINodeHelpers
       IObject objRef = node.ObjectRef;
 
       uint classID_B = objRef.ClassID.PartB;
-      return classID_B == ClassIDHelpers.ParticleChannelClassIDB
-            || classID_B == ClassIDHelpers.PFActionClassIDB
-            || classID_B == ClassIDHelpers.PFActorClassIDB
-            || classID_B == ClassIDHelpers.PFMaterialClassIDB;
+      return classID_B == ClassIDs.ParticleChannelClassIDB
+            || classID_B == ClassIDs.PFActionClassIDB
+            || classID_B == ClassIDs.PFActorClassIDB
+            || classID_B == ClassIDs.PFMaterialClassIDB;
    }
 
    /// <summary>
@@ -60,11 +66,11 @@ public static class IINodeHelpers
    /// <returns></returns>
    public static Boolean IsXref(IINode node)
    {
-      if (!ClassIDHelpers.IsSuperClass(node, SClass_ID.System))
+      if (!ClassIDs.IsSuperClass(node, SClass_ID.System))
          return false;
 
-      return ClassIDHelpers.IsClass(node, BuiltInClassIDA.XREFOBJ_CLASS_ID) ||
-             ClassIDHelpers.IsClass(node, BuiltInClassIDA.XREFMATERIAL_CLASS_ID
+      return ClassIDs.IsClass(node, BuiltInClassIDA.XREFOBJ_CLASS_ID) ||
+             ClassIDs.IsClass(node, BuiltInClassIDA.XREFMATERIAL_CLASS_ID
                                         , BuiltInClassIDB.XREFMATERIAL_CLASS_ID);
    }
 
@@ -74,7 +80,7 @@ public static class IINodeHelpers
    /// </summary>
    public static IEnumerable<IINode> NodeKeysToINodeList(this ITab<UIntPtr> handles)
    {
-      return IINodeHelpers.ITabToIEnumerable(handles)
+      return IINodes.ITabToIEnumerable(handles)
                           .Select(MaxInterfaces.Global.NodeEventNamespace.GetNodeByKey);
    }
 

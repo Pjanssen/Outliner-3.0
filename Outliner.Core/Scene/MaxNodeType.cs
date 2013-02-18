@@ -7,18 +7,45 @@ using System.Xml.Serialization;
 namespace Outliner.Scene
 {
 
+/// <summary>
+/// Defines types of 3dsMax nodes, which can be used to filter node sets.
+/// </summary>
 [Flags]
 public enum MaxNodeType
 {
+   /// <summary>
+   /// Matches no types.
+   /// </summary>
    None         = 0x00,
 
-   //Object refers to IINodes, but this name could be a bit confusing to the user.
+   /// <summary>
+   /// Specifies that the node is an object (INode).
+   /// </summary>
    Object       = 0x01, 
+
+   /// <summary>
+   /// Specifies that the node is a layer.
+   /// </summary>
    Layer        = 0x02,
+
+   /// <summary>
+   /// Specifies that the node is a material.
+   /// </summary>
    Material     = 0x04,
+
+   /// <summary>
+   /// Specifies that the node is a selection-set.
+   /// </summary>
    SelectionSet = 0x08,
+
+   /// <summary>
+   /// Specifies that the node is a texture map.
+   /// </summary>
    TextureMap   = 0x10,
 
+   /// <summary>
+   /// Matches all types.
+   /// </summary>
    All          = Object | Layer | Material | SelectionSet | TextureMap
 }
 

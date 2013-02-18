@@ -24,6 +24,8 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CodeAnalysisRuleSet>..\..\cs_rules.ruleset</CodeAnalysisRuleSet>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,6 +35,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Release\Outliner.Core.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -166,7 +169,7 @@
     <Compile Include="Commands\ToggleLightCommand.cs" />
     <Compile Include="Commands\UnlinkNodesCommand.cs" />
     <Compile Include="Configuration\ConfigurationFile.cs" />
-    <Compile Include="Configuration\ConfigurationHelpers.cs" />
+    <Compile Include="Configuration\Configurations.cs" />
     <Compile Include="Configuration\ISorterConfiguration.cs" />
     <Compile Include="Configuration\OutlinerSettings.cs" />
     <Compile Include="Configuration\SettingsCollection.cs" />
@@ -196,6 +199,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ContextMenu\OutlinerToolStripRenderer.cs" />
+    <Compile Include="Controls\ContextMenu\Toolbar.cs" />
     <Compile Include="Controls\Options\ConfigurationFilesEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -291,6 +295,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\Tree\TreeViewSettings.cs" />
+    <Compile Include="Controls\Tree\TreeViewUpdateFlags.cs" />
     <Compile Include="Filters\FilterChangedEventArgs.cs" />
     <Compile Include="Filters\FilterCombinator.cs" />
     <Compile Include="IEnumerableExtensions.cs" />
@@ -465,8 +470,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>$(SolutionDir)../TransformXmlDoc/TransformXmlDoc/bin/Release/TransformXmlDoc.exe "$(TargetDir)$(ProjectName).xml" "$(TargetDir)$(ProjectName).Transformed.xml"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\Outliner.Installer\BuildTasks.target" />
   <Target Name="BeforeBuild">

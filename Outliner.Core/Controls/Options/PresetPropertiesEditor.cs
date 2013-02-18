@@ -37,11 +37,11 @@ namespace Outliner.Controls.Options
          this.modesComboBox.DisplayMember = "DisplayName";
          this.modesComboBox.ValueMember = "Type";
 
-         IEnumerable<String> layoutFiles = ConfigurationHelpers.GetConfigurationFiles(OutlinerPaths.LayoutsDir)
+         IEnumerable<String> layoutFiles = Configurations.GetConfigurationFiles(OutlinerPaths.LayoutsDir)
                                                                .Select(f => Path.GetFileName(f));
          this.layoutComboBox.DataSource = layoutFiles.ToArray();
 
-         IEnumerable<String> contextMenuFiles = ConfigurationHelpers.GetConfigurationFiles(OutlinerPaths.ContextMenusDir)
+         IEnumerable<String> contextMenuFiles = Configurations.GetConfigurationFiles(OutlinerPaths.ContextMenusDir)
                                                                     .Select(f => Path.GetFileName(f));
          this.contextMenuComboBox.DataSource = contextMenuFiles.ToArray();
 

@@ -6,6 +6,11 @@ using System.ComponentModel;
 
 namespace Outliner.Controls.Tree
 {
+/// <summary>
+/// Provides data for the BeforeNodeTextEdit event.
+/// </summary>
+/// <remarks>This class inherits from CancelEventArgs, so it can be used to cancel 
+/// the TreeNode text edit operation.</remarks>
 public class BeforeNodeTextEditEventArgs : CancelEventArgs
 {
    /// <summary>
@@ -19,7 +24,7 @@ public class BeforeNodeTextEditEventArgs : CancelEventArgs
    /// </summary>
    public String EditText { get; set; }
 
-   public BeforeNodeTextEditEventArgs(TreeNode tn) : base(false)
+   internal BeforeNodeTextEditEventArgs(TreeNode tn) : base(false)
    {
       if (tn == null)
          throw new ArgumentNullException("tn");
@@ -29,14 +34,32 @@ public class BeforeNodeTextEditEventArgs : CancelEventArgs
    }
 }
 
+/// <summary>
+/// Provides data for the AfterNodeTextEdit event.
+/// </summary>
 public class AfterNodeTextEditEventArgs : EventArgs
 {
+   /// <summary>
+   /// Gets whether the TreeNode edit text operation was canceled.
+   /// </summary>
    public Boolean Canceled { get; private set; }
+
+   /// <summary>
+   /// The old TreeNode text value.
+   /// </summary>
    public String OldText { get; private set; }
+
+   /// <summary>
+   /// The new TreeNode text value.
+   /// </summary>
    public String NewText { get; private set; }
+
+   /// <summary>
+   /// The TreeNode which is being edited.
+   /// </summary>
    public TreeNode TreeNode { get; private set; }
 
-   public AfterNodeTextEditEventArgs(TreeNode tn, Boolean canceled, String oldText, String newText)
+   internal AfterNodeTextEditEventArgs(TreeNode tn, Boolean canceled, String oldText, String newText)
    {
       this.TreeNode = tn;
       this.Canceled = canceled;

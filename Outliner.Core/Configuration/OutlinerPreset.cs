@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Xml.Serialization;
-using Autodesk.Max;
-using Outliner.Controls;
 using Outliner.Controls.ContextMenu;
 using Outliner.Controls.Tree;
 using Outliner.Controls.Tree.Layout;
 using Outliner.Filters;
-using Outliner.MaxUtils;
 using Outliner.Modes;
 using Outliner.NodeSorters;
 using Outliner.Plugins;
@@ -21,8 +14,18 @@ using Outliner.Scene;
 
 namespace Outliner.Configuration
 {
+/// <summary>
+/// A preset for the Outliner, defining the TreeMode, Layout, ContextMenu, Filters and NodeSorter.
+/// </summary>
 public class OutlinerPreset : ConfigurationFile, ISorterConfiguration
 {
+   private string contextMenuFile;
+   private String layoutFile;
+   private TreeNodeLayout layout;
+
+   /// <summary>
+   /// Initializes a new instance of the OutlinerPreset class.
+   /// </summary>
    public OutlinerPreset() : base()
    {
       this.TreeModeTypeName = String.Empty;
@@ -45,13 +48,22 @@ public class OutlinerPreset : ConfigurationFile, ISorterConfiguration
       }
    }
 
+   /// <summary>
+   /// Gets or sets whether this is a default, or a user-created preset.
+   /// </summary>
    [XmlElement("isDefaultPreset")]
    [DefaultValue(false)]
    public Boolean IsDefaultPreset { get; set; }
 
+   /// <summary>
+   /// Gets or sets the type-name of the TreeMode to be used with this Preset.
+   /// </summary>
    [XmlElement("treemode")]
    public virtual String TreeModeTypeName { get; set; }
 
+   /// <summary>
+   /// Gets or sets the type of the TreeMode to be used with this Preset.
+   /// </summary>
    [XmlIgnore]
    public Type TreeModeType
    {
@@ -67,7 +79,9 @@ public class OutlinerPreset : ConfigurationFile, ISorterConfiguration
       }
    }
 
-   private string contextMenuFile;
+   /// <summary>
+   /// Gets or sets the filepath containing the ContextMenu associated with this Preset.
+   /// </summary>
    [XmlElement("contextmenu")]
    public virtual String ContextMenuFile 
    {
@@ -84,13 +98,18 @@ public class OutlinerPreset : ConfigurationFile, ISorterConfiguration
       }
    }
 
+   /// <summary>
+   /// Gets the ContextMenu associated with this Preset.
+   /// </summary>
    [XmlIgnore]
    public virtual ContextMenuModel ContextMenu
    {
       get; protected set;
    }
 
-   private String layoutFile;
+   /// <summary>
+   /// Gets or sets the filepath containing the TreeNodeLayout associated with this Preset.
+   /// </summary>
    [XmlElement("treenodelayout")]
    public virtual String LayoutFile 
    {
@@ -107,7 +126,9 @@ public class OutlinerPreset : ConfigurationFile, ISorterConfiguration
       }
    }
 
-   private TreeNodeLayout layout;
+   /// <summary>
+   /// Gets the TreeNodeLayout associated with this Preset.
+   /// </summary>
    [XmlIgnore]
    public virtual TreeNodeLayout TreeNodeLayout 
    {
@@ -124,13 +145,22 @@ public class OutlinerPreset : ConfigurationFile, ISorterConfiguration
       }
    }
 
+   /// <summary>
+   /// Gets or sets the NodeSorter associated with this Preset.
+   /// </summary>
    [XmlElement("sorter")]
    public NodeSorter Sorter { get; set; }
 
+   /// <summary>
+   /// Gets or sets the Filters associated with this Preset.
+   /// </summary>
    [XmlElement("filters")]
    public MaxNodeFilterCombinator Filters { get; set; }
 
-
+   /// <summary>
+   /// Creates a new TreeMode from this Preset.
+   /// </summary>
+   /// <param name="tree">The TreeView control to associate the TreeMode with.</param>
    public TreeMode CreateTreeMode(TreeView tree)
    {
       Throw.IfArgumentIsNull(tree, "tree");

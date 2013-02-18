@@ -9,8 +9,14 @@ using Outliner.Scene;
 
 namespace Outliner.Configuration
 {
+   /// <summary>
+   /// Defines a Filter Configuration file.
+   /// </summary>
    public class FilterConfiguration : ConfigurationFile
    {
+      /// <summary>
+      /// Initializes a new instance of the FilterConfiguration class.
+      /// </summary>
       public FilterConfiguration() : base()
       {
          this.Category = FilterCategory.Custom;
@@ -21,9 +27,15 @@ namespace Outliner.Configuration
          get { return OutlinerPaths.FiltersDir; }
       }
 
+      /// <summary>
+      /// Gets or sets the UI category in which the filter will be shown.
+      /// </summary>
       [XmlElement("FilterCategory")]
       public FilterCategory Category { get; set; }
 
+      /// <summary>
+      /// Gets or sets the filter in this configuration.
+      /// </summary>
       [XmlElement("Filter")]
       public Filter<IMaxNode> Filter { get; set; }
    }

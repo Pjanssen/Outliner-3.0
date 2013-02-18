@@ -16,6 +16,10 @@ public class CreateNewGroupCommand : Command
    private IEnumerable<IMaxNode> nodes;
    private INodeWrapper groupHead;
 
+   /// <summary>
+   /// Initializes a new instance of the CreateNewGroupCommand.
+   /// </summary>
+   /// <param name="nodes">The nodes to add to the created group.</param>
    public CreateNewGroupCommand(IEnumerable<IMaxNode> nodes)
    {
       Throw.IfArgumentIsNull(nodes, "nodes");

@@ -30,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Outliner.LayerTools.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -115,6 +116,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="UiViewModels">
       <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\UiViewModels.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -127,9 +129,9 @@
     <Compile Include="LayerPropertyChangedParam.cs" />
     <Compile Include="NestedLayers\NestedLayersMxs.cs" />
     <Compile Include="NestedLayers\NestedLayers.cs" />
+    <Compile Include="NestedLayers\SetLayerParentRestoreObj.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\AssemblyVersion.cs" />
-    <Compile Include="NestedLayers\TestAction.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Outliner.MaxUtils\Outliner.MaxUtils.csproj">
@@ -145,8 +147,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>$(SolutionDir)../TransformXmlDoc/TransformXmlDoc/bin/Release/TransformXmlDoc.exe "$(TargetDir)$(ProjectName).xml" "$(TargetDir)$(ProjectName).Transformed.xml"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\Outliner.Installer\BuildTasks.target" />
   <Target Name="AfterBuild">

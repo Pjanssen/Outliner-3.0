@@ -9,6 +9,9 @@ using System.Text;
 
 namespace Outliner
 {
+/// <summary>
+/// Provides helper methods for exception throwing.
+/// </summary>
 public static class Throw
 {
    /// <summary>
@@ -40,7 +43,7 @@ public static class Throw
    /// <summary>
    /// Tests if a string argument is null or empty.
    /// </summary>
-   /// <param name="str">The string argument to test.</param>
+   /// <param name="argument">The collection argument to test.</param>
    /// <param name="name">The name of the argument</param>
    /// <exception cref="ArgumentNullException"></exception>
    public static void IfArgumentIsNullOrEmpty([ValidatedNotNull] IEnumerable argument, String name)
@@ -51,16 +54,11 @@ public static class Throw
          throw new ArgumentNullException(name);
    }
 
-   public static Boolean IsEmpty<T>(this IEnumerable<T> enumerable)
-   {
-      return !enumerable.Any();
-   }
-
 
    /// <summary>
    /// Tests if an object is null.
    /// </summary>
-   /// <param name="argument">The object to test.</param>
+   /// <param name="obj">The object to test.</param>
    /// <param name="message">The message for the exception if it is thrown.</param>
    /// <exception cref="InvalidOperationException"></exception>
    public static void IfNull(Object obj, String message)
@@ -95,5 +93,5 @@ public static class Throw
 }
 
 [AttributeUsage(AttributeTargets.Parameter)]
-public sealed class ValidatedNotNullAttribute : Attribute { }
+internal sealed class ValidatedNotNullAttribute : Attribute { }
 }

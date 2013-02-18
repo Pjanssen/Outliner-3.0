@@ -33,19 +33,19 @@ namespace Outliner.Controls
          Outliner.Controls.Tree.TreeViewSettings treeViewSettings1 = new Outliner.Controls.Tree.TreeViewSettings();
          Outliner.Controls.Tree.TreeViewSettings treeViewSettings2 = new Outliner.Controls.Tree.TreeViewSettings();
          this.panel1 = new System.Windows.Forms.Panel();
+         this.nameFilterTextBox = new System.Windows.Forms.TextBox();
+         this.panel2 = new System.Windows.Forms.Panel();
          this.outlinerSplitContainer1 = new Outliner.Controls.OutlinerSplitContainer();
          this.treeView1 = new Outliner.Controls.Tree.TreeView();
          this.treeView2 = new Outliner.Controls.Tree.TreeView();
-         this.nameFilterTextBox = new System.Windows.Forms.TextBox();
          this.NameFilterBindingSource = new System.Windows.Forms.BindingSource(this.components);
-         this.panel2 = new System.Windows.Forms.Panel();
          this.panel1.SuspendLayout();
+         this.panel2.SuspendLayout();
          ((System.ComponentModel.ISupportInitialize)(this.outlinerSplitContainer1)).BeginInit();
          this.outlinerSplitContainer1.Panel1.SuspendLayout();
          this.outlinerSplitContainer1.Panel2.SuspendLayout();
          this.outlinerSplitContainer1.SuspendLayout();
          ((System.ComponentModel.ISupportInitialize)(this.NameFilterBindingSource)).BeginInit();
-         this.panel2.SuspendLayout();
          this.SuspendLayout();
          // 
          // panel1
@@ -55,8 +55,31 @@ namespace Outliner.Controls
          this.panel1.Location = new System.Drawing.Point(0, 24);
          this.panel1.Name = "panel1";
          this.panel1.Padding = new System.Windows.Forms.Padding(4, 1, 4, 4);
-         this.panel1.Size = new System.Drawing.Size(314, 392);
+         this.panel1.Size = new System.Drawing.Size(314, 429);
          this.panel1.TabIndex = 1;
+         // 
+         // nameFilterTextBox
+         // 
+         this.nameFilterTextBox.AcceptsReturn = true;
+         this.nameFilterTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.nameFilterTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.NameFilterBindingSource, "SearchString", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+         this.nameFilterTextBox.Dock = System.Windows.Forms.DockStyle.Top;
+         this.nameFilterTextBox.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+         this.nameFilterTextBox.Location = new System.Drawing.Point(4, 4);
+         this.nameFilterTextBox.Name = "nameFilterTextBox";
+         this.nameFilterTextBox.Size = new System.Drawing.Size(306, 20);
+         this.nameFilterTextBox.TabIndex = 0;
+         this.nameFilterTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nameFilterTextBox_KeyPress);
+         // 
+         // panel2
+         // 
+         this.panel2.Controls.Add(this.nameFilterTextBox);
+         this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+         this.panel2.Location = new System.Drawing.Point(0, 0);
+         this.panel2.Name = "panel2";
+         this.panel2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 0);
+         this.panel2.Size = new System.Drawing.Size(314, 24);
+         this.panel2.TabIndex = 0;
          // 
          // outlinerSplitContainer1
          // 
@@ -73,8 +96,7 @@ namespace Outliner.Controls
          // outlinerSplitContainer1.Panel2
          // 
          this.outlinerSplitContainer1.Panel2.Controls.Add(this.treeView2);
-         this.outlinerSplitContainer1.Panel2Collapsed = true;
-         this.outlinerSplitContainer1.Size = new System.Drawing.Size(306, 387);
+         this.outlinerSplitContainer1.Size = new System.Drawing.Size(306, 424);
          this.outlinerSplitContainer1.SplitterDistance = 144;
          this.outlinerSplitContainer1.TabIndex = 2;
          // 
@@ -94,7 +116,7 @@ namespace Outliner.Controls
          treeViewSettings1.MultiSelect = true;
          treeViewSettings1.ScrollToSelection = true;
          this.treeView1.Settings = treeViewSettings1;
-         this.treeView1.Size = new System.Drawing.Size(306, 387);
+         this.treeView1.Size = new System.Drawing.Size(306, 144);
          this.treeView1.TabIndex = 0;
          // 
          // treeView2
@@ -113,35 +135,12 @@ namespace Outliner.Controls
          treeViewSettings2.MultiSelect = true;
          treeViewSettings2.ScrollToSelection = true;
          this.treeView2.Settings = treeViewSettings2;
-         this.treeView2.Size = new System.Drawing.Size(150, 46);
+         this.treeView2.Size = new System.Drawing.Size(306, 276);
          this.treeView2.TabIndex = 1;
-         // 
-         // nameFilterTextBox
-         // 
-         this.nameFilterTextBox.AcceptsReturn = true;
-         this.nameFilterTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.nameFilterTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.NameFilterBindingSource, "SearchString", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-         this.nameFilterTextBox.Dock = System.Windows.Forms.DockStyle.Top;
-         this.nameFilterTextBox.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-         this.nameFilterTextBox.Location = new System.Drawing.Point(4, 4);
-         this.nameFilterTextBox.Name = "nameFilterTextBox";
-         this.nameFilterTextBox.Size = new System.Drawing.Size(306, 20);
-         this.nameFilterTextBox.TabIndex = 0;
-         this.nameFilterTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nameFilterTextBox_KeyPress);
          // 
          // NameFilterBindingSource
          // 
          this.NameFilterBindingSource.DataSource = typeof(Outliner.Filters.NameFilter);
-         // 
-         // panel2
-         // 
-         this.panel2.Controls.Add(this.nameFilterTextBox);
-         this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-         this.panel2.Location = new System.Drawing.Point(0, 0);
-         this.panel2.Name = "panel2";
-         this.panel2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 0);
-         this.panel2.Size = new System.Drawing.Size(314, 24);
-         this.panel2.TabIndex = 0;
          // 
          // MainControl
          // 
@@ -151,15 +150,15 @@ namespace Outliner.Controls
          this.Controls.Add(this.panel2);
          this.MinimumSize = new System.Drawing.Size(100, 150);
          this.Name = "MainControl";
-         this.Size = new System.Drawing.Size(314, 416);
+         this.Size = new System.Drawing.Size(314, 453);
          this.panel1.ResumeLayout(false);
+         this.panel2.ResumeLayout(false);
+         this.panel2.PerformLayout();
          this.outlinerSplitContainer1.Panel1.ResumeLayout(false);
          this.outlinerSplitContainer1.Panel2.ResumeLayout(false);
          ((System.ComponentModel.ISupportInitialize)(this.outlinerSplitContainer1)).EndInit();
          this.outlinerSplitContainer1.ResumeLayout(false);
          ((System.ComponentModel.ISupportInitialize)(this.NameFilterBindingSource)).EndInit();
-         this.panel2.ResumeLayout(false);
-         this.panel2.PerformLayout();
          this.ResumeLayout(false);
 
       }

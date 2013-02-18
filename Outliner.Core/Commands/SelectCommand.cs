@@ -8,13 +8,25 @@ using Outliner.MaxUtils;
 
 namespace Outliner.Commands
 {
+/// <summary>
+/// Selects nodes in the scene.
+/// </summary>
 public class SelectCommand : Command
 {
    private Boolean openGroups;
    private IEnumerable<IMaxNode> nodes;
 
+   /// <summary>
+   /// Initializes a new instance of the SelectCommand class.
+   /// </summary>
+   /// <param name="nodes">The IMaxNodes to select.</param>
    public SelectCommand(IEnumerable<IMaxNode> nodes) : this(nodes, true) { }
 
+   /// <summary>
+   /// Initializes a new instance of the SelectCommand class.
+   /// </summary>
+   /// <param name="nodes">The IMaxNodes to select.</param>
+   /// <param name="openGroups">Determines whether closed groups should be opened automatically to select the nodes inside them.</param>
    public SelectCommand(IEnumerable<IMaxNode> nodes, Boolean openGroups) 
    {
       Throw.IfArgumentIsNull(nodes, "nodes");

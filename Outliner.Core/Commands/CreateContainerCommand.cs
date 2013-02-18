@@ -8,12 +8,23 @@ using Outliner.Scene;
 
 namespace Outliner.Commands
 {
+   /// <summary>
+   /// Creates a new container object.
+   /// </summary>
    public class CreateContainerCommand : Command
    {
       private IEnumerable<IMaxNode> nodes;
       private IINode containerNode;
 
+      /// <summary>
+      /// Initializes a new instance of the CreateContainerCommand.
+      /// </summary>
       public CreateContainerCommand() : this(Enumerable.Empty<IMaxNode>()) { }
+
+      /// <summary>
+      /// Initializes a new instance of the CreateContainerCommand.
+      /// </summary>
+      /// <param name="nodes">The IMaxNodes to add to the created container.</param>
       public CreateContainerCommand(IEnumerable<IMaxNode> nodes)
       {
          Throw.IfArgumentIsNull(nodes, "nodes");

@@ -8,11 +8,19 @@ using Outliner.MaxUtils;
 
 namespace Outliner.Commands
 {
+   /// <summary>
+   /// Sets the given viewport to use the given Camera.
+   /// </summary>
    public class SetViewCameraCommand : Command
    {
       private IMaxNode cameraNode;
       private IViewExp viewport;
 
+      /// <summary>
+      /// Initializes a new instance of the SetViewCameraCommand class.
+      /// </summary>
+      /// <param name="cameraNode">The Camera node to use.</param>
+      /// <param name="viewport">The viewport to set the camera for.</param>
       public SetViewCameraCommand(IMaxNode cameraNode, IViewExp viewport)
       {
          Throw.IfArgumentIsNull(cameraNode, "cameraNode");

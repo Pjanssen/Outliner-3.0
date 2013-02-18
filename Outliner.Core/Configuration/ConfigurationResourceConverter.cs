@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace Outliner.Configuration
 {
-   public abstract class ConfigurationResourceConverter : TypeConverter
+   internal abstract class ConfigurationResourceConverter : TypeConverter
    {
       public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
       {
