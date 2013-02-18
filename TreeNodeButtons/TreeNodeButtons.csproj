@@ -152,12 +152,6 @@
     <EmbeddedResource Include="Resources\Icons_Maya\unknown.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Icons_Maya\selectionset.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Icons_Maya\container.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\Icons_Maya\checker.png" />
     <EmbeddedResource Include="Resources\Icons_Maya\material_unassigned.png" />
   </ItemGroup>
@@ -173,6 +167,22 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Icons_Maya\material.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Icons_Maya\selectionset_dark.png" />
+    <EmbeddedResource Include="Resources\Icons_Maya\selectionset_light.png" />
+    <EmbeddedResource Include="Resources\Icons_Maya\unknown_dark.png" />
+    <EmbeddedResource Include="Resources\Icons_Maya\unknown_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Icons_Maya\container_dark.png" />
+    <EmbeddedResource Include="Resources\Icons_Maya\container_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons_Maya\container_dark1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons_Maya\container_light1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

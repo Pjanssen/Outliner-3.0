@@ -52,7 +52,7 @@ public class ColorTagButton : TreeNodeButton
    }
 
 
-   public override int GetAutoWidth(TreeNode tn)
+   protected override int GetAutoWidth(TreeNode tn)
    {
       return this.ButtonWidth;
    }

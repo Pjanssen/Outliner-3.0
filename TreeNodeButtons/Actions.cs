@@ -47,9 +47,7 @@ namespace Outliner.TreeNodeButtons
          if (clickedNode == null)
             return;
 
-         IInterface ip = MaxInterfaces.Global.COREInterface;
-         IViewExp vpt = ip.ActiveViewExp;
-         SetViewCameraCommand cmd = new SetViewCameraCommand(clickedNode, vpt);
+         SetViewCameraCommand cmd = new SetViewCameraCommand(clickedNode, Viewports.ActiveView);
          cmd.Execute(true);
       }
 

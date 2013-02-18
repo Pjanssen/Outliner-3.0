@@ -25,7 +25,7 @@ namespace Outliner.PolyCount
          if (iinode == null)
             return "0";
          else
-            return IINodeHelpers.GetPolyCount(iinode.INode).ToString();
+            return IINodes.GetPolyCount(iinode.INode).ToString();
       }
    }
 }

@@ -130,8 +130,11 @@
   <data name="checker" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\icons_maya\checker.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="container" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>resources\icons_maya\container.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="container_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\icons_maya\container_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="container_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\icons_maya\container_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="geometry" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\icons_maya\geometry.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -172,8 +175,11 @@
   <data name="particle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\icons_maya\particle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="selectionset" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>resources\icons_maya\selectionset.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="selectionset_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\icons_maya\selectionset_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="selectionset_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\icons_maya\selectionset_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="shape" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\icons_maya\shape.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -183,5 +189,17 @@
   </data>
   <data name="unknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>resources\icons_maya\unknown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="unknown_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\icons_maya\unknown_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="unknown_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\icons_maya\unknown_light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="xref_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Icons_Maya\container_dark1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="xref_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Icons_Maya\container_light1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

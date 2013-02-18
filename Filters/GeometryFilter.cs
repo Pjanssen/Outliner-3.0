@@ -21,7 +21,7 @@ namespace Outliner.Filters
             return false;
 
          IINode iinode = iinodeWrapper.INode;
-         if (iinode.IsTarget || IINodeHelpers.IsBone(iinode)
+         if (iinode.IsTarget || IINodes.IsBone(iinode)
                              || iinode.ObjectRef.IsParticleSystem)
             return false;
 

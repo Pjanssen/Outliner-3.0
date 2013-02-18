@@ -228,7 +228,7 @@ public static class ColorTags
       if (ColorTags.colors.TryGetValue(tag, out colorEntry))
       {
          Color color = colorMan.GetColor((GuiColors)colorEntry.Item1);
-         return ColorHelpers.FromMaxColor(color);
+         return Colors.FromMaxColor(color);
       }
       else
          return Color.Empty;
@@ -270,7 +270,7 @@ public static class ColorTags
             color = layer.WireColor;
       }
 
-      return ColorHelpers.FromMaxColor(color);
+      return Colors.FromMaxColor(color);
    }
 }
 }

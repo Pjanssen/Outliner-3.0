@@ -32,8 +32,8 @@ public class PolycountSorter : NodeSorter
       if (nodeY == null || !nodeY.IsValid) 
          return 0;
 
-      int numFacesX = IINodeHelpers.GetPolyCount(nodeX.INode);
-      int numFacesY = IINodeHelpers.GetPolyCount(nodeY.INode);
+      int numFacesX = IINodes.GetPolyCount(nodeX.INode);
+      int numFacesY = IINodes.GetPolyCount(nodeY.INode);
 
       return numFacesY.CompareTo(numFacesX);
    }

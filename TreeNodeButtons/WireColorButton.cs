@@ -51,7 +51,7 @@ public class WireColorButton : NodePropertyButton
       return newItem;
    }
 
-   public override int GetAutoWidth(TreeNode tn)
+   protected override int GetAutoWidth(TreeNode tn)
    {
       return this.ButtonWidth;
    }
@@ -134,7 +134,7 @@ public class WireColorButton : NodePropertyButton
             nodes = new List<TreeNode>(1) { tn };
 
          IEnumerable<IMaxNode> maxNodes = TreeMode.GetMaxNodes(nodes);
-         SetNodePropertyCommand<Color> cmd = new SetNodePropertyCommand<Color>(maxNodes, NodeProperty.WireColor, ColorHelpers.FromMaxColor(wc));
+         SetNodePropertyCommand<Color> cmd = new SetNodePropertyCommand<Color>(maxNodes, NodeProperty.WireColor, Colors.FromMaxColor(wc));
          cmd.Execute(true);
 
          if (tree.NodeSorter is NodePropertySorter &&

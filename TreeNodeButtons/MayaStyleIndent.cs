@@ -39,7 +39,7 @@ public class MayaStyleIndent : TreeNodeLayoutItem
       return newItem;
    }
 
-   public override int GetAutoWidth(TreeNode tn)
+   protected override int GetAutoWidth(TreeNode tn)
    {
       Int32 tnLevel = (tn == null) ? 1 : tn.Level + 1;
       return this.Indent * tnLevel;

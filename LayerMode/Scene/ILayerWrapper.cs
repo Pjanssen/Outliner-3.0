@@ -176,7 +176,7 @@ namespace Outliner.Scene
             IILayerProperties layerProperties = this.ILayerProperties;
             if (layerProperties != null)
                layerProperties.Nodes(nodes);
-            return IINodeHelpers.ITabToIEnumerable(nodes);
+            return IINodes.ITabToIEnumerable(nodes);
          }
       }
 
@@ -412,7 +412,7 @@ namespace Outliner.Scene
 
       public override System.Drawing.Color WireColor
       {
-         get { return ColorHelpers.FromMaxColor(this.ILayer.WireColor); }
+         get { return Colors.FromMaxColor(this.ILayer.WireColor); }
          set
          {
             Throw.IfArgumentIsNull(value, "value");

@@ -17,7 +17,7 @@ namespace Outliner.Filters
          if (iinodeWrapper == null)
             return false;
 
-         return IINodeHelpers.IsXref(iinodeWrapper.INode);
+         return IINodes.IsXref(iinodeWrapper.INode);
       }
    }
 }

@@ -21,6 +21,13 @@ public class LayerMode : TreeMode
 {
    public Boolean ShowGroupContents { get; set; }
 
+   protected GlobalDelegates.Delegate5 proc_LayerCreated;
+   protected GlobalDelegates.Delegate5 proc_LayerDeleted;
+   protected GlobalDelegates.Delegate5 proc_LayerRenamed;
+   protected GlobalDelegates.Delegate5 proc_LayerParented;
+   protected GlobalDelegates.Delegate5 proc_LayerCurrentChanged;
+
+
    public LayerMode(TreeView tree) : base(tree) 
    {
       this.ShowGroupContents = OutlinerGUP.Instance.Settings.GetValue<Boolean>("LayerMode", "ShowGroupContents", true);
@@ -41,7 +48,7 @@ public class LayerMode : TreeMode
       this.RegisterSystemNotification(proc_LayerDeleted, SystemNotificationCode.LayerDeleted);
       this.RegisterSystemNotification(proc_LayerRenamed, SystemNotificationCode.LayerRenamed);
       this.RegisterSystemNotification(proc_LayerParented, LayerNotificationCode.LayerParented);
-      this.RegisterSystemNotification(proc_LayerCurrentChanged, LayerTools.LayerTools.LayerCurrentChanged);
+      this.RegisterSystemNotification(proc_LayerCurrentChanged, LayerNotificationCode.LayerCurrentChanged);
 
       this.RegisterNodeEventCallbackObject(new LayerNodeEventCallbacks(this));
 
@@ -125,7 +132,6 @@ public class LayerMode : TreeMode
 
    #region System notifications
 
-   protected GlobalDelegates.Delegate5 proc_LayerCreated;
    protected virtual void LayerCreated(IntPtr param, IntPtr info)
    {
       IILayer layer = SystemNotifications.GetCallParam(info) as IILayer;
@@ -133,7 +139,6 @@ public class LayerMode : TreeMode
          this.AddNode(layer, this.Tree.Nodes);
    }
 
-   protected GlobalDelegates.Delegate5 proc_LayerDeleted;
    protected virtual void LayerDeleted(IntPtr param, IntPtr info)
    {
       IILayer layer = SystemNotifications.GetCallParam(info) as IILayer;
@@ -141,13 +146,11 @@ public class LayerMode : TreeMode
          this.RemoveNode(layer);
    }
 
-   protected GlobalDelegates.Delegate5 proc_LayerRenamed;
    protected virtual void LayerRenamed(IntPtr param, IntPtr info)
    {
       Console.WriteLine(SystemNotifications.GetCallParam(info));
    }
 
-   protected GlobalDelegates.Delegate5 proc_LayerParented;
    protected virtual void LayerParented(IntPtr param, IntPtr info)
    {
       IILayer layer = SystemNotifications.GetCallParam(info) as IILayer;
@@ -172,7 +175,6 @@ public class LayerMode : TreeMode
       }
    }
 
-   protected GlobalDelegates.Delegate5 proc_LayerCurrentChanged;
    protected virtual void LayerCurrentChanged(IntPtr param, IntPtr info)
    {
       IILayer layer = SystemNotifications.GetCallParam(info) as IILayer;

@@ -15,8 +15,8 @@ public static class ColorTagsMxs
    [OutlinerPluginStart]
    public static void Start()
    {
-      MaxscriptHelpers.RunResourceScript( typeof(ColorTagsMxs).Assembly
-                                        , "Outliner.ColorTags.Maxscript.ColorTagsMxs.ms");
+      Maxscript.RunResourceScript( typeof(ColorTagsMxs).Assembly
+                                 , "Outliner.ColorTags.Maxscript.ColorTagsMxs.ms");
    }
 
    private static IAnimatable getNode(UInt64 handle)

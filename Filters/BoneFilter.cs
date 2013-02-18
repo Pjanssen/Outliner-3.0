@@ -17,7 +17,7 @@ namespace Outliner.Filters
          if (iinodeWrapper == null)
             return false;
 
-         return IINodeHelpers.IsBone(iinodeWrapper.INode);
+         return IINodes.IsBone(iinodeWrapper.INode);
       }
    }
 }

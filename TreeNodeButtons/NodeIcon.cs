@@ -93,7 +93,7 @@ public class NodeIcon : TreeNodeButton
    }
 
 
-   public override int GetAutoWidth(TreeNode tn)
+   protected override int GetAutoWidth(TreeNode tn)
    {
       return this.iconSize.Width;
    }
@@ -111,22 +111,44 @@ public class NodeIcon : TreeNodeButton
       if (this.Layout == null || this.icons == null)
          return;
 
-      Bitmap icon = null;
-      String iconKey = tn.ImageKey;
+      Bitmap icon = this.GetIcon(tn);
+      
+      graphics.DrawImage(icon, this.GetBounds(tn));
+   }
 
-      if (iconKey == null)
-         iconKey = "unknown";
-
-      if (!tn.ShowNode)
-         iconKey += "_filtered";
+   private Bitmap GetIcon(TreeNode tn)
+   {
+      Bitmap icon;
+      String imageKey = tn.ImageKey;
+      String iconSuffix = OutlinerGUP.Instance.ColorScheme.ImageResourceSuffix;
+      String iconKey = GetIconKey(tn, imageKey + "_" + iconSuffix);
 
       if (!this.icons.TryGetValue(iconKey, out icon))
       {
-         if (!this.icons.TryGetValue("unknown", out icon))
-            return;
+         iconKey = GetIconKey(tn, imageKey);
+         if (!this.icons.TryGetValue(iconKey, out icon))
+         {
+            iconKey = GetIconKey(tn, "unknown_" + iconSuffix);
+            if (!this.icons.TryGetValue(iconKey, out icon))
+            {
+               iconKey = GetIconKey(tn, "unknown");
+               if (!this.icons.TryGetValue(iconKey, out icon))
+               {
+                  return null;
+               }
+            }
+         }
       }
 
-      graphics.DrawImage(icon, this.GetBounds(tn));
+      return icon;
+   }
+
+   private static String GetIconKey(TreeNode tn, String baseName)
+   {
+      String iconKey = baseName;
+      if (!tn.ShowNode)
+         iconKey += "_filtered";
+      return iconKey;
    }
 
    public override void HandleMouseUp(WinForms::MouseEventArgs e, TreeNode tn)

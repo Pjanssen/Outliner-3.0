@@ -23,8 +23,8 @@ namespace Outliner.Filters.CATMuscleFilter
          if (data == null)
             return false;
 
-         return MaxUtils.ClassIDHelpers.IsClass(data.BaseObject, strandIDA, strandIDB) ||
-                MaxUtils.ClassIDHelpers.IsClass(data.BaseObject, handleIDA, handleIDB);
+         return MaxUtils.ClassIDs.IsClass(data.BaseObject, strandIDA, strandIDB) ||
+                MaxUtils.ClassIDs.IsClass(data.BaseObject, handleIDA, handleIDB);
       }
    }
 }

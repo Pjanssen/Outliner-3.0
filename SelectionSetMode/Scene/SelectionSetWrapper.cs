@@ -184,7 +184,7 @@ namespace Outliner.Scene
             int index = this.Index;
             IINodeTab nodeTab = MaxInterfaces.Global.INodeTabNS.Create();
             MaxInterfaces.SelectionSetManager.GetNamedSelSetList(nodeTab, index);
-            return IINodeHelpers.ITabToIEnumerable(nodeTab);
+            return IINodes.ITabToIEnumerable(nodeTab);
          }
       }
 

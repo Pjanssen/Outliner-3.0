@@ -103,9 +103,19 @@ namespace Outliner.TreeNodeButtons {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap container {
+        internal static System.Drawing.Bitmap container_dark {
             get {
-                object obj = ResourceManager.GetObject("container", resourceCulture);
+                object obj = ResourceManager.GetObject("container_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap container_light {
+            get {
+                object obj = ResourceManager.GetObject("container_light", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -243,9 +253,19 @@ namespace Outliner.TreeNodeButtons {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap selectionset {
+        internal static System.Drawing.Bitmap selectionset_dark {
             get {
-                object obj = ResourceManager.GetObject("selectionset", resourceCulture);
+                object obj = ResourceManager.GetObject("selectionset_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap selectionset_light {
+            get {
+                object obj = ResourceManager.GetObject("selectionset_light", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -276,6 +296,46 @@ namespace Outliner.TreeNodeButtons {
         internal static System.Drawing.Bitmap unknown {
             get {
                 object obj = ResourceManager.GetObject("unknown", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap unknown_dark {
+            get {
+                object obj = ResourceManager.GetObject("unknown_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap unknown_light {
+            get {
+                object obj = ResourceManager.GetObject("unknown_light", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap xref_dark {
+            get {
+                object obj = ResourceManager.GetObject("xref_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap xref_light {
+            get {
+                object obj = ResourceManager.GetObject("xref_light", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
