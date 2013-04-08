@@ -15,6 +15,8 @@ namespace Outliner
       /// </summary>
       public static IEnumerable<T> ToIEnumerable<T>(this T item)
       {
+         Throw.IfArgumentIsNull(item, "item");
+
          yield return item;
       }
 
@@ -51,11 +53,8 @@ namespace Outliner
       /// </summary>
       public static IEnumerable<T> DropLast<T>(this IEnumerable<T> source, int n)
       {
-         if (source == null)
-            throw new ArgumentNullException("source");
-
-         if (n < 0)
-            throw new ArgumentOutOfRangeException("n", "Argument n should be non-negative.");
+         Throw.IfArgumentIsNull(source, "source");
+         Throw.IfArgumentIsSmallerThan(n, 0, "n");
 
          Queue<T> buffer = new Queue<T>(n + 1);
 

@@ -56,6 +56,41 @@ public static class Throw
 
 
    /// <summary>
+   /// Tests if the given argument is smaller than a minimum value.
+   /// </summary>
+   /// <param name="argument">The argument to test.</param>
+   /// <param name="minValue">The minimum valid value of the argument.</param>
+   /// <param name="argumentName">The name of the argument being tested.</param>
+   /// <exception cref="ArgumentOutOfRangeException" />
+   public static void IfArgumentIsSmallerThan(IComparable argument, IComparable minValue, string argumentName)
+   {
+      Throw.IfNull(argument, "argument");
+      Throw.IfNull(minValue, "minValue");
+
+      if (argument.CompareTo(minValue) < 0)
+         throw new ArgumentOutOfRangeException( argumentName
+                                              , string.Format("Argument {0} can not be smaller than {1}", argumentName, minValue));
+   }
+
+   /// <summary>
+   /// Tests if the given argument is larger than a minimum value.
+   /// </summary>
+   /// <param name="argument">The argument to test.</param>
+   /// <param name="maxValue">The maximum valid value of the argument.</param>
+   /// <param name="argumentName">The name of the argument being tested.</param>
+   /// <exception cref="ArgumentOutOfRangeException" />
+   public static void IfArgumentIsLargerThan(IComparable argument, IComparable maxValue, string argumentName)
+   {
+      Throw.IfNull(argument, "argument");
+      Throw.IfNull(maxValue, "maxValue");
+
+      if (argument.CompareTo(maxValue) > 0)
+         throw new ArgumentOutOfRangeException( argumentName
+                                              , string.Format("Argument {0} can not be larger than {1}", argumentName, maxValue));
+   }
+
+
+   /// <summary>
    /// Tests if an object is null.
    /// </summary>
    /// <param name="obj">The object to test.</param>
