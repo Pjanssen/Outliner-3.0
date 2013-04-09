@@ -55,7 +55,7 @@ namespace Outliner.Tests
          List<int> result = ints.DropLast(1).ToList();
 
          Assert.AreEqual(9, result.Count);
-         CollectionAssert.AreEqual(result, Enumerable.Range(0, 9).ToList());
+         CollectionAssert.AreEqual(Enumerable.Range(0, 9).ToList(), result);
       }
 
       [TestMethod]
@@ -94,7 +94,7 @@ namespace Outliner.Tests
          List<int> result = new List<int>();
          ints.ForEach(y => result.Add(y));
 
-         CollectionAssert.AreEqual(result, ints.ToList());
+         CollectionAssert.AreEqual(ints.ToList(), result);
       }
 
       #endregion
@@ -124,8 +124,8 @@ namespace Outliner.Tests
          List<int> resultA = new List<int>();
          List<int> resultB = ints.Map(y => resultA.Add(y)).ToList();
 
-         CollectionAssert.AreEqual(resultA, ints.ToList());
-         CollectionAssert.AreEqual(resultB, ints.ToList());
+         CollectionAssert.AreEqual(ints.ToList(), resultA);
+         CollectionAssert.AreEqual(ints.ToList(), resultB);
       }
 
       #endregion
