@@ -176,6 +176,9 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Moq">
+      <HintPath>Lib\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -209,6 +212,8 @@
     <Compile Include="MaxUtils\NodePropertyTest.cs" />
     <Compile Include="NodeSorters\NodeSorterHelpersTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="IEnumerableExtensionsTests.cs" />
+    <Compile Include="Scene\INodeWrapperFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Outliner.MaxUtils\Outliner.MaxUtils.csproj">
