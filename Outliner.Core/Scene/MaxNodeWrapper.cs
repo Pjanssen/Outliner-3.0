@@ -247,12 +247,23 @@ namespace Outliner.Scene
       private static List<IMaxNodeFactory> maxNodeFactories;
 
       /// <summary>
+      /// Gets or sets the factories used to create new IMaxNodes.
+      /// </summary>
+      public static IEnumerable<IMaxNodeFactory> Factories
+      {
+         get { return maxNodeFactories; }
+         set { maxNodeFactories = value.ToList(); }
+      }
+
+      /// <summary>
       /// Registers a new IMaxNodeFactory. The factory can be used to create a wrapper
       /// for any kind of node in the scene. When the factory can't create an appropriate
       /// wrapper, it should return null.
       /// </summary>
       public static void RegisterMaxNodeFactory(IMaxNodeFactory factory)
       {
+         Throw.IfArgumentIsNull(factory, "factory");
+
          if (maxNodeFactories == null)
             maxNodeFactories = new List<IMaxNodeFactory>();
 
@@ -268,11 +279,14 @@ namespace Outliner.Scene
       {
          Throw.IfArgumentIsNull(baseNode, "baseNode");
 
-         foreach (IMaxNodeFactory factory in maxNodeFactories)
+         if (Factories != null)
          {
-            IMaxNode node = factory.CreateMaxNode(baseNode);
-            if (node != null)
-               return node;
+            foreach (IMaxNodeFactory factory in Factories)
+            {
+               IMaxNode node = factory.CreateMaxNode(baseNode);
+               if (node != null)
+                  return node;
+            }
          }
 
          throw new NotSupportedException("Cannot create a wrapper for object of type " + baseNode.GetType().Name);         

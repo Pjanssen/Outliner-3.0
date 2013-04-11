@@ -15,6 +15,8 @@ namespace Outliner.Scene
    {
       public IMaxNode CreateMaxNode(object baseNode)
       {
+         Throw.IfArgumentIsNull(baseNode, "baseNode");
+
          IINode inode = baseNode as IINode;
          if (inode != null)
             return new INodeWrapper(inode);
