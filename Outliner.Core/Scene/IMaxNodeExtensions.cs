@@ -29,7 +29,7 @@ namespace Outliner.Scene
       }
 
       /// <summary>
-      /// Returns true if the supplied node is a selected node, or a parent of a selected node.
+      /// Returns true if the supplied node is selected, or a parent of a selected node.
       /// </summary>
       public static Boolean IsParentOfSelected(this IMaxNode node)
       {
@@ -43,6 +43,23 @@ namespace Outliner.Scene
             if (child.IsSelected || child.IsParentOfSelected())
                return true;
          }
+
+         return false;
+      }
+
+      /// <summary>
+      /// Returns true if the supplied node is selected, or a child of a selected node.
+      /// </summary>
+      public static Boolean IsChildOfSelected(this IMaxNode node)
+      {
+         Throw.IfArgumentIsNull(node, "node");
+
+         if (node.IsSelected)
+            return true;
+
+         IMaxNode parent = node.Parent;
+         if (parent != null)
+            return parent.IsChildOfSelected();
 
          return false;
       }
