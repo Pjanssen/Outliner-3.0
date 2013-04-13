@@ -67,7 +67,7 @@ namespace Outliner.Filters
 
       protected abstract Boolean ShowNodeInternal(T data);
 
-      public event EventHandler FilterChanged;
+      public virtual event EventHandler FilterChanged;
       protected virtual void OnFilterChanged()
       {
          if (this.FilterChanged != null)

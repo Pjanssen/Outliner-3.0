@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Outliner.Scene;
 using System;
+using Moq;
 
 namespace Outliner.Tests.Filters
 {
@@ -12,130 +13,180 @@ namespace Outliner.Tests.Filters
 [TestClass()]
 public class NameFilterTest
 {
-   public class MockWrapper : MaxNodeWrapper
+   private IMaxNode CreateNodeWithName(String name)
    {
-      public MockWrapper(String name)
-      {
-         this.Name = name;
-      }
+      Mock<IMaxNode> node = new Mock<IMaxNode>();
+      node.SetupGet(n => n.Name).Returns(name);
 
-      public override string Name { get; set; }
-
-      public override bool Equals(object obj) { return false; }
-      public override int GetHashCode() { return 0; }
-
-      public override object BaseObject
-      {
-         get { return null; }
-      }
-
-      protected override MaxNodeType MaxNodeType
-      {
-         get { return MaxNodeType.None; }
-      }
+      return node.Object;
    }
 
-   /// <summary>
-   ///A test for NameFilter Constructor
-   ///</summary>
-   [TestMethod()]
-   public void NameFilterConstructorTest() 
+   private void AssertActionRaisesFilterChangedEvent(Filter<IMaxNode> filter, Action action)
    {
-      NameFilter target = new NameFilter();
-      Assert.AreEqual(String.Empty, target.SearchString);
-      Assert.AreEqual(false, target.CaseSensitive);
-   }
+      int filterChangedRaisedCount = 0;
+      filter.FilterChanged += (sender, args) => filterChangedRaisedCount++;
 
-   /// <summary>
-   ///A test for SearchString
-   ///</summary>
-   [TestMethod()]
-   public void SearchStringTest() 
-   {
-      NameFilter target = new NameFilter();
-      string expected = string.Empty;
-      target.SearchString = expected;
-      Assert.AreEqual(String.Empty, target.SearchString);
+      action();
 
-      target.SearchString = "t";
-      Assert.AreEqual("t", target.SearchString);
-
-      target.SearchString = "*test";
-      Assert.AreEqual("*test", target.SearchString);
-
-      target.SearchString = "";
-      Assert.AreEqual(String.Empty, target.SearchString);
-   }
-
-   /// <summary>
-   ///A test for CaseSensitive
-   ///</summary>
-   [TestMethod()]
-   public void CaseSensitiveTest()
-   {
-      NameFilter target = new NameFilter();
-      target.CaseSensitive = true;
-      Assert.IsTrue(target.CaseSensitive);
-
-      MockWrapper w = new MockWrapper("Test_sphere");
-      target.SearchString = "Test_sphere";
-      Assert.AreEqual(true, target.ShowNode(w));
-      target.SearchString = "test_sphere";
-      Assert.AreEqual(false, target.ShowNode(w));
-
-      target.CaseSensitive = false;
-      Assert.IsFalse(target.CaseSensitive);
-
-      target.SearchString = "Test_sphere";
-      Assert.AreEqual(true, target.ShowNode(w));
-      target.SearchString = "test_sphere";
-      Assert.AreEqual(true, target.ShowNode(w));
-   }
-         
-   /// <summary>
-   ///A test for ShowNode
-   ///</summary>
-   [TestMethod()]
-   public void ShowNodeTest()
-   {
-      NameFilter target = new NameFilter();
-      MockWrapper w = new MockWrapper("test_sphere");
-      Assert.AreEqual(true, target.ShowNode(w));
-
-      target.SearchString = "t";
-      Assert.AreEqual(true, target.ShowNode(w));
-
-      target.SearchString = "*t";
-      Assert.AreEqual(true, target.ShowNode(w));
-
-      target.SearchString = "*sphere";
-      Assert.AreEqual(true, target.ShowNode(w));
-
-      target.SearchString = "a";
-      Assert.AreEqual(false, target.ShowNode(w));
-
-      target.SearchString = "*a";
-      Assert.AreEqual(false, target.ShowNode(w));
-
-      target.SearchString = "test_sphere_a";
-      Assert.AreEqual(false, target.ShowNode(w));
+      Assert.AreEqual(1, filterChangedRaisedCount);
    }
 
    [TestMethod()]
-   public void UseWildcardTest()
+   public void Constructor_SetsDefaultValues() 
    {
-      NameFilter f = new NameFilter();
-      MockWrapper w1 = new MockWrapper("test_a");
-      MockWrapper w2 = new MockWrapper("a_test");
+      NameFilter filter = new NameFilter();
+      Assert.AreEqual(String.Empty, filter.SearchString);
+      Assert.AreEqual(false, filter.CaseSensitive);
+   }
 
-      f.SearchString = "test";
-      f.UseWildcard = false;
-      Assert.AreEqual(true, f.ShowNode(w1));
-      Assert.AreEqual(false, f.ShowNode(w2));
+   [TestMethod]
+   public void Enabled_Get_ReturnsSearchStringNotEmpty()
+   {
+      NameFilter filter = new NameFilter();
+      Assert.IsFalse(filter.Enabled);
 
-      f.UseWildcard = true;
-      Assert.AreEqual(true, f.ShowNode(w1));
-      Assert.AreEqual(true, f.ShowNode(w2));
+      filter.SearchString = "Test";
+      Assert.IsTrue(filter.Enabled);
+   }
+
+   [TestMethod]
+   public void SearchString_Set_RaisesFilterChangedEvent()
+   {
+      NameFilter filter = new NameFilter();
+      AssertActionRaisesFilterChangedEvent(filter, () => filter.SearchString = "Test");
+   }
+
+   [TestMethod()]
+   public void SearchString_Set_ChangesSearchString() 
+   {
+      NameFilter filter = new NameFilter();
+      filter.SearchString = "";
+      Assert.AreEqual("", filter.SearchString);
+
+      filter.SearchString = "t";
+      Assert.AreEqual("t", filter.SearchString);
+
+      filter.SearchString = "*test";
+      Assert.AreEqual("*test", filter.SearchString);
+
+      filter.SearchString = "";
+      Assert.AreEqual("", filter.SearchString);
+   }
+
+   [TestMethod]
+   public void SearchString_Set_FiltersNodeByName()
+   {
+      NameFilter filter = new NameFilter();
+      IMaxNode node = CreateNodeWithName("Test");
+
+      filter.SearchString = "";
+      Assert.IsTrue(filter.ShowNode(node));
+
+      filter.SearchString = "T";
+      Assert.IsTrue(filter.ShowNode(node));
+
+      filter.SearchString = "Test";
+      Assert.IsTrue(filter.ShowNode(node));
+
+      filter.SearchString = "TestX";
+      Assert.IsFalse(filter.ShowNode(node));
+
+      filter.SearchString = "XTest";
+      Assert.IsFalse(filter.ShowNode(node));
+   }
+
+   [TestMethod]
+   public void SearchString_UsingAsterisk_WorksAsWildcard()
+   {
+      NameFilter filter = new NameFilter();
+      IMaxNode node = CreateNodeWithName("LoremIpsum");
+
+      filter.SearchString = "ipsum";
+      Assert.IsFalse(filter.ShowNode(node));
+
+      filter.SearchString = "*ipsum";
+      Assert.IsTrue(filter.ShowNode(node));
+
+      filter.SearchString = "Lor*sum";
+      Assert.IsTrue(filter.ShowNode(node));
+   }
+
+   [TestMethod]
+   public void SearchString_UsingAsterisk_WorksCombinedWithUseWildcard()
+   {
+      NameFilter filter = new NameFilter();
+      filter.UseWildcard = true;
+      IMaxNode node = CreateNodeWithName("LoremIpsum");
+
+      filter.SearchString = "rem*sum";
+      Assert.IsTrue(filter.ShowNode(node));
+
+      filter.SearchString = "*rem*sum";
+      Assert.IsTrue(filter.ShowNode(node));
+   }
+
+   [TestMethod]
+   public void CaseSensitive_Set_RaisesFilterChangedEvent()
+   {
+      NameFilter filter = new NameFilter();
+      AssertActionRaisesFilterChangedEvent(filter, () => filter.CaseSensitive = true);
+   }
+
+   [TestMethod()]
+   public void CaseSensitive_SetTrue_MakesSearchCaseSensitive()
+   {
+      NameFilter filter = new NameFilter();
+      IMaxNode node = CreateNodeWithName("Test");
+
+      filter.SearchString = "test";
+      Assert.IsTrue(filter.ShowNode(node));
+
+      filter.CaseSensitive = true;
+
+      Assert.IsFalse(filter.ShowNode(node));
+   }
+
+   [TestMethod]
+   public void CaseSensitive_SetFalse_MakesSearchCaseInsensitive()
+   {
+      NameFilter filter = new NameFilter();
+      filter.CaseSensitive = false;
+
+      IMaxNode node = CreateNodeWithName("Test");
+
+      filter.SearchString = "Test";
+      Assert.IsTrue(filter.ShowNode(node));
+
+      filter.SearchString = "test";
+      Assert.IsTrue(filter.ShowNode(node));
+   }
+
+   [TestMethod]
+   public void UseWildcard_Set_RaisesFilterChangedEvent()
+   {
+      NameFilter filter = new NameFilter();
+      AssertActionRaisesFilterChangedEvent(filter, () => filter.UseWildcard = true);
+   }
+
+   [TestMethod]
+   public void UseWildcard_SetTrue_ShowsNodesWithNameContainingSearchString()
+   {
+      NameFilter filter = new NameFilter();
+      filter.UseWildcard = true;
+
+      IMaxNode node = CreateNodeWithName("Test");
+
+      filter.SearchString = "T";
+      Assert.IsTrue(filter.ShowNode(node));
+
+      filter.SearchString = "est";
+      Assert.IsTrue(filter.ShowNode(node));
+
+      filter.SearchString = "st";
+      Assert.IsTrue(filter.ShowNode(node));
+
+      filter.SearchString = "s";
+      Assert.IsTrue(filter.ShowNode(node));
    }
 }
 }

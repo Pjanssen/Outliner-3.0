@@ -4,93 +4,87 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Outliner.Filters;
+using Moq;
+using Moq.Protected;
 
 namespace Outliner.Tests.Filters
 {
-internal class MockFilterTrue : Filter<Boolean>
-{
-   protected override bool ShowNodeInternal(bool data)
-   {
-      return data;
-   }
-}
-
-internal class MockFilterFalse : Filter<Boolean>
-{
-   protected override bool ShowNodeInternal(bool data)
-   {
-      return !data;
-   }
-}
-
 [TestClass]
 public class FilterTest
 {
-   private Boolean filterChangedEventFired;
-
-   [TestInitialize]
-   public void TestInit()
+   [TestMethod]
+   public void Constructor_SetsDefaultValues()
    {
-      this.filterChangedEventFired = false;
+      Mock<Filter<Boolean>> filter = new Mock<Filter<Boolean>>();
+      filter.CallBase = true;
+      Assert.IsTrue(filter.Object.Enabled, "Initial enabled value.");
+      Assert.IsFalse(filter.Object.Invert, "Initial invert value.");
    }
 
    [TestMethod]
-   public void ConstructorTest()
+   public void Enabled_SetNewValue_RaisesFilterChangedEvent()
    {
-      Filter<Boolean> f = new MockFilterTrue();
-      Assert.IsTrue(f.Enabled, "Initial enabled value.");
-      Assert.IsFalse(f.Invert, "Initial invert value.");
+      Boolean filterChangedRaised = false;
+      Mock<Filter<Boolean>> filter = new Mock<Filter<bool>>();
+      filter.CallBase = true;
+      filter.Object.FilterChanged += (sender, args) => filterChangedRaised = true;
+
+      filter.Object.Enabled = false;
+
+      Assert.IsFalse(filter.Object.Enabled);
+      Assert.IsTrue(filterChangedRaised);
    }
 
    [TestMethod]
-   public void EnabledTest()
+   public void Enabled_SetFalse_ShowNodeAlwaysReturnsTrue()
    {
-      Filter<Boolean> f = new MockFilterTrue();
+      Mock<Filter<Boolean>> filter = new Mock<Filter<bool>>();
+      filter.CallBase = true;
+      filter.Protected().Setup<Boolean>("ShowNodeInternal", false)
+                        .Returns(false);
+      filter.Protected().Setup<Boolean>("ShowNodeInternal", true)
+                        .Returns(true);
 
-      f.FilterChanged += new EventHandler(f_FilterChanged);
+      Assert.IsTrue(filter.Object.ShowNode(true));
+      Assert.IsFalse(filter.Object.ShowNode(false));
 
-      f.Enabled = false;
-      Assert.IsFalse(f.Enabled, "Setting enabled false should work as expected.");
-      Assert.IsTrue(filterChangedEventFired, "Setting enabled value should fire FilterChanged event. 1");
-      this.filterChangedEventFired = false;
+      filter.Object.Enabled = false;
 
-      Assert.IsTrue(f.ShowNode(true), "Disabled filter should return true for ShowNode(true).");
-      Assert.IsTrue(f.ShowNode(false), "Disabled filter should return true for ShowNode(false).");
-
-      f.Enabled = true;
-      Assert.IsTrue(f.Enabled, "Setting enabled true should work as expected.");
-      Assert.IsTrue(filterChangedEventFired, "Setting enabled value should fire FilterChanged event. 2");
-
-      Assert.IsTrue(f.ShowNode(true), "Enabled filter should return true for ShowNode(true).");
-      Assert.IsFalse(f.ShowNode(false), "Enabled filter should return false for ShowNode(false).");
-   }
-
-   void f_FilterChanged(object sender, EventArgs e)
-   {
-      this.filterChangedEventFired = true;
+      Assert.IsTrue(filter.Object.ShowNode(true));
+      Assert.IsTrue(filter.Object.ShowNode(false));
    }
 
    [TestMethod]
-   public void InvertTest()
+   public void Invert_SetNewValue_RaisesFilterChangedEvent()
    {
-      Filter<Boolean> f = new MockFilterTrue();
-      f.FilterChanged += new EventHandler(f_FilterChanged);
+      Boolean filterChangedRaised = false;
+      Mock<Filter<Boolean>> filter = new Mock<Filter<bool>>();
+      filter.CallBase = true;
+      filter.Object.FilterChanged += (sender, args) => filterChangedRaised = true;
 
-      f.Invert = true;
-      Assert.IsTrue(f.Invert, "Setting invert to true should work as expected.");
-      Assert.IsTrue(this.filterChangedEventFired, "Setting invert should fire FilterChanged event. 1");
-      this.filterChangedEventFired = false;
+      filter.Object.Invert = true;
 
-      Assert.IsFalse(f.ShowNode(true), "Inverted filter should return false for ShowNode(true).");
-      Assert.IsTrue(f.ShowNode(false), "Inverted filter should return true for ShowNode(false).");
+      Assert.IsTrue(filter.Object.Invert);
+      Assert.IsTrue(filterChangedRaised);
+   }
 
-      f.Invert = false;
-      Assert.IsFalse(f.Invert, "Setting invert to false should work as expected.");
-      Assert.IsTrue(this.filterChangedEventFired, "Setting invert should fire FilterChanged event. 2");
+   [TestMethod]
+   public void Invert_SetTrue_InversesShowNode()
+   {
+      Mock<Filter<Boolean>> filter = new Mock<Filter<bool>>();
+      filter.CallBase = true;
+      filter.Protected().Setup<Boolean>("ShowNodeInternal", false)
+                        .Returns(false);
+      filter.Protected().Setup<Boolean>("ShowNodeInternal", true)
+                        .Returns(true);
 
-      Assert.IsTrue(f.ShowNode(true), "Not inverted filter should return true for ShowNode(true).");
-      Assert.IsFalse(f.ShowNode(false), "Not inverted filter should return false for ShowNode(false).");
+      Assert.IsTrue(filter.Object.ShowNode(true));
+      Assert.IsFalse(filter.Object.ShowNode(false));
 
+      filter.Object.Invert = true;
+
+      Assert.IsFalse(filter.Object.ShowNode(true));
+      Assert.IsTrue(filter.Object.ShowNode(false));
    }
 }
 }
