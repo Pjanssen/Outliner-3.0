@@ -7,12 +7,60 @@ using Outliner.NodeSorters;
 using Outliner.Controls.Tree;
 using Outliner.MaxUtils;
 using Moq;
+using Moq.Protected;
+using Outliner.Scene;
 
 namespace Outliner.Tests.NodeSorters
 {
 [TestClass]
 public class NodeSorterTests
 {
+   private IMaxNode CreateMaxNode()
+   {
+      Mock<IMaxNode> node = new Mock<IMaxNode>();
+      node.SetupGet(n => n.IsValid).Returns(true);
+
+      return node.Object;
+   }
+
+   private MaxTreeNode CreateMaxTreeNode()
+   {
+      IMaxNode node = CreateMaxNode();
+      Mock<MaxTreeNode> treeNode = new Mock<MaxTreeNode>(node);
+      treeNode.SetupGet(tn => tn.MaxNode).Returns(node);
+
+      return treeNode.Object;
+   }
+
+   [TestMethod]
+   public void Compare_CallsInternalCompare()
+   {
+      Mock<NodeSorter> sorter = new Mock<NodeSorter>();
+      sorter.CallBase = true;
+
+      MaxTreeNode treeNodeX = CreateMaxTreeNode();
+      MaxTreeNode treeNodeY = CreateMaxTreeNode();
+
+      sorter.Object.Compare(treeNodeX, treeNodeY);
+
+      sorter.Protected().Verify("InternalCompare", Times.Once(), treeNodeX.MaxNode, treeNodeY.MaxNode);
+   }
+
+   [TestMethod]
+   public void SortOrder_Descending_InvertsResult()
+   {
+      Mock<NodeSorter> sorter = new Mock<NodeSorter>();
+      sorter.CallBase = true;
+      sorter.Object.SortOrder = SortOrder.Descending;
+
+      MaxTreeNode treeNodeX = CreateMaxTreeNode();
+      MaxTreeNode treeNodeY = CreateMaxTreeNode();
+
+      int result = sorter.Object.Compare(treeNodeX, treeNodeY);
+
+      sorter.Protected().Verify("InternalCompare", Times.Once(), treeNodeY.MaxNode, treeNodeX.MaxNode);
+   }
+
    [TestMethod]
    public void RequiresSort_NullSorter_ReturnsFalse()
    {

@@ -210,8 +210,9 @@
     <Compile Include="Controls\Tree\TreeViewColorsTest.cs" />
     <Compile Include="Controls\Tree\TreeViewTest.cs" />
     <Compile Include="Filters\NodePropertyFilterTests.cs" />
+    <Compile Include="Filters\FilterCollectionTests.cs" />
     <Compile Include="MaxUtils\NodePropertyTest.cs" />
-    <Compile Include="NodeSorters\NodeSorterHelpersTest.cs" />
+    <Compile Include="NodeSorters\NodeSorterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IEnumerableExtensionsTests.cs" />
     <Compile Include="Scene\INodeWrapperFactoryTests.cs" />

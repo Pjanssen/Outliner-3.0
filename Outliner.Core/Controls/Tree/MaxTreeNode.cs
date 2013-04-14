@@ -8,7 +8,7 @@ namespace Outliner.Controls.Tree
 {
    public class MaxTreeNode : TreeNode
    {
-      public IMaxNode MaxNode { get; private set; }
+      public virtual IMaxNode MaxNode { get; private set; }
 
       public MaxTreeNode(IMaxNode maxNode)
       {

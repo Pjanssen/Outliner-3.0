@@ -35,12 +35,12 @@ public class TreeNode
    /// <summary>
    /// Gets or sets the objec that handles drag &amp; drop operations.
    /// </summary>
-   public IDragDropHandler DragDropHandler { get; set; }
+   public virtual IDragDropHandler DragDropHandler { get; set; }
 
    /// <summary>
    /// Gets or sets a general purpose tag object associated with this TreeNode.
    /// </summary>
-   public Object Tag { get; set; }
+   public virtual Object Tag { get; set; }
 
    /// <summary>
    /// Initializes a new empty instance of the TreeNode class.
