@@ -14,13 +14,16 @@ public class FilterCollection<T> : ICollection<Filter<T>>
 {
    private List<Filter<T>> filters;
 
-   public FilterCollection() : this(null) { }
+   public FilterCollection() 
+   {
+      this.filters = new List<Filter<T>>();
+   }
+
    public FilterCollection(FilterCollection<T> collection)
    {
-      if (collection == null)
-         this.filters = new List<Filter<T>>();
-      else
-         this.filters = collection.filters;
+      Throw.IfArgumentIsNull(collection, "collection");
+
+      this.filters = collection.filters;
    }
 
    public Filter<T> Owner { get; internal set; }
@@ -65,13 +68,13 @@ public class FilterCollection<T> : ICollection<Filter<T>>
 
    public void Add(Filter<T> item)
    {
-      if (item == null)
-         return;
+      Throw.IfArgumentIsNull(item, "item");
 
       if (!this.filters.Contains(item))
+      {
          this.filters.Add(item);
-
-      this.OnFilterAdded(item);
+         this.OnFilterAdded(item);
+      }
    }
 
    public void Clear()
@@ -107,8 +110,7 @@ public class FilterCollection<T> : ICollection<Filter<T>>
 
    public bool Remove(Filter<T> item)
    {
-      if (item == null)
-         return false;
+      Throw.IfArgumentIsNull(item, "item");
 
       if (this.filters.Remove(item))
       {
