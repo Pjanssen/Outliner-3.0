@@ -82,6 +82,13 @@ public abstract class TreeMode
    /// </summary>
    protected abstract void FillTree();
 
+   public void Refresh()
+   {
+      this.Tree.Nodes.Clear();
+      this.treeNodes.Clear();
+
+      this.FillTree();
+   }
 
    #region Start, Stop
    
@@ -90,7 +97,7 @@ public abstract class TreeMode
    /// </summary>
    public virtual void Start()
    {
-      if (Started)
+      if (this.Started)
          return;
 
       this.RegisterSystemNotification(proc_PausePreSystemEvent, SystemNotificationCode.SystemPreNew);
@@ -377,6 +384,13 @@ public abstract class TreeMode
 
    #region AddNode, RemoveNode
 
+   /// <summary>
+   /// Adds the given basenode to the TreeView, creating a new TreeNode under the given parent TreeNodeCollection.
+   /// </summary>
+   /// <remarks>This overload uses the IMaxNodeFactories to create a wrapper for the basenode.</remarks>
+   /// <param name="node">The node to add to the TreeView.</param>
+   /// <param name="parentCol">The TreeNodeCollection to add the new TreeNode to.</param>
+   /// <returns>The newly created TreeNode.</returns>
    public virtual TreeNode AddNode(Object node, TreeNodeCollection parentCol)
    {
       Throw.IfArgumentIsNull(node, "node");
@@ -385,6 +399,12 @@ public abstract class TreeMode
       return this.AddNode(MaxNodeWrapper.Create(node), parentCol);
    }
 
+   /// <summary>
+   /// Adds the given wrapped node to the TreeView, creating a new TreeNode under the given parent TreeNodeCollection.
+   /// </summary>
+   /// <param name="wrapper">The wrapped node to add to the TreeView.</param>
+   /// <param name="parentCol">The TreeNodeCollection to add the new TreeNode to.</param>
+   /// <returns>The newly created TreeNode.</returns>
    public virtual TreeNode AddNode(IMaxNode wrapper, TreeNodeCollection parentCol)
    {
       Throw.IfArgumentIsNull(wrapper, "wrapper");
@@ -404,7 +424,13 @@ public abstract class TreeMode
       return tn;
    }
 
-   public virtual IDragDropHandler CreateDragDropHandler(IMaxNode node)
+   /// <summary>
+   /// Creates a DragDropHandler object for the given IMaxNode
+   /// </summary>
+   /// <param name="node">The IMaxNode to create a DragDropHandler for.</param>
+   /// <remarks>Override this method in subclasses to add custom dragdrop logic to TreeNodes
+   /// created by the TreeMode.</remarks>
+   protected virtual IDragDropHandler CreateDragDropHandler(IMaxNode node)
    {
       return null;
    }
@@ -429,11 +455,19 @@ public abstract class TreeMode
       return this.Tree.Root;
    }
 
+   /// <summary>
+   /// Unregisters the given object and removes the associated TreeNode(s) from TreeView.
+   /// </summary>
+   /// <param name="wrapper">The IMaxNode wrapping the object to remove.</param>
    public virtual void RemoveNode(IMaxNode wrapper)
    {
       this.RemoveNode(wrapper.BaseObject);
    }
 
+   /// <summary>
+   /// Unregisters the given object and removes the associated TreeNode(s) from TreeView.
+   /// </summary>
+   /// <param name="node">The node to remove.</param>
    public virtual void RemoveNode(Object node)
    {
       IEnumerable<TreeNode> tns = this.GetTreeNodes(node);
@@ -550,14 +584,14 @@ public abstract class TreeMode
    protected void NodeRenamed(IntPtr param, IntPtr info)
    {
       Object callParam = MaxUtils.SystemNotifications.GetCallParam(info);
-      Boolean sort = NodeSorterHelpers.RequiresSort(this.Tree.NodeSorter as NodeSorter, NodeProperty.Name);
+      Boolean sort = NodeSorter.RequiresSort(this.Tree.NodeSorter as NodeSorter, NodeProperty.Name);
       this.InvalidateObject(callParam, false, sort);
    }
 
 
    protected virtual void LayerPropertyChanged(IMaxNode layer, NodeProperty property)
    {
-      Boolean sort = NodeSorterHelpers.RequiresSort(this.Tree.NodeSorter as NodeSorter, property);
+      Boolean sort = NodeSorter.RequiresSort(this.Tree.NodeSorter as NodeSorter, property);
       this.InvalidateObject(layer.BaseObject, false, sort);
       foreach (object child in layer.ChildBaseObjects)
       {
@@ -617,25 +651,25 @@ public abstract class TreeMode
 
       public override void NameChanged(ITab<UIntPtr> nodes)
       {
-         Boolean sort = NodeSorterHelpers.RequiresSort(this.NodeSorter, typeof(AlphabeticalSorter));
+         Boolean sort = NodeSorter.RequiresSort(this.NodeSorter, typeof(AlphabeticalSorter));
          this.TreeMode.InvalidateTreeNodes(nodes, sort);
       }
 
       public override void WireColorChanged(ITab<UIntPtr> nodes)
       {
-         Boolean sort = NodeSorterHelpers.RequiresSort(this.NodeSorter, NodeProperty.WireColor);
+         Boolean sort = NodeSorter.RequiresSort(this.NodeSorter, NodeProperty.WireColor);
          this.TreeMode.InvalidateTreeNodes(nodes, sort);
       }
 
       public override void DisplayPropertiesChanged(ITab<UIntPtr> nodes)
       {
-         Boolean sort = NodeSorterHelpers.RequiresSort(this.NodeSorter, NodeProperties.DisplayProperties);
+         Boolean sort = NodeSorter.RequiresSort(this.NodeSorter, NodeProperties.DisplayProperties);
          this.TreeMode.InvalidateTreeNodes(nodes, sort);
       }
 
       public override void RenderPropertiesChanged(ITab<UIntPtr> nodes)
       {
-         Boolean sort = NodeSorterHelpers.RequiresSort(this.NodeSorter, NodeProperties.RenderProperties);
+         Boolean sort = NodeSorter.RequiresSort(this.NodeSorter, NodeProperties.RenderProperties);
          this.TreeMode.InvalidateTreeNodes(nodes, sort);
       }
    }

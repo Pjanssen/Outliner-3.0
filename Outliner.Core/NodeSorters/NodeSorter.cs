@@ -52,7 +52,7 @@ public abstract class NodeSorter : IComparer<TreeNode>
    /// </summary>
    [XmlElement("sortOrder")]
    [DefaultValue(SortOrder.Ascending)]
-   public SortOrder SortOrder
+   public virtual SortOrder SortOrder
    {
       get 
       { 
@@ -72,7 +72,7 @@ public abstract class NodeSorter : IComparer<TreeNode>
    /// </summary>
    [XmlElement("secondarySorter")]
    [Browsable(false)]
-   public NodeSorter SecondarySorter { get; set; }
+   public virtual NodeSorter SecondarySorter { get; set; }
 
 
    /// <summary>
@@ -154,6 +154,39 @@ public abstract class NodeSorter : IComparer<TreeNode>
       }
 
       return hash;
+   }
+
+   /// <summary>
+   /// Tests whether the supplied sorter chain contains a sorter of the supplied 
+   /// type. This can be used to determine whether sorter is required.
+   /// </summary>
+   public static Boolean RequiresSort(NodeSorter sorter, Type sorterType)
+   {
+      Throw.IfArgumentIsNull(sorterType, "sorterType");
+
+      if (sorter == null)
+         return false;
+
+      if (sorter.GetType().Equals(sorterType))
+         return true;
+      else
+         return NodeSorter.RequiresSort(sorter.SecondarySorter, sorterType);
+   }
+
+   /// <summary>
+   /// Tests whether the supplied sorter chain contains a NodePropertySorter
+   /// that sorts using the supplied NodeProperty.
+   /// </summary>
+   public static Boolean RequiresSort(NodeSorter sorter, NodeProperty prop)
+   {
+      if (sorter == null)
+         return false;
+
+      NodePropertySorter propertySorter = sorter as NodePropertySorter;
+      if (propertySorter != null && (propertySorter.Property & prop) != 0)
+         return true;
+      else
+         return NodeSorter.RequiresSort(sorter.SecondarySorter, prop);
    }
 }
 }
