@@ -64,7 +64,8 @@ public static class ContextMenuActions
       if (contextTn != null)
       {
          DeleteCommand cmd = new DeleteCommand(contextNodes);
-         cmd.Execute(true);
+         cmd.Execute();
+         Viewports.Redraw();
       }
    }
 
@@ -86,7 +87,8 @@ public static class ContextMenuActions
       IEnumerable<IMaxNode> nodes = GetChildNodes(contextNodes);
 
       SelectCommand cmd = new SelectCommand(nodes);
-      cmd.Execute(true);
+      cmd.Execute();
+      Viewports.Redraw();
    }
 
    private static IEnumerable<IMaxNode> GetChildNodes(IEnumerable<IMaxNode> nodes)
@@ -182,14 +184,16 @@ public static class ContextMenuActions
    public static void AddSelectionToNewContainer(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
    {
       CreateContainerCommand cmd = new CreateContainerCommand(contextNodes);
-      cmd.Execute(true);
+      cmd.Execute();
+      Viewports.Redraw();
    }
 
    [OutlinerAction]
    public static void AddSelectionToNewGroup(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
    {
       CreateNewGroupCommand cmd = new CreateNewGroupCommand(contextNodes);
-      cmd.Execute(true);
+      cmd.Execute();
+      Viewports.Redraw();
    }
 
    #endregion

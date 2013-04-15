@@ -27,7 +27,7 @@ namespace Outliner.Commands
       /// <summary>
       /// Executes the command in an undo context.
       /// </summary>
-      public virtual void Execute(Boolean redrawViews)
+      public virtual void Execute()
       {
          IHold theHold = MaxInterfaces.Global.TheHold;
          theHold.Begin();
@@ -35,9 +35,6 @@ namespace Outliner.Commands
          this.Do();
 
          theHold.Accept(this.Description);
-
-         if (redrawViews)
-            Viewports.Redraw();
       }
    }
 }

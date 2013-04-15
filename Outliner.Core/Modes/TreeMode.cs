@@ -685,7 +685,8 @@ public abstract class TreeMode
 
       IEnumerable<IMaxNode> selNodes = TreeMode.GetMaxNodes(e.Nodes);
       SelectCommand cmd = new SelectCommand(selNodes);
-      cmd.Execute(true);
+      cmd.Execute();
+      Viewports.Redraw();
 
       this.RegisterSystemNotification(proc_SelectionsetChanged, SystemNotificationCode.SelectionsetChanged);
    }
