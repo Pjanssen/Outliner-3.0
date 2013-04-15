@@ -76,7 +76,7 @@ public class SelectionSetMode : TreeMode
       return tn;
    }
 
-   override public IDragDropHandler CreateDragDropHandler(IMaxNode wrapper)
+   protected override IDragDropHandler CreateDragDropHandler(IMaxNode wrapper)
    {
       if (wrapper is SelectionSetWrapper)
          return new SelectionSetDragDropHandler((SelectionSetWrapper)wrapper);

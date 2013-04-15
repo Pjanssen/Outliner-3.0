@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using Outliner.Controls.Tree;
+using Outliner.MaxUtils;
 using Outliner.Modes;
 using Outliner.Modes.Layer;
 using Outliner.Plugins;
@@ -20,14 +21,14 @@ public static class ContextMenuActions
    public static void AddSelectionToNewLayer(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
    {
       CreateNewLayerCommand createCmd = new CreateNewLayerCommand(contextNodes);
-      createCmd.Execute(false);
+      createCmd.Execute();
    }
 
    [OutlinerAction]
    public static void CreateEmptyLayer(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
    {
       CreateNewLayerCommand createCmd = new CreateNewLayerCommand();
-      createCmd.Execute(false);
+      createCmd.Execute();
 
       MoveCreatedLayer(contextTn, createCmd.CreatedLayer);
    }
@@ -42,7 +43,8 @@ public static class ContextMenuActions
             AddNodesCommand addCmd = new AddNodesCommand( node
                                                         , createdLayer.ToIEnumerable()
                                                         , Resources.Command_AddToLayer);
-            addCmd.Execute(true);
+            addCmd.Execute();
+            Viewports.Redraw();
          }
       }
    }
@@ -78,7 +80,7 @@ public static class ContextMenuActions
          return;
 
       SetCurrentLayerCommand cmd = new SetCurrentLayerCommand(layer);
-      cmd.Execute(false);
+      cmd.Execute();
    }
 
    #endregion
@@ -87,8 +89,7 @@ public static class ContextMenuActions
 
    private static IEnumerable<ILayerWrapper> GetLayers(IEnumerable<IMaxNode> nodes)
    {
-      return nodes.Where(n => n is ILayerWrapper)
-                  .Cast<ILayerWrapper>();
+      return nodes.OfType<ILayerWrapper>();
    }
 
    [OutlinerAction]

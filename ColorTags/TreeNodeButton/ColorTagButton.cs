@@ -176,7 +176,7 @@ public class ColorTagButton : TreeNodeButton
             nodes = TreeMode.GetMaxNode(this.clickedTn).ToIEnumerable();
 
          SetColorTagCommand cmd = new SetColorTagCommand(nodes, tag);
-         cmd.Execute(false);
+         cmd.Execute();
       }
    }
 }

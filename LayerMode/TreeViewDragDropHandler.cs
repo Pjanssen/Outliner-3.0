@@ -7,10 +7,11 @@ using Outliner.Controls.Tree;
 using Outliner.Scene;
 using Outliner.LayerTools;
 using Outliner.Commands;
+using Outliner.MaxUtils;
 
 namespace Outliner.Modes.Layer
 {
-   public class TreeViewDragDropHandler : IDragDropHandler
+   internal class TreeViewDragDropHandler : IDragDropHandler
    {
       public TreeViewDragDropHandler() { }
 
@@ -41,7 +42,8 @@ namespace Outliner.Modes.Layer
          IEnumerable<IMaxNode> draggedNodes = MaxNodeDragDropHandler.GetMaxNodesFromDragData(dragData);
          UnlinkNodesCommand cmd = new UnlinkNodesCommand( draggedNodes.Where(n => n is ILayerWrapper)
                                                         , Resources.Command_UnlinkLayer);
-         cmd.Execute(true);
+         cmd.Execute();
+         Viewports.Redraw();
       }
    }
 }

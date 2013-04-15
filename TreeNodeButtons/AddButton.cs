@@ -13,6 +13,7 @@ using Outliner.Controls.Tree;
 using Outliner.Plugins;
 using System.Globalization;
 using Outliner.Modes;
+using Outliner.MaxUtils;
 
 namespace Outliner.TreeNodeButtons
 {
@@ -66,7 +67,8 @@ public class AddButton : ImageButton
       String description = Resources.Command_AddTo + target.NodeTypeDisplayName;
 
       AddNodesCommand cmd = new AddNodesCommand(target, nodes, description);
-      cmd.Execute(true);
+      cmd.Execute();
+      Viewports.Redraw();
    }
 
 

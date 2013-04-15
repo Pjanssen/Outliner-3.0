@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolyCount", "PolyCount\Poly
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaxscriptFilter", "MaxscriptFilter\MaxscriptFilter.csproj", "{26B9A648-410E-4A8D-BFBF-5A174A603DCB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XRefMode", "XrefMode\XRefMode.csproj", "{65B41F11-8E89-4975-BCEC-C884D890AE61}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,12 +81,16 @@ Global
 		{26B9A648-410E-4A8D-BFBF-5A174A603DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26B9A648-410E-4A8D-BFBF-5A174A603DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26B9A648-410E-4A8D-BFBF-5A174A603DCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65B41F11-8E89-4975-BCEC-C884D890AE61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65B41F11-8E89-4975-BCEC-C884D890AE61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65B41F11-8E89-4975-BCEC-C884D890AE61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65B41F11-8E89-4975-BCEC-C884D890AE61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		BuildVersion_UseGlobalSettings = False
 		BuildVersion_ConfigurationName = Any
+		BuildVersion_UseGlobalSettings = False
 	EndGlobalSection
 EndGlobal

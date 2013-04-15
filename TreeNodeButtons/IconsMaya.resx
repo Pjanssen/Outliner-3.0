@@ -202,4 +202,10 @@
   <data name="xref_light" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Icons_Maya\container_light1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="xref_object_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\icons_maya\xref_object_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="xref_scene_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\icons_maya\xref_scene_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

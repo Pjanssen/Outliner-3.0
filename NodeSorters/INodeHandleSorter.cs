@@ -17,26 +17,17 @@ namespace Outliner.NodeSorters
       public INodeHandleSorter() : base() { }
       public INodeHandleSorter(SortOrder sortOrder) : base(sortOrder) { }
 
-      protected override int InternalCompare(TreeNode x, TreeNode y)
+      protected override int InternalCompare(IMaxNode nodeX, IMaxNode nodeY)
       {
-         if (x == y)
-            return 0;
-
-         IMaxNode nodeX = TreeMode.GetMaxNode(x);
-         if (nodeX == null || !nodeX.IsValid) return 0;
-
-         IMaxNode nodeY = TreeMode.GetMaxNode(y);
-         if (nodeY == null || !nodeY.IsValid) return 0;
-
-         Boolean xIsIINodeWrapper = nodeX is INodeWrapper;
-         Boolean yIsIINodeWrapper = nodeY is INodeWrapper;
-
-         if (!xIsIINodeWrapper)
+         INodeWrapper inodeX = nodeX as INodeWrapper;
+         INodeWrapper inodeY = nodeY as INodeWrapper;
+         
+         if (inodeX == null)
             return -1;
-         else if (!yIsIINodeWrapper)
+         else if (inodeY == null)
             return 1;
          else
-            return (int)(((IINode)nodeX.BaseObject).Handle - ((IINode)nodeY.BaseObject).Handle);
+            return (int)(inodeX.INode.Handle - inodeY.INode.Handle);
       }
    }
 }

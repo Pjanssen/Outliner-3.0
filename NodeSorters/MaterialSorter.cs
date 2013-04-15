@@ -14,21 +14,18 @@ namespace Outliner.NodeSorters
    [LocalizedDisplayName(typeof(Resources), "Sorter_MaterialSorter")]
    public class MaterialSorter : NodeSorter
    {
-      protected override int InternalCompare(TreeNode x, TreeNode y)
+      protected override int InternalCompare(IMaxNode nodeX, IMaxNode nodeY)
       {
-         if (x == y)
+         INodeWrapper inodeX = nodeX as INodeWrapper;
+         if (inodeX == null)
             return 0;
 
-         INodeWrapper nodeX = TreeMode.GetMaxNode(x) as INodeWrapper;
-         if (nodeX == null || !nodeX.IsValid)
+         INodeWrapper inodeY = nodeY as INodeWrapper;
+         if (inodeY == null)
             return 0;
 
-         INodeWrapper nodeY = TreeMode.GetMaxNode(y) as INodeWrapper;
-         if (nodeY == null || !nodeY.IsValid)
-            return 0;
-
-         IMtl materialX = nodeX.INode.Mtl;
-         IMtl materialY = nodeY.INode.Mtl;
+         IMtl materialX = inodeX.INode.Mtl;
+         IMtl materialY = inodeY.INode.Mtl;
 
          if (materialX == materialY)
             return 0;

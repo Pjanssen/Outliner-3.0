@@ -1,4 +1,4 @@
-﻿using System;
+﻿   using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,9 +7,16 @@ using Outliner.Plugins;
 
 namespace Outliner.Scene
 {
+   /// <summary>
+   /// A factory class which creates an IMaxNode for an ILayer or ILayerProperties object.
+   /// </summary>
    [OutlinerPlugin(OutlinerPluginType.Utility)]
    public class ILayerWrapperFactory : IMaxNodeFactory
    {
+      /// <summary>
+      /// Creates an IMaxNode for an ILayer object.
+      /// </summary>
+      /// <param name="baseNode">The 3dsMax node to create an IMaxNode for.</param>
       public IMaxNode CreateMaxNode(object baseNode)
       {
          IILayer ilayer = baseNode as IILayer;
@@ -23,6 +30,9 @@ namespace Outliner.Scene
          return null;
       }
 
+      /// <summary>
+      /// Registers the factory in the Outliner plugin system.
+      /// </summary>
       [OutlinerPluginStart]
       public static void RegisterFactory()
       {

@@ -6,6 +6,7 @@ using WinForms = System.Windows.Forms;
 using Outliner.Scene;
 using Outliner.Commands;
 using Outliner.Controls.Tree;
+using Outliner.MaxUtils;
 
 namespace Outliner.Modes.Hierarchy
 {
@@ -42,7 +43,8 @@ public class TreeViewDragDropHandler : IDragDropHandler
 
       UnlinkNodesCommand cmd = new UnlinkNodesCommand( draggedNodes
                                                      , Resources.Command_Unlink);
-      cmd.Execute(true);
+      cmd.Execute();
+      Viewports.Redraw();
    }
 }
 }

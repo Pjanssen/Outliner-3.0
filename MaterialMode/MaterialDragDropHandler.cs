@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Outliner.Commands;
 using Outliner.Controls.Tree;
+using Outliner.MaxUtils;
 using Outliner.Scene;
 using WinForms = System.Windows.Forms;
 
@@ -41,7 +42,8 @@ namespace Outliner.Modes.MaterialMode
          IEnumerable<IMaxNode> nodes = GetMaxNodesFromDragData(dragData);
          AddNodesCommand cmd = new AddNodesCommand(this.MaxNode, nodes, Resources.Command_AssignMaterial);
          //MoveMaxNodeCommand cmd = new MoveMaxNodeCommand(nodes, this.MaxNode, Resources.Command_AssignMaterial);
-         cmd.Execute(true);
+         cmd.Execute();
+         Viewports.Redraw();
       }
    }
 }

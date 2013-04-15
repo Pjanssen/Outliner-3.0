@@ -9,11 +9,18 @@ using Outliner.Modes.Layer;
 
 namespace Outliner.Scene
 {
+   /// <summary>
+   /// Defines a MaxNodeWrapper for an ILayer object.
+   /// </summary>
    public class ILayerWrapper : MaxNodeWrapper
    {
       private IILayer ilayer;
       private IILayerProperties ilayerProperties;
 
+      /// <summary>
+      /// Initializes a new instance of the ILayerWrapper class.
+      /// </summary>
+      /// <param name="ilayer">The ILayer object to wrap.</param>
       public ILayerWrapper(IILayer ilayer)
       {
          Throw.IfArgumentIsNull(ilayer, "ilayer");
@@ -21,6 +28,10 @@ namespace Outliner.Scene
          this.ilayer = ilayer;
       }
 
+      /// <summary>
+      /// Initializes a new instance of the ILayerWrapper class.
+      /// </summary>
+      /// <param name="ilayerProperties">The ILayerProperties of the ILayer to wrap.</param>
       public ILayerWrapper(IILayerProperties ilayerProperties)
       {
          Throw.IfArgumentIsNull(ilayerProperties, "IILayerProperties");
@@ -28,6 +39,11 @@ namespace Outliner.Scene
          this.ilayerProperties = ilayerProperties;
       }
 
+      /// <summary>
+      /// Initializes a new instance of the ILayerWrapper class.
+      /// </summary>
+      /// <param name="ilayer">The ILayer object to wrap.</param>
+      /// <param name="ilayerProperties">The ILayerProperties of the ILayer to wrap.</param>
       public ILayerWrapper(IILayer ilayer, IILayerProperties ilayerProperties)
       {
          this.ilayer = ilayer;
@@ -93,6 +109,9 @@ namespace Outliner.Scene
 
       #region ILayerWrapper Specific
 
+      /// <summary>
+      /// Gets the wrapped ILayer object.
+      /// </summary>
       public IILayer ILayer
       {
          get 
@@ -115,6 +134,9 @@ namespace Outliner.Scene
             return null;
       }
 
+      /// <summary>
+      /// Gets the ILayerProperties object of the wrapped ILayer object.
+      /// </summary>
       public IILayerProperties ILayerProperties
       {
          get 
@@ -160,6 +182,9 @@ namespace Outliner.Scene
          }
       }
 
+      /// <summary>
+      /// Gets the child layers of this layer.
+      /// </summary>
       public IEnumerable<IILayer> ChildILayers
       {
          get
@@ -168,6 +193,9 @@ namespace Outliner.Scene
          }
       }
 
+      /// <summary>
+      /// Gets the nodes that belong to this layer.
+      /// </summary>
       public IEnumerable<IINode> ChildINodes
       {
          get

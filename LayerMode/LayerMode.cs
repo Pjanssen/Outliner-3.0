@@ -15,10 +15,16 @@ using Outliner.Plugins;
 
 namespace Outliner.Modes.Layer
 {
+/// <summary>
+/// Defines a TreeMode which lists all layers and their objects in the scene.
+/// </summary>
 [OutlinerPlugin(OutlinerPluginType.TreeMode)]
 [LocalizedDisplayName(typeof(Resources), "Mode_DisplayName")]
 public class LayerMode : TreeMode
 {
+   /// <summary>
+   /// Gets or sets whether the contents of a group node should be shown in the TreeView.
+   /// </summary>
    public Boolean ShowGroupContents { get; set; }
 
    protected GlobalDelegates.Delegate5 proc_LayerCreated;
@@ -27,7 +33,10 @@ public class LayerMode : TreeMode
    protected GlobalDelegates.Delegate5 proc_LayerParented;
    protected GlobalDelegates.Delegate5 proc_LayerCurrentChanged;
 
-
+   /// <summary>
+   /// Initializes a new instance of the LayerMode class.
+   /// </summary>
+   /// <param name="tree">The TreeView control to fill.</param>
    public LayerMode(TreeView tree) : base(tree) 
    {
       this.ShowGroupContents = OutlinerGUP.Instance.Settings.GetValue<Boolean>("LayerMode", "ShowGroupContents", true);
@@ -117,7 +126,7 @@ public class LayerMode : TreeMode
       return this.GetFirstTreeNode(layer);
    }
 
-   public override IDragDropHandler CreateDragDropHandler(IMaxNode node)
+   protected override IDragDropHandler CreateDragDropHandler(IMaxNode node)
    {
       if (node is ILayerWrapper)
          return new ILayerDragDropHandler((ILayerWrapper)node);

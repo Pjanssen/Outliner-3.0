@@ -17,17 +17,8 @@ namespace Outliner.NodeSorters
       public SuperClassSorter() : base() { }
       public SuperClassSorter(SortOrder sortOrder) : base(sortOrder) { }
 
-      protected override int InternalCompare(TreeNode x, TreeNode y)
+      protected override int InternalCompare(IMaxNode nodeX, IMaxNode nodeY)
       {
-         if (x == y)
-            return 0;
-
-         IMaxNode nodeX = TreeMode.GetMaxNode(x);
-         if (nodeX == null || !nodeX.IsValid) return 0;
-
-         IMaxNode nodeY = TreeMode.GetMaxNode(y);
-         if (nodeY == null || !nodeY.IsValid) return 0;
-
          return nodeX.SuperClassID.CompareTo(nodeY.SuperClassID);
       }
    }

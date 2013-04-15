@@ -39,7 +39,7 @@ public static class NodeButtonImages
          , {Images.Renderable, CreateImages(Resources.button_render)}
       };
 
-   private static ButtonImages CreateImages(Image image)
+   public static ButtonImages CreateImages(Image image)
    {
       Image disabledImage = CreateDisabledImage(image);
       return new ButtonImages(image, disabledImage,
@@ -47,7 +47,7 @@ public static class NodeButtonImages
                               CreateFilteredImage(disabledImage));
    }
 
-   private static Image CreateDisabledImage(Image image)
+   public static Image CreateDisabledImage(Image image)
    {
       if (image == null)
          throw new ArgumentNullException("image");
@@ -58,7 +58,7 @@ public static class NodeButtonImages
       return img;
    }
 
-   private static Image CreateFilteredImage(Image image)
+   public static Image CreateFilteredImage(Image image)
    {
       if (image == null)
          throw new ArgumentNullException("image");

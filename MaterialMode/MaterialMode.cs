@@ -11,12 +11,19 @@ using Outliner.Scene;
 
 namespace Outliner.Modes.MaterialMode
 {
+/// <summary>
+/// Defines a TreeMode which lists all materials and the objects using them.
+/// </summary>
 [OutlinerPlugin(OutlinerPluginType.TreeMode)]
 [LocalizedDisplayName(typeof(Resources), "Mode_Materials")]
 public class MaterialMode : TreeMode
 {
    private UnassignedMaterialWrapper unassignedMaterialWrapper;
 
+   /// <summary>
+   /// Initializes a new instance of the MaterialMode class.
+   /// </summary>
+   /// <param name="tree">The TreeView control to fill.</param>
    public MaterialMode(TreeView tree) : base(tree) 
    {
       this.unassignedMaterialWrapper = new UnassignedMaterialWrapper();
@@ -105,7 +112,7 @@ public class MaterialMode : TreeMode
    }
 
 
-   public override IDragDropHandler CreateDragDropHandler(IMaxNode node)
+   protected override IDragDropHandler CreateDragDropHandler(IMaxNode node)
    {
       if (node is MaterialWrapper || node is UnassignedMaterialWrapper)
          return new MaterialDragDropHandler(node);

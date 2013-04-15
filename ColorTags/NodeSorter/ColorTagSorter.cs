@@ -19,17 +19,8 @@ namespace Outliner.ColorTags
       public ColorTagSorter() : base() { }
       public ColorTagSorter(SortOrder sortOrder) : base(sortOrder) { }
 
-      protected override int InternalCompare(TreeNode x, TreeNode y)
+      protected override int InternalCompare(IMaxNode nodeX, IMaxNode nodeY)
       {
-         if (x == y)
-            return 0;
-
-         IMaxNode nodeX = TreeMode.GetMaxNode(x);
-         if (nodeX == null || !nodeX.IsValid) return 0;
-
-         IMaxNode nodeY = TreeMode.GetMaxNode(y);
-         if (nodeY == null || !nodeY.IsValid) return 0;
-
          ColorTag tagX = ColorTags.GetTag(nodeX.BaseObject as IAnimatable);
          ColorTag tagY = ColorTags.GetTag(nodeY.BaseObject as IAnimatable);
 

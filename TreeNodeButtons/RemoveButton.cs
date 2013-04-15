@@ -13,6 +13,7 @@ using Outliner.Controls.Tree;
 using Outliner.Plugins;
 using System.Globalization;
 using Outliner.Modes;
+using Outliner.MaxUtils;
 
 namespace Outliner.TreeNodeButtons
 {
@@ -74,7 +75,8 @@ public class RemoveButton : ImageButton
       String description = Resources.Command_RemoveFrom + target.NodeTypeDisplayName;
 
       RemoveNodesCommand cmd = new RemoveNodesCommand(target, nodes, description);
-      cmd.Execute(true);
+      cmd.Execute();
+      Viewports.Redraw();
    }
 
 

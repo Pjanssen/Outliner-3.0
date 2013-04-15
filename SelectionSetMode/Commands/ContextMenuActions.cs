@@ -15,7 +15,7 @@ public static class ContextMenuActions
    public static void AddSelectionToNewSelectionSet(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
    {
       CreateSelectionSetCommand cmd = new CreateSelectionSetCommand(contextNodes);
-      cmd.Execute(false);
+      cmd.Execute();
    }
 }
 }

@@ -19,21 +19,18 @@ public class PolycountSorter : NodeSorter
    public PolycountSorter() : base() { }
    public PolycountSorter(SortOrder sortOrder) : base(sortOrder) { }
 
-   protected override int InternalCompare(TreeNode x, TreeNode y)
+   protected override int InternalCompare(IMaxNode nodeX, IMaxNode nodeY)
    {
-      if (x == y)
+      INodeWrapper inodeX = nodeX as INodeWrapper;
+      if (nodeX == null) 
          return 0;
 
-      INodeWrapper nodeX = TreeMode.GetMaxNode(x) as INodeWrapper;
-      if (nodeX == null || !nodeX.IsValid) 
-         return 0;
-
-      INodeWrapper nodeY = TreeMode.GetMaxNode(y) as INodeWrapper;
+      INodeWrapper inodeY = nodeY as INodeWrapper;
       if (nodeY == null || !nodeY.IsValid) 
          return 0;
 
-      int numFacesX = IINodes.GetPolyCount(nodeX.INode);
-      int numFacesY = IINodes.GetPolyCount(nodeY.INode);
+      int numFacesX = IINodes.GetPolyCount(inodeX.INode);
+      int numFacesY = IINodes.GetPolyCount(inodeY.INode);
 
       return numFacesY.CompareTo(numFacesX);
    }

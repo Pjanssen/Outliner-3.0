@@ -50,20 +50,19 @@ public class SelectionSetDragDropHandler : MaxNodeDragDropHandler
 
       IEnumerable<IMaxNode> combinedNodes = targetSelSet.ChildNodes.Union(draggedMaxNodes);
       ModifySelectionSetCommand cmd = new ModifySelectionSetCommand(targetSelSet, combinedNodes);
-      cmd.Execute(false);
+      cmd.Execute();
 
       if (!ControlHelpers.ShiftPressed)
       {
          IEnumerable<SelectionSetWrapper> selSets = draggedNodes.Select(tn => TreeMode.GetMaxNode(tn.Parent))
-                                                                .Where(n => n is SelectionSetWrapper)
-                                                                .Cast<SelectionSetWrapper>()
+                                                                .OfType<SelectionSetWrapper>()
                                                                 .Where(n => !n.Equals(targetSelSet))
                                                                 .Distinct();
          foreach (SelectionSetWrapper selSet in selSets)
          {
             IEnumerable<IMaxNode> newNodes = selSet.ChildNodes.Except(draggedMaxNodes);
             ModifySelectionSetCommand moveCmd = new ModifySelectionSetCommand(selSet, newNodes);
-            moveCmd.Execute(false);
+            moveCmd.Execute();
          }
       }
    }

@@ -6,6 +6,7 @@ using WinForms = System.Windows.Forms;
 using Outliner.Scene;
 using Outliner.Commands;
 using Outliner.Controls.Tree;
+using Outliner.MaxUtils;
 
 namespace Outliner.Modes.Hierarchy
 {
@@ -38,7 +39,8 @@ public class INodeDragDropHandler : MaxNodeDragDropHandler
       AddNodesCommand cmd = new AddNodesCommand( this.MaxNode
                                                , draggedNodes
                                                , Resources.Command_Link);
-      cmd.Execute(true);
+      cmd.Execute();
+      Viewports.Redraw();
    }
 }
 }

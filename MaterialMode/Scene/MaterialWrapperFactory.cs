@@ -8,9 +8,16 @@ using Outliner.Scene;
 
 namespace Outliner.Scene
 {
+   /// <summary>
+   /// A factory class which creates an IMaxNode for an IMtl object.
+   /// </summary>
    [OutlinerPlugin(OutlinerPluginType.Utility)]
    public class MaterialWrapperFactory : IMaxNodeFactory
    {
+      /// <summary>
+      /// Creates an IMaxNode for an IMtl object.
+      /// </summary>
+      /// <param name="baseNode">The 3dsMax node to create an IMaxNode for.</param>
       public IMaxNode CreateMaxNode(object baseNode)
       {
          IMtl mtl = baseNode as IMtl;
@@ -24,6 +31,9 @@ namespace Outliner.Scene
          return null;
       }
 
+      /// <summary>
+      /// Registers the factory in the Outliner plugin system.
+      /// </summary>
       [OutlinerPluginStart]
       public static void RegisterFactory()
       {

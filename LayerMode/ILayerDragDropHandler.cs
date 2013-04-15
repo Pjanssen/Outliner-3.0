@@ -6,10 +6,11 @@ using WinForms = System.Windows.Forms;
 using Outliner.Scene;
 using Outliner.Commands;
 using Outliner.Controls.Tree;
+using Outliner.MaxUtils;
 
 namespace Outliner.Modes.Layer
 {
-public class ILayerDragDropHandler : MaxNodeDragDropHandler
+internal class ILayerDragDropHandler : MaxNodeDragDropHandler
 {
    private ILayerWrapper layer;
    public ILayerDragDropHandler(ILayerWrapper data)
@@ -43,7 +44,8 @@ public class ILayerDragDropHandler : MaxNodeDragDropHandler
       AddNodesCommand cmd = new AddNodesCommand( this.MaxNode
                                                , draggedNodes
                                                , Resources.Command_AddToLayer);
-      cmd.Execute(true);
+      cmd.Execute();
+      Viewports.Redraw();
    }
 }
 }

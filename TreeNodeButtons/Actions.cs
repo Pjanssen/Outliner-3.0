@@ -37,7 +37,8 @@ namespace Outliner.TreeNodeButtons
             nodes = clickedNode.ToIEnumerable();
 
          ToggleLightCommand cmd = new ToggleLightCommand(contextNodes, !light.UseLight);
-         cmd.Execute(true);
+         cmd.Execute();
+         Viewports.Redraw();
       }
 
       [OutlinerAction]
@@ -48,7 +49,8 @@ namespace Outliner.TreeNodeButtons
             return;
 
          SetViewCameraCommand cmd = new SetViewCameraCommand(clickedNode, Viewports.ActiveView);
-         cmd.Execute(true);
+         cmd.Execute();
+         Viewports.Redraw();
       }
 
 

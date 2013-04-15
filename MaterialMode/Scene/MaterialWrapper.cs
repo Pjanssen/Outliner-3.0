@@ -7,10 +7,17 @@ using Outliner.MaxUtils;
 
 namespace Outliner.Scene
 {
+   /// <summary>
+   /// Defines a MaxNodeWrapper for an IMtl object.
+   /// </summary>
    public class MaterialWrapper : MaxNodeWrapper
    {
       public IMtl Material { get; private set; }
 
+      /// <summary>
+      /// Initializes a new instance of the MaterialWrapper class.
+      /// </summary>
+      /// <param name="material">The IMtl object to wrap.</param>
       public MaterialWrapper(IMtl material)
       {
          Throw.IfArgumentIsNull(material, "material");

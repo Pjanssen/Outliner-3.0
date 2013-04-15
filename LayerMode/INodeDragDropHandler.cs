@@ -8,7 +8,7 @@ using Outliner.Controls.Tree;
 
 namespace Outliner.Modes.Layer
 {
-   public class INodeDragDropHandler : MaxNodeDragDropHandler
+   internal class INodeDragDropHandler : MaxNodeDragDropHandler
    {
       public INodeDragDropHandler(IMaxNode data) : base(data) { }
 
