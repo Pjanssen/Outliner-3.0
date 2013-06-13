@@ -81,7 +81,7 @@ public static class IINodes
    public static IEnumerable<IINode> NodeKeysToINodeList(this ITab<UIntPtr> handles)
    {
       return IINodes.ITabToIEnumerable(handles)
-                          .Select(MaxInterfaces.Global.NodeEventNamespace.GetNodeByKey);
+                    .Select(MaxInterfaces.Global.NodeEventNamespace.GetNodeByKey);
    }
 
 
@@ -94,6 +94,23 @@ public static class IINodes
       
       for (int i = 0; i < tab.Count; i++)
          yield return tab[(IntPtr)i];
+   }
+
+   public static ITab<T> IEnumerableToITab<T>(IEnumerable<T> items)
+   {
+      ITab<T> tab = MaxInterfaces.Global.Tab.Create<T>();
+
+      int tabCount = items.Count();
+      int i = 0;
+      foreach (T item in items)
+      {
+         IntPtr ptr = IntPtr.Zero;
+         System.Runtime.InteropServices.Marshal.StructureToPtr(item, ptr, false);
+         tab.Append(1, ptr, 0);
+         i++;
+      }
+
+      return tab;
    }
 
    /// <summary>

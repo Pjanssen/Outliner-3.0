@@ -19,6 +19,28 @@ public partial class MainControl : MaxCustomControls.MaxUserControl, MaxCustomCo
       MaxCustomControls.MaxCuiBinder.GetInstance().RegisterForNotification(this);
       this.nameFilterTextBox.GotFocus += new EventHandler(nameFilterTextBox_GotFocus);
       this.nameFilterTextBox.LostFocus += new EventHandler(nameFilterTextBox_LostFocus);
+      //this.toolStrip1.Renderer = new Outliner.Controls.ContextMenu.OutlinerToolStripRenderer(OutlinerGUP.Instance.ColorScheme.ContextMenuColorTable);
+      this.toolStrip2.Renderer = new Outliner.Controls.ContextMenu.OutlinerToolStripRenderer(OutlinerGUP.Instance.ColorScheme.ContextMenuColorTable);
+      //this.toolStrip1.Items.Clear();
+      this.toolStrip2.Items.Clear();
+   }
+
+   protected override void OnLoad(EventArgs e)
+   {
+      base.OnLoad(e);
+      //this.toolStrip1.Tag = new Tuple<OutlinerSplitContainer, Outliner.Controls.Tree.TreeView, Outliner.Modes.TreeMode>(this.outlinerSplitContainer1, this.treeView1, OutlinerGUP.Instance.GetActiveTreeMode(this.treeView1));
+      //Outliner.Controls.ContextMenu.StandardContextMenu.FillToolStrip(this.toolStrip1
+      //                                                               , OutlinerGUP.Instance.ColorScheme
+      //                                                               , this.outlinerSplitContainer1
+      //                                                               , this.treeView1
+      //                                                               , OutlinerGUP.Instance.GetActiveTreeMode(this.treeView1));
+
+      this.toolStrip2.Tag = new Tuple<OutlinerSplitContainer, Outliner.Controls.Tree.TreeView, Outliner.Modes.TreeMode>(this.outlinerSplitContainer1, this.treeView2, OutlinerGUP.Instance.GetActiveTreeMode(this.treeView2));
+      Outliner.Controls.ContextMenu.StandardContextMenu.FillToolStrip(this.toolStrip2
+                                                                     , OutlinerGUP.Instance.ColorScheme
+                                                                     , this.outlinerSplitContainer1
+                                                                     , this.treeView2
+                                                                     , OutlinerGUP.Instance.GetActiveTreeMode(this.treeView2));
    }
 
    public TextBox NameFilterTextBox

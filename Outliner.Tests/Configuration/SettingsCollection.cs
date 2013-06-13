@@ -13,7 +13,7 @@ namespace Outliner.Tests.Configuration
    {
       [TestMethod]
       [ExpectedException(typeof(ArgumentNullException))]
-      public void GetKeysCategoryNullTest()
+      public void GetKeys_CategoryNull_ThrowsException()
       {
          SettingsCollection settings = new SettingsCollection();
          settings.GetKeys(null);
@@ -21,7 +21,7 @@ namespace Outliner.Tests.Configuration
 
       [TestMethod]
       [ExpectedException(typeof(ArgumentNullException))]
-      public void GetValueCategoryNullTest()
+      public void GetValue_CategoryNull_ThrowsException()
       {
          SettingsCollection settings = new SettingsCollection();
          settings.GetValue<Boolean>(null, "");
@@ -29,7 +29,7 @@ namespace Outliner.Tests.Configuration
 
       [TestMethod]
       [ExpectedException(typeof(ArgumentNullException))]
-      public void GetValueKeyNullTest()
+      public void GetValue_KeyNull_ThrowsException()
       {
          SettingsCollection settings = new SettingsCollection();
          settings.GetValue<Boolean>("", null);
@@ -37,7 +37,7 @@ namespace Outliner.Tests.Configuration
 
       [TestMethod]
       [ExpectedException(typeof(ArgumentNullException))]
-      public void SetValueCategoryNullTest()
+      public void SetValue_CategoryNull_ThrowsException()
       {
          SettingsCollection settings = new SettingsCollection();
          settings.SetValue<Boolean>(null, "", false);
@@ -45,7 +45,7 @@ namespace Outliner.Tests.Configuration
 
       [TestMethod]
       [ExpectedException(typeof(ArgumentNullException))]
-      public void SetValueKeyNullTest()
+      public void SetValue_KeyNull_ThrowsException()
       {
          SettingsCollection settings = new SettingsCollection();
          settings.SetValue<Boolean>("", null, false);
@@ -53,7 +53,7 @@ namespace Outliner.Tests.Configuration
 
       [TestMethod]
       [ExpectedException(typeof(ArgumentNullException))]
-      public void SetValueValueNullTest()
+      public void SetValue_ValueNull_ThrowsException()
       {
          SettingsCollection settings = new SettingsCollection();
          settings.SetValue<String>("", "", null);
@@ -79,7 +79,6 @@ namespace Outliner.Tests.Configuration
          Assert.AreEqual(true, settings.GetValue<Boolean>(category, key));
       }
 
-
       [TestMethod]
       public void ContainsValueTest()
       {
@@ -96,7 +95,7 @@ namespace Outliner.Tests.Configuration
 
       [TestMethod]
       [ExpectedException(typeof(ArgumentNullException))]
-      public void TryGetValueNullCategoryTest()
+      public void TryGetValue_NullCategory_ThrowsException()
       {
          SettingsCollection settings = new SettingsCollection();
          Boolean outValue;
@@ -105,7 +104,7 @@ namespace Outliner.Tests.Configuration
 
       [TestMethod]
       [ExpectedException(typeof(ArgumentNullException))]
-      public void TryGetValueNullKeyTest()
+      public void TryGetValue_NullKey_ThrowsException()
       {
          SettingsCollection settings = new SettingsCollection();
          Boolean outValue;
@@ -135,7 +134,7 @@ namespace Outliner.Tests.Configuration
 
       [TestMethod]
       [ExpectedException(typeof(ArgumentNullException))]
-      public void RemoveKeyCategoryNullTest()
+      public void RemoveKey_CategoryNull_ThrowsException()
       {
          SettingsCollection settings = new SettingsCollection();
          settings.RemoveKey(null, "");
@@ -143,7 +142,7 @@ namespace Outliner.Tests.Configuration
 
       [TestMethod]
       [ExpectedException(typeof(ArgumentNullException))]
-      public void RemoveKeyKeyNullTest()
+      public void RemoveKey_KeyNull_ThrowsException()
       {
          SettingsCollection settings = new SettingsCollection();
          settings.RemoveKey("", null);

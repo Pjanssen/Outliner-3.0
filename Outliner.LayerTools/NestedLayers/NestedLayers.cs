@@ -415,7 +415,7 @@ public static class NestedLayers
    {
       IEnumerable<SubID> subIDs = Enum.GetValues(typeof(SubID)).Cast<SubID>();
       IEnumerable<BooleanNodeProperty> layerProps = Enum.GetValues(typeof(BooleanNodeProperty))
-                                                  .Cast<BooleanNodeProperty>();
+                                                        .Cast<BooleanNodeProperty>();
 
       IILayerManager layerManager = MaxInterfaces.IILayerManager;
 

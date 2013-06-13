@@ -207,8 +207,10 @@ public class TreeNode
    /// </summary>
    public Boolean IsChildOf(TreeNode parent)
    {
-      return this.Parent != null && (this.Parent.Equals(parent)
-                                     || this.Parent.IsChildOf(parent));
+      return this.parent != null && (this.parent.Equals(parent)
+                                    || this.parent.IsChildOf(parent));
+      //return this.Parent != null && (this.Parent.Equals(parent)
+      //                               || this.Parent.IsChildOf(parent));
    }
 
    /// <summary>

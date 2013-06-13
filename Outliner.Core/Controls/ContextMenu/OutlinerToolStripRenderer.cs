@@ -10,22 +10,22 @@ namespace Outliner.Controls.ContextMenu
 {
 public class OutlinerToolStripRenderer : ToolStripProfessionalRenderer
 {
-   private ContextMenuColorTable outlinerColors;
+   private ContextMenuColorTable colors;
    public OutlinerToolStripRenderer(ContextMenuColorTable colorTable)
       : base(colorTable)
    {
-      this.outlinerColors = colorTable;
+      this.colors = colorTable;
    }
 
    protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e)
    {
-      e.ArrowColor = this.outlinerColors.Arrow;
+      e.ArrowColor = this.colors.Arrow;
       base.OnRenderArrow(e);
    }
 
    protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
    {
-      e.TextColor = this.outlinerColors.Text;
+      e.TextColor = this.colors.Text;
       base.OnRenderItemText(e);
    }
 
@@ -38,6 +38,19 @@ public class OutlinerToolStripRenderer : ToolStripProfessionalRenderer
       rect.Width -= padding.Horizontal;
       rect.Height -= padding.Vertical;
       return rect;
+   }
+
+   protected override void OnRenderToolStripBackground(ToolStripRenderEventArgs e)
+   {
+      using (Brush bgBrush = new SolidBrush(this.colors.ToolStripDropDownBackground))
+      {
+         e.Graphics.FillRectangle(bgBrush, e.AffectedBounds);
+      }
+   }
+
+   protected override void OnRenderToolStripBorder(ToolStripRenderEventArgs e)
+   {
+      //base.OnRenderToolStripBorder(e);
    }
 
    protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)

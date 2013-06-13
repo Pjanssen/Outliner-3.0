@@ -16,12 +16,12 @@ public class RenameCommandTest : MaxIntegrationTest
    [TestMethod]
    public void RenameTest()
    {
-      MaxNodeWrapper node = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
+      IMaxNode node = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
       Assert.IsNotNull(node);
 
       String oldName = node.Name;
       String newName = "Test";
-      RenameCommand cmd = new RenameCommand(new List<MaxNodeWrapper>(1) { node }, newName);
+      RenameCommand cmd = new RenameCommand(node.ToIEnumerable(), newName);
 
       cmd.Redo();
       Assert.AreEqual(newName, node.Name);

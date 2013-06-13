@@ -5,8 +5,6 @@
 * ToggleLightTest use IInterface.CreateLightObject ?
 * Exception handling
 * Updating / Installing
-* Add XmlSerializationHelpers.TryDeserialize?
-* CAT Layers mode?
 
 TREEVIEW
 --------
@@ -49,6 +47,7 @@ TreeModes
 * Layers
 * Materials*
 * Selection Sets*
+* Xref Mode*
 
 Filters
 -------

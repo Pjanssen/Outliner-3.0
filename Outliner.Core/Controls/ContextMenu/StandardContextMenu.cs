@@ -31,10 +31,46 @@ internal static class StandardContextMenu
       strip.Padding = new Padding(3, 2, 1, 1);
       strip.Renderer = new OutlinerToolStripRenderer(colorScheme.ContextMenuColorTable);
 
-      
+      FillToolStrip(strip, colorScheme, container, tree, treeMode);
+
+      return strip;
+   }
+
+   public static void FillToolStrip(ToolStrip strip, OutlinerColorScheme colorScheme, OutlinerSplitContainer container, OutlinerTree::TreeView tree, TreeMode treeMode)
+   {
+      AddPresetButton(strip, tree);
+
+      AddFilterButton(strip, colorScheme, treeMode);
+
+      AddSortButton(strip, treeMode);
+
+      AddWindowButton(strip, container);
+
+      AddOptionsButton(strip);
+
+      foreach (ToolStripItem item in strip.Items)
+      {
+         item.DisplayStyle = ToolStripItemDisplayStyle.Image;
+         item.TextImageRelation = TextImageRelation.ImageAboveText;
+         item.TextAlign = ContentAlignment.BottomCenter;
+         item.ImageScaling = ToolStripItemImageScaling.None;
+
+         if (item is ToolStripDropDownItem)
+         {
+            foreach (ToolStripItem dropDownItem in ((ToolStripDropDownItem)item).DropDownItems)
+            {
+               dropDownItem.ImageScaling = ToolStripItemImageScaling.None;
+            }
+         }
+      }
+   }
+
+   private static void AddPresetButton(ToolStrip strip, OutlinerTree::TreeView tree)
+   {
       ToolStripDropDownButton preset_btn = new ToolStripDropDownButton(ContextMenuResources.Context_Preset);
       OutlinerPreset currentPreset = OutlinerGUP.Instance.GetActivePreset(tree);
       preset_btn.Image = currentPreset.Image24;
+      preset_btn.DropDown.ImageScalingSize = new Size(16, 16);
       preset_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
       IEnumerable<OutlinerPreset> presets = Configurations.GetConfigurations<OutlinerPreset>(OutlinerPaths.PresetsDir);
       foreach (OutlinerPreset preset in presets.Where(p => p.IsDefaultPreset))
@@ -52,17 +88,19 @@ internal static class StandardContextMenu
       strip.Items.Add(preset_btn);
 
       strip.Items.Add(new ToolStripSeparator());
+   }
 
-
-
+   private static void AddFilterButton(ToolStrip strip, OutlinerColorScheme colorScheme, TreeMode treeMode)
+   {
       ToolStripCheckedSplitButton filter_btn = new ToolStripCheckedSplitButton();
-      filter_btn.Text              = ContextMenuResources.Context_Filters;
-      filter_btn.Image             = colorScheme.GetImageFromResource(ContextMenuResources.ResourceManager, "filter_24"); //ContextMenuResources.filter_24;
-      filter_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
-      filter_btn.Checked           = treeMode.Filters.Enabled;
-      filter_btn.ButtonClick      += new EventHandler(filter_btn_ButtonClick);
+      filter_btn.Text = ContextMenuResources.Context_Filters;
+      filter_btn.Image = colorScheme.GetImageFromResource(ContextMenuResources.ResourceManager, "filter_24"); //ContextMenuResources.filter_24;
+      filter_btn.DropDown.ImageScalingSize = new Size(16, 16);
+      //filter_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
+      filter_btn.Checked = treeMode.Filters.Enabled;
+      filter_btn.ButtonClick += new EventHandler(filter_btn_ButtonClick);
       filter_btn.DropDown.Closing += new ToolStripDropDownClosingEventHandler(DropDown_Closing);
-      
+
       ToolStripMenuItem invertBtn = filter_btn.DropDownItems.Add(ContextMenuResources.Context_InvertFilter) as ToolStripMenuItem;
       invertBtn.Checked = treeMode.Filters.Invert;
       invertBtn.Tag = treeMode.Filters;
@@ -74,27 +112,30 @@ internal static class StandardContextMenu
       clearBtn.Click += new EventHandler(clearBtn_Click);
 
       filter_btn.DropDownItems.Add(new ToolStripSeparator());
-      
+
       IEnumerable<FilterConfiguration> filters = Configurations.GetConfigurations<FilterConfiguration>(OutlinerPaths.FiltersDir);
       IEnumerable<FilterConfiguration> classesFilters = filters.Where(f => f.Category == FilterCategory.Classes);
       IEnumerable<FilterConfiguration> propertiesFilters = filters.Where(f => f.Category == FilterCategory.Properties);
       IEnumerable<FilterConfiguration> customFilters = filters.Where(f => f.Category == FilterCategory.Custom);
 
       AddUserFileItems(filter_btn.DropDownItems, treeMode, classesFilters, filter_ItemClick);
-      
+
       if (propertiesFilters.Count() > 0)
          filter_btn.DropDownItems.Add(new ToolStripSeparator());
       AddUserFileItems(filter_btn.DropDownItems, treeMode, propertiesFilters, filter_ItemClick);
-      
+
       if (customFilters.Count() > 0)
          filter_btn.DropDownItems.Add(new ToolStripSeparator());
       AddUserFileItems(filter_btn.DropDownItems, treeMode, customFilters, filter_ItemClick);
 
       strip.Items.Add(filter_btn);
+   }
 
-
+   private static void AddSortButton(ToolStrip strip, TreeMode treeMode)
+   {
       ToolStripDropDownButton sort_btn = new ToolStripDropDownButton(ContextMenuResources.Context_Sorting);
       sort_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
+      sort_btn.DropDown.ImageScalingSize = new Size(16, 16);
       NodeSorters.NodeSorter currentSorter = treeMode.Tree.NodeSorter as NodeSorters.NodeSorter;
       IEnumerable<SorterConfiguration> sorters = Configurations.GetConfigurations<SorterConfiguration>(OutlinerPaths.SortersDir)
                                                                      .Where(s => s.Sorter != null)
@@ -112,8 +153,10 @@ internal static class StandardContextMenu
       strip.Items.Add(sort_btn);
 
       strip.Items.Add(new ToolStripSeparator());
+   }
 
-
+   private static void AddWindowButton(ToolStrip strip, OutlinerSplitContainer container)
+   {
       ToolStripDropDownButton window_btn = new ToolStripDropDownButton(ContextMenuResources.Context_Layout);
       if (container.Panel1Collapsed || container.Panel2Collapsed)
          window_btn.Image = ContextMenuResources.window_24;
@@ -126,12 +169,16 @@ internal static class StandardContextMenu
       window_btn.DropDownItems.Add(ContextMenuResources.Context_WindowSplitHor, ContextMenuResources.window_split_hor, split_hor_btn_Click);
       window_btn.DropDownItems.Add(ContextMenuResources.Context_WindowSplitVer, ContextMenuResources.window_split_ver, split_ver_btn_Click);
       window_btn.DropDownItems.Add(ContextMenuResources.Context_WindowNew, ContextMenuResources.window_new_16, window_new_click);
-      strip.Items.Add(window_btn);
 
+      window_btn.Alignment = ToolStripItemAlignment.Right;
+      strip.Items.Add(window_btn);
+   }
+
+   private static void AddOptionsButton(ToolStrip strip)
+   {
       ToolStripDropDownButton options_btn = new ToolStripDropDownButton(ContextMenuResources.Context_Options);
       options_btn.Image = ContextMenuResources.options_24;
       options_btn.DropDownDirection = ToolStripDropDownDirection.BelowRight;
-      strip.Items.Add(options_btn);
 
       options_btn.DropDownItems.Add(ContextMenuResources.Context_EditContextMenus, null, editContextMenusClick);
       options_btn.DropDownItems.Add(ContextMenuResources.Context_EditFilters, null, editFiltersClick);
@@ -140,16 +187,8 @@ internal static class StandardContextMenu
       options_btn.DropDownItems.Add(ContextMenuResources.Context_EditSorters, null, editSortersClick);
       options_btn.DropDownItems.Add(new ToolStripSeparator());
       options_btn.DropDownItems.Add("About", null, aboutClick);
-
-      foreach (ToolStripItem item in strip.Items)
-      {
-         item.DisplayStyle = ToolStripItemDisplayStyle.Image;
-         item.TextImageRelation = TextImageRelation.ImageAboveText;
-         item.TextAlign = ContentAlignment.BottomCenter;
-         item.ImageScaling = ToolStripItemImageScaling.None;
-      }
-
-      return strip;
+      options_btn.Alignment = ToolStripItemAlignment.Right;
+      strip.Items.Add(options_btn);
    }
 
    
@@ -159,6 +198,7 @@ internal static class StandardContextMenu
    private static ToolStripMenuItem AddDropDownItem(ToolStripItemCollection itemCollection, String text, Image img, EventHandler clickHandler, Object tag)
    {
       ToolStripMenuItem item = new ToolStripMenuItem(text, img, clickHandler);
+      item.ImageScaling = ToolStripItemImageScaling.None;
       item.Tag = tag;
       itemCollection.Add(item);
       return item;

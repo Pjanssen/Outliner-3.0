@@ -7,6 +7,8 @@ using Outliner.MaxUtils;
 using System.Xml.Serialization;
 using System.ComponentModel;
 using System.Reflection;
+using Outliner.Scene;
+using Outliner.Modes;
 
 namespace Outliner.NodeSorters
 {
@@ -85,8 +87,17 @@ public abstract class NodeSorter : IComparer<TreeNode>
       Throw.IfArgumentIsNull(x, "x");
       Throw.IfArgumentIsNull(y, "y");
 
-      int compareResult = this.invert ? this.InternalCompare(y, x) 
-                                      : this.InternalCompare(x, y);
+      if (x == y)
+         return 0;
+
+      IMaxNode nodeX = TreeMode.GetMaxNode(x);
+      if (nodeX == null || !nodeX.IsValid) return 0;
+
+      IMaxNode nodeY = TreeMode.GetMaxNode(y);
+      if (nodeY == null || !nodeY.IsValid) return 0;
+
+      int compareResult = this.invert ? this.InternalCompare(nodeY, nodeX) 
+                                      : this.InternalCompare(nodeX, nodeY);
          
       if (compareResult != 0)
          return compareResult;
@@ -101,7 +112,7 @@ public abstract class NodeSorter : IComparer<TreeNode>
    /// </summary>
    /// <returns>1 if TreeNode x should come before TreeNode y, -1 if TreeNode y should come before TreeNode x.
    /// If the two TreeNodes are equal, 0 will be returned.</returns>
-   protected abstract int InternalCompare(TreeNode x, TreeNode y);
+   protected abstract int InternalCompare(IMaxNode x, IMaxNode y);
 
    
    /// <summary>

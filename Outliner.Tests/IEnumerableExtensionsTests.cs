@@ -19,7 +19,7 @@ namespace Outliner.Tests
       }
 
       [TestMethod]
-      public void ToIEnumerable()
+      public void ToIEnumerable_CreatesSingleItemIEnumerable()
       {
          int x = 42;
          IEnumerable<int> enumerable = x.ToIEnumerable();

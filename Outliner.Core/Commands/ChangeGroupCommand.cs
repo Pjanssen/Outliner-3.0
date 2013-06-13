@@ -20,8 +20,7 @@ public class ChangeGroupCommand : CustomRestoreObjCommand
       Throw.IfArgumentIsNull(nodes, "nodes");
       Throw.IfArgumentIsNull(groupHead, "groupHead");
 
-      this.nodes = nodes.Where(n => n is INodeWrapper)
-                        .Cast<INodeWrapper>()
+      this.nodes = nodes.OfType<INodeWrapper>()
                         .ToList();
       this.groupHead = groupHead;
       this.group = group;

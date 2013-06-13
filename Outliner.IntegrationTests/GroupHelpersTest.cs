@@ -21,12 +21,12 @@ public class GroupHelpersTest : MaxIntegrationTest
 
       foreach (MaxNodeWrapper node in nodes)
       {
-         IINodeWrapper inode = node as IINodeWrapper;
+         INodeWrapper inode = node as INodeWrapper;
          if (inode != null && inode.IsValid)
          {
-            inode.IINode.SetGroupMember(true);
+            inode.INode.SetGroupMember(true);
             if (!nodes.Contains(node.Parent))
-               groupHead.AttachChild(inode.IINode, true);
+               groupHead.AttachChild(inode.INode, true);
          }
       }
 
@@ -38,10 +38,10 @@ public class GroupHelpersTest : MaxIntegrationTest
    {
       Assert.Inconclusive("Fix remoting exception.");
       IINode node = MaxRemoting.CreateBox();
-      IINodeWrapper nodeWrapper = MaxNodeWrapper.Create(node) as IINodeWrapper;
+      INodeWrapper nodeWrapper = MaxNodeWrapper.Create(node) as INodeWrapper;
 
       IINode groupHead = this.GroupNodes(new List<MaxNodeWrapper>(1) { nodeWrapper });
-      IINodeWrapper groupWrapper = MaxNodeWrapper.Create(groupHead) as IINodeWrapper;
+      INodeWrapper groupWrapper = MaxNodeWrapper.Create(groupHead) as INodeWrapper;
 
       Assert.IsNotNull(nodeWrapper);
       Assert.IsTrue(nodeWrapper.IsValid);

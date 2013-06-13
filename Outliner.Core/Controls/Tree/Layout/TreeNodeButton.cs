@@ -35,6 +35,14 @@ public abstract class TreeNodeButton : TreeNodeLayoutItem, IDisposable
       return true;
    }
 
+   protected IEnumerable<TreeNode> GetContextNodes(TreeNode clickedTn)
+   {
+      if (ControlHelpers.ControlPressed || !clickedTn.IsSelected)
+         return clickedTn.ToIEnumerable();
+
+      return this.Layout.TreeView.SelectedNodes;
+   }
+
    public override void HandleMouseEnter(MouseEventArgs e, TreeNode tn)
    {
       if (this.Layout == null || this.Layout.TreeView == null)

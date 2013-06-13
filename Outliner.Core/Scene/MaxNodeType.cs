@@ -44,9 +44,29 @@ public enum MaxNodeType
    TextureMap   = 0x10,
 
    /// <summary>
+   /// Specifies that the node is an xref scene record.
+   /// </summary>
+   XRefSceneRecord = 0x20,
+
+   /// <summary>
+   /// Specifies that the node is an xref object record.
+   /// </summary>
+   XRefObjectRecord = 0x40,
+
+   XRefObject = 0x80,
+
+   XRefMaterial = 0x100,
+
+   XRefController = 0x200,
+
+   XRefRecord = XRefSceneRecord | XRefObjectRecord,
+
+   XRefs = XRefSceneRecord | XRefObjectRecord | XRefObject | XRefMaterial | XRefController,
+
+   /// <summary>
    /// Matches all types.
    /// </summary>
-   All          = Object | Layer | Material | SelectionSet | TextureMap
+   All = Object | Layer | Material | SelectionSet | TextureMap | XRefs
 }
 
 }

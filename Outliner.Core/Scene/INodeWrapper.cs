@@ -482,8 +482,8 @@ namespace Outliner.Scene
                case SClass_ID.WsmObject: return ImgKeySpaceWarp;
             }
 
-            if (superClass == SClass_ID.System && IINodes.IsXref(inode))
-               return ImgKeyXref;
+            //if (superClass == SClass_ID.System && IINodes.IsXref(inode))
+            //   return ImgKeyXref;
 
             if (superClass == SClass_ID.Helper)
             {

@@ -9,50 +9,48 @@ namespace Outliner.IntegrationTests.Commands
 [TestClass]
 public class MoveMaxNodeCommandTest : MaxIntegrationTest
 {
-   [TestMethod]
-   public void LinkIINodeTest()
-   {
-      MaxNodeWrapper nodeA = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
-      MaxNodeWrapper nodeB = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
-      Assert.IsNotNull(nodeA);
-      Assert.IsNotNull(nodeB);
+   //[TestMethod]
+   //public void LinkIINodeTest()
+   //{
+   //   IMaxNode nodeA = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
+   //   IMaxNode nodeB = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
+   //   Assert.IsNotNull(nodeA);
+   //   Assert.IsNotNull(nodeB);
 
-      MaxNodeWrapper nodeAParent = nodeA.Parent;
-      MaxNodeWrapper nodeBParent = nodeB.Parent;
+   //   IMaxNode nodeAParent = nodeA.Parent;
+   //   IMaxNode nodeBParent = nodeB.Parent;
 
-      List<MaxNodeWrapper> nodes = new List<MaxNodeWrapper>(1) { nodeA };
-      MoveMaxNodeCommand cmd = new MoveMaxNodeCommand(nodes, nodeB, "", "");
+   //   MoveMaxNodeCommand cmd = new MoveMaxNodeCommand(nodeA.ToIEnumerable(), nodeB, "", "");
 
-      cmd.Redo();
-      Assert.AreNotEqual(nodeAParent, nodeA.Parent);
-      Assert.AreEqual(nodeB, nodeA.Parent);
-      Assert.AreEqual(nodeBParent, nodeB.Parent);
+   //   cmd.Redo();
+   //   Assert.AreNotEqual(nodeAParent, nodeA.Parent);
+   //   Assert.AreEqual(nodeB, nodeA.Parent);
+   //   Assert.AreEqual(nodeBParent, nodeB.Parent);
 
-      cmd.Restore(true);
-      Assert.AreEqual(nodeAParent, nodeA.Parent);
-      Assert.AreEqual(nodeBParent, nodeB.Parent);
-   }
+   //   cmd.Restore(true);
+   //   Assert.AreEqual(nodeAParent, nodeA.Parent);
+   //   Assert.AreEqual(nodeBParent, nodeB.Parent);
+   //}
 
-   [TestMethod]
-   public void UnlinkIINodeTest()
-   {
-      MaxNodeWrapper nodeA = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
-      MaxNodeWrapper nodeB = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
-      MaxNodeWrapper root  = MaxNodeWrapper.Create(MaxRemoting.SceneRoot);
-      Assert.IsNotNull(nodeA);
-      Assert.IsNotNull(nodeB);
+   //[TestMethod]
+   //public void UnlinkIINodeTest()
+   //{
+   //   IMaxNode nodeA = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
+   //   IMaxNode nodeB = MaxNodeWrapper.Create(MaxRemoting.CreateBox());
+   //   IMaxNode root  = MaxNodeWrapper.Create(MaxRemoting.SceneRoot);
+   //   Assert.IsNotNull(nodeA);
+   //   Assert.IsNotNull(nodeB);
       
-      nodeA.AddChildNode(nodeB);
-      Assert.AreEqual(root, nodeA.Parent);
-      Assert.AreEqual(nodeA, nodeB.Parent);
+   //   nodeA.AddChildNode(nodeB);
+   //   Assert.AreEqual(root, nodeA.Parent);
+   //   Assert.AreEqual(nodeA, nodeB.Parent);
 
-      List<MaxNodeWrapper> nodes = new List<MaxNodeWrapper>(1) { nodeB };
-      MoveMaxNodeCommand cmd = new MoveMaxNodeCommand(nodes, null, "", "");
+   //   MoveMaxNodeCommand cmd = new MoveMaxNodeCommand(nodeB.ToIEnumerable(), null, "", "");
 
-      cmd.Redo();
-      Assert.AreNotEqual(nodeA, nodeB.Parent);
-      Assert.AreEqual(root, nodeA.Parent);
-      Assert.AreEqual(root, nodeB.Parent);
-   }
+   //   cmd.Redo();
+   //   Assert.AreNotEqual(nodeA, nodeB.Parent);
+   //   Assert.AreEqual(root, nodeA.Parent);
+   //   Assert.AreEqual(root, nodeB.Parent);
+   //}
 }
 }

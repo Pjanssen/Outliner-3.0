@@ -65,15 +65,15 @@ public class TreeView : ScrollableControl
          const int WS_BORDER = 0x00800000;
          const int WS_EX_STATICEDGE = 0x00020000;
          CreateParams cp = base.CreateParams;
-         switch (this.BorderStyle)
-         {
-            case BorderStyle.FixedSingle:
-               cp.Style |= WS_BORDER;
-               break;
-            case BorderStyle.Fixed3D:
-               cp.ExStyle |= WS_EX_STATICEDGE;
-               break;
-         }
+         //switch (this.BorderStyle)
+         //{
+         //   case BorderStyle.FixedSingle:
+         //      cp.Style |= WS_BORDER;
+         //      break;
+         //   case BorderStyle.Fixed3D:
+         //      cp.ExStyle |= WS_EX_STATICEDGE;
+         //      break;
+         //}
          return cp;
       }
    }
@@ -306,6 +306,11 @@ public class TreeView : ScrollableControl
       }
    }
 
+   private void DrawBorder(Graphics graphics)
+   {
+      Rectangle r = new Rectangle(-1, 0, this.Width + 1, this.Height);
+      //ControlPaint.DrawBorder(graphics, r, Color.FromArgb(126, 106, 37), ButtonBorderStyle.Solid);
+   }
 
    protected override void OnPaintBackground(PaintEventArgs e)
    {
@@ -319,6 +324,7 @@ public class TreeView : ScrollableControl
          this.brushBackground = new SolidBrush(this.BackColor);
 
       e.Graphics.FillRectangle(this.brushBackground, e.ClipRectangle);
+      this.DrawBorder(e.Graphics);
    }
 
    protected override void OnPaint(PaintEventArgs e)
@@ -351,6 +357,8 @@ public class TreeView : ScrollableControl
          tn = tn.NextVisibleNode;
          curY += itemHeight;
       }
+
+      this.DrawBorder(e.Graphics);
    }
 
    #endregion

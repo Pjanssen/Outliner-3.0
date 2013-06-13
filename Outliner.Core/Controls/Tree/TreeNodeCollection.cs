@@ -68,7 +68,7 @@ public class TreeNodeCollection : ICollection<TreeNode>
 
    private Boolean dependencyLoopTest(TreeNode newItem)
    {
-      return this.owner.IsChildOf(newItem);
+      return this.owner.Equals(newItem) || this.owner.IsChildOf(newItem);
    }
 
    /// <summary>

@@ -29,16 +29,10 @@ namespace Outliner.NodeSorters
       /// <param name="sortOrder">The order to sort by.</param>
       public AlphabeticalSorter(SortOrder sortOrder) : base(NodeProperty.Name, sortOrder) { }
 
-      protected override int InternalCompare(TreeNode x, TreeNode y)
+      protected override int InternalCompare(IMaxNode nodeX, IMaxNode nodeY)
       {
-         if (x == y)
+         if (nodeX == nodeY)
             return 0;
-
-         IMaxNode nodeX = TreeMode.GetMaxNode(x);
-         if (nodeX == null || !nodeX.IsValid) return 0;
-
-         IMaxNode nodeY = TreeMode.GetMaxNode(y);
-         if (nodeY == null || !nodeY.IsValid) return 0;
 
          return NativeMethods.StrCmpLogicalW(nodeX.Name, nodeY.Name);
       }

@@ -299,7 +299,6 @@
     <Compile Include="Filters\FilterChangedEventArgs.cs" />
     <Compile Include="Filters\FilterCombinator.cs" />
     <Compile Include="IEnumerableExtensions.cs" />
-    <Compile Include="NodeSorters\NodeSorterHelpers.cs" />
     <Compile Include="Configuration\FilterCategory.cs" />
     <Compile Include="Configuration\FilterConfiguration.cs" />
     <Compile Include="Filters\FilterImageAttribute.cs" />

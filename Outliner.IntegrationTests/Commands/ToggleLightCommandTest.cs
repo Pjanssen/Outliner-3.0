@@ -22,49 +22,49 @@ public class ToggleLightCommandTest : MaxIntegrationTest
       return inode;
    }
 
-   [TestMethod]
-   public void ToggleLightTest()
-   {
-      IINodeWrapper light = MaxNodeWrapper.Create(this.createLight()) as IINodeWrapper;
-      Assert.IsNotNull(light);
+   //[TestMethod]
+   //public void ToggleLightTest()
+   //{
+   //   INodeWrapper light = MaxNodeWrapper.Create(this.createLight()) as INodeWrapper;
+   //   Assert.IsNotNull(light);
 
-      Boolean useLight = ((ILightObject)light.IINode.ObjectRef).UseLight;
-      List<MaxNodeWrapper> nodes = new List<MaxNodeWrapper>(1) { light };
-      ToggleLightCommand cmd = new ToggleLightCommand(nodes, !useLight);
+   //   Boolean useLight = ((ILightObject)light.INode.ObjectRef).UseLight;
+   //   List<MaxNodeWrapper> nodes = new List<MaxNodeWrapper>(1) { light };
+   //   ToggleLightCommand cmd = new ToggleLightCommand(nodes, !useLight);
 
-      cmd.Redo();
-      Assert.AreEqual(!useLight, ((ILightObject)light.IINode.ObjectRef).UseLight);
+   //   cmd.Redo();
+   //   Assert.AreEqual(!useLight, ((ILightObject)light.INode.ObjectRef).UseLight);
 
-      cmd.Restore(true);
-      Assert.AreEqual(useLight, ((ILightObject)light.IINode.ObjectRef).UseLight);
-   }
+   //   cmd.Restore(true);
+   //   Assert.AreEqual(useLight, ((ILightObject)light.INode.ObjectRef).UseLight);
+   //}
 
 
-   [TestMethod]
-   public void NonLightObjectTest()
-   {
-      IINodeWrapper node = MaxNodeWrapper.Create(MaxRemoting.CreateBox()) as IINodeWrapper;
-      Assert.IsNotNull(node);
+   //[TestMethod]
+   //public void NonLightObjectTest()
+   //{
+   //   INodeWrapper node = MaxNodeWrapper.Create(MaxRemoting.CreateBox()) as INodeWrapper;
+   //   Assert.IsNotNull(node);
 
-      ToggleLightCommand cmd = new ToggleLightCommand(new List<MaxNodeWrapper>(1) { node }, false);
+   //   ToggleLightCommand cmd = new ToggleLightCommand(new List<MaxNodeWrapper>(1) { node }, false);
 
-      try
-      {
-         cmd.Redo();
-      }
-      catch (Exception) 
-      {
-         Assert.Fail("ToggleLightCommand.Do() should not throw exception when using non-light object");
-      }
+   //   try
+   //   {
+   //      cmd.Redo();
+   //   }
+   //   catch (Exception) 
+   //   {
+   //      Assert.Fail("ToggleLightCommand.Do() should not throw exception when using non-light object");
+   //   }
 
-      try
-      {
-         cmd.Restore(true);
-      }
-      catch (Exception)
-      {
-         Assert.Fail("ToggleLightCommand.Undo() should not throw exception when using non-light object");
-      }
-   }
+   //   try
+   //   {
+   //      cmd.Restore(true);
+   //   }
+   //   catch (Exception)
+   //   {
+   //      Assert.Fail("ToggleLightCommand.Undo() should not throw exception when using non-light object");
+   //   }
+   //}
 }
 }
