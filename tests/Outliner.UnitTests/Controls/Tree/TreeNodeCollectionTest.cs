@@ -16,7 +16,7 @@ namespace Outliner.Tests.Controls.Tree
       private TreeNodeCollection CreateCollection()
       {
          Tree = new TreeView();
-         Root = new TreeNode(Tree, "root");
+         Root = new TreeNode("root");
          Tree.Nodes.Add(Root);
 
          return Root.Nodes;

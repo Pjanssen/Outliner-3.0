@@ -9,8 +9,8 @@
     <ProjectGuid>{D60C045D-0975-4647-8637-8DFAA67F9EAF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Outliner.Tests</RootNamespace>
-    <AssemblyName>Outliner.Tests</AssemblyName>
+    <RootNamespace>Outliner.UnitTests</RootNamespace>
+    <AssemblyName>Outliner.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -161,13 +161,21 @@
     <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Outliner.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autodesk.Max">
-      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\Autodesk.Max.dll</HintPath>
+    <Reference Include="Autodesk.Max, Version=15.6.164.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Autodesk.Max.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Autodesk.Max.Remoting">
-      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\Autodesk.Max.Remoting.dll</HintPath>
+    <Reference Include="Autodesk.Max.Remoting, Version=15.6.164.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Autodesk.Max.Remoting.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MaxCustomControls">
@@ -213,6 +221,7 @@
     <Compile Include="Filters\FilterCollectionTests.cs" />
     <Compile Include="MaxUtils\NodePropertyTest.cs" />
     <Compile Include="NodeSorters\NodeSorterTests.cs" />
+    <Compile Include="Plugins\ColorTags\ColorTagsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IEnumerableExtensionsTests.cs" />
     <Compile Include="Scene\INodeWrapperFactoryTests.cs" />
@@ -220,21 +229,27 @@
     <Compile Include="Scene\IMaxNodeExtensionsTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Outliner.MaxUtils\Outliner.MaxUtils.csproj">
+    <ProjectReference Include="..\..\src\Core\Core.csproj">
+      <Project>{aa8562b6-988f-4afe-94eb-bf2fd64be93e}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\MaxUtils\MaxUtils.csproj">
       <Project>{0CA16252-FD2C-4078-819F-C9ABD2735765}</Project>
-      <Name>Outliner.MaxUtils</Name>
+      <Name>MaxUtils</Name>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Outliner.LayerTools\Outliner.LayerTools.csproj">
+    <ProjectReference Include="..\..\src\LayerTools\LayerTools.csproj">
       <Project>{D89AAF44-43BA-48F2-BEEC-852FC3AB4655}</Project>
-      <Name>Outliner.LayerTools</Name>
+      <Name>LayerTools</Name>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Outliner.Core\Outliner.Core.csproj">
-      <Project>{AA8562B6-988F-4AFE-94EB-BF2FD64BE93E}</Project>
-      <Name>Outliner.Core</Name>
-      <Private>True</Private>
+    <ProjectReference Include="..\..\src\Plugins\ColorTags\ColorTags.csproj">
+      <Project>{333498f9-25d2-4844-a81d-19e104201d9d}</Project>
+      <Name>ColorTags</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Outliner.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
