@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<SorterConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>Sorter_ColorTag</text>
+  <image16>color_16</image16>
+  <image24>color_24</image24>
+  <resource_type>Outliner.ColorTags.Resources</resource_type>
+  <sorter xsi:type="ColorTagSorter">
+    <secondarySorter xsi:type="AlphabeticalSorter" />
+  </sorter>
+</SorterConfiguration>

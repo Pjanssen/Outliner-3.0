@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<OutlinerPreset xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>Mode_FlatObjectList</text>
+  <image16>flatobjectlist_mode_16_dark</image16>
+  <image24>flatobjectlist_mode_24_dark</image24>
+  <resource_type>Outliner.Modes.FlatObjectList.Resources</resource_type>
+  <isDefaultPreset>true</isDefaultPreset>
+  <treemode>Outliner.Modes.FlatObjectList.FlatObjectListMode</treemode>
+  <contextmenu>ContextMenu.xml</contextmenu>
+  <treenodelayout>flatlist.xml</treenodelayout>
+  <sorter xsi:type="AlphabeticalSorter" />
+  <filters predicate="Or">
+    <Filters />
+  </filters>
+</OutlinerPreset>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ContextMenu xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Items>
+    <MenuItem xsi:type="MxsMenuItemModel">
+      <text>Context_AddToNewContainer</text>
+      <image16>new_container_16</image16>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+    </MenuItem>
+    <MenuItem xsi:type="MxsMenuItemModel">
+      <text>Context_AddToNewGroup</text>
+      <image16>new_group_16</image16>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+    </MenuItem>
+    <MenuItem xsi:type="MxsMenuItemModel">
+      <text>Context_AddToNewLayer</text>
+      <image16>new_layer_16</image16>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+    </MenuItem>
+    <MenuItem xsi:type="MxsMenuItemModel">
+      <text>Context_AddToSelSet</text>
+      <image16>new_selectionset_16</image16>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+    </MenuItem>
+    <MenuItem xsi:type="SeparatorMenuItemModel" />
+    <MenuItem xsi:type="AddToLayerMenuItems" />
+  </Items>
+</ContextMenu>

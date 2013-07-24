@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7BB68889-764B-4A44-ABA0-C290FB4ECFF1}"
+	ProjectSection(SolutionItems) = preProject
+		BuildAndDeploy.bat = BuildAndDeploy.bat
+		Deploy.bat = Deploy.bat
+		DeployAndInstall.bat = DeployAndInstall.bat
+		full.iss = full.iss
+		functions.iss = functions.iss
+		Install.bat = Install.bat
+		installer.iss = installer.iss
+		regular.iss = regular.iss
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<TreeNodeLayout xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <layout_items>
+    <TreeNodeLayoutItem xsi:type="TreeNodeIndent" />
+    <TreeNodeLayoutItem xsi:type="TreeNodeText" />
+    <TreeNodeLayoutItem xsi:type="EmptySpace" />
+  </layout_items>
+</TreeNodeLayout>

@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<ContextMenu xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Items>
+    <MenuItem xsi:type="ActionMenuItemModel">
+      <text>Context_SelectChildnodes</text>
+      <image16>childnodes_16</image16>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <enabled>SelectionHasChildNodes</enabled>
+      <checked />
+      <onclick>SelectChildNodes</onclick>
+    </MenuItem>
+    <MenuItem xsi:type="ActionMenuItemModel">
+      <text>Context_Rename</text>
+      <image16>rename</image16>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <enabled>RenameEnabled</enabled>
+      <checked />
+      <onclick>Rename</onclick>
+    </MenuItem>
+    <MenuItem xsi:type="ActionMenuItemModel">
+      <text>Context_Delete</text>
+      <image16>delete</image16>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <enabled>SelectionNotEmpty</enabled>
+      <checked />
+      <onclick>Delete</onclick>
+    </MenuItem>
+    <MenuItem xsi:type="SeparatorMenuItemModel" />
+    <MenuItem xsi:type="ActionMenuItemModel">
+      <text>Context_HideSelection</text>
+      <image16>hide</image16>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <enabled>HideEnabled</enabled>
+      <checked />
+      <onclick>Hide</onclick>
+    </MenuItem>
+    <MenuItem xsi:type="ActionMenuItemModel">
+      <text>Context_UnhideSelection</text>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <enabled>UnhideEnabled</enabled>
+      <checked />
+      <onclick>Unhide</onclick>
+    </MenuItem>
+    <MenuItem xsi:type="ActionMenuItemModel">
+      <text>Context_FreezeSelection</text>
+      <image16>freeze</image16>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <enabled>FreezeEnabled</enabled>
+      <checked />
+      <onclick>Freeze</onclick>
+    </MenuItem>
+    <MenuItem xsi:type="ActionMenuItemModel">
+      <text>Context_UnfreezeSelection</text>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <enabled>UnfreezeEnabled</enabled>
+      <checked />
+      <onclick>Unfreeze</onclick>
+    </MenuItem>
+    <MenuItem xsi:type="SeparatorMenuItemModel" />
+    <MenuItem xsi:type="IncludeContextMenuModel">
+      <text>Context_AddSelectionTo</text>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <file>addto.xml</file>
+    </MenuItem>
+    <MenuItem xsi:type="SeparatorMenuItemModel" />
+    <MenuItem xsi:type="IncludeContextMenuModel">
+      <text>Context_DisplaySettings</text>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <file>display_properties.xml</file>
+    </MenuItem>
+    <MenuItem xsi:type="IncludeContextMenuModel">
+      <text>Context_RenderSettings</text>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <file>render_properties.xml</file>
+    </MenuItem>
+    <MenuItem xsi:type="MxsMenuItemModel">
+      <text>Context_ObjectProperties</text>
+      <image16>properties</image16>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <onclickScript>max properties</onclickScript>
+    </MenuItem>
+  </Items>
+</ContextMenu>
