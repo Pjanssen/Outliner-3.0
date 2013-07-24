@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<OutlinerColorScheme xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <treeview>
+    <ForegroundLight value="#DCDCDC" />
+    <ForegroundDark value="#202020" />
+    <Background value="#EEEEEE" />
+    <AltBackground value="#DDDDDD" />
+    <SelectionForeground value="#FFFFFF" />
+    <SelectionBackground value="#75A1C9" />
+    <DropTargetForeground value="#000000" />
+    <DropTargetBackground value="#FFB1B1" />
+    <ParentForeground value="#101010" />
+    <ParentBackground value="#A1C3E1" />
+    <AlternateBackground>true</AlternateBackground>
+  </treeview>
+  <image_suffix>light</image_suffix>
+  <contextmenu>
+     <Text value="#383838" />
+     <Arrow value="#383838" />
+
+     <MenuBorder value="#A2A2A2" />
+     <ToolStripBorder value="#A2A2A2" />
+     <ToolStripDropDownBackground value="#FFFFFF" />
+     <SeparatorLight value="#383838" />
+     <SeparatorDark value="#D2D2D2" />
+
+     <ButtonCheckedHighlight value="#2E3867" />
+     <ButtonCheckedHighlightBorder value="#0056C2" />
+     <ButtonCheckedGradientBegin value="#BCDAF6" />
+     <ButtonCheckedGradientMiddle value="#B1D5F4" />
+     <ButtonCheckedGradientEnd value="#A7D0F3" />
+
+     <ButtonSelectedBorder value="#0056C2" />
+     <ButtonSelectedHighlightBorder value="#2E3867" />
+     <ButtonSelectedGradientBegin value="#BCDAF6" />
+     <ButtonSelectedGradientMiddle value="#B1D5F4" />
+     <ButtonSelectedGradientEnd value="#A7D0F3" />
+
+     <ButtonPressedBorder value="#2E3867" />
+     <ButtonPressedHighlightBorder value="#2E3867" />
+     <ButtonPressedGradientBegin value="#BCDAF6" />
+     <ButtonPressedGradientMiddle value="#B1D5F4"/>
+     <ButtonPressedGradientEnd value="#A7D0F3" />
+
+     <MenuItemBorder value="#2E3867" />
+     <MenuItemPressedGradientBegin value="#BCDAF6" />
+     <MenuItemPressedGradientMiddle value="#B1D5F4"/>
+     <MenuItemPressedGradientEnd value="#A7D0F3" />
+
+     <ImageMarginGradientBegin value="#FFFFFF" />
+     <ImageMarginGradientMiddle value="#FFFFFF" />
+     <ImageMarginGradientEnd value="#FFFFFF" />
+  </contextmenu>
+</OutlinerColorScheme>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<TreeNodeLayout xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <item_height>20</item_height>
+   <fullrow_select>true</fullrow_select>
+   <layout_items>
+      <TreeNodeLayoutItem xsi:type="ExpandButton" use_visual_styles="false" />
+      <TreeNodeLayoutItem xsi:type="NodeIcon" iconSet="Blender" invert="false" />
+      <TreeNodeLayoutItem xsi:type="MayaStyleIndent" />
+      <TreeNodeLayoutItem xsi:type="TreeNodeText" />
+      <TreeNodeLayoutItem xsi:type="EmptySpace" />
+      <TreeNodeLayoutItem xsi:type="HideButton" />
+      <TreeNodeLayoutItem xsi:type="FreezeButton"  PaddingLeft="4"/>
+      <TreeNodeLayoutItem xsi:type="LockTransformsButton" PaddingLeft="4" />
+   </layout_items>
+</TreeNodeLayout>

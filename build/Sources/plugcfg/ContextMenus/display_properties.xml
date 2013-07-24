@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<ContextMenu xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Items>
+    <MenuItem xsi:type="ActionMenuItemModel">
+      <text>Context_ShowInViewport</text>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <visible_types>Layer</visible_types>
+      <enabled />
+      <checked />
+      <onclick />
+    </MenuItem>
+    <MenuItem xsi:type="ActionMenuItemModel">
+      <text>Context_ShowBoundingBox</text>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <visible_types>Layer</visible_types>
+      <enabled />
+      <checked />
+      <onclick />
+    </MenuItem>
+    <MenuItem xsi:type="ActionMenuItemModel">
+      <text>Context_ShowWireframe</text>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <visible_types>Layer</visible_types>
+      <enabled />
+      <checked />
+      <onclick />
+    </MenuItem>
+    <MenuItem xsi:type="ActionMenuItemModel">
+      <text>Context_ShowShaded</text>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <visible_types>Layer</visible_types>
+      <enabled />
+      <checked />
+      <onclick />
+    </MenuItem>
+    <MenuItem xsi:type="SeparatorMenuItemModel">
+      <visible_types>Layer</visible_types>
+    </MenuItem>
+    <MenuItem xsi:type="NodePropertyMenuItemModel">
+      <text>Context_SeeThrough</text>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <property>SeeThrough</property>
+    </MenuItem>
+    <MenuItem xsi:type="NodePropertyMenuItemModel">
+      <text>Context_BackfaceCull</text>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <property>BackfaceCull</property>
+    </MenuItem>
+    <MenuItem xsi:type="NodePropertyMenuItemModel">
+      <text>Context_Boxmode</text>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <property>BoxMode</property>
+    </MenuItem>
+    <MenuItem xsi:type="NodePropertyMenuItemModel">
+      <text>Context_Trajectory</text>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <property>Trajectory</property>
+    </MenuItem>
+    <MenuItem xsi:type="NodePropertyMenuItemModel">
+      <text>Context_FrozenInGray</text>
+      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <property>FrozenInGray</property>
+    </MenuItem>
+  </Items>
+</ContextMenu>

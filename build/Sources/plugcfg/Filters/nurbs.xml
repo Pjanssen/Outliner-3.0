@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<FilterConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>Filter_Nurbs</text>
+  <image16>Img_Nurbs</image16>
+  <resource_type>Outliner.Filters.Resources</resource_type>
+  <FilterCategory>Classes</FilterCategory>
+  <Filter xsi:type="NurbsFilter" />
+</FilterConfiguration>

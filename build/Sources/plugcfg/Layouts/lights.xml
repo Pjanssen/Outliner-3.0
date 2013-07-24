@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<TreeNodeLayout xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <item_height>20</item_height>
+  <fullrow_select>true</fullrow_select>
+  <layout_items>
+    <TreeNodeLayoutItem xsi:type="NodeIcon" padding_left="2" padding_right="2" iconSet="Maya" invert="false" />
+    <TreeNodeLayoutItem xsi:type="TreeNodeText" padding_left="2" />
+    <TreeNodeLayoutItem xsi:type="EmptySpace" />
+  </layout_items>
+</TreeNodeLayout>
