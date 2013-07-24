@@ -2,6 +2,7 @@
 #define AppPublisher "Pier Janssen"
 #define AppURL "http://outliner.pjanssen.nl"
 #define Min3dsMaxVersion 15
+#define SourceDir "..\Build\Sources"
 
 #include "functions.iss"
 
@@ -16,7 +17,7 @@ AppVerName={#AppName} {#AppVersion}
 AppPublisher={#AppPublisher}
 AppPublisherURL={#AppURL}
 AppContact=pier@pjanssen.nl
-AppCopyright=Copyright (C) Pier Janssen 2012
+AppCopyright=Copyright (C) Pier Janssen 2013
 CreateAppDir=no
 OutputBaseFilename=OutlinerSetup
 Compression=lzma
@@ -37,7 +38,7 @@ SelectMaxVersionTitle=Select 3dsMax version
 SelectMaxVersionDescription=Select the 3dsMax version you want to install the {#AppName} for, then click Next.
 
 [Files]
-Source: "Deployment\assemblies\*"; DestDir: "{code:GetSelectedAssemblyDir}"; Flags: ignoreversion;
+Source: "{#SourceDir}\assemblies\*"; DestDir: "{code:GetSelectedAssemblyDir}"; Flags: ignoreversion;
 
 [Code]
 var
