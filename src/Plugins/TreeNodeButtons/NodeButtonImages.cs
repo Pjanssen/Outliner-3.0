@@ -13,13 +13,14 @@ public static class NodeButtonImages
 {
    public enum Images
    {
+      Add,
+      BoxMode,
       Hide,
       Freeze,
-      Add,
-      Remove,
       Layer,
-      BoxMode,
-      Renderable
+      LockTransform,
+      Remove,
+      Renderable,
    }
 
    internal static ButtonImages GetButtonImages(Images image)
@@ -30,21 +31,28 @@ public static class NodeButtonImages
    private static Dictionary<Images, ButtonImages> images =
       new Dictionary<Images, ButtonImages>()
       {
-           {Images.Hide, CreateImages(Resources.button_hide)}
-         , {Images.Freeze, CreateImages(Resources.button_freeze)}
-         , {Images.Add, CreateImages(Resources.button_add)}
-         , {Images.Remove, CreateImages(Resources.button_remove)}
-         , {Images.Layer, CreateImages(Resources.button_layer)}
-         , {Images.BoxMode, CreateImages(Resources.button_boxmode)}
-         , {Images.Renderable, CreateImages(Resources.button_render)}
+           { Images.Add, CreateImages(Resources.button_add)}
+         , { Images.BoxMode, CreateImages(Resources.button_boxmode)}
+         , { Images.Freeze, CreateImages(Resources.button_freeze)}
+         , { Images.Hide, CreateImages(Resources.button_hide)}
+         , { Images.Layer, CreateImages(Resources.button_layer)}
+         , { Images.LockTransform, CreateImages(Resources.button_lock)}
+         , { Images.Remove, CreateImages(Resources.button_remove)}
+         , { Images.Renderable, CreateImages(Resources.button_render)}
       };
 
-   public static ButtonImages CreateImages(Image image)
+   public static ButtonImages CreateImages(Image enabledImage)
    {
-      Image disabledImage = CreateDisabledImage(image);
-      return new ButtonImages(image, disabledImage,
-                              CreateFilteredImage(image),
-                              CreateFilteredImage(disabledImage));
+      Image disabledImage = CreateDisabledImage(enabledImage);
+      return CreateImages(enabledImage, disabledImage);
+   }
+
+   public static ButtonImages CreateImages(Image enabledImage, Image disabledImage)
+   {
+      return new ButtonImages( enabledImage
+                             , disabledImage
+                             , CreateFilteredImage(enabledImage)
+                             , CreateFilteredImage(disabledImage));
    }
 
    public static Image CreateDisabledImage(Image image)

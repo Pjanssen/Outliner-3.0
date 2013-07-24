@@ -32,19 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autodesk.Max">
-      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\Autodesk.Max.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="MaxCustomControls">
-      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\MaxCustomControls.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Outliner.Core">
-      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\Outliner.Core.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Outliner.MaxUtils">
-      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\Outliner.MaxUtils.dll</HintPath>
+      <HintPath>..\..\..\lib\Autodesk.Max.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -56,10 +44,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UiViewModels">
-      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\UiViewModels.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GroupDragDropHandler.cs" />
@@ -88,9 +72,14 @@
     <EmbeddedResource Include="Resources\hierarchy_mode_24_dark.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PolyCount\PolyCount.csproj">
-      <Project>{2644f454-7d80-4339-8221-7dd5b9213466}</Project>
-      <Name>PolyCount</Name>
+    <ProjectReference Include="..\..\Core\Core.csproj">
+      <Project>{aa8562b6-988f-4afe-94eb-bf2fd64be93e}</Project>
+      <Name>Core</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MaxUtils\MaxUtils.csproj">
+      <Project>{0ca16252-fd2c-4078-819f-c9abd2735765}</Project>
+      <Name>MaxUtils</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\TreeNodeButtons\TreeNodeButtons.csproj">
@@ -100,21 +89,8 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>IF NOT '%25ISCMDLINEBUILD%25'=='TRUE' copy "$(TargetPath)" "C:\Users\Pier\AppData\Local\Autodesk\3dsMax\2013 - 64bit\ENU\en-US\plugcfg\Outliner\Plugins\$(TargetFileName)"</PostBuildEvent>
-  </PropertyGroup>
-  <ProjectExtensions>
-    <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="True" />
-    </VisualStudio>
-  </ProjectExtensions>
-  <Import Project="..\..\Outliner.Installer\BuildTasks.target" />
+  <Import Project="$(SolutionDir)Build\BuildTasks.target" />
   <Target Name="AfterBuild">
-    <CallTarget Targets="DeployOutput" />
+    <CallTarget Targets="OutlinerDeployPluginAssembly" />
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  -->
 </Project>

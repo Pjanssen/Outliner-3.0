@@ -95,8 +95,7 @@ public static class ColorTags
    /// </summary>
    public static ColorTag GetTag(IAnimatable node)
    {
-      if (node == null)
-         return ColorTag.None;
+      Throw.IfArgumentIsNull(node, "node");
 
       IAnimatable targetNode = node;
 
@@ -160,13 +159,12 @@ public static class ColorTags
    }
 
    /// <summary>
-   /// Sets the tag index on the supplied node.
+   /// Sets a color tag on the supplied node.
    /// </summary>
    public static void SetTag(IAnimatable node, ColorTag tag)
    {
-      if (node == null)
-         throw new ArgumentNullException("node");
-
+      Throw.IfArgumentIsNull(node, "node");
+      
       node.RemoveAppDataChunk(ColorTags.classID, SClass_ID.Utility, 0);
 
       if (tag != ColorTag.None)
@@ -175,7 +173,8 @@ public static class ColorTags
          node.AddAppDataChunk(ColorTags.classID, SClass_ID.Utility, 0, data);
       }
 
-      MaxInterfaces.Global.BroadcastNotification(ColorTags.TagChanged, node);
+      if (MaxInterfaces.Global != null)
+         MaxInterfaces.Global.BroadcastNotification(ColorTags.TagChanged, node);
 
       //Broadcast changed notification for all layer nodes.
       IILayer layer = node as IILayer;
@@ -193,7 +192,8 @@ public static class ColorTags
 
             foreach (IINode layerNode in nodes.ToIEnumerable())
             {
-               MaxInterfaces.Global.BroadcastNotification(ColorTags.TagChanged, layerNode);
+               if (MaxInterfaces.Global != null)
+                  MaxInterfaces.Global.BroadcastNotification(ColorTags.TagChanged, layerNode);
             }
          }
       }
@@ -204,8 +204,7 @@ public static class ColorTags
    /// </summary>
    public static void RemoveTag(IAnimatable node)
    {
-      if (node == null)
-         throw new ArgumentNullException("node");
+      Throw.IfArgumentIsNull(node, "node");
 
       node.RemoveAppDataChunk(ColorTags.classID, SClass_ID.Utility, 0);
 

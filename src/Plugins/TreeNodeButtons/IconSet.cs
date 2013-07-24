@@ -13,6 +13,7 @@ namespace Outliner.TreeNodeButtons
 {
 public enum IconSet
 {
+   Blender,
    Max,
    Maya
 }
@@ -22,7 +23,9 @@ public static class IconHelperMethods
    public static ResourceSet GetIconResSet(IconSet iconSet)
    {
       ResourceManager res = null;
-      if (iconSet == IconSet.Max)
+      if (iconSet == IconSet.Blender)
+         res = IconsBlender.ResourceManager;
+      else if (iconSet == IconSet.Max)
          res = IconsMax.ResourceManager;
       else if (iconSet == IconSet.Maya)
          res = IconsMaya.ResourceManager;
