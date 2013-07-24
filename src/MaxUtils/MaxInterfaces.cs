@@ -35,10 +35,17 @@ public static class MaxInterfaces
          #if DEBUG
          if (global == null)
          {
-            IManager manager = Activator.GetObject( typeof(RManager)
-                                                  , "tcp://localhost:9998/Manager") as IManager;
-            if (manager != null)
-               global = manager.Global;
+            try
+            {
+               IManager manager = Activator.GetObject( typeof(RManager)
+                                                     , "tcp://localhost:9998/Manager") as IManager;
+               if (manager != null)
+                  global = manager.Global;
+            }
+            catch (System.Net.Sockets.SocketException)
+            {
+               //Remoting is disabled or unavailable for some other reason.
+            }
          }
          #endif
 
