@@ -151,9 +151,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Outliner.Core\Outliner.Core.csproj">
+    <ProjectReference Include="..\src\Core\Core.csproj">
       <Project>{AA8562B6-988F-4AFE-94EB-BF2FD64BE93E}</Project>
-      <Name>Outliner.Core</Name>
+      <Name>Core</Name>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
