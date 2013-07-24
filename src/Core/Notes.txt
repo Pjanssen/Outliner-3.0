@@ -5,6 +5,9 @@
 * ToggleLightTest use IInterface.CreateLightObject ?
 * Exception handling
 * Updating / Installing
+* NameFilter complete matches only
+* Visible Layers filter
+* Remove "ShowForNonMaxNodes" from TreeNodeLayoutItem
 
 TREEVIEW
 --------
@@ -14,6 +17,7 @@ NODE BUTTONS
 ------------
 * Add filter code to click handlers.
 * Larger Add button?
+* Toggle Selectable button?
 
 
 

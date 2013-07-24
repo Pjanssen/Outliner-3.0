@@ -528,6 +528,38 @@ namespace Outliner.Scene
       #endregion
 
 
+      #region Transforms
+
+      public Boolean AllTransformsLocked
+      {
+         get
+         {
+            return INode.GetTransformLock(0, 0)
+                && INode.GetTransformLock(0, 1)
+                && INode.GetTransformLock(0, 2)
+                && INode.GetTransformLock(1, 0)
+                && INode.GetTransformLock(1, 1)
+                && INode.GetTransformLock(1, 2)
+                && INode.GetTransformLock(2, 0)
+                && INode.GetTransformLock(2, 1)
+                && INode.GetTransformLock(2, 2);
+         }
+         set
+         {
+            INode.SetTransformLock(0, 0, value);
+            INode.SetTransformLock(0, 1, value);
+            INode.SetTransformLock(0, 2, value);
+            INode.SetTransformLock(1, 0, value);
+            INode.SetTransformLock(1, 1, value);
+            INode.SetTransformLock(1, 2, value);
+            INode.SetTransformLock(2, 0, value);
+            INode.SetTransformLock(2, 1, value);
+            INode.SetTransformLock(2, 2, value);
+         }
+      }
+
+      #endregion
+
       public override string ToString()
       {
          return String.Format("INodeWrapper ({0})", this.Name);

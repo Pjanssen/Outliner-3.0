@@ -40,6 +40,7 @@ public class OpenOutliner : CuiDockableContentAdapter
    public override Type ContentType
    {
       get { return typeof(WindowsFormsHost); }
+      //get { return typeof(UserControl1); }
    }
 
    public override string WindowTitle
@@ -66,18 +67,20 @@ public class OpenOutliner : CuiDockableContentAdapter
 
    public override object CreateDockableContent()
    {
+      //return new UserControl1();
+
       WindowsFormsHost host = new WindowsFormsHost();
       host.Loaded += new System.Windows.RoutedEventHandler(host_Loaded);
       host.Unloaded += new System.Windows.RoutedEventHandler(host_Unloaded);
       //host.MinWidth = 200;
       //host.MinHeight = 200;
       //host.Width = host.Height = 200;
-      
+
 
       OutlinerGUP outlinerInstance = OutlinerGUP.Instance;
       if (!outlinerInstance.SettingsLoaded)
       {
-         WinForms::MessageBox.Show( OutlinerResources.Warning_SettingsNotLoaded
+         WinForms::MessageBox.Show(OutlinerResources.Warning_SettingsNotLoaded
                                   , OutlinerResources.Warning_SettingsNotLoaded_Title
                                   , WinForms.MessageBoxButtons.OK
                                   , WinForms.MessageBoxIcon.Error
@@ -95,16 +98,16 @@ public class OpenOutliner : CuiDockableContentAdapter
       this.splitContainer = mainControl.outlinerSplitContainer1;
       this.tree1 = mainControl.TreeView1;
       this.tree2 = mainControl.TreeView2;
-      
+
       OutlinerState outlinerState = outlinerInstance.State;
 
       this.tree1.Colors = outlinerInstance.ColorScheme.TreeViewColorScheme;
       this.tree2.Colors = outlinerInstance.ColorScheme.TreeViewColorScheme;
 
-      this.splitContainer.Orientation      = outlinerState.SplitterOrientation;
+      this.splitContainer.Orientation = outlinerState.SplitterOrientation;
       this.splitContainer.SplitterDistance = outlinerState.SplitterDistance;
-      this.splitContainer.Panel1Collapsed  = outlinerState.Panel1Collapsed;
-      this.splitContainer.Panel2Collapsed  = outlinerState.Panel2Collapsed;
+      this.splitContainer.Panel1Collapsed = outlinerState.Panel1Collapsed;
+      this.splitContainer.Panel2Collapsed = outlinerState.Panel2Collapsed;
 
       TreeMode mode1 = outlinerInstance.SwitchPreset(tree1, outlinerState.Tree1Preset, false);
       TreeMode mode2 = outlinerInstance.SwitchPreset(tree2, outlinerState.Tree2Preset, false);
@@ -113,7 +116,7 @@ public class OpenOutliner : CuiDockableContentAdapter
       mode2.Filters = outlinerState.Tree2Filters;
 
       mainControl.NameFilterBindingSource.DataSource = outlinerInstance.CommonNameFilter;
-      
+
       this.splitContainer.PanelCollapsedChanged += panelCollapsedChanged;
 
       host.Child = mainControl;
