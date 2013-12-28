@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Outliner.MaxUtils
 {
-   public class ListenerLogger : TextLogger
+   public class MaxscriptListenerLogger : TextLogger
    {
       private const int InfoStyle = 0;
       private const int DebugStyle = 1;
@@ -15,11 +15,11 @@ namespace Outliner.MaxUtils
 
       private IListener listener;
 
-      public ListenerLogger(string toolName)
+      public MaxscriptListenerLogger(string toolName)
          : this(toolName, LogTypes.All)
       { }
 
-      public ListenerLogger(string toolName, LogTypes enabledTypes) 
+      public MaxscriptListenerLogger(string toolName, LogTypes enabledTypes) 
          : base(enabledTypes) 
       {
          this.listener = MaxInterfaces.Global.TheListener;

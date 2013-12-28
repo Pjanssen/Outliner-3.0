@@ -116,7 +116,7 @@
   <ItemGroup>
     <Compile Include="ClassIDs.cs" />
     <Compile Include="Colors.cs" />
-    <Compile Include="ListenerLogger.cs" />
+    <Compile Include="MaxscriptListenerLogger.cs" />
     <Compile Include="Maxscript.cs" />
     <Compile Include="Functor.cs" />
     <Compile Include="SystemNotifications.cs" />
