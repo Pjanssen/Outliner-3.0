@@ -3,7 +3,8 @@
   <!--<Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />-->
    
    <PropertyGroup>
-      <BuildDir>$(SolutionDir)Build\</BuildDir>
+     <LibDir>$(SolutionDir)lib\</LibDir>
+     <BuildDir>$(SolutionDir)Build\</BuildDir>
    </PropertyGroup>
 
    <Target Name="IncrementVersion">
@@ -24,7 +25,8 @@
 
   <Target Name="OutlinerDeployCoreAssembly">
      <Message Text="Deploying $(TargetFileName)" />
-     <Copy SourceFiles="$(OutDir)$(TargetFileName)" DestinationFolder="$(BuildDir)Sources\assemblies" />
+    <Copy SourceFiles="$(LibDir)Pjanssen.dll" DestinationFolder="$(BuildDir)Sources\assemblies" />
+    <Copy SourceFiles="$(OutDir)$(TargetFileName)" DestinationFolder="$(BuildDir)Sources\assemblies" />
   </Target>
 
    <Target Name="OutlinerDeployPluginAssembly">
