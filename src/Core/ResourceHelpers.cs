@@ -5,6 +5,7 @@ using System.Text;
 using System.Reflection;
 using System.Drawing;
 using Outliner.MaxUtils;
+using PJanssen;
 
 namespace Outliner
 {
@@ -18,8 +19,8 @@ public static class ResourceHelpers
    /// </summary>
    public static Object LookupObject(Type resourceManagerProvider, String resourceKey)
    {
-      Throw.IfArgumentIsNull(resourceManagerProvider, "resourceManagerProvider");
-      Throw.IfArgumentIsNull(resourceKey, "resourceKey");
+      Throw.IfNull(resourceManagerProvider, "resourceManagerProvider");
+      Throw.IfNull(resourceKey, "resourceKey");
 
       PropertyInfo property = resourceManagerProvider.GetProperty(resourceKey, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
       if (property != null)

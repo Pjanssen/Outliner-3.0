@@ -17,7 +17,7 @@ namespace Outliner.Modes.XRefMode.Commands
 
       public SetXRefSceneFlagsCommand(IEnumerable<IMaxNode> nodes, XRefSceneFlags flags, Boolean value)
       {
-         Throw.IfArgumentIsNull(nodes, "nodes");
+         Throw.IfNull(nodes, "nodes");
 
          this.xrefScenes = nodes.OfType<XRefSceneRecord>()
                                 .ToList();

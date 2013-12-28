@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
 using Outliner.MaxUtils;
+using PJanssen;
 
 namespace Outliner.Controls.ContextMenu
 {
@@ -14,7 +15,7 @@ class OutlinerContextMenu : ToolStripDropDown
 
    public OutlinerContextMenu(ContextMenuStrip menu)
    {
-      Throw.IfArgumentIsNull(menu, "menu");
+      Throw.IfNull(menu, "menu");
 
       this.menu = menu;
    }

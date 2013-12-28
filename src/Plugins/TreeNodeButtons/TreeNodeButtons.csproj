@@ -49,6 +49,8 @@
   <ItemGroup>
     <Compile Include="Actions.cs" />
     <Compile Include="AddButton.cs" />
+    <Compile Include="ColorButton.cs" />
+    <Compile Include="LightColorButton.cs" />
     <Compile Include="IconsBlender.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

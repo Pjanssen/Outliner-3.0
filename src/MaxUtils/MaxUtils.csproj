@@ -99,6 +99,10 @@
       <HintPath>..\..\lib\Autodesk.Max.Remoting.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="PJanssen, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\PJanssen.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -112,8 +116,8 @@
   <ItemGroup>
     <Compile Include="ClassIDs.cs" />
     <Compile Include="Colors.cs" />
+    <Compile Include="ListenerLogger.cs" />
     <Compile Include="Maxscript.cs" />
-    <Compile Include="Throw.cs" />
     <Compile Include="Functor.cs" />
     <Compile Include="SystemNotifications.cs" />
     <Compile Include="IINodes.cs" />
@@ -130,7 +134,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"$(SolutionDir)../TransformXmlDoc/Deployment/TransformXmlDoc.exe" "$(TargetDir)$(ProjectName).xml" "$(TargetDir)$(ProjectName).Transformed.xml"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)Build\BuildTasks.target" />
   <Target Name="AfterBuild">

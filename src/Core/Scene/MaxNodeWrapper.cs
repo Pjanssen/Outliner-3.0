@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using Outliner.MaxUtils;
+using PJanssen;
 
 namespace Outliner.Scene
 {
@@ -262,7 +263,7 @@ namespace Outliner.Scene
       /// </summary>
       public static void RegisterMaxNodeFactory(IMaxNodeFactory factory)
       {
-         Throw.IfArgumentIsNull(factory, "factory");
+         Throw.IfNull(factory, "factory");
 
          if (maxNodeFactories == null)
             maxNodeFactories = new List<IMaxNodeFactory>();
@@ -277,7 +278,7 @@ namespace Outliner.Scene
       /// <exception cref="NotSupportedException" />
       public static IMaxNode Create(object baseNode)
       {
-         Throw.IfArgumentIsNull(baseNode, "baseNode");
+         Throw.IfNull(baseNode, "baseNode");
 
          if (Factories != null)
          {

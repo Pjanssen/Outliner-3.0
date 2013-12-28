@@ -5,6 +5,7 @@ using System.Text;
 using Outliner.Scene;
 using Outliner.MaxUtils;
 using Autodesk.Max;
+using PJanssen;
 
 namespace Outliner.Commands
 {
@@ -22,7 +23,7 @@ public class CreateNewGroupCommand : Command
    /// <param name="nodes">The nodes to add to the created group.</param>
    public CreateNewGroupCommand(IEnumerable<IMaxNode> nodes)
    {
-      Throw.IfArgumentIsNull(nodes, "nodes");
+      Throw.IfNull(nodes, "nodes");
 
       this.nodes = nodes.ToList();
    }

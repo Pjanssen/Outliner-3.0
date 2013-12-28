@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using Autodesk.Max.Plugins;
+using PJanssen;
 
 namespace Outliner.LayerTools
 {
@@ -16,7 +17,7 @@ namespace Outliner.LayerTools
 
       public SetLayerParentRestoreObj(IILayer layer, IILayer parent, Boolean updateProperties)
       {
-         Throw.IfArgumentIsNull(layer, "layer");
+         Throw.IfNull(layer, "layer");
 
          this.layer = layer;
          this.parent = parent;

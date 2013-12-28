@@ -12,6 +12,7 @@ using System.ComponentModel;
 using Outliner.Scene;
 using Outliner.Configuration;
 using Outliner.Modes;
+using PJanssen;
 
 namespace Outliner.Controls.ContextMenu
 {
@@ -92,7 +93,7 @@ public abstract class MenuItemModel : ConfigurationFile
                                     , Outliner.Controls.Tree.TreeView treeView
                                     , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      Throw.IfArgumentIsNull(treeView, "treeView");
+      Throw.IfNull(treeView, "treeView");
 
       IEnumerable<IMaxNode> context = TreeMode.GetMaxNodes(treeView.SelectedNodes);
 
@@ -117,7 +118,7 @@ public abstract class MenuItemModel : ConfigurationFile
    public virtual ToolStripItem[] ToToolStripMenuItems( Outliner.Controls.Tree.TreeView treeView
                                                       , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      Throw.IfArgumentIsNull(treeView, "treeView");
+      Throw.IfNull(treeView, "treeView");
       
       ToolStripMenuItem item = new ToolStripMenuItem();
       item.Text = this.Text;

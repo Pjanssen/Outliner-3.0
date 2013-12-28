@@ -291,4 +291,7 @@ For more details on the error, see Outliner.SettingsLoadException.ToString()</va
   <data name="Str_INode" xml:space="preserve">
     <value>Node</value>
   </data>
+  <data name="Command_SetLightColor" xml:space="preserve">
+    <value>Change light color</value>
+  </data>
 </root>

@@ -7,6 +7,7 @@ using Outliner.Scene;
 using System.Reflection;
 using Autodesk.Max.Plugins;
 using Autodesk.Max;
+using PJanssen;
 
 namespace Outliner.Commands
 {
@@ -29,7 +30,7 @@ public class SetNodePropertyCommand<T> : CustomRestoreObjCommand
    /// <param name="newValue">The new value to set.</param>
    public SetNodePropertyCommand(IEnumerable<IMaxNode> nodes, NodeProperty property, T newValue)
    {
-      Throw.IfArgumentIsNull(nodes, "nodes");
+      Throw.IfNull(nodes, "nodes");
 
       this.nodes = nodes.ToList();
       this.property = property;

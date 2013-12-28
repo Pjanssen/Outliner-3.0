@@ -14,6 +14,7 @@ using Outliner.MaxUtils;
 using Outliner.Modes;
 using Outliner.Plugins;
 using Outliner.Scene;
+using PJanssen;
 
 namespace Outliner.Controls.ContextMenu
 {
@@ -59,7 +60,7 @@ public class MxsMenuItemModel : MenuItemModel
                                      , Outliner.Controls.Tree.TreeView treeView
                                      , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      Throw.IfArgumentIsNull(treeView, "treeView");
+      Throw.IfNull(treeView, "treeView");
 
       if (!String.IsNullOrEmpty(this.EnabledScript))
       {
@@ -77,7 +78,7 @@ public class MxsMenuItemModel : MenuItemModel
                                      , Outliner.Controls.Tree.TreeView treeView
                                      , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      Throw.IfArgumentIsNull(treeView, "treeView");
+      Throw.IfNull(treeView, "treeView");
 
       if (!String.IsNullOrEmpty(this.CheckedScript))
       {
@@ -94,7 +95,7 @@ public class MxsMenuItemModel : MenuItemModel
                                   , Outliner.Controls.Tree.TreeView treeView
                                   , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      Throw.IfArgumentIsNull(treeView, "treeView");
+      Throw.IfNull(treeView, "treeView");
 
       if (!String.IsNullOrEmpty(this.OnClickScript))
       {

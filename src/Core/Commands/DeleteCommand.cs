@@ -5,6 +5,7 @@ using System.Text;
 using Outliner.Scene;
 using Autodesk.Max;
 using Outliner.MaxUtils;
+using PJanssen;
 
 namespace Outliner.Commands
 {
@@ -21,7 +22,7 @@ public class DeleteCommand : Command
    /// <param name="nodes">The IMaxNodes to delete.</param>
    public DeleteCommand(IEnumerable<IMaxNode> nodes)
    {
-      Throw.IfArgumentIsNull(nodes, "nodes");
+      Throw.IfNull(nodes, "nodes");
 
       this.nodes = nodes.Where(n => n.CanDelete)
                         .ToList();

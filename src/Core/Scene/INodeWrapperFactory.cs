@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using Outliner.Plugins;
+using PJanssen;
 
 namespace Outliner.Scene
 {
@@ -15,7 +16,7 @@ namespace Outliner.Scene
    {
       public IMaxNode CreateMaxNode(object baseNode)
       {
-         Throw.IfArgumentIsNull(baseNode, "baseNode");
+         Throw.IfNull(baseNode, "baseNode");
 
          IINode inode = baseNode as IINode;
          if (inode != null)

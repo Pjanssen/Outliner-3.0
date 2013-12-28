@@ -5,6 +5,7 @@ using System.Text;
 using Outliner.Scene;
 using Autodesk.Max;
 using Outliner.MaxUtils;
+using PJanssen;
 
 namespace Outliner.Commands
 {
@@ -23,8 +24,8 @@ namespace Outliner.Commands
       /// <param name="viewport">The viewport to set the camera for.</param>
       public SetViewCameraCommand(IMaxNode cameraNode, IViewExp viewport)
       {
-         Throw.IfArgumentIsNull(cameraNode, "cameraNode");
-         Throw.IfArgumentIsNull(viewport, "viewport");
+         Throw.IfNull(cameraNode, "cameraNode");
+         Throw.IfNull(viewport, "viewport");
 
          this.cameraNode = cameraNode;
          this.viewport = viewport;

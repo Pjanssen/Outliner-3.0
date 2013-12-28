@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Autodesk.Max;
 using Autodesk.Max.IColorManager;
 using Outliner.Controls.Tree;
+using PJanssen;
 
 namespace Outliner.Configuration
 {
@@ -23,7 +24,7 @@ namespace Outliner.Configuration
 
       public static void PopulateWithDefaults(SettingsCollection settings)
       {
-         Throw.IfArgumentIsNull(settings, "settings");
+         Throw.IfNull(settings, "settings");
 
          SetDefaultValue<String>(settings, CoreCategory, ColorSchemeFile, GetDefaultColorScheme() + ".xml");
          SetDefaultValue<MouseButtons>(settings, TreeCategory, DragDropMouseButton, MouseButtons.Left);

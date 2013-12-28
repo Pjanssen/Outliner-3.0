@@ -5,6 +5,7 @@ using System.Text;
 using Outliner.Scene;
 using Autodesk.Max;
 using Outliner.MaxUtils;
+using PJanssen;
 
 namespace Outliner.Commands
 {
@@ -29,7 +30,7 @@ public class SelectCommand : Command
    /// <param name="openGroups">Determines whether closed groups should be opened automatically to select the nodes inside them.</param>
    public SelectCommand(IEnumerable<IMaxNode> nodes, Boolean openGroups) 
    {
-      Throw.IfArgumentIsNull(nodes, "nodes");
+      Throw.IfNull(nodes, "nodes");
 
       this.nodes = nodes.ToList();
       this.openGroups = openGroups;

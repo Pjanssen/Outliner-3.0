@@ -10,6 +10,7 @@ using Outliner.Scene;
 using Outliner.Plugins;
 using System.Windows.Forms;
 using Outliner.Modes;
+using PJanssen;
 
 namespace Outliner.Controls.ContextMenu
 {
@@ -39,7 +40,7 @@ public class NodePropertyMenuItemModel : MenuItemModel
                                      , Outliner.Controls.Tree.TreeView treeView
                                      , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      Throw.IfArgumentIsNull(treeView, "treeView");
+      Throw.IfNull(treeView, "treeView");
 
       IEnumerable<IMaxNode> context = TreeMode.GetMaxNodes(treeView.SelectedNodes);
       return !context.All(n => n.IsNodePropertyInherited(this.Property));
@@ -50,7 +51,7 @@ public class NodePropertyMenuItemModel : MenuItemModel
                                      , Outliner.Controls.Tree.TreeView treeView
                                      , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      Throw.IfArgumentIsNull(treeView, "treeView");
+      Throw.IfNull(treeView, "treeView");
 
       IEnumerable<IMaxNode> context = TreeMode.GetMaxNodes(treeView.SelectedNodes);
       return context.Any(n => n.GetNodeProperty(this.Property));
@@ -61,7 +62,7 @@ public class NodePropertyMenuItemModel : MenuItemModel
                                   , Outliner.Controls.Tree.TreeView treeView
                                   , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      Throw.IfArgumentIsNull(treeView, "treeView");
+      Throw.IfNull(treeView, "treeView");
 
       IEnumerable<IMaxNode> context = TreeMode.GetMaxNodes(treeView.SelectedNodes);
       Boolean newValue = !this.Checked(clickedItem, treeView, clickedTn);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Outliner.Scene;
+using PJanssen;
 
 namespace Outliner.Commands
 {
@@ -25,9 +26,9 @@ namespace Outliner.Commands
                             , IEnumerable<IMaxNode> nodes
                             , String description)
       {
-         Throw.IfArgumentIsNull(target, "target");
-         Throw.IfArgumentIsNull(nodes, "nodes");
-         Throw.IfArgumentIsNull(description, "description");
+         Throw.IfNull(target, "target");
+         Throw.IfNull(nodes, "nodes");
+         Throw.IfNull(description, "description");
 
          this.nodes = nodes.ToList();
          this.target = target;

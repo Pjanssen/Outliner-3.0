@@ -5,6 +5,7 @@ using System.Text;
 using Autodesk.Max;
 using Outliner.MaxUtils;
 using Outliner.Scene;
+using PJanssen;
 
 namespace Outliner.Commands
 {
@@ -27,7 +28,7 @@ namespace Outliner.Commands
       /// <param name="nodes">The IMaxNodes to add to the created container.</param>
       public CreateContainerCommand(IEnumerable<IMaxNode> nodes)
       {
-         Throw.IfArgumentIsNull(nodes, "nodes");
+         Throw.IfNull(nodes, "nodes");
 
          this.nodes = nodes.ToList();
       }

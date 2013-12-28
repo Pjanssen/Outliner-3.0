@@ -5,6 +5,7 @@ using Outliner.MaxUtils;
 using Outliner.Plugins;
 using System.Xml.Serialization;
 using System.ComponentModel;
+using PJanssen;
 
 namespace Outliner.Filters
 {
@@ -62,7 +63,7 @@ public class NameFilter : Filter<IMaxNode>
       }
       set
       {
-         Throw.IfArgumentIsNull(value, "value");
+         Throw.IfNull(value, "value");
 
          this.searchString = value;
          this.CreateRegex();

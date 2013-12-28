@@ -26,7 +26,7 @@ public class CreateNewLayerCommand : Command
 
    public CreateNewLayerCommand(IEnumerable<IMaxNode> nodes, String name)
    {
-      Throw.IfArgumentIsNull(nodes, "nodes");
+      Throw.IfNull(nodes, "nodes");
 
       this.nodes = nodes.ToList();
       this.name = name;

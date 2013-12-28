@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using PJanssen;
 
 namespace Outliner.MaxUtils
 {
@@ -17,8 +18,8 @@ namespace Outliner.MaxUtils
       [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
       public static void RunResourceScript(Assembly assembly, String res)
       {
-         Throw.IfArgumentIsNull(assembly, "assembly");
-         Throw.IfArgumentIsNull(res, "res");
+         Throw.IfNull(assembly, "assembly");
+         Throw.IfNull(res, "res");
 
          String script = String.Empty;
 

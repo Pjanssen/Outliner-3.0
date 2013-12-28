@@ -9,6 +9,7 @@ using Outliner.MaxUtils;
 using Outliner.Controls.Tree;
 using Autodesk.Max;
 using Outliner.Modes;
+using PJanssen;
 
 namespace Outliner.Controls.ContextMenu
 {
@@ -26,7 +27,7 @@ public static class ContextMenuActions
    [OutlinerAction]
    public static void Rename(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
    {
-      Throw.IfArgumentIsNull(contextTn, "contextTn");
+      Throw.IfNull(contextTn, "contextTn");
 
       contextTn.TreeView.BeginNodeTextEdit(contextTn);
    }
@@ -34,7 +35,7 @@ public static class ContextMenuActions
    [OutlinerPredicate]
    public static Boolean RenameEnabled(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
    {
-      Throw.IfArgumentIsNull(contextNodes, "contextNodes");
+      Throw.IfNull(contextNodes, "contextNodes");
 
       if (contextTn != null)
       {
@@ -59,7 +60,7 @@ public static class ContextMenuActions
    [OutlinerAction]
    public static void Delete(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
    {
-      Throw.IfArgumentIsNull(contextNodes, "contextNodes");
+      Throw.IfNull(contextNodes, "contextNodes");
 
       if (contextTn != null)
       {
@@ -82,7 +83,7 @@ public static class ContextMenuActions
    [OutlinerAction]
    public static void SelectChildNodes(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
    {
-      Throw.IfArgumentIsNull(contextNodes, "contextNodes");
+      Throw.IfNull(contextNodes, "contextNodes");
 
       IEnumerable<IMaxNode> nodes = GetChildNodes(contextNodes);
 
@@ -111,7 +112,7 @@ public static class ContextMenuActions
    [OutlinerAction]
    public static void Hide(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
    {
-      Throw.IfArgumentIsNull(contextNodes, "contextNodes");
+      Throw.IfNull(contextNodes, "contextNodes");
 
       HideCommand cmd = new HideCommand(contextNodes, true);
       cmd.Execute(true);
@@ -120,7 +121,7 @@ public static class ContextMenuActions
    [OutlinerPredicate]
    public static Boolean HideEnabled(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
    {
-      Throw.IfArgumentIsNull(contextNodes, "contextNodes");
+      Throw.IfNull(contextNodes, "contextNodes");
 
       return contextNodes.Any(n => !n.GetNodeProperty(BooleanNodeProperty.IsHidden));
    }
@@ -128,7 +129,7 @@ public static class ContextMenuActions
    [OutlinerAction]
    public static void Unhide(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
    {
-      Throw.IfArgumentIsNull(contextNodes, "contextNodes");
+      Throw.IfNull(contextNodes, "contextNodes");
 
       HideCommand cmd = new HideCommand(contextNodes, false);
       cmd.Execute(true);
@@ -137,7 +138,7 @@ public static class ContextMenuActions
    [OutlinerPredicate]
    public static Boolean UnhideEnabled(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
    {
-      Throw.IfArgumentIsNull(contextNodes, "contextNodes");
+      Throw.IfNull(contextNodes, "contextNodes");
 
       return contextNodes.Any(n => n.GetNodeProperty(BooleanNodeProperty.IsHidden));
    }
@@ -145,7 +146,7 @@ public static class ContextMenuActions
    [OutlinerAction]
    public static void Freeze(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
    {
-      Throw.IfArgumentIsNull(contextNodes, "contextNodes");
+      Throw.IfNull(contextNodes, "contextNodes");
 
       FreezeCommand cmd = new FreezeCommand(contextNodes, true);
       cmd.Execute(true);
@@ -154,7 +155,7 @@ public static class ContextMenuActions
    [OutlinerPredicate]
    public static Boolean FreezeEnabled(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
    {
-      Throw.IfArgumentIsNull(contextNodes, "contextNodes");
+      Throw.IfNull(contextNodes, "contextNodes");
 
       return contextNodes.Any(n => !n.GetNodeProperty(BooleanNodeProperty.IsFrozen));
    }
@@ -162,7 +163,7 @@ public static class ContextMenuActions
    [OutlinerAction]
    public static void Unfreeze(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
    {
-      Throw.IfArgumentIsNull(contextNodes, "contextNodes");
+      Throw.IfNull(contextNodes, "contextNodes");
 
       FreezeCommand cmd = new FreezeCommand(contextNodes, false);
       cmd.Execute(true);
@@ -171,7 +172,7 @@ public static class ContextMenuActions
    [OutlinerPredicate]
    public static Boolean UnfreezeEnabled(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes)
    {
-      Throw.IfArgumentIsNull(contextNodes, "contextNodes");
+      Throw.IfNull(contextNodes, "contextNodes");
 
       return contextNodes.Any(n => n.GetNodeProperty(BooleanNodeProperty.IsFrozen));
    }

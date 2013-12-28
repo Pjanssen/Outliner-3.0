@@ -15,6 +15,7 @@ using Outliner.MaxUtils;
 using Outliner.NodeSorters;
 using Outliner.Scene;
 using WinForms = System.Windows.Forms;
+using PJanssen;
 
 namespace Outliner.Modes
 {
@@ -56,7 +57,7 @@ public abstract class TreeMode
    /// <param name="tree">The TreeView control which this TreeMode operates on.</param>
    protected TreeMode(TreeView tree)
    {
-      Throw.IfArgumentIsNull(tree, "tree");
+      Throw.IfNull(tree, "tree");
 
       proc_PausePreSystemEvent = new GlobalDelegates.Delegate5(this.PausePreSystemEvent);
       proc_ResumePostSystemEvent = new GlobalDelegates.Delegate5(this.ResumePostSystemEvent);
@@ -247,7 +248,7 @@ public abstract class TreeMode
 
       protected TreeModeNodeEventCallbacks(TreeMode treeMode)
       {
-         Throw.IfArgumentIsNull(treeMode, "treeMode");
+         Throw.IfNull(treeMode, "treeMode");
 
          this.TreeMode = treeMode;
       }
@@ -393,8 +394,8 @@ public abstract class TreeMode
    /// <returns>The newly created TreeNode.</returns>
    public virtual TreeNode AddNode(Object node, TreeNodeCollection parentCol)
    {
-      Throw.IfArgumentIsNull(node, "node");
-      Throw.IfArgumentIsNull(parentCol, "parentCol");
+      Throw.IfNull(node, "node");
+      Throw.IfNull(parentCol, "parentCol");
 
       return this.AddNode(MaxNodeWrapper.Create(node), parentCol);
    }
@@ -407,8 +408,8 @@ public abstract class TreeMode
    /// <returns>The newly created TreeNode.</returns>
    public virtual TreeNode AddNode(IMaxNode wrapper, TreeNodeCollection parentCol)
    {
-      Throw.IfArgumentIsNull(wrapper, "wrapper");
-      Throw.IfArgumentIsNull(parentCol, "parentCol");
+      Throw.IfNull(wrapper, "wrapper");
+      Throw.IfNull(parentCol, "parentCol");
 
       TreeNode tn = new MaxTreeNode(wrapper);
       this.RegisterNode(wrapper, tn);
@@ -769,7 +770,7 @@ public abstract class TreeMode
       get { return this.filters.Filters[OtherFiltersIndex] as MaxNodeFilterCombinator; }
       set
       {
-         Throw.IfArgumentIsNull(value, "value");
+         Throw.IfNull(value, "value");
 
          this.filters.Filters[OtherFiltersIndex] = value;
 
@@ -785,7 +786,7 @@ public abstract class TreeMode
    /// <param name="filter">The filter to add.</param>
    public void AddPermanentFilter(Filter<IMaxNode> filter)
    {
-      Throw.IfArgumentIsNull(filter, "filter");
+      Throw.IfNull(filter, "filter");
       this.filters.Filters.Add(filter);
    }
 

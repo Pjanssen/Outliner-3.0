@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PJanssen;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -48,7 +49,7 @@ public class SettingsCollection : IXmlSerializable
    /// </summary>
    public IEnumerable<String> GetKeys(String category)
    {
-      Throw.IfArgumentIsNull(category, "category");
+      Throw.IfNull(category, "category");
 
       SettingsCategory settings = null;
       if (this.categories.TryGetValue(category, out settings))
@@ -95,8 +96,8 @@ public class SettingsCollection : IXmlSerializable
    /// <exception cref="InvalidOperationException"></exception>
    public T GetValue<T>(String category, String key, T defaultValue)
    {
-      Throw.IfArgumentIsNull(category, "category");
-      Throw.IfArgumentIsNull(key, "key");
+      Throw.IfNull(category, "category");
+      Throw.IfNull(key, "key");
 
       if (!this.ContainsValue(category, key))
          return defaultValue;
@@ -129,8 +130,8 @@ public class SettingsCollection : IXmlSerializable
    /// <param name="value">The object in which to store the setting value.</param>
    public Boolean TryGetValue<T>(String category, String key, out T value) 
    {
-      Throw.IfArgumentIsNull(category, "category");
-      Throw.IfArgumentIsNull(key, "key");
+      Throw.IfNull(category, "category");
+      Throw.IfNull(key, "key");
 
       SettingsCategory settings = this.GetCategory(category);
       if (settings != null)
@@ -171,9 +172,9 @@ public class SettingsCollection : IXmlSerializable
    /// <param name="value">The (new) setting value.</param>
    public void SetValue<T>(String category, String key, T value)
    {
-      Throw.IfArgumentIsNull(category, "category");
-      Throw.IfArgumentIsNull(key, "key");
-      Throw.IfArgumentIsNull(value, "value");
+      Throw.IfNull(category, "category");
+      Throw.IfNull(key, "key");
+      Throw.IfNull(value, "value");
 
       SettingsCategory settings = this.GetCategory(category);
       if (settings == null)
@@ -191,8 +192,8 @@ public class SettingsCollection : IXmlSerializable
    /// </summary>
    public void RemoveKey(String category, String key)
    {
-      Throw.IfArgumentIsNull(category, "category");
-      Throw.IfArgumentIsNull(key, "key");
+      Throw.IfNull(category, "category");
+      Throw.IfNull(key, "key");
 
       SettingsCategory settings = this.GetCategory(category);
       if (settings != null)

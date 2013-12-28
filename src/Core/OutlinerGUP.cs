@@ -18,6 +18,7 @@ using Outliner.Plugins;
 using Outliner.Scene;
 using Outliner.Configuration;
 using WinForms = System.Windows.Forms;
+using PJanssen;
 
 namespace Outliner
 {
@@ -156,8 +157,8 @@ public class OutlinerGUP
    /// <param name="start">If true, the new TreeMode will be started.</param>
    public TreeMode SwitchPreset(TreeView tree, OutlinerPreset preset, Boolean start)
    {
-      Throw.IfArgumentIsNull(tree, "tree");
-      Throw.IfArgumentIsNull(preset, "preset");
+      Throw.IfNull(tree, "tree");
+      Throw.IfNull(preset, "preset");
 
       TreeMode oldMode = this.GetActiveTreeMode(tree);
       if (oldMode != null)

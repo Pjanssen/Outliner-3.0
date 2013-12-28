@@ -17,7 +17,7 @@ public class SetColorTagCommand : Command
 
    public SetColorTagCommand(IEnumerable<IMaxNode> nodes, ColorTag tag)
    {
-      Throw.IfArgumentIsNull(nodes, "nodes");
+      Throw.IfNull(nodes, "nodes");
 
       this.nodes = nodes;
       this.tag = tag;

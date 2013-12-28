@@ -11,6 +11,7 @@ using Outliner.Modes;
 using Outliner.NodeSorters;
 using Outliner.Plugins;
 using Outliner.Scene;
+using PJanssen;
 
 namespace Outliner.Configuration
 {
@@ -163,7 +164,7 @@ public class OutlinerPreset : ConfigurationFile, ISorterConfiguration
    /// <param name="tree">The TreeView control to associate the TreeMode with.</param>
    public TreeMode CreateTreeMode(TreeView tree)
    {
-      Throw.IfArgumentIsNull(tree, "tree");
+      Throw.IfNull(tree, "tree");
 
       Type treeModeType = OutlinerPlugins.GetPluginType( OutlinerPluginType.TreeMode
                                                        , this.TreeModeTypeName);

@@ -100,6 +100,9 @@
     <Reference Include="Autodesk.Max">
       <HintPath>..\..\lib\Autodesk.Max.dll</HintPath>
     </Reference>
+    <Reference Include="PJanssen">
+      <HintPath>..\..\lib\PJanssen.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -144,7 +147,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"$(SolutionDir)../TransformXmlDoc/Deployment/TransformXmlDoc.exe" "$(TargetDir)$(ProjectName).xml" "$(TargetDir)$(ProjectName).Transformed.xml"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)Build\BuildTasks.target" />
   <Target Name="AfterBuild">

@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 using Outliner.MaxUtils;
 using System.ComponentModel;
+using PJanssen;
 
 namespace Outliner.Plugins
 {
@@ -44,7 +45,7 @@ public class OutlinerPluginData
    /// <param name="type">The type to create the metadata for.</param>
    public OutlinerPluginData(Type type)
    {
-      Throw.IfArgumentIsNull(type, "type");
+      Throw.IfNull(type, "type");
       this.Type = type;
 
       OutlinerPluginAttribute pluginAttr = type.GetAttribute<OutlinerPluginAttribute>();

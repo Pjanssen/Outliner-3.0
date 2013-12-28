@@ -12,6 +12,7 @@ using System.Drawing;
 using System.IO;
 using Autodesk.Max;
 using Outliner.MaxUtils;
+using PJanssen;
 
 namespace Outliner.Plugins
 {

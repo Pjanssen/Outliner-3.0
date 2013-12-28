@@ -105,7 +105,8 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Outliner.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autodesk.Max">
@@ -123,6 +124,9 @@
     <Reference Include="MaxCustomControls">
       <HintPath>..\..\lib\MaxCustomControls.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="PJanssen">
+      <HintPath>..\..\lib\PJanssen.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -155,6 +159,7 @@
     <Compile Include="Commands\AddNodesCommand.cs" />
     <Compile Include="Commands\ChangeGroupCommand.cs" />
     <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\SetLightColorCommand.cs" />
     <Compile Include="Commands\CreateContainerCommand.cs" />
     <Compile Include="Commands\CustomRestoreObjCommand.cs" />
     <Compile Include="Commands\CreateNewGroupCommand.cs" />
@@ -302,7 +307,6 @@
     </Compile>
     <Compile Include="Filters\FilterChangedEventArgs.cs" />
     <Compile Include="Filters\FilterCombinator.cs" />
-    <Compile Include="IEnumerableExtensions.cs" />
     <Compile Include="Configuration\FilterCategory.cs" />
     <Compile Include="Configuration\FilterConfiguration.cs" />
     <Compile Include="Filters\FilterImageAttribute.cs" />
@@ -461,7 +465,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ContextMenuColorTable.cs</LastGenOutput>
     </None>
-    <None Include="Outliner.pfx" />
     <None Include="Properties\DataSources\Outliner.Configuration.ConfigurationFile.datasource" />
     <None Include="Properties\DataSources\Outliner.Controls.Tree.Layout.TreeNodeLayout.datasource" />
     <None Include="Properties\DataSources\Outliner.Filters.NameFilter.datasource" />
@@ -479,7 +482,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"$(SolutionDir)../TransformXmlDoc/Deployment/TransformXmlDoc.exe" "$(TargetDir)$(ProjectName).xml" "$(TargetDir)$(ProjectName).Transformed.xml"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)Build\BuildTasks.target" />
   <Target Name="BeforeBuild">

@@ -20,7 +20,7 @@ namespace Outliner.Scene
 
       public SelectionSetWrapper(String name)
       {
-         Throw.IfArgumentIsNull(name, "name");
+         Throw.IfNull(name, "name");
          this.name = name;
       }
 
@@ -74,7 +74,7 @@ namespace Outliner.Scene
 
       public static int SelSetIndexByName(String name)
       {
-         Throw.IfArgumentIsNull(name, "name");
+         Throw.IfNull(name, "name");
 
          IINamedSelectionSetManager selSetMan = MaxInterfaces.SelectionSetManager;
          for (int i = 0; i < selSetMan.NumNamedSelSets; i++)
@@ -91,14 +91,14 @@ namespace Outliner.Scene
 
       public void UpdateName(String newName)
       {
-         Throw.IfArgumentIsNull(newName, "newName");
+         Throw.IfNull(newName, "newName");
 
          this.name = newName;
       }
 
       public virtual void ReplaceNodeset(IEnumerable<IMaxNode> nodes)
       {
-         Throw.IfArgumentIsNull(nodes, "nodes");
+         Throw.IfNull(nodes, "nodes");
 
          IINodeTab nodeTab = nodes.ToIINodeTab();
          MaxInterfaces.SelectionSetManager.ReplaceNamedSelSet(nodeTab, ref this.name);
@@ -201,7 +201,7 @@ namespace Outliner.Scene
 
       public override void AddChildNode(IMaxNode node)
       {
-         Throw.IfArgumentIsNull(node, "node");
+         Throw.IfNull(node, "node");
 
          if (node.IsAggregate)
             this.AddChildNodes(node.ChildNodes);
@@ -211,7 +211,7 @@ namespace Outliner.Scene
 
       public override void AddChildNodes(IEnumerable<IMaxNode> nodes)
       {
-         Throw.IfArgumentIsNull(nodes, "nodes");
+         Throw.IfNull(nodes, "nodes");
 
          IINodeTab nodeTab = this.ChildNodes.ToIINodeTab();
          nodeTab.Resize(nodeTab.Count + nodes.Count());
@@ -255,7 +255,7 @@ namespace Outliner.Scene
 
       public override void RemoveChildNode(IMaxNode node)
       {
-         Throw.IfArgumentIsNull(node, "node");
+         Throw.IfNull(node, "node");
 
          if (node.IsAggregate)
             this.RemoveChildNodes(node.ChildNodes);
@@ -265,7 +265,7 @@ namespace Outliner.Scene
 
       public override void RemoveChildNodes(IEnumerable<IMaxNode> nodes)
       {
-         Throw.IfArgumentIsNull(nodes, "nodes");
+         Throw.IfNull(nodes, "nodes");
 
          IINodeTab nodeTab = this.ChildNodes.ToIINodeTab();
 
@@ -317,7 +317,7 @@ namespace Outliner.Scene
          get { return this.name; }
          set
          {
-            Throw.IfArgumentIsNull(value, "value");
+            Throw.IfNull(value, "value");
             MaxInterfaces.SelectionSetManager.SetNamedSelSetName(this.Index, ref value);
             this.name = value;
          }
@@ -485,7 +485,7 @@ namespace Outliner.Scene
          }
          set
          {
-            Throw.IfArgumentIsNull(value, "value");
+            Throw.IfNull(value, "value");
             this.SetSelSetProperty(n => n.WireColor = value);
          }
       }

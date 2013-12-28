@@ -7,6 +7,7 @@ using System.Drawing;
 using Outliner.Controls.Tree.Layout;
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
+using PJanssen;
 
 namespace Outliner.Controls.Tree
 {
@@ -689,7 +690,7 @@ public class TreeView : ScrollableControl
    /// </summary>
    public static IEnumerable<TreeNode> GetTreeNodesFromDragData(IDataObject dragData)
    {
-      Throw.IfArgumentIsNull(dragData, "dragData");
+      Throw.IfNull(dragData, "dragData");
 
       Type dataType = typeof(IEnumerable<TreeNode>);
 
@@ -854,7 +855,7 @@ public class TreeView : ScrollableControl
    /// </summary>
    public void AutoExpandParents(TreeNode tn)
    {
-      Throw.IfArgumentIsNull(tn, "tn");
+      Throw.IfNull(tn, "tn");
       
       TreeNode parent = tn.Parent;
       while (parent != null)
@@ -871,7 +872,7 @@ public class TreeView : ScrollableControl
 
    private void CollapseAutoExpandedParents(TreeNode tn)
    {
-      Throw.IfArgumentIsNull(tn, "tn");
+      Throw.IfNull(tn, "tn");
 
       TreeNode parent = tn.Parent;
       while (parent != null)
@@ -907,7 +908,7 @@ public class TreeView : ScrollableControl
    /// <param name="tn"></param>
    public void ScrollTreeNodeIntoView(TreeNode tn)
    {
-      Throw.IfArgumentIsNull(tn, "tn");
+      Throw.IfNull(tn, "tn");
 
       int y = tn.Bounds.Y;
       if (y < 0 || y > this.Height)

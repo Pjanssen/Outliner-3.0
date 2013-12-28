@@ -20,7 +20,7 @@ namespace Outliner.Scene
       /// <param name="material">The IMtl object to wrap.</param>
       public MaterialWrapper(IMtl material)
       {
-         Throw.IfArgumentIsNull(material, "material");
+         Throw.IfNull(material, "material");
          
          this.Material = material;
       }

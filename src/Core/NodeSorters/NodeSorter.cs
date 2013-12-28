@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Reflection;
 using Outliner.Scene;
 using Outliner.Modes;
+using PJanssen;
 
 namespace Outliner.NodeSorters
 {
@@ -84,8 +85,8 @@ public abstract class NodeSorter : IComparer<TreeNode>
    /// If the two TreeNodes are equal, 0 will be returned.</returns>
    public int Compare(TreeNode x, TreeNode y)
    {
-      Throw.IfArgumentIsNull(x, "x");
-      Throw.IfArgumentIsNull(y, "y");
+      Throw.IfNull(x, "x");
+      Throw.IfNull(y, "y");
 
       if (x == y)
          return 0;
@@ -173,7 +174,7 @@ public abstract class NodeSorter : IComparer<TreeNode>
    /// </summary>
    public static Boolean RequiresSort(NodeSorter sorter, Type sorterType)
    {
-      Throw.IfArgumentIsNull(sorterType, "sorterType");
+      Throw.IfNull(sorterType, "sorterType");
 
       if (sorter == null)
          return false;

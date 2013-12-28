@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
+using PJanssen;
 
 namespace Outliner
 {
@@ -17,7 +18,7 @@ namespace Outliner
       /// <typeparam name="T">The type of attribute to find.</typeparam>
       public static Boolean HasAttribute<T>(this MemberInfo memberInfo) where T : Attribute
       {
-         Throw.IfArgumentIsNull(memberInfo, "memberInfo");
+         Throw.IfNull(memberInfo, "memberInfo");
 
          object[] attributes = memberInfo.GetCustomAttributes(typeof(T), false);
          return attributes != null && attributes.Count() > 0;
@@ -29,7 +30,7 @@ namespace Outliner
       /// <typeparam name="T">The type of attribute to find.</typeparam>
       public static T GetAttribute<T>(this MemberInfo memberInfo) where T : Attribute
       {
-         Throw.IfArgumentIsNull(memberInfo, "memberInfo");
+         Throw.IfNull(memberInfo, "memberInfo");
 
          object[] attributes = memberInfo.GetCustomAttributes(typeof(T), false);
          if (attributes != null && attributes.Count() > 0)

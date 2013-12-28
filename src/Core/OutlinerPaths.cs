@@ -5,6 +5,7 @@ using System.Text;
 using Autodesk.Max;
 using Outliner.MaxUtils;
 using System.IO;
+using PJanssen;
 
 namespace Outliner
 {
@@ -15,7 +16,7 @@ public static class OutlinerPaths
 {
    private static String GetMaxDirectory(MaxDirectory dir)
    {
-      Throw.IfArgumentIsNull(dir, "dir");
+      Throw.IfNull(dir, "dir");
 
       IIPathConfigMgr pathMgr = MaxInterfaces.Global.IPathConfigMgr.PathConfigMgr;
       return pathMgr.GetDir(dir);

@@ -95,7 +95,7 @@ public static class ColorTags
    /// </summary>
    public static ColorTag GetTag(IAnimatable node)
    {
-      Throw.IfArgumentIsNull(node, "node");
+      Throw.IfNull(node, "node");
 
       IAnimatable targetNode = node;
 
@@ -163,7 +163,7 @@ public static class ColorTags
    /// </summary>
    public static void SetTag(IAnimatable node, ColorTag tag)
    {
-      Throw.IfArgumentIsNull(node, "node");
+      Throw.IfNull(node, "node");
       
       node.RemoveAppDataChunk(ColorTags.classID, SClass_ID.Utility, 0);
 
@@ -204,7 +204,7 @@ public static class ColorTags
    /// </summary>
    public static void RemoveTag(IAnimatable node)
    {
-      Throw.IfArgumentIsNull(node, "node");
+      Throw.IfNull(node, "node");
 
       node.RemoveAppDataChunk(ColorTags.classID, SClass_ID.Utility, 0);
 

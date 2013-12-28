@@ -10,6 +10,7 @@ using Outliner.Configuration;
 using Outliner.Plugins;
 using Outliner.Controls.Tree.Layout;
 using Outliner.NodeSorters;
+using PJanssen;
 
 namespace Outliner.Controls.Options
 {
@@ -25,7 +26,7 @@ public partial class SorterConfigurationEditor : OutlinerUserControl
 
    public SorterConfigurationEditor(ISorterConfiguration config) : this() 
    {
-      Throw.IfArgumentIsNull(config, "config");
+      Throw.IfNull(config, "config");
 
       this.sorterConfiguration = config;
    }

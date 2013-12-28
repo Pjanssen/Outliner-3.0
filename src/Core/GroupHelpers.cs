@@ -6,6 +6,7 @@ using Outliner.Scene;
 using Autodesk.Max;
 using Outliner.MaxUtils;
 using Autodesk.Max.Plugins;
+using PJanssen;
 
 namespace Outliner
 {
@@ -78,7 +79,7 @@ internal static class GroupHelpers
    /// </summary>
    public static void OpenSelectedGroupHeads(IEnumerable<IMaxNode> nodes)
    {
-      Throw.IfArgumentIsNull(nodes, "nodes");
+      Throw.IfNull(nodes, "nodes");
 
       if (GroupHelpers.openedGroupHeads == null)
          GroupHelpers.openedGroupHeads = new List<INodeWrapper>();

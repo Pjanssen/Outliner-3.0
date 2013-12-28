@@ -17,7 +17,7 @@ namespace Outliner.Commands
       public CreateSelectionSetCommand() : this(Enumerable.Empty<IMaxNode>()) { }
       public CreateSelectionSetCommand(IEnumerable<IMaxNode> nodes)
       {
-         Throw.IfArgumentIsNull(nodes, "nodes");
+         Throw.IfNull(nodes, "nodes");
 
          this.nodes = nodes.ToList();
       }

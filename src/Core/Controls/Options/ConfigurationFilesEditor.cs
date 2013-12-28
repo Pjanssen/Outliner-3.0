@@ -11,6 +11,7 @@ using Outliner.MaxUtils;
 using Autodesk.Max;
 using Outliner.Configuration;
 using Outliner.Controls.Tree.Layout;
+using PJanssen;
 
 namespace Outliner.Controls.Options
 {
@@ -25,8 +26,8 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
 
    public ConfigFilesEditor(String directory, Type editorType)
    {
-      Throw.IfArgumentIsNull(directory, "directory");
-      Throw.IfArgumentIsNull(editorType, "editorType");
+      Throw.IfNull(directory, "directory");
+      Throw.IfNull(editorType, "editorType");
 
       InitializeComponent();
 
@@ -97,14 +98,14 @@ public partial class ConfigFilesEditor<T> : Form where T : class, new()
 
    protected virtual String GetEditingFile(Tree.TreeNode tn)
    {
-      Throw.IfArgumentIsNull(tn, "tn");
+      Throw.IfNull(tn, "tn");
 
       return tn.Tag as String;
    }
 
    protected virtual T GetEditingConfiguration(Tree.TreeNode tn)
    {
-      Throw.IfArgumentIsNull(tn, "tn");
+      Throw.IfNull(tn, "tn");
 
       String editingFile = GetEditingFile(tn);
       T editingConfiguration = null;

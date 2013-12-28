@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using Autodesk.Max;
+using PJanssen;
 
 namespace Outliner.MaxUtils
 {
@@ -27,9 +28,29 @@ public static class Colors
    /// </summary>
    public static Color FromMaxColor(IColor color)
    {
-      Throw.IfArgumentIsNull(color, "color");
+      Throw.IfNull(color, "color");
 
       return FromMaxColor(Color.FromArgb((int)color.ToRGB));
+   }
+
+   /// <summary>
+   /// Converts an Autodesk.Max.IAColor struct to a System.Drawing.Color struct.
+   /// </summary>
+   public static Color FromMaxColor(IAColor color)
+   {
+      Throw.IfNull(color, "color");
+
+      return Color.FromArgb((int)color.ToRGB);
+   }
+
+   public static Color FromMaxColor(IPoint3 color)
+   {
+      return Color.FromArgb(ToColorChannel(color.X), ToColorChannel(color.Y), ToColorChannel(color.Z));
+   }
+
+   private static int ToColorChannel(float channel)
+   {
+      return (int)(channel * 255);
    }
 
    /// <summary>
@@ -51,7 +72,7 @@ public static class Colors
    /// </summary>
    public static Color FromHtml(String htmlColor)
    {
-      Throw.IfArgumentIsNull(htmlColor, "htmlColor");
+      Throw.IfNull(htmlColor, "htmlColor");
 
       if (htmlColor.Length == 9 && htmlColor[0] == '#')
          return Color.FromArgb( Convert.ToInt32(htmlColor.Substring(1, 2), 16)
@@ -101,9 +122,9 @@ public static class Colors
    /// <param name="colorB">Color alternative B</param>
    public static Color SelectContrastingColor(Color refColor, Color colorA, Color colorB)
    {
-      Throw.IfArgumentIsNull(refColor, "refColor");
-      Throw.IfArgumentIsNull(colorA, "colorA");
-      Throw.IfArgumentIsNull(colorB, "colorB");
+      Throw.IfNull(refColor, "refColor");
+      Throw.IfNull(colorA, "colorA");
+      Throw.IfNull(colorB, "colorB");
 
       float brightnessRef = refColor.GetBrightness();
       float brightnessA = colorA.GetBrightness();

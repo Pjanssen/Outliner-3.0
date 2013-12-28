@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using Outliner.MaxUtils;
+using PJanssen;
 
 namespace Outliner.Scene
 {
@@ -33,7 +34,7 @@ namespace Outliner.Scene
       /// </summary>
       public static Boolean IsParentOfSelected(this IMaxNode node)
       {
-         Throw.IfArgumentIsNull(node, "node");
+         Throw.IfNull(node, "node");
 
          if (node.IsSelected)
             return true;
@@ -52,7 +53,7 @@ namespace Outliner.Scene
       /// </summary>
       public static Boolean IsChildOfSelected(this IMaxNode node)
       {
-         Throw.IfArgumentIsNull(node, "node");
+         Throw.IfNull(node, "node");
 
          if (node.IsSelected)
             return true;

@@ -35,7 +35,11 @@ namespace Outliner.Actions
 
       public override void Execute(object parameter)
       {
-         
+         ListenerLogger logger = new ListenerLogger("Outliner");
+         logger.Debug("test");
+         logger.Info("some information goes here");
+         logger.Warning("this is your last warning!");
+         logger.Error("Oh noeesss!");
       }
 
    }

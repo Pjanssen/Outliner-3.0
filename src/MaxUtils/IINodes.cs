@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
+using PJanssen;
 
 namespace Outliner.MaxUtils
 {
@@ -90,7 +91,7 @@ public static class IINodes
    /// </summary>
    public static IEnumerable<T> ITabToIEnumerable<T>(ITab<T> tab)
    {
-      Throw.IfArgumentIsNull(tab, "tab");
+      Throw.IfNull(tab, "tab");
       
       for (int i = 0; i < tab.Count; i++)
          yield return tab[(IntPtr)i];
@@ -118,7 +119,7 @@ public static class IINodes
    /// </summary>
    public static IINodeTab ToIINodeTab(IEnumerable<Object> nodes)
    {
-      Throw.IfArgumentIsNull(nodes, "nodes");
+      Throw.IfNull(nodes, "nodes");
 
       IINodeTab tab = MaxInterfaces.Global.INodeTabNS.Create();
       Int32 nodeCount = nodes.Count();

@@ -9,6 +9,7 @@ using Outliner.Plugins;
 using System.Windows.Forms;
 using System.Globalization;
 using Outliner.Modes;
+using PJanssen;
 
 namespace Outliner.Controls.ContextMenu
 {
@@ -52,7 +53,7 @@ public class ActionMenuItemModel : MenuItemModel
                                      , Outliner.Controls.Tree.TreeView treeView
                                      , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      Throw.IfArgumentIsNull(treeView, "treeView");
+      Throw.IfNull(treeView, "treeView");
 
       IEnumerable<IMaxNode> context = TreeMode.GetMaxNodes(treeView.SelectedNodes);
       OutlinerPredicate predicate = OutlinerActions.GetPredicate(this.EnabledPredicate);
@@ -68,7 +69,7 @@ public class ActionMenuItemModel : MenuItemModel
                                      , Outliner.Controls.Tree.TreeView treeView
                                      , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      Throw.IfArgumentIsNull(treeView, "treeView");
+      Throw.IfNull(treeView, "treeView");
 
       IEnumerable<IMaxNode> context = TreeMode.GetMaxNodes(treeView.SelectedNodes);
       OutlinerPredicate predicate = OutlinerActions.GetPredicate(this.CheckedPredicate);
@@ -84,7 +85,7 @@ public class ActionMenuItemModel : MenuItemModel
                                   , Outliner.Controls.Tree.TreeView treeView
                                   , Outliner.Controls.Tree.TreeNode clickedTn)
    {
-      Throw.IfArgumentIsNull(treeView, "treeView");
+      Throw.IfNull(treeView, "treeView");
 
       if (String.IsNullOrEmpty(this.OnClickAction))
          return;

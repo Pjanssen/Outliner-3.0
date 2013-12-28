@@ -6,6 +6,7 @@ using Outliner.MaxUtils;
 using System.Xml.Serialization;
 using System.ComponentModel;
 using System.Xml;
+using PJanssen;
 
 namespace Outliner.Filters
 {
@@ -21,7 +22,7 @@ public class FilterCollection<T> : ICollection<Filter<T>>
 
    public FilterCollection(FilterCollection<T> collection)
    {
-      Throw.IfArgumentIsNull(collection, "collection");
+      Throw.IfNull(collection, "collection");
 
       this.filters = collection.filters;
    }
@@ -68,7 +69,7 @@ public class FilterCollection<T> : ICollection<Filter<T>>
 
    public void Add(Filter<T> item)
    {
-      Throw.IfArgumentIsNull(item, "item");
+      Throw.IfNull(item, "item");
 
       if (!this.filters.Contains(item))
       {
@@ -110,7 +111,7 @@ public class FilterCollection<T> : ICollection<Filter<T>>
 
    public bool Remove(Filter<T> item)
    {
-      Throw.IfArgumentIsNull(item, "item");
+      Throw.IfNull(item, "item");
 
       if (this.filters.Remove(item))
       {

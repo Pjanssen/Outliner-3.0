@@ -13,6 +13,7 @@ using Outliner.MaxUtils;
 using Autodesk.Max;
 using Outliner.Controls.Tree.Layout;
 using Outliner.Configuration;
+using PJanssen;
 
 namespace Outliner.Controls.Options
 {
@@ -37,7 +38,7 @@ public partial class FilterCollectionEditor : OutlinerUserControl
 
    public FilterCollectionEditor(FilterConfiguration config) : this()
    {
-      Throw.IfArgumentIsNull(config, "config");
+      Throw.IfNull(config, "config");
 
       this.RootFilter = config.Filter;
       this.filterConfiguration = config;
@@ -45,7 +46,7 @@ public partial class FilterCollectionEditor : OutlinerUserControl
 
    public FilterCollectionEditor(Filter<IMaxNode> rootFilter) : this()
    {
-      Throw.IfArgumentIsNull(rootFilter, "rootFilter");
+      Throw.IfNull(rootFilter, "rootFilter");
 
       this.RootFilter = rootFilter;
    }

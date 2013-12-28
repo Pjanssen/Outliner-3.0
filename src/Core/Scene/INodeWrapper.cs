@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using Outliner.MaxUtils;
+using PJanssen;
 
 namespace Outliner.Scene
 {
@@ -21,7 +22,7 @@ namespace Outliner.Scene
       /// <param name="inode">The INode object to wrap.</param>
       public INodeWrapper(IINode inode)
       {
-         Throw.IfArgumentIsNull(inode, "inode");
+         Throw.IfNull(inode, "inode");
          this.inode = inode;
       }
 
@@ -208,7 +209,7 @@ namespace Outliner.Scene
 
       public override void AddChildNode(IMaxNode node)
       {
-         Throw.IfArgumentIsNull(node, "node");
+         Throw.IfNull(node, "node");
 
          if (!this.CanAddChildNode(node))
             return;
@@ -224,7 +225,7 @@ namespace Outliner.Scene
 
       public override void RemoveChildNode(IMaxNode node)
       {
-         Throw.IfArgumentIsNull(node, "node");
+         Throw.IfNull(node, "node");
 
          INodeWrapper inodeWrapper = node as INodeWrapper;
          if (inodeWrapper != null)
@@ -261,7 +262,7 @@ namespace Outliner.Scene
          get { return this.INode.Name; }
          set
          {
-            Throw.IfArgumentIsNull(value, "value");
+            Throw.IfNull(value, "value");
             this.INode.Name = value;
             MaxInterfaces.Global.BroadcastNotification(SystemNotificationCode.NodeRenamed, this.INode);
          }
@@ -430,7 +431,7 @@ namespace Outliner.Scene
          get { return Colors.FromMaxColor(this.INode.WireColor); }
          set
          {
-            Throw.IfArgumentIsNull(value, "value");
+            Throw.IfNull(value, "value");
             this.INode.WireColor = value;
          }
       }

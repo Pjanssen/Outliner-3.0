@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Outliner.Scene;
 using Outliner.MaxUtils;
+using PJanssen;
 
 namespace Outliner.Commands
 {
@@ -17,8 +18,8 @@ public class ChangeGroupCommand : CustomRestoreObjCommand
                             , IMaxNode groupHead
                             , Boolean group)
    {
-      Throw.IfArgumentIsNull(nodes, "nodes");
-      Throw.IfArgumentIsNull(groupHead, "groupHead");
+      Throw.IfNull(nodes, "nodes");
+      Throw.IfNull(groupHead, "groupHead");
 
       this.nodes = nodes.OfType<INodeWrapper>()
                         .ToList();

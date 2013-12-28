@@ -23,7 +23,7 @@ namespace Outliner.Scene
       /// <param name="ilayer">The ILayer object to wrap.</param>
       public ILayerWrapper(IILayer ilayer)
       {
-         Throw.IfArgumentIsNull(ilayer, "ilayer");
+         Throw.IfNull(ilayer, "ilayer");
 
          this.ilayer = ilayer;
       }
@@ -34,7 +34,7 @@ namespace Outliner.Scene
       /// <param name="ilayerProperties">The ILayerProperties of the ILayer to wrap.</param>
       public ILayerWrapper(IILayerProperties ilayerProperties)
       {
-         Throw.IfArgumentIsNull(ilayerProperties, "IILayerProperties");
+         Throw.IfNull(ilayerProperties, "IILayerProperties");
 
          this.ilayerProperties = ilayerProperties;
       }
@@ -326,7 +326,7 @@ namespace Outliner.Scene
 
       public override void AddChildNode(IMaxNode node)
       {
-         Throw.IfArgumentIsNull(node, "node");
+         Throw.IfNull(node, "node");
 
          if (!this.CanAddChildNode(node))
             return;
@@ -355,7 +355,7 @@ namespace Outliner.Scene
 
       public override void RemoveChildNode(IMaxNode node)
       {
-         Throw.IfArgumentIsNull(node, "node");
+         Throw.IfNull(node, "node");
 
          INodeWrapper inodeWrapper = node as INodeWrapper;
          if (inodeWrapper != null)
@@ -403,7 +403,7 @@ namespace Outliner.Scene
          get { return this.ILayer.Name; }
          set
          {
-            Throw.IfArgumentIsNull(value, "value");
+            Throw.IfNull(value, "value");
             if (!this.CanEditName)
                throw new InvalidOperationException("The name of this node cannot be edited.");
             
@@ -443,7 +443,7 @@ namespace Outliner.Scene
          get { return Colors.FromMaxColor(this.ILayer.WireColor); }
          set
          {
-            Throw.IfArgumentIsNull(value, "value");
+            Throw.IfNull(value, "value");
 
             this.ILayer.WireColor = value;
             LayerPropertyChangedParam parameters = new LayerPropertyChangedParam(this.ILayer, NodeProperty.WireColor);
