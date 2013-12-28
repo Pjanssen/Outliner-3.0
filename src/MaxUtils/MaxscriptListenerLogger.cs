@@ -15,12 +15,7 @@ namespace Outliner.MaxUtils
 
       private IListener listener;
 
-      public MaxscriptListenerLogger(string toolName)
-         : this(toolName, LogTypes.All)
-      { }
-
-      public MaxscriptListenerLogger(string toolName, LogTypes enabledTypes) 
-         : base(enabledTypes) 
+      public MaxscriptListenerLogger(string toolName) 
       {
          this.listener = MaxInterfaces.Global.TheListener;
 
