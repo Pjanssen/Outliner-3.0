@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Outliner.Filters;
+using PJanssen;
 
 namespace Outliner.Tests.Filters
 {

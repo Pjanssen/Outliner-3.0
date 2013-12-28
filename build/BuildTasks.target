@@ -25,7 +25,7 @@
 
   <Target Name="OutlinerDeployCoreAssembly">
      <Message Text="Deploying $(TargetFileName)" />
-    <Copy SourceFiles="$(LibDir)Pjanssen.dll" DestinationFolder="$(BuildDir)Sources\assemblies" />
+    <Copy SourceFiles="$(LibDir)PJanssen.dll" DestinationFolder="$(BuildDir)Sources\assemblies" />
     <Copy SourceFiles="$(OutDir)$(TargetFileName)" DestinationFolder="$(BuildDir)Sources\assemblies" />
   </Target>
 

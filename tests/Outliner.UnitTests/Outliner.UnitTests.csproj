@@ -179,13 +179,17 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MaxCustomControls">
-      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\MaxCustomControls.dll</HintPath>
+      <HintPath>..\..\lib\MaxCustomControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Moq">
       <HintPath>Lib\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="PJanssen, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\PJanssen.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
@@ -199,7 +203,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UiViewModels">
-      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\UiViewModels.dll</HintPath>
+      <HintPath>..\..\lib\UiViewModels.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
