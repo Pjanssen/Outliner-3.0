@@ -19,6 +19,7 @@ using Outliner.Scene;
 using Outliner.Configuration;
 using WinForms = System.Windows.Forms;
 using PJanssen;
+using PJanssen.Logging;
 
 namespace Outliner
 {
@@ -69,6 +70,30 @@ public class OutlinerGUP
    /// </summary>
    public NameFilter CommonNameFilter { get; private set; }
 
+   //==========================================================================
+
+   /// <summary>
+   /// Gets the Outliner's Log object.
+   /// </summary>
+   public ITextLogger Log
+   {
+      get
+      {
+         if (this.log == null)
+            log = CreateLog();
+
+         return log;
+      }
+   }
+   private ITextLogger log;
+
+   private ITextLogger CreateLog()
+   {
+      return new MaxscriptListenerLogger("Outliner");
+   }
+
+   //==========================================================================
+
    private OutlinerGUP()
    {
       this.TreeModes = new Dictionary<TreeView, TreeMode>();
@@ -81,10 +106,14 @@ public class OutlinerGUP
       this.ReloadSettings();
    }
 
+   //==========================================================================
+
    internal static void Start()
    {
       OutlinerGUP.Instance = new OutlinerGUP();
    }
+
+   //==========================================================================
 
    internal void Stop() 
    {
@@ -98,6 +127,8 @@ public class OutlinerGUP
          XmlSerialization.Serialize<SettingsCollection>(OutlinerPaths.SettingsFile, this.Settings);
    }
 
+   //==========================================================================
+
    /// <summary>
    /// Gets all registered TreeView controls.
    /// </summary>
@@ -108,6 +139,8 @@ public class OutlinerGUP
          return this.TreeModes.Keys;
       }
    }
+
+   //==========================================================================
 
    /// <summary>
    /// Gets the TreeMode for the given TreeView control.
@@ -120,11 +153,15 @@ public class OutlinerGUP
       return mode;
    }
 
+   //==========================================================================
+
    internal void RegisterTreeMode(TreeView tree, TreeMode treeMode)
    {
       if (!this.TreeModes.ContainsKey(tree))
          this.TreeModes.Add(tree, treeMode);
    }
+
+   //==========================================================================
 
    internal void UnRegisterTreeMode(TreeMode treeMode)
    {
@@ -138,6 +175,7 @@ public class OutlinerGUP
       }
    }
 
+   //==========================================================================
 
    /// <summary>
    /// Looks up the preset registered for the given treeview.
@@ -149,6 +187,8 @@ public class OutlinerGUP
          this.currentPresets.TryGetValue(tree, out preset);
       return preset;
    }
+
+   //==========================================================================
 
    /// <summary>
    /// Switches the mode, layout, sorter and filter of a TreeView defined by 
@@ -189,6 +229,8 @@ public class OutlinerGUP
 
       return newMode;
    }
+
+   //==========================================================================
 
    /// <summary>
    /// Reloads the Outliner settings.
@@ -253,6 +295,7 @@ public class OutlinerGUP
       return this.SettingsLoaded;
    }
 
+   //==========================================================================
 
    private static OutlinerState defaultState()
    {
@@ -266,6 +309,8 @@ public class OutlinerGUP
       return state;
    }
 
+   //==========================================================================
+
    /// <summary>
    /// Stores the current Outliner settings.
    /// </summary>
@@ -276,6 +321,8 @@ public class OutlinerGUP
 
       XmlSerialization.Serialize<OutlinerState>(OutlinerPaths.StateFile, this.State);
    }
+
+   //==========================================================================
 
    /// <summary>
    /// Stops all registered TreeModes.
@@ -288,6 +335,8 @@ public class OutlinerGUP
       }
    }
 
+   //==========================================================================
+
    /// <summary>
    /// Starts all registered TreeModes.
    /// </summary>
@@ -298,5 +347,7 @@ public class OutlinerGUP
          treeMode.Start();
       }
    }
+
+   //==========================================================================
 }
 }

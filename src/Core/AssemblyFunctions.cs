@@ -6,6 +6,7 @@ using Autodesk.Max;
 using ManagedServices;
 using Outliner.MaxUtils;
 using Outliner.Plugins;
+using System.Threading;
 
 namespace Outliner
 {
@@ -13,12 +14,12 @@ public static class AssemblyFunctions
 {
    private static GlobalDelegates.Delegate5 ProcPostStart;
 
-   private static System.Threading.Mutex appMutex;
+   private static Mutex appMutex;
    private static Boolean appMutexCreated;
 
    public static void AssemblyMain() 
    {
-      appMutex = new System.Threading.Mutex(true, "3dsmax", out appMutexCreated);
+      appMutex = new Mutex(true, "3dsmax", out appMutexCreated);
       
       ProcPostStart = new GlobalDelegates.Delegate5(PostStart);
 
