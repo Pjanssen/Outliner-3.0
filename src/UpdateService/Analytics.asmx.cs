@@ -10,12 +10,11 @@ namespace Outliner.WebServices
    [WebService(Namespace = "http://outliner.pjanssen.nl/")]
    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
    [ToolboxItem(false)]
-   public class Update : WebService
+   public class Analytics : WebService
    {
       [WebMethod]
-      public UpdateData GetUpdateData(OutlinerInstallation installation)
+      public void WindowOpened(OutlinerInstallation installation)
       {
-         throw new NotImplementedException();
       }
    }
 }

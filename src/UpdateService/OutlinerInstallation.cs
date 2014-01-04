@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Outliner.UpdateService
+namespace Outliner.WebServices
 {
    /// <summary>
    /// Defines the data sent to the update server, used to determine if 
