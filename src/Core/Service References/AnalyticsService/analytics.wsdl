@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://outliner.pjanssen.nl/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://outliner.pjanssen.nl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://outliner.pjanssen.nl/">
+      <s:element name="TreeModeStarted">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="installation" type="tns:OutlinerInstallation" />
+            <s:element minOccurs="0" maxOccurs="1" name="treeModeName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OutlinerInstallation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="OutlinerVersion" type="tns:OutlinerVersion" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxVersion" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OutlinerVersion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Major" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Minor" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Build" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Revision" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsBeta" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="TreeModeStartedResponse">
+        <s:complexType />
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="TreeModeStartedSoapIn">
+    <wsdl:part name="parameters" element="tns:TreeModeStarted" />
+  </wsdl:message>
+  <wsdl:message name="TreeModeStartedSoapOut">
+    <wsdl:part name="parameters" element="tns:TreeModeStartedResponse" />
+  </wsdl:message>
+  <wsdl:portType name="AnalyticsSoap">
+    <wsdl:operation name="TreeModeStarted">
+      <wsdl:input message="tns:TreeModeStartedSoapIn" />
+      <wsdl:output message="tns:TreeModeStartedSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AnalyticsSoap" type="tns:AnalyticsSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="TreeModeStarted">
+      <soap:operation soapAction="http://outliner.pjanssen.nl/TreeModeStarted" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AnalyticsSoap12" type="tns:AnalyticsSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="TreeModeStarted">
+      <soap12:operation soapAction="http://outliner.pjanssen.nl/TreeModeStarted" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Analytics">
+    <wsdl:port name="AnalyticsSoap" binding="tns:AnalyticsSoap">
+      <soap:address location="http://outliner.pjanssen.nl/services/analytics_server.php" />
+    </wsdl:port>
+    <wsdl:port name="AnalyticsSoap12" binding="tns:AnalyticsSoap12">
+      <soap12:address location="http://outliner.pjanssen.nl/services/analytics_server.php" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

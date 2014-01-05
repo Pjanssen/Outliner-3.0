@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Outliner
 {
-   public class Version
+   public class OutlinerVersion
    {
       public int Major
       {
@@ -37,9 +38,9 @@ namespace Outliner
          set;
       }
 
-      public Version() { }
+      public OutlinerVersion() { }
 
-      public Version(int major, int minor, int build, int revision)
+      public OutlinerVersion(int major, int minor, int build, int revision)
       {
          this.Major = major;
          this.Minor = minor;

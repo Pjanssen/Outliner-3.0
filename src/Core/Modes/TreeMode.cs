@@ -122,6 +122,8 @@ public abstract class TreeMode
 
       this.FillTree();
 
+      Analytics.TreeModeStarted(this.GetType().Name);
+
       this.Started = true;
    }
 

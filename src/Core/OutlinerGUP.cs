@@ -100,10 +100,6 @@ public class OutlinerGUP
       this.currentPresets = new Dictionary<TreeView, OutlinerPreset>();
 
       this.CommonNameFilter = new NameFilter();
-
-      OutlinerPlugins.LoadPlugins();
-      
-      this.ReloadSettings();
    }
 
    //==========================================================================
@@ -111,6 +107,9 @@ public class OutlinerGUP
    internal static void Start()
    {
       OutlinerGUP.Instance = new OutlinerGUP();
+
+      OutlinerPlugins.LoadPlugins();
+      OutlinerGUP.Instance.ReloadSettings();
    }
 
    //==========================================================================

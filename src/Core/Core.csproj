@@ -136,6 +136,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -155,6 +156,7 @@
     <Compile Include="Actions\FocusOnSelection.cs" />
     <Compile Include="Actions\OpenOutliner.cs" />
     <Compile Include="Actions\OutlinerActions.cs" />
+    <Compile Include="Analytics.cs" />
     <Compile Include="AssemblyFunctions.cs" />
     <Compile Include="Commands\AddNodesCommand.cs" />
     <Compile Include="Commands\ChangeGroupCommand.cs" />
@@ -369,6 +371,11 @@
     <Compile Include="Scene\MaxScene.cs" />
     <Compile Include="Modes\TreeMode.cs" />
     <Compile Include="Configuration\SorterConfiguration.cs" />
+    <Compile Include="Service References\AnalyticsService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="XmlSerialization.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -415,6 +422,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Notes.txt" />
+    <None Include="Service References\AnalyticsService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\AnalyticsService\configuration.svcinfo" />
+    <None Include="Service References\AnalyticsService\configuration91.svcinfo" />
     <EmbeddedResource Include="Resources\contextmenu\layer_16.png" />
     <EmbeddedResource Include="Resources\contextmenu\new_selectionset_16.png" />
     <EmbeddedResource Include="Resources\contextmenu\new_container_16.png" />
@@ -469,6 +482,7 @@
     <None Include="Properties\DataSources\Outliner.Filters.NameFilter.datasource" />
     <None Include="Properties\DataSources\Outliner.NodeSorters.NodeSorter.datasource" />
     <None Include="Properties\DataSources\Outliner.Presets.OutlinerPreset.datasource" />
+    <None Include="Service References\AnalyticsService\analytics.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -478,6 +492,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\AnalyticsService\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

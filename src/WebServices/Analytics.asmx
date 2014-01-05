@@ -1,1 +1,1 @@
-﻿<%@ WebService Language="C#" CodeBehind="Analytics.asmx.cs" Class="Outliner.Services.Analytics" %>
+﻿<%@ WebService Language="C#" CodeBehind="Analytics.asmx.cs" Class="Outliner.WebServices.Analytics" %>

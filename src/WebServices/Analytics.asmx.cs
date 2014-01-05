@@ -13,7 +13,7 @@ namespace Outliner.WebServices
    public class Analytics : WebService
    {
       [WebMethod]
-      public void WindowOpened(OutlinerInstallation installation)
+      public void TreeModeStarted(OutlinerInstallation installation, string treeModeName)
       {
       }
    }

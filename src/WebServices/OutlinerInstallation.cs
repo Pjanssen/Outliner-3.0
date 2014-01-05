@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Outliner.WebServices
@@ -13,7 +14,7 @@ namespace Outliner.WebServices
    {
       public OutlinerInstallation() { }
 
-      public OutlinerInstallation(Version outlinerVersion, int maxVersion)
+      public OutlinerInstallation(OutlinerVersion outlinerVersion, int maxVersion)
       {
          this.OutlinerVersion = outlinerVersion;
          this.MaxVersion = maxVersion;
@@ -22,7 +23,7 @@ namespace Outliner.WebServices
       /// <summary>
       /// Gets or set the currently installed Outliner version.
       /// </summary>
-      public Version OutlinerVersion
+      public OutlinerVersion OutlinerVersion
       {
          get;
          set;
