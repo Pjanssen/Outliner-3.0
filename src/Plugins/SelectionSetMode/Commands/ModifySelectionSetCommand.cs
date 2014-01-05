@@ -6,6 +6,7 @@ using Outliner.Scene;
 using Outliner.Commands;
 using Outliner.MaxUtils;
 using Outliner.Modes.SelectionSet;
+using PJanssen;
 
 namespace Outliner.Commands
 {

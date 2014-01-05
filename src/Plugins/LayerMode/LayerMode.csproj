@@ -36,6 +36,9 @@
       <HintPath>..\..\..\lib\Autodesk.Max.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="PJanssen">
+      <HintPath>..\..\..\lib\PJanssen.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />

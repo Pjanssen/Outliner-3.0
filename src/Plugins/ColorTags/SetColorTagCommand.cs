@@ -6,6 +6,7 @@ using Autodesk.Max;
 using Outliner.Scene;
 using Outliner.Commands;
 using Outliner.MaxUtils;
+using PJanssen;
 
 namespace Outliner.ColorTags
 {

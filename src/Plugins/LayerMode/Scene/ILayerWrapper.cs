@@ -6,6 +6,7 @@ using Autodesk.Max;
 using Outliner.LayerTools;
 using Outliner.MaxUtils;
 using Outliner.Modes.Layer;
+using PJanssen;
 
 namespace Outliner.Scene
 {

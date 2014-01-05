@@ -9,6 +9,7 @@ using Outliner.MaxUtils;
 using Outliner.Modes;
 using Outliner.Plugins;
 using Outliner.Scene;
+using PJanssen;
 
 namespace Outliner.TreeNodeButtons
 {

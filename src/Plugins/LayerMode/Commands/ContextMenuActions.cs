@@ -9,6 +9,7 @@ using Outliner.Modes;
 using Outliner.Modes.Layer;
 using Outliner.Plugins;
 using Outliner.Scene;
+using PJanssen;
 
 namespace Outliner.Commands
 {

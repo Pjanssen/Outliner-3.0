@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Outliner.Scene;
 using Autodesk.Max;
+using PJanssen;
 
 namespace Outliner.ColorTags
 {

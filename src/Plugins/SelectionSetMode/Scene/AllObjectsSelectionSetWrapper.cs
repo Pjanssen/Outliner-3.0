@@ -6,6 +6,7 @@ using Autodesk.Max;
 using Outliner.MaxUtils;
 using Outliner.Modes.SelectionSet;
 using Outliner.Scene;
+using PJanssen;
 
 namespace Outliner.Scene
 {

@@ -7,6 +7,7 @@ using System.Drawing;
 using Outliner.MaxUtils;
 using Outliner.LayerTools;
 using Outliner.Plugins;
+using PJanssen;
 
 namespace Outliner.ColorTags
 {

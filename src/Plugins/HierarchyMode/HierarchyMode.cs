@@ -9,6 +9,7 @@ using Outliner.Filters;
 using Outliner.Controls.Tree;
 using Outliner.MaxUtils;
 using Outliner.Plugins;
+using PJanssen;
 
 namespace Outliner.Modes.Hierarchy
 {

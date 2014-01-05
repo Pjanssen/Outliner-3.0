@@ -15,6 +15,7 @@ using Outliner.Plugins;
 using Outliner.Controls.Tree.Layout;
 using Outliner.Controls.Tree;
 using Outliner.Modes;
+using PJanssen;
 
 namespace Outliner.ColorTags
 {
