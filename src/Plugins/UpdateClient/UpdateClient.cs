@@ -1,6 +1,6 @@
 ﻿using Outliner.MaxUtils;
 using Outliner.Plugins;
-using Outliner.UpdateClient.UpdateService;
+using Outliner.UpdateClient.Service;
 using PJanssen.Logging;
 using System;
 using System.Collections.Generic;
@@ -52,7 +52,7 @@ namespace Outliner.UpdateClient
       {
          BasicHttpBinding binding = new BasicHttpBinding();
          EndpointAddress endpointAddress = new EndpointAddress(ServiceEndPointAddress);
-         
+
          return new UpdateSoapClient(binding, endpointAddress);
       }
 
@@ -62,7 +62,7 @@ namespace Outliner.UpdateClient
       {
          UpdateDialog dialog = new UpdateDialog();
 
-         Outliner.UpdateClient.UpdateService.Version version = data.NewVersion;
+         OutlinerVersion version = data.NewVersion;
          Label newVersionLbl = dialog.FindName("NewVersion") as Label;
          newVersionLbl.Content = string.Format(Resources.UpdateDialog.VersionFormat, version.Major, version.Minor, version.Build, version.Revision, version.IsBeta ? "beta" : "");
 
@@ -78,7 +78,7 @@ namespace Outliner.UpdateClient
       {
          return new OutlinerInstallation()
          {
-            OutlinerVersion = new UpdateService.Version() { Major = 3, Minor = 0, Build = 25 },
+            OutlinerVersion = new OutlinerVersion() { Major = 3, Minor = 0, Build = 25 },
             MaxVersion = 2013
          };
       }

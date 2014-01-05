@@ -11,11 +11,11 @@
       </s:element>
       <s:complexType name="OutlinerInstallation">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="OutlinerVersion" type="tns:Version" />
+          <s:element minOccurs="0" maxOccurs="1" name="OutlinerVersion" type="tns:OutlinerVersion" />
           <s:element minOccurs="1" maxOccurs="1" name="MaxVersion" type="s:int" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="Version">
+      <s:complexType name="OutlinerVersion">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Major" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="Minor" type="s:int" />
@@ -34,7 +34,7 @@
       <s:complexType name="UpdateData">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="IsUpdateAvailable" type="s:boolean" />
-          <s:element minOccurs="0" maxOccurs="1" name="NewVersion" type="tns:Version" />
+          <s:element minOccurs="0" maxOccurs="1" name="NewVersion" type="tns:OutlinerVersion" />
           <s:element minOccurs="0" maxOccurs="1" name="DownloadUrl" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Signature" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="ReleaseNotesUrl" type="s:string" />
@@ -80,10 +80,10 @@
   </wsdl:binding>
   <wsdl:service name="Update">
     <wsdl:port name="UpdateSoap" binding="tns:UpdateSoap">
-      <soap:address location="http://outliner.pjanssen.nl/wsdlTest/update_server.php" />
+      <soap:address location="http://outliner.pjanssen.nl/services/update_server.php" />
     </wsdl:port>
     <wsdl:port name="UpdateSoap12" binding="tns:UpdateSoap12">
-      <soap12:address location="http://outliner.pjanssen.nl/wsdlTest/update_server.php" />
+      <soap12:address location="http://outliner.pjanssen.nl/services/update_server.php" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

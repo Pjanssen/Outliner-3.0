@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="XmNpdDeEcUPYMs5eGo26IwXQpeY=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="aSEubAyvPhbc45IoWZ0F9Fm8jEQ=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="UpdateSoap">
       <properties>
@@ -263,10 +263,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="UpdateSoap" contract="UpdateService.UpdateSoap" bindingType="basicHttpBinding" address="http://outliner.pjanssen.nl/wsdlTest/update_server.php" bindingConfiguration="UpdateSoap">
+    <endpoint name="UpdateSoap" contract="Service.UpdateSoap" bindingType="basicHttpBinding" address="http://outliner.pjanssen.nl/services/update_server.php" bindingConfiguration="UpdateSoap">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://outliner.pjanssen.nl/wsdlTest/update_server.php</serializedValue>
+          <serializedValue>http://outliner.pjanssen.nl/services/update_server.php</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -278,7 +278,7 @@
           <serializedValue>UpdateSoap</serializedValue>
         </property>
         <property path="/contract" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>UpdateService.UpdateSoap</serializedValue>
+          <serializedValue>Service.UpdateSoap</serializedValue>
         </property>
         <property path="/headers" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.AddressHeaderCollectionElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.AddressHeaderCollectionElement</serializedValue>
@@ -348,10 +348,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="UpdateSoap12" contract="UpdateService.UpdateSoap" bindingType="customBinding" address="http://outliner.pjanssen.nl/wsdlTest/update_server.php" bindingConfiguration="UpdateSoap12">
+    <endpoint name="UpdateSoap12" contract="Service.UpdateSoap" bindingType="customBinding" address="http://outliner.pjanssen.nl/services/update_server.php" bindingConfiguration="UpdateSoap12">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://outliner.pjanssen.nl/wsdlTest/update_server.php</serializedValue>
+          <serializedValue>http://outliner.pjanssen.nl/services/update_server.php</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -363,7 +363,7 @@
           <serializedValue>UpdateSoap12</serializedValue>
         </property>
         <property path="/contract" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>UpdateService.UpdateSoap</serializedValue>
+          <serializedValue>Service.UpdateSoap</serializedValue>
         </property>
         <property path="/headers" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.AddressHeaderCollectionElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.AddressHeaderCollectionElement</serializedValue>
