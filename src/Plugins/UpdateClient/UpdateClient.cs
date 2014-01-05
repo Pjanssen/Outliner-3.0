@@ -7,7 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
+using System.Threading;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace Outliner.UpdateClient
 {
@@ -33,12 +35,27 @@ namespace Outliner.UpdateClient
          OutlinerGUP.Instance.Log.Debug("Checking for new version...");
 
          UpdateSoapClient client = CreateClient();
-         UpdateData updateData = client.GetUpdateData(GetCurrentInstallation());
+         object asyncState = new Tuple<UpdateSoapClient, Thread>(client, Thread.CurrentThread);
+
+         client.BeginGetUpdateData(GetCurrentInstallation(), UpdateDataReceived, asyncState);
+      }
+
+      //==========================================================================
+
+      private static void UpdateDataReceived(IAsyncResult ar)
+      {
+         Tuple<UpdateSoapClient, Thread> state = (Tuple<UpdateSoapClient, Thread>)ar.AsyncState;
+         UpdateSoapClient client = state.Item1;
+         Thread targetThread = state.Item2;
+
+         UpdateData updateData = client.EndGetUpdateData(ar);
 
          if (updateData.IsUpdateAvailable)
          {
             OutlinerGUP.Instance.Log.Debug("New version available!");
-            ShowUpdateDialog(updateData);
+
+            Dispatcher dispatcher = Dispatcher.FromThread(targetThread);
+            dispatcher.SyncInvoke(() => ShowUpdateDialog(updateData));
          }
          else
          {
