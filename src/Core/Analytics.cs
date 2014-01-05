@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.AnalyticsService;
 using System.ServiceModel;
+using Outliner.AnalyticsService;
 
 namespace Outliner
 {
+   /// <summary>
+   /// Defines an interface to the Analytics webservice.
+   /// </summary>
    public static class Analytics
    {
       //==========================================================================
@@ -15,6 +18,10 @@ namespace Outliner
 
       //==========================================================================
       
+      /// <summary>
+      /// Logs the start of a TreeMode.
+      /// </summary>
+      /// <param name="name">The name of the TreeMode.</param>
       public static void TreeModeStarted(string name)
       {
          AnalyticsSoapClient client = CreateClient();
