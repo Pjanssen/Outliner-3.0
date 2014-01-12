@@ -5,7 +5,7 @@ using System.Text;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Outliner.Filters
+namespace PJanssen.Outliner.Filters
 {
    /// <summary>
    /// A baseclass for a Filter of type T.

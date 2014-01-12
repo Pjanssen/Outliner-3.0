@@ -5,10 +5,10 @@ using System.Text;
 using System.Windows.Forms;
 using System.Globalization;
 using System.Drawing;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 using Autodesk.Max;
 
-namespace Outliner.Controls
+namespace PJanssen.Outliner.Controls
 {
 /// <summary>
 /// Provides methods for common Control operations.

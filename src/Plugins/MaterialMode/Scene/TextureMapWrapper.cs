@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 
-namespace Outliner.Scene
+namespace PJanssen.Outliner.Scene
 {
    public class TextureMapWrapper : MaxNodeWrapper
    {

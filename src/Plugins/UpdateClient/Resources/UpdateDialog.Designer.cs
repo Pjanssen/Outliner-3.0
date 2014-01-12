@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Outliner.UpdateClient.Resources {
+namespace PJanssen.Outliner.UpdateClient.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Outliner.UpdateClient.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Outliner.UpdateClient.Resources.UpdateDialog", typeof(UpdateDialog).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PJanssen.Outliner.UpdateClient.Resources.UpdateDialog", typeof(UpdateDialog).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

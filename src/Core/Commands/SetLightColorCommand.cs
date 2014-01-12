@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.Scene;
+using PJanssen.Outliner.Scene;
 using System.Drawing;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.Commands
+namespace PJanssen.Outliner.Commands
 {
 /// <summary>
 /// Turns lights on or off.

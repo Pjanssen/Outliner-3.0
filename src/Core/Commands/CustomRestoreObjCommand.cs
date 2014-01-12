@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using Autodesk.Max.Plugins;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.Commands
+namespace PJanssen.Outliner.Commands
 {
    /// <summary>
    /// Defines a base class for commands that require custom restore logic for the 3dsmax undo system.

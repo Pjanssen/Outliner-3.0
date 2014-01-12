@@ -7,13 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
-using Outliner.MaxUtils;
 using Autodesk.Max;
-using Outliner.Configuration;
-using Outliner.Controls.Tree.Layout;
-using PJanssen;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Configuration;
+using PJanssen.Outliner.Controls.Tree.Layout;
 
-namespace Outliner.Controls.Options
+namespace PJanssen.Outliner.Controls.Options
 {
 public partial class ConfigFilesEditor<T> : Form where T : class, new()
 {

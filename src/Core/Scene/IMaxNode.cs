@@ -4,9 +4,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.Scene
+namespace PJanssen.Outliner.Scene
 {
    /// <summary>
    /// IMaxNode provides a generic interface to any 3dsMax scene node.

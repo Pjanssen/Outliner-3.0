@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Plugins;
-using Outliner.Scene;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Modes.SelectionSet.Scene
+namespace PJanssen.Outliner.Modes.SelectionSet.Scene
 {
    [OutlinerPlugin(OutlinerPluginType.Utility)]
    public class SelectionSetWrapperFactory : IMaxNodeFactory

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Actions;
-using Outliner.Controls;
-using Outliner.Controls.Tree.Layout;
-using Outliner.Controls.Tree;
+using PJanssen.Outliner.Actions;
+using PJanssen.Outliner.Controls;
+using PJanssen.Outliner.Controls.Tree.Layout;
+using PJanssen.Outliner.Controls.Tree;
 
-namespace Outliner.Modes.Hierarchy
+namespace PJanssen.Outliner.Modes.Hierarchy
 {
    //public class OpenHierarchyModeAction : OpenOutlinerAction
    //{

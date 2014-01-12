@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using UiViewModels.Actions;
 
-namespace Outliner.Controls
+namespace PJanssen.Outliner.Controls
 {
    public partial class MainWindow : MaxCustomControls.MaxForm
    {

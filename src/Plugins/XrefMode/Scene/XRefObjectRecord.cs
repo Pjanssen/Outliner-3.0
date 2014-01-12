@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Autodesk.Max;
 using Autodesk.Max.IXRefItem;
-using Outliner.MaxUtils;
-using Outliner.Scene;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Scene
+namespace PJanssen.Outliner.Scene
 {
    public class XRefObjectRecord : MaxNodeWrapper, IXRefRecord
    {

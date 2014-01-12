@@ -7,9 +7,9 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.Drawing.Drawing2D;
 using System.ComponentModel;
-using Outliner.Plugins;
+using PJanssen.Outliner.Plugins;
 
-namespace Outliner.Controls.Tree.Layout
+namespace PJanssen.Outliner.Controls.Tree.Layout
 {
 /// <summary>
 /// Defines a TreeNodeLayoutItem which draws a hierarchical indent combined with an

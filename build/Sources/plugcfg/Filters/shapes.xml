@@ -2,7 +2,7 @@
 <FilterConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <text>Filter_Shapes</text>
   <image16>Img_Shape</image16>
-  <resource_type>Outliner.Filters.Resources</resource_type>
+  <resource_type>PJanssen.Outliner.Filters.Resources</resource_type>
   <FilterCategory>Classes</FilterCategory>
   <Filter xsi:type="SuperClassFilter" superclass="Shape" />
 </FilterConfiguration>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Outliner.Controls.Tree
+namespace PJanssen.Outliner.Controls.Tree
 {
    /// <summary>
    /// Defines the configuration for a TreeView object.

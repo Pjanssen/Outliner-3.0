@@ -7,10 +7,10 @@ using System.Reflection;
 using System.Resources;
 using System.Text;
 using System.Xml.Serialization;
-using Outliner.Controls.ContextMenu;
-using Outliner.Controls.Tree;
+using PJanssen.Outliner.Controls.ContextMenu;
+using PJanssen.Outliner.Controls.Tree;
 
-namespace Outliner
+namespace PJanssen.Outliner
 {
    public class OutlinerColorScheme
    {

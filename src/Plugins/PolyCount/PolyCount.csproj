@@ -8,7 +8,7 @@
     <ProjectGuid>{2644F454-7D80-4339-8221-7DD5B9213466}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Outliner.PolyCount</RootNamespace>
+    <RootNamespace>PJanssen.Outliner.PolyCount</RootNamespace>
     <AssemblyName>PolyCount</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

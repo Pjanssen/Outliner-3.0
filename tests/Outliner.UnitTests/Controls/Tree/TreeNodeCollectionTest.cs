@@ -3,10 +3,10 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Outliner.Controls.Tree;
+using PJanssen.Outliner.Controls.Tree;
 using Moq;
 
-namespace Outliner.Tests.Controls.Tree
+namespace PJanssen.Outliner.Tests.Controls.Tree
 {
    [TestClass]
    public class TreeNodeCollectionTest

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 
-namespace Outliner.MaxUtils
+namespace PJanssen.Outliner.MaxUtils
 {
    /// <summary>
    /// Provides methods for common 3dsMax viewport operations.

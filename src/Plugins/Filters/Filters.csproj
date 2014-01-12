@@ -8,7 +8,7 @@
     <ProjectGuid>{AB77D813-2790-42BC-BEA7-840E4286798F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Outliner.Filters</RootNamespace>
+    <RootNamespace>PJanssen.Outliner.Filters</RootNamespace>
     <AssemblyName>Filters</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

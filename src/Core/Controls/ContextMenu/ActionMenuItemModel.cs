@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Scene;
+using PJanssen.Outliner.Scene;
 using System.Xml.Serialization;
 using System.ComponentModel;
-using Outliner.Plugins;
+using PJanssen.Outliner.Plugins;
 using System.Windows.Forms;
 using System.Globalization;
-using Outliner.Modes;
-using PJanssen;
+using PJanssen.Outliner.Modes;
 
-namespace Outliner.Controls.ContextMenu
+namespace PJanssen.Outliner.Controls.ContextMenu
 {
 [OutlinerPlugin(OutlinerPluginType.ContextMenuItemModel)]
 [LocalizedDisplayName(typeof(ContextMenuResources), "Str_ActionMenuItemModel")]

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.LayerTools
+namespace PJanssen.Outliner.LayerTools
 {
    /// <summary>
    /// Provides a structure containing information about a property change on a layer.

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.Controls.Tree;
-using Outliner.Modes;
-using Outliner.Plugins;
-using Outliner.Scene;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.Modes;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.NodeSorters
+namespace PJanssen.Outliner.NodeSorters
 {
    [OutlinerPlugin(OutlinerPluginType.NodeSorter)]
    [LocalizedDisplayName(typeof(Resources), "Sorter_MaterialSorter")]

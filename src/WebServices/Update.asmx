@@ -1,1 +1,1 @@
-﻿<%@ WebService Language="C#" CodeBehind="Update.asmx.cs" Class="Outliner.WebServices.Update" %>
+﻿<%@ WebService Language="C#" CodeBehind="Update.asmx.cs" Class="PJanssen.Outliner.WebServices.Update" %>

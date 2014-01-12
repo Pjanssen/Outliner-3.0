@@ -7,21 +7,20 @@ using System.Text;
 using Autodesk.Max;
 using Autodesk.Max.MaxSDK.Util;
 using Autodesk.Max.Plugins;
-using Outliner.MaxUtils;
-using Outliner.Controls;
-using Outliner.Controls.Tree;
-using Outliner.Controls.Tree.Layout;
-using Outliner.Filters;
-using Outliner.Modes;
-using Outliner.NodeSorters;
-using Outliner.Plugins;
-using Outliner.Scene;
-using Outliner.Configuration;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Controls;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.Controls.Tree.Layout;
+using PJanssen.Outliner.Filters;
+using PJanssen.Outliner.Modes;
+using PJanssen.Outliner.NodeSorters;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Configuration;
 using WinForms = System.Windows.Forms;
-using PJanssen;
 using PJanssen.Logging;
 
-namespace Outliner
+namespace PJanssen.Outliner
 {
 /// <summary>
 /// The main access point for the Outliner. It holds the settings, states and treemodes.

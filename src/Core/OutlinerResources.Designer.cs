@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Outliner {
+namespace PJanssen.Outliner {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Outliner {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Outliner.OutlinerResources", typeof(OutlinerResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PJanssen.Outliner.OutlinerResources", typeof(OutlinerResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

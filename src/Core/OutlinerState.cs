@@ -5,12 +5,12 @@ using System.Text;
 using System.Xml.Serialization;
 using System.Windows.Forms;
 using System.IO;
-using Outliner.Configuration;
-using Outliner.Plugins;
-using Outliner.Scene;
-using Outliner.Filters;
+using PJanssen.Outliner.Configuration;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Filters;
 
-namespace Outliner
+namespace PJanssen.Outliner
 {
 public class OutlinerState
 {

@@ -3,7 +3,7 @@
   <Items>
     <MenuItem xsi:type="ActionMenuItemModel">
       <text>Context_ShowInViewport</text>
-      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <resource_type>PJanssen.Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
       <visible_types>Layer</visible_types>
       <enabled />
       <checked />
@@ -11,7 +11,7 @@
     </MenuItem>
     <MenuItem xsi:type="ActionMenuItemModel">
       <text>Context_ShowBoundingBox</text>
-      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <resource_type>PJanssen.Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
       <visible_types>Layer</visible_types>
       <enabled />
       <checked />
@@ -19,7 +19,7 @@
     </MenuItem>
     <MenuItem xsi:type="ActionMenuItemModel">
       <text>Context_ShowWireframe</text>
-      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <resource_type>PJanssen.Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
       <visible_types>Layer</visible_types>
       <enabled />
       <checked />
@@ -27,7 +27,7 @@
     </MenuItem>
     <MenuItem xsi:type="ActionMenuItemModel">
       <text>Context_ShowShaded</text>
-      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <resource_type>PJanssen.Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
       <visible_types>Layer</visible_types>
       <enabled />
       <checked />
@@ -38,27 +38,27 @@
     </MenuItem>
     <MenuItem xsi:type="NodePropertyMenuItemModel">
       <text>Context_SeeThrough</text>
-      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <resource_type>PJanssen.Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
       <property>SeeThrough</property>
     </MenuItem>
     <MenuItem xsi:type="NodePropertyMenuItemModel">
       <text>Context_BackfaceCull</text>
-      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <resource_type>PJanssen.Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
       <property>BackfaceCull</property>
     </MenuItem>
     <MenuItem xsi:type="NodePropertyMenuItemModel">
       <text>Context_Boxmode</text>
-      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <resource_type>PJanssen.Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
       <property>BoxMode</property>
     </MenuItem>
     <MenuItem xsi:type="NodePropertyMenuItemModel">
       <text>Context_Trajectory</text>
-      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <resource_type>PJanssen.Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
       <property>Trajectory</property>
     </MenuItem>
     <MenuItem xsi:type="NodePropertyMenuItemModel">
       <text>Context_FrozenInGray</text>
-      <resource_type>Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
+      <resource_type>PJanssen.Outliner.Controls.ContextMenu.ContextMenuResources</resource_type>
       <property>FrozenInGray</property>
     </MenuItem>
   </Items>

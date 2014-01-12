@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.Scene;
-using Outliner.Controls.Tree;
-using Outliner.Filters;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.Filters;
+using PJanssen.Outliner.MaxUtils;
 using System.Runtime.InteropServices;
-using Outliner.Plugins;
+using PJanssen.Outliner.Plugins;
 using System.Drawing;
 
-namespace Outliner.Modes.SelectionSet
+namespace PJanssen.Outliner.Modes.SelectionSet
 {
 [OutlinerPlugin(OutlinerPluginType.TreeMode)]
 [LocalizedDisplayName(typeof(Resources), "Mode_SelectionSets")]

@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Scene;
-using PJanssen;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Commands
+namespace PJanssen.Outliner.Commands
 {
    /// <summary>
    /// Removes IMaxNodes from a parent IMaxNode.

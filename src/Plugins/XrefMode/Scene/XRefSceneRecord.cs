@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using Autodesk.Max;
 using Autodesk.Max.MaxSDK.AssetManagement;
 using ManagedServices;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.Scene
+namespace PJanssen.Outliner.Scene
 {
    public class XRefSceneRecord : MaxNodeWrapper, IXRefRecord
    {

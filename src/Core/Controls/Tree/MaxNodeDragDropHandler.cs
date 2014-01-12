@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Outliner.Modes;
-using Outliner.Scene;
+using PJanssen.Outliner.Modes;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Controls.Tree
+namespace PJanssen.Outliner.Controls.Tree
 {
    /// <summary>
    /// Defines an abstract base class for drag &amp; drop operations on IMaxNodes.

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 
-namespace Outliner.Filters
+namespace PJanssen.Outliner.Filters
 {
    public class SuperClassConverter : StringConverter
    {

@@ -4,14 +4,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Outliner.Controls;
-using Outliner.Controls.Tree;
-using Outliner.Controls.Tree.Layout;
-using Outliner.Plugins;
-using Outliner.Scene;
-using Outliner.TreeNodeButtons;
+using PJanssen.Outliner.Controls;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.Controls.Tree.Layout;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.TreeNodeButtons;
 
-namespace Outliner.Modes.XRefMode
+namespace PJanssen.Outliner.Modes.XRef
 {
    [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
    public class XRefRecordEnabledButton : ImageButton

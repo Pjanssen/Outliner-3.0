@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Outliner.MaxUtils
+namespace PJanssen.Outliner.MaxUtils
 {
    /// <summary>
    /// The WindowWrapper implements IWin32Window and wraps an IntPtr window handle.

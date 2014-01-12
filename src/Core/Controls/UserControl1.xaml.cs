@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Outliner.Controls
+namespace PJanssen.Outliner.Controls
 {
    /// <summary>
    /// Interaction logic for UserControl1.xaml

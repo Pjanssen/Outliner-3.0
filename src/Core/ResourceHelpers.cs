@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.Drawing;
-using Outliner.MaxUtils;
-using PJanssen;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner
+namespace PJanssen.Outliner
 {
 /// <summary>
 /// Provides methods for common Embedded Resource operations.

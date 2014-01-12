@@ -4,12 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Outliner.Configuration;
-using Outliner.Controls.ContextMenu;
-using Outliner.Controls.Tree.Layout;
-using Outliner.NodeSorters;
+using PJanssen.Outliner.Configuration;
+using PJanssen.Outliner.Controls.ContextMenu;
+using PJanssen.Outliner.Controls.Tree.Layout;
+using PJanssen.Outliner.NodeSorters;
 
-namespace Outliner.Controls.Options
+namespace PJanssen.Outliner.Controls.Options
 {
 public class PresetsEditor : ConfigFilesEditor<OutlinerPreset>
 {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using System.Runtime.InteropServices;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.LayerTools
+namespace PJanssen.Outliner.LayerTools
 {
    public static class AssemblyFunctions
    {

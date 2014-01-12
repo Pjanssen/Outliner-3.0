@@ -5,17 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using Outliner.Controls;
-using Outliner.Controls.Tree;
-using Outliner.Controls.Tree.Layout;
-using Outliner.MaxUtils;
-using Outliner.Modes;
-using Outliner.Modes.XRefMode.Commands;
-using Outliner.Plugins;
-using Outliner.Scene;
-using Outliner.TreeNodeButtons;
+using PJanssen.Outliner.Controls;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.Controls.Tree.Layout;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Modes;
+using PJanssen.Outliner.Modes.XRef.Commands;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.TreeNodeButtons;
 
-namespace Outliner.Modes.XRefMode
+namespace PJanssen.Outliner.Modes.XRef
 {
    [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
    public class XRefSceneFlagsButton : ImageButton

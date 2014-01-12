@@ -3,9 +3,9 @@
   <text>Mode_SelectionSets</text>
   <image16>selectionset_mode_16_dark</image16>
   <image24>selectionset_mode_24_dark</image24>
-  <resource_type>Outliner.Modes.SelectionSet.Resources</resource_type>
+  <resource_type>PJanssen.Outliner.Modes.SelectionSet.Resources</resource_type>
   <isDefaultPreset>true</isDefaultPreset>
-  <treemode>Outliner.Modes.SelectionSet.SelectionSetMode</treemode>
+  <treemode>PJanssen.Outliner.Modes.SelectionSet.SelectionSetMode</treemode>
   <contextmenu />
   <treenodelayout>selectionsets.xml</treenodelayout>
   <sorter xsi:type="AlphabeticalSorter" />

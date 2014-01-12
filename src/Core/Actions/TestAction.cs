@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.Commands;
-using Outliner.Controls.Tree;
-using Outliner.MaxUtils;
-using Outliner.Scene;
+using PJanssen.Outliner.Commands;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Scene;
 using UiViewModels.Actions;
 
-namespace Outliner.Actions
+namespace PJanssen.Outliner.Actions
 {
    public class TestAction : CuiActionCommandAdapter
    {

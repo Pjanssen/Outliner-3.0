@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.MaxUtils;
-using Outliner.Scene;
-using PJanssen;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Commands
+namespace PJanssen.Outliner.Commands
 {
    /// <summary>
    /// Creates a new container object.

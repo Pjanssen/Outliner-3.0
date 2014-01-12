@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Outliner.UpdateClient.Service {
+namespace PJanssen.Outliner.UpdateClient.Service {
     using System.Runtime.Serialization;
     using System;
     
@@ -23,7 +23,7 @@ namespace Outliner.UpdateClient.Service {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Outliner.UpdateClient.Service.OutlinerVersion OutlinerVersionField;
+        private PJanssen.Outliner.UpdateClient.Service.OutlinerVersion OutlinerVersionField;
         
         private int MaxVersionField;
         
@@ -38,7 +38,7 @@ namespace Outliner.UpdateClient.Service {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public Outliner.UpdateClient.Service.OutlinerVersion OutlinerVersion {
+        public PJanssen.Outliner.UpdateClient.Service.OutlinerVersion OutlinerVersion {
             get {
                 return this.OutlinerVersionField;
             }
@@ -189,7 +189,7 @@ namespace Outliner.UpdateClient.Service {
         private bool IsUpdateAvailableField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Outliner.UpdateClient.Service.OutlinerVersion NewVersionField;
+        private PJanssen.Outliner.UpdateClient.Service.OutlinerVersion NewVersionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DownloadUrlField;
@@ -224,7 +224,7 @@ namespace Outliner.UpdateClient.Service {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public Outliner.UpdateClient.Service.OutlinerVersion NewVersion {
+        public PJanssen.Outliner.UpdateClient.Service.OutlinerVersion NewVersion {
             get {
                 return this.NewVersionField;
             }
@@ -291,12 +291,12 @@ namespace Outliner.UpdateClient.Service {
         
         // CODEGEN: Generating message contract since element name installation from namespace http://outliner.pjanssen.nl/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://outliner.pjanssen.nl/GetUpdateData", ReplyAction="*")]
-        Outliner.UpdateClient.Service.GetUpdateDataResponse GetUpdateData(Outliner.UpdateClient.Service.GetUpdateDataRequest request);
+        PJanssen.Outliner.UpdateClient.Service.GetUpdateDataResponse GetUpdateData(PJanssen.Outliner.UpdateClient.Service.GetUpdateDataRequest request);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://outliner.pjanssen.nl/GetUpdateData", ReplyAction="*")]
-        System.IAsyncResult BeginGetUpdateData(Outliner.UpdateClient.Service.GetUpdateDataRequest request, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginGetUpdateData(PJanssen.Outliner.UpdateClient.Service.GetUpdateDataRequest request, System.AsyncCallback callback, object asyncState);
         
-        Outliner.UpdateClient.Service.GetUpdateDataResponse EndGetUpdateData(System.IAsyncResult result);
+        PJanssen.Outliner.UpdateClient.Service.GetUpdateDataResponse EndGetUpdateData(System.IAsyncResult result);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -306,12 +306,12 @@ namespace Outliner.UpdateClient.Service {
     public partial class GetUpdateDataRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="GetUpdateData", Namespace="http://outliner.pjanssen.nl/", Order=0)]
-        public Outliner.UpdateClient.Service.GetUpdateDataRequestBody Body;
+        public PJanssen.Outliner.UpdateClient.Service.GetUpdateDataRequestBody Body;
         
         public GetUpdateDataRequest() {
         }
         
-        public GetUpdateDataRequest(Outliner.UpdateClient.Service.GetUpdateDataRequestBody Body) {
+        public GetUpdateDataRequest(PJanssen.Outliner.UpdateClient.Service.GetUpdateDataRequestBody Body) {
             this.Body = Body;
         }
     }
@@ -323,12 +323,12 @@ namespace Outliner.UpdateClient.Service {
     public partial class GetUpdateDataRequestBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public Outliner.UpdateClient.Service.OutlinerInstallation installation;
+        public PJanssen.Outliner.UpdateClient.Service.OutlinerInstallation installation;
         
         public GetUpdateDataRequestBody() {
         }
         
-        public GetUpdateDataRequestBody(Outliner.UpdateClient.Service.OutlinerInstallation installation) {
+        public GetUpdateDataRequestBody(PJanssen.Outliner.UpdateClient.Service.OutlinerInstallation installation) {
             this.installation = installation;
         }
     }
@@ -340,12 +340,12 @@ namespace Outliner.UpdateClient.Service {
     public partial class GetUpdateDataResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="GetUpdateDataResponse", Namespace="http://outliner.pjanssen.nl/", Order=0)]
-        public Outliner.UpdateClient.Service.GetUpdateDataResponseBody Body;
+        public PJanssen.Outliner.UpdateClient.Service.GetUpdateDataResponseBody Body;
         
         public GetUpdateDataResponse() {
         }
         
-        public GetUpdateDataResponse(Outliner.UpdateClient.Service.GetUpdateDataResponseBody Body) {
+        public GetUpdateDataResponse(PJanssen.Outliner.UpdateClient.Service.GetUpdateDataResponseBody Body) {
             this.Body = Body;
         }
     }
@@ -357,18 +357,18 @@ namespace Outliner.UpdateClient.Service {
     public partial class GetUpdateDataResponseBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public Outliner.UpdateClient.Service.UpdateData GetUpdateDataResult;
+        public PJanssen.Outliner.UpdateClient.Service.UpdateData GetUpdateDataResult;
         
         public GetUpdateDataResponseBody() {
         }
         
-        public GetUpdateDataResponseBody(Outliner.UpdateClient.Service.UpdateData GetUpdateDataResult) {
+        public GetUpdateDataResponseBody(PJanssen.Outliner.UpdateClient.Service.UpdateData GetUpdateDataResult) {
             this.GetUpdateDataResult = GetUpdateDataResult;
         }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface UpdateSoapChannel : Outliner.UpdateClient.Service.UpdateSoap, System.ServiceModel.IClientChannel {
+    public interface UpdateSoapChannel : PJanssen.Outliner.UpdateClient.Service.UpdateSoap, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -382,17 +382,17 @@ namespace Outliner.UpdateClient.Service {
             this.results = results;
         }
         
-        public Outliner.UpdateClient.Service.UpdateData Result {
+        public PJanssen.Outliner.UpdateClient.Service.UpdateData Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((Outliner.UpdateClient.Service.UpdateData)(this.results[0]));
+                return ((PJanssen.Outliner.UpdateClient.Service.UpdateData)(this.results[0]));
             }
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class UpdateSoapClient : System.ServiceModel.ClientBase<Outliner.UpdateClient.Service.UpdateSoap>, Outliner.UpdateClient.Service.UpdateSoap {
+    public partial class UpdateSoapClient : System.ServiceModel.ClientBase<PJanssen.Outliner.UpdateClient.Service.UpdateSoap>, PJanssen.Outliner.UpdateClient.Service.UpdateSoap {
         
         private BeginOperationDelegate onBeginGetUpdateDataDelegate;
         
@@ -422,49 +422,49 @@ namespace Outliner.UpdateClient.Service {
         public event System.EventHandler<GetUpdateDataCompletedEventArgs> GetUpdateDataCompleted;
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Outliner.UpdateClient.Service.GetUpdateDataResponse Outliner.UpdateClient.Service.UpdateSoap.GetUpdateData(Outliner.UpdateClient.Service.GetUpdateDataRequest request) {
+        PJanssen.Outliner.UpdateClient.Service.GetUpdateDataResponse PJanssen.Outliner.UpdateClient.Service.UpdateSoap.GetUpdateData(PJanssen.Outliner.UpdateClient.Service.GetUpdateDataRequest request) {
             return base.Channel.GetUpdateData(request);
         }
         
-        public Outliner.UpdateClient.Service.UpdateData GetUpdateData(Outliner.UpdateClient.Service.OutlinerInstallation installation) {
-            Outliner.UpdateClient.Service.GetUpdateDataRequest inValue = new Outliner.UpdateClient.Service.GetUpdateDataRequest();
-            inValue.Body = new Outliner.UpdateClient.Service.GetUpdateDataRequestBody();
+        public PJanssen.Outliner.UpdateClient.Service.UpdateData GetUpdateData(PJanssen.Outliner.UpdateClient.Service.OutlinerInstallation installation) {
+            PJanssen.Outliner.UpdateClient.Service.GetUpdateDataRequest inValue = new PJanssen.Outliner.UpdateClient.Service.GetUpdateDataRequest();
+            inValue.Body = new PJanssen.Outliner.UpdateClient.Service.GetUpdateDataRequestBody();
             inValue.Body.installation = installation;
-            Outliner.UpdateClient.Service.GetUpdateDataResponse retVal = ((Outliner.UpdateClient.Service.UpdateSoap)(this)).GetUpdateData(inValue);
+            PJanssen.Outliner.UpdateClient.Service.GetUpdateDataResponse retVal = ((PJanssen.Outliner.UpdateClient.Service.UpdateSoap)(this)).GetUpdateData(inValue);
             return retVal.Body.GetUpdateDataResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult Outliner.UpdateClient.Service.UpdateSoap.BeginGetUpdateData(Outliner.UpdateClient.Service.GetUpdateDataRequest request, System.AsyncCallback callback, object asyncState) {
+        System.IAsyncResult PJanssen.Outliner.UpdateClient.Service.UpdateSoap.BeginGetUpdateData(PJanssen.Outliner.UpdateClient.Service.GetUpdateDataRequest request, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginGetUpdateData(request, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginGetUpdateData(Outliner.UpdateClient.Service.OutlinerInstallation installation, System.AsyncCallback callback, object asyncState) {
-            Outliner.UpdateClient.Service.GetUpdateDataRequest inValue = new Outliner.UpdateClient.Service.GetUpdateDataRequest();
-            inValue.Body = new Outliner.UpdateClient.Service.GetUpdateDataRequestBody();
+        public System.IAsyncResult BeginGetUpdateData(PJanssen.Outliner.UpdateClient.Service.OutlinerInstallation installation, System.AsyncCallback callback, object asyncState) {
+            PJanssen.Outliner.UpdateClient.Service.GetUpdateDataRequest inValue = new PJanssen.Outliner.UpdateClient.Service.GetUpdateDataRequest();
+            inValue.Body = new PJanssen.Outliner.UpdateClient.Service.GetUpdateDataRequestBody();
             inValue.Body.installation = installation;
-            return ((Outliner.UpdateClient.Service.UpdateSoap)(this)).BeginGetUpdateData(inValue, callback, asyncState);
+            return ((PJanssen.Outliner.UpdateClient.Service.UpdateSoap)(this)).BeginGetUpdateData(inValue, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Outliner.UpdateClient.Service.GetUpdateDataResponse Outliner.UpdateClient.Service.UpdateSoap.EndGetUpdateData(System.IAsyncResult result) {
+        PJanssen.Outliner.UpdateClient.Service.GetUpdateDataResponse PJanssen.Outliner.UpdateClient.Service.UpdateSoap.EndGetUpdateData(System.IAsyncResult result) {
             return base.Channel.EndGetUpdateData(result);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public Outliner.UpdateClient.Service.UpdateData EndGetUpdateData(System.IAsyncResult result) {
-            Outliner.UpdateClient.Service.GetUpdateDataResponse retVal = ((Outliner.UpdateClient.Service.UpdateSoap)(this)).EndGetUpdateData(result);
+        public PJanssen.Outliner.UpdateClient.Service.UpdateData EndGetUpdateData(System.IAsyncResult result) {
+            PJanssen.Outliner.UpdateClient.Service.GetUpdateDataResponse retVal = ((PJanssen.Outliner.UpdateClient.Service.UpdateSoap)(this)).EndGetUpdateData(result);
             return retVal.Body.GetUpdateDataResult;
         }
         
         private System.IAsyncResult OnBeginGetUpdateData(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            Outliner.UpdateClient.Service.OutlinerInstallation installation = ((Outliner.UpdateClient.Service.OutlinerInstallation)(inValues[0]));
+            PJanssen.Outliner.UpdateClient.Service.OutlinerInstallation installation = ((PJanssen.Outliner.UpdateClient.Service.OutlinerInstallation)(inValues[0]));
             return this.BeginGetUpdateData(installation, callback, asyncState);
         }
         
         private object[] OnEndGetUpdateData(System.IAsyncResult result) {
-            Outliner.UpdateClient.Service.UpdateData retVal = this.EndGetUpdateData(result);
+            PJanssen.Outliner.UpdateClient.Service.UpdateData retVal = this.EndGetUpdateData(result);
             return new object[] {
                     retVal};
         }
@@ -476,11 +476,11 @@ namespace Outliner.UpdateClient.Service {
             }
         }
         
-        public void GetUpdateDataAsync(Outliner.UpdateClient.Service.OutlinerInstallation installation) {
+        public void GetUpdateDataAsync(PJanssen.Outliner.UpdateClient.Service.OutlinerInstallation installation) {
             this.GetUpdateDataAsync(installation, null);
         }
         
-        public void GetUpdateDataAsync(Outliner.UpdateClient.Service.OutlinerInstallation installation, object userState) {
+        public void GetUpdateDataAsync(PJanssen.Outliner.UpdateClient.Service.OutlinerInstallation installation, object userState) {
             if ((this.onBeginGetUpdateDataDelegate == null)) {
                 this.onBeginGetUpdateDataDelegate = new BeginOperationDelegate(this.OnBeginGetUpdateData);
             }

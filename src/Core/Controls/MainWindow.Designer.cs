@@ -1,4 +1,4 @@
-﻿namespace Outliner.Controls
+﻿namespace PJanssen.Outliner.Controls
 {
    partial class MainWindow
    {

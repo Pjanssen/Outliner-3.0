@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Outliner.Configuration;
+using PJanssen.Outliner.Configuration;
 
-namespace Outliner.Tests.Configuration
+namespace PJanssen.Outliner.Tests.Configuration
 {
    [TestClass]
    public class SettingsCollectionTests

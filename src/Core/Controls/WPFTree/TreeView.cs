@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace Outliner.Controls.WPFTree
+namespace PJanssen.Outliner.Controls.WPFTree
 {
    public class TreeView : Canvas
    {

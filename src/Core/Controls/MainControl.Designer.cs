@@ -1,5 +1,5 @@
-﻿using Outliner.Controls.Tree;
-namespace Outliner.Controls
+﻿using PJanssen.Outliner.Controls.Tree;
+namespace PJanssen.Outliner.Controls
 {
    partial class MainControl
    {

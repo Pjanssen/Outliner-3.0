@@ -1,10 +1,10 @@
-﻿using Outliner.Filters;
+﻿using PJanssen.Outliner.Filters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Outliner.Scene;
+using PJanssen.Outliner.Scene;
 using System;
 using Moq;
 
-namespace Outliner.Tests.Filters
+namespace PJanssen.Outliner.Tests.Filters
 {
 /// <summary>
 ///This is a test class for NameFilterTest and is intended

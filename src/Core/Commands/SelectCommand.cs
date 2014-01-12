@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Scene;
+using PJanssen.Outliner.Scene;
 using Autodesk.Max;
-using Outliner.MaxUtils;
-using PJanssen;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.Commands
+namespace PJanssen.Outliner.Commands
 {
 /// <summary>
 /// Selects nodes in the scene.

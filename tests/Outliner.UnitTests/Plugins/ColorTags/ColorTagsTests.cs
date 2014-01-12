@@ -2,9 +2,9 @@
 using Autodesk.Max;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Outliner.ColorTags;
+using PJanssen.Outliner.ColorTags;
 
-namespace Outliner.UnitTests.Plugins.ColorTagsPlugin
+namespace PJanssen.Outliner.UnitTests.Plugins.ColorTagsPlugin
 {
    [TestClass]
    public class ColorTagsTests

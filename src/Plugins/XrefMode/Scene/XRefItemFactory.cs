@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Autodesk.Max;
-using Outliner.Plugins;
-using Outliner.Scene;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Modes.XRefMode.Scene
+namespace PJanssen.Outliner.Scene
 {
    [OutlinerPlugin(OutlinerPluginType.Utility)]
    public class XRefItemFactory : IMaxNodeFactory

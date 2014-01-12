@@ -7,9 +7,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
-using Outliner.Plugins;
+using PJanssen.Outliner.Plugins;
 
-namespace Outliner.Controls
+namespace PJanssen.Outliner.Controls
 {
    partial class AboutBox : Form
    {

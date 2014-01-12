@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Controls.Tree;
-using Outliner.Controls.Tree.Layout;
-using Outliner.Modes;
-using Outliner.Plugins;
-using Outliner.Scene;
-using PJanssen;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.Controls.Tree.Layout;
+using PJanssen.Outliner.Modes;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.TreeNodeButtons
+namespace PJanssen.Outliner.TreeNodeButtons
 {
    [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
    [LocalizedDisplayName(typeof(Resources), "Str_LockTransformsButton")]

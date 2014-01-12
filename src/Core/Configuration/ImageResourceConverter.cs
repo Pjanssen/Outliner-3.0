@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Drawing;
 
-namespace Outliner.Configuration
+namespace PJanssen.Outliner.Configuration
 {
    //TODO: remove size restriction, or find a flexible way to keep it.
    internal class ImageResourceConverter : ConfigurationResourceConverter

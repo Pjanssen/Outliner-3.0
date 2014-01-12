@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WinForms = System.Windows.Forms;
-using Outliner.Scene;
-using Outliner.Controls.Tree;
-using Outliner.Commands;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.Commands;
 
-namespace Outliner.Modes.SelectionSet
+namespace PJanssen.Outliner.Modes.SelectionSet
 {
 public class TreeViewDragDropHandler : IDragDropHandler
 {

@@ -10,13 +10,12 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using Autodesk.Max;
 using ManagedServices;
-using Outliner.MaxUtils;
-using Outliner.Modes;
-using Outliner.Plugins;
-using Outliner.Scene;
-using PJanssen;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Modes;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Controls.ContextMenu
+namespace PJanssen.Outliner.Controls.ContextMenu
 {
 [OutlinerPlugin(OutlinerPluginType.ContextMenuItemModel)]
 [LocalizedDisplayName(typeof(ContextMenuResources), "Str_MxsMenuItemModel")]

@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Resources;
 using System.ComponentModel;
 
-namespace Outliner.Plugins
+namespace PJanssen.Outliner.Plugins
 {
 /// <summary>
 /// Specifies a localized display name for a class, retrieved from an embedded resource.

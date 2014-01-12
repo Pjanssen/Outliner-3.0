@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using PJanssen;
 
-namespace Outliner.Controls.Tree.Layout
+namespace PJanssen.Outliner.Controls.Tree.Layout
 {
 /// <summary>
 /// Provides a baseclass for all node buttons. It provides a Tooltip and changes 

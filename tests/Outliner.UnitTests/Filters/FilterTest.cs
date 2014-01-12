@@ -3,11 +3,11 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Outliner.Filters;
+using PJanssen.Outliner.Filters;
 using Moq;
 using Moq.Protected;
 
-namespace Outliner.Tests.Filters
+namespace PJanssen.Outliner.Tests.Filters
 {
 [TestClass]
 public class FilterTest

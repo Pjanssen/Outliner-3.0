@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using Autodesk.Max.Plugins;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.LayerTools
+namespace PJanssen.Outliner.LayerTools
 {
    /// <summary>
    /// Provides common methods and constants for 3dsMax Layer management.

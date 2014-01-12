@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.NodeSorters;
+using PJanssen.Outliner.NodeSorters;
 
-namespace Outliner.Configuration
+namespace PJanssen.Outliner.Configuration
 {
    /// <summary>
    /// Defines a NodeSorter property on an object.

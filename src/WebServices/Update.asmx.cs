@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 
-namespace Outliner.WebServices
+namespace PJanssen.Outliner.WebServices
 {
    [WebService(Namespace = "http://outliner.pjanssen.nl/")]
    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]

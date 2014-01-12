@@ -4,14 +4,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.Controls.Tree;
-using Outliner.Controls.Tree.Layout;
-using Outliner.MaxUtils;
-using Outliner.Modes;
-using Outliner.Plugins;
-using Outliner.Scene;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.Controls.Tree.Layout;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Modes;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.PolyCount
+namespace PJanssen.Outliner.PolyCount
 {
    [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
    [LocalizedDisplayName(typeof(Resources), "Button_PolyCount")]

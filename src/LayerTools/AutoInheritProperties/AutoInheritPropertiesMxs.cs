@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.LayerTools
+namespace PJanssen.Outliner.LayerTools
 {
 public static class AutoInheritPropertiesMxs
 {
    internal static void Start()
    {
       Maxscript.RunResourceScript( typeof(AutoInheritPropertiesMxs).Assembly
-                                        , "Outliner.LayerTools.AutoInheritProperties.AutoInheritPropertiesMxs.ms");
+                                        , "PJanssen.Outliner.LayerTools.AutoInheritProperties.AutoInheritPropertiesMxs.ms");
    }
 
    private static IILayer getLayer(UInt64 layerHandle)

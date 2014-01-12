@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ServiceModel;
-using Outliner.AnalyticsService;
+using PJanssen.Outliner.AnalyticsService;
 
-namespace Outliner
+namespace PJanssen.Outliner
 {
    /// <summary>
    /// Defines an interface to the Analytics webservice.

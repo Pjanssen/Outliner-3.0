@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Autodesk.Max;
 using Autodesk.Max.MaxSDK.AssetManagement;
-using Outliner.Controls.Tree;
-using Outliner.MaxUtils;
-using Outliner.Modes;
-using Outliner.Plugins;
-using Outliner.Scene;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Modes;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Modes.XRefMode
+namespace PJanssen.Outliner.Modes.XRef
 {
    [OutlinerPlugin(OutlinerPluginType.TreeMode)]
    [LocalizedDisplayName(typeof(Resources), "Str_XrefMode")]

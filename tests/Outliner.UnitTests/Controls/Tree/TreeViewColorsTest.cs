@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Xml.Serialization;
-using Outliner.Controls.Tree;
+using PJanssen.Outliner.Controls.Tree;
 using System.Drawing;
 using System.IO;
-using Outliner.Controls;
+using PJanssen.Outliner.Controls;
 
-namespace Outliner.Tests.Controls.Tree
+namespace PJanssen.Outliner.Tests.Controls.Tree
 {
    [TestClass]
    public class TreeViewColorsTest

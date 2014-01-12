@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Autodesk.Max;
-using Outliner.MaxUtils;
-using Outliner.Scene;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Modes.XRefMode.Scene
+namespace PJanssen.Outliner.Scene
 {
    public class XRefObject : INodeWrapper
    {

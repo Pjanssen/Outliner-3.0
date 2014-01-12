@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Autodesk.Max;
-using Outliner.MaxUtils;
 using System.IO;
-using PJanssen;
+using Autodesk.Max;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner
+namespace PJanssen.Outliner
 {
 /// <summary>
 /// Provides the locations of various types of files used by the Outliner.

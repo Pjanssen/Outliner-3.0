@@ -3,12 +3,12 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Outliner.Scene;
+using PJanssen.Outliner.Scene;
 using Autodesk.Max;
 using System.Runtime.InteropServices;
-using Outliner;
+using PJanssen.Outliner;
 
-namespace Outliner.IntegrationTests
+namespace PJanssen.Outliner.IntegrationTests
 {
 [TestClass]
 public class GroupHelpersTest : MaxIntegrationTest

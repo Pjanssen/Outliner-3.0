@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace Outliner
+namespace PJanssen.Outliner
 {
    public class OutlinerVersion
    {

@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Plugins;
+using PJanssen.Outliner.Plugins;
 using Autodesk.Max;
-using Outliner.MaxUtils;
-using Outliner.Modes;
-using Outliner.Scene;
-using Outliner.Filters;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Modes;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Filters;
 
 
-namespace Outliner.ColorTags
+namespace PJanssen.Outliner.ColorTags
 {
    /// <summary>
    /// This class responds to ColorChanged SystemNotifications and updates the

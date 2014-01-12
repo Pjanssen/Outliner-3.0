@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using Autodesk.Max;
-using PJanssen;
 
-namespace Outliner.MaxUtils
+namespace PJanssen.Outliner.MaxUtils
 {
 /// <summary>
 /// Provides methods for common Color operations, such as conversion from 3dsMax color values.

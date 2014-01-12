@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WinForms = System.Windows.Forms;
-using Outliner.Scene;
-using Outliner.Commands;
-using Outliner.Controls.Tree;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Commands;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.Modes.Hierarchy
+namespace PJanssen.Outliner.Modes.Hierarchy
 {
 public class INodeDragDropHandler : MaxNodeDragDropHandler
 {

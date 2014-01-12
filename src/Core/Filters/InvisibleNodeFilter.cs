@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Scene;
-using Outliner.MaxUtils;
-using Outliner.Plugins;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Plugins;
 
-namespace Outliner.Filters
+namespace PJanssen.Outliner.Filters
 {
    /// <summary>
    /// Filters out all nodes that should not show up in the Outliner.

@@ -6,10 +6,10 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.ComponentModel;
-using Outliner.Scene;
-using Outliner.Modes;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Modes;
 
-namespace Outliner.Controls.Tree.Layout
+namespace PJanssen.Outliner.Controls.Tree.Layout
 {
    /// <summary>
    /// Defines a base class for drawing TreeNodes in a TreeView.

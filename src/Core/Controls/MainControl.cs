@@ -6,10 +6,10 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Outliner.Controls.Tree;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.Controls
+namespace PJanssen.Outliner.Controls
 {
 public partial class MainControl : MaxCustomControls.MaxUserControl, MaxCustomControls.CuiUpdatable
 {

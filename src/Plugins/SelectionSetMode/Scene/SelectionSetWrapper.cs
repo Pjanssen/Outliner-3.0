@@ -4,11 +4,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.MaxUtils;
-using Outliner.Modes.SelectionSet;
-using PJanssen;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Modes.SelectionSet;
 
-namespace Outliner.Scene
+namespace PJanssen.Outliner.Scene
 {
    public class SelectionSetWrapper : MaxNodeWrapper
    {

@@ -6,16 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Autodesk.Max.MaxSDK.AssetManagement;
-using Outliner.Controls;
-using Outliner.Controls.Tree;
-using Outliner.MaxUtils;
-using Outliner.Modes;
-using Outliner.Modes.XRefMode.Commands;
-using Outliner.Plugins;
-using Outliner.Scene;
+using PJanssen.Outliner.Controls;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Modes;
+using PJanssen.Outliner.Modes.XRef.Commands;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Scene;
 using WinForms = System.Windows.Forms;
 
-namespace Outliner.Modes.XRefMode
+namespace PJanssen.Outliner.Modes.XRef
 {
    [OutlinerPlugin(OutlinerPluginType.ActionProvider)]
    public static class XRefModeActions

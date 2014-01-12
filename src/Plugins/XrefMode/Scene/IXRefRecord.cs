@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Outliner.Scene
+namespace PJanssen.Outliner.Scene
 {
    public interface IXRefRecord
    {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.Controls.Options
+namespace PJanssen.Outliner.Controls.Options
 {
    public class PredicateConverter : StringConverter
    {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 
-namespace Outliner.Plugins
+namespace PJanssen.Outliner.Plugins
 {
 [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
 sealed public class LocalizedDisplayImageAttribute : Attribute

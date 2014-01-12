@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Scene;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Controls.Tree
+namespace PJanssen.Outliner.Controls.Tree
 {
    public class MaxTreeNode : TreeNode
    {

@@ -5,19 +5,18 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.Commands;
-using Outliner.Controls;
-using Outliner.Controls.ContextMenu;
-using Outliner.Controls.Tree;
-using Outliner.Filters;
-using Outliner.LayerTools;
-using Outliner.MaxUtils;
-using Outliner.NodeSorters;
-using Outliner.Scene;
+using PJanssen.Outliner.Commands;
+using PJanssen.Outliner.Controls;
+using PJanssen.Outliner.Controls.ContextMenu;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.Filters;
+using PJanssen.Outliner.LayerTools;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.NodeSorters;
+using PJanssen.Outliner.Scene;
 using WinForms = System.Windows.Forms;
-using PJanssen;
 
-namespace Outliner.Modes
+namespace PJanssen.Outliner.Modes
 {
 /// <summary>
 /// A baseclass for a TreeMode, which controls how the TreeView is filled and updated.

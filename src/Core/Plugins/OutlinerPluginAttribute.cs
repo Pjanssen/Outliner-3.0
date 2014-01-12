@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Outliner.Plugins
+namespace PJanssen.Outliner.Plugins
 {
    /// <summary>
    /// Marks a class as a plugin for the Outliner.

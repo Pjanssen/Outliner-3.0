@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.MaxUtils;
-using Outliner.Modes.Layer;
-using Outliner.Scene;
-using PJanssen;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Modes.Layer;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Commands
+namespace PJanssen.Outliner.Commands
 {
    public class SetCurrentLayerCommand : Command
    {

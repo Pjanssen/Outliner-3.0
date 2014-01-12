@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.Controls.Tree;
-using Outliner.MaxUtils;
-using Outliner.Modes;
-using Outliner.Modes.Layer;
-using Outliner.Plugins;
-using Outliner.Scene;
-using PJanssen;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Modes;
+using PJanssen.Outliner.Modes.Layer;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Commands
+namespace PJanssen.Outliner.Commands
 {
 [OutlinerPlugin(OutlinerPluginType.ActionProvider)]
 public static class ContextMenuActions

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Outliner.Configuration
+namespace PJanssen.Outliner.Configuration
 {
    /// <summary>
    /// Defines the UI categories for FilterConfigurations.

@@ -6,18 +6,17 @@ using System.Xml.Serialization;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using WinForms = System.Windows.Forms;
-using Outliner.Scene;
 using Autodesk.Max;
-using Outliner.Commands;
-using Outliner.Controls.ContextMenu;
-using Outliner.Plugins;
-using Outliner.Controls.Tree.Layout;
-using Outliner.Controls.Tree;
-using Outliner.Modes;
-using PJanssen;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Commands;
+using PJanssen.Outliner.Controls.ContextMenu;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Controls.Tree.Layout;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.Modes;
+using WinForms = System.Windows.Forms;
 
-namespace Outliner.ColorTags
+namespace PJanssen.Outliner.ColorTags
 {
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
 [LocalizedDisplayName(typeof(Resources), "Button_ColorTag")]

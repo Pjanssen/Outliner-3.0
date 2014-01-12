@@ -8,7 +8,7 @@
     <ProjectGuid>{3C0E5187-7E46-4753-AFEC-0C2EC08928F2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Outliner.Modes.Layer</RootNamespace>
+    <RootNamespace>PJanssen.Outliner.Modes.Layer</RootNamespace>
     <AssemblyName>LayerMode</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

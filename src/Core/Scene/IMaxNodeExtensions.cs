@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.MaxUtils;
-using PJanssen;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.Scene
+namespace PJanssen.Outliner.Scene
 {
    /// <summary>
    /// Defines extension methods for IMaxNode and IEnumerable&lt;IMaxNode&gt;.

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Outliner.Controls.Tree
+namespace PJanssen.Outliner.Controls.Tree
 {
 /// <summary>
 /// Represents a collection of TreeNode objects.

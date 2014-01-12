@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
-using Outliner.Controls.Tree.Layout;
-using Outliner.Controls;
-using Outliner.Controls.Tree;
+using PJanssen.Outliner.Controls.Tree.Layout;
+using PJanssen.Outliner.Controls;
+using PJanssen.Outliner.Controls.Tree;
 
-namespace Outliner.TreeNodeButtons
+namespace PJanssen.Outliner.TreeNodeButtons
 {
 public static class NodeButtonImages
 {

@@ -5,9 +5,8 @@ using System.Text;
 using System.Drawing.Imaging;
 using System.Drawing;
 using System.Security.Permissions;
-using PJanssen;
 
-namespace Outliner.Controls
+namespace PJanssen.Outliner.Controls
 {
    /// <summary>
    /// Provides methods for common Bitmap processing operations.

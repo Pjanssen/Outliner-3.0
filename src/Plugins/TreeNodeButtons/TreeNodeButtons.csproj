@@ -8,7 +8,7 @@
     <ProjectGuid>{F04022F4-F21E-42F2-865D-0BED07C690E4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Outliner.TreeNodeButtons</RootNamespace>
+    <RootNamespace>PJanssen.Outliner.TreeNodeButtons</RootNamespace>
     <AssemblyName>TreeNodeButtons</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

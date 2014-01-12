@@ -8,7 +8,7 @@
     <ProjectGuid>{AA8562B6-988F-4AFE-94EB-BF2FD64BE93E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Outliner</RootNamespace>
+    <RootNamespace>PJanssen.Outliner</RootNamespace>
     <AssemblyName>Outliner.Core</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

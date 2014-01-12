@@ -1,0 +1,579 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PJanssen</name>
+    </assembly>
+    <members>
+        <member name="T:PJanssen.SystemClock">
+            <summary>
+            Defines an IClock implementation which uses the system time.
+            </summary>
+        </member>
+        <member name="P:PJanssen.IClock.Now">
+            <summary>
+            Gets the current date and time.
+            </summary>
+        </member>
+        <member name="M:PJanssen.SystemClock.#ctor">
+            <summary>
+            Initializes a new instance of the SystemClock class.
+            </summary>
+        </member>
+        <member name="P:PJanssen.SystemClock.Now">
+            <inheritdoc />
+        </member>
+        <member name="T:PJanssen.StopwatchClock">
+            <summary>
+            Provides an IClock implementation which uses a stopwatch to calculate the date and time, from DateTime.MinValue.
+            </summary>
+        </member>
+        <member name="M:PJanssen.StopwatchClock.#ctor">
+            <summary>
+            Initializes a new instance of the StopwatchClock class.
+            </summary>
+        </member>
+        <member name="M:PJanssen.StopwatchClock.Pause">
+            <summary>
+            Temporarily pauses the time measurement.
+            </summary>
+        </member>
+        <member name="M:PJanssen.StopwatchClock.Resume">
+            <summary>
+            Resumes the time measurement.
+            </summary>
+        </member>
+        <member name="M:PJanssen.StopwatchClock.Restart">
+            <summary>
+            Resets the counter and starts the time measurement again.
+            </summary>
+        </member>
+        <member name="P:PJanssen.StopwatchClock.Now">
+            <inheritdoc />
+        </member>
+        <member name="T:PJanssen.Collections.ObjectPool`2">
+            <summary>
+            Defines a collection of objects which can be accessed through a key. If a key doesn't exist
+            in the pool yet, a creator function is invoked to create a new value.
+            </summary>
+        </member>
+        <member name="M:PJanssen.Collections.ObjectPool`2.#ctor(System.Func{`0,`1})">
+            <summary>
+            Initializes a new instance of the ObjectPool class.
+            </summary>
+            <param name="creator">The function used to create new objects.</param>
+        </member>
+        <member name="M:PJanssen.Collections.ObjectPool`2.Add(`0,`1)">
+            <summary>
+            Adds a new value to the pool.
+            </summary>
+        </member>
+        <member name="M:PJanssen.Collections.ObjectPool`2.Get(`0)">
+            <summary>
+            Gets a value with the given key from the object pool, or creates a new one through the 
+            creator function if it doesn't exist yet.
+            </summary>
+        </member>
+        <member name="T:PJanssen.IEnumerableExtensions">
+            <summary>
+            Provides extension methods for IEnumerable objects.
+            </summary>
+        </member>
+        <member name="M:PJanssen.IEnumerableExtensions.ToIEnumerable``1(``0)">
+            <summary>
+            Returns an IEnumerable with a single element.
+            </summary>
+        </member>
+        <member name="M:PJanssen.IEnumerableExtensions.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+            Iterates over all elements in the collection with the supplied function.
+            </summary>
+        </member>
+        <member name="M:PJanssen.IEnumerableExtensions.Map``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+            Applies a function to all elements in the collection and returns the collection.
+            NOTE: Only works when calling ToList() or similar after the operation!
+            </summary>
+        </member>
+        <member name="M:PJanssen.IEnumerableExtensions.DropLast``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+            <summary>
+            Drops the last n number of elements from the IEnumerable.
+            </summary>
+        </member>
+        <member name="M:PJanssen.IEnumerableExtensions.IsEmpty``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Tests if the collection is empty.
+            </summary>
+        </member>
+        <member name="M:PJanssen.IEnumerableExtensions.ToDelimitedString(System.Collections.IEnumerable)">
+            <summary>
+            Converts an IEnumerable recursively to a string of delimited values.
+            </summary>
+            <param name="pThis"></param>
+        </member>
+        <member name="M:PJanssen.IEnumerableExtensions.ToDelimitedString(System.Collections.IEnumerable,System.String)">
+            <summary>
+            Converts an IEnumerable recursively to a string of delimited values.
+            </summary>
+            <param name="pThis"></param>
+            <param name="pDelimiter">The string to delimit the values with.</param>
+        </member>
+        <member name="T:PJanssen.Logging.FileLogger">
+            <summary>
+            An ITextLogger implementation which writes messages to a text file.
+            </summary>
+        </member>
+        <member name="T:PJanssen.Logging.TextLogger">
+            <summary>
+            Provides an abstract base class for Logger implementations that write objects to
+            their output as a format line of text.
+            </summary>
+        </member>
+        <member name="T:PJanssen.Logging.ILogger">
+            <summary>
+            Defines a general purpose logging interface.
+            </summary>
+        </member>
+        <member name="M:PJanssen.Logging.ILogger.Debug(System.Object[])">
+            <summary>
+            Writes the given objects to the log as a Debug message, if the Debug LogType is enabled.
+            </summary>
+            <param name="parameters">The objects to write to the log</param>
+        </member>
+        <member name="M:PJanssen.Logging.ILogger.Info(System.Object[])">
+            <summary>
+            Writes the given objects to the log as an Info message, if the Info LogType is enabled.
+            </summary>
+            <param name="parameters">The objects to write to the log</param>
+        </member>
+        <member name="M:PJanssen.Logging.ILogger.Warning(System.Object[])">
+            <summary>
+            Writes the given objects to the log as a Warning message, if the Warning LogType is enabled.
+            </summary>
+            <param name="parameters">The objects to write to the log</param>
+        </member>
+        <member name="M:PJanssen.Logging.ILogger.Error(System.Object[])">
+            <summary>
+            Writes the given objects to the log as an Error message, if the Error LogType is enabled.
+            </summary>
+            <param name="parameters">The objects to write to the log</param>
+        </member>
+        <member name="P:PJanssen.Logging.ILogger.EnabledTypes">
+            <summary>
+            Gets or sets the type of message that will be logged.
+            </summary>
+        </member>
+        <member name="P:PJanssen.Logging.ILogger.DebugEnabled">
+            <summary>
+            Gets or sets whether logging Debug messages is enabled.
+            </summary>
+        </member>
+        <member name="P:PJanssen.Logging.ILogger.InfoEnabled">
+            <summary>
+            Gets or sets whether logging Info messages is enabled.
+            </summary>
+        </member>
+        <member name="P:PJanssen.Logging.ILogger.WarningEnabled">
+            <summary>
+            Gets or sets whether logging Warning messages is enabled.
+            </summary>
+        </member>
+        <member name="P:PJanssen.Logging.ILogger.ErrorEnabled">
+            <summary>
+            Gets or sets whether logging Error messages is enabled.
+            </summary>
+        </member>
+        <member name="M:PJanssen.Logging.Logger.WriteDebug(System.Object[])">
+            <summary>
+            Writes a debug message to the log.
+            </summary>
+            <param name="parameters">The parameters to write in the message.</param>
+        </member>
+        <member name="M:PJanssen.Logging.Logger.WriteInfo(System.Object[])">
+            <summary>
+            Writes an info message to the log.
+            </summary>
+            <param name="parameters">The parameters to write in the message.</param>
+        </member>
+        <member name="M:PJanssen.Logging.Logger.WriteWarning(System.Object[])">
+            <summary>
+            Writes a warning message to the log.
+            </summary>
+            <param name="parameters">The parameters to write in the message.</param>
+        </member>
+        <member name="M:PJanssen.Logging.Logger.WriteError(System.Object[])">
+            <summary>
+            Writes an error message to the log.
+            </summary>
+            <param name="parameters">The parameters to write in the message.</param>
+        </member>
+        <member name="M:PJanssen.Logging.Logger.IsLogTypeEnabled(PJanssen.Logging.LogTypes)">
+            <summary>
+            Tests whether the given LogType is enabled.
+            </summary>
+        </member>
+        <member name="M:PJanssen.Logging.Logger.DisableLogType(PJanssen.Logging.LogTypes)">
+            <summary>
+            Disables the given LogType(s).
+            </summary>
+        </member>
+        <member name="M:PJanssen.Logging.Logger.EnableLogType(PJanssen.Logging.LogTypes)">
+            <summary>
+            Enables the given LogType(s).
+            </summary>
+        </member>
+        <member name="M:PJanssen.Logging.FileLogger.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the FileLogger class. The given file will be overwritten if it already exists.
+            </summary>
+            <param name="filename">The name of the file to write to.</param>
+        </member>
+        <member name="M:PJanssen.Logging.FileLogger.#ctor(System.String,PJanssen.Logging.FileLoggerMode)">
+            <summary>
+            Initializes a new instance of the FileLogger class.
+            </summary>
+            <param name="filename">The name of the file to write to.</param>
+            <param name="mode">Determines whether a possible existing log file should be overwritten or appended to.</param>
+        </member>
+        <member name="M:PJanssen.Logging.FileLogger.#ctor(System.String,PJanssen.Logging.FileLoggerMode,PJanssen.IClock)">
+            <summary>
+            Initializes a new instance of the FileLogger class.
+            </summary>
+            <param name="filename">The name of the file to write to.</param>
+            <param name="mode">Determines whether a possible existing log file should be overwritten or appended to.</param>
+            <param name="clock">The clock implementation to use when writing log times.</param>
+        </member>
+        <member name="M:PJanssen.Logging.ILoggerExtensions.Exception(PJanssen.Logging.ILogger,System.Exception)">
+            <summary>
+            Formats an Exception object to the logger. It writes the message as an error, and the
+            stacktrace as a debug message.
+            </summary>
+        </member>
+        <member name="T:PJanssen.Logging.LogTypes">
+            <summary>
+            Defines different log types for the ILogger interface.
+            </summary>
+        </member>
+        <member name="F:PJanssen.Logging.LogTypes.None">
+            <summary>
+            Indicates that nothing will be logged.
+            </summary>
+        </member>
+        <member name="F:PJanssen.Logging.LogTypes.Debug">
+            <summary>
+            Indicates that Debug messages will be logged.
+            </summary>
+        </member>
+        <member name="F:PJanssen.Logging.LogTypes.Info">
+            <summary>
+            Indicates that Info messages will be logged.
+            </summary>
+        </member>
+        <member name="F:PJanssen.Logging.LogTypes.Warning">
+            <summary>
+            Indicates that Warning messages will be logged.
+            </summary>
+        </member>
+        <member name="F:PJanssen.Logging.LogTypes.Error">
+            <summary>
+            Indicates that Error messages will be logged.
+            </summary>
+        </member>
+        <member name="F:PJanssen.Logging.LogTypes.WarningAndError">
+            <summary>
+            Defines that Warning and Error messages will be logged.
+            </summary>
+        </member>
+        <member name="F:PJanssen.Logging.LogTypes.NoDebug">
+            <summary>
+            Indicates that all messages will be logged, except for Debug messages.
+            </summary>
+        </member>
+        <member name="F:PJanssen.Logging.LogTypes.All">
+            <summary>
+            Indicates that all messages will be logged.
+            </summary>
+        </member>
+        <member name="T:PJanssen.Logging.MappedLogger">
+            <summary>
+            Defines a logger which maps all log calls to a list of other registered loggers.
+            </summary>
+        </member>
+        <member name="M:PJanssen.Logging.MappedLogger.Map``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+            Maps an action onto a set of items, using the item as a parameter for the action.
+            </summary>
+            <param name="pItems">The items to map the function on.</param>
+            <param name="pAction">The action to execute for each item.</param>
+        </member>
+        <member name="M:PJanssen.Logging.MappedLogger.#ctor(PJanssen.Logging.ILogger[])">
+            <summary>
+            Initializes a new instance of the MappedLogger class.
+            </summary>
+            <param name="loggers">The ILogger objects to write log messages to.</param>
+        </member>
+        <member name="M:PJanssen.Logging.MappedLogger.AddLogger(PJanssen.Logging.ILogger)">
+            <summary>
+            Registers a logger.
+            </summary>
+            <param name="logger">The logger to add.</param>
+        </member>
+        <member name="M:PJanssen.Logging.MappedLogger.RemoveLogger(PJanssen.Logging.ILogger)">
+            <summary>
+            Unregisters a logger.
+            </summary>
+            <param name="logger">The logger to remove.</param>
+        </member>
+        <member name="P:PJanssen.Logging.MappedLogger.Loggers">
+            <summary>
+            Gets the ILogger objects to which this logger writes
+            </summary>
+        </member>
+        <member name="P:PJanssen.Logging.MappedLogger.ErrorMessageFormat">
+            ==========================================================================================
+        </member>
+        <member name="P:PJanssen.Logging.MappedLogger.WarningMessageFormat">
+            ==========================================================================================
+        </member>
+        <member name="T:PJanssen.Logging.ConsoleLogger">
+            <summary>
+            An ITextLogger implementation which writes messages to the Console.
+            </summary>
+        </member>
+        <member name="T:PJanssen.MemberInfoExtensions">
+            <summary>
+            Provides extension methods for MemberInfo objects.
+            </summary>
+        </member>
+        <member name="M:PJanssen.MemberInfoExtensions.HasAttribute``1(System.Reflection.MemberInfo)">
+            <summary>
+            Tests if a member has an attribute of a given type.
+            </summary>
+            <typeparam name="T">The type of attribute to find.</typeparam>
+        </member>
+        <member name="M:PJanssen.MemberInfoExtensions.GetAttribute``1(System.Reflection.MemberInfo)">
+            <summary>
+            Gets the attribute of the given type.
+            </summary>
+            <typeparam name="T">The type of attribute to find.</typeparam>
+        </member>
+        <member name="M:PJanssen.Throw.IfNull(System.Object,System.String)">
+            <summary>
+            Throws an ArgumentNullException is the supplied argument is null.
+            </summary>
+            <param name="argValue">The argument value.</param>
+            <param name="argName">The name of the argument.</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:PJanssen.Throw.IfNullOrEmpty``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+            Throws an ArgumentNullException is the supplied argument is null and an ArgumentException
+            if the supplied argument is empty.
+            </summary>
+            <param name="argValue">The argument value.</param>
+            <param name="argName">The name of the argument.</param>
+            <exception cref="T:System.ArgumentException"></exception>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:PJanssen.Throw.IfLargerThan``1(``0,``0,System.String)">
+            <summary>
+            Throws an exception if the supplied value is larger than the supplied maximum value.
+            </summary>
+            <typeparam name="T">The type of object to compare. The type must implement IComparable.</typeparam>
+            <param name="argValue">The value to compare to the mimimum value.</param>
+            <param name="maximumValue">The largest valid value of pValue.</param>
+            <param name="argName">The name of the argument.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException"/>
+        </member>
+        <member name="M:PJanssen.Throw.IfSmallerThan``1(``0,``0,System.String)">
+            <summary>
+            Throws an exception if the supplied value is smaller than the supplied minimum value.
+            </summary>
+            <typeparam name="T">The type of object to compare. The type must implement IComparable.</typeparam>
+            <param name="argValue">The value to compare to the mimimum value.</param>
+            <param name="minimumValue">The smallest valid value of pValue.</param>
+            <param name="argName">The name of the argument.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException"/>
+        </member>
+        <member name="T:PJanssen.UnitTesting.ParameterizedTest`1">
+            =============================================================================================
+             <summary>
+             A base class for parameterized tests.
+             </summary>
+        </member>
+        <member name="M:PJanssen.UnitTesting.ParameterizedTest`1.#ctor">
+            <summary>
+            Constructs a new TParameterizedTest object.
+            </summary>
+        </member>
+        <member name="M:PJanssen.UnitTesting.ParameterizedTest`1.TestException``1(System.String,System.Object[])">
+            <summary>
+            Tests the method under test with the given input.
+            </summary>
+            <param name="pMessage">An additional message to be displayed when the test fails.</param>
+            <param name="pInput">An array of input parameters.</param>
+        </member>
+        <member name="M:PJanssen.UnitTesting.ParameterizedTest`1.TestResult(`0,System.String,System.Object[])">
+            <summary>
+            Tests the method under test with the given input.
+            </summary>
+            <param name="pExpectedResult">The expected result of the method under test.</param>
+            <param name="pMessage">An additional message to be displayed when the test fails.</param>
+            <param name="pInput">An array of input parameters.</param>
+        </member>
+        <member name="P:PJanssen.UnitTesting.ParameterizedTest`1.BaseMethod">
+            <summary>
+            The method being tested.
+            </summary>
+        </member>
+        <member name="P:PJanssen.UnitTesting.ParameterizedTest`1.AssertMethod">
+            <summary>
+            The method which asserts the validity of each test result.
+            </summary>
+        </member>
+        <member name="P:PJanssen.UnitTesting.ParameterizedTest`1.MethodTarget">
+            <summary>
+            The target for the method to test. Null for static methods.
+            </summary>
+        </member>
+        <member name="T:PJanssen.UnitTesting.ParameterizedTest`2">
+            <summary>
+            A parameterized tester class to test a method with a single input parameter.
+            </summary>
+            <typeparam name="TIn1">The type of input parameter.</typeparam>
+            <typeparam name="TResult">The return type of the method under test.</typeparam>
+        </member>
+        <member name="M:PJanssen.UnitTesting.ParameterizedTest`2.Test(`0,`1)">
+            <summary>
+            Tests the method under test with the given input.
+            </summary>
+            <param name="pParam1">The first parameter to be passed to the method under test.</param>
+            <param name="pExpectedResult">The expected result of the method under test.</param>
+        </member>
+        <member name="M:PJanssen.UnitTesting.ParameterizedTest`2.Test(`0,`1,System.String)">
+            <summary>
+            Tests the method under test with the given input.
+            </summary>
+            <param name="pParam1">The first parameter to be passed to the method under test.</param>
+            <param name="pExpectedResult">The expected result of the method under test.</param>
+            <param name="pMessage">An additional message to be displayed when the test fails.</param>
+        </member>
+        <member name="M:PJanssen.UnitTesting.ParameterizedTest`2.Test``1(`0)">
+            <summary>
+            Tests the method under test with the given input.
+            </summary>
+            <param name="pParam1">The first parameter to be passed to the method under test.</param>
+        </member>
+        <member name="M:PJanssen.UnitTesting.ParameterizedTest`2.Test``1(`0,System.String)">
+            <summary>
+            Tests the method under test with the given input.
+            </summary>
+            <param name="pParam1">The first parameter to be passed to the method under test.</param>
+            <param name="pMessage">An additional message to be displayed when the test fails.</param>
+        </member>
+        <member name="P:PJanssen.UnitTesting.ParameterizedTest`2.Method">
+            <summary>
+            The method to be tested.
+            </summary>
+        </member>
+        <member name="T:PJanssen.UnitTesting.ParameterizedTest`3">
+            <summary>
+            A parameterized tester class to test a method with two input parameters.
+            </summary>
+            <typeparam name="TIn1">The type of the first input parameter.</typeparam>
+            <typeparam name="TIn2">The type of the second input parameter.</typeparam>
+            <typeparam name="TResult">The return type of the method under test.</typeparam>
+        </member>
+        <member name="M:PJanssen.UnitTesting.ParameterizedTest`3.Test(`0,`1,`2)">
+            <summary>
+            Tests the method under test with the given input.
+            </summary>
+            <param name="pParam1">The first parameter to be passed to the method under test.</param>
+            <param name="pParam2">The second parameter to be passed to the method under test.</param>
+            <param name="pExpectedResult">The expected result of the method under test.</param>
+        </member>
+        <member name="M:PJanssen.UnitTesting.ParameterizedTest`3.Test(`0,`1,`2,System.String)">
+            <summary>
+            Tests the method under test with the given input.
+            </summary>
+            <param name="pParam1">The first parameter to be passed to the method under test.</param>
+            <param name="pParam2">The second parameter to be passed to the method under test.</param>
+            <param name="pExpectedResult">The expected result of the method under test.</param>
+            <param name="pMessage">An additional message to be displayed when the test fails.</param>
+        </member>
+        <member name="M:PJanssen.UnitTesting.ParameterizedTest`3.Test``1(`0,`1)">
+            <summary>
+            Tests the method under test with the given input.
+            </summary>
+            <param name="pParam1">The first parameter to be passed to the method under test.</param>
+            <param name="pParam2">The second parameter to be passed to the method under test.</param>
+        </member>
+        <member name="M:PJanssen.UnitTesting.ParameterizedTest`3.Test``1(`0,`1,System.String)">
+            <summary>
+            Tests the method under test with the given input.
+            </summary>
+            <param name="pParam1">The first parameter to be passed to the method under test.</param>
+            <param name="pParam2">The second parameter to be passed to the method under test.</param>
+            <param name="pMessage">An additional message to be displayed when the test fails.</param>
+        </member>
+        <member name="P:PJanssen.UnitTesting.ParameterizedTest`3.Method">
+            <summary>
+            The method to be tested.
+            </summary>
+        </member>
+        <member name="T:PJanssen.UnitTesting.TParameterizedTest`4">
+            <summary>
+            A parameterized tester class to test a method with three input parameters.
+            </summary>
+            <typeparam name="TIn1">The type of the first input parameter.</typeparam>
+            <typeparam name="TIn2">The type of the second input parameter.</typeparam>
+            <typeparam name="TIn3">The type of the third input parameter.</typeparam>
+            <typeparam name="TResult">The return type of the method under test.</typeparam>
+        </member>
+        <member name="M:PJanssen.UnitTesting.TParameterizedTest`4.Test(`0,`1,`2,`3)">
+            <summary>
+            Tests the method under test with the given input.
+            </summary>
+            <param name="pParam1">The first parameter to be passed to the method under test.</param>
+            <param name="pParam2">The second parameter to be passed to the method under test.</param>
+            <param name="pParam3">The third parameter to be passed to the method under test.</param>
+            <param name="pExpectedResult">The expected result of the method under test.</param>
+        </member>
+        <member name="M:PJanssen.UnitTesting.TParameterizedTest`4.Test(`0,`1,`2,`3,System.String)">
+            <summary>
+            Tests the method under test with the given input.
+            </summary>
+            <param name="pParam1">The first parameter to be passed to the method under test.</param>
+            <param name="pParam2">The second parameter to be passed to the method under test.</param>
+            <param name="pParam3">The third parameter to be passed to the method under test.</param>
+            <param name="pExpectedResult">The expected result of the method under test.</param>
+            <param name="pMessage">An additional message to be displayed when the test fails.</param>
+        </member>
+        <member name="M:PJanssen.UnitTesting.TParameterizedTest`4.Test``1(`0,`1,`2)">
+            <summary>
+            Tests the method under test with the given input.
+            </summary>
+            <param name="pParam1">The first parameter to be passed to the method under test.</param>
+            <param name="pParam2">The second parameter to be passed to the method under test.</param>
+            <param name="pParam3">The third parameter to be passed to the method under test.</param>
+        </member>
+        <member name="M:PJanssen.UnitTesting.TParameterizedTest`4.Test``1(`0,`1,`2,System.String)">
+            <summary>
+            Tests the method under test with the given input.
+            </summary>
+            <param name="pParam1">The first parameter to be passed to the method under test.</param>
+            <param name="pParam2">The second parameter to be passed to the method under test.</param>
+            <param name="pParam3">The third parameter to be passed to the method under test.</param>
+            <param name="pMessage">An additional message to be displayed when the test fails.</param>
+        </member>
+        <member name="P:PJanssen.UnitTesting.TParameterizedTest`4.Method">
+            <summary>
+            The method to be tested.
+            </summary>
+        </member>
+        <member name="T:PJanssen.ValidatedNotNullAttribute">
+            <summary>
+            A dummy attribute that tells Code Analysis that a parameter has been validated as not being null.
+            </summary>
+        </member>
+    </members>
+</doc>

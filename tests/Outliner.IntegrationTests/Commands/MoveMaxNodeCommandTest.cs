@@ -1,10 +1,10 @@
-﻿using Outliner.Commands;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using Outliner.Scene;
+using PJanssen.Outliner.Commands;
+using PJanssen.Outliner.Scene;
 using System.Collections.Generic;
 
-namespace Outliner.IntegrationTests.Commands
+namespace PJanssen.Outliner.IntegrationTests.Commands
 {
 [TestClass]
 public class MoveMaxNodeCommandTest : MaxIntegrationTest

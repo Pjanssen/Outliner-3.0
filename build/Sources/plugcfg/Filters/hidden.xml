@@ -2,7 +2,7 @@
 <FilterConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <text>Filter_Hidden</text>
   <image16>Img_Hide</image16>
-  <resource_type>Outliner.Filters.Resources</resource_type>
+  <resource_type>PJanssen.Outliner.Filters.Resources</resource_type>
   <FilterCategory>Properties</FilterCategory>
   <Filter xsi:type="NodePropertyFilter" invert="true" property="IsHidden" />
 </FilterConfiguration>

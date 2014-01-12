@@ -8,7 +8,7 @@
     <ProjectGuid>{D89AAF44-43BA-48F2-BEEC-852FC3AB4655}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Outliner.LayerTools</RootNamespace>
+    <RootNamespace>PJanssen.Outliner.LayerTools</RootNamespace>
     <AssemblyName>Outliner.LayerTools</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

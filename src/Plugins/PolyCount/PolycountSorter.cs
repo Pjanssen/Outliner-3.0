@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Plugins;
-using Outliner.Controls.Tree;
-using Outliner.Scene;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.Scene;
 using Autodesk.Max;
-using Outliner.MaxUtils;
-using Outliner.NodeSorters;
-using Outliner.Modes;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.NodeSorters;
+using PJanssen.Outliner.Modes;
 
-namespace Outliner.PolyCount
+namespace PJanssen.Outliner.PolyCount
 {
 [OutlinerPlugin(OutlinerPluginType.NodeSorter)]
 [LocalizedDisplayName(typeof(Resources), "Sorter_PolyCount")]

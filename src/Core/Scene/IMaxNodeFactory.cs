@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Outliner.Scene
+namespace PJanssen.Outliner.Scene
 {
    /// <summary>
    /// Defines a method for creating an IMaxNode of a specific type.

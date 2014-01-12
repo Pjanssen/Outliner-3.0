@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Outliner.Plugins
+namespace PJanssen.Outliner.Plugins
 {
    /// <summary>Defines a method that is called when the Plugin is loaded.</summary>
    /// <remarks>The method should be public, static.</remarks>

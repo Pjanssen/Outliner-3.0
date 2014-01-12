@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Controls.Tree;
-using Outliner.Scene;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.Scene;
 using Autodesk.Max;
-using Outliner.Plugins;
-using Outliner.Modes;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Modes;
 
-namespace Outliner.NodeSorters
+namespace PJanssen.Outliner.NodeSorters
 {
    [OutlinerPlugin(OutlinerPluginType.NodeSorter)]
    [LocalizedDisplayName(typeof(Resources), "Sorter_INodeHandle")]

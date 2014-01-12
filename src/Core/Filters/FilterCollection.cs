@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 using System.Xml.Serialization;
 using System.ComponentModel;
 using System.Xml;
-using PJanssen;
 
-namespace Outliner.Filters
+namespace PJanssen.Outliner.Filters
 {
 [XmlRoot("Filters")]
 public class FilterCollection<T> : ICollection<Filter<T>>

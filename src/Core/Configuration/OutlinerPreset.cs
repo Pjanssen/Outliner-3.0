@@ -3,17 +3,16 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Xml.Serialization;
-using Outliner.Controls.ContextMenu;
-using Outliner.Controls.Tree;
-using Outliner.Controls.Tree.Layout;
-using Outliner.Filters;
-using Outliner.Modes;
-using Outliner.NodeSorters;
-using Outliner.Plugins;
-using Outliner.Scene;
-using PJanssen;
+using PJanssen.Outliner.Controls.ContextMenu;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.Controls.Tree.Layout;
+using PJanssen.Outliner.Filters;
+using PJanssen.Outliner.Modes;
+using PJanssen.Outliner.NodeSorters;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Configuration
+namespace PJanssen.Outliner.Configuration
 {
 /// <summary>
 /// A preset for the Outliner, defining the TreeMode, Layout, ContextMenu, Filters and NodeSorter.

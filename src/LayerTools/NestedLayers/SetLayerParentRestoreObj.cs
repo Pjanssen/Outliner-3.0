@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using Autodesk.Max.Plugins;
-using PJanssen;
 
-namespace Outliner.LayerTools
+namespace PJanssen.Outliner.LayerTools
 {
    internal class SetLayerParentRestoreObj : RestoreObj
    {

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using ManagedServices;
-using Outliner.MaxUtils;
-using Outliner.Plugins;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Plugins;
 using System.Threading;
 
-namespace Outliner
+namespace PJanssen.Outliner
 {
 public static class AssemblyFunctions
 {
@@ -35,7 +35,7 @@ public static class AssemblyFunctions
                                                  , SystemNotificationCode.SystemStartup);
 
       OutlinerGUP.Start();
-      MaxscriptSDK.ExecuteMaxscriptCommand(@"Outliner = (dotnetclass ""Outliner.OutlinerGUP"").Instance");
+      MaxscriptSDK.ExecuteMaxscriptCommand(@"Outliner = (dotnetclass ""PJanssen.Outliner.OutlinerGUP"").Instance");
    }
 
    public static void AssemblyShutdown() 

@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
-using Outliner.MaxUtils;
 using System.ComponentModel;
-using PJanssen;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.Plugins
+namespace PJanssen.Outliner.Plugins
 {
 /// <summary>
 /// A class containing metadata for an Outliner plugin.

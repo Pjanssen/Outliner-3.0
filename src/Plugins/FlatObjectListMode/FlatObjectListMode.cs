@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.Controls.Tree;
-using Outliner.Scene;
-using Outliner.Filters;
-using Outliner.MaxUtils;
-using Outliner.Plugins;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Filters;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Plugins;
 
-namespace Outliner.Modes.FlatObjectList
+namespace PJanssen.Outliner.Modes.FlatObjectList
 {
 [OutlinerPlugin(OutlinerPluginType.TreeMode)]
 [LocalizedDisplayName(typeof(Resources), "Mode_FlatObjectList")]

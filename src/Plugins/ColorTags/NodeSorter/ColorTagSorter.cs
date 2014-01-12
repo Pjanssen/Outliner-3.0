@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Controls.Tree;
-using Outliner.Scene;
-using Outliner.LayerTools;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.LayerTools;
 using Autodesk.Max;
-using Outliner.Plugins;
-using Outliner.NodeSorters;
-using Outliner.Modes;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.NodeSorters;
+using PJanssen.Outliner.Modes;
 
-namespace Outliner.ColorTags
+namespace PJanssen.Outliner.ColorTags
 {
    [OutlinerPlugin(OutlinerPluginType.NodeSorter)]
    [LocalizedDisplayName(typeof(Resources), "Sorter_ColorTag")]

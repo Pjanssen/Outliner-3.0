@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Outliner.Controls
+namespace PJanssen.Outliner.Controls
 {
 public class OutlinerSplitContainer : SplitContainer
 {

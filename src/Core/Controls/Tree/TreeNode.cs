@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
-using Outliner.Filters;
+using PJanssen.Outliner.Filters;
 
-namespace Outliner.Controls.Tree
+namespace PJanssen.Outliner.Controls.Tree
 {
 /// <summary>
 /// Represents a node in a TreeView.

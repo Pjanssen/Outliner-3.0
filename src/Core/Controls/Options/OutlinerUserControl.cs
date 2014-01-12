@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 using Autodesk.Max;
 
-namespace Outliner.Controls.Options
+namespace PJanssen.Outliner.Controls.Options
 {
 public class OutlinerUserControl : UserControl
 {

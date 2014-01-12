@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Controls.Tree;
-using Outliner.MaxUtils;
 using System.Xml.Serialization;
 using System.ComponentModel;
 using System.Reflection;
-using Outliner.Scene;
-using Outliner.Modes;
-using PJanssen;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Modes;
 
-namespace Outliner.NodeSorters
+namespace PJanssen.Outliner.NodeSorters
 {
 /// <summary>
 /// Defines a sorting order.

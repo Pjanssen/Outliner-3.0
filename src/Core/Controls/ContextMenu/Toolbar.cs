@@ -4,11 +4,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Outliner.Configuration;
-using Outliner.Modes;
-using OutlinerTree = Outliner.Controls.Tree;
+using PJanssen.Outliner.Configuration;
+using PJanssen.Outliner.Modes;
+using OutlinerTree = PJanssen.Outliner.Controls.Tree;
 
-namespace Outliner.Controls.ContextMenu
+namespace PJanssen.Outliner.Controls.ContextMenu
 {
 public class Toolbar
 {

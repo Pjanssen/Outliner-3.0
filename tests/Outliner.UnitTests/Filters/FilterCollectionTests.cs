@@ -1,10 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Outliner.Filters;
-using PJanssen;
+using PJanssen.Outliner.Filters;
 
-namespace Outliner.Tests.Filters
+namespace PJanssen.Outliner.Tests.Filters
 {
    [TestClass]
    public class FilterCollectionTests

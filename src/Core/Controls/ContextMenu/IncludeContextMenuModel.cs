@@ -5,11 +5,11 @@ using System.Text;
 using System.Xml.Serialization;
 using System.Windows.Forms;
 using System.IO;
-using Outliner.Scene;
-using Outliner.Plugins;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Plugins;
 using System.ComponentModel;
 
-namespace Outliner.Controls.ContextMenu
+namespace PJanssen.Outliner.Controls.ContextMenu
 {
    [OutlinerPlugin(OutlinerPluginType.ContextMenuItemModel)]
    [LocalizedDisplayName(typeof(ContextMenuResources), "Str_IncludeContextMenuModel")]

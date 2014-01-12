@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using Autodesk.Max;
-using Outliner.Scene;
-using Outliner.Controls.Tree;
-using Outliner.Filters;
-using Outliner.Controls;
-using Outliner.MaxUtils;
-using Outliner.LayerTools;
-using Outliner.NodeSorters;
-using Outliner.Plugins;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.Filters;
+using PJanssen.Outliner.Controls;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.LayerTools;
+using PJanssen.Outliner.NodeSorters;
+using PJanssen.Outliner.Plugins;
 
-namespace Outliner.Modes.Layer
+namespace PJanssen.Outliner.Modes.Layer
 {
 /// <summary>
 /// Defines a TreeMode which lists all layers and their objects in the scene.

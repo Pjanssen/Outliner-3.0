@@ -9,7 +9,7 @@
     <ProjectGuid>{D60C045D-0975-4647-8637-8DFAA67F9EAF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Outliner.UnitTests</RootNamespace>
+    <RootNamespace>PJanssen.Outliner.UnitTests</RootNamespace>
     <AssemblyName>Outliner.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

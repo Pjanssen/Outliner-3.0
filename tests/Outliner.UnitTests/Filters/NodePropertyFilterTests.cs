@@ -1,11 +1,11 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Outliner.Filters;
-using Outliner.MaxUtils;
-using Outliner.Scene;
+using PJanssen.Outliner.Filters;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Tests.Filters
+namespace PJanssen.Outliner.Tests.Filters
 {
    [TestClass]
    public class NodePropertyFilterTests

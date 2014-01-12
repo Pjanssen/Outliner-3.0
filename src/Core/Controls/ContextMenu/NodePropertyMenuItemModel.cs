@@ -4,15 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using System.ComponentModel;
-using Outliner.MaxUtils;
-using Outliner.Commands;
-using Outliner.Scene;
-using Outliner.Plugins;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Commands;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Plugins;
 using System.Windows.Forms;
-using Outliner.Modes;
-using PJanssen;
+using PJanssen.Outliner.Modes;
 
-namespace Outliner.Controls.ContextMenu
+namespace PJanssen.Outliner.Controls.ContextMenu
 {
 [OutlinerPlugin(OutlinerPluginType.ContextMenuItemModel)]
 [LocalizedDisplayName(typeof(ContextMenuResources), "Str_NodePropertyMenuItemModel")]

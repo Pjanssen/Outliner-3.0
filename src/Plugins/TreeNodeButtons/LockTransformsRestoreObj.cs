@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using Autodesk.Max.Plugins;
-using Outliner.Scene;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.TreeNodeButtons
+namespace PJanssen.Outliner.TreeNodeButtons
 {
    internal class LockTransformsRestoreObj : RestoreObj
    {

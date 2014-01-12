@@ -1,11 +1,11 @@
 ﻿using System;
 using Autodesk.Max;
-using Outliner.Scene;
-using Outliner.Plugins;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Plugins;
 using System.Xml.Serialization;
 using System.ComponentModel;
 
-namespace Outliner.Filters
+namespace PJanssen.Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "Filter_SuperClass")]

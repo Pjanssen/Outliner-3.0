@@ -6,11 +6,11 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Outliner.Configuration;
-using Outliner.Plugins;
+using PJanssen.Outliner.Configuration;
+using PJanssen.Outliner.Plugins;
 using System.Reflection;
 
-namespace Outliner.Controls.Options
+namespace PJanssen.Outliner.Controls.Options
 {
 public partial class ConfigurationFilePropertiesEditor : OutlinerUserControl
 {

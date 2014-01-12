@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Autodesk.Max;
 
-namespace Outliner.Scene
+namespace PJanssen.Outliner.Scene
 {
    public static class XRefNotificationCodes
    {

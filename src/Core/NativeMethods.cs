@@ -5,7 +5,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace Outliner
+namespace PJanssen.Outliner
 {
    internal static class NativeMethods
    {

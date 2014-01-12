@@ -6,13 +6,13 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Outliner.Plugins;
-using Outliner.Configuration;
-using Outliner.Controls.Tree.Layout;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Configuration;
+using PJanssen.Outliner.Controls.Tree.Layout;
 using System.IO;
-using Outliner.Controls.ContextMenu;
+using PJanssen.Outliner.Controls.ContextMenu;
 
-namespace Outliner.Controls.Options
+namespace PJanssen.Outliner.Controls.Options
 {
    public partial class PresetPropertiesEditor : OutlinerUserControl
    {

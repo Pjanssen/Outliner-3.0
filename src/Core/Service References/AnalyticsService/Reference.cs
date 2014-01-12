@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Outliner.AnalyticsService {
+namespace PJanssen.Outliner.AnalyticsService {
     using System.Runtime.Serialization;
     using System;
     
@@ -23,7 +23,7 @@ namespace Outliner.AnalyticsService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Outliner.AnalyticsService.OutlinerVersion OutlinerVersionField;
+        private PJanssen.Outliner.AnalyticsService.OutlinerVersion OutlinerVersionField;
         
         private int MaxVersionField;
         
@@ -38,7 +38,7 @@ namespace Outliner.AnalyticsService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public Outliner.AnalyticsService.OutlinerVersion OutlinerVersion {
+        public PJanssen.Outliner.AnalyticsService.OutlinerVersion OutlinerVersion {
             get {
                 return this.OutlinerVersionField;
             }
@@ -183,12 +183,12 @@ namespace Outliner.AnalyticsService {
         
         // CODEGEN: Generating message contract since element name installation from namespace http://outliner.pjanssen.nl/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://outliner.pjanssen.nl/TreeModeStarted", ReplyAction="*")]
-        Outliner.AnalyticsService.TreeModeStartedResponse TreeModeStarted(Outliner.AnalyticsService.TreeModeStartedRequest request);
+        PJanssen.Outliner.AnalyticsService.TreeModeStartedResponse TreeModeStarted(PJanssen.Outliner.AnalyticsService.TreeModeStartedRequest request);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://outliner.pjanssen.nl/TreeModeStarted", ReplyAction="*")]
-        System.IAsyncResult BeginTreeModeStarted(Outliner.AnalyticsService.TreeModeStartedRequest request, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginTreeModeStarted(PJanssen.Outliner.AnalyticsService.TreeModeStartedRequest request, System.AsyncCallback callback, object asyncState);
         
-        Outliner.AnalyticsService.TreeModeStartedResponse EndTreeModeStarted(System.IAsyncResult result);
+        PJanssen.Outliner.AnalyticsService.TreeModeStartedResponse EndTreeModeStarted(System.IAsyncResult result);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -198,12 +198,12 @@ namespace Outliner.AnalyticsService {
     public partial class TreeModeStartedRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="TreeModeStarted", Namespace="http://outliner.pjanssen.nl/", Order=0)]
-        public Outliner.AnalyticsService.TreeModeStartedRequestBody Body;
+        public PJanssen.Outliner.AnalyticsService.TreeModeStartedRequestBody Body;
         
         public TreeModeStartedRequest() {
         }
         
-        public TreeModeStartedRequest(Outliner.AnalyticsService.TreeModeStartedRequestBody Body) {
+        public TreeModeStartedRequest(PJanssen.Outliner.AnalyticsService.TreeModeStartedRequestBody Body) {
             this.Body = Body;
         }
     }
@@ -215,7 +215,7 @@ namespace Outliner.AnalyticsService {
     public partial class TreeModeStartedRequestBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public Outliner.AnalyticsService.OutlinerInstallation installation;
+        public PJanssen.Outliner.AnalyticsService.OutlinerInstallation installation;
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
         public string treeModeName;
@@ -223,7 +223,7 @@ namespace Outliner.AnalyticsService {
         public TreeModeStartedRequestBody() {
         }
         
-        public TreeModeStartedRequestBody(Outliner.AnalyticsService.OutlinerInstallation installation, string treeModeName) {
+        public TreeModeStartedRequestBody(PJanssen.Outliner.AnalyticsService.OutlinerInstallation installation, string treeModeName) {
             this.installation = installation;
             this.treeModeName = treeModeName;
         }
@@ -236,12 +236,12 @@ namespace Outliner.AnalyticsService {
     public partial class TreeModeStartedResponse {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="TreeModeStartedResponse", Namespace="http://outliner.pjanssen.nl/", Order=0)]
-        public Outliner.AnalyticsService.TreeModeStartedResponseBody Body;
+        public PJanssen.Outliner.AnalyticsService.TreeModeStartedResponseBody Body;
         
         public TreeModeStartedResponse() {
         }
         
-        public TreeModeStartedResponse(Outliner.AnalyticsService.TreeModeStartedResponseBody Body) {
+        public TreeModeStartedResponse(PJanssen.Outliner.AnalyticsService.TreeModeStartedResponseBody Body) {
             this.Body = Body;
         }
     }
@@ -257,12 +257,12 @@ namespace Outliner.AnalyticsService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface AnalyticsSoapChannel : Outliner.AnalyticsService.AnalyticsSoap, System.ServiceModel.IClientChannel {
+    public interface AnalyticsSoapChannel : PJanssen.Outliner.AnalyticsService.AnalyticsSoap, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class AnalyticsSoapClient : System.ServiceModel.ClientBase<Outliner.AnalyticsService.AnalyticsSoap>, Outliner.AnalyticsService.AnalyticsSoap {
+    public partial class AnalyticsSoapClient : System.ServiceModel.ClientBase<PJanssen.Outliner.AnalyticsService.AnalyticsSoap>, PJanssen.Outliner.AnalyticsService.AnalyticsSoap {
         
         private BeginOperationDelegate onBeginTreeModeStartedDelegate;
         
@@ -292,44 +292,44 @@ namespace Outliner.AnalyticsService {
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> TreeModeStartedCompleted;
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Outliner.AnalyticsService.TreeModeStartedResponse Outliner.AnalyticsService.AnalyticsSoap.TreeModeStarted(Outliner.AnalyticsService.TreeModeStartedRequest request) {
+        PJanssen.Outliner.AnalyticsService.TreeModeStartedResponse PJanssen.Outliner.AnalyticsService.AnalyticsSoap.TreeModeStarted(PJanssen.Outliner.AnalyticsService.TreeModeStartedRequest request) {
             return base.Channel.TreeModeStarted(request);
         }
         
-        public void TreeModeStarted(Outliner.AnalyticsService.OutlinerInstallation installation, string treeModeName) {
-            Outliner.AnalyticsService.TreeModeStartedRequest inValue = new Outliner.AnalyticsService.TreeModeStartedRequest();
-            inValue.Body = new Outliner.AnalyticsService.TreeModeStartedRequestBody();
+        public void TreeModeStarted(PJanssen.Outliner.AnalyticsService.OutlinerInstallation installation, string treeModeName) {
+            PJanssen.Outliner.AnalyticsService.TreeModeStartedRequest inValue = new PJanssen.Outliner.AnalyticsService.TreeModeStartedRequest();
+            inValue.Body = new PJanssen.Outliner.AnalyticsService.TreeModeStartedRequestBody();
             inValue.Body.installation = installation;
             inValue.Body.treeModeName = treeModeName;
-            Outliner.AnalyticsService.TreeModeStartedResponse retVal = ((Outliner.AnalyticsService.AnalyticsSoap)(this)).TreeModeStarted(inValue);
+            PJanssen.Outliner.AnalyticsService.TreeModeStartedResponse retVal = ((PJanssen.Outliner.AnalyticsService.AnalyticsSoap)(this)).TreeModeStarted(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult Outliner.AnalyticsService.AnalyticsSoap.BeginTreeModeStarted(Outliner.AnalyticsService.TreeModeStartedRequest request, System.AsyncCallback callback, object asyncState) {
+        System.IAsyncResult PJanssen.Outliner.AnalyticsService.AnalyticsSoap.BeginTreeModeStarted(PJanssen.Outliner.AnalyticsService.TreeModeStartedRequest request, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginTreeModeStarted(request, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginTreeModeStarted(Outliner.AnalyticsService.OutlinerInstallation installation, string treeModeName, System.AsyncCallback callback, object asyncState) {
-            Outliner.AnalyticsService.TreeModeStartedRequest inValue = new Outliner.AnalyticsService.TreeModeStartedRequest();
-            inValue.Body = new Outliner.AnalyticsService.TreeModeStartedRequestBody();
+        public System.IAsyncResult BeginTreeModeStarted(PJanssen.Outliner.AnalyticsService.OutlinerInstallation installation, string treeModeName, System.AsyncCallback callback, object asyncState) {
+            PJanssen.Outliner.AnalyticsService.TreeModeStartedRequest inValue = new PJanssen.Outliner.AnalyticsService.TreeModeStartedRequest();
+            inValue.Body = new PJanssen.Outliner.AnalyticsService.TreeModeStartedRequestBody();
             inValue.Body.installation = installation;
             inValue.Body.treeModeName = treeModeName;
-            return ((Outliner.AnalyticsService.AnalyticsSoap)(this)).BeginTreeModeStarted(inValue, callback, asyncState);
+            return ((PJanssen.Outliner.AnalyticsService.AnalyticsSoap)(this)).BeginTreeModeStarted(inValue, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        Outliner.AnalyticsService.TreeModeStartedResponse Outliner.AnalyticsService.AnalyticsSoap.EndTreeModeStarted(System.IAsyncResult result) {
+        PJanssen.Outliner.AnalyticsService.TreeModeStartedResponse PJanssen.Outliner.AnalyticsService.AnalyticsSoap.EndTreeModeStarted(System.IAsyncResult result) {
             return base.Channel.EndTreeModeStarted(result);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public void EndTreeModeStarted(System.IAsyncResult result) {
-            Outliner.AnalyticsService.TreeModeStartedResponse retVal = ((Outliner.AnalyticsService.AnalyticsSoap)(this)).EndTreeModeStarted(result);
+            PJanssen.Outliner.AnalyticsService.TreeModeStartedResponse retVal = ((PJanssen.Outliner.AnalyticsService.AnalyticsSoap)(this)).EndTreeModeStarted(result);
         }
         
         private System.IAsyncResult OnBeginTreeModeStarted(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            Outliner.AnalyticsService.OutlinerInstallation installation = ((Outliner.AnalyticsService.OutlinerInstallation)(inValues[0]));
+            PJanssen.Outliner.AnalyticsService.OutlinerInstallation installation = ((PJanssen.Outliner.AnalyticsService.OutlinerInstallation)(inValues[0]));
             string treeModeName = ((string)(inValues[1]));
             return this.BeginTreeModeStarted(installation, treeModeName, callback, asyncState);
         }
@@ -346,11 +346,11 @@ namespace Outliner.AnalyticsService {
             }
         }
         
-        public void TreeModeStartedAsync(Outliner.AnalyticsService.OutlinerInstallation installation, string treeModeName) {
+        public void TreeModeStartedAsync(PJanssen.Outliner.AnalyticsService.OutlinerInstallation installation, string treeModeName) {
             this.TreeModeStartedAsync(installation, treeModeName, null);
         }
         
-        public void TreeModeStartedAsync(Outliner.AnalyticsService.OutlinerInstallation installation, string treeModeName, object userState) {
+        public void TreeModeStartedAsync(PJanssen.Outliner.AnalyticsService.OutlinerInstallation installation, string treeModeName, object userState) {
             if ((this.onBeginTreeModeStartedDelegate == null)) {
                 this.onBeginTreeModeStartedDelegate = new BeginOperationDelegate(this.OnBeginTreeModeStarted);
             }

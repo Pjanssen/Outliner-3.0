@@ -5,9 +5,9 @@ using System.Text;
 using System.Xml.Serialization;
 using Autodesk.Max;
 using System.Drawing;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.Controls
+namespace PJanssen.Outliner.Controls
 {
 /// <summary>
 /// A Color structure which can be serialized to Xml.

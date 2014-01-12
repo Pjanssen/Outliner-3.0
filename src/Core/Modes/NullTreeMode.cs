@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Controls.Tree;
+using PJanssen.Outliner.Controls.Tree;
 
-namespace Outliner.Modes
+namespace PJanssen.Outliner.Modes
 {
    /// <summary>
    /// A TreeMode that does nothing.

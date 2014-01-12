@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Outliner;
-using Outliner.Commands;
-using Outliner.Scene;
+using PJanssen.Outliner;
+using PJanssen.Outliner.Commands;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Modes.XRefMode.Commands
+namespace PJanssen.Outliner.Modes.XRef.Commands
 {
    public class SetXRefSceneFlagsCommand : Command
    {

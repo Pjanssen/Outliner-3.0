@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Scene;
-using Outliner.Commands;
-using Outliner.MaxUtils;
-using Outliner.Modes.SelectionSet;
-using PJanssen;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Commands;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Modes.SelectionSet;
 
-namespace Outliner.Commands
+namespace PJanssen.Outliner.Commands
 {
    /// <summary>
    /// Replaces the nodes in a selection-set.

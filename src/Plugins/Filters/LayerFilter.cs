@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Scene;
-using Outliner.Plugins;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Plugins;
 
-namespace Outliner.Filters
+namespace PJanssen.Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "Filter_Layers")]

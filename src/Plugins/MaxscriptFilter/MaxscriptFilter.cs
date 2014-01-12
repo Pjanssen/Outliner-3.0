@@ -8,11 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using ManagedServices;
-using Outliner.MaxUtils;
-using Outliner.Plugins;
-using Outliner.Scene;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Filters
+namespace PJanssen.Outliner.Filters
 {
 [OutlinerPlugin(OutlinerPluginType.Filter)]
 [LocalizedDisplayName(typeof(Resources), "Filter_Maxscript")]

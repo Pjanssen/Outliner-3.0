@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 using System.IO;
 
-namespace Outliner.LayerTools
+namespace PJanssen.Outliner.LayerTools
 {
 public static class NestedLayersMxs
 {
    internal static void Start()
    {
       Maxscript.RunResourceScript( typeof(NestedLayersMxs).Assembly
-                                        , "Outliner.LayerTools.NestedLayers.NestedLayersMxs.ms");
+                                        , "PJanssen.Outliner.LayerTools.NestedLayers.NestedLayersMxs.ms");
    }
 
    public const UInt64 RootHandle = 0;

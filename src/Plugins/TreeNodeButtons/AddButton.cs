@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WinForms = System.Windows.Forms;
-using Outliner.Scene;
-using Outliner.Commands;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Commands;
 using Autodesk.Max;
 using System.Xml.Serialization;
 using System.ComponentModel;
-using Outliner.Controls.Tree.Layout;
-using Outliner.Controls.Tree;
-using Outliner.Plugins;
+using PJanssen.Outliner.Controls.Tree.Layout;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.Plugins;
 using System.Globalization;
-using Outliner.Modes;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.Modes;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.TreeNodeButtons
+namespace PJanssen.Outliner.TreeNodeButtons
 {
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
 [LocalizedDisplayName(typeof(Resources), "Str_AddButton")]

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace Outliner.Configuration
+namespace PJanssen.Outliner.Configuration
 {
 /// <summary>
 /// Defines helper functions for managing configuration files.

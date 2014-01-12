@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.MaxUtils;
-using Outliner.Controls.Tree;
-using Outliner.Scene;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.Scene;
 using System.Drawing;
-using Outliner.Plugins;
+using PJanssen.Outliner.Plugins;
 using System.Xml.Serialization;
 using System.ComponentModel;
-using Outliner.Modes;
+using PJanssen.Outliner.Modes;
 
-namespace Outliner.NodeSorters
+namespace PJanssen.Outliner.NodeSorters
 {
 /// <summary>
 /// Sorts TreeNodes based on given NodeProperty.

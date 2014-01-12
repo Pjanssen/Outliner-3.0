@@ -6,10 +6,10 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.ComponentModel;
-using Outliner.Filters;
-using Outliner.Scene;
+using PJanssen.Outliner.Filters;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Controls.Tree.Layout
+namespace PJanssen.Outliner.Controls.Tree.Layout
 {
 public struct ButtonImages
 {

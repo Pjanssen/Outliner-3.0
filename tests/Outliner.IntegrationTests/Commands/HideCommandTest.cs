@@ -3,11 +3,11 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Outliner.Scene;
-using Outliner.Commands;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Commands;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.IntegrationTests.Commands
+namespace PJanssen.Outliner.IntegrationTests.Commands
 {
 [TestClass]
 public class HideCommandTest : MaxIntegrationTest

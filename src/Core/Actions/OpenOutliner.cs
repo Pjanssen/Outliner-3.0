@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms.Integration;
-using Outliner.Configuration;
-using Outliner.Controls;
-using Outliner.Controls.Tree;
-using Outliner.MaxUtils;
-using Outliner.Modes;
-using Outliner.Scene;
+using PJanssen.Outliner.Configuration;
+using PJanssen.Outliner.Controls;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Modes;
+using PJanssen.Outliner.Scene;
 using UiViewModels.Actions;
-using PJanssen;
 using WinForms = System.Windows.Forms;
 
-namespace Outliner.Actions
+namespace PJanssen.Outliner.Actions
 {
 public class OpenOutliner : CuiDockableContentAdapter
 {

@@ -8,7 +8,7 @@
     <ProjectGuid>{83E3DF64-6ADF-4306-98F0-A7BDB2FE12DA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Outliner.Modes.MaterialMode</RootNamespace>
+    <RootNamespace>PJanssen.Outliner.Modes.Material</RootNamespace>
     <AssemblyName>MaterialMode</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

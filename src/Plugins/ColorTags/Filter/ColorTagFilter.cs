@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Scene;
+using PJanssen.Outliner.Scene;
 using Autodesk.Max;
-using Outliner.Plugins;
-using Outliner.Filters;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Filters;
 
-namespace Outliner.ColorTags
+namespace PJanssen.Outliner.ColorTags
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "Filter_ColorTag")]

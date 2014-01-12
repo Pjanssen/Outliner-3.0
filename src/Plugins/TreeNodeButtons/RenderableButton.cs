@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Scene;
-using Outliner.Commands;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Commands;
 using System.Drawing;
-using Outliner.Plugins;
-using Outliner.Controls.Tree.Layout;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Controls.Tree.Layout;
 using System.Xml.Serialization;
 
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.TreeNodeButtons
+namespace PJanssen.Outliner.TreeNodeButtons
 {
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
 [LocalizedDisplayName(typeof(Resources), "Str_RenderableButton")]

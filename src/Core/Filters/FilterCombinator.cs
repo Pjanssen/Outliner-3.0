@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.MaxUtils;
-using Outliner.Plugins;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Plugins;
 using System.Xml.Serialization;
 using System.ComponentModel;
-using Outliner.Controls.Options;
+using PJanssen.Outliner.Controls.Options;
 
-namespace Outliner.Filters
+namespace PJanssen.Outliner.Filters
 {
 public class FilterCombinator<T> : Filter<T>
 {

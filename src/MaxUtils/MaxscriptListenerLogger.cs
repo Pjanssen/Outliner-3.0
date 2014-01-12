@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Outliner.MaxUtils
+namespace PJanssen.Outliner.MaxUtils
 {
    public class MaxscriptListenerLogger : TextLogger
    {

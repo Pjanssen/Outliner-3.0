@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Scene;
-using Outliner.MaxUtils;
-using PJanssen;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.Commands
+namespace PJanssen.Outliner.Commands
 {
 public class ChangeGroupCommand : CustomRestoreObjCommand
 {

@@ -6,9 +6,9 @@ using Autodesk.Max;
 using System.IO;
 using System.Reflection;
 using Autodesk.Max.Plugins;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.LayerTools
+namespace PJanssen.Outliner.LayerTools
 {
 /// <summary>
 /// Provides methods to manage layer nesting.

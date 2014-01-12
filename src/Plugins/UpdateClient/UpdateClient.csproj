@@ -7,7 +7,7 @@
     <ProjectGuid>{B2E5BDB7-31BE-4CBB-AE8B-AB8D28046772}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Outliner.UpdateClient</RootNamespace>
+    <RootNamespace>PJanssen.Outliner.UpdateClient</RootNamespace>
     <AssemblyName>UpdateClient</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -84,7 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Service References\Service\Outliner.UpdateClient.Service.UpdateData.datasource">
+    <None Include="Service References\Service\PJanssen.Outliner.UpdateClient.Service.UpdateData.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\Service\update.wsdl" />

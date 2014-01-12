@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 using System.IO;
 using System.ComponentModel;
 
-namespace Outliner.Controls.Tree.Layout
+namespace PJanssen.Outliner.Controls.Tree.Layout
 {
 /// <summary>
 /// Defines a layout for the TreeView control.

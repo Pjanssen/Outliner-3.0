@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using Outliner.Controls.ContextMenu;
-using Outliner.Controls.Tree;
-using Outliner.MaxUtils;
-using Outliner.Modes.XRefMode.Commands;
-using Outliner.Plugins;
-using Outliner.Scene;
+using PJanssen.Outliner.Controls.ContextMenu;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Modes.XRef.Commands;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Scene;
 using WinForms = System.Windows.Forms;
 
-namespace Outliner.Modes.XRefMode
+namespace PJanssen.Outliner.Modes.XRef
 {
    [OutlinerPlugin(OutlinerPluginType.ContextMenuItemModel)]
    [LocalizedDisplayName(typeof(Resources), "Str_SetXrefSceneFlagsItemModel")]

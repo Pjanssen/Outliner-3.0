@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
-using Outliner.MaxUtils;
-using PJanssen;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.Controls.ContextMenu
+namespace PJanssen.Outliner.Controls.ContextMenu
 {
 class OutlinerContextMenu : ToolStripDropDown
 {

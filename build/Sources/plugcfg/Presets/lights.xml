@@ -3,7 +3,7 @@
   <text>Lights</text>
   <image16>lights_16</image16>
   <image24>lights_24</image24>
-  <treemode>Outliner.Modes.FlatObjectList.FlatObjectListMode</treemode>
+  <treemode>PJanssen.Outliner.Modes.FlatObjectList.FlatObjectListMode</treemode>
   <contextmenu>ContextMenu.xml</contextmenu>
   <treenodelayout>lights.xml</treenodelayout>
   <sorter xsi:type="AlphabeticalSorter" />

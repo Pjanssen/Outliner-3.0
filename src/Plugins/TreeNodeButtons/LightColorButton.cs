@@ -4,13 +4,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.Controls.Tree.Layout;
-using Outliner.MaxUtils;
-using Outliner.Plugins;
-using Outliner.Scene;
-using Outliner.Commands;
+using PJanssen.Outliner.Controls.Tree.Layout;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Commands;
 
-namespace Outliner.TreeNodeButtons
+namespace PJanssen.Outliner.TreeNodeButtons
 {
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
 [LocalizedDisplayName(typeof(Resources), "Str_LightColorButton")]

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Autodesk.Max;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Outliner.IntegrationTests
+namespace PJanssen.Outliner.IntegrationTests
 {
    [TestClass]
    public class RemotingTests : MaxIntegrationTest

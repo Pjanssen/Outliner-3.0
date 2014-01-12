@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Modes.MaterialMode;
-using Outliner.Scene;
+using PJanssen.Outliner.Modes.Material;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Scene
+namespace PJanssen.Outliner.Scene
 {
    public class UnassignedMaterialWrapper : MaxNodeWrapper
    {

@@ -6,10 +6,10 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.ComponentModel;
-using Outliner.Scene;
-using Outliner.Plugins;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Plugins;
 
-namespace Outliner.Controls.Tree.Layout
+namespace PJanssen.Outliner.Controls.Tree.Layout
 {
 /// <summary>
 /// Defines a TreeNodeLayoutItem which does not draw anything, but which does handle 

@@ -6,7 +6,7 @@ using Autodesk.Max;
 using System.IO;
 using System.Reflection;
 
-namespace Outliner.MaxUtils
+namespace PJanssen.Outliner.MaxUtils
 {
 /// <summary>
 /// Provides methods for common 3dsMax SDK SystemNotification operations.

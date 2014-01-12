@@ -8,7 +8,7 @@
     <ProjectGuid>{333498F9-25D2-4844-A81D-19E104201D9D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Outliner.ColorTags</RootNamespace>
+    <RootNamespace>PJanssen.Outliner.ColorTags</RootNamespace>
     <AssemblyName>ColorTags</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

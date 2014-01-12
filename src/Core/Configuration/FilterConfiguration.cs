@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
-using Outliner.Controls;
-using Outliner.Filters;
-using Outliner.Scene;
+using PJanssen.Outliner.Controls;
+using PJanssen.Outliner.Filters;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Configuration
+namespace PJanssen.Outliner.Configuration
 {
    /// <summary>
    /// Defines a Filter Configuration file.

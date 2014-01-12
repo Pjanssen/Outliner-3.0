@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.LayerTools;
-using Outliner.MaxUtils;
-using Outliner.Modes.Layer;
-using PJanssen;
+using PJanssen.Outliner.LayerTools;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Modes.Layer;
 
-namespace Outliner.Scene
+namespace PJanssen.Outliner.Scene
 {
    /// <summary>
    /// Defines a MaxNodeWrapper for an ILayer object.

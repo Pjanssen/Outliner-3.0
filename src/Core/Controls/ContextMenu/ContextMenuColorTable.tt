@@ -10,9 +10,9 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using Outliner.Controls;
+using PJanssen.Outliner.Controls;
 
-namespace Outliner.Controls.ContextMenu
+namespace PJanssen.Outliner.Controls.ContextMenu
 {
    [System.CodeDom.Compiler.GeneratedCode("Outliner T4 template", "3.0")]
    public class ContextMenuColorTable : ProfessionalColorTable

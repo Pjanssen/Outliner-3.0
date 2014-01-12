@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Outliner.Scene;
-using Outliner.Commands;
-using Outliner.Controls.Tree.Layout;
-using Outliner.Plugins;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Commands;
+using PJanssen.Outliner.Controls.Tree.Layout;
+using PJanssen.Outliner.Plugins;
 
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.TreeNodeButtons
+namespace PJanssen.Outliner.TreeNodeButtons
 {
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
 [LocalizedDisplayName(typeof(Resources), "Str_BoxModeButton")]

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Commands;
-using Outliner.Controls.Tree;
-using Outliner.MaxUtils;
-using Outliner.Scene;
+using PJanssen.Outliner.Commands;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Scene;
 using WinForms = System.Windows.Forms;
 
-namespace Outliner.Modes.MaterialMode
+namespace PJanssen.Outliner.Modes.Material
 {
    public class MaterialDragDropHandler : MaxNodeDragDropHandler
    {

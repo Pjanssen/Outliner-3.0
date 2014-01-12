@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.Plugins;
-using Outliner.Scene;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Scene
+namespace PJanssen.Outliner.Scene
 {
    /// <summary>
    /// A factory class which creates an IMaxNode for an IMtl object.

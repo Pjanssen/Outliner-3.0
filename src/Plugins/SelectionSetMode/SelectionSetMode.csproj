@@ -8,7 +8,7 @@
     <ProjectGuid>{6A6D2FEC-2E74-4ECE-8A07-4526F552C462}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Outliner.Modes.SelectionSet</RootNamespace>
+    <RootNamespace>PJanssen.Outliner.Modes.SelectionSet</RootNamespace>
     <AssemblyName>SelectionSetMode</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

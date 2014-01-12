@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Controls.Tree;
+using PJanssen.Outliner.Controls.Tree;
 using Autodesk.Max;
-using Outliner.Scene;
-using Outliner.Plugins;
-using Outliner.MaxUtils;
-using Outliner.Modes;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Modes;
 
-namespace Outliner.NodeSorters
+namespace PJanssen.Outliner.NodeSorters
 {
    /// <summary>
    /// Sorts TreeNodes alphabetically by the name of the IMaxNode attached to the TreeNode.

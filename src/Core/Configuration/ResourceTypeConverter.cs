@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
-using Outliner.Plugins;
+using PJanssen.Outliner.Plugins;
 using System.Reflection;
 using System.Resources;
 
-namespace Outliner.Configuration
+namespace PJanssen.Outliner.Configuration
 {
 internal class ResourceTypeConverter : TypeListConverter
 {

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using Outliner.Plugins;
+using PJanssen.Outliner.Plugins;
 
-namespace Outliner.Controls.ContextMenu
+namespace PJanssen.Outliner.Controls.ContextMenu
 {
    [OutlinerPlugin(OutlinerPluginType.ContextMenuItemModel)]
    [LocalizedDisplayName(typeof(ContextMenuResources), "Str_HideFreezeItems")]

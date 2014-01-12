@@ -6,13 +6,13 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Outliner.Controls.ContextMenu;
-using Outliner.Controls.Tree.Layout;
+using PJanssen.Outliner.Controls.ContextMenu;
+using PJanssen.Outliner.Controls.Tree.Layout;
 using System.IO;
-using Outliner.Configuration;
-using Outliner.Plugins;
+using PJanssen.Outliner.Configuration;
+using PJanssen.Outliner.Plugins;
 
-namespace Outliner.Controls.Options
+namespace PJanssen.Outliner.Controls.Options
 {
 public partial class ContextMenuModelEditor : OutlinerUserControl
 {

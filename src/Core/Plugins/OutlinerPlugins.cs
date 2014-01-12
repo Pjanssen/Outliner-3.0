@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
-using Outliner.Filters;
-using Outliner.Scene;
-using Outliner.NodeSorters;
-using Outliner.Modes;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using Autodesk.Max;
-using Outliner.MaxUtils;
-using PJanssen;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Filters;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.NodeSorters;
+using PJanssen.Outliner.Modes;
 
-namespace Outliner.Plugins
+namespace PJanssen.Outliner.Plugins
 {
 /// <summary>
 /// The OutlinerPlugins class provides an interface to managing plugins in the Outliner.

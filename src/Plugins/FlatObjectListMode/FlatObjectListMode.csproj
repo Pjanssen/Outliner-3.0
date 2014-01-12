@@ -8,7 +8,7 @@
     <ProjectGuid>{4E931384-7289-42B0-B5AF-CE08F9F1AB7D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Outliner.Modes.FlatObjectList</RootNamespace>
+    <RootNamespace>PJanssen.Outliner.Modes.FlatObjectList</RootNamespace>
     <AssemblyName>FlatObjectListMode</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

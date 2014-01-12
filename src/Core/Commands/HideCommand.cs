@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.Scene;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.Commands
+namespace PJanssen.Outliner.Commands
 {
    /// <summary>
    /// Hides or unhides nodes in the 3dsmax scene.

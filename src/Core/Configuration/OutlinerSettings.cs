@@ -5,10 +5,9 @@ using System.Text;
 using System.Windows.Forms;
 using Autodesk.Max;
 using Autodesk.Max.IColorManager;
-using Outliner.Controls.Tree;
-using PJanssen;
+using PJanssen.Outliner.Controls.Tree;
 
-namespace Outliner.Configuration
+namespace PJanssen.Outliner.Configuration
 {
    internal static class OutlinerSettings
    {

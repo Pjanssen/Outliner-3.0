@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.Scene
+namespace PJanssen.Outliner.Scene
 {
 /// <summary>
 /// The MaxScene class provides access to commonly used scene entities, such as objects and layers.

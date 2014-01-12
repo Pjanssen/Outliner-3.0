@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.Scene;
-using Outliner.Commands;
-using Outliner.MaxUtils;
-using PJanssen;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Commands;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.ColorTags
+namespace PJanssen.Outliner.ColorTags
 {
 public class SetColorTagCommand : Command
 {

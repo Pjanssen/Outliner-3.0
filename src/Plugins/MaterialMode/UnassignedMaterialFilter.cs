@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Filters;
-using Outliner.Scene;
+using PJanssen.Outliner.Filters;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Modes.MaterialMode
+namespace PJanssen.Outliner.Modes.Material
 {
    public class UnassignedMaterialFilter : Filter<IMaxNode>
    {

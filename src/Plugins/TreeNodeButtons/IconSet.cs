@@ -5,11 +5,11 @@ using System.Text;
 using System.Drawing;
 using System.Resources;
 using Autodesk.Max;
-using Outliner.Scene;
+using PJanssen.Outliner.Scene;
 using System.Xml.Serialization;
-using Outliner.Controls;
+using PJanssen.Outliner.Controls;
 
-namespace Outliner.TreeNodeButtons
+namespace PJanssen.Outliner.TreeNodeButtons
 {
 public enum IconSet
 {

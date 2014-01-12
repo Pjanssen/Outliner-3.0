@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Scene;
+using PJanssen.Outliner.Scene;
 using System.Xml.Serialization;
 using System.ComponentModel;
-using Outliner.Plugins;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.Filters
+namespace PJanssen.Outliner.Filters
 {
    /// <summary>
    /// A Filter for filtering IMaxNodes by a node property value.

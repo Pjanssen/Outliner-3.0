@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 using System.Drawing;
-using Outliner.Plugins;
+using PJanssen.Outliner.Plugins;
 
-namespace Outliner.ColorTags
+namespace PJanssen.Outliner.ColorTags
 {
 [OutlinerPlugin(OutlinerPluginType.Utility)]
 public static class ColorTagsMxs
@@ -16,7 +16,7 @@ public static class ColorTagsMxs
    public static void Start()
    {
       Maxscript.RunResourceScript( typeof(ColorTagsMxs).Assembly
-                                 , "Outliner.ColorTags.Maxscript.ColorTagsMxs.ms");
+                                 , "PJanssen.Outliner.ColorTags.Maxscript.ColorTagsMxs.ms");
    }
 
    private static IAnimatable getNode(UInt64 handle)

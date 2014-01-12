@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Autodesk.Max;
-using Outliner.LayerTools;
+using PJanssen.Outliner.LayerTools;
 
-namespace Outliner.IntegrationTests.LayerTools
+namespace PJanssen.Outliner.IntegrationTests.LayerTools
 {
 [TestClass]
 public class NestedLayersTest : MaxIntegrationTest

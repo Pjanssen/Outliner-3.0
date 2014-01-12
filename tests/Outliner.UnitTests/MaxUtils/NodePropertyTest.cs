@@ -3,9 +3,9 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.Tests.MaxUtils
+namespace PJanssen.Outliner.Tests.MaxUtils
 {
    [TestClass]
    public class NodePropertyTest

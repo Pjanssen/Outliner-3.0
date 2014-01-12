@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace Outliner.Controls
+namespace PJanssen.Outliner.Controls
 {
 public class OutlinerGroupBox : GroupBox
 {

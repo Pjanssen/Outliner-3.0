@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Scene;
+using PJanssen.Outliner.Scene;
 using Autodesk.Max;
-using PJanssen;
 
-namespace Outliner.ColorTags
+namespace PJanssen.Outliner.ColorTags
 {
    public static class MaxNodeExtensions
    {

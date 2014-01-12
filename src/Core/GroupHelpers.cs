@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Scene;
+using PJanssen.Outliner.Scene;
 using Autodesk.Max;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 using Autodesk.Max.Plugins;
-using PJanssen;
 
-namespace Outliner
+namespace PJanssen.Outliner
 {
 internal static class GroupHelpers
 {

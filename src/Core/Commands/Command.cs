@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max.Plugins;
 using Autodesk.Max;
-using Outliner.MaxUtils;
-using Outliner.Scene;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Commands
+namespace PJanssen.Outliner.Commands
 {
    /// <summary>
    /// Defines a baseclass for commands that can be registered in the 3dsmax undo system.

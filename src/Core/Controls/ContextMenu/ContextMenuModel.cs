@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using System.Windows.Forms;
-using Outliner.Scene;
+using PJanssen.Outliner.Scene;
 using System.ComponentModel;
 
-namespace Outliner.Controls.ContextMenu
+namespace PJanssen.Outliner.Controls.ContextMenu
 {
    /// <summary>
    /// An Xml-serializable model for a ContextMenu.

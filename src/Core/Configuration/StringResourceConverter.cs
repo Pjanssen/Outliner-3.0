@@ -5,7 +5,7 @@ using System.Text;
 using System.ComponentModel;
 using System.Reflection;
 
-namespace Outliner.Configuration
+namespace PJanssen.Outliner.Configuration
 {
    internal class StringResourceConverter : ConfigurationResourceConverter
    {

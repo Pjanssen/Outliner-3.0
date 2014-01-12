@@ -6,7 +6,7 @@ using Autodesk.Max;
 using Autodesk.Max.IColorManager;
 using Autodesk.Max.Remoting;
 
-namespace Outliner.MaxUtils
+namespace PJanssen.Outliner.MaxUtils
 {
 /// <summary>
 /// Provides (mostly cached) access to common 3dsMax interfaces.

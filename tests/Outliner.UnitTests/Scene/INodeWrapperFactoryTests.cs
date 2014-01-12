@@ -2,9 +2,9 @@
 using Autodesk.Max;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Outliner.Scene;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Tests.Scene
+namespace PJanssen.Outliner.Tests.Scene
 {
    [TestClass]
    public class INodeWrapperFactoryTests

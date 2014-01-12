@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Outliner.Modes;
+using PJanssen.Outliner.Modes;
 using System.Drawing;
-using Outliner.Filters;
+using PJanssen.Outliner.Filters;
 using System.Reflection;
-using Outliner.Scene;
-using Outliner.Plugins;
-using OutlinerTree = Outliner.Controls.Tree;
-using Outliner.Controls.Options;
-using Outliner.MaxUtils;
-using Outliner.Configuration;
-using Outliner.Controls.Tree.Layout;
-using Outliner.NodeSorters;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Controls.Options;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Configuration;
+using PJanssen.Outliner.Controls.Tree.Layout;
+using PJanssen.Outliner.NodeSorters;
+using OutlinerTree = PJanssen.Outliner.Controls.Tree;
 
-namespace Outliner.Controls.ContextMenu
+namespace PJanssen.Outliner.Controls.ContextMenu
 {
 internal static class StandardContextMenu
 {

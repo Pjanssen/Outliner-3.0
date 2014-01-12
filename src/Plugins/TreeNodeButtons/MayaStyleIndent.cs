@@ -6,11 +6,11 @@ using System.Drawing;
 using WinForms = System.Windows.Forms;
 using System.Xml.Serialization;
 using System.ComponentModel;
-using Outliner.Plugins;
-using Outliner.Controls.Tree.Layout;
-using Outliner.Controls.Tree;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Controls.Tree.Layout;
+using PJanssen.Outliner.Controls.Tree;
 
-namespace Outliner.TreeNodeButtons
+namespace PJanssen.Outliner.TreeNodeButtons
 {
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
 [LocalizedDisplayName(typeof(Resources), "Str_MayaStyleIndent")]

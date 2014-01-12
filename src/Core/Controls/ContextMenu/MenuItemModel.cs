@@ -4,17 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Xml.Serialization;
-using Outliner.Plugins;
+using PJanssen.Outliner.Plugins;
 using System.Reflection;
 using System.IO;
 using System.Windows.Forms;
 using System.ComponentModel;
-using Outliner.Scene;
-using Outliner.Configuration;
-using Outliner.Modes;
-using PJanssen;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Configuration;
+using PJanssen.Outliner.Modes;
 
-namespace Outliner.Controls.ContextMenu
+namespace PJanssen.Outliner.Controls.ContextMenu
 {
 /// <summary>
 /// An Xml-serializable model for a ToolStripMenuItem.

@@ -6,12 +6,12 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Outliner.Controls.Tree.Layout;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.Controls.Tree.Layout;
+using PJanssen.Outliner.MaxUtils;
 using Autodesk.Max;
-using Outliner.Plugins;
+using PJanssen.Outliner.Plugins;
 
-namespace Outliner.Controls.Options
+namespace PJanssen.Outliner.Controls.Options
 {
 public partial class TreeNodeLayoutEditor : OutlinerUserControl
 {

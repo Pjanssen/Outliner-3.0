@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Outliner.Scene;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Controls.Tree
+namespace PJanssen.Outliner.Controls.Tree
 {
    /// <summary>
    /// Defines methods and properties for drag &amp; drop handling.

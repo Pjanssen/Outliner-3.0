@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Outliner.UpdateClient
+namespace PJanssen.Outliner.UpdateClient
 {
    /// <summary>
    /// Interaction logic for UpdateDialog.xaml

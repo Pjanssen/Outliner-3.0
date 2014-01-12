@@ -4,20 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using WinForms = System.Windows.Forms;
-using Outliner.Scene;
+using PJanssen.Outliner.Scene;
 using Autodesk.Max;
-using Outliner.Commands;
+using PJanssen.Outliner.Commands;
 using System.Xml.Serialization;
 using System.ComponentModel;
-using Outliner.MaxUtils;
-using Outliner.NodeSorters;
-using Outliner.Controls.Tree.Layout;
-using Outliner.Controls.Tree;
-using Outliner.Plugins;
-using Outliner.Modes;
-using Outliner.Controls;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.NodeSorters;
+using PJanssen.Outliner.Controls.Tree.Layout;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Modes;
+using PJanssen.Outliner.Controls;
 
-namespace Outliner.TreeNodeButtons
+namespace PJanssen.Outliner.TreeNodeButtons
 {
 [OutlinerPlugin(OutlinerPluginType.TreeNodeButton)]
 [LocalizedDisplayName(typeof(Resources), "Str_WireColorButton")]

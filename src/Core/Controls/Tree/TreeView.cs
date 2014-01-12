@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
-using Outliner.Controls.Tree.Layout;
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
-using PJanssen;
+using PJanssen.Outliner.Controls.Tree.Layout;
 
-namespace Outliner.Controls.Tree
+namespace PJanssen.Outliner.Controls.Tree
 {
 /// <summary>
 /// A general-purpose multiselect TreeView control, with customizable layout.

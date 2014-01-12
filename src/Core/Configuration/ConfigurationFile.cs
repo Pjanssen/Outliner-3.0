@@ -6,10 +6,10 @@ using System.ComponentModel;
 using System.Xml.Serialization;
 using System.Drawing;
 using System.IO;
-using Outliner.Plugins;
+using PJanssen.Outliner.Plugins;
 using System.Reflection;
 
-namespace Outliner.Configuration
+namespace PJanssen.Outliner.Configuration
 {
 /// <summary>
 /// Defines an abstract base class for configuration files.

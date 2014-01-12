@@ -5,11 +5,11 @@ using System.Text;
 using Autodesk.Max;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Autodesk.Max.Remoting;
-using Outliner;
+using PJanssen.Outliner;
 using System.Diagnostics;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.IntegrationTests
+namespace PJanssen.Outliner.IntegrationTests
 {
 internal static class MaxRemoting
 {

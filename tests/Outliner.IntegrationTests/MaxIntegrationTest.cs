@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Outliner.IntegrationTests
+namespace PJanssen.Outliner.IntegrationTests
 {
    /// <summary>
    /// A generic test baseclass, which automates 3dsMax scene cleanup after each test.

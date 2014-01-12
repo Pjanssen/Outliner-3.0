@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.Commands;
-using Outliner.Controls.Tree;
-using Outliner.MaxUtils;
-using Outliner.Modes;
-using Outliner.Plugins;
-using Outliner.Scene;
-using PJanssen;
+using PJanssen.Outliner.Commands;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Modes;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.TreeNodeButtons
+namespace PJanssen.Outliner.TreeNodeButtons
 {
    [OutlinerPlugin(OutlinerPluginType.ActionProvider)]
    public static class Actions

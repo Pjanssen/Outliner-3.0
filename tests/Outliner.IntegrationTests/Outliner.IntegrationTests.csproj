@@ -6,7 +6,7 @@
     <ProjectGuid>{2F3227EE-79CB-464B-B9ED-346C71F3EE88}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Outliner.IntegrationTests</RootNamespace>
+    <RootNamespace>PJanssen.Outliner.IntegrationTests</RootNamespace>
     <AssemblyName>Outliner.IntegrationTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -46,20 +46,8 @@
       <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\Autodesk.Max.Remoting.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Outliner.Core, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\Outliner.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Outliner.LayerTools, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\Outliner.LayerTools.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Outliner.MaxUtils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\Outliner.MaxUtils.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="PJanssen">
+      <HintPath>..\..\lib\PJanssen.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
@@ -88,6 +76,20 @@
     <Compile Include="MaxRemoting.cs" />
     <Compile Include="MaxRemotingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Core\Core.csproj">
+      <Project>{aa8562b6-988f-4afe-94eb-bf2fd64be93e}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\LayerTools\LayerTools.csproj">
+      <Project>{d89aaf44-43ba-48f2-beec-852fc3ab4655}</Project>
+      <Name>LayerTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\MaxUtils\MaxUtils.csproj">
+      <Project>{0ca16252-fd2c-4078-819f-c9abd2735765}</Project>
+      <Name>MaxUtils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

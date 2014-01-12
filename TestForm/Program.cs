@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using System.Runtime.Serialization;
 using System.IO;
 using System.Xml;
-using Outliner;
+using PJanssen.Outliner;
 
 namespace TestForm
 {

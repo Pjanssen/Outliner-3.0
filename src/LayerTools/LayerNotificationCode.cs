@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 
-namespace Outliner.LayerTools
+namespace PJanssen.Outliner.LayerTools
 {
    /// <summary>
    /// Provides custom SystemNotificationCodes for layer operations performed by classes in this assembly.

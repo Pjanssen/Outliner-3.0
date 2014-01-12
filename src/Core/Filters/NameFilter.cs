@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using Outliner.Scene;
-using Outliner.MaxUtils;
-using Outliner.Plugins;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Plugins;
 using System.Xml.Serialization;
 using System.ComponentModel;
-using PJanssen;
 
-namespace Outliner.Filters
+namespace PJanssen.Outliner.Filters
 {
 /// <summary>
 /// A Filter that filters IMaxNodes based on their name.

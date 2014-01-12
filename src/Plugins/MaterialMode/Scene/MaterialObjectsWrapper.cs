@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autodesk.Max;
-using Outliner.Scene;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Modes.MaterialMode.Scene
+namespace PJanssen.Outliner.Scene
 {
    public class MaterialObjectsWrapper : MaxNodeWrapper
    {

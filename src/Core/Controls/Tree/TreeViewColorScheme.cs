@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 using System.IO;
 using System.ComponentModel;
 
-namespace Outliner.Controls.Tree
+namespace PJanssen.Outliner.Controls.Tree
 {
 public class TreeViewColorScheme
 {

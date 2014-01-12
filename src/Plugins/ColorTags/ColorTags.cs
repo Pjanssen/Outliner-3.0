@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using Autodesk.Max;
 using System.Drawing;
-using Outliner.MaxUtils;
-using Outliner.LayerTools;
-using Outliner.Plugins;
-using PJanssen;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.LayerTools;
+using PJanssen.Outliner.Plugins;
 
-namespace Outliner.ColorTags
+namespace PJanssen.Outliner.ColorTags
 {
 [Flags]
 public enum ColorTag : byte

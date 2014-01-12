@@ -3,14 +3,14 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Outliner.NodeSorters;
-using Outliner.Controls.Tree;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.NodeSorters;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.MaxUtils;
 using Moq;
 using Moq.Protected;
-using Outliner.Scene;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Tests.NodeSorters
+namespace PJanssen.Outliner.Tests.NodeSorters
 {
 [TestClass]
 public class NodeSorterTests

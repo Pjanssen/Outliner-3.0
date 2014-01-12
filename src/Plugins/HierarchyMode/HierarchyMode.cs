@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Controls;
+using PJanssen.Outliner.Controls;
 using Autodesk.Max;
-using Outliner.Scene;
-using Outliner.Filters;
-using Outliner.Controls.Tree;
-using Outliner.MaxUtils;
-using Outliner.Plugins;
-using PJanssen;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Filters;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Plugins;
 
-namespace Outliner.Modes.Hierarchy
+namespace PJanssen.Outliner.Modes.Hierarchy
 {
 [OutlinerPlugin(OutlinerPluginType.TreeMode)]
 [LocalizedDisplayName(typeof(Resources), "Mode_Hierarchy")]

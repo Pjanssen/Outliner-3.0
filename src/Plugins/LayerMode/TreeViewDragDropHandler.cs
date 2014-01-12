@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WinForms = System.Windows.Forms;
-using Outliner.Controls.Tree;
-using Outliner.Scene;
-using Outliner.LayerTools;
-using Outliner.Commands;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.LayerTools;
+using PJanssen.Outliner.Commands;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.Modes.Layer
+namespace PJanssen.Outliner.Modes.Layer
 {
    internal class TreeViewDragDropHandler : IDragDropHandler
    {

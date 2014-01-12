@@ -1,5 +1,4 @@
-﻿using PJanssen;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Text;
 using System.Xml.Serialization;
 using SettingsCategory = System.Collections.Generic.Dictionary<string, object>;
 
-namespace Outliner.Configuration
+namespace PJanssen.Outliner.Configuration
 {
 /// <summary>
 /// The SettingsCollection is a generic class which holds typed values that can be 

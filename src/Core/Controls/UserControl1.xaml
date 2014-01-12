@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:WPFTree="clr-namespace:Outliner.Controls.WPFTree" x:Class="Outliner.Controls.UserControl1" 
+             xmlns:WPFTree="clr-namespace:PJanssen.Outliner.Controls.WPFTree" x:Class="PJanssen.Outliner.Controls.UserControl1" 
              mc:Ignorable="d" MinWidth="150" MinHeight="150" Height="499" Width="326">
 
    <DockPanel LastChildFill="False" Margin="5">

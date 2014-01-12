@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
-using Outliner.Filters;
+using PJanssen.Outliner.Filters;
 using System.Xml.Serialization;
 using System.ComponentModel;
-using Outliner.Plugins;
+using PJanssen.Outliner.Plugins;
 
-namespace Outliner.Controls.Tree.Layout
+namespace PJanssen.Outliner.Controls.Tree.Layout
 {
 /// <summary>
 /// Defines a layout item which draws the text of a TreeNode. It selects the TreeNode

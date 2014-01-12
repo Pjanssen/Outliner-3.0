@@ -1,11 +1,11 @@
 ﻿using System;
 using Autodesk.Max;
-using Outliner.Scene;
-using Outliner.Modes;
-using Outliner.MaxUtils;
-using Outliner.Plugins;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Modes;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Plugins;
 
-namespace Outliner.Filters
+namespace PJanssen.Outliner.Filters
 {
    [OutlinerPlugin(OutlinerPluginType.Filter)]
    [LocalizedDisplayName(typeof(Resources), "Filter_Geometry")]

@@ -7,9 +7,9 @@ using System.Windows.Forms.VisualStyles;
 using System.Drawing;
 using System.Xml.Serialization;
 using System.ComponentModel;
-using Outliner.Plugins;
+using PJanssen.Outliner.Plugins;
 
-namespace Outliner.Controls.Tree.Layout
+namespace PJanssen.Outliner.Controls.Tree.Layout
 {
 /// <summary>
 /// Defines a button which expands the TreeNode. It can either use the standard windows

@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.Plugins;
-using Outliner.Modes;
-using Outliner.Controls.Tree;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Modes;
+using PJanssen.Outliner.Controls.Tree;
+using PJanssen.Outliner.MaxUtils;
 using Autodesk.Max;
-using Outliner.Scene;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Modes.MaterialMode
+namespace PJanssen.Outliner.Modes.Material
 {
 /// <summary>
 /// Defines a TreeMode which lists all materials and the objects using them.

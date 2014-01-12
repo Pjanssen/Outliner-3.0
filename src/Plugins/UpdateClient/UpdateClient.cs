@@ -1,6 +1,6 @@
-﻿using Outliner.MaxUtils;
-using Outliner.Plugins;
-using Outliner.UpdateClient.Service;
+﻿using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.UpdateClient.Service;
 using PJanssen.Logging;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
-namespace Outliner.UpdateClient
+namespace PJanssen.Outliner.UpdateClient
 {
    [OutlinerPlugin(OutlinerPluginType.Utility)]
    public class UpdateClient

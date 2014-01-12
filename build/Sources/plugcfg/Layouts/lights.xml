@@ -6,5 +6,6 @@
     <TreeNodeLayoutItem xsi:type="NodeIcon" padding_left="2" padding_right="2" iconSet="Maya" invert="false" />
     <TreeNodeLayoutItem xsi:type="TreeNodeText" padding_left="2" />
     <TreeNodeLayoutItem xsi:type="EmptySpace" />
+    <TreeNodeLayoutItem xsi:type="LightColorButton" padding_right="2" />
   </layout_items>
 </TreeNodeLayout>

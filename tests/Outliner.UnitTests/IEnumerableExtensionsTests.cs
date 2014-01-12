@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PJanssen;
 
-namespace Outliner.Tests
+namespace PJanssen.Outliner.Tests
 {
    [TestClass]
    public class IEnumerableExtensions

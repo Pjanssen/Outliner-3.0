@@ -6,16 +6,15 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Outliner.Filters;
-using Outliner.Scene;
-using Outliner.Plugins;
-using Outliner.MaxUtils;
 using Autodesk.Max;
-using Outliner.Controls.Tree.Layout;
-using Outliner.Configuration;
-using PJanssen;
+using PJanssen.Outliner.Filters;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Controls.Tree.Layout;
+using PJanssen.Outliner.Configuration;
 
-namespace Outliner.Controls.Options
+namespace PJanssen.Outliner.Controls.Options
 {
 public partial class FilterCollectionEditor : OutlinerUserControl
 {

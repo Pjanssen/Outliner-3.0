@@ -6,12 +6,12 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using Autodesk.Max;
-using Outliner.Controls.ContextMenu;
-using Outliner.MaxUtils;
-using Outliner.Plugins;
-using Outliner.Scene;
+using PJanssen.Outliner.Controls.ContextMenu;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Scene;
 
-namespace Outliner.Modes.Layer
+namespace PJanssen.Outliner.Modes.Layer
 {
 [OutlinerPlugin(OutlinerPluginType.ContextMenuItemModel)]
 [LocalizedDisplayName(typeof(Resources), "Str_AddToLayerItems")]

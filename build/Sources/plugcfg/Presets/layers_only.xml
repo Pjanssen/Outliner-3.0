@@ -3,7 +3,7 @@
   <text>Layers Only</text>
   <image16>layer_16</image16>
   <image24>layer_24</image24>
-  <treemode>Outliner.Modes.Layer.LayerMode</treemode>
+  <treemode>PJanssen.Outliner.Modes.Layer.LayerMode</treemode>
   <contextmenu />
   <treenodelayout>layers.xml</treenodelayout>
   <sorter xsi:type="AlphabeticalSorter" />

@@ -5,9 +5,9 @@ using System.Text;
 using Autodesk.Max;
 using Autodesk.Max.Plugins;
 using System.Runtime.InteropServices;
-using Outliner.MaxUtils;
+using PJanssen.Outliner.MaxUtils;
 
-namespace Outliner.LayerTools
+namespace PJanssen.Outliner.LayerTools
 {
 public enum NodeLayerProperty : int
 {

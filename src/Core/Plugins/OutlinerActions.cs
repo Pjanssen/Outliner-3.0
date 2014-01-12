@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
-using PJanssen;
-using Outliner.Scene;
-using Outliner.Controls.Tree;
+using PJanssen.Outliner.Scene;
+using PJanssen.Outliner.Controls.Tree;
 
-namespace Outliner.Plugins
+namespace PJanssen.Outliner.Plugins
 {
 public delegate void OutlinerAction(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes);
 public delegate Boolean OutlinerPredicate(TreeNode contextTn, IEnumerable<IMaxNode> contextNodes);

@@ -8,7 +8,7 @@
     <ProjectGuid>{B4B93693-A90B-4BBB-A00E-927F44C875B9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Outliner.Modes.Hierarchy</RootNamespace>
+    <RootNamespace>PJanssen.Outliner.Modes.Hierarchy</RootNamespace>
     <AssemblyName>HierarchyMode</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

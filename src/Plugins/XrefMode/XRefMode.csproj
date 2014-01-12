@@ -7,7 +7,7 @@
     <ProjectGuid>{65B41F11-8E89-4975-BCEC-C884D890AE61}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Outliner.Modes.XRefMode</RootNamespace>
+    <RootNamespace>PJanssen.Outliner.Modes.XRef</RootNamespace>
     <AssemblyName>XRefMode</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -37,6 +37,9 @@
     <Reference Include="ManagedServices">
       <HintPath>..\..\..\lib\ManagedServices.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="PJanssen">
+      <HintPath>..\..\..\lib\PJanssen.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

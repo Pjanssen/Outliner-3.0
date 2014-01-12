@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace Outliner.Scene
+namespace PJanssen.Outliner.Scene
 {
 
 /// <summary>

@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Outliner.MaxUtils;
-using Outliner.Scene;
+using PJanssen.Outliner.MaxUtils;
+using PJanssen.Outliner.Scene;
 using System.Reflection;
 using Autodesk.Max.Plugins;
 using Autodesk.Max;
-using PJanssen;
 
-namespace Outliner.Commands
+namespace PJanssen.Outliner.Commands
 {
 /// <summary>
 /// Sets the value of a NodeProperty on a set of nodes.

@@ -6,13 +6,12 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Outliner.Configuration;
-using Outliner.Plugins;
-using Outliner.Controls.Tree.Layout;
-using Outliner.NodeSorters;
-using PJanssen;
+using PJanssen.Outliner.Configuration;
+using PJanssen.Outliner.Plugins;
+using PJanssen.Outliner.Controls.Tree.Layout;
+using PJanssen.Outliner.NodeSorters;
 
-namespace Outliner.Controls.Options
+namespace PJanssen.Outliner.Controls.Options
 {
 public partial class SorterConfigurationEditor : OutlinerUserControl
 {

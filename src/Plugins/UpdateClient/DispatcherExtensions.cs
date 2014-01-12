@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Threading;
 
-namespace Outliner.UpdateClient
+namespace PJanssen.Outliner.UpdateClient
 {
    public static class DispatcherExtensions
    {

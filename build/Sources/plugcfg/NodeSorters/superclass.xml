@@ -3,7 +3,7 @@
   <text>Sorter_SuperClass</text>
   <image16>sort_type_16</image16>
   <image24>sort_type_24</image24>
-  <resource_type>Outliner.NodeSorters.Resources</resource_type>
+  <resource_type>PJanssen.Outliner.NodeSorters.Resources</resource_type>
   <sorter xsi:type="SuperClassSorter">
     <secondarySorter xsi:type="AlphabeticalSorter" />
   </sorter>

@@ -8,7 +8,7 @@
     <ProjectGuid>{7EC567BF-77F4-4422-A0F6-545F0E3C1B63}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Outliner.NodeSorters</RootNamespace>
+    <RootNamespace>PJanssen.Outliner.NodeSorters</RootNamespace>
     <AssemblyName>NodeSorters</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -8,7 +8,7 @@
     <ProjectGuid>{26B9A648-410E-4A8D-BFBF-5A174A603DCB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Outliner.Filters</RootNamespace>
+    <RootNamespace>PJanssen.Outliner.Filters</RootNamespace>
     <AssemblyName>MaxscriptFilter</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

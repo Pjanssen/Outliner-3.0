@@ -1,4 +1,4 @@
-﻿namespace Outliner.Controls.Options
+﻿namespace PJanssen.Outliner.Controls.Options
 {
    partial class FilterCollectionEditor
    {

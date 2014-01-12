@@ -5,7 +5,7 @@ using System.Text;
 using System.ComponentModel;
 using System.Globalization;
 
-namespace Outliner.Plugins
+namespace PJanssen.Outliner.Plugins
 {
 internal class OutlinerActionConverter : TypeConverter
 {

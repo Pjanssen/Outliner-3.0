@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace Outliner.WebServices
+namespace PJanssen.Outliner.WebServices
 {
    /// <summary>
    /// Defines the data sent to the update server, used to determine if 
