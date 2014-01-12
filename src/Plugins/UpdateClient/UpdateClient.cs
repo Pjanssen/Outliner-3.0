@@ -25,7 +25,14 @@ namespace Outliner.UpdateClient
       [OutlinerPluginStart]
       public static void PluginStart()
       {
-         CheckNewVersion();
+         try
+         {
+            CheckNewVersion();
+         }
+         catch (Exception e)
+         {
+            OutlinerGUP.Instance.Log.Exception(e);
+         }
       }
 
       //==========================================================================
