@@ -24,7 +24,7 @@ namespace PJanssen.Outliner
 {
 /// <summary>
 /// The main access point for the Outliner. It holds the settings, states and treemodes.
-/// Use OutlinerGUP.Instance to get hold of an instance of this object once 3dsmax is loaded.
+/// Use OutlinerGUP.Instance to get hold of an instance of this class once 3dsmax is loaded.
 /// </summary>
 public class OutlinerGUP
 {
@@ -106,9 +106,11 @@ public class OutlinerGUP
    internal static void Start()
    {
       OutlinerGUP.Instance = new OutlinerGUP();
+      OutlinerGUP.Instance.ReloadSettings();
 
       OutlinerPlugins.LoadPlugins();
-      OutlinerGUP.Instance.ReloadSettings();
+      
+      OutlinerGUP.Instance.ReloadState();
    }
 
    //==========================================================================
@@ -274,6 +276,12 @@ public class OutlinerGUP
          return false;
       }
 
+      this.SettingsLoaded = true;
+      return this.SettingsLoaded;
+   }
+
+   private void ReloadState()
+   {
       try
       {
          if (File.Exists(OutlinerPaths.StateFile))
@@ -286,11 +294,8 @@ public class OutlinerGUP
          this.State = defaultState();
          this.SettingsLoaded = false;
          this.SettingsLoadException = e;
-         return false;
+         //return false;
       }
-
-      this.SettingsLoaded = true;
-      return this.SettingsLoaded;
    }
 
    //==========================================================================

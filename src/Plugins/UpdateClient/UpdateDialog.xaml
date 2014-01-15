@@ -1,9 +1,11 @@
-﻿<Window x:Class="PJanssen.Outliner.UpdateClient.UpdateDialog"
+﻿<Window
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:resources="clr-namespace:PJanssen.Outliner.UpdateClient.Resources"
+             xmlns:updateClient="clr-namespace:PJanssen.Outliner.UpdateClient"
+             x:Class="PJanssen.Outliner.UpdateClient.UpdateDialog"
              mc:Ignorable="d"
         Title="{x:Static resources:UpdateDialog.WindowTitle}" 
         WindowStartupLocation="CenterOwner" ShowInTaskbar="False" 
@@ -11,7 +13,14 @@
         MinHeight="340" MinWidth="400">
     <DockPanel LastChildFill="True">
         <Label Content="{x:Static resources:UpdateDialog.VersionLbl}" Margin="10,10,10,0" DockPanel.Dock="Top" />
-        <Label Name="NewVersion" Content="Outliner 3.0.0" Margin="10,0,10,0" HorizontalAlignment="Left" DockPanel.Dock="Top" FontSize="14" FontWeight="Bold" />
+        <Label ContentStringFormat="Outliner {0}"  Margin="10,0,10,0" HorizontalAlignment="Left" DockPanel.Dock="Top" FontSize="14" FontWeight="Bold">
+            <Label.Content>
+                <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Window}}"
+                         Path="DataContext.NewVersion"
+                         FallbackValue="asd"
+                         TargetNullValue="asdasd" />
+            </Label.Content>
+        </Label>
 
         <Label Content="{x:Static resources:UpdateDialog.ChangelogLbl}" Margin="10,0,10,0" DockPanel.Dock="Top"/>
 
@@ -23,14 +32,19 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button Content="{x:Static resources:UpdateDialog.SkipBtn}" Margin="10,0,5,0" Grid.Column="0"/>
+            <Button Content="{x:Static resources:UpdateDialog.SkipBtn}" Margin="10,0,5,0" Grid.Column="0" Click="SkipBtn_Click"/>
             <Button Content="{x:Static resources:UpdateDialog.RemindBtn}" Margin="5,0,5,0" Grid.Column="1" Click="RemindBtn_Click"/>
             <Button Content="{x:Static resources:UpdateDialog.InstallBtn}" Margin="5,0,10,0" Grid.Column="3"/>
         </Grid>
 
 
         <Border Background="DarkGray" Margin="10, 0, 10, 10" >
-            <WebBrowser Name="ReleaseNotes" Margin="1,1,1,1" />
+            <WebBrowser x:Name="ReleaseNotes" Margin="1,1,1,1">
+                <updateClient:WebBrowserUtility.BindableSource>
+                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Window}}"
+                             Path="DataContext.ReleaseNotesUrl" />
+                </updateClient:WebBrowserUtility.BindableSource>
+            </WebBrowser>
         </Border>
     </DockPanel>
 </Window>

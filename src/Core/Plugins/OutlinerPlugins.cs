@@ -129,7 +129,8 @@ public static class OutlinerPlugins
       get
       {
          if (plugins == null)
-            OutlinerPlugins.LoadPlugins();
+            return Enumerable.Empty<OutlinerPluginData>();
+         //   OutlinerPlugins.LoadPlugins();
 
          return plugins;
       }

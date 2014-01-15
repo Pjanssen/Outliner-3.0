@@ -15,7 +15,11 @@ namespace PJanssen.Outliner.Configuration
 /// </summary>
 public class SettingsCollection : IXmlSerializable
 {
+   //==========================================================================
+
    private Dictionary<String, SettingsCategory> categories;
+
+   //==========================================================================
 
    /// <summary>
    /// Initializes a new instance of the SettingsCollection class.
@@ -24,6 +28,8 @@ public class SettingsCollection : IXmlSerializable
    {
       this.categories = new Dictionary<string, SettingsCategory>();
    }
+
+   //==========================================================================
 
    private SettingsCategory GetCategory(String category)
    {
@@ -34,6 +40,7 @@ public class SettingsCollection : IXmlSerializable
          return null;
    }
 
+   //==========================================================================
 
    /// <summary>
    /// Retrieves all categories in this SettingsCollection.
@@ -42,6 +49,8 @@ public class SettingsCollection : IXmlSerializable
    {
       return this.categories.Keys;
    }
+
+   //==========================================================================
 
    /// <summary>
    /// Retrieves all keys in the given category in this SettingsCollection.
@@ -57,6 +66,7 @@ public class SettingsCollection : IXmlSerializable
          return new List<String>();
    }
 
+   //==========================================================================
 
    /// <summary>
    /// Tests whether this SettingsCollection contains a value in the given category and key.
@@ -70,6 +80,7 @@ public class SettingsCollection : IXmlSerializable
          return false;
    }
 
+   //==========================================================================
 
    /// <summary>
    /// Retrieves the value of a setting.
@@ -83,6 +94,8 @@ public class SettingsCollection : IXmlSerializable
    {
       return GetValue<T>(category, key, default(T));
    }
+
+   //==========================================================================
 
    /// <summary>
    /// Retrieves the value of a setting.
@@ -119,6 +132,7 @@ public class SettingsCollection : IXmlSerializable
       throw new InvalidOperationException("Cannot convert value into requested type");
    }
 
+   //==========================================================================
 
    /// <summary>
    /// Attempts to retrieve the value of a setting.
@@ -161,6 +175,7 @@ public class SettingsCollection : IXmlSerializable
       return false;
    }
 
+   //==========================================================================
 
    /// <summary>
    /// Sets the value of a setting.
@@ -185,6 +200,7 @@ public class SettingsCollection : IXmlSerializable
       settings.Add(key, value);
    }
 
+   //==========================================================================
 
    /// <summary>
    /// Removes a setting from this SettingsCollection.
@@ -203,7 +219,7 @@ public class SettingsCollection : IXmlSerializable
       }
    }
 
-
+   //==========================================================================
 
    #region Xml Serialization
       
@@ -227,7 +243,8 @@ public class SettingsCollection : IXmlSerializable
             String categoryName = reader.GetAttribute("name");
             reader.ReadStartElement();
 
-            while (reader.NodeType != System.Xml.XmlNodeType.EndElement)
+            while (reader.NodeType != System.Xml.XmlNodeType.EndElement
+                  && reader.NodeType != System.Xml.XmlNodeType.Comment)
             {
                if (reader.Name == "setting")
                {

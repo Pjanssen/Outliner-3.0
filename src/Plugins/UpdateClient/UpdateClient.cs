@@ -1,6 +1,6 @@
 ﻿using PJanssen.Outliner.MaxUtils;
 using PJanssen.Outliner.Plugins;
-using PJanssen.Outliner.UpdateClient.Service;
+//using PJanssen.Outliner.UpdateClient.Service;
 using PJanssen.Logging;
 using System;
 using System.Collections.Generic;
@@ -10,16 +10,18 @@ using System.Text;
 using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using PJanssen.Outliner.UpdateService;
+using System.ServiceModel.Channels;
 
 namespace PJanssen.Outliner.UpdateClient
 {
    [OutlinerPlugin(OutlinerPluginType.Utility)]
-   public class UpdateClient
+   public static class UpdateClient
    {
       //==========================================================================
 
       private const string ServiceEndPointAddress = "http://outliner.pjanssen.nl/services/update_server.php";
-
+      
       //==========================================================================
 
       [OutlinerPluginStart]
@@ -27,7 +29,8 @@ namespace PJanssen.Outliner.UpdateClient
       {
          try
          {
-            CheckNewVersion();
+            if (ShouldCheckForUpdateNow())
+               CheckForUpdate();
          }
          catch (Exception e)
          {
@@ -37,47 +40,88 @@ namespace PJanssen.Outliner.UpdateClient
 
       //==========================================================================
 
-      private static void CheckNewVersion()
+      private static bool ShouldCheckForUpdateNow()
+      {
+         if (!UpdateSettings.Enabled)
+            return false;
+
+         DateTime lastUpdate = UpdateSettings.LastUpdateCheck;
+         DateTime lastUpdateDay = new DateTime(lastUpdate.Year, lastUpdate.Month, lastUpdate.Day);
+
+         return (DateTime.Today - lastUpdateDay) >= TimeSpan.FromDays(1);
+      }
+
+      //==========================================================================
+
+      public static void CheckForUpdate()
       {
          OutlinerGUP.Instance.Log.Debug("Checking for new version...");
 
-         UpdateSoapClient client = CreateClient();
-         object asyncState = new Tuple<UpdateSoapClient, Thread>(client, Thread.CurrentThread);
+         IUpdateService service = CreateService();
 
-         client.BeginGetUpdateData(GetCurrentInstallation(), UpdateDataReceived, asyncState);
+         object asyncState = new Tuple<IUpdateService, Thread>(service, Thread.CurrentThread);
+         OutlinerInstallation installation = OutlinerInstallation.GetCurrentInstallation();
+         service.BeginGetUpdateData(installation, UpdateDataReceived, asyncState);
+
+         UpdateSettings.LastUpdateCheck = DateTime.Now;
+      }
+
+      //==========================================================================
+
+      private static IUpdateService CreateService()
+      {
+         Binding binding = new BasicHttpBinding();
+         EndpointAddress address = new EndpointAddress(ServiceEndPointAddress);
+
+         return ChannelFactory<IUpdateService>.CreateChannel(binding, address);
       }
 
       //==========================================================================
 
       private static void UpdateDataReceived(IAsyncResult ar)
       {
-         Tuple<UpdateSoapClient, Thread> state = (Tuple<UpdateSoapClient, Thread>)ar.AsyncState;
-         UpdateSoapClient client = state.Item1;
-         Thread targetThread = state.Item2;
-
-         UpdateData updateData = client.EndGetUpdateData(ar);
-
-         if (updateData.IsUpdateAvailable)
+         try
          {
-            OutlinerGUP.Instance.Log.Debug("New version available!");
-
-            Dispatcher dispatcher = Dispatcher.FromThread(targetThread);
-            dispatcher.SyncInvoke(() => ShowUpdateDialog(updateData));
+            HandleUpdateDataReceived(ar);
          }
-         else
+         catch (Exception e)
          {
-            OutlinerGUP.Instance.Log.Debug("Using latest version.");
+            OutlinerGUP.Instance.Log.Exception(e);
          }
       }
 
       //==========================================================================
 
-      private static UpdateSoapClient CreateClient()
+      private static void HandleUpdateDataReceived(IAsyncResult result)
       {
-         BasicHttpBinding binding = new BasicHttpBinding();
-         EndpointAddress endpointAddress = new EndpointAddress(ServiceEndPointAddress);
+         Tuple<IUpdateService, Thread> state = (Tuple<IUpdateService, Thread>)result.AsyncState;
+         IUpdateService service = state.Item1;
+         Thread targetThread = state.Item2;
 
-         return new UpdateSoapClient(binding, endpointAddress);
+         UpdateData updateData = service.EndGetUpdateData(result);
+         if (updateData.IsUpdateAvailable && !IsSkippedVersion(updateData.NewVersion))
+            HandleNewVersion(targetThread, updateData);
+         else
+            OutlinerGUP.Instance.Log.Debug("No new version available.");
+      }
+
+      //==========================================================================
+
+      private static bool IsSkippedVersion(OutlinerVersion newVersion)
+      {
+         OutlinerVersion skippedVersion = UpdateSettings.SkippedVersion;
+
+         return skippedVersion != null && skippedVersion >= newVersion;
+      }
+
+      //==========================================================================
+
+      private static void HandleNewVersion(Thread targetThread, UpdateData updateData)
+      {
+         OutlinerGUP.Instance.Log.FormatDebug("Version {0} available!", updateData.NewVersion);
+
+         Dispatcher dispatcher = Dispatcher.FromThread(targetThread);
+         dispatcher.SyncInvoke(() => ShowUpdateDialog(updateData));
       }
 
       //==========================================================================
@@ -85,26 +129,22 @@ namespace PJanssen.Outliner.UpdateClient
       private static void ShowUpdateDialog(UpdateData data)
       {
          UpdateDialog dialog = new UpdateDialog();
+         dialog.UpdateData = data;
 
-         OutlinerVersion version = data.NewVersion;
-         Label newVersionLbl = dialog.FindName("NewVersion") as Label;
-         newVersionLbl.Content = string.Format(Resources.UpdateDialog.VersionFormat, version.Major, version.Minor, version.Build, version.Revision, version.IsBeta ? "beta" : "");
+         //Label newVersionLbl = dialog.FindName("NewVersion") as Label;
+         //newVersionLbl.DataContext = data;
 
-         WebBrowser releaseNotesBrowser = dialog.FindName("ReleaseNotes") as WebBrowser;
-         releaseNotesBrowser.Source = new Uri(data.ReleaseNotesUrl);
+
+         //dialog.UpdateData = data;
+
+         //OutlinerVersion version = data.NewVersion;
+         //Label newVersionLbl = dialog.FindName("NewVersion") as Label;
+         //newVersionLbl.Content = string.Format(Resources.UpdateDialog.VersionFormat, version);
+
+         //WebBrowser releaseNotesBrowser = dialog.FindName("ReleaseNotes") as WebBrowser;
+         //releaseNotesBrowser.Source = new Uri(data.ReleaseNotesUrl);
 
          dialog.ShowDialog();
-      }
-
-      //==========================================================================
-
-      private static OutlinerInstallation GetCurrentInstallation()
-      {
-         return new OutlinerInstallation()
-         {
-            OutlinerVersion = new OutlinerVersion() { Major = 3, Minor = 0, Build = 25 },
-            MaxVersion = 2013
-         };
       }
 
       //==========================================================================

@@ -97,7 +97,7 @@ namespace PJanssen.Outliner.UpdateClient.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Outliner {0}.{1}.{2} {4}.
+        ///   Looks up a localized string similar to Outliner {0}.
         /// </summary>
         public static string VersionFormat {
             get {

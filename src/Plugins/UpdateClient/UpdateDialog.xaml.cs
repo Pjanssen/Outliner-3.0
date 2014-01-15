@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PJanssen.Outliner.UpdateService;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,13 +20,34 @@ namespace PJanssen.Outliner.UpdateClient
    /// </summary>
    public partial class UpdateDialog : Window
    {
+      private UpdateData updateData;
+
       public UpdateDialog()
       {
          InitializeComponent();
       }
 
+      public UpdateData UpdateData
+      {
+         get 
+         {
+            return this.updateData;
+         }
+         set 
+         {
+            this.updateData = value;
+            this.DataContext = value;
+         }
+      }
+
       private void RemindBtn_Click(object sender, RoutedEventArgs e)
       {
+         this.Close();
+      }
+
+      private void SkipBtn_Click(object sender, RoutedEventArgs e)
+      {
+         UpdateSettings.SkippedVersion = this.UpdateData.NewVersion;
          this.Close();
       }
    }

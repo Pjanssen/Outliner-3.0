@@ -156,7 +156,6 @@
     <Compile Include="Actions\FocusOnSelection.cs" />
     <Compile Include="Actions\OpenOutliner.cs" />
     <Compile Include="Actions\OutlinerActions.cs" />
-    <Compile Include="Analytics.cs" />
     <Compile Include="AssemblyFunctions.cs" />
     <Compile Include="Commands\AddNodesCommand.cs" />
     <Compile Include="Commands\ChangeGroupCommand.cs" />

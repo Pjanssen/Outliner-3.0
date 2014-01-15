@@ -130,7 +130,7 @@
     <value> Skip This Version </value>
   </data>
   <data name="VersionFormat" xml:space="preserve">
-    <value>Outliner {0}.{1}.{2} {4}</value>
+    <value>Outliner {0}</value>
   </data>
   <data name="VersionLbl" xml:space="preserve">
     <value>A new version of the Outliner is available:</value>

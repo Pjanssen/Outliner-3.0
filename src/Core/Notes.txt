@@ -1,5 +1,6 @@
 ﻿GENERAL
 -------
+* Review SettingsCollection.ReadXml() while loops.
 * Unhide/unfreeze layer when unhiding/unfreezing node
 * Superclass sorter does not really work with exceptions (target, bones, etc). -> use imagekey instead?
 * ToggleLightTest use IInterface.CreateLightObject ?
