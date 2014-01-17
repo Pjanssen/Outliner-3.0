@@ -63,9 +63,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{9EB61E19
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugcfg", "Plugcfg", "{F3C0B640-9F8D-4AD8-883C-253520B2BA35}"
-	ProjectSection(SolutionItems) = preProject
-		Build\Sources\plugcfg\settings.xml = Build\Sources\plugcfg\settings.xml
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ContextMenus", "ContextMenus", "{C0E529CE-8268-4DD4-983C-7A33F0192ECB}"
 	ProjectSection(SolutionItems) = preProject

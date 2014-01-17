@@ -13,6 +13,8 @@ namespace PJanssen.Outliner
 /// </summary>
 public static class OutlinerPaths
 {
+   //==========================================================================
+
    private static String GetMaxDirectory(MaxDirectory dir)
    {
       Throw.IfNull(dir, "dir");
@@ -37,10 +39,17 @@ public static class OutlinerPaths
       }
    }
 
+   //==========================================================================
+
+   /// <summary>
+   /// Gets the location of the configuration file.
+   /// </summary>
    public static String ConfigurationFile
    {
       get { return Path.Combine(OutlinerPaths.ConfigDir, "outliner.config"); }
    }
+
+   //==========================================================================
 
    /// <summary>
    /// Gets the plugins directory.
@@ -50,6 +59,8 @@ public static class OutlinerPaths
       get { return Path.Combine(OutlinerPaths.ConfigDir, "Plugins\\"); }
    }
 
+   //==========================================================================
+
    /// <summary>
    /// Gets the presets directory.
    /// </summary>
@@ -57,6 +68,8 @@ public static class OutlinerPaths
    {
       get { return Path.Combine(OutlinerPaths.ConfigDir, "Presets\\"); }
    }
+
+   //==========================================================================
 
    /// <summary>
    /// Gets the treeview layouts directory.
@@ -66,6 +79,8 @@ public static class OutlinerPaths
       get { return Path.Combine(OutlinerPaths.ConfigDir, "Layouts\\"); }
    }
 
+   //==========================================================================
+
    /// <summary>
    /// Gets the context menus directory.
    /// </summary>
@@ -73,6 +88,8 @@ public static class OutlinerPaths
    {
       get { return Path.Combine(OutlinerPaths.ConfigDir, "ContextMenus\\"); }
    }
+
+   //==========================================================================
 
    /// <summary>
    /// Gets the filter configurations directory.
@@ -82,6 +99,8 @@ public static class OutlinerPaths
       get { return Path.Combine(OutlinerPaths.ConfigDir, "Filters\\"); }
    }
 
+   //==========================================================================
+
    /// <summary>
    /// Gets the sorter configurations directory.
    /// </summary>
@@ -89,6 +108,8 @@ public static class OutlinerPaths
    {
       get { return Path.Combine(OutlinerPaths.ConfigDir, "NodeSorters\\"); }
    }
+
+   //==========================================================================
 
    /// <summary>
    /// Gets the color schemes directory.
@@ -98,13 +119,7 @@ public static class OutlinerPaths
       get { return Path.Combine(OutlinerPaths.ConfigDir, "ColorSchemes"); }
    }
 
-   /// <summary>
-   /// Gets the general settings file location.
-   /// </summary>
-   public static String SettingsFile
-   {
-      get { return Path.Combine(OutlinerPaths.ConfigDir, "settings.xml"); }
-   }
+   //==========================================================================
 
    /// <summary>
    /// Gets the stored state file location.
@@ -114,6 +129,8 @@ public static class OutlinerPaths
       get { return Path.Combine(OutlinerPaths.ConfigDir, "saved_state.xml"); }
    }
 
+   //==========================================================================
+
    /// <summary>
    /// Gets the color file location.
    /// </summary>
@@ -121,5 +138,7 @@ public static class OutlinerPaths
    {
       get { return Path.Combine(OutlinerPaths.ConfigDir, "colors.xml"); }
    }
+
+   //==========================================================================
 }
 }
