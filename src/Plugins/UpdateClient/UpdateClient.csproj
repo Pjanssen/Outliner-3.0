@@ -42,6 +42,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
@@ -62,10 +63,10 @@
       <DependentUpon>UpdateDialog.resx</DependentUpon>
     </Compile>
     <Compile Include="UpdateClient.cs" />
+    <Compile Include="UpdateClientConfigurationSection.cs" />
     <Compile Include="UpdateDialog.xaml.cs">
       <DependentUpon>UpdateDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UpdateSettings.cs" />
     <Compile Include="WebBrowserUtility.cs" />
   </ItemGroup>
   <ItemGroup>

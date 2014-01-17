@@ -12,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 using PJanssen.Outliner.UpdateService;
 using System.ServiceModel.Channels;
+using PJanssen.Outliner.Configuration;
 
 namespace PJanssen.Outliner.UpdateClient
 {
@@ -20,8 +21,18 @@ namespace PJanssen.Outliner.UpdateClient
    {
       //==========================================================================
 
-      private const string ServiceEndPointAddress = "http://outliner.pjanssen.nl/services/update_server.php";
-      
+      private const string ConfigurationSectionName = "UpdateClient";
+
+      //==========================================================================
+
+      public static UpdateClientConfigurationSection Configuration
+      {
+         get
+         {
+            return OutlinerGUP.Instance.Configuration.GetSection<UpdateClientConfigurationSection>(ConfigurationSectionName);
+         }
+      }
+
       //==========================================================================
 
       [OutlinerPluginStart]
@@ -42,10 +53,10 @@ namespace PJanssen.Outliner.UpdateClient
 
       private static bool ShouldCheckForUpdateNow()
       {
-         if (!UpdateSettings.Enabled)
+         if (!Configuration.Enabled)
             return false;
 
-         DateTime lastUpdate = UpdateSettings.LastUpdateCheck;
+         DateTime lastUpdate = Configuration.LastUpdateCheck;
          DateTime lastUpdateDay = new DateTime(lastUpdate.Year, lastUpdate.Month, lastUpdate.Day);
 
          return (DateTime.Today - lastUpdateDay) >= TimeSpan.FromDays(1);
@@ -63,7 +74,7 @@ namespace PJanssen.Outliner.UpdateClient
          OutlinerInstallation installation = OutlinerInstallation.GetCurrentInstallation();
          service.BeginGetUpdateData(installation, UpdateDataReceived, asyncState);
 
-         UpdateSettings.LastUpdateCheck = DateTime.Now;
+         Configuration.LastUpdateCheck = DateTime.Now;
       }
 
       //==========================================================================
@@ -71,7 +82,7 @@ namespace PJanssen.Outliner.UpdateClient
       private static IUpdateService CreateService()
       {
          Binding binding = new BasicHttpBinding();
-         EndpointAddress address = new EndpointAddress(ServiceEndPointAddress);
+         EndpointAddress address = new EndpointAddress(Configuration.ServiceAddress);
 
          return ChannelFactory<IUpdateService>.CreateChannel(binding, address);
       }
@@ -99,17 +110,26 @@ namespace PJanssen.Outliner.UpdateClient
          Thread targetThread = state.Item2;
 
          UpdateData updateData = service.EndGetUpdateData(result);
-         if (updateData.IsUpdateAvailable && !IsSkippedVersion(updateData.NewVersion))
-            HandleNewVersion(targetThread, updateData);
-         else
+         if (!updateData.IsUpdateAvailable)
+         {
             OutlinerGUP.Instance.Log.Debug("No new version available.");
+            return;
+         }
+
+         if (IsSkippedVersion(updateData.NewVersion))
+         {
+            OutlinerGUP.Instance.Log.Debug("New version was skipped by user.");
+            return;
+         }
+
+         HandleNewVersion(targetThread, updateData);
       }
 
       //==========================================================================
 
       private static bool IsSkippedVersion(OutlinerVersion newVersion)
       {
-         OutlinerVersion skippedVersion = UpdateSettings.SkippedVersion;
+         OutlinerVersion skippedVersion = Configuration.SkippedVersion;
 
          return skippedVersion != null && skippedVersion >= newVersion;
       }
@@ -130,20 +150,6 @@ namespace PJanssen.Outliner.UpdateClient
       {
          UpdateDialog dialog = new UpdateDialog();
          dialog.UpdateData = data;
-
-         //Label newVersionLbl = dialog.FindName("NewVersion") as Label;
-         //newVersionLbl.DataContext = data;
-
-
-         //dialog.UpdateData = data;
-
-         //OutlinerVersion version = data.NewVersion;
-         //Label newVersionLbl = dialog.FindName("NewVersion") as Label;
-         //newVersionLbl.Content = string.Format(Resources.UpdateDialog.VersionFormat, version);
-
-         //WebBrowser releaseNotesBrowser = dialog.FindName("ReleaseNotes") as WebBrowser;
-         //releaseNotesBrowser.Source = new Uri(data.ReleaseNotesUrl);
-
          dialog.ShowDialog();
       }
 

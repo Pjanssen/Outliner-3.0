@@ -37,6 +37,11 @@ public static class OutlinerPaths
       }
    }
 
+   public static String ConfigurationFile
+   {
+      get { return Path.Combine(OutlinerPaths.ConfigDir, "outliner.config"); }
+   }
+
    /// <summary>
    /// Gets the plugins directory.
    /// </summary>

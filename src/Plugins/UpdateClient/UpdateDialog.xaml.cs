@@ -47,7 +47,8 @@ namespace PJanssen.Outliner.UpdateClient
 
       private void SkipBtn_Click(object sender, RoutedEventArgs e)
       {
-         UpdateSettings.SkippedVersion = this.UpdateData.NewVersion;
+         UpdateClient.Configuration.SkippedVersion = this.UpdateData.NewVersion;
+         //UpdateSettings.SkippedVersion = this.UpdateData.NewVersion;
          this.Close();
       }
    }

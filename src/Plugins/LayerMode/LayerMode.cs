@@ -22,10 +22,7 @@ namespace PJanssen.Outliner.Modes.Layer
 [LocalizedDisplayName(typeof(Resources), "Mode_DisplayName")]
 public class LayerMode : TreeMode
 {
-   /// <summary>
-   /// Gets or sets whether the contents of a group node should be shown in the TreeView.
-   /// </summary>
-   public Boolean ShowGroupContents { get; set; }
+   private bool showGroupContents;
 
    protected GlobalDelegates.Delegate5 proc_LayerCreated;
    protected GlobalDelegates.Delegate5 proc_LayerDeleted;
@@ -39,7 +36,8 @@ public class LayerMode : TreeMode
    /// <param name="tree">The TreeView control to fill.</param>
    public LayerMode(TreeView tree) : base(tree) 
    {
-      this.ShowGroupContents = OutlinerGUP.Instance.Settings.GetValue<Boolean>("LayerMode", "ShowGroupContents", true);
+      LayerModeConfigurationSection configuration = OutlinerGUP.Instance.Configuration.GetSection<LayerModeConfigurationSection>("LayerMode");
+      this.showGroupContents = configuration.ShowGroupContents;
 
       proc_LayerRenamed        = new GlobalDelegates.Delegate5(this.LayerRenamed);
       proc_LayerCreated        = new GlobalDelegates.Delegate5(this.LayerCreated);
@@ -111,7 +109,7 @@ public class LayerMode : TreeMode
       if (inode == null)
          return false;
 
-      if (!ShowGroupContents)
+      if (!this.showGroupContents)
          return !inode.IsGroupMember;
 
       return true;
@@ -224,7 +222,7 @@ public class LayerMode : TreeMode
 
       public override void GroupChanged(ITab<UIntPtr> nodes)
       {
-         if (this.layerMode.ShowGroupContents)
+         if (this.layerMode.showGroupContents)
             return;
 
          foreach (IINode node in nodes.NodeKeysToINodeList())

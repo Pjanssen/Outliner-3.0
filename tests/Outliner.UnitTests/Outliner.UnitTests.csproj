@@ -67,7 +67,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Configuration\SettingsCollection.cs" />
     <Compile Include="Controls\Tree\TreeNodeCollectionTest.cs" />
     <Compile Include="Controls\Tree\TreeNodeTest.cs" />
     <Compile Include="Controls\Tree\TreeViewColorsTest.cs" />
@@ -86,6 +85,7 @@
     <Compile Include="Scene\IMaxNodeExtensionsTests.cs" />
     <Compile Include="Scene\INodeWrapperFactoryTests.cs" />
     <Compile Include="Scene\MaxNodeWrapperTests.cs" />
+    <Compile Include="OutlinerVersionConverterTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core\Core.csproj">

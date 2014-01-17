@@ -91,14 +91,38 @@ namespace PJanssen.Outliner
 
       //==========================================================================
 
+      public override bool Equals(object obj)
+      {
+         if (obj == null)
+            return false;
+
+         return this.CompareTo(obj) == 0;
+      }
+
+      public override int GetHashCode()
+      {
+         return base.GetHashCode() ^ this.Major.GetHashCode()
+                                   ^ this.Minor.GetHashCode()
+                                   ^ this.Build.GetHashCode()
+                                   ^ this.Stage.GetHashCode();
+      }
+
+      //==========================================================================
+
       public static bool operator ==(OutlinerVersion versionX, OutlinerVersion versionY)
       {
+         if (object.ReferenceEquals(versionX, versionY))
+            return true;
+
+         if ((object)versionX == null || (object)versionY == null)
+            return false;
+
          return versionX.Equals(versionY);
       }
 
       public static bool operator !=(OutlinerVersion versionX, OutlinerVersion versionY)
       {
-         return !versionX.Equals(versionY);
+         return !(versionX == versionY);
       }
 
       public static bool operator <(OutlinerVersion versionX, OutlinerVersion versionY)

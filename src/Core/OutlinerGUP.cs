@@ -43,10 +43,7 @@ public class OutlinerGUP
    /// </summary>
    public Exception SettingsLoadException { get; private set; }
 
-   /// <summary>
-   /// Gets the Settings collection for this Outliner instance.
-   /// </summary>
-   public SettingsCollection Settings { get; private set; }
+   public OutlinerConfiguration Configuration { get; private set; }
 
    /// <summary>
    /// Gets the current Outliner state object.
@@ -107,6 +104,7 @@ public class OutlinerGUP
    {
       OutlinerGUP.Instance = new OutlinerGUP();
       OutlinerGUP.Instance.ReloadSettings();
+      OutlinerGUP.Instance.Configuration = OutlinerConfiguration.Load(OutlinerPaths.ConfigurationFile);
 
       OutlinerPlugins.LoadPlugins();
       
@@ -123,8 +121,7 @@ public class OutlinerGUP
       }
       this.TreeModes.Clear();
 
-      if (Directory.Exists(OutlinerPaths.ConfigDir))
-         XmlSerialization.Serialize<SettingsCollection>(OutlinerPaths.SettingsFile, this.Settings);
+      OutlinerGUP.Instance.Configuration.Save();
    }
 
    //==========================================================================
@@ -212,12 +209,12 @@ public class OutlinerGUP
 
       tree.TreeNodeLayout = preset.TreeNodeLayout;
       tree.NodeSorter = preset.Sorter;
-      tree.Settings.DragDropMouseButton = this.Settings.GetValue<WinForms::MouseButtons>(OutlinerSettings.TreeCategory, OutlinerSettings.DragDropMouseButton);
-      tree.Settings.DoubleClickAction = this.Settings.GetValue<TreeNodeDoubleClickAction>(OutlinerSettings.TreeCategory, OutlinerSettings.DoubleClickAction);
-      tree.Settings.ScrollToSelection = this.Settings.GetValue<Boolean>(OutlinerSettings.TreeCategory, OutlinerSettings.ScrollToSelection);
-      tree.Settings.AutoExpandSelectionParents = this.Settings.GetValue<Boolean>(OutlinerSettings.TreeCategory, OutlinerSettings.AutoExpandSelectionParents);
-      tree.Settings.CollapseAutoExpandedParents = this.Settings.GetValue<Boolean>(OutlinerSettings.TreeCategory, OutlinerSettings.CollapseAutoExpandedParents);
-      
+      tree.Settings.DragDropMouseButton = Configuration.TreeView.DragDropMouseButton;
+      tree.Settings.DoubleClickAction = Configuration.TreeView.DoubleClickAction;
+      tree.Settings.ScrollToSelection = Configuration.TreeView.ScrollToSelection;
+      tree.Settings.AutoExpandSelectionParents = Configuration.TreeView.AutoExpandSelectionParents;
+      tree.Settings.CollapseAutoExpandedParents = Configuration.TreeView.CollapseAutoExpandedParents;
+
       TreeMode newMode = preset.CreateTreeMode(tree);
 
       this.RegisterTreeMode(tree, newMode);
@@ -239,32 +236,10 @@ public class OutlinerGUP
    {
       XmlSerialization.ClearSerializerCache();
 
-      if (!Directory.Exists(OutlinerPaths.ConfigDir))
-      {
-         this.SettingsLoaded = false;
-         this.SettingsLoadException = new Exception(String.Format("Outliner configuration directory does not exist. Expected:\r\n{0}", OutlinerPaths.ConfigDir));
-         return false;
-      }
-
       try
       {
-         if (File.Exists(OutlinerPaths.SettingsFile))
-            this.Settings = XmlSerialization.Deserialize<SettingsCollection>(OutlinerPaths.SettingsFile);
-         else
-            this.Settings = new SettingsCollection();
-      }
-      catch (Exception e)
-      {
-         this.Settings = new SettingsCollection();
-         this.SettingsLoaded = false;
-         this.SettingsLoadException = e;
-         return false;
-      }
-      OutlinerSettings.PopulateWithDefaults(this.Settings);
-
-      try
-      {
-         String colorSchemeFile = this.Settings.GetValue<String>(OutlinerSettings.CoreCategory, OutlinerSettings.ColorSchemeFile);
+         //String colorSchemeFile = this.Settings.GetValue<String>(OutlinerSettings.CoreCategory, OutlinerSettings.ColorSchemeFile);
+         String colorSchemeFile = this.Configuration.Core.ColorScheme; // this.Settings.GetValue<String>(OutlinerSettings.CoreCategory, OutlinerSettings.ColorSchemeFile);
          colorSchemeFile = Path.Combine(OutlinerPaths.ColorSchemesDir, colorSchemeFile);
          this.ColorScheme = XmlSerialization.Deserialize<OutlinerColorScheme>(colorSchemeFile);
       }

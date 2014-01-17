@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OutlinerVersion.cs" />
+    <Compile Include="OutlinerVersionConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReleaseStage.cs" />
     <Compile Include="UpdateService\IUpdateService.cs" />

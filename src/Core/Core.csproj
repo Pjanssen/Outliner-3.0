@@ -131,6 +131,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
@@ -176,9 +177,10 @@
     <Compile Include="Commands\UnlinkNodesCommand.cs" />
     <Compile Include="Configuration\ConfigurationFile.cs" />
     <Compile Include="Configuration\Configurations.cs" />
+    <Compile Include="Configuration\CoreConfigurationSection.cs" />
     <Compile Include="Configuration\ISorterConfiguration.cs" />
-    <Compile Include="Configuration\OutlinerSettings.cs" />
-    <Compile Include="Configuration\SettingsCollection.cs" />
+    <Compile Include="Configuration\OutlinerConfiguration.cs" />
+    <Compile Include="Configuration\TreeViewConfigurationSection.cs" />
     <Compile Include="Controls\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
