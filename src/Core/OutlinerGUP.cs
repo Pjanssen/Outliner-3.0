@@ -28,6 +28,8 @@ namespace PJanssen.Outliner
 /// </summary>
 public class OutlinerGUP
 {
+   private ITextLogger log;
+
    /// <summary>
    /// Gets the active OutlinerGUP instance.
    /// </summary>
@@ -39,10 +41,8 @@ public class OutlinerGUP
    public Boolean SettingsLoaded { get; private set; }
 
    /// <summary>
-   /// Gets the exception thrown while trying to load the Outliner settings.
+   /// Get the Configuration object for the Outliner.
    /// </summary>
-   public Exception SettingsLoadException { get; private set; }
-
    public OutlinerConfiguration Configuration { get; private set; }
 
    /// <summary>
@@ -68,28 +68,6 @@ public class OutlinerGUP
 
    //==========================================================================
 
-   /// <summary>
-   /// Gets the Outliner's Log object.
-   /// </summary>
-   public ITextLogger Log
-   {
-      get
-      {
-         if (this.log == null)
-            log = CreateLog();
-
-         return log;
-      }
-   }
-   private ITextLogger log;
-
-   private ITextLogger CreateLog()
-   {
-      return new MaxscriptListenerLogger("Outliner");
-   }
-
-   //==========================================================================
-
    private OutlinerGUP()
    {
       this.TreeModes = new Dictionary<TreeView, TreeMode>();
@@ -104,24 +82,56 @@ public class OutlinerGUP
    {
       OutlinerGUP.Instance = new OutlinerGUP();
       OutlinerGUP.Instance.ReloadSettings();
-      OutlinerGUP.Instance.Configuration = OutlinerConfiguration.Load(OutlinerPaths.ConfigurationFile);
 
       OutlinerPlugins.LoadPlugins();
-      
+
       OutlinerGUP.Instance.ReloadState();
    }
 
    //==========================================================================
 
-   internal void Stop() 
+   internal void Stop()
    {
       foreach (TreeMode treeMode in this.TreeModes.Values)
       {
          treeMode.Stop();
       }
-      this.TreeModes.Clear();
 
       OutlinerGUP.Instance.Configuration.Save();
+   }
+
+   //==========================================================================
+
+   /// <summary>
+   /// Gets the Outliner's Log object.
+   /// </summary>
+   public ITextLogger Log
+   {
+      get
+      {
+         if (this.log == null)
+            log = CreateLog();
+
+         return log;
+      }
+   }
+
+   private ITextLogger CreateLog()
+   {
+      MappedLogger logger = new MappedLogger();
+
+      ITextLogger fileLogger = new FileLogger(OutlinerPaths.LogFile);
+      logger.AddLogger(fileLogger);
+
+      if (Configuration == null || Configuration.Core == null || Configuration.Core.WriteLogToMxsListener)
+      {
+         ITextLogger mxsLogger = new MaxscriptListenerLogger("Outliner");
+         logger.AddLogger(mxsLogger);
+      }
+
+      logger.Info("Start logging");
+
+      return logger;
    }
 
    //==========================================================================
@@ -236,23 +246,49 @@ public class OutlinerGUP
    {
       XmlSerialization.ClearSerializerCache();
 
+      if (!TryLoadConfiguration())
+         return false;
+
+      if (!TryLoadColorScheme())
+         return false;
+      
+      this.SettingsLoaded = true;
+      
+      return true;
+   }
+
+   private Boolean TryLoadConfiguration()
+   {
       try
       {
-         //String colorSchemeFile = this.Settings.GetValue<String>(OutlinerSettings.CoreCategory, OutlinerSettings.ColorSchemeFile);
-         String colorSchemeFile = this.Configuration.Core.ColorScheme; // this.Settings.GetValue<String>(OutlinerSettings.CoreCategory, OutlinerSettings.ColorSchemeFile);
+         this.Configuration = OutlinerConfiguration.Load(OutlinerPaths.ConfigurationFile);
+         return true;
+      }
+      catch (Exception e)
+      {
+         this.SettingsLoaded = false;
+         Log.Exception(e);
+         return false;
+      }
+   }
+
+   private Boolean TryLoadColorScheme()
+   {
+      try
+      {
+         String colorSchemeFile = this.Configuration.Core.ColorScheme;
          colorSchemeFile = Path.Combine(OutlinerPaths.ColorSchemesDir, colorSchemeFile);
          this.ColorScheme = XmlSerialization.Deserialize<OutlinerColorScheme>(colorSchemeFile);
+         throw new Exception();
+         return true;
       }
       catch (Exception e)
       {
          this.ColorScheme = OutlinerColorScheme.Default;
          this.SettingsLoaded = false;
-         this.SettingsLoadException = e;
+         Log.Exception(e);
          return false;
       }
-
-      this.SettingsLoaded = true;
-      return this.SettingsLoaded;
    }
 
    private void ReloadState()
@@ -262,20 +298,19 @@ public class OutlinerGUP
          if (File.Exists(OutlinerPaths.StateFile))
             this.State = XmlSerialization.Deserialize<OutlinerState>(OutlinerPaths.StateFile);
          else
-            this.State = defaultState();
+            this.State = CreateDefaultState();
       }
       catch (Exception e)
       {
-         this.State = defaultState();
+         this.State = CreateDefaultState();
          this.SettingsLoaded = false;
-         this.SettingsLoadException = e;
-         //return false;
+         Log.Exception(e);
       }
    }
 
    //==========================================================================
 
-   private static OutlinerState defaultState()
+   private static OutlinerState CreateDefaultState()
    {
       OutlinerState state = new OutlinerState();
       IEnumerable<OutlinerPreset> presets = Configurations.GetConfigurations<OutlinerPreset>(OutlinerPaths.PresetsDir);

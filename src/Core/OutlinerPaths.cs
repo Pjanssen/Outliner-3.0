@@ -140,5 +140,12 @@ public static class OutlinerPaths
    }
 
    //==========================================================================
+
+   public static String LogFile
+   {
+      get { return Path.Combine(OutlinerPaths.ConfigDir, "outliner.log"); }
+   }
+
+   //==========================================================================
 }
 }

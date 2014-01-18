@@ -41,5 +41,20 @@ namespace PJanssen.Outliner.Configuration
       }
 
       //==========================================================================
+
+      [ConfigurationProperty("writeLogToMxsListener", DefaultValue = false)]
+      public bool WriteLogToMxsListener
+      {
+         get
+         {
+            return (bool)this["writeLogToMxsListener"];
+         }
+         set
+         {
+            this["writeLogToMxsListener"] = value;
+         }
+      }
+
+      //==========================================================================
    }
 }
