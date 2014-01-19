@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -26,6 +27,24 @@ namespace PJanssen.Outliner
          this.Minor = minor;
          this.Build = build;
          this.Stage = stage;
+      }
+
+      //==========================================================================
+
+      public static OutlinerVersion GetCurrentVersion()
+      {
+         Assembly assembly = Assembly.GetAssembly(typeof(OutlinerInstallation));
+         Version version = assembly.GetName().Version;
+
+         ReleaseStage releaseStage = ReleaseStage.Release;
+         object[] attributes = assembly.GetCustomAttributes(typeof(AssemblyConfigurationAttribute), false);
+         if (attributes.Length > 0)
+         {
+            AssemblyConfigurationAttribute configAttr = (AssemblyConfigurationAttribute)attributes[0];
+            Enum.TryParse<ReleaseStage>(configAttr.Configuration, out releaseStage);
+         }
+
+         return new OutlinerVersion(version.Major, version.Minor, version.Build, releaseStage);
       }
 
       //==========================================================================

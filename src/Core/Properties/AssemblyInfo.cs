@@ -8,7 +8,6 @@ using System.Resources;
 // associated with an assembly.
 [assembly: AssemblyTitle("Outliner Plugin")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Pier Janssen")]
 [assembly: AssemblyProduct("Outliner Plugin")]
 [assembly: AssemblyCopyright("Copyright © 2012")]

@@ -48,6 +48,9 @@
     <Compile Include="UpdateService\IUpdateService.cs" />
     <Compile Include="OutlinerInstallation.cs" />
     <Compile Include="UpdateService\UpdateData.cs" />
+    <Compile Include="$(SolutionDir)Build\AssemblyVersion.cs">
+      <Link>Properties\AssemblyVersion.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MaxUtils\MaxUtils.csproj">

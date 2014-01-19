@@ -7,7 +7,6 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("MaxUtils")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("P.J. Janssen")]
 [assembly: AssemblyProduct("MaxUtils")]
 [assembly: AssemblyCopyright("Copyright ©  2012")]

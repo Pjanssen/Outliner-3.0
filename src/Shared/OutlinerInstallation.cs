@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -54,8 +55,7 @@ namespace PJanssen.Outliner
       {
          return new OutlinerInstallation()
          {
-            OutlinerVersion = new OutlinerVersion() { Major = 3, Minor = 0, Build = 25, Stage = ReleaseStage.Beta },
-            
+            OutlinerVersion = OutlinerVersion.GetCurrentVersion(),
             MaxVersion = 2013
          };
       }
