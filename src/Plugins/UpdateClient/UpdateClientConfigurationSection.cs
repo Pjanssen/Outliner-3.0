@@ -7,7 +7,7 @@ using System.Text;
 
 namespace PJanssen.Outliner.UpdateClient
 {
-   public class UpdateClientConfigurationSection : ConfigurationSection
+   public sealed class UpdateClientConfigurationSection : ConfigurationSection
    {
       //==========================================================================
 

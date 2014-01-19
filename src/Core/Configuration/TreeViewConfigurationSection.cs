@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace PJanssen.Outliner.Configuration
 {
-   public class TreeViewConfigurationSection : ConfigurationSection
+   public sealed class TreeViewConfigurationSection : ConfigurationSection
    {
       //==========================================================================
 

@@ -9,7 +9,7 @@ namespace PJanssen.Outliner.Modes.Layer
    /// <summary>
    /// Represents the configuration properties for the LayerMode.
    /// </summary>
-   public class LayerModeConfigurationSection : ConfigurationSection
+   public sealed class LayerModeConfigurationSection : ConfigurationSection
    {
       //==========================================================================
 

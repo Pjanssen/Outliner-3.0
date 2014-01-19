@@ -97,7 +97,8 @@ public class OutlinerGUP
          treeMode.Stop();
       }
 
-      OutlinerGUP.Instance.Configuration.Save();
+      if (this.SettingsLoaded)
+         OutlinerGUP.Instance.Configuration.Save();
    }
 
    //==========================================================================
@@ -130,6 +131,7 @@ public class OutlinerGUP
       }
 
       logger.Info("Start logging");
+      logger.HorizontalRule('-');
 
       return logger;
    }
@@ -279,7 +281,6 @@ public class OutlinerGUP
          String colorSchemeFile = this.Configuration.Core.ColorScheme;
          colorSchemeFile = Path.Combine(OutlinerPaths.ColorSchemesDir, colorSchemeFile);
          this.ColorScheme = XmlSerialization.Deserialize<OutlinerColorScheme>(colorSchemeFile);
-         throw new Exception();
          return true;
       }
       catch (Exception e)

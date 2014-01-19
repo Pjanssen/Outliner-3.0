@@ -13,6 +13,8 @@ namespace PJanssen.Outliner.MaxUtils
 /// </summary>
 public static class MaxInterfaces
 {
+   //==========================================================================
+
    private static IGlobal global;
    private static IInterface_ID nodeLayerProperties;
    private static IIFPLayerManager iIFPLayerManager;
@@ -21,6 +23,7 @@ public static class MaxInterfaces
    private static IInterval intervalForever;
    private static System.Windows.Forms.IWin32Window maxHwnd;
 
+   //==========================================================================
 
    /// <summary>
    /// Gets the Global interface.
@@ -53,6 +56,8 @@ public static class MaxInterfaces
       }
    }
 
+   //==========================================================================
+
    /// <summary>
    /// Gets the COREInterface.
    /// </summary>
@@ -60,6 +65,19 @@ public static class MaxInterfaces
    {
       get { return MaxInterfaces.Global.COREInterface; }
    }
+
+   //==========================================================================
+
+   public static ProductVersionType MaxVersionType
+   {
+      get
+      {
+         int value = MaxInterfaces.COREInterface.ProductVersion;
+         return (ProductVersionType)Enum.ToObject(typeof(ProductVersionType), value);
+      }
+   }
+
+   //==========================================================================
 
    /// <summary>
    /// Gets the NodeLayerProperties interface
@@ -74,6 +92,8 @@ public static class MaxInterfaces
          return nodeLayerProperties;
       }
    }
+
+   //==========================================================================
 
    /// <summary>
    /// Gets the Function-Published layer manager.
@@ -93,6 +113,8 @@ public static class MaxInterfaces
       }
    }
 
+   //==========================================================================
+
    /// <summary>
    /// Gets the layer manager.
    /// </summary>
@@ -107,6 +129,8 @@ public static class MaxInterfaces
       }
    }
 
+   //==========================================================================
+
    /// <summary>
    /// Gets the instance manager.
    /// </summary>
@@ -118,6 +142,8 @@ public static class MaxInterfaces
       }
    }
 
+   //==========================================================================
+
    /// <summary>
    /// Gets the selection-set manager.
    /// </summary>
@@ -128,6 +154,8 @@ public static class MaxInterfaces
          return MaxInterfaces.Global.INamedSelectionSetManager.Instance;
       }
    }
+
+   //==========================================================================
 
    /// <summary>
    /// Gets the container manager.
@@ -142,6 +170,8 @@ public static class MaxInterfaces
          return containerManager;
       }
    }
+
+   //==========================================================================
 
    /// <summary>
    /// Gets an interval with an infinite duration.
@@ -159,6 +189,8 @@ public static class MaxInterfaces
       }
    }
 
+   //==========================================================================
+
    /// <summary>
    /// Gets the 3dsMax main window handle.
    /// </summary>
@@ -172,6 +204,8 @@ public static class MaxInterfaces
          return maxHwnd;
       }
    }
+
+   //==========================================================================
 
    /// <summary>
    /// Gets the Material Editor handle.
@@ -194,6 +228,8 @@ public static class MaxInterfaces
       }
    }
 
+   //==========================================================================
+
    /// <summary>
    /// Gets the Slate Material Editor handle.
    /// </summary>
@@ -214,7 +250,6 @@ public static class MaxInterfaces
          return mtlPtr;
       }
    }
-
 
    private static String getHwndTitle(IntPtr hwnd)
    {
@@ -237,6 +272,8 @@ public static class MaxInterfaces
       return getHwndTitle(hwnd) == "Slate Material Editor";
    }
 
+   //==========================================================================
+
    /// <summary>
    /// Gets the color manager.
    /// </summary>
@@ -244,6 +281,8 @@ public static class MaxInterfaces
    {
       get { return MaxInterfaces.Global.ColorManager; }
    }
+
+   //==========================================================================
 
    /// <summary>
    /// Indicates if the current color theme is 'light'.
@@ -253,6 +292,8 @@ public static class MaxInterfaces
       get { return ColorManager.AppFrameColorTheme == AppFrameColorTheme.LightTheme; }
    }
 
+   //==========================================================================
+
    /// <summary>
    /// Indicates if the current color theme is 'dark'.
    /// </summary>
@@ -260,5 +301,7 @@ public static class MaxInterfaces
    {
       get { return ColorManager.AppFrameColorTheme == AppFrameColorTheme.DarkTheme; }
    }
+
+   //==========================================================================
 }
 }

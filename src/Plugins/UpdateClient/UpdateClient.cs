@@ -29,7 +29,10 @@ namespace PJanssen.Outliner.UpdateClient
       {
          get
          {
-            return OutlinerGUP.Instance.Configuration.GetSection<UpdateClientConfigurationSection>(ConfigurationSectionName);
+            if (OutlinerGUP.Instance.SettingsLoaded)
+               return OutlinerGUP.Instance.Configuration.GetSection<UpdateClientConfigurationSection>(ConfigurationSectionName);
+            else
+               return new UpdateClientConfigurationSection();
          }
       }
 

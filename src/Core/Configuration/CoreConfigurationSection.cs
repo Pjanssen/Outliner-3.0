@@ -6,7 +6,7 @@ using System.Text;
 
 namespace PJanssen.Outliner.Configuration
 {
-   public class CoreConfigurationSection : ConfigurationSection
+   public sealed class CoreConfigurationSection : ConfigurationSection
    {
       //==========================================================================
 
@@ -42,7 +42,7 @@ namespace PJanssen.Outliner.Configuration
 
       //==========================================================================
 
-      [ConfigurationProperty("writeLogToMxsListener", DefaultValue = false)]
+      [ConfigurationProperty("writeLogToMxsListener", DefaultValue = true)]
       public bool WriteLogToMxsListener
       {
          get
