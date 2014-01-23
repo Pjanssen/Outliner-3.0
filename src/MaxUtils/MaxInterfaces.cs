@@ -16,6 +16,7 @@ public static class MaxInterfaces
    //==========================================================================
 
    private static IGlobal global;
+   private static int maxVersion;
    private static IInterface_ID nodeLayerProperties;
    private static IIFPLayerManager iIFPLayerManager;
    private static IILayerManager iILayerManager;
@@ -68,12 +69,14 @@ public static class MaxInterfaces
 
    //==========================================================================
 
-   public static ProductVersionType MaxVersionType
+   public static int MaxVersion
    {
       get
       {
-         int value = MaxInterfaces.COREInterface.ProductVersion;
-         return (ProductVersionType)Enum.ToObject(typeof(ProductVersionType), value);
+         if (maxVersion == 0)
+            maxVersion = 1998 + typeof(IInterface).Assembly.GetName().Version.Major;
+         
+         return maxVersion;
       }
    }
 

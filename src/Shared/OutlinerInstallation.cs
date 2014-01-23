@@ -56,7 +56,7 @@ namespace PJanssen.Outliner
          return new OutlinerInstallation()
          {
             OutlinerVersion = OutlinerVersion.GetCurrentVersion(),
-            MaxVersion = 2013
+            MaxVersion = MaxInterfaces.MaxVersion
          };
       }
 
